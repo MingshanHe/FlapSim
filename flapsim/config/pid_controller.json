@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "control_rate_hz": 500.0,
+  "low_pass_cutoff_hz": 20.0,
+  "hover_frequency": 34.0,
+  "targets": {
+    "height": 0.3,
+    "roll": 0.0,
+    "pitch": 0.0,
+    "yaw": 0.0
+  },
+  "altitude": {
+    "position_kp": 1.5,
+    "vertical_velocity_limit": 0.8,
+    "min_frequency": 28.0,
+    "max_frequency": 42.0,
+    "velocity_pid": {
+      "kp": 2.5,
+      "ki": 0.5,
+      "kd": 0.12,
+      "integral_limit": 8.0,
+      "output_limit": 8.0
+    }
+  },
+  "attitude": {
+    "roll_pid": {
+      "kp": 0.5,
+      "ki": 0.02,
+      "kd": 0.18,
+      "integral_limit": 0.1,
+      "output_limit": 0.18
+    },
+    "pitch_pid": {
+      "kp": 0.7,
+      "ki": 0.02,
+      "kd": 0.22,
+      "integral_limit": 0.12,
+      "output_limit": 0.22
+    },
+    "yaw_pid": {
+      "kp": 0.25,
+      "ki": 0.01,
+      "kd": 0.06,
+      "integral_limit": 0.1,
+      "output_limit": 0.25
+    }
+  },
+  "mapping": {
+    "roll_sign": 1,
+    "pitch_sign": 1,
+    "yaw_sign": 1
+  }
+}

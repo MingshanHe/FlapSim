@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "dt": 0.00005,
+  "gravity": [0.0, 0.0, -9.81],
+  "duration": 10.0,
+  "realtime_factor": 1.0,
+  "solver": {
+    "integrator": "implicitfast",
+    "iterations": 50,
+    "ls_iterations": 20,
+    "tolerance": 1e-10,
+    "cone": "elliptic"
+  },
+  "spawn": {
+    "position": [0.0, 0.0, 0.5],
+    "quaternion": [1.0, 0.0, 0.0, 0.0]
+  },
+  "fixed_base": true,
+  "ground": {
+    "enabled": true,
+    "height": 0.0,
+    "half_size": 0.0,
+    "grid_step": 0.1,
+    "friction": [0.8, 0.005, 0.0001],
+    "collision": true
+  },
+  "light": {
+    "position": [0.0, 0.0, 5.0],
+    "direction": [0.0, 0.0, -1.0],
+    "diffuse": [0.8, 0.8, 0.8],
+    "specular": [0.2, 0.2, 0.2],
+    "cast_shadow": true
+  },
+  "camera": {
+    "name": "tracking",
+    "position": [0.8, -0.8, 0.5],
+    "fovy": 45.0
+  },
+  "viewer": {
+    "fps": 60.0
+  }
+}

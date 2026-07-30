@@ -1,0 +1,43 @@
+{
+  "pitch_joint": {
+    "controller": "position_controller",
+    "kp": 0.5,
+    "kd": 0.05,
+    "max_torque": 0.5
+  },
+  "roll_joint": {
+    "controller": "position_controller",
+    "kp": 0.5,
+    "kd": 0.05,
+    "max_torque": 0.5
+  },
+  "left_flap_joint": {
+    "controller": "trajectory_controller",
+    "joint": "left_flapping_joint",
+    "frequency": 35,
+    "amplitude": 1.5,
+    "phase": 0.0,
+    "direction": 1.0
+  },
+  "right_flap_joint": {
+    "controller": "trajectory_controller",
+    "joint": "right_wing_flapping",
+    "frequency": 35,
+    "amplitude": 1.5,
+    "phase": 0.0,
+    "direction": -1.0
+  },
+  "left_feathering_joint": {
+    "controller": "passive_controller",
+    "joint": "left_wing_feathering",
+    "input_joint": "left_flap_joint",
+    "direction": 1.0
+    
+  },
+  "right_feathering_joint": {
+    "controller": "passive_controller",
+    "joint": "right_wing_feathering",
+    "input_joint": "right_flap_joint",
+    "direction": -1.0
+  }
+}
