@@ -27,12 +27,17 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--no-randomize",
         action="store_true",
-        help="start exactly at the target instead of using reset disturbances",
+        help="disable initial position and attitude disturbances",
     )
     parser.add_argument(
         "--render",
         action="store_true",
         help="display the MuJoCo viewer while evaluating",
+    )
+    parser.add_argument(
+        "--random-target",
+        action="store_true",
+        help="sample a new target point for every episode",
     )
     parser.add_argument(
         "--realtime-factor",
@@ -43,13 +48,31 @@ def parse_args() -> argparse.Namespace:
     return parser.parse_args()
 
 
+def _set_target_marker(viewer, target: np.ndarray) -> None:
+    """Draw a green sphere at the current target in the passive viewer."""
+    with viewer.lock():
+        viewer.user_scn.ngeom = 1
+        mujoco.mjv_initGeom(
+            viewer.user_scn.geoms[0],
+            mujoco.mjtGeom.mjGEOM_SPHERE,
+            np.array([0.025, 0.0, 0.0]),
+            np.asarray(target, dtype=float),
+            np.eye(3).ravel(),
+            np.array([0.1, 1.0, 0.1, 0.85]),
+        )
+
+
 def main() -> None:
     args = parse_args()
     if args.episodes <= 0:
         raise ValueError("--episodes must be positive")
     if args.realtime_factor <= 0.0:
         raise ValueError("--realtime-factor must be positive")
-    env = HoverEnv(randomize_reset=not args.no_randomize)
+    env = HoverEnv(
+        randomize_reset=not args.no_randomize,
+        randomize_target=args.random_target,
+        episode_seconds=12.0 if args.random_target else 6.0,
+    )
     model = PPO.load(args.model)
     summaries = []
 
@@ -75,6 +98,7 @@ def main() -> None:
             rewards = []
             success = False
             if viewer is not None:
+                _set_target_marker(viewer, env.target)
                 viewer.sync()
             while True:
                 wall_start = time.perf_counter()
@@ -106,6 +130,11 @@ def main() -> None:
                     float(sum(rewards)),
                     success and not terminated,
                 )
+            )
+            print(
+                f"episode {episode + 1}: target={np.round(env.target, 3)}, "
+                f"final_error={errors[-1]:.4f} m, "
+                f"success={success and not terminated}"
             )
 
     values = np.asarray([row[:4] for row in summaries])

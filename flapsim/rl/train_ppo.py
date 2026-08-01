@@ -23,6 +23,17 @@ def parse_args() -> argparse.Namespace:
         type=Path,
         default=Path("flapsim/rl/models/hover_ppo"),
     )
+    parser.add_argument(
+        "--tensorboard-log",
+        type=Path,
+        default=Path("flapsim/rl/runs"),
+        help="directory for TensorBoard event files",
+    )
+    parser.add_argument(
+        "--run-name",
+        default="hover_ppo",
+        help="TensorBoard run name",
+    )
     parser.add_argument("--checkpoints", action="store_true")
     return parser.parse_args()
 
@@ -31,10 +42,19 @@ def main() -> None:
     args = parse_args()
     if args.timesteps <= 0:
         raise ValueError("--timesteps must be positive")
+    if not args.run_name.strip():
+        raise ValueError("--run-name must not be empty")
     args.output.parent.mkdir(parents=True, exist_ok=True)
+    args.tensorboard_log.mkdir(parents=True, exist_ok=True)
 
     check_env(HoverEnv(randomize_reset=False), warn=True)
-    env = DummyVecEnv([lambda: Monitor(HoverEnv())])
+    env = DummyVecEnv(
+        [
+            lambda: Monitor(
+                HoverEnv(randomize_target=True, episode_seconds=12.0)
+            )
+        ]
+    )
     model = PPO(
         "MlpPolicy",
         env,
@@ -50,6 +70,7 @@ def main() -> None:
         verbose=1,
         seed=args.seed,
         device="auto",
+        tensorboard_log=str(args.tensorboard_log),
     )
     callback = None
     if args.checkpoints:
@@ -58,7 +79,11 @@ def main() -> None:
             save_path=str(args.output.parent / "checkpoints"),
             name_prefix=args.output.name,
         )
-    model.learn(total_timesteps=args.timesteps, callback=callback)
+    model.learn(
+        total_timesteps=args.timesteps,
+        callback=callback,
+        tb_log_name=args.run_name,
+    )
     model.save(args.output)
     env.close()
     print(f"saved PPO policy to {args.output.with_suffix('.zip')}")

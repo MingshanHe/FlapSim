@@ -51,6 +51,10 @@ class HoverEnv(gym.Env[np.ndarray, np.ndarray]):
         physics_dt: float = 0.001,
         episode_seconds: float = 6.0,
         randomize_reset: bool = True,
+        randomize_target: bool = False,
+        target_low: tuple[float, float, float] = (-0.25, -0.25, 0.40),
+        target_high: tuple[float, float, float] = (0.25, 0.25, 0.65),
+        spawn_position: tuple[float, float, float] = (0.0, 0.0, 0.5),
     ) -> None:
         super().__init__()
         if control_dt <= 0.0 or physics_dt <= 0.0:
@@ -67,12 +71,25 @@ class HoverEnv(gym.Env[np.ndarray, np.ndarray]):
         self.model = self.sim.model
         self.data = self.sim.data
         self.model.opt.timestep = physics_dt
+        self.control_dt = float(control_dt)
         self.frame_skip = int(round(ratio))
         self.max_episode_steps = int(math.ceil(episode_seconds / control_dt))
         self.randomize_reset = bool(randomize_reset)
+        self.randomize_target = bool(randomize_target)
         self.target = np.asarray(target, dtype=np.float64)
         if self.target.shape != (3,):
             raise ValueError("target must contain exactly (x, y, z)")
+        self.target_low = np.asarray(target_low, dtype=np.float64)
+        self.target_high = np.asarray(target_high, dtype=np.float64)
+        self.spawn_position = np.asarray(spawn_position, dtype=np.float64)
+        if (
+            self.target_low.shape != (3,)
+            or self.target_high.shape != (3,)
+            or self.spawn_position.shape != (3,)
+        ):
+            raise ValueError("target bounds and spawn_position must have shape (3,)")
+        if np.any(self.target_low >= self.target_high):
+            raise ValueError("every target_low value must be below target_high")
 
         self.base_body = self._id(mujoco.mjtObj.mjOBJ_BODY, "base_link")
         free_joint = self._id(mujoco.mjtObj.mjOBJ_JOINT, "floating_base")
@@ -257,8 +274,17 @@ class HoverEnv(gym.Env[np.ndarray, np.ndarray]):
         mujoco.mj_resetData(self.model, self.data)
         options = options or {}
         randomize = bool(options.get("randomize", self.randomize_reset))
+        randomize_target = bool(
+            options.get("randomize_target", self.randomize_target)
+        )
 
-        position = self.target.copy()
+        if randomize_target:
+            self.target[:] = self.np_random.uniform(
+                self.target_low, self.target_high
+            )
+            position = self.spawn_position.copy()
+        else:
+            position = self.target.copy()
         roll = pitch = yaw = 0.0
         if randomize:
             position += self.np_random.uniform(
