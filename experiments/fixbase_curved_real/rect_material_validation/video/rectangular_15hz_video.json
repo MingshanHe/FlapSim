@@ -1,0 +1,22 @@
+{
+  "hz": 15,
+  "simulation_duration_s": 2.0000000000088685,
+  "render_sample_hz": 200,
+  "playback_fps": {
+    "realtime": 50,
+    "slow8x": 25
+  },
+  "frame_count": {
+    "realtime": 101,
+    "slow8x": 401
+  },
+  "max_saved_angle_error_rad": 0.0,
+  "max_saved_lift_error_N": 0.0,
+  "source": "simulation/rect/15hz/run_3.npz",
+  "model_sha256": "79344a6ecb42765ea71d80b3dfdfde1ecd7e14039e6b7ff20b3a888d6d37c53d",
+  "profile_sha256": "fbaacb0de2dc71dae9409a4efec8817f17b83c378d8ba6861570fa6c6727ef66",
+  "files": {
+    "realtime": "video/rectangular_15hz_realtime.mp4",
+    "slow8x": "video/rectangular_15hz_slow8x.mp4"
+  }
+}

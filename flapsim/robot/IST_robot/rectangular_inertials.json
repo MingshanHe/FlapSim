@@ -1,0 +1,83 @@
+{
+  "materials": {
+    "peek_density_kg_m3": 1300.0,
+    "pet_frame_density_kg_m3": 1390.0,
+    "kapton_density_kg_m3": 1420.0,
+    "kapton_thickness_m": 1e-05,
+    "membrane_plane_abs_x_m": 0.00035,
+    "manufacturing": "PEEK solid plate, CNC milled; no infill factor",
+    "material_assignment": "base_link unchanged; left/right wing solids PET and membranes Kapton; all other physical moving links PEEK",
+    "density_status": "Nominal unreinforced material densities; exact purchased grades and measured masses not provided",
+    "sources": {
+      "PEEK": "https://cdn.victrex.com/zh-hans/downloads/datasheets/victrex-peek-450g",
+      "PET": "https://www.mcam.com/mam/49643/GEP-Ertalyte%C2%AE%20PET-P_en_US.pdf",
+      "Kapton": "https://www.dupont.com/content/dam/electronics/amer/us/en/electronics/public/documents/en/EI-10206-Kapton-HN-Data-Sheet.pdf",
+      "thickness_and_assignment": "User confirmed 2026-09-22: PET frame, 10 um Kapton membrane, CNC PEEK mechanisms"
+    }
+  },
+  "retain_original_PET_root": true,
+  "input_stl_units": "mm",
+  "scale_to_m": 0.001,
+  "source_to_body_rotation": [
+    [
+      0,
+      0,
+      1
+    ],
+    [
+      1,
+      0,
+      0
+    ],
+    [
+      0,
+      1,
+      0
+    ]
+  ],
+  "source_to_body_translation_m": [
+    -0.0003743430361151695,
+    0.00025,
+    0.002
+  ],
+  "mounting_basis": "Shared 2 x 2 mm root feature aligned with previous CAD assembly datum; not fitted to force data",
+  "input_solid_volume_mm3": 199.8178231493342,
+  "frame_volume_mm3": 179.00426659206425,
+  "frame_mass_kg": 0.00024881593056296934,
+  "root_connector_mass_kg": 7.942476825197806e-05,
+  "membrane_mass_kg": 2.9555250311323278e-05,
+  "membrane_area_m2": 0.002081355655726991,
+  "membrane_thickness_m": 1e-05,
+  "film_assignment": "Exposed STL 10 um top layer is Kapton; remaining solid is PET. Hidden film under ribs is not separately resolved.",
+  "mass_kg": 0.0003577959491262707,
+  "com_m": [
+    3.999512551480958e-05,
+    0.027376748606711736,
+    0.006068986641009235
+  ],
+  "inertia_kg_m2": [
+    [
+      2.677496314787922e-07,
+      -9.635800563331194e-11,
+      1.919843686269118e-10
+    ],
+    [
+      -9.635800563331194e-11,
+      1.2519226299621471e-08,
+      -1.6060597789887355e-08
+    ],
+    [
+      1.919843686269118e-10,
+      -1.6060597789887355e-08,
+      2.553810085200885e-07
+    ]
+  ],
+  "source_hashes": {
+    "meshes/Curve.STL": "c0c2c48b7ff5f29748e2b0ff59eb2a2db60b093f59ffdb084696b458e556af30",
+    "meshes/Rectangular.STL": "98df4f6211ec0b21f975eee127a99d997ae0bb13a291cf11ad57faa59bc3b6e6",
+    "meshes/left_wing.stl": "12da89c20d6758c321ea796a8c4c0b38df7ab605af55906103f920fdc5a2e28d",
+    "materials.json": "7cc963f74e49a576309366b815e1d4a945db84e75fd7c112d6613fc1730f7109",
+    "urdf/IST_robot.urdf": "19e94f288357893c87f0e1757aa49bfbbf7fc7922c83ab1de0fd73d75d0a4b24",
+    "urdf/IST_robot.xml": "67436dffa79d0c83bbe1cfe9f991611e51641cf162290082eb33812eb393afdf"
+  }
+}

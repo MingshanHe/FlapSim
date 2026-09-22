@@ -1,0 +1,7 @@
+{
+  "robot": "IST_robot",
+  "scene": {"timestep": 0.000005, "fixed_base": true, "orientation": [0, 1, 0, 0]},
+  "actuator": {"kind": "dcmotor", "joints": ["motor_joint"]},
+  "controller": {"kind": "speed", "speed": [100.0]},
+  "fluid": {"kind": "blade_element"}
+}

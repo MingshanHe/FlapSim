@@ -1,0 +1,167 @@
+{
+  "metrics": [
+    {
+      "name": "archive_prescribed",
+      "flap_min_deg": -96.75716847880445,
+      "flap_max_deg": 102.25336433390765,
+      "pitch_min_deg": -65.61480531310359,
+      "pitch_max_deg": 62.6533015304049,
+      "stroke_velocity_rms_rad_s": 110.13724404263299,
+      "pitch_velocity_rms_rad_s": 103.38272928348728,
+      "fraction_pitch_outside_26p1_with_0p2deg_tolerance": 0.84765625,
+      "fraction_pitch_near_26p1": 0.853515625
+    },
+    {
+      "name": "current_passive",
+      "flap_min_deg": -79.29407471569243,
+      "flap_max_deg": 79.30602606895044,
+      "pitch_min_deg": -26.100000132536888,
+      "pitch_max_deg": 26.10002866072004,
+      "stroke_velocity_rms_rad_s": 89.89997921894005,
+      "pitch_velocity_rms_rad_s": 60.3119264827223,
+      "fraction_pitch_outside_26p1_with_0p2deg_tolerance": 0.0,
+      "fraction_pitch_near_26p1": 0.7740885416666666
+    }
+  ],
+  "alignment": {
+    "phase_alignment": "Single shared shift fitted to centered and normalized flapping angle only; no pitch/force fitting",
+    "current_phase_shift_cycles": 0.7142069967285359,
+    "pitch_RMSE_deg": 28.156220315680912,
+    "flap_RMSE_deg": 11.110257363135487,
+    "pitch_correlation": 0.8805557879494621
+  },
+  "matrix": [
+    {
+      "geometry": "current_CAD",
+      "stroke": "current",
+      "pitch": "current",
+      "mean_lift_mN": 42.69804681261036
+    },
+    {
+      "geometry": "current_CAD",
+      "stroke": "current",
+      "pitch": "archive",
+      "mean_lift_mN": 53.18489090814877
+    },
+    {
+      "geometry": "current_CAD",
+      "stroke": "archive",
+      "pitch": "current",
+      "mean_lift_mN": 63.18721023137172
+    },
+    {
+      "geometry": "current_CAD",
+      "stroke": "archive",
+      "pitch": "archive",
+      "mean_lift_mN": 77.90716297170195
+    },
+    {
+      "geometry": "archive_80x28",
+      "stroke": "current",
+      "pitch": "current",
+      "mean_lift_mN": 32.93359171561737
+    },
+    {
+      "geometry": "archive_80x28",
+      "stroke": "current",
+      "pitch": "archive",
+      "mean_lift_mN": 41.02223903345661
+    },
+    {
+      "geometry": "archive_80x28",
+      "stroke": "archive",
+      "pitch": "current",
+      "mean_lift_mN": 48.73716571958706
+    },
+    {
+      "geometry": "archive_80x28",
+      "stroke": "archive",
+      "pitch": "archive",
+      "mean_lift_mN": 60.09086805053408
+    }
+  ],
+  "diagnostics": {
+    "archive_pitch_scaled_to_26p1_current_stroke_mN": 34.117445069061326,
+    "archive_pitch_scale": 0.39777607927745706,
+    "current_geometry_area_second_moment_m4": 6.195466211133766e-06,
+    "archive_geometry_area_second_moment_m4": 4.778648437500001e-06,
+    "archive_baseline_exact_96_sample_mN": 60.143936356987425,
+    "interpolation_note": "Factorial uses 1536-point piecewise-linear periodic interpolation; exact archive reproduction uses original 96 samples.",
+    "current_raw_pitch_minmax_deg": [
+      -26.14283067193606,
+      26.124268696571256
+    ],
+    "current_angle_definition": "theta=0 is a vertical wing: chord parallel to lift axis; same as old rotation(phi,theta) at theta=0",
+    "native_source_matches_ignoring_CRLF": true,
+    "expanded_stop_66deg_lift_mN": 43.46793461014254,
+    "expanded_stop_actual_frequency_Hz": 14.988682900049337,
+    "expanded_stop_pitch_minmax_deg": [
+      -66.05057802156189,
+      66.00643709323725
+    ],
+    "expanded_stop_pitch_rmse_to_archive_deg": 42.38084759849742
+  },
+  "force_processing": [
+    {
+      "hz": 10,
+      "archive_raw_cycle_mN": 20.83220243105495,
+      "current_raw_window_mN": 20.888888888888886,
+      "current_tail_tare_mN": -5.044965234729539,
+      "current_tared_mN": 25.93385412361848,
+      "window_change_mN": 0.056686457833937,
+      "tare_change_mN": 5.044965234729539,
+      "total_difference_mN": 5.101651692563532
+    },
+    {
+      "hz": 11,
+      "archive_raw_cycle_mN": 27.344050552532696,
+      "current_raw_window_mN": 27.307936507936514,
+      "current_tail_tare_mN": -4.36818431654875,
+      "current_tared_mN": 31.67612082448521,
+      "window_change_mN": -0.03611404459618228,
+      "tare_change_mN": 4.36818431654875,
+      "total_difference_mN": 4.332070271952514
+    },
+    {
+      "hz": 12,
+      "archive_raw_cycle_mN": 28.458715835445787,
+      "current_raw_window_mN": 28.58650793650794,
+      "current_tail_tare_mN": -7.570956091205713,
+      "current_tared_mN": 36.157464027713644,
+      "window_change_mN": 0.12779210106215189,
+      "tare_change_mN": 7.570956091205713,
+      "total_difference_mN": 7.698748192267857
+    },
+    {
+      "hz": 13,
+      "archive_raw_cycle_mN": 37.07010806936744,
+      "current_raw_window_mN": 37.03095238095238,
+      "current_tail_tare_mN": -7.369816626235554,
+      "current_tared_mN": 44.400769007187925,
+      "window_change_mN": -0.03915568841506456,
+      "tare_change_mN": 7.369816626235554,
+      "total_difference_mN": 7.330660937820483
+    },
+    {
+      "hz": 14,
+      "archive_raw_cycle_mN": 44.55431366491187,
+      "current_raw_window_mN": 44.55515873015872,
+      "current_tail_tare_mN": -6.762309837512433,
+      "current_tared_mN": 51.31746856767119,
+      "window_change_mN": 0.000845065246856791,
+      "tare_change_mN": 6.762309837512433,
+      "total_difference_mN": 6.763154902759325
+    },
+    {
+      "hz": 15,
+      "archive_raw_cycle_mN": 55.521754068532886,
+      "current_raw_window_mN": 55.44603174603176,
+      "current_tail_tare_mN": -3.8693054204576165,
+      "current_tared_mN": 59.31533716648943,
+      "window_change_mN": -0.07572232250112876,
+      "tare_change_mN": 3.8693054204576165,
+      "total_difference_mN": 3.7935830979565424
+    }
+  ],
+  "raw_files_identical": 36
+}

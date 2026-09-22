@@ -4,8 +4,9 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "flapsim"
-version = "0.1.0"
+version = "0.2.0"
 description = "Object-oriented MuJoCo simulation for flapping-wing robots"
+readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
   "mujoco>=3.8",
@@ -14,11 +15,13 @@ dependencies = [
 
 [project.optional-dependencies]
 test = ["pytest>=8"]
-rl = [
-  "gymnasium>=1.0",
-  "stable-baselines3>=2.5",
-  "tensorboard>=2.16"
-]
+experiments = ["matplotlib>=3.8", "nbformat>=5", "nbclient>=0.10", "ipykernel>=6",
+               "imageio>=2.34", "imageio-ffmpeg>=0.5", "pillow>=10", "trimesh>=4"]
+mjx = ["mujoco-mjx>=3.8", "jax>=0.6"]
+gpu = ["mujoco-mjx>=3.8", "jax[cuda12]>=0.6; platform_system == 'Linux'"]
+
+[project.scripts]
+flapsim = "flapsim.cli:main"
 
 [tool.setuptools.packages.find]
 where = ["."]
@@ -27,9 +30,15 @@ include = ["flapsim*"]
 [tool.setuptools.package-data]
 flapsim = [
   "config/*.json",
-  "robot/SingleThrustFlapper/urdf/*.urdf",
-  "robot/SingleThrustFlapper/meshes/*.STL"
+  "config/robots/*.json",
+  "robot/IST_robot/*.json",
+  "robot/*/urdf/*.urdf",
+  "robot/*/urdf/*.xml",
+  "robot/*/meshes/*.STL",
+  "robot/*/meshes/*.stl"
 ]
 
 [tool.pytest.ini_options]
 pythonpath = ["."]
+testpaths = ["tests"]
+markers = ["mjx: optional MJX compilation and device tests"]

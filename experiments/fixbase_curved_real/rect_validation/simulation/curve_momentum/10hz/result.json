@@ -1,0 +1,223 @@
+{
+  "kind": "curve",
+  "nominal_hz": 10,
+  "target_wing_frequency_hz": 10.121712587062808,
+  "measured_wing_frequency_hz": 10.121687494378516,
+  "mean_lift_N": 0.012657602738848313,
+  "mean_lift_mN": 12.657602738848313,
+  "cycle_lift_min_max_N": [
+    0.012649474559136415,
+    0.01266506538995292
+  ],
+  "cycle_lift_N": [
+    0.012650809697445668,
+    0.012663872361263833,
+    0.012655967520642424,
+    0.01265942873440853,
+    0.012660903623663022,
+    0.012650134207317533,
+    0.012664983636399257,
+    0.012655320224197672,
+    0.012659338110240387,
+    0.01265882735494632,
+    0.012649474559136415,
+    0.01266506538995292,
+    0.012654710188353086
+  ],
+  "cycle_frequency_hz": [
+    10.121685097236996,
+    10.121688153824307,
+    10.121687891678675,
+    10.121684913189533,
+    10.121690334492998,
+    10.121686919540027,
+    10.1216878610136,
+    10.121689658961909,
+    10.121684788079893,
+    10.121689305447791,
+    10.121686109568525,
+    10.121687353948781,
+    10.121689039941721
+  ],
+  "cycle_boundaries_s": [
+    0.6672909045928533,
+    0.7660886828672415,
+    0.864886431306287,
+    0.9636841823041347,
+    1.0624819623750104,
+    1.161279689528564,
+    1.2600774500154537,
+    1.358875201312623,
+    1.45767293506003,
+    1.556470716352101,
+    1.6552684535501565,
+    1.7540662219431766,
+    1.8528639781898038,
+    1.9516617179794622
+  ],
+  "complete_cycles": 13,
+  "averaging_interval_s": [
+    0.6672909045928533,
+    1.9516617179794622
+  ],
+  "definition": "Supplied aerodynamic Fz, world +Z; time integral over full crank cycles",
+  "mean_wrenches": {
+    "aero_Fx_N": -3.067210594372273e-07,
+    "aero_Fy_N": 0.0017681209102225544,
+    "aero_Fz_N": 0.012657602738848313,
+    "aero_Mx_Nm": 0.0006461873056995345,
+    "aero_My_Nm": 6.198318953496185e-08,
+    "aero_Mz_Nm": 1.281458331026493e-08,
+    "fixture_dynamic_Fx_N": -0.00015776931380760733,
+    "fixture_dynamic_Fy_N": 0.0017728772646612725,
+    "fixture_dynamic_Fz_N": 0.011658826250257921,
+    "fixture_dynamic_Mx_Nm": 0.0006325079300002347,
+    "fixture_dynamic_My_Nm": 1.3657522465310815e-07,
+    "fixture_dynamic_Mz_Nm": 1.5884242578353535e-05
+  },
+  "source": "simulation/curve_momentum/10hz/run_1.npz",
+  "simulation": {
+    "robot": "IST_robot",
+    "model_path": "/home/robot/rl/FlapSim/experiments/fixbase_curved_real/rect_validation/geometry/curve/IST_robot_single_left_wing.xml",
+    "root_body": "base_link",
+    "backend": "cpu",
+    "device": "cpu",
+    "scene": {
+      "timestep": 5e-06,
+      "fixed_base": true,
+      "position": [
+        0.0,
+        0.0,
+        0.5
+      ],
+      "orientation": null,
+      "gravity": [
+        0.0,
+        0.0,
+        -9.81
+      ],
+      "ground": true,
+      "integrator": "auto"
+    },
+    "actuator": {
+      "kind": "dcmotor",
+      "joints": [
+        "motor_joint"
+      ],
+      "max_velocity": 2000.0,
+      "max_torque": 0.002,
+      "speed_gain": 2e-06,
+      "resistance": 4.0,
+      "torque_constant": 0.001,
+      "back_emf": 0.001,
+      "max_voltage": 5.0,
+      "max_current": 2.0,
+      "dea_coefficient": 1e-08,
+      "stiffness": 0.0,
+      "damping": 0.0
+    },
+    "controller": {
+      "kind": "speed",
+      "speed": [
+        0.0
+      ],
+      "target": [
+        0.0,
+        0.0,
+        0.5,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "kp": [
+        1.0,
+        1.0,
+        2.0,
+        0.01,
+        0.01,
+        0.01
+      ],
+      "ki": [
+        0.0,
+        0.0,
+        0.1,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "kd": [
+        0.5,
+        0.5,
+        0.5,
+        0.002,
+        0.002,
+        0.002
+      ],
+      "integral_limit": 0.5,
+      "allocation": null
+    },
+    "fluid": {
+      "kind": "blade_element",
+      "builtin_model": "inertia",
+      "density": 1.225,
+      "viscosity": 1.81e-05,
+      "wind": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "strips": 12,
+      "chord_drag": 0.08,
+      "rotational_drag": 5.0,
+      "wings": [
+        {
+          "body": "left_wing",
+          "span": 0.083,
+          "chord": 0.03325,
+          "origin": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "normal_axis": [
+            1.0,
+            0.0,
+            0.0
+          ],
+          "span_axis": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "chord_axis": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "chord_offset": 0.015375
+        }
+      ]
+    }
+  },
+  "mass_scale": 1.0,
+  "model_sha256": "cd4501debf1a99287ccac82d5f755a2687e22d0a02830030eb41cfdf19d166aa",
+  "profile_sha256": "abb200289c4b66ec4d3daab96e5f420c59c2f4beae14face2d023c8f6755d669",
+  "feathering_limits_deg": [
+    -26.1000000000275,
+    26.1000000000275
+  ],
+  "pitch_minmax_deg": [
+    -26.100450063413426,
+    26.10000901241552
+  ],
+  "max_base_pose_error": 0.0,
+  "numerical_warnings": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ]
+}

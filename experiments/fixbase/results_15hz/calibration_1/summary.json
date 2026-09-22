@@ -1,0 +1,209 @@
+{
+  "experiment": {
+    "duration": 1.2,
+    "motor_speed": 1507.9644737231006,
+    "ramp_time": 0.15,
+    "timestep": 5e-06,
+    "sample_hz": 2000,
+    "video_sample_hz": 250,
+    "playback_fps": 30
+  },
+  "simulation": {
+    "robot": "IST_robot",
+    "model_path": null,
+    "root_body": "base_link",
+    "backend": "cpu",
+    "device": "cpu",
+    "scene": {
+      "timestep": 5e-06,
+      "fixed_base": true,
+      "position": [
+        0.0,
+        0.0,
+        0.5
+      ],
+      "orientation": null,
+      "gravity": [
+        0.0,
+        0.0,
+        -9.81
+      ],
+      "ground": true,
+      "integrator": "auto"
+    },
+    "actuator": {
+      "kind": "dcmotor",
+      "joints": [
+        "motor_joint"
+      ],
+      "max_velocity": 2000.0,
+      "max_torque": 0.002,
+      "speed_gain": 2e-06,
+      "resistance": 4.0,
+      "torque_constant": 0.001,
+      "back_emf": 0.001,
+      "max_voltage": 5.0,
+      "max_current": 2.0,
+      "dea_coefficient": 1e-08,
+      "stiffness": 0.0,
+      "damping": 0.0
+    },
+    "controller": {
+      "kind": "speed",
+      "speed": [
+        0.0
+      ],
+      "target": [
+        0.0,
+        0.0,
+        0.5,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "kp": [
+        1.0,
+        1.0,
+        2.0,
+        0.01,
+        0.01,
+        0.01
+      ],
+      "ki": [
+        0.0,
+        0.0,
+        0.1,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "kd": [
+        0.5,
+        0.5,
+        0.5,
+        0.002,
+        0.002,
+        0.002
+      ],
+      "integral_limit": 0.5,
+      "allocation": null
+    },
+    "fluid": {
+      "kind": "blade_element",
+      "builtin_model": "inertia",
+      "density": 1.225,
+      "viscosity": 1.81e-05,
+      "wind": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "strips": 12,
+      "chord_drag": 0.08,
+      "rotational_drag": 5.0,
+      "wings": [
+        {
+          "body": "left_wing",
+          "span": 0.083,
+          "chord": 0.03325,
+          "origin": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "normal_axis": [
+            1.0,
+            0.0,
+            0.0
+          ],
+          "span_axis": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "chord_axis": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "chord_offset": 0.015375
+        },
+        {
+          "body": "right_wing",
+          "span": 0.083,
+          "chord": 0.03325,
+          "origin": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "normal_axis": [
+            1.0,
+            0.0,
+            0.0
+          ],
+          "span_axis": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "chord_axis": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "chord_offset": 0.015375
+        }
+      ]
+    }
+  },
+  "mujoco_version": "3.8.0",
+  "elapsed_wall_s": 31.579798770999332,
+  "model_path": "/home/robot/rl/FlapSim/flapsim/robot/IST_robot/urdf/IST_robot.xml",
+  "model_sha256": "8bb00f71fd8ca841de5aba86250b5dd449df928946c6b0213b8fcdeb34a4d3ff",
+  "initial_base_pose_xyz_wxyz": [
+    0.0,
+    0.0,
+    0.5,
+    0.0,
+    1.0,
+    0.0,
+    0.0
+  ],
+  "samples": 2401,
+  "video_frames": 0,
+  "playback_slowdown": 8.333333333333334,
+  "wing_cycles_measured": 14.429815003180865,
+  "mean_motor_speed_after_025s": 1286.482074643287,
+  "pitch_min_deg": [
+    -50.000042469964626,
+    -50.00040377546034
+  ],
+  "pitch_max_deg": [
+    50.001424078610555,
+    50.0000213762517
+  ],
+  "pitch_reversals_after_025s": [
+    25,
+    25
+  ],
+  "max_base_pose_error": 0.0,
+  "mean_aero_wrench_after_025s": [
+    0.0005051684663228374,
+    -5.108010550248913e-07,
+    0.06637879966962808,
+    1.5759024589874344e-06,
+    4.437810975323509e-05,
+    3.166518400221153e-07
+  ],
+  "numerical_warnings": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "reference": "world axes; moments about base_link origin; joint loads about their joint anchors"
+}

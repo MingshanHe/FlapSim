@@ -1,0 +1,146 @@
+<?xml version='1.0' encoding='utf-8'?>
+<mujoco model="IST_robot_single_left_wing">
+  <compiler angle="radian" meshdir="../../../../flapsim/robot/IST_robot/meshes" autolimits="true" inertiafromgeom="false" fusestatic="false" />
+  <option timestep="0.000005" integrator="implicitfast" solver="Newton" iterations="100" tolerance="1e-12" gravity="0 0 -9.81" density="1.225" viscosity="1.81e-5" />
+  <visual>
+    <global offwidth="1400" offheight="1000" />
+    <map znear=".0001" />
+  </visual>
+  <statistic center="0 0 .035" extent=".20" />
+  <default>
+    <geom contype="0" conaffinity="0" group="1" />
+    <equality solref=".00001 1" solimp=".9999 .9999 .00001" />
+  </default>
+  <asset>
+    <mesh name="base_link_mesh" file="base_link.stl" />
+    <mesh name="motor_sun_mesh" file="motor_sun.stl" />
+    <mesh name="carrier_1_mesh" file="carrier_1.stl" />
+    <mesh name="planet_1_1_mesh" file="planet_1_1.stl" />
+    <mesh name="planet_1_2_mesh" file="planet_1_2.stl" />
+    <mesh name="planet_1_3_mesh" file="planet_1_3.stl" />
+    <mesh name="carrier_2_mesh" file="carrier_2.stl" />
+    <mesh name="planet_2_1_mesh" file="planet_2_1.stl" />
+    <mesh name="planet_2_2_mesh" file="planet_2_2.stl" />
+    <mesh name="planet_2_3_mesh" file="planet_2_3.stl" />
+    <mesh name="slider_mesh" file="slider.stl" />
+    <mesh name="left_flapping_mesh" file="left_flapping.stl" />
+    <mesh name="left_wing_mesh" file="left_wing.stl" />
+    <mesh name="right_flapping_mesh" file="right_flapping.stl" />
+  </asset>
+  <worldbody>
+    <light pos="0 -.1 .1" dir="0 1 -1" diffuse=".8 .8 .8" />
+    <body name="base_link" pos="0 0 0" quat="0 1 0 0">
+      <inertial pos="1.26761268613762E-05 -2.20973017296773E-08 -0.0237424608367809" mass="0.0109129405676043" fullinertia="1.38805289177657E-06 1.39517042830575E-06 4.56358479374671E-07 1.77724958502214E-11 7.64109214566619E-10 -6.40435229464194E-11" />
+      <geom name="base_link_visual" type="mesh" mesh="base_link_mesh" rgba=".55 .58 .62 1" />
+      <body name="motor_sun" pos="0 -3.1473754338e-18 -0.0514022391601" quat="-0.086213778954 2.63944853735e-18 3.05011682163e-17 0.996276660531">
+        <inertial pos="3.32832973596192E-11 -1.8625597785044E-11 -0.00118097219061684" mass="7.11127477394524E-06" fullinertia="5.54484442838887E-12 5.54484462717189E-12 7.67261036514775E-12 -4.6714537792463E-20 1.12479642834195E-19 4.64180123198645E-20" />
+        <geom name="motor_sun_visual" type="mesh" mesh="motor_sun_mesh" rgba=".95 .65 .12 1" />
+        <joint name="motor_joint" type="hinge" axis="0 0 1" damping="1e-10" />
+      </body>
+      <body name="carrier_1" pos="0 -3.1473754338e-18 -0.0514022391601" quat="-0.086213778954 2.63944853735e-18 3.05011682163e-17 0.996276660531">
+        <inertial pos="-1.73310121737e-10 -3.24918557588e-10 -0.00215355804873" mass="4.7708673607e-05" fullinertia="2.26882278343e-10 2.26882281694e-10 2.40493610401e-10 2.69745874114e-18 -4.81592973512e-18 -1.21734417474e-17" />
+        <geom name="carrier_1_visual" type="mesh" mesh="carrier_1_mesh" rgba=".25 .55 .8 1" />
+        <joint name="carrier_1_joint" type="hinge" axis="0 0 1" damping="0" />
+        <body name="planet_1_1" pos="0.000936278737523 0.00253246562184 -0.002" quat="1 0 3.85185988877e-34 4.76800686644e-18">
+          <inertial pos="5.67578651505e-12 2.26856838893e-11 0.000499999991572" mass="4.41360056421e-06" fullinertia="2.8588636495e-12 2.8588635691e-12 4.98212850843e-12 -7.52249201761e-20 1.23870354638e-20 3.50955675711e-20" />
+          <geom name="planet_1_1_visual" type="mesh" mesh="planet_1_1_mesh" rgba=".65 .8 .95 1" />
+          <joint name="planet_1_1_joint" type="hinge" axis="0 0 1" damping="0" />
+        </body>
+        <body name="planet_1_2" pos="-0.00266131893086 -0.000455391639881 -0.002" quat="1 0 3.85185988877e-34 4.76800686644e-18">
+          <inertial pos="5.67578651505e-12 2.26856839435e-11 0.000499999991572" mass="4.41360056421e-06" fullinertia="2.8588636495e-12 2.8588635691e-12 4.98212850843e-12 -7.52249201761e-20 1.23870354638e-20 3.50955675711e-20" />
+          <geom name="planet_1_2_visual" type="mesh" mesh="planet_1_2_mesh" rgba=".65 .8 .95 1" />
+          <joint name="planet_1_2_joint" type="hinge" axis="0 0 1" damping="0" />
+        </body>
+        <body name="planet_1_3" pos="0.00172504019486 -0.00207707398244 -0.002" quat="1 0 3.85185988877e-34 4.76800686644e-18">
+          <inertial pos="5.67578651505e-12 2.26856838893e-11 0.000499999991572" mass="4.41360056421e-06" fullinertia="2.8588636495e-12 2.8588635691e-12 4.98212850843e-12 -7.52249201761e-20 1.23870354638e-20 3.50955675711e-20" />
+          <geom name="planet_1_3_visual" type="mesh" mesh="planet_1_3_mesh" rgba=".65 .8 .95 1" />
+          <joint name="planet_1_3_joint" type="hinge" axis="0 0 1" damping="0" />
+        </body>
+      </body>
+      <body name="carrier_2" pos="0 -3.1473754338e-18 -0.0514022391601" quat="-0.086213778954 2.63944853735e-18 3.05011682163e-17 0.996276660531">
+        <inertial pos="-3.17866043324e-05 -0.000182285856424 -0.00467809526695" mass="4.14715363015e-05" fullinertia="2.13990156213e-10 1.97413707554e-10 3.17017070607e-10 -2.98121610636e-12 -4.94084841529e-13 -2.83341616312e-12" />
+        <geom name="carrier_2_visual" type="mesh" mesh="carrier_2_mesh" rgba=".8 .35 .2 1" />
+        <joint name="carrier_2_joint" type="hinge" axis="0 0 1" damping="0" />
+        <body name="planet_2_1" pos="0.000463820989763 0.00265986279516 -0.005" quat="1 0 3.85185988877e-34 4.76800686644e-18">
+          <inertial pos="5.67578646084e-12 2.26856838893e-11 0.000499999991572" mass="4.41360056421e-06" fullinertia="2.8588636495e-12 2.8588635691e-12 4.98212850843e-12 -7.52249201761e-20 1.23870354638e-20 3.50955675711e-20" />
+          <geom name="planet_2_1_visual" type="mesh" mesh="planet_2_1_mesh" rgba=".65 .8 .95 1" />
+          <joint name="planet_2_1_joint" type="hinge" axis="0 0 1" damping="0" />
+        </body>
+        <body name="planet_2_2" pos="-0.00253541924544 -0.000928250638032 -0.005" quat="1 0 3.85185988877e-34 4.76800686644e-18">
+          <inertial pos="-6.8031245921e-12 2.23734731527e-11 0.000499999991572" mass="4.41360056421e-06" fullinertia="2.85886369459e-12 2.85886352401e-12 4.98212850843e-12 5.95253842522e-23 -7.43209001527e-21 3.64678151702e-20" />
+          <geom name="planet_2_2_visual" type="mesh" mesh="planet_2_2_mesh" rgba=".65 .8 .95 1" />
+          <joint name="planet_2_2_joint" type="hinge" axis="0 0 1" damping="0" />
+        </body>
+        <body name="planet_2_3" pos="0.00207159825721 -0.00173161215732 -0.005" quat="1 0 3.85185988877e-34 4.76800686644e-18">
+          <inertial pos="5.67578694873e-12 2.26856836725e-11 0.000499999991572" mass="4.41360056421e-06" fullinertia="2.8588636495e-12 2.8588635691e-12 4.98212850843e-12 -7.52249201761e-20 1.23870354638e-20 3.50955675711e-20" />
+          <geom name="planet_2_3_visual" type="mesh" mesh="planet_2_3_mesh" rgba=".65 .8 .95 1" />
+          <joint name="planet_2_3_joint" type="hinge" axis="0 0 1" damping="0" />
+        </body>
+        <site name="crank_pin" pos="-0.000463820989255 -0.00265986279532 -0.0072" size=".0002" rgba="1 0 0 1" group="3" />
+      </body>
+      <body name="slider" pos="0.000471238301987 0.00724999990958 -0.0584022391601" quat="1 -3.06151588456e-17 0 0">
+        <inertial pos="-0.000471238301986213 -0.00724999999999904 0.000500000000000007" mass="7.02640999307624E-05" fullinertia="4.0599543754355E-10 3.23059341430857E-09 3.62487816853033E-09 -2.92845382578666E-23 1.01626484990205E-25 4.30536940263753E-27" />
+        <geom name="slider_visual" type="mesh" mesh="slider_mesh" rgba=".3 .75 .55 1" />
+        <joint name="slider_joint" type="slide" axis="1 0 0" damping="1e-05" range="-0.0027 0.0027" solreflimit=".00001 1" solimplimit=".9999 .9999 .00001" />
+        <body name="yoke_follower" pos="-0.000471238301987 -0.00454999990958 -0.0002">
+          <inertial pos="0 0 0" mass="1e-9" diaginertia="1e-15 1e-15 1e-15" />
+          <joint name="slot_follower_joint" type="slide" axis="0 1 0" limited="false" />
+          <site name="slot_follower" size=".00015" rgba="0 1 0 1" group="3" />
+        </body>
+      </body>
+      <body name="left_flapping" pos="0 -0.00660000009075 -0.0588022391601" quat="2.16481864268e-17 0.707106781187 -0.707106781187 2.16481864268e-17">
+        <inertial pos="0.00548903429774845 -6.56871542558514E-11 -0.000675091274318626" mass="5.9190643334466E-05" fullinertia="1.86826911334795E-10 8.28417020889209E-10 9.99846992379042E-10 1.02677598580126E-21 3.76545647182652E-12 1.40371529223898E-23" />
+        <geom name="left_flapping_visual" type="mesh" mesh="left_flapping_mesh" rgba=".8 .45 .25 1" />
+        <joint name="left_flapping_joint" type="hinge" axis="0 0 -1" damping="1e-09" range="-1.38461538462 1.38461538462" solreflimit=".00001 1" solimplimit=".9999 .9999 .00001" />
+        <body name="left_wing" pos="0.00699999999933 6.07153216534e-19 -0.00065" quat="0 0.707106781187 0.707106781187 0">
+          <inertial pos="4.56699383288505E-05 0.019026177597437 0.00547035916391007" mass="0.000222908257334885" fullinertia="2.41822417873084E-08 1.74602403855625E-09 2.25297342067063E-08 1.25943919252846E-11 2.14381110470571E-11 -7.80452964971407E-10" />
+          <geom name="left_wing_visual" type="mesh" mesh="left_wing_mesh" rgba=".85 .9 .95 1" />
+          <joint name="left_feathering_joint" type="hinge" axis="0 1 0" damping="1e-08" range="-0.455530934771 0.455530934771" solreflimit=".00001 1" solimplimit=".9999 .9999 .00001" stiffness="0" frictionloss="0" />
+          <geom name="left_wing_air" type="ellipsoid" pos="-1.16415321827e-10 0.0409189806669 0.0153750007739" size="0.00124999997206 0.0415434791357 0.016625000746" rgba="0 0 0 0" group="4" mass="0" fluidshape="ellipsoid" fluidcoef=".5 .25 1.5 1 1" />
+        </body>
+      </body>
+      <body name="right_flapping" pos="0 0.00659999990992 -0.0588022391601" quat="2.16481864268e-17 0.707106781187 0.707106781187 -2.16481864268e-17">
+        <inertial pos="0.00548903429774801 6.56934543304989E-11 -0.000675091274318626" mass="5.9190643334466E-05" fullinertia="1.86826911334795E-10 8.2841702088921E-10 9.99846992379042E-10 1.02625679625789E-21 3.76545647182647E-12 1.40430968122574E-23" />
+        <geom name="right_flapping_visual" type="mesh" mesh="right_flapping_mesh" rgba=".8 .45 .25 1" />
+        <joint name="right_flapping_joint" type="hinge" axis="0 0 -1" damping="1e-09" range="-1.38461538462 1.38461538462" solreflimit=".00001 1" solimplimit=".9999 .9999 .00001" />
+      </body>
+    </body>
+  </worldbody>
+  <equality>
+    <joint name="carrier_1_joint_coupling" joint1="carrier_1_joint" joint2="motor_joint" polycoef="0 0.25 0 0 0" />
+    <joint name="planet_1_1_joint_coupling" joint1="planet_1_1_joint" joint2="motor_joint" polycoef="0 -0.75 0 0 0" />
+    <joint name="planet_1_2_joint_coupling" joint1="planet_1_2_joint" joint2="motor_joint" polycoef="0 -0.75 0 0 0" />
+    <joint name="planet_1_3_joint_coupling" joint1="planet_1_3_joint" joint2="motor_joint" polycoef="0 -0.75 0 0 0" />
+    <joint name="carrier_2_joint_coupling" joint1="carrier_2_joint" joint2="motor_joint" polycoef="0 0.0625 0 0 0" />
+    <joint name="planet_2_1_joint_coupling" joint1="planet_2_1_joint" joint2="motor_joint" polycoef="0 -0.1875 0 0 0" />
+    <joint name="planet_2_2_joint_coupling" joint1="planet_2_2_joint" joint2="motor_joint" polycoef="0 -0.1875 0 0 0" />
+    <joint name="planet_2_3_joint_coupling" joint1="planet_2_3_joint" joint2="motor_joint" polycoef="0 -0.1875 0 0 0" />
+    <joint name="left_flapping_joint_coupling" joint1="left_flapping_joint" joint2="slider_joint" polycoef="0 -512.820512821 0 0 0" />
+    <joint name="right_flapping_joint_coupling" joint1="right_flapping_joint" joint2="slider_joint" polycoef="0 512.820512821 0 0 0" />
+    <connect name="scotch_yoke_closure" site1="crank_pin" site2="slot_follower" />
+  </equality>
+  <actuator>
+    <velocity name="motor_velocity" joint="motor_joint" kv="0.000002" ctrlrange="-2000 2000" forcerange="-.002 .002" />
+  </actuator>
+  <sensor>
+    <jointpos name="motor_joint_position" joint="motor_joint" />
+    <jointvel name="motor_joint_velocity" joint="motor_joint" />
+    <jointpos name="carrier_1_joint_position" joint="carrier_1_joint" />
+    <jointvel name="carrier_1_joint_velocity" joint="carrier_1_joint" />
+    <jointpos name="carrier_2_joint_position" joint="carrier_2_joint" />
+    <jointvel name="carrier_2_joint_velocity" joint="carrier_2_joint" />
+    <jointpos name="slider_joint_position" joint="slider_joint" />
+    <jointvel name="slider_joint_velocity" joint="slider_joint" />
+    <jointpos name="left_flapping_joint_position" joint="left_flapping_joint" />
+    <jointvel name="left_flapping_joint_velocity" joint="left_flapping_joint" />
+    <jointpos name="right_flapping_joint_position" joint="right_flapping_joint" />
+    <jointvel name="right_flapping_joint_velocity" joint="right_flapping_joint" />
+    <jointpos name="left_feathering_joint_position" joint="left_feathering_joint" />
+    <jointvel name="left_feathering_joint_velocity" joint="left_feathering_joint" />
+  </sensor>
+  <keyframe>
+    <key name="home" ctrl="0" />
+    <key name="run_100" ctrl="100" />
+    <key name="run_500" ctrl="500" />
+  </keyframe>
+</mujoco>

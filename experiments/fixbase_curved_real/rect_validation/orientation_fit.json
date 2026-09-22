@@ -1,0 +1,107 @@
+{
+  "curve": {
+    "yaw_deg": -27.499999999999993,
+    "training_frequencies_hz": [
+      10,
+      11,
+      12
+    ],
+    "held_out_frequencies_hz": [
+      13,
+      14,
+      15
+    ],
+    "convention": "F_sensor = Rz(yaw) @ F_sim; +Z unchanged",
+    "fit_parameters": "One global yaw; one time phase per record; no amplitude/offset/tilt fit",
+    "mean_force_only_yaw_deg": -73.8985615597019,
+    "mean_force_fit_note": "Separate diagnostic on 10--12 Hz means; not substituted for waveform yaw",
+    "near_optimal_angle_span_deg": [
+      -33.5,
+      -21.749999999999996
+    ],
+    "train_xy_nrmse_mean": 0.4656140767994945,
+    "train_rmse_mN": {
+      "Fx": 29.225459945963976,
+      "Fy": 20.974975055337207,
+      "Fz": 16.828490866912066
+    },
+    "train_xy_rms_ratio_mean": 0.7747589873652871,
+    "test_xy_nrmse_mean": 0.5818426308033621,
+    "test_rmse_mN": {
+      "Fx": 64.77822387194168,
+      "Fy": 56.553195764534266,
+      "Fz": 29.261818065608225
+    },
+    "test_xy_rms_ratio_mean": 0.6474581294797422
+  },
+  "rect": {
+    "yaw_deg": -31.5,
+    "training_frequencies_hz": [
+      10,
+      11,
+      12
+    ],
+    "held_out_frequencies_hz": [
+      13,
+      14,
+      15
+    ],
+    "convention": "F_sensor = Rz(yaw) @ F_sim; +Z unchanged",
+    "fit_parameters": "One global yaw; one time phase per record; no amplitude/offset/tilt fit",
+    "mean_force_only_yaw_deg": -73.02099804921153,
+    "mean_force_fit_note": "Separate diagnostic on 10--12 Hz means; not substituted for waveform yaw",
+    "near_optimal_angle_span_deg": [
+      -38.0,
+      -24.999999999999996
+    ],
+    "train_xy_nrmse_mean": 0.5336395684892801,
+    "train_rmse_mN": {
+      "Fx": 41.49537555376534,
+      "Fy": 48.626268055564005,
+      "Fz": 39.22202663206206
+    },
+    "train_xy_rms_ratio_mean": 0.878316844265771,
+    "test_xy_nrmse_mean": 0.5580914018933121,
+    "test_rmse_mN": {
+      "Fx": 68.61033374976968,
+      "Fy": 91.42642748152095,
+      "Fz": 97.75596709181342
+    },
+    "test_xy_rms_ratio_mean": 0.8128423806907785
+  },
+  "shared": {
+    "yaw_deg": -29.499999999999996,
+    "training_frequencies_hz": [
+      10,
+      11,
+      12
+    ],
+    "held_out_frequencies_hz": [
+      13,
+      14,
+      15
+    ],
+    "convention": "F_sensor = Rz(yaw) @ F_sim; +Z unchanged",
+    "fit_parameters": "One global yaw; one time phase per record; no amplitude/offset/tilt fit",
+    "mean_force_only_yaw_deg": -73.17054074294762,
+    "mean_force_fit_note": "Separate diagnostic on 10--12 Hz means; not substituted for waveform yaw",
+    "near_optimal_angle_span_deg": [
+      -35.74999999999999,
+      -23.250000000000004
+    ],
+    "train_xy_nrmse_mean": 0.500494128027151,
+    "train_rmse_mN": {
+      "Fx": 35.59074029560335,
+      "Fy": 34.7991409314775,
+      "Fz": 28.025258749487065
+    },
+    "train_xy_rms_ratio_mean": 0.8265379158155289,
+    "test_xy_nrmse_mean": 0.5683019568027616,
+    "test_rmse_mN": {
+      "Fx": 66.79553798236708,
+      "Fy": 73.59387084551116,
+      "Fz": 63.593859155520995
+    },
+    "test_xy_rms_ratio_mean": 0.7301502550852604
+  }
+}

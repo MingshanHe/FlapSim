@@ -1,0 +1,12 @@
+{
+  "configuration": "Left wing installed; right wing plate removed; both flapping drives retained",
+  "source_model": "/home/robot/rl/FlapSim/flapsim/robot/IST_robot/urdf/IST_robot.xml",
+  "source_sha256": "458a33216ba436b53b61ee23d4dab60c2154ae8505c73f742d970081665758b3",
+  "removed_body": "right_wing",
+  "removed_mass_kg": 0.000222795154914965,
+  "retained_drives": [
+    "left_flapping",
+    "right_flapping"
+  ],
+  "note": "The complete CAD right_wing body is treated as the removable wing plate."
+}
