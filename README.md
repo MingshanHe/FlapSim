@@ -3,15 +3,16 @@
 扑翼机器人仿真 Python package。默认模型是 `IST_robot`，只负责仿真，
 不包含 Gymnasium、PPO 或训练代码。所有接口使用 SI 单位。
 
-固定基座实验见 [已执行的 notebook](experiments/fixbase/IST_robot_fixbase.ipynb)：
-包含电机、扑翼与被动羽化曲线、六维气动/支架载荷和 headless MP4 回放。
 IST_robot 的 MJCF 根刚体已绕 X 旋转 180°，使翼机构在世界 +Z 上方；
 可通过 `SceneConfig.orientation`（wxyz 四元数）覆盖安装姿态。
 
 ## 安装与运行
 
+需要 Python 3.10 或更新版本。基础仿真只依赖 MuJoCo 和 NumPy。
+建议在独立的 Python 环境中安装：
+
 ```bash
-pip install -e .
+python -m pip install -e .
 python -m flapsim --headless --duration 0.01
 python -m flapsim --speed 100 --fluid mujoco
 ```
@@ -43,6 +44,9 @@ flapsim --actuator bldcmotor --fluid mujoco --headless --duration 0.01
 ## 目录和调用关系
 
 ```text
+README.md       安装、配置和使用说明
+pyproject.toml  包配置与运行依赖
+.gitignore      缓存、虚拟环境和构建产物忽略规则
 flapsim/
   actuator/     Actuator -> DCMotor / BLDCMotor / DEA
   config/       参数、JSON、场景构建、模型加载
@@ -52,12 +56,18 @@ flapsim/
   simulator.py  对外接口，组织组件
   backends.py   CPUBackend / MJXBackend
   kinematics.py 共享的坐标和速度计算
+  measurement.py 固定基座六维载荷测量
+  cli.py        flapsim 命令行入口
+  sim_core.py   SimCore 兼容构造入口
 ```
 
 每步顺序是 `Controller.update → Actuator.forces → FluidModel.forces → physics step`。
 控制器输出各驱动轴目标角速度，执行器转换为有界力矩，流体模型输出各刚体的气动力和力矩。
 执行器不直接覆盖 `qpos/qvel`；齿轮、滑块和翼面由物理引擎推进。
-`environment` 已移除，场景构建并入 `config/scene.py`。
+场景构建由 `config/scene.py` 负责。
+
+`measurement.FixedBaseWrenchProbe` 提供世界坐标系下的气动力、支架反力和重力载荷，
+力矩参考点为基座原点。读取前需用当前外力执行 `mujoco.mj_forward`。
 
 执行器都继承 `Actuator`（别名 `BaseActuator`），可以通过构造函数注入自己的子类。
 DC 是带电压、反电动势、电流限制的准静态电机；BLDC 是平均 q 轴电流控制模型，
@@ -123,22 +133,13 @@ sim.step(200)
 CPU 与 MJX 使用同一种模型。原生 CPU 还可以显式选择
 `FluidConfig(kind="mujoco", builtin_model="ellipsoid")`，保留 MJCF 已给定的椭球系数。
 CLI 对应 `--fluid mujoco --builtin-fluid ellipsoid`。
-MJX-JAX 3.8 只支持惯性盒流体，不支持椭球流体；本包会拒绝该不支持的组合，
-防止模型参数被引擎静默忽略。支持范围见
+本包目前仅开放 MJX-JAX 的惯性盒流体组合，并拒绝椭球流体组合，
+防止模型参数被引擎静默忽略。实现依据见
 [MuJoCo 3.8 MJX 功能表](https://mujoco.readthedocs.io/en/3.8.0/mjx.html#feature-parity)。
 切换到叶素模型会关闭内置流体，避免重复施力。
 两者都不是 CFD，不包含尾迹演化、翼间流场耦合或流固耦合。
 
-```bash
-# 可在 CPU 上验证 MJX
-pip install -e '.[mjx]'
-python -m flapsim --backend mjx --device cpu --headless --duration 0.001
-
-# Linux/WSL NVIDIA GPU；需要与驱动匹配的 JAX CUDA 运行时
-pip install -e '.[gpu]'
-python -m flapsim --backend mjx --device gpu --fluid blade_element --headless --duration 0.001
-python -m flapsim --backend mjx --device gpu --fluid mujoco --headless --duration 0.001
-```
+MJX/JAX 的安装、版本指定和设备检查见下节。
 
 MJX 将控制器、执行器、气动力和物理步进整体 JIT 到所选设备，
 首次编译会有延迟。`step(n)` 在设备内循环 n 步；`snapshot()` 才传回 CPU。
@@ -147,38 +148,143 @@ JAX 默认采用 float32，原生 MuJoCo 采用 float64；极小惯量和强约�
 需要双精度时可在进程启动前设置 `JAX_ENABLE_X64=1`。
 单个小模型的 GPU 运行未必快于 CPU；本版本没有封装批量仿真接口。
 
-MJX 内置流体与 `implicitfast` 的组合不受支持，因此 `integrator="auto"`
+本包对 MJX 内置流体禁用 `implicitfast`，因此 `integrator="auto"`
 在该组合下选择 Euler，其余默认 implicitfast；也可显式选择 Euler/RK4。
 此限制也列在上述 MJX 功能表中。
 
-## 模型与旧代码迁移
+## MJX 与 JAX 环境配置
+
+FlapSim 的 `backend="mjx"` 使用 **MJX-JAX**，代码显式设置 `impl="jax"`。
+安装包名是 `mujoco-mjx`，Python 导入方式是 `from mujoco import mjx`。
+下面的命令在项目根目录、Linux 或 WSL2 的 Bash 中执行。
+
+### 版本选择
+
+以下是与当前 MuJoCo 版本一致的固定版本安装示例（2026-10-03 核对）：
+
+| 组件 | 示例版本 | 配置关系 |
+| --- | --- | --- |
+| Python | 3.12 | 下述 JAX 0.11.2 要求 Python >=3.12 |
+| `mujoco` | 3.14.0 | 原生物理引擎及模型编译 |
+| `mujoco-mjx` | 3.14.0 | 与 MuJoCo 的主、次、修订版本一致 |
+| `jax` / `jaxlib` | 0.11.2 / 0.11.2 | 本例由 JAX 的包依赖锁定相同版本 |
+| NVIDIA GPU 运行时 | CUDA 12 | 与项目的 `gpu` 可选依赖一致 |
+
+MJX 的版本规则见 [官方版本说明](https://github.com/google-deepmind/mujoco/blob/main/mjx/README.md#versioning)：
+例如 `mujoco-mjx==3.14.0` 配 `mujoco==3.14.0`；若有 `.postN` 发布，
+它仍对应同一个 MuJoCo 基础版本。JAX 使用独立的版本号，不设成 MuJoCo 的版本号。
+发布依赖可查 [MJX 3.14.0](https://pypi.org/project/mujoco-mjx/3.14.0/) 和
+[JAX 0.11.2](https://pypi.org/project/jax/0.11.2/)。
+
+项目声明的 `mujoco-mjx>=3.8`、`jax>=0.6` 是安装下限，不是已验证的全部版本组合。
+只运行原生 CPU 仿真仍可使用项目要求的 Python >=3.10；使用本节固定版本时选择 Python 3.12。
+本例已通过 Python 3.12/Linux 下 CPU、CUDA 12 两种安装方案的 pip 依赖解析检查，
+尚未完成这组版本的 MJX 实际步进和 GPU 验证；安装后需执行下面的运行检查。
+
+### 创建环境
+
+已有合适的 Python 环境时可直接激活；新环境可以使用 Conda：
+
+```bash
+conda create -n flapsim-mjx python=3.12 -y
+conda activate flapsim-mjx
+python -m pip install --upgrade pip
+```
+
+### 安装 CPU 版 MJX
+
+无需显卡即可检查 MJX-JAX 路径。固定版本安装：
+
+```bash
+python -m pip install -e '.[mjx]' \
+  'mujoco==3.14.0' 'mujoco-mjx==3.14.0' 'jax==0.11.2'
+python -m pip check
+```
+
+### 安装 NVIDIA GPU 版 MJX
+
+在 Linux 或 WSL2 中使用 GPU；原生 Windows 不支持 JAX CUDA，WSL2 的支持在 JAX
+文档中标为实验性。CUDA 12 的 Linux 驱动下限为 525，建议使用适配显卡的新驱动。
+本方案通过 pip 安装 CUDA/cuDNN 运行库，无需单独安装系统 CUDA Toolkit。
+平台与运行库要求见 [JAX 安装文档](https://docs.jax.dev/en/latest/installation.html#nvidia-gpu)。
+
+WSL2 使用 Windows 主机的 NVIDIA 驱动，在 Windows 端安装或更新驱动，
+不要在 WSL 内另装 Linux NVIDIA 显示驱动；见
+[NVIDIA WSL 配置说明](https://docs.nvidia.com/cuda/wsl-user-guide/index.html#step-1-install-nvidia-driver-for-gpu-support)。
+先在 WSL/Linux 中确认 GPU 可见，再安装 GPU 方案：
+
+```bash
+nvidia-smi
+python -m pip install -e '.[gpu]' \
+  'mujoco==3.14.0' 'mujoco-mjx==3.14.0' 'jax[cuda12]==0.11.2'
+python -m pip check
+```
+
+CPU 与 GPU 安装方案按设备选择一种即可。GPU 方案会同时解析 `jaxlib`、
+`jax-cuda12-plugin`、`jax-cuda12-pjrt` 的匹配版本，避免手动混装不同版本。
+
+### 检查版本和运行设备
+
+先检查实际使用的解释器、包版本和 JAX 设备：
+
+```bash
+python - <<'PY'
+import sys
+from importlib.metadata import version
+import jax
+from mujoco import mjx
+
+print("Python:", sys.executable)
+for package in ("mujoco", "mujoco-mjx", "jax", "jaxlib"):
+    print(f"{package}: {version(package)}")
+print("JAX devices:", jax.devices())
+PY
+
+# GPU 配置必须能列出 GPU；若不可用，此命令会报错
+python -c 'import jax; print(jax.devices("gpu"))'
+```
+
+CPU 安装只需运行第一个代码块，设备应为 CPU。GPU 安装还需执行第二条命令，
+不能只凭 `import jax` 成功判断 GPU 已启用。
+随后运行短程仿真；首次 JIT 编译可能明显慢于后续步进：
+
+```bash
+# 小惯量、闭环约束模型可先用双精度检查数值行为
+export JAX_ENABLE_X64=1
+
+# CPU 方案
+python -m flapsim --backend mjx --device cpu --headless --duration 0.00001
+
+# GPU 方案
+python -m flapsim --backend mjx --device gpu --fluid blade_element --headless --duration 0.00001
+python -m flapsim --backend mjx --device gpu --fluid mujoco --headless --duration 0.00001
+```
+
+成功时应打印 `mjx/cpu` 或 `mjx/gpu`，默认时间步下运行 2 步。
+需要更长轨迹时增大 `--duration`。更换 MJX 版本时，在安装命令中同时修改
+`mujoco` 和 `mujoco-mjx` 的版本；更换 JAX 版本时同时检查 Python 要求，
+通过 `jax==版本` 或 `jax[cuda12]==版本` 让 pip 解析配套运行库，再重新检查设备与步进。
+
+如果 GPU 不可见，先检查 `nvidia-smi` 和当前 Python 环境；如果提示 CUDA/cuDNN
+版本冲突，检查 `LD_LIBRARY_PATH` 是否指向其他 CUDA 安装。使用 pip 运行库方案时，
+可临时以 `env -u LD_LIBRARY_PATH python -c 'import jax; print(jax.devices("gpu"))'`
+排查路径覆盖，参见 [JAX 的 CUDA 库检查说明](https://docs.jax.dev/en/latest/installation.html#pip-installation-nvidia-gpu-cuda-installed-via-pip-easier)。
+
+## 机器人模型
 
 `robot/IST_robot/urdf/IST_robot.urdf` 和 `IST_robot.xml` 的文件名、
 内部模型名称、相互引用已统一。仿真加载 MJCF，保留两级齿轮和 pin-in-slot
 闭环约束；URDF 本身不能完整表达该非线性闭环。
-浮动模式保留原始 CAD 质量/惯量，不再替换为 30 g 等效刚体。
+固定和浮动模式均保留模型文件中的质量与惯量；IST_robot 已按材料参数修正运动部件惯性。
 翼面保持原模型的被动羽化，不添加主动羽化或镜像等式约束。
 原模型的网格接触设置保持不变，IST_robot 默认不提供机器人与地面的接触响应。
 
-旧的机器人专用控制器、周期平均悬停模型和 `flapsim.rl` 已删除。
-`SimCore(robot, fix=...)` 仅保留构造入口；旧的 `environment`、
-`set_thrust_command`、plate/yaw 等接口不再提供。
-旧机器人的 URDF/STL 保留，预设为零轴速度；需要周期驱动时可自行编写
+内置 `IST_robot`、`SingleThrustFlapper`、`SingleThrustFlapper-V2` 三个预设，
+可通过 `--robot` 选择。后两个模型的预设为零轴速度；需要周期驱动时可自行编写
 输出正弦目标角速度的 Controller，再通过电机力矩驱动。
-`tutorial/`、`log/` 保留原始研究记录，旧运行接口的 notebook 需迁移。
-旧 `fluid/aero.py` 及对应输入类型只用于保留纯公式教程，不参与新仿真链路。
+`SimCore(robot, fix=...)` 保留为兼容构造入口，新代码建议使用 `Simulator(config)`。
 
-重构前的全部工作文件（含未提交修改和训练模型）备份于仓库相邻的
-`../FlapSim-backups/before-oop-20260921-203149.zip`，不进入安装包。
-
-## 验证
-
-```bash
-pip install -e '.[test]'
-pytest -q
-FLAPSIM_TEST_MJX=1 FLAPSIM_TEST_DEVICE=cpu pytest -q tests/test_mjx.py
-FLAPSIM_TEST_MJX=1 FLAPSIM_TEST_DEVICE=gpu pytest -q tests/test_mjx.py
-```
-
-测试检查模型资源、机构约束、电机限幅/制动、流体选择与耗散方向、
-控制分配、重置和 CPU/MJX 短程一致性；它们不代表真实机器人的悬停能力已验证。
+IST_robot 同时提供曲面翼和矩形翼模型，以及生成模型所需的材料、惯性基准和脚本。
+模型说明见 [IST_robot 材料与惯性参数](flapsim/robot/IST_robot/README.md)。
+重新生成矩形翼网格时安装 `python -m pip install -e '.[model]'`；
+使用内置模型运行仿真不需要这项可选依赖。

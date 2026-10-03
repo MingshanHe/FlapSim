@@ -123,7 +123,7 @@ def build(root=ROOT, retain_root=True):
         ET.indent(tree, space='  ')
         tree.write(root/f'urdf/IST_robot_rectangular.{suffix}', encoding='utf-8', xml_declaration=True)
     (root/'rectangular_inertials.json').write_text(json.dumps(meta, indent=2)+'\n')
-    # Membrane-only projection for the experiment's blade-element quadrature.
+    # Membrane-only surface for blade-element quadrature.
     film_mesh = trimesh.Trimesh(vertices=film_triangles.reshape(-1, 3),
                                faces=np.arange(len(film_triangles)*3).reshape(-1, 3), process=False)
     film_mesh.export(root/'meshes/rectangular_membrane.stl')

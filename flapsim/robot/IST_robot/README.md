@@ -6,10 +6,9 @@
 `build_rectangular.py` 可重新生成矩形模型；详细分项在 `rectangular_inertials.json`。
 主文件 `IST_robot.urdf/xml` 继续保留此前曲面翼配置；两套模型的基座和传动相同。
 
-本次矩形翼 10–15 Hz 单左翼实验和实测对比见
-`experiments/fixbase_curved_real/rect_material_validation/report.md`（相对项目根目录）。
-运行 `python experiments/fixbase_curved_real/rect_material_experiment.py --prepare --run --convergence --report`。
-仿真使用配套 MJCF 以保留 URDF 无法表达的 Scotch-yoke 闭环，并在实验脚本中加载新膜面的叶素气动轮廓。
+仿真使用配套 MJCF 以保留 URDF 无法表达的 Scotch-yoke 闭环。
+使用矩形翼时，将 `SimulationConfig.model_path` 指向 `urdf/IST_robot_rectangular.xml`，
+并根据翼面几何设置 `FluidConfig.wings`；默认叶素参数不会自动从 STL 提取。
 
 ---
 
@@ -59,9 +58,16 @@
 ```bash
 python flapsim/robot/IST_robot/recalculate_inertials.py
 python flapsim/robot/IST_robot/recalculate_inertials.py --write
-python -m pytest tests/test_ist_materials.py tests/test_fixbase.py tests/test_single_wing.py -q
 ```
 
 第一条仅预览；第二条从固定原始基准重算并同步两种模型，可重复执行。调整牌号密度或膜厚时编辑 `materials.json`。若 STL 改变，脚本会拒绝沿用旧 CAD 基准，需要重新取得该几何的实体惯性。
 
-验证包括矩形薄板解析惯性对照、URDF/MJCF 一致性、MuJoCo 编译后惯性还原、基座参数保护、重复计算幂等性，以及固定基座/单翼仿真回归。现有 `experiments` 中保存的历史模型与结果未重算，不能当作本次材料修正后的实验结果。
+重新生成矩形翼模型还需安装网格处理依赖：
+
+```bash
+python -m pip install -e '.[model]'
+python flapsim/robot/IST_robot/build_rectangular.py
+```
+
+该命令更新矩形翼 URDF、MJCF、网格及 `rectangular_inertials.json`。
+仅使用已生成的模型进行仿真时，无需安装 `model` 可选依赖。
