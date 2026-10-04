@@ -1,0 +1,70 @@
+{
+  "tracking": {
+    "trajectories": [
+      "hover"
+    ],
+    "control_dt": 0.01,
+    "episode_seconds": 8.0,
+    "center": [
+      0.0,
+      0.0,
+      0.8
+    ],
+    "radius": 0.2,
+    "period": 8.0,
+    "height": 0.1,
+    "gravity_scale": 1.0,
+    "initial_speed": 3400.0,
+    "warmup_seconds": 0.1,
+    "action_tau": 0.02,
+    "randomize": true,
+    "min_altitude": 0.1,
+    "max_position_error": 1.0,
+    "max_tilt": 1.4,
+    "native_physics": true
+  },
+  "seed": 42,
+  "model_sha256": "c3fcec3057491e3c1d91545d19ef8a436b7536d30aec954a91ce7b02152f7751",
+  "implementation_sha256": "483e7652e4859f42d4e105d5d92813c083bef63bc510bbe88a5facb71f4ce012",
+  "arguments": {
+    "config": "/home/robot/rl/FlapSim-ppo-v2/flapsim/config/training/ist_v2_flight.json",
+    "output": "runs/hover_refine",
+    "resume": "runs/hover_direct_164k",
+    "warm_start": null,
+    "trajectories": [
+      "hover",
+      "circle",
+      "figure8",
+      "line",
+      "helix",
+      "lissajous"
+    ],
+    "total_timesteps": 262144,
+    "n_envs": 16,
+    "n_steps": 256,
+    "batch_size": 256,
+    "seed": 42,
+    "device": "cpu",
+    "native": false,
+    "split_step": true,
+    "learning_rate": 0.0003,
+    "log_std_init": -2.0,
+    "ent_coef": 0.0,
+    "gamma": 0.995,
+    "control_dt": 0.01,
+    "episode_seconds": 8.0,
+    "period": 8.0,
+    "radius": 0.2,
+    "gravity_scale": 1.0,
+    "trim_speed": 4000.0,
+    "checkpoint_steps": 10000,
+    "eval_steps": 32768,
+    "skip_preflight": false
+  },
+  "python": "3.11.11",
+  "status": "finished",
+  "split_sha256": "0d069f5cdace85123823d9475fa7f62e2731bf21ac2e5fc374793e66623545dd",
+  "transfer_source": "/home/robot/rl/FlapSim-ppo-v2/runs/hover_direct_164k",
+  "num_timesteps": 377008,
+  "wall_seconds": 953.4851850450002
+}

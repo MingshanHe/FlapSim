@@ -101,16 +101,21 @@ CLI 和 IST JSON 预设使用显式的朝力 CL-0720 参考电机参数。参考
 
 ```bash
 python -m pip install -e '.[rl]'
-python -m flapsim.rl.preflight --voltages 4.0 4.2 --output runs/thrust.json
-python -m flapsim.rl.train --trajectories hover circle figure8 line helix lissajous \
-  --total-timesteps 1000000 --n-envs 4 --output runs/ist_v2_ppo
-python -m flapsim.rl.evaluate --run runs/ist_v2_ppo --episodes 3 --plot
+python -m flapsim.rl.evaluate --run artifacts/ppo_v2/hover --trajectories hover \
+  --episodes 3 --randomize --seconds 16 --plot --output runs/hover_check
+python -m flapsim.rl.evaluate --run artifacts/ppo_v2/tracking \
+  --trajectories hover circle figure8 ellipse line --episodes 3 --randomize \
+  --seconds 16 --reference-physics --plot --output runs/tracking_check
 ```
 
 动作控制电机和 pitch/roll 目标角度，保留完整机构动力学。默认自由基座、正常重力、
 整机 15 g；训练前检查平均升力能否超过重量。保存策略、归一化统计、物理与任务配置，
-支持续训。圆、八字、往返直线、闭合螺旋和 Lissajous 轨迹共用条件策略。
-详见 [训练与评估说明](flapsim/rl/README.md)；是否学会跟踪以独立评估为准。
+支持续训。圆、八字、椭圆、往返直线、闭合螺旋和 Lissajous 轨迹共用条件策略。
+Linux/WSL 可用 C++ 循环加速完整机构仿真。已训练策略、独立评估和 master 迁移分析见
+[实验报告](experiments/ppo_v2/README.md)，新训练和续训命令见
+[训练与评估说明](flapsim/rl/README.md)。
+当前交付通过了悬停和上述二维轨迹的独立检查；快速 helix / lissajous 仍有误差超限和失稳案例，
+具体成功率与使用范围见报告。
 
 ## 六自由度命令与 PID
 

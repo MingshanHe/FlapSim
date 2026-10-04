@@ -4,7 +4,7 @@ import math
 import numpy as np
 
 
-NAMES = ('hover', 'circle', 'figure8', 'line', 'helix', 'lissajous')
+NAMES = ('hover', 'circle', 'figure8', 'ellipse', 'line', 'helix', 'lissajous')
 
 
 @dataclass(frozen=True)
@@ -40,6 +40,8 @@ class Trajectory:
             amplitudes, harmonics, offsets = (r, r, 0), (1, 1, 1), (np.pi/2, 0, 0)
         elif self.name == 'figure8':
             amplitudes, harmonics, offsets = (r, r/2, 0), (1, 2, 1), (0, 0, 0)
+        elif self.name == 'ellipse':
+            amplitudes, harmonics, offsets = (1.2*r, .7*r, 0), (1, 1, 1), (np.pi/2, 0, 0)
         elif self.name == 'line':
             amplitudes, harmonics, offsets = (r, 0, 0), (1, 1, 1), (0, 0, 0)
         elif self.name == 'helix':

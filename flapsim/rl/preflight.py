@@ -16,7 +16,7 @@ class VoltageDrive(DCMotor):
         return self.torque_from_voltage(velocity, target, xp)
 
 
-def scan(config, speeds, *, settle=.2, duration=.6, mode='speed'):
+def scan(config, speeds, *, settle=.2, duration=.6, mode='speed', native=False):
     results = []
     if settle < 0 or duration <= 0 or not math.isfinite(settle+duration):
         raise ValueError('settle must be nonnegative and duration positive')
@@ -30,6 +30,9 @@ def scan(config, speeds, *, settle=.2, duration=.6, mode='speed'):
             raise ValueError('scan commands must lie within the configured motor limits')
         actuator = VoltageDrive(config.actuator) if mode == 'voltage' else DCMotor(config.actuator)
         sim = Simulator(replace(config, scene=replace(config.scene, fixed_base=True)), actuator=actuator)
+        if native:
+            from .native import accelerate
+            accelerate(sim, voltage_mode=mode == 'voltage')
         sim.set_command([speed])
         sim.step(math.ceil(settle / sim.model.opt.timestep))
         block = max(1, round(.0005 / sim.model.opt.timestep))
@@ -76,10 +79,11 @@ def main():
     parser.add_argument('--settle', type=float, default=.2)
     parser.add_argument('--duration', type=float, default=.6)
     parser.add_argument('--output', type=Path, default=Path('runs/preflight.json'))
+    parser.add_argument('--native', action='store_true', help='equivalent compiled CPU loop; requires g++')
     args = parser.parse_args()
     commands = args.voltages or args.speeds or [3000., 4000., 5000.]
     rows = scan(load_config(args.config), commands, settle=args.settle, duration=args.duration,
-                mode='voltage' if args.voltages else 'speed')
+                mode='voltage' if args.voltages else 'speed', native=args.native)
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(rows, indent=2)+'\n')
 

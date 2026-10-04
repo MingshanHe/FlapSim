@@ -3,7 +3,9 @@
 Gymnasium 环境通过 stable-baselines3 PPO 控制完整 MuJoCo 机构。
 默认自由基座、整机 15 g、正常重力；气动力由翼片实际运动产生。
 电机与气动参考见 [推力核对](../robot/IST_robot-V2/motor_reference.md)。
-这是一套可训练、可复现和评估的流程；当前尚未提供收敛的飞行控制策略。
+配套的已训练策略保存在 `artifacts/ppo_v2/`，独立评估和复现记录见
+[实验报告](../../experiments/ppo_v2/README.md)。
+已验证的交付范围为悬停、圆、八字、椭圆和往返直线；快速三维轨迹仍属于实验范围。
 
 ## 安装与检查
 
@@ -25,6 +27,7 @@ python -m flapsim.rl.preflight --speeds 4000 5000 --output runs/thrust_speed.jso
 | `hover` | 定点悬停 |
 | `circle` | 水平圆 |
 | `figure8` | 水平八字，x/y 基频比 1:2 |
+| `ellipse` | 水平椭圆，半轴为 1.2r 和 0.7r |
 | `line` | 平滑往返直线 |
 | `helix` | 两圈水平环绕与正弦升降组成的闭合空间曲线 |
 | `lissajous` | 三轴频率比 1:2:3 的空间曲线 |
@@ -49,10 +52,60 @@ python -m flapsim.rl.preflight --speeds 4000 5000 --output runs/thrust_speed.jso
 
 ## 训练与续训
 
+### 本机加速与悬停课程
+
+Linux / WSL 上可以用 `--native --split-step` 编译 C++ 物理循环（需要 `g++`）。
+仍使用原来的 DC 电机、叶素力、云台伺服、MuJoCo 完整机构和 5 μs 时间步。
+`--native` 保持原 `mj_step → mj_forward` 顺序；`--split-step` 使用
+`mj_step1/mj_step2` 避免重复计算位置/速度动力学，动作结束后完成 forward。
+不支持 RK4。编译缓存位于 `~/.cache/flapsim`，不写入安装包。
+
+建议先训练悬停，并以独立评估决定是否进入轨迹阶段：
+
+```bash
+python -m flapsim.rl.train --native --split-step --features centroidal --trajectories hover \
+  --trim-speed 3400 --gamma .995 --total-timesteps 600000 \
+  --n-envs 16 --n-steps 256 --batch-size 256 --output runs/hover
+python -m flapsim.rl.evaluate --run runs/hover --trajectories hover \
+  --episodes 10 --randomize --best --plot
+
+# 继承已训练的观测归一化、物理参数和策略，改变轨迹课程。
+python -m flapsim.rl.train --warm-start runs/hover --from-best --trajectories hover circle figure8 \
+  --radius .10 --learning-rate 1e-4 --total-timesteps 131072 --n-envs 16 --output runs/tracking_small
+python -m flapsim.rl.train --warm-start runs/tracking_small \
+  --from-best --trajectories hover circle figure8 ellipse line helix lissajous --radius .20 \
+  --learning-rate 1e-4 --total-timesteps 262144 --n-envs 16 --output runs/tracking
+```
+
+3400 rad/s 是本次扫描的接近悬停的输入轴**命令**，对应实际约 2633 rad/s、26.2 Hz；
+不能用它直接换算实际频率。默认策略初始 `log_std=-2`，沿用 master 的小幅探索思路。
+上面是新训练的课程模板，不是已发布权重的逐步重演；实际阶段、检查点和步数见实验报告。
+新建训练默认 `gamma=.995`；续训默认保留已有值，也可显式传入 `--gamma`。
+`--warm-start` 只改变任务轨迹，保留原物理和控制定义；旧 master 策略的观测、动作含义
+不同，不能通过此参数直接载入。
+
+`--from-best` 可与 `--resume` 或 `--warm-start` 一起使用，继承已经评估过的最佳检查点。
+续训可显式用 `--learning-rate 1e-4` 降低学习率。
+可选 `--features centroidal` 追加整机角动量对应的刚体角速度，以及扑翼机构轴在支座
+坐标中的方向。它们由原机构状态计算，不改变动力学。从普通观测升级时，保留已有
+归一化统计和网络权重，新增输入权重置零，因此迁移前后的策略输出一致；Adam 状态
+重新初始化，迁移方式写入 `run.json`。已经采用此观测的续训默认继续沿用。
+
+每隔 `--eval-steps` 步在固定的独立种子序列上评估，`best/` 同时保存最佳策略与当时的
+`vecnormalize.pkl`。`--best` 选择这一对文件；默认评估最终策略。
+`--randomize` 用独立种子测试初始扰动和轨迹尺寸；`--zero-policy` 提供零动作对照。
+`--reference-physics` 用原来的非分段物理顺序复核 split-step 策略。
+`--seconds` 改变评估时长；`--period` 单独改变参考周期，并在结果中记录，不能将不同
+周期的成绩当作同一任务合并。
+可选 `--video` 生成 MP4，需要 imageio/imageio-ffmpeg；无桌面时可设置 `MUJOCO_GL=egl`。
+
+加速回归与环境时限/种子/质量/重力检查：`python -m pytest -q tests`。
+诊断和学习曲线工具见 `experiments/ppo_v2/`。
+
 训练示例：
 
 ```bash
-python -m flapsim.rl.train --trajectories hover circle figure8 line helix lissajous \
+python -m flapsim.rl.train --trajectories hover circle figure8 ellipse line helix lissajous \
   --total-timesteps 1000000 --n-envs 4 --output runs/ist_v2_ppo
 ```
 
@@ -72,7 +125,9 @@ python -m flapsim.rl.train --resume runs/ist_v2_ppo \
 ```
 
 续训的步数是追加量，沿用旧任务、物理和归一化统计。
-更换物理代码、观测动作定义或机器人 XML 后需要新训，避免默默换掉策略所处环境。
+更换物理代码、观测动作定义或机器人 XML 后需要显式迁移或新训，避免默默换掉策略所处环境。
+唯一登记的兼容源码扩展是增加椭圆参考；它锁定扩展前后两个完整哈希，并以固定样本
+验证原有六条轨迹未变。追加 centroidal 观测则通过单独的行为保持迁移实现。
 示例中的 `--gravity-scale` 默认 1；若显式修改，会记录到产物中，不能与正常重力成绩混用。
 
 ## 独立评估
@@ -83,18 +138,27 @@ python -m flapsim.rl.evaluate --run runs/ist_v2_ppo --trajectories circle figure
   --episodes 1 --render --output runs/ist_v2_view
 ```
 
-评估冻结归一化统计，用固定轨迹尺寸和独立种子、不同初始相位运行。
+评估冻结归一化统计，默认使用固定轨迹尺寸、独立种子和等间隔初始相位。
+`--randomize` 同时随机化初始状态、尺寸、周期和起始相位，并在结果中记录实际参考参数。
 记录各轨迹 CSV（实际/目标位置、误差、控制命令）和 `summary.json`，包含 RMSE、
 最大误差、轨迹完成率、成功率和终止原因。`--plot` 保存平面轨迹与高度图，
 `--render` 使用 MuJoCo 查看器，需要可用的图形显示环境。
 学习曲线上的 reward 不能代替轨迹完成率和位置误差。
 
-## 当前训练状态
+## 导出与批量复核
 
-截至 2026-10-04，训练、保存、续训和独立评估流程已运行验证。初始 2048 步策略
-尚不能稳定飞行，六条轨迹均因倾斜超限提前结束，成功率为 0。
-后续应先取得稳定姿态和悬停，再以完整轨迹评估跟踪能力。
-`runs/` 中的本地日志、图表和策略文件不纳入源码仓库。
+```bash
+python -m flapsim.rl.export_policy --run runs/tracking --best --output artifacts/my_tracking
+python -m experiments.ppo_v2.evaluate_seeds --run artifacts/my_tracking \
+  --trajectories hover circle figure8 ellipse line helix lissajous \
+  --seeds 1000 1001 1002 1003 1004 --workers 4 --output runs/validation
+python -m flapsim.rl.evaluate --run artifacts/my_tracking --trajectories circle figure8 ellipse \
+  --episodes 3 --randomize --seconds 16 --reference-physics --plot --output runs/long_check
+```
+
+导出包含策略、配套归一化、仿真配置、训练元数据和文件哈希；加载时验证导出文件未变。
+批量复核应使用训练结束后冻结的目录，不能直接读取仍在更新的 `best/`。
+`runs/` 中的中途日志不纳入源码仓库，最终策略和关键评估证据单独保留。
 
 接口参考：[SB3 自定义环境](https://stable-baselines3.readthedocs.io/en/master/guide/custom_env.html)、
 [向量环境与归一化](https://stable-baselines3.readthedocs.io/en/master/guide/vec_envs.html)。

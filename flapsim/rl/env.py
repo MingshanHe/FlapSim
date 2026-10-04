@@ -32,6 +32,7 @@ class TrackingConfig:
     min_altitude: float = .1
     max_position_error: float = 1.
     max_tilt: float = 1.4
+    native_physics: bool = False
 
     def __post_init__(self):
         if not self.trajectories or any(n not in NAMES for n in self.trajectories):
@@ -84,6 +85,9 @@ class TrajectoryTrackingEnv(gym.Env):
         scene = replace(source.scene, fixed_base=False, orientation=(1., 0., 0., 0.),
                         gravity=tuple(config.gravity_scale * g for g in source.scene.gravity))
         self.sim = Simulator(replace(source, scene=scene))
+        if config.native_physics:
+            from .native import accelerate
+            accelerate(self.sim)
         self.body = self.sim.model.body(source.root_body).id
         self.root = int(self.sim.model.body_rootid[self.body])
         free = self.sim.model.joint('floating_base')
@@ -100,6 +104,8 @@ class TrajectoryTrackingEnv(gym.Env):
         self._initial_qvel = np.zeros(self.sim.model.nv)
         if config.warmup_seconds:
             fixed = Simulator(replace(source, scene=replace(scene, fixed_base=True)))
+            if config.native_physics:
+                accelerate(fixed)
             fixed.set_speed(config.initial_speed)
             fixed.step(math.ceil(config.warmup_seconds / scene.timestep))
             if not np.isfinite(fixed.data.qpos).all() or any(w.number for w in fixed.data.warning):

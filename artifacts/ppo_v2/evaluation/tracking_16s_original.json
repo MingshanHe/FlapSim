@@ -1,0 +1,372 @@
+{
+  "run": "/home/robot/rl/FlapSim-ppo-v2/runs/tracking_candidate",
+  "seeds": [
+    2000,
+    2001,
+    2002
+  ],
+  "reference_physics": true,
+  "policy_sha256": "b2f891b76dd2dcc4d93816cb69348ecda68f254bcebb112b772bb30ef768a043",
+  "normalizer_sha256": "059a37f5db534d0b93383288049a9b9b9cf4838c16d8f7e3d0056ea37f82f691",
+  "episode_seconds": 16.0,
+  "physics_engine": "original",
+  "trajectories": {
+    "hover": {
+      "success_rate": 1,
+      "completion_rate": 1,
+      "mean_seconds": 16.0,
+      "mean_rmse_m": 0.02284186029883214,
+      "worst_rmse_m": 0.023188823122622357,
+      "episodes": [
+        {
+          "seed": 2000,
+          "episode": 0,
+          "rmse_m": 0.022972430793674222,
+          "max_error_m": 0.0305969320777547,
+          "seconds": 16.0,
+          "completion_fraction": 1.0,
+          "success": true,
+          "termination_reason": "time_limit",
+          "reference_radius_m": 0.16216301631513985,
+          "reference_period_s": 8.020983131579996,
+          "reference_phase_rad": 4.124437460380168,
+          "reward": 5544.313465835479
+        },
+        {
+          "seed": 2001,
+          "episode": 0,
+          "rmse_m": 0.022364326980199845,
+          "max_error_m": 0.029558953537373832,
+          "seconds": 16.0,
+          "completion_fraction": 1.0,
+          "success": true,
+          "termination_reason": "time_limit",
+          "reference_radius_m": 0.19800802041739315,
+          "reference_period_s": 9.47887504176964,
+          "reference_phase_rad": 1.280038874831276,
+          "reward": 5546.125109790588
+        },
+        {
+          "seed": 2002,
+          "episode": 0,
+          "rmse_m": 0.023188823122622357,
+          "max_error_m": 0.031151309312279836,
+          "seconds": 16.0,
+          "completion_fraction": 1.0,
+          "success": true,
+          "termination_reason": "time_limit",
+          "reference_radius_m": 0.21264900890969055,
+          "reference_period_s": 6.88402078622482,
+          "reference_phase_rad": 6.036326669262578,
+          "reward": 5543.522684093953
+        }
+      ]
+    },
+    "circle": {
+      "success_rate": 1,
+      "completion_rate": 1,
+      "mean_seconds": 16.0,
+      "mean_rmse_m": 0.06514253173031838,
+      "worst_rmse_m": 0.08221408996154093,
+      "episodes": [
+        {
+          "seed": 2000,
+          "episode": 0,
+          "rmse_m": 0.05220249637450526,
+          "max_error_m": 0.0828613876920321,
+          "seconds": 16.0,
+          "completion_fraction": 1.0,
+          "success": true,
+          "termination_reason": "time_limit",
+          "reference_radius_m": 0.16216301631513985,
+          "reference_period_s": 8.020983131579996,
+          "reference_phase_rad": 4.124437460380168,
+          "reward": 5375.579478110288
+        },
+        {
+          "seed": 2001,
+          "episode": 0,
+          "rmse_m": 0.061011008854908934,
+          "max_error_m": 0.09319713327385837,
+          "seconds": 16.0,
+          "completion_fraction": 1.0,
+          "success": true,
+          "termination_reason": "time_limit",
+          "reference_radius_m": 0.19800802041739315,
+          "reference_period_s": 9.47887504176964,
+          "reference_phase_rad": 1.280038874831276,
+          "reward": 5303.922389802205
+        },
+        {
+          "seed": 2002,
+          "episode": 0,
+          "rmse_m": 0.08221408996154093,
+          "max_error_m": 0.13899703755963938,
+          "seconds": 16.0,
+          "completion_fraction": 1.0,
+          "success": true,
+          "termination_reason": "time_limit",
+          "reference_radius_m": 0.21264900890969055,
+          "reference_period_s": 6.88402078622482,
+          "reference_phase_rad": 6.036326669262578,
+          "reward": 5091.15333622752
+        }
+      ]
+    },
+    "figure8": {
+      "success_rate": 1,
+      "completion_rate": 1,
+      "mean_seconds": 16.0,
+      "mean_rmse_m": 0.05194401036242612,
+      "worst_rmse_m": 0.05914013056459744,
+      "episodes": [
+        {
+          "seed": 2000,
+          "episode": 0,
+          "rmse_m": 0.04641967892144155,
+          "max_error_m": 0.06747521810864895,
+          "seconds": 16.0,
+          "completion_fraction": 1.0,
+          "success": true,
+          "termination_reason": "time_limit",
+          "reference_radius_m": 0.16216301631513985,
+          "reference_period_s": 8.020983131579996,
+          "reference_phase_rad": 4.124437460380168,
+          "reward": 5411.362928897715
+        },
+        {
+          "seed": 2001,
+          "episode": 0,
+          "rmse_m": 0.050272221601239384,
+          "max_error_m": 0.07293798339542529,
+          "seconds": 16.0,
+          "completion_fraction": 1.0,
+          "success": true,
+          "termination_reason": "time_limit",
+          "reference_radius_m": 0.19800802041739315,
+          "reference_period_s": 9.47887504176964,
+          "reference_phase_rad": 1.280038874831276,
+          "reward": 5383.166341247113
+        },
+        {
+          "seed": 2002,
+          "episode": 0,
+          "rmse_m": 0.05914013056459744,
+          "max_error_m": 0.0856278158532789,
+          "seconds": 16.0,
+          "completion_fraction": 1.0,
+          "success": true,
+          "termination_reason": "time_limit",
+          "reference_radius_m": 0.21264900890969055,
+          "reference_period_s": 6.88402078622482,
+          "reference_phase_rad": 6.036326669262578,
+          "reward": 5295.020476264273
+        }
+      ]
+    },
+    "ellipse": {
+      "success_rate": 1,
+      "completion_rate": 1,
+      "mean_seconds": 16.0,
+      "mean_rmse_m": 0.047650009750294896,
+      "worst_rmse_m": 0.057833277177074115,
+      "episodes": [
+        {
+          "seed": 2000,
+          "episode": 0,
+          "rmse_m": 0.04063388514177224,
+          "max_error_m": 0.05585367695303197,
+          "seconds": 16.0,
+          "completion_fraction": 1.0,
+          "success": true,
+          "termination_reason": "time_limit",
+          "reference_radius_m": 0.16216301631513985,
+          "reference_period_s": 8.020983131579996,
+          "reference_phase_rad": 4.124437460380168,
+          "reward": 5456.511951270052
+        },
+        {
+          "seed": 2001,
+          "episode": 0,
+          "rmse_m": 0.04448286693203833,
+          "max_error_m": 0.06301985334064886,
+          "seconds": 16.0,
+          "completion_fraction": 1.0,
+          "success": true,
+          "termination_reason": "time_limit",
+          "reference_radius_m": 0.19800802041739315,
+          "reference_period_s": 9.47887504176964,
+          "reference_phase_rad": 1.280038874831276,
+          "reward": 5430.644401534496
+        },
+        {
+          "seed": 2002,
+          "episode": 0,
+          "rmse_m": 0.057833277177074115,
+          "max_error_m": 0.08675611628718952,
+          "seconds": 16.0,
+          "completion_fraction": 1.0,
+          "success": true,
+          "termination_reason": "time_limit",
+          "reference_radius_m": 0.21264900890969055,
+          "reference_period_s": 6.88402078622482,
+          "reference_phase_rad": 6.036326669262578,
+          "reward": 5327.25580781395
+        }
+      ]
+    },
+    "line": {
+      "success_rate": 1,
+      "completion_rate": 1,
+      "mean_seconds": 16.0,
+      "mean_rmse_m": 0.027744537489411546,
+      "worst_rmse_m": 0.030714603875594146,
+      "episodes": [
+        {
+          "seed": 2000,
+          "episode": 0,
+          "rmse_m": 0.026106401852035128,
+          "max_error_m": 0.037387907708188006,
+          "seconds": 16.0,
+          "completion_fraction": 1.0,
+          "success": true,
+          "termination_reason": "time_limit",
+          "reference_radius_m": 0.16216301631513985,
+          "reference_period_s": 8.020983131579996,
+          "reference_phase_rad": 4.124437460380168,
+          "reward": 5532.530705621743
+        },
+        {
+          "seed": 2001,
+          "episode": 0,
+          "rmse_m": 0.026412606740605367,
+          "max_error_m": 0.037067838710475934,
+          "seconds": 16.0,
+          "completion_fraction": 1.0,
+          "success": true,
+          "termination_reason": "time_limit",
+          "reference_radius_m": 0.19800802041739315,
+          "reference_period_s": 9.47887504176964,
+          "reference_phase_rad": 1.280038874831276,
+          "reward": 5531.068791300335
+        },
+        {
+          "seed": 2002,
+          "episode": 0,
+          "rmse_m": 0.030714603875594146,
+          "max_error_m": 0.04626921243293867,
+          "seconds": 16.0,
+          "completion_fraction": 1.0,
+          "success": true,
+          "termination_reason": "time_limit",
+          "reference_radius_m": 0.21264900890969055,
+          "reference_period_s": 6.88402078622482,
+          "reference_phase_rad": 6.036326669262578,
+          "reward": 5511.0749066058215
+        }
+      ]
+    },
+    "helix": {
+      "success_rate": 0.6666666666666666,
+      "completion_rate": 0.6666666666666666,
+      "mean_seconds": 10.93,
+      "mean_rmse_m": 0.10900430836820814,
+      "worst_rmse_m": 0.13768377925980055,
+      "episodes": [
+        {
+          "seed": 2000,
+          "episode": 0,
+          "rmse_m": 0.09102359082052697,
+          "max_error_m": 0.15078373267293518,
+          "seconds": 16.0,
+          "completion_fraction": 1.0,
+          "success": true,
+          "termination_reason": "time_limit",
+          "reference_radius_m": 0.16216301631513985,
+          "reference_period_s": 8.020983131579996,
+          "reference_phase_rad": 4.124437460380168,
+          "reward": 4976.742753714482
+        },
+        {
+          "seed": 2001,
+          "episode": 0,
+          "rmse_m": 0.0983055550242969,
+          "max_error_m": 0.15507743332650242,
+          "seconds": 16.0,
+          "completion_fraction": 1.0,
+          "success": true,
+          "termination_reason": "time_limit",
+          "reference_radius_m": 0.19800802041739315,
+          "reference_period_s": 9.47887504176964,
+          "reference_phase_rad": 1.280038874831276,
+          "reward": 4889.822052305591
+        },
+        {
+          "seed": 2002,
+          "episode": 0,
+          "rmse_m": 0.13768377925980055,
+          "max_error_m": 0.38862562694777025,
+          "seconds": 0.79,
+          "completion_fraction": 0.049375,
+          "success": false,
+          "termination_reason": "tilt",
+          "reference_radius_m": 0.21264900890969055,
+          "reference_period_s": 6.88402078622482,
+          "reference_phase_rad": 6.036326669262578,
+          "reward": 184.3741350587716
+        }
+      ]
+    },
+    "lissajous": {
+      "success_rate": 0.3333333333333333,
+      "completion_rate": 0.6666666666666666,
+      "mean_seconds": 10.94,
+      "mean_rmse_m": 0.10738354529326938,
+      "worst_rmse_m": 0.12692761606888767,
+      "episodes": [
+        {
+          "seed": 2000,
+          "episode": 0,
+          "rmse_m": 0.0934625688084385,
+          "max_error_m": 0.15801310794299622,
+          "seconds": 16.0,
+          "completion_fraction": 1.0,
+          "success": true,
+          "termination_reason": "time_limit",
+          "reference_radius_m": 0.16216301631513985,
+          "reference_period_s": 8.020983131579996,
+          "reference_phase_rad": 4.124437460380168,
+          "reward": 4926.12969965755
+        },
+        {
+          "seed": 2001,
+          "episode": 0,
+          "rmse_m": 0.10176045100248197,
+          "max_error_m": 0.1959412876622097,
+          "seconds": 16.0,
+          "completion_fraction": 1.0,
+          "success": false,
+          "termination_reason": "time_limit",
+          "reference_radius_m": 0.19800802041739315,
+          "reference_period_s": 9.47887504176964,
+          "reference_phase_rad": 1.280038874831276,
+          "reward": 4844.655997096418
+        },
+        {
+          "seed": 2002,
+          "episode": 0,
+          "rmse_m": 0.12692761606888767,
+          "max_error_m": 0.32117092686666643,
+          "seconds": 0.8200000000000001,
+          "completion_fraction": 0.051250000000000004,
+          "success": false,
+          "termination_reason": "tilt",
+          "reference_radius_m": 0.21264900890969055,
+          "reference_period_s": 6.88402078622482,
+          "reference_phase_rad": 6.036326669262578,
+          "reward": 193.72847935102016
+        }
+      ]
+    }
+  }
+}
