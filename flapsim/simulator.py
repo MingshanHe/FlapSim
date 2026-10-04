@@ -21,11 +21,14 @@ class Simulator:
         self.controller.bind(self.model, self.actuator, self.config.root_body)
         self.fluid.bind(self.model)
         self._command = self.controller.command()
+        self._gimbal_command = np.array(self.config.gimbal.angles if self.config.gimbal else [],
+                                        dtype=float)
         self.external_joint_forces = np.zeros(self.model.nv)
         self.external_body_forces = np.zeros((self.model.nbody, 6))
         args = (self.model, self.actuator, self.controller, self.fluid)
-        self.backend = (CPUBackend(*args) if self.config.backend == 'cpu' else
-                        MJXBackend(*args, device=self.config.device))
+        self.backend = (CPUBackend(*args, controls=self._gimbal_command)
+                        if self.config.backend == 'cpu' else
+                        MJXBackend(*args, device=self.config.device, controls=self._gimbal_command))
 
     @property
     def data(self):
@@ -45,12 +48,24 @@ class Simulator:
             raise ValueError('set_speed requires a SpeedController; use set_command for pose targets')
         self.set_command(angular_velocity)
 
+    def set_gimbal(self, *, pitch, roll):
+        """Set mount-relative gimbal angles [rad]; shaft speed stays independent."""
+        if self.config.gimbal is None:
+            raise ValueError('set_gimbal requires GimbalConfig')
+        target = np.asarray([pitch, roll], dtype=float)
+        limits = self.model.actuator_ctrlrange
+        if (target.shape != (2,) or not np.isfinite(target).all()
+                or np.any(target < limits[:, 0]) or np.any(target > limits[:, 1])):
+            raise ValueError(f'gimbal angles must be finite and within {limits.tolist()} rad')
+        self._gimbal_command = target.copy()
+
     def step(self, steps=1):
         if not isinstance(steps, int) or isinstance(steps, bool) or steps < 0:
             raise ValueError('steps must be a non-negative integer')
         if steps:
             self.backend.advance(steps, self._command,
-                                 self.external_joint_forces, self.external_body_forces)
+                                 self.external_joint_forces, self.external_body_forces,
+                                 self._gimbal_command)
         return self.data
 
     def reset(self, *, qpos=None, qvel=None):
@@ -58,6 +73,7 @@ class Simulator:
             if value is not None and (np.shape(value) != (size,) or not np.isfinite(value).all()):
                 raise ValueError(f'{name} must contain {size} finite values')
         self._command = self.controller.command()
+        self._gimbal_command = np.array(self.backend.initial_controls, copy=True)
         self.external_joint_forces[:] = 0
         self.external_body_forces[:] = 0
         self.backend.reset(qpos, qvel)

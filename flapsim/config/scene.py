@@ -27,7 +27,7 @@ def configure_scene(spec, config, root_name):
 
 
 def build_model(config, fluid):
-    """Preserve CAD inertia and source constraints; remove source servos only."""
+    """Preserve source physics; replace source actuators with configured drives."""
     if (config.backend == 'mjx' and config.fluid.kind == 'mujoco'
             and config.fluid.builtin_model == 'ellipsoid'):
         raise ValueError('MJX-JAX ellipsoid fluid is unsupported; use builtin_model="inertia", '
@@ -39,6 +39,24 @@ def build_model(config, fluid):
     for key in list(spec.keys):
         spec.delete(key)
     configure_scene(spec, config.scene, config.root_body)
+    if config.gimbal is not None:
+        gimbal = config.gimbal
+        for name, angle in zip(gimbal.joints, gimbal.angles):
+            joint = spec.joint(name)
+            if joint is None or joint.type != mujoco.mjtJoint.mjJNT_HINGE:
+                raise ValueError(f'gimbal requires a hinge joint: {name!r}')
+            lower, upper = joint.range
+            if joint.limited == 0 or not lower < upper:
+                raise ValueError(f'gimbal requires joint limits: {name!r}')
+            if not lower <= angle <= upper:
+                raise ValueError(f'gimbal angle for {name!r} must be in [{lower}, {upper}]')
+            servo = spec.add_actuator(name=f'{name}_servo', target=name,
+                                      trntype=mujoco.mjtTrn.mjTRN_JOINT)
+            servo.set_to_position(kp=gimbal.kp, kv=gimbal.kd)
+            servo.ctrllimited = True
+            servo.ctrlrange = [lower, upper]
+            servo.forcelimited = True
+            servo.forcerange = [-gimbal.max_torque, gimbal.max_torque]
     integrator = config.scene.integrator
     if integrator == 'auto':
         integrator = 'euler' if config.backend == 'mjx' and config.fluid.kind == 'mujoco' else 'implicitfast'

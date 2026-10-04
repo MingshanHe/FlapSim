@@ -17,6 +17,8 @@ def main():
     parser.add_argument('--controller', choices=['speed', 'hover', 'move'])
     parser.add_argument('--speed', nargs='+', type=float, help='shaft angular velocities [rad/s]')
     parser.add_argument('--fix', choices=['true', 'false'])
+    parser.add_argument('--gimbal', nargs=2, type=float, metavar=('PITCH', 'ROLL'),
+                        help='gimbal target angles [rad], requires a gimbal preset')
     parser.add_argument('--headless', action='store_true')
     parser.add_argument('--duration', type=float)
     args = parser.parse_args()
@@ -24,6 +26,10 @@ def main():
         parser.error('--headless requires --duration')
     path = args.config or Path(__file__).parent / 'config' / 'robots' / f'{args.robot}.json'
     config = load_config(path)
+    if args.gimbal is not None:
+        if config.gimbal is None:
+            parser.error('--gimbal requires a preset with gimbal servos (e.g. IST_robot-V2)')
+        config = replace(config, gimbal=replace(config.gimbal, angles=tuple(args.gimbal)))
     backend = args.backend or config.backend
     device = args.device or config.device
     if args.device == 'gpu' and args.backend is None:

@@ -10,6 +10,11 @@
 使用矩形翼时，将 `SimulationConfig.model_path` 指向 `urdf/IST_robot_rectangular.xml`，
 并根据翼面几何设置 `FluidConfig.wings`；默认叶素参数不会自动从 STL 提取。
 
+内置 IST / V2 JSON 预设现在使用曲面翼的展向轮廓（`WingConfig.planform`）。
+`python flapsim/robot/IST_robot/build_aerodynamics.py` 从两侧 STL 提取并更新三个
+IST 预设和 `curved_wing_aerodynamics.json`；单侧投影面积含框架约 1879.43 mm²。
+更换为矩形网格时仍需显式替换气动参数，不要沿用曲面轮廓。
+
 ---
 
 2026-09-22 根据实际材料修正 URDF 和 MuJoCo XML 中 14 个运动 link 的质量、质心及完整惯性张量。`base_link`、虚拟 `yoke_follower`、关节、传动比、限位、阻尼、执行器、气动参数和可视网格保持不变。

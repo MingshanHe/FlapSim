@@ -45,6 +45,7 @@ class ActuatorConfig:
     back_emf: float = 0.001
     max_voltage: float = 5.0
     max_current: float = 2.0
+    no_load_current: float = 0.0  # DC motor loss torque = Kt * I0 * tanh(omega / 1 rad/s)
     dea_coefficient: float = 1e-8
     stiffness: float = 0.0
     damping: float = 0.0
@@ -57,8 +58,29 @@ class ActuatorConfig:
         for name in ('max_velocity', 'max_torque', 'speed_gain', 'resistance',
                      'torque_constant', 'max_voltage', 'max_current', 'dea_coefficient'):
             positive(name, getattr(self, name))
-        for name in ('back_emf', 'stiffness', 'damping'):
+        for name in ('back_emf', 'stiffness', 'damping', 'no_load_current'):
             positive(name, getattr(self, name), zero=True)
+        if self.no_load_current >= self.max_current:
+            raise ValueError('no_load_current must be below max_current')
+
+
+@dataclass(frozen=True)
+class GimbalConfig:
+    """Two position servos; angles are (pitch, roll) in radians."""
+    joints: tuple = ('pitch_joint', 'roll_joint')
+    angles: tuple = (0.0, 0.0)
+    kp: float = 0.5
+    kd: float = 0.005
+    max_torque: float = 0.02
+
+    def __post_init__(self):
+        if len(self.joints) != 2 or len(set(self.joints)) != 2:
+            raise ValueError('gimbal requires two distinct joints, ordered pitch then roll')
+        if len(self.angles) != 2 or not all(math.isfinite(v) for v in self.angles):
+            raise ValueError('gimbal angles must contain finite pitch and roll values')
+        positive('gimbal kp', self.kp)
+        positive('gimbal kd', self.kd, zero=True)
+        positive('gimbal max_torque', self.max_torque)
 
 
 @dataclass(frozen=True)
@@ -71,6 +93,9 @@ class WingConfig:
     span_axis: tuple = (0.0, 1.0, 0.0)
     chord_axis: tuple = (0.0, 0.0, 1.0)
     chord_offset: float = 0.015375
+    # Optional (span fraction, leading edge, trailing edge), in local chord-axis metres.
+    # Empty retains the uniform rectangular approximation.
+    planform: tuple = ()
 
     def __post_init__(self):
         import numpy as np
@@ -83,6 +108,15 @@ class WingConfig:
             raise ValueError('wing origin must contain three finite values')
         if not math.isfinite(self.chord_offset):
             raise ValueError('chord_offset must be finite')
+        if self.planform:
+            profile = np.asarray(self.planform, dtype=float)
+            if (profile.ndim != 2 or profile.shape[1] != 3 or len(profile) < 2
+                    or not np.isfinite(profile).all() or profile[0, 0] != 0.
+                    or profile[-1, 0] != 1. or np.any(np.diff(profile[:, 0]) <= 0)
+                    or np.any(profile[:, 2] < profile[:, 1])):
+                raise ValueError('planform requires increasing fractions 0..1 and trailing >= leading')
+            if not np.any(profile[:, 2] > profile[:, 1]):
+                raise ValueError('planform must have positive area')
 
 
 @dataclass(frozen=True)
@@ -151,6 +185,7 @@ class SimulationConfig:
     actuator: ActuatorConfig = field(default_factory=ActuatorConfig)
     controller: ControllerConfig = field(default_factory=ControllerConfig)
     fluid: FluidConfig = field(default_factory=FluidConfig)
+    gimbal: GimbalConfig | None = None
 
     def __post_init__(self):
         if self.backend not in ('cpu', 'mjx') or self.device not in ('cpu', 'gpu'):
@@ -159,13 +194,16 @@ class SimulationConfig:
             raise ValueError('GPU requires backend="mjx"')
         if len(self.controller.speed) != len(self.actuator.joints):
             raise ValueError('one speed command is required per actuator joint')
+        if self.gimbal and set(self.gimbal.joints) & set(self.actuator.joints):
+            raise ValueError('gimbal and shaft actuators must use different joints')
 
     @property
     def path(self):
         if self.model_path is not None:
             return Path(self.model_path).expanduser().resolve()
-        suffix = 'xml' if self.robot == 'IST_robot' else 'urdf'
-        path = Path(__file__).parents[1] / 'robot' / self.robot / 'urdf' / f'{self.robot}.{suffix}'
-        if not path.is_file():
-            raise ValueError(f'unknown robot {self.robot!r}; provide model_path')
-        return path
+        directory = Path(__file__).parents[1] / 'robot' / self.robot / 'urdf'
+        for suffix in ('xml', 'urdf'):
+            path = directory / f'{self.robot}.{suffix}'
+            if path.is_file():
+                return path
+        raise ValueError(f'unknown robot {self.robot!r}; provide model_path')

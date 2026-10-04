@@ -3,7 +3,7 @@ import json
 from pathlib import Path
 from dataclasses import asdict
 from .settings import (SimulationConfig, SceneConfig, ActuatorConfig,
-                       ControllerConfig, FluidConfig, WingConfig)
+                       ControllerConfig, FluidConfig, WingConfig, GimbalConfig)
 
 
 def load_config(path: str | Path) -> SimulationConfig:
@@ -17,6 +17,8 @@ def load_config(path: str | Path) -> SimulationConfig:
         if key == 'fluid' and 'wings' in section:
             section['wings'] = tuple(WingConfig(**w) for w in section['wings'])
         values[key] = cls(**section)
+    if values.get('gimbal') is not None:
+        values['gimbal'] = GimbalConfig(**values['gimbal'])
     if values.get('model_path') is not None:
         values['model_path'] = (path.parent / values['model_path']).resolve()
     return SimulationConfig(**values)

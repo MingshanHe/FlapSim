@@ -1,0 +1,172 @@
+"""Wrap the original IST mechanism in a two-axis mount, sharing its meshes.
+
+The fixed base and U-shaped connector come from SingleThrustFlapper.
+Regenerate after updating either source; the source models and material data
+are never modified. The IST-to-connector interface is an assembly assumption.
+"""
+from copy import deepcopy
+from pathlib import Path
+import math
+import shutil
+import xml.etree.ElementTree as ET
+import numpy as np
+
+
+ROOT = Path(__file__).resolve().parent
+SOURCE = ROOT.parent / 'IST_robot' / 'urdf'
+BASE_SOURCE = ROOT.parent / 'SingleThrustFlapper'
+TARGET_TOTAL_MASS = .015  # User-specified all-up mass; source mechanisms stay unchanged.
+# Reorient the donor mount so pitch is +Y and roll is +X in the V2 frame.
+# The connector's roll pivot is 3.25 mm above its pitch pivot. Keep the IST
+# mechanism's zero pose unchanged, with the roll pivot at the V2 origin.
+PITCH_OFFSET = (0.0, 0.0, -0.00325)
+ROLL_OFFSET = (0.0, -0.00325, 0.0)
+BASE_ROTATION = np.array([[0., -1., 0.], [1., 0., 0.], [0., 0., 1.]])
+BASE_OFFSET = (0.0001, 0.0, -0.0415)
+LIMIT = '0.3'  # +/-17.19 degrees, following SingleThrustFlapper's gimbal
+
+
+def numbers(values):
+    return ' '.join(f'{v:.12g}' for v in values)
+
+
+def load_mount_links():
+    """Copy donor meshes and link inertials, keeping the connector's CAD frame."""
+    donor = ET.parse(BASE_SOURCE / 'urdf' / f'{BASE_SOURCE.name}.urdf')
+    links = []
+    (ROOT / 'meshes').mkdir(exist_ok=True)
+    for source_name, name, filename in [('base_link', 'base_link', 'mount_base.STL'),
+                                        ('link1', 'pitch_link', 'pitch_link.STL')]:
+        link = deepcopy(donor.find(f"link[@name='{source_name}']"))
+        link.set('name', name)
+        for mesh in link.findall('.//mesh'):
+            mesh.set('filename', f'../meshes/{filename}')
+        link.find('visual/material').set('name', f'{name}_mount_material')
+        shutil.copyfile(BASE_SOURCE / 'meshes' / f'{source_name}.STL',
+                        ROOT / 'meshes' / filename)
+        links.append(link)
+    mount = links[0]
+    mechanism = ET.parse(SOURCE / 'IST_robot.xml')
+    mechanism_mass = sum(float(i.get('mass')) for i in mechanism.findall('.//body/inertial'))
+    connector_mass = float(links[1].find('inertial/mass').get('value'))
+    mount_mass = TARGET_TOTAL_MASS - mechanism_mass - connector_mass
+    if mount_mass <= 0:
+        raise ValueError('target total mass leaves no positive mass for the mount')
+    original_mass = float(mount.find('inertial/mass').get('value'))
+    mount.find('inertial/mass').set('value', str(mount_mass))
+    for key, value in mount.find('inertial/inertia').attrib.items():
+        mount.find('inertial/inertia').set(key, str(float(value) * mount_mass / original_mass))
+    for origin in mount.findall('*/origin'):
+        # All source base inertial/visual/collision frames are unrotated.
+        if any(float(v) != 0 for v in origin.get('rpy', '0 0 0').split()):
+            raise ValueError('source base frame changed; review the mounting transform')
+        xyz = np.fromstring(origin.get('xyz'), sep=' ')
+        origin.set('xyz', numbers(BASE_ROTATION @ xyz + BASE_OFFSET))
+        origin.set('rpy', f'0 0 {math.pi / 2}')
+    return links
+
+
+def mjcf_link(parent, link, mesh_name, *, pos='0 0 0', quat='1 0 0 0'):
+    name = link.get('name')
+    body = ET.SubElement(parent, 'body', name=name, pos=pos, quat=quat)
+    inertial = link.find('inertial')
+    tensor = inertial.find('inertia')
+    ixx, iyy, izz, ixy, ixz, iyz = [float(tensor.get(k)) for k in
+                                   ('ixx', 'iyy', 'izz', 'ixy', 'ixz', 'iyz')]
+    inertia = np.array([[ixx, ixy, ixz], [ixy, iyy, iyz], [ixz, iyz, izz]])
+    if name == 'base_link':
+        # fullinertia is expressed in body axes, unlike the rotated URDF frame.
+        inertia = BASE_ROTATION @ inertia @ BASE_ROTATION.T
+    ET.SubElement(body, 'inertial', pos=inertial.find('origin').get('xyz'),
+                  mass=inertial.find('mass').get('value'),
+                  fullinertia=numbers([inertia[0, 0], inertia[1, 1], inertia[2, 2],
+                                       inertia[0, 1], inertia[0, 2], inertia[1, 2]]))
+    visual = link.find('visual')
+    ET.SubElement(body, 'geom', name=f'{name}_mount_visual', type='mesh',
+                  mesh=mesh_name, pos=visual.find('origin').get('xyz'),
+                  euler=visual.find('origin').get('rpy'),
+                  rgba=visual.find('material/color').get('rgba'))
+    return body
+
+
+def build():
+    mount_link, pitch_link = load_mount_links()
+    connector_quat = numbers([math.sqrt(.5), -math.sqrt(.5), 0, 0])
+    # Source comments refer to the old root/actuator layout; the new header and
+    # README describe the wrapper. All source elements and constraints survive.
+    mjcf = ET.parse(SOURCE / 'IST_robot.xml')
+    robot = mjcf.getroot()
+    robot.set('model', 'IST_robot-V2')
+    robot.insert(0, ET.Comment(
+        ' Generated by ../build_model.py from IST_robot. Added pitch/roll mount; '
+        'all original mechanism inertials, joints and equalities are retained. '
+        'Fixed base and U-shaped connector meshes: SingleThrustFlapper. '
+        'Mount mass/inertia adjusted for 15 g total; IST and connector inertials retained. '
+        'IST attachment and servo parameters are provisional. Direct MJCF ctrl: '
+        '[motor speed (rad/s), pitch (rad), roll (rad)]. '))
+    robot.find('compiler').set('meshdir', '../meshes')
+    for mesh in robot.findall('asset/mesh'):
+        mesh.set('file', '../../IST_robot/meshes/' + mesh.get('file'))
+    ET.SubElement(robot.find('asset'), 'mesh', name='mount_base_mesh', file='mount_base.STL')
+    ET.SubElement(robot.find('asset'), 'mesh', name='pitch_link_mesh', file='pitch_link.STL')
+    world = robot.find('worldbody')
+    mechanism = world.find("body[@name='base_link']")
+    world.remove(mechanism)
+    mechanism.set('name', 'thrust_unit')
+    mount = mjcf_link(world, mount_link, 'mount_base_mesh')
+    frame = mjcf_link(mount, pitch_link, 'pitch_link_mesh',
+                      pos=numbers(PITCH_OFFSET), quat=connector_quat)
+    ET.SubElement(frame, 'joint', name='pitch_joint', type='hinge', axis='0 0 1',
+                  range=f'-{LIMIT} {LIMIT}', damping='0.000001')
+    mechanism.set('pos', numbers(ROLL_OFFSET))
+    mechanism.set('quat', connector_quat)
+    frame.append(mechanism)
+    # Two -90-degree X frames retain the original IST 180-degree mounting pose.
+    ET.SubElement(mechanism, 'joint', name='roll_joint', type='hinge', axis='1 0 0',
+                  range=f'-{LIMIT} {LIMIT}', damping='0.000001')
+    for name in ('pitch_joint', 'roll_joint'):
+        ET.SubElement(robot.find('actuator'), 'position', name=f'{name}_servo',
+                      joint=name, kp='0.5', kv='0.005', ctrlrange=f'-{LIMIT} {LIMIT}',
+                      forcerange='-.02 .02')
+        for kind in ('jointpos', 'jointvel'):
+            ET.SubElement(robot.find('sensor'), kind, name=f'{name}_{kind}', joint=name)
+    for key in robot.findall('keyframe/key'):
+        key.set('ctrl', key.get('ctrl', '0') + ' 0 0')
+
+    urdf = ET.parse(SOURCE / 'IST_robot.urdf')
+    robot = urdf.getroot()
+    robot.set('name', 'IST_robot-V2')
+    robot.insert(0, ET.Comment(
+        ' Generated by ../build_model.py. Use IST_robot-V2.xml for MuJoCo physics: '
+        'URDF cannot express the nonlinear Scotch-yoke closure. The original '
+        'base is thrust_unit, mounted above a new pitch/roll support. '
+        'Feathering remains passive. Fixed base and U-shaped connector meshes '
+        'come from SingleThrustFlapper; mount mass/inertia adjusted for 15 g total. '
+        'IST attachment is provisional. '))
+    robot.find("link[@name='base_link']").set('name', 'thrust_unit')
+    for parent in robot.findall("joint/parent[@link='base_link']"):
+        parent.set('link', 'thrust_unit')
+    for mesh in robot.findall('.//mesh'):
+        mesh.set('filename', '../../IST_robot/meshes/' + Path(mesh.get('filename')).name)
+    robot.append(mount_link)
+    robot.append(pitch_link)
+    for name, parent, child, axis, pos in (
+            ('pitch_joint', 'base_link', 'pitch_link', '0 0 1', PITCH_OFFSET),
+            ('roll_joint', 'pitch_link', 'thrust_unit', '1 0 0', ROLL_OFFSET)):
+        joint = ET.SubElement(robot, 'joint', name=name, type='revolute')
+        ET.SubElement(joint, 'origin', xyz=numbers(pos), rpy=f'{-math.pi / 2} 0 0')
+        ET.SubElement(joint, 'parent', link=parent)
+        ET.SubElement(joint, 'child', link=child)
+        ET.SubElement(joint, 'axis', xyz=axis)
+        ET.SubElement(joint, 'limit', lower=f'-{LIMIT}', upper=LIMIT,
+                      effort='0.02', velocity='10')
+        ET.SubElement(joint, 'dynamics', damping='0.000001', friction='0')
+    for tree, suffix in ((mjcf, 'xml'), (urdf, 'urdf')):
+        ET.indent(tree, space='  ')
+        destination = ROOT / 'urdf' / f'IST_robot-V2.{suffix}'
+        destination.parent.mkdir(exist_ok=True)
+        tree.write(destination, encoding='utf-8', xml_declaration=True)
+
+
+if __name__ == '__main__':
+    build()

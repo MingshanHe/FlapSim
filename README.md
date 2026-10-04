@@ -1,7 +1,7 @@
 # FlapSim
 
-扑翼机器人仿真 Python package。默认模型是 `IST_robot`，只负责仿真，
-不包含 Gymnasium、PPO 或训练代码。所有接口使用 SI 单位。
+扑翼机器人仿真 Python package。默认模型是 `IST_robot`；可选的 `flapsim.rl`
+提供 Gymnasium 环境和 stable-baselines3 PPO 自由飞行轨迹训练。所有接口使用 SI 单位。
 
 IST_robot 的 MJCF 根刚体已绕 X 旋转 180°，使翼机构在世界 +Z 上方；
 可通过 `SceneConfig.orientation`（wxyz 四元数）覆盖安装姿态。
@@ -33,7 +33,7 @@ print(data.time, data.qpos)
 sim.reset()
 ```
 
-配置通过 dataclass 或单个 JSON 文件传入。`config/robots/` 提供三个机器人预设。
+配置通过 dataclass 或单个 JSON 文件传入。`config/robots/` 提供四个机器人预设。
 JSON 中的自定义 `model_path` 相对该 JSON 文件解析；内置资源不依赖当前工作目录。
 
 ```bash
@@ -52,6 +52,7 @@ flapsim/
   config/       参数、JSON、场景构建、模型加载
   controller/   Controller -> SpeedController / MoveController / HoveringController
   fluid/        FluidModel -> BladeElement / MuJoCoFluid / NoFluid
+  rl/           自由飞行环境、轨迹、推力扫描、PPO 训练与评估
   robot/        URDF、MJCF、STL
   simulator.py  对外接口，组织组件
   backends.py   CPUBackend / MJXBackend
@@ -66,13 +67,50 @@ flapsim/
 执行器不直接覆盖 `qpos/qvel`；齿轮、滑块和翼面由物理引擎推进。
 场景构建由 `config/scene.py` 负责。
 
+`IST_robot-V2` 在固定支座上增加俯仰、横滚两个关节，使整个 IST 机构转向。
+电机转速控制扑翼，两个有限力矩位置伺服控制转向角：
+
+```bash
+python -m flapsim --robot IST_robot-V2 --speed 100 --gimbal 0.15 -0.10
+```
+
+```python
+from flapsim import Simulator, load_config
+
+sim = Simulator(load_config("flapsim/config/robots/IST_robot-V2.json"))
+sim.set_speed(100.0)
+sim.set_gimbal(pitch=0.15, roll=-0.10)  # rad，各轴限位 ±0.3
+sim.step(24000)
+```
+
+V2 使用 `SingleThrustFlapper` 的底座和 U 形连接件网格；按整机 15 g 目标调整底座质量与惯量。
+支座默认固定，转向关节仍能运动。IST 接口装配、质量分配和伺服参数为仿真假设，
+详细坐标、参数和再生成方法见 [IST_robot-V2](flapsim/robot/IST_robot-V2/README.md)。
+
 `measurement.FixedBaseWrenchProbe` 提供世界坐标系下的气动力、支架反力和重力载荷，
 力矩参考点为基座原点。读取前需用当前外力执行 `mujoco.mj_forward`。
 
 执行器都继承 `Actuator`（别名 `BaseActuator`），可以通过构造函数注入自己的子类。
 DC 是带电压、反电动势、电流限制的准静态电机；BLDC 是平均 q 轴电流控制模型，
 忽略换相与电感；DEA 是一对拮抗介电执行器的等效 `V²` 力矩模型，包含弹性和阻尼。
-这些是可替换的简化模型。默认参数用于演示，尤其 DEA 的电压、系数和传动需要自行标定。
+这些是可替换的简化模型。直接构造 `SimulationConfig()` 使用通用演示参数；
+CLI 和 IST JSON 预设使用显式的朝力 CL-0720 参考电机参数。参考绕组仍待硬件确认，
+不能只由“0720”型号确定。尤其 DEA 的电压、系数和传动需要自行标定。
+
+## PPO 自由飞行轨迹训练
+
+```bash
+python -m pip install -e '.[rl]'
+python -m flapsim.rl.preflight --voltages 4.0 4.2 --output runs/thrust.json
+python -m flapsim.rl.train --trajectories hover circle figure8 line helix lissajous \
+  --total-timesteps 1000000 --n-envs 4 --output runs/ist_v2_ppo
+python -m flapsim.rl.evaluate --run runs/ist_v2_ppo --episodes 3 --plot
+```
+
+动作控制电机和 pitch/roll 目标角度，保留完整机构动力学。默认自由基座、正常重力、
+整机 15 g；训练前检查平均升力能否超过重量。保存策略、归一化统计、物理与任务配置，
+支持续训。圆、八字、往返直线、闭合螺旋和 Lissajous 轨迹共用条件策略。
+详见 [训练与评估说明](flapsim/rl/README.md)；是否学会跟踪以独立评估为准。
 
 ## 六自由度命令与 PID
 
@@ -128,7 +166,8 @@ sim.step(200)
 
 叶素模型沿翼展离散，使用实际翼片速度和风速计算准定常法向力、弦向阻力，
 通过力臂生成力矩，并加入羽化旋转阻尼。翼长、弦长、体坐标轴、压力中心位置
-在 `WingConfig` 中显式指定；默认矩形翼近似不等于实测气动标定。
+在 `WingConfig` 中显式指定。IST 预设从曲面翼网格提取沿展向变化的弦长及中弦位置，
+通用 `WingConfig` 不传 `planform` 时仍使用矩形近似。两者均不等于实测气动标定。
 `mujoco` 模式默认选择引擎内置的惯性盒流体模型（`builtin_model="inertia"`），
 CPU 与 MJX 使用同一种模型。原生 CPU 还可以显式选择
 `FluidConfig(kind="mujoco", builtin_model="ellipsoid")`，保留 MJCF 已给定的椭球系数。
@@ -279,7 +318,7 @@ python -m flapsim --backend mjx --device gpu --fluid mujoco --headless --duratio
 翼面保持原模型的被动羽化，不添加主动羽化或镜像等式约束。
 原模型的网格接触设置保持不变，IST_robot 默认不提供机器人与地面的接触响应。
 
-内置 `IST_robot`、`SingleThrustFlapper`、`SingleThrustFlapper-V2` 三个预设，
+内置 `IST_robot`、`IST_robot-V2`、`SingleThrustFlapper`、`SingleThrustFlapper-V2` 四个预设，
 可通过 `--robot` 选择。后两个模型的预设为零轴速度；需要周期驱动时可自行编写
 输出正弦目标角速度的 Controller，再通过电机力矩驱动。
 `SimCore(robot, fix=...)` 保留为兼容构造入口，新代码建议使用 `Simulator(config)`。
