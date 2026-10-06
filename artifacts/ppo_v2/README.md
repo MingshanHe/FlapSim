@@ -1,6 +1,7 @@
 # 已训练的 IST_robot-V2 PPO 策略
 
-在 `/home/robot/rl/FlapSim-ppo-v2` 中运行；建议使用本机 `mujoco` conda 环境。
+在当前仓库根目录运行；本机新工作目录为 `/home/robot/rl/FlapSim-current`，使用 `mujoco` conda 环境。
+训练元数据中的旧目录是原实验出处；导出的策略通过随仓库提供的机器人资源加载。
 
 | 目录 | 用途 |
 | --- | --- |
@@ -16,7 +17,7 @@
 
 ```bash
 conda activate mujoco
-cd /home/robot/rl/FlapSim-ppo-v2
+cd /home/robot/rl/FlapSim-current
 python -m flapsim.rl.evaluate --run artifacts/ppo_v2/tracking \
   --trajectories hover circle figure8 ellipse line --episodes 3 --randomize \
   --seconds 16 --reference-physics --plot --output runs/recheck

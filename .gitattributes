@@ -4,3 +4,5 @@
 *.xml text eol=lf
 *.urdf text eol=lf
 *.csv text eol=lf
+# Preserve the original bytes of legacy SolidWorks exports already in history.
+flapsim/robot/SingleThrustFlapper*/urdf/*.urdf -text !eol

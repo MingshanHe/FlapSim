@@ -1,5 +1,10 @@
 # FlapSim
 
+当前后续算法开发目录是 **`/home/robot/rl/FlapSim-current`**，本地分支 `algorithms-dev`，
+起点为 GitHub `v2` 的 `ad17767`。先看 [工作目录入口](START_HERE.md)；
+新增算法实验放在 [experiments/algorithms](experiments/algorithms/README.md)。
+已训练的 PPO 保留为历史基线。
+
 扑翼机器人仿真 Python package。默认模型是 `IST_robot`；可选的 `flapsim.rl`
 提供 Gymnasium 环境和 stable-baselines3 PPO 自由飞行轨迹训练。所有接口使用 SI 单位。
 
