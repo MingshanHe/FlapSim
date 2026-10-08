@@ -1,0 +1,35 @@
+{
+  "source_labels": [
+    "pid_nominal",
+    "neat_nominal",
+    "rnn_ppo_nominal"
+  ],
+  "source_seed": 340000000,
+  "simulation_horizon_seconds": 20.0,
+  "frame_position_check_atol": 1e-09,
+  "flight_fps": 60,
+  "playback_speed": 1,
+  "hold_seconds": 1,
+  "body_closeup_overlay": true,
+  "verdict_is_whole_episode_strict_criteria": true,
+  "wing_sample_hz": 250,
+  "wing_playback_fps": 25,
+  "wing_slowdown": 10,
+  "wing_segment": [
+    5.0,
+    6.0
+  ],
+  "wing_joint_ranges_deg": {
+    "left_flapping_joint": {
+      "minimum": -79.33227929317486,
+      "maximum": 79.33221707273594,
+      "peak_to_peak": 158.6644963659108
+    },
+    "right_flapping_joint": {
+      "minimum": -79.33221703416758,
+      "maximum": 79.33227924501561,
+      "peak_to_peak": 158.6644962791832
+    }
+  },
+  "note": "Reconstructed from recorded MuJoCo qpos. Paired rollout metrics checked separately to 1e-12. Terminated panels freeze and are visibly marked STOPPED."
+}

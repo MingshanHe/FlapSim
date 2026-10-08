@@ -1,0 +1,30 @@
+{
+  "generations": 9,
+  "archived_individual_evaluations": 1152,
+  "selected": {
+    "generation": 4,
+    "genome_id": 558,
+    "validation": {
+      "episodes": 4,
+      "success_rate": 0.75,
+      "mean_return": 27.95407969610023,
+      "mean_elapsed": 8.0,
+      "tilt_rms_deg": 7.051767815396946,
+      "height_rmse_m": 0.06193533550403572,
+      "steps": 3200,
+      "minimum_clearance_m": 0.5188286702215141
+    },
+    "complexity": {
+      "nodes": 7,
+      "hidden": 4,
+      "connections": 47,
+      "effective_connections": 47,
+      "recurrent_edges": 11,
+      "parameters": 54,
+      "state_floats": 7
+    }
+  },
+  "main_lineage": "At each birth, follow the recorded parent with higher first-recorded training fitness; this is one path, not the whole ancestry.",
+  "mutation_events": "Events are logged immediately around mutation, after crossover. Elite copies are counted once. Bias values are present in full genomes; bias mutation events are not separately classified.",
+  "graph_dynamics": "All non-input nodes update synchronously. Any edge from a non-input node uses the previous actor tick; drawn left-to-right edges can therefore also carry one-tick memory."
+}

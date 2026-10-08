@@ -1,0 +1,43 @@
+{
+  "seed": 339900200,
+  "case": {
+    "seed": 339900200,
+    "seconds": 0.2,
+    "condition": "nominal",
+    "phase": 0,
+    "degrees": 2.0,
+    "motor_uncertainty": 0.0,
+    "acceleration_bias": 0.0,
+    "attitude_bias_deg": 0.0,
+    "delay_steps": 0,
+    "attitude_noise_deg": 0.02,
+    "gyro_noise": 0.002,
+    "accel_noise": 0.02,
+    "height_noise": 0.002,
+    "height_delay": 0.02,
+    "lower_mass_scale": 1.0,
+    "pulse_force": 0.0,
+    "pulse_torque": 0.0
+  },
+  "steps": 20,
+  "physics_steps": 40000,
+  "elapsed": 0.2,
+  "termination": "time_limit",
+  "success": false,
+  "return_sum": 0.6279175254854237,
+  "tilt_rms_deg": 14.613729280208592,
+  "height_rmse_m": 0.05764132066074939,
+  "height_slope_m_s": -0.594973164392369,
+  "minimum_clearance_m": 0.6493377161762159,
+  "xy_offset_m": 0.01155180235305103,
+  "accel_clipped_fraction": 0.006258333333333334,
+  "estimated_height_error_m": 0.047805253415456495,
+  "phase": 0,
+  "reference_position": [
+    0.01800096341241928,
+    -0.02952783177694963,
+    0.8001147754924858
+  ],
+  "policy": "artifacts/topology_hover_20261008/pilot/neat_seed1201/best_policy.json",
+  "mode": "residual"
+}

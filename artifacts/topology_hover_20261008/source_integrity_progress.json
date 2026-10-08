@@ -1,0 +1,49 @@
+{
+  "checked_at_utc": "2026-10-08T12:27:05Z",
+  "absolute_paths_rebased_to_current_v3_checkout": true,
+  "manifests": [
+    {
+      "manifest": "artifacts/pid_airborne_20261008/source_manifest_final.json",
+      "entries": 129,
+      "mismatches": [],
+      "preexisting_mismatches_at_campaign_parent_commit": []
+    },
+    {
+      "manifest": "artifacts/pid_airborne_20261008/assets_manifest.json",
+      "entries": 64,
+      "mismatches": [],
+      "preexisting_mismatches_at_campaign_parent_commit": []
+    },
+    {
+      "manifest": "artifacts/hover9_pid_20261008/source_manifest.json",
+      "entries": 108,
+      "mismatches": [],
+      "preexisting_mismatches_at_campaign_parent_commit": []
+    },
+    {
+      "manifest": "artifacts/hover9_pid_20261008/assets_manifest.json",
+      "entries": 5,
+      "mismatches": [],
+      "preexisting_mismatches_at_campaign_parent_commit": []
+    },
+    {
+      "manifest": "artifacts/neat_ppo_7g8g_20261008/source_manifest.json",
+      "entries": 82,
+      "mismatches": [
+        "experiments/algorithms/neat_imu/compare_train.py",
+        "experiments/algorithms/neat_imu/compare_env.py"
+      ],
+      "preexisting_mismatches_at_campaign_parent_commit": [
+        "experiments/algorithms/neat_imu/compare_train.py",
+        "experiments/algorithms/neat_imu/compare_env.py"
+      ]
+    },
+    {
+      "manifest": "artifacts/topology_hover_20261008/source_hashes.json",
+      "entries": 9,
+      "mismatches": [],
+      "preexisting_mismatches_at_campaign_parent_commit": []
+    }
+  ],
+  "interpretation": "Current training core and frozen PID/hover9 inputs match their manifests. Two oldest NEAT/PPO source-manifest mismatches already exist in parent commit e2b5b7c; those files were not modified by this campaign."
+}

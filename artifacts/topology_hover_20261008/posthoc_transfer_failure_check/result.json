@@ -1,0 +1,43 @@
+{
+  "seed": 340000003,
+  "case": {
+    "seed": 340000003,
+    "seconds": 20.0,
+    "condition": "stress",
+    "phase": 3,
+    "degrees": 5.0,
+    "motor_uncertainty": 0.015,
+    "acceleration_bias": 0.01,
+    "attitude_bias_deg": 0.05,
+    "delay_steps": 1,
+    "attitude_noise_deg": 0.02,
+    "gyro_noise": 0.002,
+    "accel_noise": 0.02,
+    "height_noise": 0.002,
+    "height_delay": 0.02,
+    "lower_mass_scale": 1.0,
+    "pulse_force": 0.006,
+    "pulse_torque": 8e-06
+  },
+  "steps": 481,
+  "physics_steps": 962000,
+  "elapsed": 4.8100000000000005,
+  "termination": "tilt",
+  "success": false,
+  "return_sum": 11.60797723247796,
+  "tilt_rms_deg": 33.59454760275961,
+  "height_rmse_m": 0.11816311594169482,
+  "height_slope_m_s": 0.06013655201553033,
+  "minimum_clearance_m": 0.5260443014827201,
+  "xy_offset_m": 0.07779626149124426,
+  "accel_clipped_fraction": 0.006098059598059598,
+  "estimated_height_error_m": 0.009527406550147055,
+  "phase": 3,
+  "reference_position": [
+    -0.002829384535602667,
+    0.008359174212157443,
+    0.7977277453451017
+  ],
+  "policy": "artifacts/topology_hover_20261008/transfer/random_graph_ppo_seed1205/best_policy.json",
+  "mode": "residual"
+}

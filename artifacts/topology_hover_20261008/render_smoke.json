@@ -1,0 +1,46 @@
+{
+  "test_seed": 339900100,
+  "training_or_test_evidence": false,
+  "source_unchanged": true,
+  "position_replay_atol": 1e-09,
+  "wing_angles_deg": {
+    "left_flapping_joint": 36.97653393616783,
+    "right_flapping_joint": -36.97653392338254
+  },
+  "result": {
+    "seed": 339900100,
+    "case": {
+      "seed": 339900100,
+      "seconds": 0.35,
+      "condition": "nominal",
+      "phase": 0,
+      "degrees": 2.0,
+      "motor_uncertainty": 0.0,
+      "acceleration_bias": 0.0,
+      "attitude_bias_deg": 0.0,
+      "delay_steps": 0,
+      "attitude_noise_deg": 0.02,
+      "gyro_noise": 0.002,
+      "accel_noise": 0.02,
+      "height_noise": 0.002,
+      "height_delay": 0.02,
+      "lower_mass_scale": 1.0,
+      "pulse_force": 0.0,
+      "pulse_torque": 0.0
+    },
+    "steps": 35,
+    "physics_steps": 70000,
+    "elapsed": 0.35000000000000003,
+    "termination": "time_limit",
+    "success": false,
+    "return_sum": 1.017209632738455,
+    "tilt_rms_deg": 10.740658121351926,
+    "height_rmse_m": 0.10858567931468464,
+    "height_slope_m_s": -0.5901882752777984,
+    "minimum_clearance_m": 0.5682728501608142,
+    "xy_offset_m": 0.024171540990772428,
+    "accel_clipped_fraction": 0.0070857142857142855,
+    "estimated_height_error_m": 0.013904897810591232,
+    "phase": 0
+  }
+}

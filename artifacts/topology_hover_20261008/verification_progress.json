@@ -1,0 +1,11 @@
+{
+  "tests": "21 passed: tests/test_topology_hover.py tests/test_pid_airborne.py tests/test_native_physics.py",
+  "physics_identity": "sensor instrumentation matches original qpos and qvel to 1e-12 for scripted controls",
+  "export_identity": "NumPy and Torch actor trajectories agree to 2e-6 over 200-step sequences",
+  "browser": "Offline explorer loaded and generation 0 to 4 selection changed visible topology and individual successfully; parent links and all weights visible",
+  "state": "pre-training contracts verified; held-out tests pending",
+  "portable_replay": "Independent replay matches original physical and sensor trace to 1e-12",
+  "render": "EGL rendering and physical wing-joint lookup passed; final held-out videos pending",
+  "neat_python_identity": "Four independently mutated genomes match neat-python RecurrentNetwork over 100-step input sequences to 2e-6",
+  "checkpoint": "Saved population loads outside the original module entry point; next-generation count and training accounting verified"
+}

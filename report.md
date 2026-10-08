@@ -1,3 +1,21 @@
+<!-- topology-hover-index -->
+# 最新实验：拓扑演化与 PPO 对照
+
+[打开完整 report.md](artifacts/topology_hover_20261008/report.md)
+
+已完成 35 次训练与独立评估。上部 7 g、下部 8 g；主实验采用固定 PID 加学习残差，输入为 **9 维 IMU＋测距高度误差＋估计垂向速度，共 11 维**。
+
+NEAT 常规 20 秒严格通过 40/40；代表策略的 8 次 60 秒测试均保持离地，但扰动下倾角仍未达标，水平位置也会漂移。选中网络平均从 55 个参数缩减到 42.6 个；本轮尚未证实独立的拓扑或记忆通路优势。完整报告保留了对照、失败案例和纯 IMU 移除诊断。
+
+- [逐代结构、父代与全部权重](artifacts/topology_hover_20261008/pilot/neat_seed1204/visuals/explorer.html)
+- [逐拍输入、节点状态与输出](artifacts/topology_hover_20261008/flight/neat_stress.html)
+- [PID／NEAT／循环 PPO 扰动视频](artifacts/topology_hover_20261008/videos/comparison_stress.mp4) · [真实翅膀 10 倍慢动作](artifacts/topology_hover_20261008/videos/neat_wings_stress_10x.mp4)
+- [完整实验与可视化总览](artifacts/topology_hover_20261008/dashboard.html)
+
+交互 HTML 请下载或克隆完整目录后离线打开；GitHub Markdown 页面可直接查看报告中的静态图与拓扑动画。以下保留此前各轮报告。
+
+---
+
 ## 本轮：PID 离地与悬停（2026-10-08）
 
 **已得到通过 20 秒常规仿真测试的 PID：16/16 成功。** 姿态稳定阶段倾角 RMS 3.26°、高度 RMS 误差 6.17 cm，整机最小保守几何离地间隙 57.1 cm。yaw 与水平位置未控制。

@@ -1,0 +1,25 @@
+{
+  "status": "passed",
+  "scope": "Post-hoc reproducibility check of one observed failure. Excluded from training, selection and aggregate evaluation counts.",
+  "fresh_environment": true,
+  "portable_replay": true,
+  "source_policy": "artifacts/topology_hover_20261008/transfer/random_graph_ppo_seed1205/best_policy.json",
+  "seed": 340000003,
+  "phase": 3,
+  "condition": "stress",
+  "maximum_metric_error": 0.0,
+  "metric_errors": {
+    "elapsed": 0.0,
+    "return_sum": 0.0,
+    "tilt_rms_deg": 0.0,
+    "height_rmse_m": 0.0,
+    "height_slope_m_s": 0.0,
+    "minimum_clearance_m": 0.0,
+    "xy_offset_m": 0.0,
+    "accel_clipped_fraction": 0.0,
+    "estimated_height_error_m": 0.0
+  },
+  "termination": "tilt",
+  "elapsed": 4.8100000000000005,
+  "command": "python -m experiments.algorithms.topology_hover.replay --policy artifacts/topology_hover_20261008/transfer/random_graph_ppo_seed1205/best_policy.json --output artifacts/manual_failure_replay --seed 340000003 --phase 3 --condition stress --seconds 20"
+}
