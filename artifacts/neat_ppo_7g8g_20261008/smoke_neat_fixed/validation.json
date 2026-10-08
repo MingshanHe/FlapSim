@@ -1,0 +1,206 @@
+[
+  {
+    "training_steps": 0,
+    "label": "constant_trim",
+    "summary": {
+      "episodes": 2,
+      "successes": 0,
+      "mean_elapsed": 0.05,
+      "p10_elapsed": 0.05,
+      "mean_tracking_rmse_m": 0.02720166495673485,
+      "mean_tilt_rmse_deg": 8.896986469156406,
+      "mean_discounted_return": 0.260663767852366,
+      "mean_saturation_fraction": 0.0,
+      "control_steps": 10,
+      "termination_counts": {
+        "time_limit": 2
+      }
+    },
+    "episodes": [
+      {
+        "seed": 905810000,
+        "case": {
+          "seed": 905810000,
+          "seconds": 0.05,
+          "degrees": 5.0,
+          "angular_rate": 0.0,
+          "noise_degrees": 0.0,
+          "motor_uncertainty": 0.0,
+          "delay_steps": 0,
+          "noise_gyro_rad_s": 0.0
+        },
+        "steps": 5,
+        "phase": 6,
+        "elapsed": 0.05,
+        "success": false,
+        "termination": "time_limit",
+        "tracking_rmse_m": 0.029897689530795125,
+        "tilt_rmse_deg": 5.444820159538288,
+        "discounted_return": 0.2771538527695248,
+        "return_sum": 0.27992947860710116,
+        "saturation_fraction": 0.0,
+        "trace": []
+      },
+      {
+        "seed": 905810001,
+        "case": {
+          "seed": 905810001,
+          "seconds": 0.05,
+          "degrees": 5.0,
+          "angular_rate": 0.0,
+          "noise_degrees": 0.0,
+          "motor_uncertainty": 0.0,
+          "delay_steps": 0,
+          "noise_gyro_rad_s": 0.0
+        },
+        "steps": 5,
+        "phase": 7,
+        "elapsed": 0.05,
+        "success": false,
+        "termination": "time_limit",
+        "tracking_rmse_m": 0.024505640382674575,
+        "tilt_rmse_deg": 12.349152778774524,
+        "discounted_return": 0.24417368293520714,
+        "return_sum": 0.2465048801246603,
+        "saturation_fraction": 0.0,
+        "trace": []
+      }
+    ]
+  },
+  {
+    "training_steps": 80,
+    "label": "generation_best",
+    "summary": {
+      "episodes": 2,
+      "successes": 0,
+      "mean_elapsed": 0.05,
+      "p10_elapsed": 0.05,
+      "mean_tracking_rmse_m": 0.027120593937610772,
+      "mean_tilt_rmse_deg": 8.119463996487289,
+      "mean_discounted_return": 0.26399696739109146,
+      "mean_saturation_fraction": 0.0,
+      "control_steps": 10,
+      "termination_counts": {
+        "time_limit": 2
+      }
+    },
+    "episodes": [
+      {
+        "seed": 905810000,
+        "case": {
+          "seed": 905810000,
+          "seconds": 0.05,
+          "degrees": 5.0,
+          "angular_rate": 0.0,
+          "noise_degrees": 0.0,
+          "motor_uncertainty": 0.0,
+          "delay_steps": 0,
+          "noise_gyro_rad_s": 0.0
+        },
+        "steps": 5,
+        "phase": 6,
+        "elapsed": 0.05,
+        "success": false,
+        "termination": "time_limit",
+        "tracking_rmse_m": 0.029890938234223265,
+        "tilt_rmse_deg": 5.272365598924254,
+        "discounted_return": 0.2777282614180706,
+        "return_sum": 0.28050853077555504,
+        "saturation_fraction": 0.0,
+        "trace": []
+      },
+      {
+        "seed": 905810001,
+        "case": {
+          "seed": 905810001,
+          "seconds": 0.05,
+          "degrees": 5.0,
+          "angular_rate": 0.0,
+          "noise_degrees": 0.0,
+          "motor_uncertainty": 0.0,
+          "delay_steps": 0,
+          "noise_gyro_rad_s": 0.0
+        },
+        "steps": 5,
+        "phase": 7,
+        "elapsed": 0.05,
+        "success": false,
+        "termination": "time_limit",
+        "tracking_rmse_m": 0.024350249640998283,
+        "tilt_rmse_deg": 10.966562394050325,
+        "discounted_return": 0.2502656733641124,
+        "return_sum": 0.25267928332977185,
+        "saturation_fraction": 0.0,
+        "trace": []
+      }
+    ]
+  },
+  {
+    "training_steps": 160,
+    "label": "generation_best",
+    "summary": {
+      "episodes": 2,
+      "successes": 0,
+      "mean_elapsed": 0.05,
+      "p10_elapsed": 0.05,
+      "mean_tracking_rmse_m": 0.02827077272221284,
+      "mean_tilt_rmse_deg": 12.615320220995493,
+      "mean_discounted_return": 0.24897685869218641,
+      "mean_saturation_fraction": 0.5,
+      "control_steps": 10,
+      "termination_counts": {
+        "time_limit": 2
+      }
+    },
+    "episodes": [
+      {
+        "seed": 905810000,
+        "case": {
+          "seed": 905810000,
+          "seconds": 0.05,
+          "degrees": 5.0,
+          "angular_rate": 0.0,
+          "noise_degrees": 0.0,
+          "motor_uncertainty": 0.0,
+          "delay_steps": 0,
+          "noise_gyro_rad_s": 0.0
+        },
+        "steps": 5,
+        "phase": 6,
+        "elapsed": 0.05,
+        "success": false,
+        "termination": "time_limit",
+        "tracking_rmse_m": 0.030912084303161735,
+        "tilt_rmse_deg": 9.032044176578376,
+        "discounted_return": 0.26634799060068715,
+        "return_sum": 0.2690119967815412,
+        "saturation_fraction": 0.4,
+        "trace": []
+      },
+      {
+        "seed": 905810001,
+        "case": {
+          "seed": 905810001,
+          "seconds": 0.05,
+          "degrees": 5.0,
+          "angular_rate": 0.0,
+          "noise_degrees": 0.0,
+          "motor_uncertainty": 0.0,
+          "delay_steps": 0,
+          "noise_gyro_rad_s": 0.0
+        },
+        "steps": 5,
+        "phase": 7,
+        "elapsed": 0.05,
+        "success": false,
+        "termination": "time_limit",
+        "tracking_rmse_m": 0.025629461141263948,
+        "tilt_rmse_deg": 16.198596265412608,
+        "discounted_return": 0.23160572678368568,
+        "return_sum": 0.23382349874753985,
+        "saturation_fraction": 0.6,
+        "trace": []
+      }
+    ]
+  }
+]

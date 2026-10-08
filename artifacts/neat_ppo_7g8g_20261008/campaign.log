@@ -1,0 +1,39 @@
+{"event": "started", "method": "neat", "seed": 835, "pid": 3014, "command": ["/home/robot/miniconda3/envs/mujoco/bin/python", "-m", "experiments.algorithms.neat_imu.compare_train", "--root", "/home/robot/rl/FlapSim-current/artifacts/neat_ppo_7g8g_20261008", "--method", "neat", "--seed", "835", "--workers", "8", "--steps", "524288"]}
+{"event": "started", "method": "neat", "seed": 836, "pid": 3015, "command": ["/home/robot/miniconda3/envs/mujoco/bin/python", "-m", "experiments.algorithms.neat_imu.compare_train", "--root", "/home/robot/rl/FlapSim-current/artifacts/neat_ppo_7g8g_20261008", "--method", "neat", "--seed", "836", "--workers", "8", "--steps", "524288"]}
+{"event": "started", "method": "ppo", "seed": 835, "pid": 6170, "command": ["/home/robot/miniconda3/envs/mujoco/bin/python", "-m", "experiments.algorithms.neat_imu.compare_train", "--root", "/home/robot/rl/FlapSim-current/artifacts/neat_ppo_7g8g_20261008", "--method", "ppo", "--seed", "835", "--workers", "8", "--steps", "524288"]}
+{"event": "started", "method": "ppo", "seed": 836, "pid": 6435, "command": ["/home/robot/miniconda3/envs/mujoco/bin/python", "-m", "experiments.algorithms.neat_imu.compare_train", "--root", "/home/robot/rl/FlapSim-current/artifacts/neat_ppo_7g8g_20261008", "--method", "ppo", "--seed", "836", "--workers", "8", "--steps", "524288"]}
+{
+  "status": "completed",
+  "elapsed_seconds": 6250.546340271,
+  "completed": [
+    {
+      "method": "neat",
+      "seed": 835,
+      "pid": 3014,
+      "exit_code": 0,
+      "wall_seconds": 3090.323881045
+    },
+    {
+      "method": "neat",
+      "seed": 836,
+      "pid": 3015,
+      "exit_code": 0,
+      "wall_seconds": 3100.324586499
+    },
+    {
+      "method": "ppo",
+      "seed": 835,
+      "pid": 6170,
+      "exit_code": 0,
+      "wall_seconds": 3160.221364956
+    },
+    {
+      "method": "ppo",
+      "seed": 836,
+      "pid": 6435,
+      "exit_code": 0,
+      "wall_seconds": 3150.22042046
+    }
+  ],
+  "active": []
+}

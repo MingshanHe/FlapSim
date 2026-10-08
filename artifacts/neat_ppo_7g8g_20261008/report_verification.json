@@ -1,0 +1,32 @@
+{
+  "training_source_unchanged": true,
+  "frozen_policy_hashes_match": true,
+  "final_test_replay_checks": [
+    {
+      "policy": "neat_seed835",
+      "seed": 1053810000,
+      "trace_exact_match": true
+    },
+    {
+      "policy": "neat_seed836",
+      "seed": 1053810000,
+      "trace_exact_match": true
+    },
+    {
+      "policy": "ppo_seed835",
+      "seed": 1053810000,
+      "trace_exact_match": true
+    },
+    {
+      "policy": "ppo_seed836",
+      "seed": 1053810000,
+      "trace_exact_match": true
+    },
+    {
+      "policy": "constant_trim",
+      "seed": 1053810000,
+      "trace_exact_match": true
+    }
+  ],
+  "report_sha256": "e626e8ff57ec889c585a8139a28756ebdb568554dbc586cd6b20fdd90f3224b5"
+}

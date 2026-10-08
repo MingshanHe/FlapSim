@@ -1,0 +1,90 @@
+[
+  {
+    "generation": 0,
+    "training_steps": 80,
+    "best_fitness": 0.24804145120264248,
+    "species": 1,
+    "best_validation": {
+      "episodes": 2,
+      "successes": 0,
+      "mean_elapsed": 0.05,
+      "p10_elapsed": 0.05,
+      "mean_tracking_rmse_m": 0.027120593937610772,
+      "mean_tilt_rmse_deg": 8.119463996487289,
+      "mean_discounted_return": 0.26399696739109146,
+      "mean_saturation_fraction": 0.0,
+      "control_steps": 10,
+      "termination_counts": {
+        "time_limit": 2
+      }
+    },
+    "nodes": 20,
+    "elapsed_seconds": 1.3851236399999607,
+    "cases": [
+      {
+        "seed": 13908674,
+        "seconds": 0.05,
+        "degrees": 2.0,
+        "angular_rate": 0.0,
+        "noise_degrees": 0.0,
+        "motor_uncertainty": 0.0,
+        "delay_steps": 0,
+        "noise_gyro_rad_s": 0.0
+      },
+      {
+        "seed": 687593295,
+        "seconds": 0.05,
+        "degrees": 2.0,
+        "angular_rate": 0.1,
+        "noise_degrees": 0.1,
+        "motor_uncertainty": 0.01,
+        "delay_steps": 1,
+        "noise_gyro_rad_s": 0.01
+      }
+    ]
+  },
+  {
+    "generation": 1,
+    "training_steps": 160,
+    "best_fitness": 0.26348514720817207,
+    "species": 2,
+    "best_validation": {
+      "episodes": 2,
+      "successes": 0,
+      "mean_elapsed": 0.05,
+      "p10_elapsed": 0.05,
+      "mean_tracking_rmse_m": 0.027120593937610772,
+      "mean_tilt_rmse_deg": 8.119463996487289,
+      "mean_discounted_return": 0.26399696739109146,
+      "mean_saturation_fraction": 0.0,
+      "control_steps": 10,
+      "termination_counts": {
+        "time_limit": 2
+      }
+    },
+    "nodes": 20,
+    "elapsed_seconds": 2.632893717999991,
+    "cases": [
+      {
+        "seed": 110436130,
+        "seconds": 0.05,
+        "degrees": 5.0,
+        "angular_rate": 0.0,
+        "noise_degrees": 0.0,
+        "motor_uncertainty": 0.0,
+        "delay_steps": 0,
+        "noise_gyro_rad_s": 0.0
+      },
+      {
+        "seed": 703459153,
+        "seconds": 0.05,
+        "degrees": 10.0,
+        "angular_rate": 0.25,
+        "noise_degrees": 0.25,
+        "motor_uncertainty": 0.03,
+        "delay_steps": 1,
+        "noise_gyro_rad_s": 0.03
+      }
+    ]
+  }
+]
