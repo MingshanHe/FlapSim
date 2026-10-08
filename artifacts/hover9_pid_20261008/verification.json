@@ -1,0 +1,117 @@
+{
+  "tests": "25 passed; full command and output retained in logs/tests.log",
+  "regression_checks": [
+    "instrumented physics matches original",
+    "translation does not enter actor features",
+    "history reset and short-horizon integration",
+    "full signed actuator range",
+    "prior 22 related checks"
+  ],
+  "training_source_files_verified": 102,
+  "historical_source_files_verified": 85,
+  "runtime_assets_verified": 5,
+  "seed_disjointness": {
+    "held_out_unique_seeds": 56,
+    "neat_actual_case_draws": 69,
+    "ppo_possible_reset_seeds_checked": 542736,
+    "collisions": [],
+    "scope": "Checks every actual NEAT training case and a superset of possible PPO episode resets (one step per episode upper bound)",
+    "wall_seconds": 8.325534696999966
+  },
+  "source_mismatches": [],
+  "frozen_policy_hashes_verified": 5,
+  "replay_verification": [
+    {
+      "label": "neat_seed941",
+      "seed": 302020000,
+      "trace_exact_match": true
+    },
+    {
+      "label": "neat_seed942",
+      "seed": 302020000,
+      "trace_exact_match": true
+    },
+    {
+      "label": "ppo_seed941",
+      "seed": 302020000,
+      "trace_exact_match": true
+    },
+    {
+      "label": "ppo_seed942",
+      "seed": 302020000,
+      "trace_exact_match": true
+    },
+    {
+      "label": "shared_prior",
+      "seed": 302020000,
+      "trace_exact_match": true
+    }
+  ],
+  "ppo_export_atol": 2e-06,
+  "video_verification": [
+    {
+      "video": "neat_seed941_nominal.mp4",
+      "frames": 93,
+      "fps": 25.0,
+      "size": [
+        1280,
+        720
+      ],
+      "elapsed": 0.67,
+      "termination": "tilt"
+    },
+    {
+      "video": "neat_seed942_nominal.mp4",
+      "frames": 96,
+      "fps": 25.0,
+      "size": [
+        1280,
+        720
+      ],
+      "elapsed": 0.7000000000000001,
+      "termination": "tilt"
+    },
+    {
+      "video": "ppo_seed941_nominal.mp4",
+      "frames": 68,
+      "fps": 25.0,
+      "size": [
+        1280,
+        720
+      ],
+      "elapsed": 0.42,
+      "termination": "tilt"
+    },
+    {
+      "video": "ppo_seed942_nominal.mp4",
+      "frames": 67,
+      "fps": 25.0,
+      "size": [
+        1280,
+        720
+      ],
+      "elapsed": 0.41000000000000003,
+      "termination": "tilt"
+    },
+    {
+      "video": "shared_prior_nominal.mp4",
+      "frames": 67,
+      "fps": 25.0,
+      "size": [
+        1280,
+        720
+      ],
+      "elapsed": 0.41000000000000003,
+      "termination": "tilt"
+    }
+  ],
+  "portable_replay": {
+    "label": "neat_seed941",
+    "model_relocated_in_temporary_directory": true,
+    "recorded_model_hash_preserved": true,
+    "episode_metadata_exact_match": true,
+    "scope": "Numerical replay verified; annotation font was subsequently enlarged for published videos"
+  },
+  "ppo_export_check": "Executed on 16 fixed random 15-dimensional inputs at every validation checkpoint",
+  "high_rate_frontend": "Optimistic virtual sensor, not a hardware bandwidth validation"
+}

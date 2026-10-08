@@ -1,3 +1,17 @@
+## 最新一轮：九维 IMU 历史与残差控制（2026-10-08）
+
+已完成上部 7 g / 下部 8 g、base_link 九通道 IMU 加历史积分估计的 NEAT / PPO 对照，共两个训练种子/算法，合计 1,084,379 个训练控制步。
+
+**尚未得到可用悬停策略：192 次正式常规/扰动测试，8 秒悬停成功为 0。** 常规测试平均持续时间为 NEAT 1.184 s、PPO 0.758 s。关闭历史特征后的消融效果不一致，不能宣称历史已经解决定点保持。PID 筛选未稳定，因此本轮采用相同的既有 NEAT 姿态控制器加学习残差，而非已经成功的 PID 内环。
+
+- [完整 report.md](artifacts/hover9_pid_20261008/report.md)
+- [NEAT 测试视频](artifacts/hover9_pid_20261008/videos/neat_seed941_nominal.mp4) · [PPO 测试视频](artifacts/hover9_pid_20261008/videos/ppo_seed941_nominal.mp4)
+- [全部测试数据](artifacts/hover9_pid_20261008/final_test/results.json) · [复现说明](experiments/algorithms/hover9/README.md)
+
+---
+
+以下保留上一轮六维 IMU 实验报告，结论对应当时的实验条件。
+
 ## Material Passport
 
 - Origin Skill: academic-research-suite / experiment-agent

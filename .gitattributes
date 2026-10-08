@@ -16,3 +16,10 @@ artifacts/neat_ppo_7g8g_20261008/robot_upper7_lower8.xml -whitespace
 # Preserve IMU diagnostic data and checksums.
 artifacts/imu_history_20261008/** -text !eol
 artifacts/imu_history_20261008/robot_upper7_lower8.xml -whitespace
+
+# Preserve this IMU-history training round and policy fingerprints.
+artifacts/hover9_pid_20261008/** -text !eol
+artifacts/hover9_pid_20261008/robot_upper7_lower8.xml -whitespace
+# Keep the exact training-source bytes recorded before optimization.
+experiments/algorithms/hover9/common.py whitespace=-blank-at-eof
+experiments/algorithms/hover9/environment.py whitespace=-blank-at-eof
