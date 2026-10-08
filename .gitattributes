@@ -12,3 +12,7 @@ experiments/algorithms/neat_imu/config.ini text eol=lf
 artifacts/neat_ppo_7g8g_20261008/** -text !eol
 # This frozen XML contains an original whitespace-only line; keep its hash.
 artifacts/neat_ppo_7g8g_20261008/robot_upper7_lower8.xml -whitespace
+
+# Preserve IMU diagnostic data and checksums.
+artifacts/imu_history_20261008/** -text !eol
+artifacts/imu_history_20261008/robot_upper7_lower8.xml -whitespace

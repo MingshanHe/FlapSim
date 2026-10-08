@@ -1,0 +1,76 @@
+{
+  "episode": {
+    "seed": 2060810000,
+    "elapsed": 0.74,
+    "termination": "tilt",
+    "tilt_rmse_deg": 43.45273999264717,
+    "tracking_rmse_m": 0.09246530677067662
+  },
+  "metrics": [
+    {
+      "label": "physics_rate_ideal",
+      "elapsed_s": 0.7400000000006142,
+      "rmse_m": 0.006245550247608087,
+      "final_error_m": 0.009842468779241668,
+      "final_velocity_error_m_s": 0.02604012019383176
+    },
+    {
+      "label": "raw_100Hz",
+      "elapsed_s": 0.7400000000006142,
+      "rmse_m": 0.908946722213634,
+      "final_error_m": 1.7544897323780213,
+      "final_velocity_error_m_s": 5.668550625299803
+    },
+    {
+      "label": "raw_500Hz",
+      "elapsed_s": 0.7400000000006142,
+      "rmse_m": 0.7063884670579806,
+      "final_error_m": 1.6899824707387259,
+      "final_velocity_error_m_s": 5.625908564304798
+    },
+    {
+      "label": "raw_2000Hz",
+      "elapsed_s": 0.7400000000006142,
+      "rmse_m": 0.5992378415300302,
+      "final_error_m": 1.4426593000910175,
+      "final_velocity_error_m_s": 5.6408132521097
+    },
+    {
+      "label": "prefilter100Hz_2pole_500Hz_first_sample",
+      "elapsed_s": 0.7400000000006142,
+      "rmse_m": 0.5356757586508066,
+      "final_error_m": 0.9319808177773645,
+      "final_velocity_error_m_s": 1.2499184909273295
+    },
+    {
+      "label": "prefilter100Hz_2pole_2000Hz_first_sample",
+      "elapsed_s": 0.7400000000006142,
+      "rmse_m": 0.5370996011795975,
+      "final_error_m": 0.9362054108909521,
+      "final_velocity_error_m_s": 1.2811054983112315
+    },
+    {
+      "label": "prefilter100Hz_2pole_500Hz_stationary_prior",
+      "elapsed_s": 0.7400000000006142,
+      "rmse_m": 0.03556164059734539,
+      "final_error_m": 0.07698882524362123,
+      "final_velocity_error_m_s": 0.24797721143913148
+    },
+    {
+      "label": "prefilter100Hz_2pole_2000Hz_stationary_prior",
+      "elapsed_s": 0.7400000000006142,
+      "rmse_m": 0.03713686646317122,
+      "final_error_m": 0.07972015975404134,
+      "final_velocity_error_m_s": 0.25062274814044655
+    }
+  ],
+  "scope": "Single first predeclared case; ideal attitude and oracle v0; causal prefilter sensitivity, not a deployed estimator",
+  "initial_velocity_m_s": [
+    -0.10341874181163851,
+    0.007980271276945478,
+    -0.003391260077144409
+  ],
+  "peak_specific_force_m_s2": 26744.338331815397,
+  "source_rate_hz": 200000,
+  "filter_cutoff_per_pole_hz": 100
+}

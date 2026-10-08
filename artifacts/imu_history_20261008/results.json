@@ -1,0 +1,728 @@
+{
+  "scope": "State estimation diagnostic, not new controller training or proof of hovering",
+  "episodes": [
+    {
+      "episode": {
+        "seed": 2060810000,
+        "elapsed": 0.74,
+        "termination": "tilt",
+        "tilt_rmse_deg": 43.45273999264717,
+        "tracking_rmse_m": 0.09246530677067662
+      },
+      "estimates": [
+        {
+          "label": "100Hz_bias0_pitch0_oraclev0",
+          "rate_hz": 100,
+          "bias_m_s2": 0.0,
+          "pitch_error_deg": 0.0,
+          "initial_velocity": "oracle",
+          "elapsed_s": 0.7400000000006142,
+          "displacement_rmse_m": 0.908946722213634,
+          "final_error_m": 1.7544897323780213,
+          "true_displacement_m": 0.17959198514014765,
+          "final_velocity_error_m_s": 5.668550625299803
+        },
+        {
+          "label": "500Hz_bias0_pitch0_oraclev0",
+          "rate_hz": 500,
+          "bias_m_s2": 0.0,
+          "pitch_error_deg": 0.0,
+          "initial_velocity": "oracle",
+          "elapsed_s": 0.7400000000006142,
+          "displacement_rmse_m": 0.7063884670579806,
+          "final_error_m": 1.6899824707387259,
+          "true_displacement_m": 0.17959198514014765,
+          "final_velocity_error_m_s": 5.625908564304798
+        },
+        {
+          "label": "2000Hz_bias0_pitch0_oraclev0",
+          "rate_hz": 2000,
+          "bias_m_s2": 0.0,
+          "pitch_error_deg": 0.0,
+          "initial_velocity": "oracle",
+          "elapsed_s": 0.7400000000006142,
+          "displacement_rmse_m": 0.5992378415300302,
+          "final_error_m": 1.4426593000910175,
+          "true_displacement_m": 0.17959198514014765,
+          "final_velocity_error_m_s": 5.6408132521097
+        },
+        {
+          "label": "2000Hz_bias0_pitch0_zerov0",
+          "rate_hz": 2000,
+          "bias_m_s2": 0.0,
+          "pitch_error_deg": 0.0,
+          "initial_velocity": "zero",
+          "elapsed_s": 0.7400000000006142,
+          "displacement_rmse_m": 0.5877353315858415,
+          "final_error_m": 1.4016008743410762,
+          "true_displacement_m": 0.17959198514014765,
+          "final_velocity_error_m_s": 5.556379771056966
+        },
+        {
+          "label": "2000Hz_bias0.02_pitch0_zerov0",
+          "rate_hz": 2000,
+          "bias_m_s2": 0.02,
+          "pitch_error_deg": 0.0,
+          "initial_velocity": "zero",
+          "elapsed_s": 0.7400000000006142,
+          "displacement_rmse_m": 0.5873528177025145,
+          "final_error_m": 1.3992886433400409,
+          "true_displacement_m": 0.17959198514014765,
+          "final_velocity_error_m_s": 5.547376051700223
+        },
+        {
+          "label": "2000Hz_bias0_pitch0.5_zerov0",
+          "rate_hz": 2000,
+          "bias_m_s2": 0.0,
+          "pitch_error_deg": 0.5,
+          "initial_velocity": "zero",
+          "elapsed_s": 0.7400000000006142,
+          "displacement_rmse_m": 0.5857423274523328,
+          "final_error_m": 1.3905982150391432,
+          "true_displacement_m": 0.17959198514014765,
+          "final_velocity_error_m_s": 5.511687093998732
+        }
+      ],
+      "initial_speed_m_s": 0.10378160498116622,
+      "accel_peak_m_s2": 9087.754873242084
+    },
+    {
+      "episode": {
+        "seed": 2060810001,
+        "elapsed": 2.04,
+        "termination": "ground",
+        "tilt_rmse_deg": 11.690204311076023,
+        "tracking_rmse_m": 0.40522334058493764
+      },
+      "estimates": [
+        {
+          "label": "100Hz_bias0_pitch0_oraclev0",
+          "rate_hz": 100,
+          "bias_m_s2": 0.0,
+          "pitch_error_deg": 0.0,
+          "initial_velocity": "oracle",
+          "elapsed_s": 2.040000000007354,
+          "displacement_rmse_m": 6.4134343394581075,
+          "final_error_m": 13.64572611481732,
+          "true_displacement_m": 0.8327672771826768,
+          "final_velocity_error_m_s": 11.285785610397554
+        },
+        {
+          "label": "500Hz_bias0_pitch0_oraclev0",
+          "rate_hz": 500,
+          "bias_m_s2": 0.0,
+          "pitch_error_deg": 0.0,
+          "initial_velocity": "oracle",
+          "elapsed_s": 2.040000000007354,
+          "displacement_rmse_m": 17.513458275369146,
+          "final_error_m": 34.879565183046125,
+          "true_displacement_m": 0.8327672771826768,
+          "final_velocity_error_m_s": 21.44334504554184
+        },
+        {
+          "label": "2000Hz_bias0_pitch0_oraclev0",
+          "rate_hz": 2000,
+          "bias_m_s2": 0.0,
+          "pitch_error_deg": 0.0,
+          "initial_velocity": "oracle",
+          "elapsed_s": 2.040000000007354,
+          "displacement_rmse_m": 3.7546567767662973,
+          "final_error_m": 10.59679924059861,
+          "true_displacement_m": 0.8327672771826768,
+          "final_velocity_error_m_s": 13.226753842548497
+        },
+        {
+          "label": "2000Hz_bias0_pitch0_zerov0",
+          "rate_hz": 2000,
+          "bias_m_s2": 0.0,
+          "pitch_error_deg": 0.0,
+          "initial_velocity": "zero",
+          "elapsed_s": 2.040000000007354,
+          "displacement_rmse_m": 3.7114064296026217,
+          "final_error_m": 10.455750415834771,
+          "true_displacement_m": 0.8327672771826768,
+          "final_velocity_error_m_s": 13.164268487420772
+        },
+        {
+          "label": "2000Hz_bias0.02_pitch0_zerov0",
+          "rate_hz": 2000,
+          "bias_m_s2": 0.02,
+          "pitch_error_deg": 0.0,
+          "initial_velocity": "zero",
+          "elapsed_s": 2.040000000007354,
+          "displacement_rmse_m": 3.7003961343685368,
+          "final_error_m": 10.42051947058763,
+          "true_displacement_m": 0.8327672771826768,
+          "final_velocity_error_m_s": 13.132478450199802
+        },
+        {
+          "label": "2000Hz_bias0_pitch0.5_zerov0",
+          "rate_hz": 2000,
+          "bias_m_s2": 0.0,
+          "pitch_error_deg": 0.5,
+          "initial_velocity": "zero",
+          "elapsed_s": 2.040000000007354,
+          "displacement_rmse_m": 3.667035103325646,
+          "final_error_m": 10.311740101390056,
+          "true_displacement_m": 0.8327672771826768,
+          "final_velocity_error_m_s": 13.025846531042324
+        }
+      ],
+      "initial_speed_m_s": 0.08881127557051986,
+      "accel_peak_m_s2": 23265.300100488188
+    },
+    {
+      "episode": {
+        "seed": 2060810002,
+        "elapsed": 1.03,
+        "termination": "tilt",
+        "tilt_rmse_deg": 46.63652082171734,
+        "tracking_rmse_m": 0.22725155110954828
+      },
+      "estimates": [
+        {
+          "label": "100Hz_bias0_pitch0_oraclev0",
+          "rate_hz": 100,
+          "bias_m_s2": 0.0,
+          "pitch_error_deg": 0.0,
+          "initial_velocity": "oracle",
+          "elapsed_s": 1.030000000002514,
+          "displacement_rmse_m": 1.8858952579218209,
+          "final_error_m": 3.1088852816638046,
+          "true_displacement_m": 0.4260292513127576,
+          "final_velocity_error_m_s": 2.394598874267806
+        },
+        {
+          "label": "500Hz_bias0_pitch0_oraclev0",
+          "rate_hz": 500,
+          "bias_m_s2": 0.0,
+          "pitch_error_deg": 0.0,
+          "initial_velocity": "oracle",
+          "elapsed_s": 1.030000000002514,
+          "displacement_rmse_m": 1.819978081819949,
+          "final_error_m": 3.919747944891736,
+          "true_displacement_m": 0.4260292513127576,
+          "final_velocity_error_m_s": 7.8018443091319085
+        },
+        {
+          "label": "2000Hz_bias0_pitch0_oraclev0",
+          "rate_hz": 2000,
+          "bias_m_s2": 0.0,
+          "pitch_error_deg": 0.0,
+          "initial_velocity": "oracle",
+          "elapsed_s": 1.030000000002514,
+          "displacement_rmse_m": 1.2743191932245628,
+          "final_error_m": 2.8450855562966106,
+          "true_displacement_m": 0.4260292513127576,
+          "final_velocity_error_m_s": 5.397259132328415
+        },
+        {
+          "label": "2000Hz_bias0_pitch0_zerov0",
+          "rate_hz": 2000,
+          "bias_m_s2": 0.0,
+          "pitch_error_deg": 0.0,
+          "initial_velocity": "zero",
+          "elapsed_s": 1.030000000002514,
+          "displacement_rmse_m": 1.2751090780386687,
+          "final_error_m": 2.8441454171659815,
+          "true_displacement_m": 0.4260292513127576,
+          "final_velocity_error_m_s": 5.395733634947657
+        },
+        {
+          "label": "2000Hz_bias0.02_pitch0_zerov0",
+          "rate_hz": 2000,
+          "bias_m_s2": 0.02,
+          "pitch_error_deg": 0.0,
+          "initial_velocity": "zero",
+          "elapsed_s": 1.030000000002514,
+          "displacement_rmse_m": 1.2753299610432893,
+          "final_error_m": 2.844117724341221,
+          "true_displacement_m": 0.4260292513127576,
+          "final_velocity_error_m_s": 5.39500022033657
+        },
+        {
+          "label": "2000Hz_bias0_pitch0.5_zerov0",
+          "rate_hz": 2000,
+          "bias_m_s2": 0.0,
+          "pitch_error_deg": 0.5,
+          "initial_velocity": "zero",
+          "elapsed_s": 1.030000000002514,
+          "displacement_rmse_m": 1.276261460124707,
+          "final_error_m": 2.844421019166731,
+          "true_displacement_m": 0.4260292513127576,
+          "final_velocity_error_m_s": 5.393732365364115
+        }
+      ],
+      "initial_speed_m_s": 0.028329437582638114,
+      "accel_peak_m_s2": 1486.496176572769
+    },
+    {
+      "episode": {
+        "seed": 2060810003,
+        "elapsed": 2.04,
+        "termination": "ground",
+        "tilt_rmse_deg": 11.261649558253547,
+        "tracking_rmse_m": 0.4172612754327818
+      },
+      "estimates": [
+        {
+          "label": "100Hz_bias0_pitch0_oraclev0",
+          "rate_hz": 100,
+          "bias_m_s2": 0.0,
+          "pitch_error_deg": 0.0,
+          "initial_velocity": "oracle",
+          "elapsed_s": 2.040000000007354,
+          "displacement_rmse_m": 6.836984595870802,
+          "final_error_m": 13.742000194430016,
+          "true_displacement_m": 0.857646904159542,
+          "final_velocity_error_m_s": 9.583076033812414
+        },
+        {
+          "label": "500Hz_bias0_pitch0_oraclev0",
+          "rate_hz": 500,
+          "bias_m_s2": 0.0,
+          "pitch_error_deg": 0.0,
+          "initial_velocity": "oracle",
+          "elapsed_s": 2.040000000007354,
+          "displacement_rmse_m": 17.340127389760873,
+          "final_error_m": 30.606208459613242,
+          "true_displacement_m": 0.857646904159542,
+          "final_velocity_error_m_s": 10.889327503596107
+        },
+        {
+          "label": "2000Hz_bias0_pitch0_oraclev0",
+          "rate_hz": 2000,
+          "bias_m_s2": 0.0,
+          "pitch_error_deg": 0.0,
+          "initial_velocity": "oracle",
+          "elapsed_s": 2.040000000007354,
+          "displacement_rmse_m": 14.389376079276493,
+          "final_error_m": 28.738347766797983,
+          "true_displacement_m": 0.857646904159542,
+          "final_velocity_error_m_s": 21.32801186972093
+        },
+        {
+          "label": "2000Hz_bias0_pitch0_zerov0",
+          "rate_hz": 2000,
+          "bias_m_s2": 0.0,
+          "pitch_error_deg": 0.0,
+          "initial_velocity": "zero",
+          "elapsed_s": 2.040000000007354,
+          "displacement_rmse_m": 14.305470409152674,
+          "final_error_m": 28.586843113180432,
+          "true_displacement_m": 0.857646904159542,
+          "final_velocity_error_m_s": 21.241361509996267
+        },
+        {
+          "label": "2000Hz_bias0.02_pitch0_zerov0",
+          "rate_hz": 2000,
+          "bias_m_s2": 0.02,
+          "pitch_error_deg": 0.0,
+          "initial_velocity": "zero",
+          "elapsed_s": 2.040000000007354,
+          "displacement_rmse_m": 14.290689634773022,
+          "final_error_m": 28.55215643671463,
+          "true_displacement_m": 0.857646904159542,
+          "final_velocity_error_m_s": 21.20273077326254
+        },
+        {
+          "label": "2000Hz_bias0_pitch0.5_zerov0",
+          "rate_hz": 2000,
+          "bias_m_s2": 0.0,
+          "pitch_error_deg": 0.5,
+          "initial_velocity": "zero",
+          "elapsed_s": 2.040000000007354,
+          "displacement_rmse_m": 14.239697957776672,
+          "final_error_m": 28.432770807293945,
+          "true_displacement_m": 0.857646904159542,
+          "final_velocity_error_m_s": 21.072204061134777
+        }
+      ],
+      "initial_speed_m_s": 0.09798076325496424,
+      "accel_peak_m_s2": 18171.06707657895
+    },
+    {
+      "episode": {
+        "seed": 2060810004,
+        "elapsed": 0.7000000000000001,
+        "termination": "tilt",
+        "tilt_rmse_deg": 45.72125015536985,
+        "tracking_rmse_m": 0.13767600545196015
+      },
+      "estimates": [
+        {
+          "label": "100Hz_bias0_pitch0_oraclev0",
+          "rate_hz": 100,
+          "bias_m_s2": 0.0,
+          "pitch_error_deg": 0.0,
+          "initial_velocity": "oracle",
+          "elapsed_s": 0.7000000000003521,
+          "displacement_rmse_m": 1.6931079453041638,
+          "final_error_m": 3.0990790169311038,
+          "true_displacement_m": 0.2660148883906253,
+          "final_velocity_error_m_s": 4.9616653323227125
+        },
+        {
+          "label": "500Hz_bias0_pitch0_oraclev0",
+          "rate_hz": 500,
+          "bias_m_s2": 0.0,
+          "pitch_error_deg": 0.0,
+          "initial_velocity": "oracle",
+          "elapsed_s": 0.7000000000003521,
+          "displacement_rmse_m": 0.6313138891727805,
+          "final_error_m": 1.4629347800308288,
+          "true_displacement_m": 0.2660148883906253,
+          "final_velocity_error_m_s": 4.631902455132138
+        },
+        {
+          "label": "2000Hz_bias0_pitch0_oraclev0",
+          "rate_hz": 2000,
+          "bias_m_s2": 0.0,
+          "pitch_error_deg": 0.0,
+          "initial_velocity": "oracle",
+          "elapsed_s": 0.7000000000003521,
+          "displacement_rmse_m": 0.4391317058849107,
+          "final_error_m": 0.9089508810774557,
+          "true_displacement_m": 0.2660148883906253,
+          "final_velocity_error_m_s": 2.500873775724521
+        },
+        {
+          "label": "2000Hz_bias0_pitch0_zerov0",
+          "rate_hz": 2000,
+          "bias_m_s2": 0.0,
+          "pitch_error_deg": 0.0,
+          "initial_velocity": "zero",
+          "elapsed_s": 0.7000000000003521,
+          "displacement_rmse_m": 0.44600247494288925,
+          "final_error_m": 0.9243789624898711,
+          "true_displacement_m": 0.2660148883906253,
+          "final_velocity_error_m_s": 2.5247338380202122
+        },
+        {
+          "label": "2000Hz_bias0.02_pitch0_zerov0",
+          "rate_hz": 2000,
+          "bias_m_s2": 0.02,
+          "pitch_error_deg": 0.0,
+          "initial_velocity": "zero",
+          "elapsed_s": 0.7000000000003521,
+          "displacement_rmse_m": 0.44593796542056596,
+          "final_error_m": 0.9241458654972728,
+          "true_displacement_m": 0.2660148883906253,
+          "final_velocity_error_m_s": 2.523221043571582
+        },
+        {
+          "label": "2000Hz_bias0_pitch0.5_zerov0",
+          "rate_hz": 2000,
+          "bias_m_s2": 0.0,
+          "pitch_error_deg": 0.5,
+          "initial_velocity": "zero",
+          "elapsed_s": 0.7000000000003521,
+          "displacement_rmse_m": 0.44528536103505445,
+          "final_error_m": 0.9232834201923902,
+          "true_displacement_m": 0.2660148883906253,
+          "final_velocity_error_m_s": 2.5213995227441757
+        }
+      ],
+      "initial_speed_m_s": 0.03959639850927567,
+      "accel_peak_m_s2": 1326.528343108598
+    },
+    {
+      "episode": {
+        "seed": 2060810005,
+        "elapsed": 0.76,
+        "termination": "tilt",
+        "tilt_rmse_deg": 43.71162064358466,
+        "tracking_rmse_m": 0.16761510282273784
+      },
+      "estimates": [
+        {
+          "label": "100Hz_bias0_pitch0_oraclev0",
+          "rate_hz": 100,
+          "bias_m_s2": 0.0,
+          "pitch_error_deg": 0.0,
+          "initial_velocity": "oracle",
+          "elapsed_s": 0.7600000000007452,
+          "displacement_rmse_m": 0.9580063735560158,
+          "final_error_m": 1.1137541621494298,
+          "true_displacement_m": 0.3041003704434038,
+          "final_velocity_error_m_s": 4.099465293862764
+        },
+        {
+          "label": "500Hz_bias0_pitch0_oraclev0",
+          "rate_hz": 500,
+          "bias_m_s2": 0.0,
+          "pitch_error_deg": 0.0,
+          "initial_velocity": "oracle",
+          "elapsed_s": 0.7600000000007452,
+          "displacement_rmse_m": 0.7216988061806232,
+          "final_error_m": 1.5923925360542506,
+          "true_displacement_m": 0.3041003704434038,
+          "final_velocity_error_m_s": 4.256584918224307
+        },
+        {
+          "label": "2000Hz_bias0_pitch0_oraclev0",
+          "rate_hz": 2000,
+          "bias_m_s2": 0.0,
+          "pitch_error_deg": 0.0,
+          "initial_velocity": "oracle",
+          "elapsed_s": 0.7600000000007452,
+          "displacement_rmse_m": 0.6096545865393654,
+          "final_error_m": 1.3712264671859995,
+          "true_displacement_m": 0.3041003704434038,
+          "final_velocity_error_m_s": 3.858113462942575
+        },
+        {
+          "label": "2000Hz_bias0_pitch0_zerov0",
+          "rate_hz": 2000,
+          "bias_m_s2": 0.0,
+          "pitch_error_deg": 0.0,
+          "initial_velocity": "zero",
+          "elapsed_s": 0.7600000000007452,
+          "displacement_rmse_m": 0.616839512269535,
+          "final_error_m": 1.383608223228198,
+          "true_displacement_m": 0.3041003704434038,
+          "final_velocity_error_m_s": 3.8713234522671103
+        },
+        {
+          "label": "2000Hz_bias0.02_pitch0_zerov0",
+          "rate_hz": 2000,
+          "bias_m_s2": 0.02,
+          "pitch_error_deg": 0.0,
+          "initial_velocity": "zero",
+          "elapsed_s": 0.7600000000007452,
+          "displacement_rmse_m": 0.6164107190707484,
+          "final_error_m": 1.3832349774001442,
+          "true_displacement_m": 0.3041003704434038,
+          "final_velocity_error_m_s": 3.8726817751088185
+        },
+        {
+          "label": "2000Hz_bias0_pitch0.5_zerov0",
+          "rate_hz": 2000,
+          "bias_m_s2": 0.0,
+          "pitch_error_deg": 0.5,
+          "initial_velocity": "zero",
+          "elapsed_s": 0.7600000000007452,
+          "displacement_rmse_m": 0.6156101791720607,
+          "final_error_m": 1.382625838463166,
+          "true_displacement_m": 0.3041003704434038,
+          "final_velocity_error_m_s": 3.87770627293558
+        }
+      ],
+      "initial_speed_m_s": 0.028918688854378302,
+      "accel_peak_m_s2": 708.9803009067891
+    },
+    {
+      "episode": {
+        "seed": 2060810006,
+        "elapsed": 0.71,
+        "termination": "tilt",
+        "tilt_rmse_deg": 49.85229195611641,
+        "tracking_rmse_m": 0.17929990847533006
+      },
+      "estimates": [
+        {
+          "label": "100Hz_bias0_pitch0_oraclev0",
+          "rate_hz": 100,
+          "bias_m_s2": 0.0,
+          "pitch_error_deg": 0.0,
+          "initial_velocity": "oracle",
+          "elapsed_s": 0.7100000000004176,
+          "displacement_rmse_m": 25.833694012062637,
+          "final_error_m": 58.325565221170194,
+          "true_displacement_m": 0.3006783722204356,
+          "final_velocity_error_m_s": 142.9287884185134
+        },
+        {
+          "label": "500Hz_bias0_pitch0_oraclev0",
+          "rate_hz": 500,
+          "bias_m_s2": 0.0,
+          "pitch_error_deg": 0.0,
+          "initial_velocity": "oracle",
+          "elapsed_s": 0.7100000000004176,
+          "displacement_rmse_m": 4.959385495349283,
+          "final_error_m": 11.401238539904492,
+          "true_displacement_m": 0.3006783722204356,
+          "final_velocity_error_m_s": 28.44940945639147
+        },
+        {
+          "label": "2000Hz_bias0_pitch0_oraclev0",
+          "rate_hz": 2000,
+          "bias_m_s2": 0.0,
+          "pitch_error_deg": 0.0,
+          "initial_velocity": "oracle",
+          "elapsed_s": 0.7100000000004176,
+          "displacement_rmse_m": 1.2032833100390596,
+          "final_error_m": 2.8289762485766703,
+          "true_displacement_m": 0.3006783722204356,
+          "final_velocity_error_m_s": 9.213187012793847
+        },
+        {
+          "label": "2000Hz_bias0_pitch0_zerov0",
+          "rate_hz": 2000,
+          "bias_m_s2": 0.0,
+          "pitch_error_deg": 0.0,
+          "initial_velocity": "zero",
+          "elapsed_s": 0.7100000000004176,
+          "displacement_rmse_m": 1.1711904353788651,
+          "final_error_m": 2.765813767805181,
+          "true_displacement_m": 0.3006783722204356,
+          "final_velocity_error_m_s": 9.115868557973746
+        },
+        {
+          "label": "2000Hz_bias0.02_pitch0_zerov0",
+          "rate_hz": 2000,
+          "bias_m_s2": 0.02,
+          "pitch_error_deg": 0.0,
+          "initial_velocity": "zero",
+          "elapsed_s": 0.7100000000004176,
+          "displacement_rmse_m": 1.1724547111635193,
+          "final_error_m": 2.7688774891854364,
+          "true_displacement_m": 0.3006783722204356,
+          "final_velocity_error_m_s": 9.124085357605018
+        },
+        {
+          "label": "2000Hz_bias0_pitch0.5_zerov0",
+          "rate_hz": 2000,
+          "bias_m_s2": 0.0,
+          "pitch_error_deg": 0.5,
+          "initial_velocity": "zero",
+          "elapsed_s": 0.7100000000004176,
+          "displacement_rmse_m": 1.1776212337068364,
+          "final_error_m": 2.781270331753726,
+          "true_displacement_m": 0.3006783722204356,
+          "final_velocity_error_m_s": 9.161235099183031
+        }
+      ],
+      "initial_speed_m_s": 0.12240638672268708,
+      "accel_peak_m_s2": 13999.510277241005
+    },
+    {
+      "episode": {
+        "seed": 2060810007,
+        "elapsed": 0.71,
+        "termination": "tilt",
+        "tilt_rmse_deg": 49.37787585526473,
+        "tracking_rmse_m": 0.19794748316940372
+      },
+      "estimates": [
+        {
+          "label": "100Hz_bias0_pitch0_oraclev0",
+          "rate_hz": 100,
+          "bias_m_s2": 0.0,
+          "pitch_error_deg": 0.0,
+          "initial_velocity": "oracle",
+          "elapsed_s": 0.7100000000004176,
+          "displacement_rmse_m": 1.1489901382872516,
+          "final_error_m": 2.7227151453467364,
+          "true_displacement_m": 0.31206496895010344,
+          "final_velocity_error_m_s": 7.484882576372385
+        },
+        {
+          "label": "500Hz_bias0_pitch0_oraclev0",
+          "rate_hz": 500,
+          "bias_m_s2": 0.0,
+          "pitch_error_deg": 0.0,
+          "initial_velocity": "oracle",
+          "elapsed_s": 0.7100000000004176,
+          "displacement_rmse_m": 0.8466931300264672,
+          "final_error_m": 1.8471903370305163,
+          "true_displacement_m": 0.31206496895010344,
+          "final_velocity_error_m_s": 5.246309980934733
+        },
+        {
+          "label": "2000Hz_bias0_pitch0_oraclev0",
+          "rate_hz": 2000,
+          "bias_m_s2": 0.0,
+          "pitch_error_deg": 0.0,
+          "initial_velocity": "oracle",
+          "elapsed_s": 0.7100000000004176,
+          "displacement_rmse_m": 0.9691011930949726,
+          "final_error_m": 2.39321292855498,
+          "true_displacement_m": 0.31206496895010344,
+          "final_velocity_error_m_s": 7.420258838909569
+        },
+        {
+          "label": "2000Hz_bias0_pitch0_zerov0",
+          "rate_hz": 2000,
+          "bias_m_s2": 0.0,
+          "pitch_error_deg": 0.0,
+          "initial_velocity": "zero",
+          "elapsed_s": 0.7100000000004176,
+          "displacement_rmse_m": 0.9682604371769856,
+          "final_error_m": 2.386661177874021,
+          "true_displacement_m": 0.31206496895010344,
+          "final_velocity_error_m_s": 7.406072735662082
+        },
+        {
+          "label": "2000Hz_bias0.02_pitch0_zerov0",
+          "rate_hz": 2000,
+          "bias_m_s2": 0.02,
+          "pitch_error_deg": 0.0,
+          "initial_velocity": "zero",
+          "elapsed_s": 0.7100000000004176,
+          "displacement_rmse_m": 0.9687082532783446,
+          "final_error_m": 2.3882882290238223,
+          "true_displacement_m": 0.31206496895010344,
+          "final_velocity_error_m_s": 7.4127385140559205
+        },
+        {
+          "label": "2000Hz_bias0_pitch0.5_zerov0",
+          "rate_hz": 2000,
+          "bias_m_s2": 0.0,
+          "pitch_error_deg": 0.5,
+          "initial_velocity": "zero",
+          "elapsed_s": 0.7100000000004176,
+          "displacement_rmse_m": 0.9716341870738754,
+          "final_error_m": 2.3966433149138795,
+          "true_displacement_m": 0.31206496895010344,
+          "final_velocity_error_m_s": 7.441092845073825
+        }
+      ],
+      "initial_speed_m_s": 0.11467928497051685,
+      "accel_peak_m_s2": 11437.474639446047
+    }
+  ],
+  "summary": {
+    "100Hz_bias0_pitch0_oraclev0": {
+      "mean_rmse_m": 5.709882423084304,
+      "mean_final_error_m": 12.189026858610829,
+      "max_final_error_m": 58.325565221170194
+    },
+    "500Hz_bias0_pitch0_oraclev0": {
+      "mean_rmse_m": 5.567380441842137,
+      "mean_final_error_m": 10.92490753141374,
+      "max_final_error_m": 34.879565183046125
+    },
+    "2000Hz_bias0_pitch0_oraclev0": {
+      "mean_rmse_m": 2.904845085794461,
+      "mean_final_error_m": 6.390657298647415,
+      "max_final_error_m": 28.738347766797983
+    },
+    "2000Hz_bias0_pitch0_zerov0": {
+      "mean_rmse_m": 2.88525176351851,
+      "mean_final_error_m": 6.3436002439899415,
+      "max_final_error_m": 28.586843113180432
+    },
+    "2000Hz_bias0.02_pitch0_zerov0": {
+      "mean_rmse_m": 2.882160024602568,
+      "mean_final_error_m": 6.335078604511274,
+      "max_final_error_m": 28.55215643671463
+    },
+    "2000Hz_bias0_pitch0.5_zerov0": {
+      "mean_rmse_m": 2.872360976208398,
+      "mean_final_error_m": 6.307919131026629,
+      "max_final_error_m": 28.432770807293945
+    }
+  },
+  "translation_symmetry": {
+    "shift_m": [
+      0.1,
+      -0.08,
+      0.0
+    ],
+    "duration_s": 0.2,
+    "max_obs6_difference": 0.0,
+    "max_accel_difference_m_s2": 0.00014111009568651411,
+    "max_translation_residual_m": 6.857181489294817e-12
+  }
+}

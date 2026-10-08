@@ -147,3 +147,7 @@ python -m experiments.algorithms.neat_imu.compare_results --root artifacts/neat_
 ![对照结果](artifacts/neat_ppo_7g8g_20261008/comparison.png)
 
 ![预声明测试的控制动作](artifacts/neat_ppo_7g8g_20261008/test_actions.png)
+
+## 后续：IMU 历史与分层控制
+
+2026-10-08 完成了 [IMU 历史可行性与 NEAT/PPO/PID 文献调研](artifacts/imu_history_20261008/report.md)。加入加速度后的短时间位移估计具有可行性，但本机原始虚拟加速度存在严重的采样敏感性，需要传感器滤波、初始化和偏差模型。本次新增的是状态估计诊断，尚未训练新的九维控制策略；不改变上面的六维实验结论。
