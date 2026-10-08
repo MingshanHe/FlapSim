@@ -1,0 +1,9 @@
+{
+  "source": "artifacts/hover9_pid_20261008",
+  "upper_g": 7,
+  "lower_g": 8,
+  "reference": "Actual initial base_link position, used for reward/evaluation only",
+  "initial_velocity": "Final selected policy: every generalized velocity is zero at reset, gimbals aligned, then a 100 ms motor target ramp. The original-release search is recorded separately.",
+  "physical_outputs": "alpha/beta +/-0.3 rad; motor after ramp 3115.224079 to 3807.496097 rad/s, feedforward target 3190 rad/s. Startup begins at zero.",
+  "phase_bank_role": "Legacy powered fixed-base positions supply randomized mechanism phases; see audit_protocol.json for the final reset."
+}

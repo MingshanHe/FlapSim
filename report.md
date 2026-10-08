@@ -1,4 +1,16 @@
-## 最新一轮：九维 IMU 历史与残差控制（2026-10-08）
+## 本轮：PID 离地与悬停（2026-10-08）
+
+**已得到通过 20 秒常规仿真测试的 PID：16/16 成功。** 姿态稳定阶段倾角 RMS 3.26°、高度 RMS 误差 6.17 cm，整机最小保守几何离地间隙 57.1 cm。yaw 与水平位置未控制。
+
+仅 IMU 的长期保高仍受积分漂移限制：扰动测试 1/8 达标，60 秒追加案例在 48.164 秒触发低高度保护。同组 PID 使用仿真真值高度与垂向速度时，两个配对案例均完成 60 秒，高度 RMS 误差约 2 cm；这不是实机测高验证。
+
+- [本轮完整 report.md](artifacts/pid_airborne_20261008/report.md)
+- [IMU PID 视频](artifacts/pid_airborne_20261008/videos/imu_nominal.mp4) · [真值反馈诊断视频](artifacts/pid_airborne_20261008/videos/truth_height_diagnostic.mp4)
+- [最终 PID 参数](artifacts/pid_airborne_20261008/selected_pid.json) · [复现说明](experiments/algorithms/pid_airborne/README.md)
+
+---
+
+## 上一轮：九维 IMU 历史与残差控制（2026-10-08）
 
 已完成上部 7 g / 下部 8 g、base_link 九通道 IMU 加历史积分估计的 NEAT / PPO 对照，共两个训练种子/算法，合计 1,084,379 个训练控制步。
 

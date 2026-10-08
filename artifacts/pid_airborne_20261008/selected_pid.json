@@ -1,0 +1,50 @@
+{
+  "format": "flapsim-pid-airborne-v1",
+  "parameters": {
+    "kp": [
+      0.18614519582463507,
+      0.14732954292611267
+    ],
+    "kd": [
+      0.11521863335342444,
+      0.12737236761918022
+    ],
+    "sensor_tau": 0.13045658515789563,
+    "ki": [
+      0.05321777874733716,
+      -0.010427299646852857
+    ],
+    "trim": [
+      0.009403938176356088,
+      -0.0038897827014125488
+    ],
+    "derivative_tau": 0.004482330374373422,
+    "action_tau": 0.008214071849913296,
+    "servo_kp": 1.0452581209739018,
+    "servo_kd": 0.0022354534127223885,
+    "motor": 3190.0,
+    "height_gains": [
+      900.0,
+      500.0,
+      80.0
+    ],
+    "release": "rest",
+    "motor_start_s": 0.1
+  },
+  "selection": "Eight validation seeds; no held-out test data used",
+  "validation": {
+    "episodes": 8,
+    "completed": 8,
+    "stable": 8,
+    "strict_hover": 8,
+    "mean_duration": 15.0,
+    "mean_settled_tilt_rms_deg": 3.3531769087350876,
+    "mean_height_rmse_m": 0.04782426201960995,
+    "minimum_clearance_m": 0.5819927102893342,
+    "maximum_xy_offset_m": 0.25945100550280625,
+    "mean_final_height_estimate_error_m": 0.0756737778215815,
+    "termination_counts": {
+      "time_limit": 8
+    }
+  }
+}

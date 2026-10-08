@@ -1,0 +1,1563 @@
+{
+  "summaries": {
+    "candidate_0": {
+      "episodes": 8,
+      "completed": 8,
+      "stable": 8,
+      "strict_hover": 8,
+      "mean_duration": 15.0,
+      "mean_settled_tilt_rms_deg": 3.3531769087350876,
+      "mean_height_rmse_m": 0.04782426201960995,
+      "minimum_clearance_m": 0.5819927102893342,
+      "maximum_xy_offset_m": 0.25945100550280625,
+      "mean_final_height_estimate_error_m": 0.0756737778215815,
+      "termination_counts": {
+        "time_limit": 8
+      }
+    },
+    "candidate_1": {
+      "episodes": 8,
+      "completed": 8,
+      "stable": 8,
+      "strict_hover": 8,
+      "mean_duration": 15.0,
+      "mean_settled_tilt_rms_deg": 3.3688134591002967,
+      "mean_height_rmse_m": 0.050412961237190274,
+      "minimum_clearance_m": 0.5825538934340798,
+      "maximum_xy_offset_m": 0.26026763838271294,
+      "mean_final_height_estimate_error_m": 0.07376226874208958,
+      "termination_counts": {
+        "time_limit": 8
+      }
+    },
+    "candidate_2": {
+      "episodes": 8,
+      "completed": 8,
+      "stable": 8,
+      "strict_hover": 8,
+      "mean_duration": 15.0,
+      "mean_settled_tilt_rms_deg": 3.344556175198802,
+      "mean_height_rmse_m": 0.05770673609588789,
+      "minimum_clearance_m": 0.5650342527538261,
+      "maximum_xy_offset_m": 0.2596235073292179,
+      "mean_final_height_estimate_error_m": 0.07742590217944512,
+      "termination_counts": {
+        "time_limit": 8
+      }
+    }
+  },
+  "episodes": [
+    {
+      "policy": "candidate_0",
+      "parameters": {
+        "kp": [
+          0.18614519582463507,
+          0.14732954292611267
+        ],
+        "kd": [
+          0.11521863335342444,
+          0.12737236761918022
+        ],
+        "sensor_tau": 0.13045658515789563,
+        "ki": [
+          0.05321777874733716,
+          -0.010427299646852857
+        ],
+        "trim": [
+          0.009403938176356088,
+          -0.0038897827014125488
+        ],
+        "derivative_tau": 0.004482330374373422,
+        "action_tau": 0.008214071849913296,
+        "servo_kp": 1.0452581209739018,
+        "servo_kd": 0.0022354534127223885,
+        "motor": 3190.0,
+        "height_gains": [
+          900.0,
+          500.0,
+          80.0
+        ],
+        "release": "rest",
+        "motor_start_s": 0.1
+      },
+      "seed": 310300000,
+      "phase": 6,
+      "elapsed": 15.0,
+      "score": 25.93638624496459,
+      "termination": "time_limit",
+      "tilt_rms_deg": 4.6248998727638,
+      "max_tilt_deg": 26.760888997731175,
+      "height_rmse_m": 0.049252733997028265,
+      "min_base_height_m": 0.6334300446634765,
+      "final_position": [
+        -0.03621669988720535,
+        0.21494369327118554,
+        0.7266430569587031
+      ],
+      "final_velocity": [
+        0.009429113202011553,
+        0.027000380747080353,
+        -0.025992347416702116
+      ],
+      "saturation": 0.005866666666666667,
+      "trace": [],
+      "minimum_clearance_m": 0.5909829059364907,
+      "settled_tilt_rms_deg": 3.4234190029591263,
+      "late_height_span_m": 0.040695344908172615,
+      "late_height_slope_m_s": -0.007914795400502155,
+      "observer_final_height_error_m": 0.07976543099125281,
+      "airborne_stable": true,
+      "strict_height_hover": true,
+      "actual_final_xy_offset_m": 0.2251775659854782
+    },
+    {
+      "policy": "candidate_0",
+      "parameters": {
+        "kp": [
+          0.18614519582463507,
+          0.14732954292611267
+        ],
+        "kd": [
+          0.11521863335342444,
+          0.12737236761918022
+        ],
+        "sensor_tau": 0.13045658515789563,
+        "ki": [
+          0.05321777874733716,
+          -0.010427299646852857
+        ],
+        "trim": [
+          0.009403938176356088,
+          -0.0038897827014125488
+        ],
+        "derivative_tau": 0.004482330374373422,
+        "action_tau": 0.008214071849913296,
+        "servo_kp": 1.0452581209739018,
+        "servo_kd": 0.0022354534127223885,
+        "motor": 3190.0,
+        "height_gains": [
+          900.0,
+          500.0,
+          80.0
+        ],
+        "release": "rest",
+        "motor_start_s": 0.1
+      },
+      "seed": 310300001,
+      "phase": 5,
+      "elapsed": 15.0,
+      "score": 26.304330842125026,
+      "termination": "time_limit",
+      "tilt_rms_deg": 3.3743964230636405,
+      "max_tilt_deg": 19.015330982914502,
+      "height_rmse_m": 0.04250375908198241,
+      "min_base_height_m": 0.6478592982514317,
+      "final_position": [
+        -0.06744376408110979,
+        0.2523768277232024,
+        0.7586353800835612
+      ],
+      "final_velocity": [
+        0.1952505491972767,
+        0.03409897046440206,
+        0.0028491938062671397
+      ],
+      "saturation": 0.0,
+      "trace": [],
+      "minimum_clearance_m": 0.6058447545998279,
+      "settled_tilt_rms_deg": 3.1552809761477736,
+      "late_height_span_m": 0.03348147843868565,
+      "late_height_slope_m_s": -0.006704032364252037,
+      "observer_final_height_error_m": 0.058143294788612396,
+      "airborne_stable": true,
+      "strict_height_hover": true,
+      "actual_final_xy_offset_m": 0.24626794307556657
+    },
+    {
+      "policy": "candidate_0",
+      "parameters": {
+        "kp": [
+          0.18614519582463507,
+          0.14732954292611267
+        ],
+        "kd": [
+          0.11521863335342444,
+          0.12737236761918022
+        ],
+        "sensor_tau": 0.13045658515789563,
+        "ki": [
+          0.05321777874733716,
+          -0.010427299646852857
+        ],
+        "trim": [
+          0.009403938176356088,
+          -0.0038897827014125488
+        ],
+        "derivative_tau": 0.004482330374373422,
+        "action_tau": 0.008214071849913296,
+        "servo_kp": 1.0452581209739018,
+        "servo_kd": 0.0022354534127223885,
+        "motor": 3190.0,
+        "height_gains": [
+          900.0,
+          500.0,
+          80.0
+        ],
+        "release": "rest",
+        "motor_start_s": 0.1
+      },
+      "seed": 310300002,
+      "phase": 1,
+      "elapsed": 15.0,
+      "score": 26.291755982848496,
+      "termination": "time_limit",
+      "tilt_rms_deg": 3.4185913222878317,
+      "max_tilt_deg": 18.67177843253309,
+      "height_rmse_m": 0.042696831441786015,
+      "min_base_height_m": 0.6455933873463063,
+      "final_position": [
+        -0.07730912524689743,
+        0.2157500140101113,
+        0.7561423729545247
+      ],
+      "final_velocity": [
+        -0.2126241472236787,
+        -0.02340128839063741,
+        0.005233747100676556
+      ],
+      "saturation": 0.0,
+      "trace": [],
+      "minimum_clearance_m": 0.6033953563073745,
+      "settled_tilt_rms_deg": 3.1703460333468554,
+      "late_height_span_m": 0.034317053221136096,
+      "late_height_slope_m_s": -0.0069276210748269165,
+      "observer_final_height_error_m": 0.05859197788661463,
+      "airborne_stable": true,
+      "strict_height_hover": true,
+      "actual_final_xy_offset_m": 0.24385419175087036
+    },
+    {
+      "policy": "candidate_0",
+      "parameters": {
+        "kp": [
+          0.18614519582463507,
+          0.14732954292611267
+        ],
+        "kd": [
+          0.11521863335342444,
+          0.12737236761918022
+        ],
+        "sensor_tau": 0.13045658515789563,
+        "ki": [
+          0.05321777874733716,
+          -0.010427299646852857
+        ],
+        "trim": [
+          0.009403938176356088,
+          -0.0038897827014125488
+        ],
+        "derivative_tau": 0.004482330374373422,
+        "action_tau": 0.008214071849913296,
+        "servo_kp": 1.0452581209739018,
+        "servo_kd": 0.0022354534127223885,
+        "motor": 3190.0,
+        "height_gains": [
+          900.0,
+          500.0,
+          80.0
+        ],
+        "release": "rest",
+        "motor_start_s": 0.1
+      },
+      "seed": 310300003,
+      "phase": 6,
+      "elapsed": 15.0,
+      "score": 25.945441083423045,
+      "termination": "time_limit",
+      "tilt_rms_deg": 4.674517291295617,
+      "max_tilt_deg": 26.977827150036035,
+      "height_rmse_m": 0.04813023210909839,
+      "min_base_height_m": 0.6513965887571348,
+      "final_position": [
+        -0.07717095754040205,
+        0.23168420107760068,
+        0.7469272263594365
+      ],
+      "final_velocity": [
+        0.10910530890410314,
+        0.03333466374510416,
+        -0.03582330505236967
+      ],
+      "saturation": 0.006533333333333334,
+      "trace": [],
+      "minimum_clearance_m": 0.6092936752898276,
+      "settled_tilt_rms_deg": 3.441025169155948,
+      "late_height_span_m": 0.040641692481010905,
+      "late_height_slope_m_s": -0.00802499480565569,
+      "observer_final_height_error_m": 0.07692143710095525,
+      "airborne_stable": true,
+      "strict_height_hover": true,
+      "actual_final_xy_offset_m": 0.23340995875838555
+    },
+    {
+      "policy": "candidate_0",
+      "parameters": {
+        "kp": [
+          0.18614519582463507,
+          0.14732954292611267
+        ],
+        "kd": [
+          0.11521863335342444,
+          0.12737236761918022
+        ],
+        "sensor_tau": 0.13045658515789563,
+        "ki": [
+          0.05321777874733716,
+          -0.010427299646852857
+        ],
+        "trim": [
+          0.009403938176356088,
+          -0.0038897827014125488
+        ],
+        "derivative_tau": 0.004482330374373422,
+        "action_tau": 0.008214071849913296,
+        "servo_kp": 1.0452581209739018,
+        "servo_kd": 0.0022354534127223885,
+        "motor": 3190.0,
+        "height_gains": [
+          900.0,
+          500.0,
+          80.0
+        ],
+        "release": "rest",
+        "motor_start_s": 0.1
+      },
+      "seed": 310300004,
+      "phase": 7,
+      "elapsed": 15.0,
+      "score": 25.598565831990175,
+      "termination": "time_limit",
+      "tilt_rms_deg": 5.553436230109518,
+      "max_tilt_deg": 32.386709234258696,
+      "height_rmse_m": 0.056467533001603815,
+      "min_base_height_m": 0.6557932881677124,
+      "final_position": [
+        -0.04382824459599109,
+        0.2154878193399258,
+        0.7302330283212106
+      ],
+      "final_velocity": [
+        -0.137155145008835,
+        -0.009877529299465237,
+        0.0004875866234828356
+      ],
+      "saturation": 0.010933333333333333,
+      "trace": [],
+      "minimum_clearance_m": 0.6135374389508542,
+      "settled_tilt_rms_deg": 3.6969718035407007,
+      "late_height_span_m": 0.050214816692806585,
+      "late_height_slope_m_s": -0.010016210188047341,
+      "observer_final_height_error_m": 0.09947495465006848,
+      "airborne_stable": true,
+      "strict_height_hover": true,
+      "actual_final_xy_offset_m": 0.22525925474067707
+    },
+    {
+      "policy": "candidate_0",
+      "parameters": {
+        "kp": [
+          0.18614519582463507,
+          0.14732954292611267
+        ],
+        "kd": [
+          0.11521863335342444,
+          0.12737236761918022
+        ],
+        "sensor_tau": 0.13045658515789563,
+        "ki": [
+          0.05321777874733716,
+          -0.010427299646852857
+        ],
+        "trim": [
+          0.009403938176356088,
+          -0.0038897827014125488
+        ],
+        "derivative_tau": 0.004482330374373422,
+        "action_tau": 0.008214071849913296,
+        "servo_kp": 1.0452581209739018,
+        "servo_kd": 0.0022354534127223885,
+        "motor": 3190.0,
+        "height_gains": [
+          900.0,
+          500.0,
+          80.0
+        ],
+        "release": "rest",
+        "motor_start_s": 0.1
+      },
+      "seed": 310300005,
+      "phase": 1,
+      "elapsed": 15.0,
+      "score": 26.30262735198224,
+      "termination": "time_limit",
+      "tilt_rms_deg": 3.357560508327489,
+      "max_tilt_deg": 17.15382028334926,
+      "height_rmse_m": 0.042777643257331195,
+      "min_base_height_m": 0.6243970741389991,
+      "final_position": [
+        -0.06701806178385225,
+        0.25036202712334715,
+        0.7340157188338393
+      ],
+      "final_velocity": [
+        -0.20887929117758558,
+        -7.424957854624062e-05,
+        0.0023957075139042407
+      ],
+      "saturation": 0.0,
+      "trace": [],
+      "minimum_clearance_m": 0.5819927102893342,
+      "settled_tilt_rms_deg": 3.1557031428836106,
+      "late_height_span_m": 0.03419263950957163,
+      "late_height_slope_m_s": -0.006822005422296497,
+      "observer_final_height_error_m": 0.0594048804432504,
+      "airborne_stable": true,
+      "strict_height_hover": true,
+      "actual_final_xy_offset_m": 0.2402758028815482
+    },
+    {
+      "policy": "candidate_0",
+      "parameters": {
+        "kp": [
+          0.18614519582463507,
+          0.14732954292611267
+        ],
+        "kd": [
+          0.11521863335342444,
+          0.12737236761918022
+        ],
+        "sensor_tau": 0.13045658515789563,
+        "ki": [
+          0.05321777874733716,
+          -0.010427299646852857
+        ],
+        "trim": [
+          0.009403938176356088,
+          -0.0038897827014125488
+        ],
+        "derivative_tau": 0.004482330374373422,
+        "action_tau": 0.008214071849913296,
+        "servo_kp": 1.0452581209739018,
+        "servo_kd": 0.0022354534127223885,
+        "motor": 3190.0,
+        "height_gains": [
+          900.0,
+          500.0,
+          80.0
+        ],
+        "release": "rest",
+        "motor_start_s": 0.1
+      },
+      "seed": 310300006,
+      "phase": 3,
+      "elapsed": 15.0,
+      "score": 25.865810190538294,
+      "termination": "time_limit",
+      "tilt_rms_deg": 4.63592695590159,
+      "max_tilt_deg": 29.223361235330295,
+      "height_rmse_m": 0.053440529762417484,
+      "min_base_height_m": 0.6410063890153602,
+      "final_position": [
+        -0.11028031784836018,
+        0.23771924020859767,
+        0.7111889480739879
+      ],
+      "final_velocity": [
+        0.0026872797762980934,
+        0.018556277181170342,
+        -0.017383052483430243
+      ],
+      "saturation": 0.006666666666666667,
+      "trace": [],
+      "minimum_clearance_m": 0.5987565322303775,
+      "settled_tilt_rms_deg": 3.378956729438235,
+      "late_height_span_m": 0.059074913269055784,
+      "late_height_slope_m_s": -0.011830899504725656,
+      "observer_final_height_error_m": 0.09941203673658597,
+      "airborne_stable": true,
+      "strict_height_hover": true,
+      "actual_final_xy_offset_m": 0.25945100550280625
+    },
+    {
+      "policy": "candidate_0",
+      "parameters": {
+        "kp": [
+          0.18614519582463507,
+          0.14732954292611267
+        ],
+        "kd": [
+          0.11521863335342444,
+          0.12737236761918022
+        ],
+        "sensor_tau": 0.13045658515789563,
+        "ki": [
+          0.05321777874733716,
+          -0.010427299646852857
+        ],
+        "trim": [
+          0.009403938176356088,
+          -0.0038897827014125488
+        ],
+        "derivative_tau": 0.004482330374373422,
+        "action_tau": 0.008214071849913296,
+        "servo_kp": 1.0452581209739018,
+        "servo_kd": 0.0022354534127223885,
+        "motor": 3190.0,
+        "height_gains": [
+          900.0,
+          500.0,
+          80.0
+        ],
+        "release": "rest",
+        "motor_start_s": 0.1
+      },
+      "seed": 310300007,
+      "phase": 6,
+      "elapsed": 15.0,
+      "score": 25.982837719394677,
+      "termination": "time_limit",
+      "tilt_rms_deg": 4.569168550976736,
+      "max_tilt_deg": 26.585388431885466,
+      "height_rmse_m": 0.04732483350563205,
+      "min_base_height_m": 0.6317301163101628,
+      "final_position": [
+        -0.06489247723651385,
+        0.22304868789315435,
+        0.7302846872636181
+      ],
+      "final_velocity": [
+        0.05475252570245743,
+        0.025767824862193714,
+        -0.028442696051210473
+      ],
+      "saturation": 0.005866666666666667,
+      "trace": [],
+      "minimum_clearance_m": 0.5895275742886559,
+      "settled_tilt_rms_deg": 3.403712412408453,
+      "late_height_span_m": 0.038338299015597155,
+      "late_height_slope_m_s": -0.007532083766023391,
+      "observer_final_height_error_m": 0.07367620997531199,
+      "airborne_stable": true,
+      "strict_height_hover": true,
+      "actual_final_xy_offset_m": 0.23073394497362246
+    },
+    {
+      "policy": "candidate_1",
+      "parameters": {
+        "kp": [
+          0.18614519582463507,
+          0.14732954292611267
+        ],
+        "kd": [
+          0.11521863335342444,
+          0.12737236761918022
+        ],
+        "sensor_tau": 0.13045658515789563,
+        "ki": [
+          0.05321777874733716,
+          -0.010427299646852857
+        ],
+        "trim": [
+          0.009403938176356088,
+          -0.0038897827014125488
+        ],
+        "derivative_tau": 0.004482330374373422,
+        "action_tau": 0.008214071849913296,
+        "servo_kp": 1.0452581209739018,
+        "servo_kd": 0.0022354534127223885,
+        "motor": 3190.0,
+        "height_gains": [
+          900.0,
+          500.0,
+          200.0
+        ],
+        "release": "rest",
+        "motor_start_s": 0.1
+      },
+      "seed": 310300000,
+      "phase": 6,
+      "elapsed": 15.0,
+      "score": 25.879759433892424,
+      "termination": "time_limit",
+      "tilt_rms_deg": 4.629005350418985,
+      "max_tilt_deg": 26.761637780383527,
+      "height_rmse_m": 0.05216743600603042,
+      "min_base_height_m": 0.6343630022935233,
+      "final_position": [
+        -0.03842953046328297,
+        0.21498748660291916,
+        0.7217096438877179
+      ],
+      "final_velocity": [
+        0.028400471931516354,
+        0.023650364401976834,
+        -0.02556498232949771
+      ],
+      "saturation": 0.005866666666666667,
+      "trace": [],
+      "minimum_clearance_m": 0.5920079509923928,
+      "settled_tilt_rms_deg": 3.429156731484003,
+      "late_height_span_m": 0.040092902994170565,
+      "late_height_slope_m_s": -0.007840893243315236,
+      "observer_final_height_error_m": 0.0795235245126523,
+      "airborne_stable": true,
+      "strict_height_hover": true,
+      "actual_final_xy_offset_m": 0.22560675630878443
+    },
+    {
+      "policy": "candidate_1",
+      "parameters": {
+        "kp": [
+          0.18614519582463507,
+          0.14732954292611267
+        ],
+        "kd": [
+          0.11521863335342444,
+          0.12737236761918022
+        ],
+        "sensor_tau": 0.13045658515789563,
+        "ki": [
+          0.05321777874733716,
+          -0.010427299646852857
+        ],
+        "trim": [
+          0.009403938176356088,
+          -0.0038897827014125488
+        ],
+        "derivative_tau": 0.004482330374373422,
+        "action_tau": 0.008214071849913296,
+        "servo_kp": 1.0452581209739018,
+        "servo_kd": 0.0022354534127223885,
+        "motor": 3190.0,
+        "height_gains": [
+          900.0,
+          500.0,
+          200.0
+        ],
+        "release": "rest",
+        "motor_start_s": 0.1
+      },
+      "seed": 310300001,
+      "phase": 5,
+      "elapsed": 15.0,
+      "score": 26.275320395026775,
+      "termination": "time_limit",
+      "tilt_rms_deg": 3.378318229554462,
+      "max_tilt_deg": 19.015314361692703,
+      "height_rmse_m": 0.044170477847927554,
+      "min_base_height_m": 0.6483077077963585,
+      "final_position": [
+        -0.06417848041705027,
+        0.25256435372648345,
+        0.7574268252866836
+      ],
+      "final_velocity": [
+        0.19922677706143627,
+        0.03442610667558996,
+        0.003841174812266832
+      ],
+      "saturation": 0.0,
+      "trace": [],
+      "minimum_clearance_m": 0.6062960473075081,
+      "settled_tilt_rms_deg": 3.15660037308044,
+      "late_height_span_m": 0.03225992516322185,
+      "late_height_slope_m_s": -0.006458016304391846,
+      "observer_final_height_error_m": 0.054020000369406455,
+      "airborne_stable": true,
+      "strict_height_hover": true,
+      "actual_final_xy_offset_m": 0.24543097975104666
+    },
+    {
+      "policy": "candidate_1",
+      "parameters": {
+        "kp": [
+          0.18614519582463507,
+          0.14732954292611267
+        ],
+        "kd": [
+          0.11521863335342444,
+          0.12737236761918022
+        ],
+        "sensor_tau": 0.13045658515789563,
+        "ki": [
+          0.05321777874733716,
+          -0.010427299646852857
+        ],
+        "trim": [
+          0.009403938176356088,
+          -0.0038897827014125488
+        ],
+        "derivative_tau": 0.004482330374373422,
+        "action_tau": 0.008214071849913296,
+        "servo_kp": 1.0452581209739018,
+        "servo_kd": 0.0022354534127223885,
+        "motor": 3190.0,
+        "height_gains": [
+          900.0,
+          500.0,
+          200.0
+        ],
+        "release": "rest",
+        "motor_start_s": 0.1
+      },
+      "seed": 310300002,
+      "phase": 1,
+      "elapsed": 15.0,
+      "score": 26.255502689865704,
+      "termination": "time_limit",
+      "tilt_rms_deg": 3.4010733693007666,
+      "max_tilt_deg": 18.671769604678545,
+      "height_rmse_m": 0.04510772911911961,
+      "min_base_height_m": 0.646324960826413,
+      "final_position": [
+        -0.07442468824436693,
+        0.21614893900325213,
+        0.7512823996457743
+      ],
+      "final_velocity": [
+        -0.21564689882934285,
+        -0.02389552537951814,
+        0.0032380729612198796
+      ],
+      "saturation": 0.0,
+      "trace": [],
+      "minimum_clearance_m": 0.6041126256549892,
+      "settled_tilt_rms_deg": 3.163629781731234,
+      "late_height_span_m": 0.03518156134835948,
+      "late_height_slope_m_s": -0.007010225275880688,
+      "observer_final_height_error_m": 0.058140285662121,
+      "airborne_stable": true,
+      "strict_height_hover": true,
+      "actual_final_xy_offset_m": 0.2432080961045976
+    },
+    {
+      "policy": "candidate_1",
+      "parameters": {
+        "kp": [
+          0.18614519582463507,
+          0.14732954292611267
+        ],
+        "kd": [
+          0.11521863335342444,
+          0.12737236761918022
+        ],
+        "sensor_tau": 0.13045658515789563,
+        "ki": [
+          0.05321777874733716,
+          -0.010427299646852857
+        ],
+        "trim": [
+          0.009403938176356088,
+          -0.0038897827014125488
+        ],
+        "derivative_tau": 0.004482330374373422,
+        "action_tau": 0.008214071849913296,
+        "servo_kp": 1.0452581209739018,
+        "servo_kd": 0.0022354534127223885,
+        "motor": 3190.0,
+        "height_gains": [
+          900.0,
+          500.0,
+          200.0
+        ],
+        "release": "rest",
+        "motor_start_s": 0.1
+      },
+      "seed": 310300003,
+      "phase": 6,
+      "elapsed": 15.0,
+      "score": 25.836344047315627,
+      "termination": "time_limit",
+      "tilt_rms_deg": 4.686989217062049,
+      "max_tilt_deg": 26.939383473057266,
+      "height_rmse_m": 0.053855863703406205,
+      "min_base_height_m": 0.6522552254403554,
+      "final_position": [
+        -0.07392845858291924,
+        0.23207619653365086,
+        0.7355988362506506
+      ],
+      "final_velocity": [
+        0.13984566916813634,
+        0.05223437749357637,
+        -0.06364354586792825
+      ],
+      "saturation": 0.0061333333333333335,
+      "trace": [],
+      "minimum_clearance_m": 0.6101800950765621,
+      "settled_tilt_rms_deg": 3.4521388915908897,
+      "late_height_span_m": 0.041357384966752564,
+      "late_height_slope_m_s": -0.008229798098798043,
+      "observer_final_height_error_m": 0.08313770794394654,
+      "airborne_stable": true,
+      "strict_height_hover": true,
+      "actual_final_xy_offset_m": 0.2327303689212124
+    },
+    {
+      "policy": "candidate_1",
+      "parameters": {
+        "kp": [
+          0.18614519582463507,
+          0.14732954292611267
+        ],
+        "kd": [
+          0.11521863335342444,
+          0.12737236761918022
+        ],
+        "sensor_tau": 0.13045658515789563,
+        "ki": [
+          0.05321777874733716,
+          -0.010427299646852857
+        ],
+        "trim": [
+          0.009403938176356088,
+          -0.0038897827014125488
+        ],
+        "derivative_tau": 0.004482330374373422,
+        "action_tau": 0.008214071849913296,
+        "servo_kp": 1.0452581209739018,
+        "servo_kd": 0.0022354534127223885,
+        "motor": 3190.0,
+        "height_gains": [
+          900.0,
+          500.0,
+          200.0
+        ],
+        "release": "rest",
+        "motor_start_s": 0.1
+      },
+      "seed": 310300004,
+      "phase": 7,
+      "elapsed": 15.0,
+      "score": 25.52816957806146,
+      "termination": "time_limit",
+      "tilt_rms_deg": 5.591269549604492,
+      "max_tilt_deg": 32.38825142156675,
+      "height_rmse_m": 0.05934518554370109,
+      "min_base_height_m": 0.656368201192599,
+      "final_position": [
+        -0.045863757512521294,
+        0.21523126933050646,
+        0.7255152186783662
+      ],
+      "final_velocity": [
+        -0.14097321426891704,
+        -0.010606944080646863,
+        0.002061488116740247
+      ],
+      "saturation": 0.011066666666666667,
+      "trace": [],
+      "minimum_clearance_m": 0.6141344847857946,
+      "settled_tilt_rms_deg": 3.739420605304131,
+      "late_height_span_m": 0.0499342817560291,
+      "late_height_slope_m_s": -0.009930659193525758,
+      "observer_final_height_error_m": 0.09908681129778756,
+      "airborne_stable": true,
+      "strict_height_hover": true,
+      "actual_final_xy_offset_m": 0.22549334552088887
+    },
+    {
+      "policy": "candidate_1",
+      "parameters": {
+        "kp": [
+          0.18614519582463507,
+          0.14732954292611267
+        ],
+        "kd": [
+          0.11521863335342444,
+          0.12737236761918022
+        ],
+        "sensor_tau": 0.13045658515789563,
+        "ki": [
+          0.05321777874733716,
+          -0.010427299646852857
+        ],
+        "trim": [
+          0.009403938176356088,
+          -0.0038897827014125488
+        ],
+        "derivative_tau": 0.004482330374373422,
+        "action_tau": 0.008214071849913296,
+        "servo_kp": 1.0452581209739018,
+        "servo_kd": 0.0022354534127223885,
+        "motor": 3190.0,
+        "height_gains": [
+          900.0,
+          500.0,
+          200.0
+        ],
+        "release": "rest",
+        "motor_start_s": 0.1
+      },
+      "seed": 310300005,
+      "phase": 1,
+      "elapsed": 15.0,
+      "score": 26.27094139672804,
+      "termination": "time_limit",
+      "tilt_rms_deg": 3.369572065672583,
+      "max_tilt_deg": 17.153804714130292,
+      "height_rmse_m": 0.04448990357324189,
+      "min_base_height_m": 0.6249531142714382,
+      "final_position": [
+        -0.06574579242534823,
+        0.2504085746083919,
+        0.7326195175850354
+      ],
+      "final_velocity": [
+        -0.21499396968980422,
+        -0.0005363456644378715,
+        0.003930935888911144
+      ],
+      "saturation": 0.0,
+      "trace": [],
+      "minimum_clearance_m": 0.5825538934340798,
+      "settled_tilt_rms_deg": 3.1557205197587908,
+      "late_height_span_m": 0.033464068213330145,
+      "late_height_slope_m_s": -0.0066714873797734,
+      "observer_final_height_error_m": 0.05534750876683014,
+      "airborne_stable": true,
+      "strict_height_hover": true,
+      "actual_final_xy_offset_m": 0.2399801735980126
+    },
+    {
+      "policy": "candidate_1",
+      "parameters": {
+        "kp": [
+          0.18614519582463507,
+          0.14732954292611267
+        ],
+        "kd": [
+          0.11521863335342444,
+          0.12737236761918022
+        ],
+        "sensor_tau": 0.13045658515789563,
+        "ki": [
+          0.05321777874733716,
+          -0.010427299646852857
+        ],
+        "trim": [
+          0.009403938176356088,
+          -0.0038897827014125488
+        ],
+        "derivative_tau": 0.004482330374373422,
+        "action_tau": 0.008214071849913296,
+        "servo_kp": 1.0452581209739018,
+        "servo_kd": 0.0022354534127223885,
+        "motor": 3190.0,
+        "height_gains": [
+          900.0,
+          500.0,
+          200.0
+        ],
+        "release": "rest",
+        "motor_start_s": 0.1
+      },
+      "seed": 310300006,
+      "phase": 3,
+      "elapsed": 15.0,
+      "score": 25.859201391684305,
+      "termination": "time_limit",
+      "tilt_rms_deg": 4.678168626558233,
+      "max_tilt_deg": 29.224224441918675,
+      "height_rmse_m": 0.052887551282711096,
+      "min_base_height_m": 0.641489440147439,
+      "final_position": [
+        -0.11270405462331326,
+        0.23731747078202423,
+        0.7201749411951398
+      ],
+      "final_velocity": [
+        0.026177468111753144,
+        0.023140794150939708,
+        -0.010238035113509378
+      ],
+      "saturation": 0.006666666666666667,
+      "trace": [],
+      "minimum_clearance_m": 0.5992958854986827,
+      "settled_tilt_rms_deg": 3.408626148416061,
+      "late_height_span_m": 0.04700237021755149,
+      "late_height_slope_m_s": -0.009355390305653424,
+      "observer_final_height_error_m": 0.08455098436733689,
+      "airborne_stable": true,
+      "strict_height_hover": true,
+      "actual_final_xy_offset_m": 0.26026763838271294
+    },
+    {
+      "policy": "candidate_1",
+      "parameters": {
+        "kp": [
+          0.18614519582463507,
+          0.14732954292611267
+        ],
+        "kd": [
+          0.11521863335342444,
+          0.12737236761918022
+        ],
+        "sensor_tau": 0.13045658515789563,
+        "ki": [
+          0.05321777874733716,
+          -0.010427299646852857
+        ],
+        "trim": [
+          0.009403938176356088,
+          -0.0038897827014125488
+        ],
+        "derivative_tau": 0.004482330374373422,
+        "action_tau": 0.008214071849913296,
+        "servo_kp": 1.0452581209739018,
+        "servo_kd": 0.0022354534127223885,
+        "motor": 3190.0,
+        "height_gains": [
+          900.0,
+          500.0,
+          200.0
+        ],
+        "release": "rest",
+        "motor_start_s": 0.1
+      },
+      "seed": 310300007,
+      "phase": 6,
+      "elapsed": 15.0,
+      "score": 25.896382808213517,
+      "termination": "time_limit",
+      "tilt_rms_deg": 4.619924490491315,
+      "max_tilt_deg": 26.468955448740765,
+      "height_rmse_m": 0.05127954282138434,
+      "min_base_height_m": 0.6323179525462329,
+      "final_position": [
+        -0.06638993753191957,
+        0.22302453946535633,
+        0.7223143867544227
+      ],
+      "final_velocity": [
+        0.015371244517311526,
+        0.015434908687504774,
+        -0.023290045399740084
+      ],
+      "saturation": 0.005866666666666667,
+      "trace": [],
+      "minimum_clearance_m": 0.5901476001353566,
+      "settled_tilt_rms_deg": 3.4452146214368256,
+      "late_height_span_m": 0.039007542665438155,
+      "late_height_slope_m_s": -0.007657358631547604,
+      "observer_final_height_error_m": 0.07629132701663577,
+      "airborne_stable": true,
+      "strict_height_hover": true,
+      "actual_final_xy_offset_m": 0.2310119306865925
+    },
+    {
+      "policy": "candidate_2",
+      "parameters": {
+        "kp": [
+          0.18614519582463507,
+          0.14732954292611267
+        ],
+        "kd": [
+          0.11521863335342444,
+          0.12737236761918022
+        ],
+        "sensor_tau": 0.13045658515789563,
+        "ki": [
+          0.05321777874733716,
+          -0.010427299646852857
+        ],
+        "trim": [
+          0.009403938176356088,
+          -0.0038897827014125488
+        ],
+        "derivative_tau": 0.004482330374373422,
+        "action_tau": 0.008214071849913296,
+        "servo_kp": 1.0452581209739018,
+        "servo_kd": 0.0022354534127223885,
+        "motor": 3190.0,
+        "height_gains": [
+          500.0,
+          500.0,
+          80.0
+        ],
+        "release": "rest",
+        "motor_start_s": 0.1
+      },
+      "seed": 310300000,
+      "phase": 6,
+      "elapsed": 15.0,
+      "score": 25.860438437805858,
+      "termination": "time_limit",
+      "tilt_rms_deg": 4.582159079779722,
+      "max_tilt_deg": 26.763730678210656,
+      "height_rmse_m": 0.0560787233186868,
+      "min_base_height_m": 0.6160418951291773,
+      "final_position": [
+        -0.035887034451147194,
+        0.21535913472168913,
+        0.734372171673843
+      ],
+      "final_velocity": [
+        0.14822315386547247,
+        0.02838238646426958,
+        -0.06582620315306031
+      ],
+      "saturation": 0.006,
+      "trace": [],
+      "minimum_clearance_m": 0.5736092729554534,
+      "settled_tilt_rms_deg": 3.4257648228280795,
+      "late_height_span_m": 0.04376517676506386,
+      "late_height_slope_m_s": -0.008654069869489994,
+      "observer_final_height_error_m": 0.07118679299095401,
+      "airborne_stable": true,
+      "strict_height_hover": true,
+      "actual_final_xy_offset_m": 0.2255313756309795
+    },
+    {
+      "policy": "candidate_2",
+      "parameters": {
+        "kp": [
+          0.18614519582463507,
+          0.14732954292611267
+        ],
+        "kd": [
+          0.11521863335342444,
+          0.12737236761918022
+        ],
+        "sensor_tau": 0.13045658515789563,
+        "ki": [
+          0.05321777874733716,
+          -0.010427299646852857
+        ],
+        "trim": [
+          0.009403938176356088,
+          -0.0038897827014125488
+        ],
+        "derivative_tau": 0.004482330374373422,
+        "action_tau": 0.008214071849913296,
+        "servo_kp": 1.0452581209739018,
+        "servo_kd": 0.0022354534127223885,
+        "motor": 3190.0,
+        "height_gains": [
+          500.0,
+          500.0,
+          80.0
+        ],
+        "release": "rest",
+        "motor_start_s": 0.1
+      },
+      "seed": 310300001,
+      "phase": 5,
+      "elapsed": 15.0,
+      "score": 26.185486094169196,
+      "termination": "time_limit",
+      "tilt_rms_deg": 3.387784197326398,
+      "max_tilt_deg": 19.020564329166895,
+      "height_rmse_m": 0.05157159755210372,
+      "min_base_height_m": 0.6310084140506286,
+      "final_position": [
+        -0.06415943635057066,
+        0.25263450893046047,
+        0.7679919538819872
+      ],
+      "final_velocity": [
+        0.19112585911196978,
+        0.03376257394773024,
+        0.002343451048306535
+      ],
+      "saturation": 0.0,
+      "trace": [],
+      "minimum_clearance_m": 0.5887451159790785,
+      "settled_tilt_rms_deg": 3.160202408611505,
+      "late_height_span_m": 0.03559544378691559,
+      "late_height_slope_m_s": -0.006882753450779573,
+      "observer_final_height_error_m": 0.048570886460835044,
+      "airborne_stable": true,
+      "strict_height_hover": true,
+      "actual_final_xy_offset_m": 0.2454919959894459
+    },
+    {
+      "policy": "candidate_2",
+      "parameters": {
+        "kp": [
+          0.18614519582463507,
+          0.14732954292611267
+        ],
+        "kd": [
+          0.11521863335342444,
+          0.12737236761918022
+        ],
+        "sensor_tau": 0.13045658515789563,
+        "ki": [
+          0.05321777874733716,
+          -0.010427299646852857
+        ],
+        "trim": [
+          0.009403938176356088,
+          -0.0038897827014125488
+        ],
+        "derivative_tau": 0.004482330374373422,
+        "action_tau": 0.008214071849913296,
+        "servo_kp": 1.0452581209739018,
+        "servo_kd": 0.0022354534127223885,
+        "motor": 3190.0,
+        "height_gains": [
+          500.0,
+          500.0,
+          80.0
+        ],
+        "release": "rest",
+        "motor_start_s": 0.1
+      },
+      "seed": 310300002,
+      "phase": 1,
+      "elapsed": 15.0,
+      "score": 26.184260642012426,
+      "termination": "time_limit",
+      "tilt_rms_deg": 3.4084364144606214,
+      "max_tilt_deg": 18.676837666321365,
+      "height_rmse_m": 0.051367835187126704,
+      "min_base_height_m": 0.6293841554843714,
+      "final_position": [
+        -0.07657836911651236,
+        0.21607572752220425,
+        0.7667837771498907
+      ],
+      "final_velocity": [
+        -0.20423470286758627,
+        -0.02170615418346374,
+        0.0027415744481965347
+      ],
+      "saturation": 0.0,
+      "trace": [],
+      "minimum_clearance_m": 0.5872157726958928,
+      "settled_tilt_rms_deg": 3.173935773884771,
+      "late_height_span_m": 0.03530166842996041,
+      "late_height_slope_m_s": -0.0068757373540364345,
+      "observer_final_height_error_m": 0.047943448940281366,
+      "airborne_stable": true,
+      "strict_height_hover": true,
+      "actual_final_xy_offset_m": 0.24389731622024466
+    },
+    {
+      "policy": "candidate_2",
+      "parameters": {
+        "kp": [
+          0.18614519582463507,
+          0.14732954292611267
+        ],
+        "kd": [
+          0.11521863335342444,
+          0.12737236761918022
+        ],
+        "sensor_tau": 0.13045658515789563,
+        "ki": [
+          0.05321777874733716,
+          -0.010427299646852857
+        ],
+        "trim": [
+          0.009403938176356088,
+          -0.0038897827014125488
+        ],
+        "derivative_tau": 0.004482330374373422,
+        "action_tau": 0.008214071849913296,
+        "servo_kp": 1.0452581209739018,
+        "servo_kd": 0.0022354534127223885,
+        "motor": 3190.0,
+        "height_gains": [
+          500.0,
+          500.0,
+          80.0
+        ],
+        "release": "rest",
+        "motor_start_s": 0.1
+      },
+      "seed": 310300003,
+      "phase": 6,
+      "elapsed": 15.0,
+      "score": 25.842776661011595,
+      "termination": "time_limit",
+      "tilt_rms_deg": 4.602958945026465,
+      "max_tilt_deg": 27.360777845618554,
+      "height_rmse_m": 0.057043666510982055,
+      "min_base_height_m": 0.6338222122882932,
+      "final_position": [
+        -0.07641117313662303,
+        0.23171516027710812,
+        0.7478735068370519
+      ],
+      "final_velocity": [
+        0.1441513792727169,
+        0.053548073783851485,
+        -0.06237829539822136
+      ],
+      "saturation": 0.0064,
+      "trace": [],
+      "minimum_clearance_m": 0.5917275276568442,
+      "settled_tilt_rms_deg": 3.3953100035466193,
+      "late_height_span_m": 0.04611366304379905,
+      "late_height_slope_m_s": -0.009302990426431124,
+      "observer_final_height_error_m": 0.07521928111162145,
+      "airborne_stable": true,
+      "strict_height_hover": true,
+      "actual_final_xy_offset_m": 0.23318925542950794
+    },
+    {
+      "policy": "candidate_2",
+      "parameters": {
+        "kp": [
+          0.18614519582463507,
+          0.14732954292611267
+        ],
+        "kd": [
+          0.11521863335342444,
+          0.12737236761918022
+        ],
+        "sensor_tau": 0.13045658515789563,
+        "ki": [
+          0.05321777874733716,
+          -0.010427299646852857
+        ],
+        "trim": [
+          0.009403938176356088,
+          -0.0038897827014125488
+        ],
+        "derivative_tau": 0.004482330374373422,
+        "action_tau": 0.008214071849913296,
+        "servo_kp": 1.0452581209739018,
+        "servo_kd": 0.0022354534127223885,
+        "motor": 3190.0,
+        "height_gains": [
+          500.0,
+          500.0,
+          80.0
+        ],
+        "release": "rest",
+        "motor_start_s": 0.1
+      },
+      "seed": 310300004,
+      "phase": 7,
+      "elapsed": 15.0,
+      "score": 25.35967566107838,
+      "termination": "time_limit",
+      "tilt_rms_deg": 5.449349449049594,
+      "max_tilt_deg": 32.3710779443231,
+      "height_rmse_m": 0.07155893296890796,
+      "min_base_height_m": 0.6379532322117033,
+      "final_position": [
+        -0.04724406030075258,
+        0.21540158568447468,
+        0.6975605025011204
+      ],
+      "final_velocity": [
+        -0.08651090369256138,
+        -0.0002852310732470425,
+        -0.010780020686618569
+      ],
+      "saturation": 0.011066666666666667,
+      "trace": [],
+      "minimum_clearance_m": 0.5957097117097241,
+      "settled_tilt_rms_deg": 3.6401196513276513,
+      "late_height_span_m": 0.08285935738019057,
+      "late_height_slope_m_s": -0.01658433312195956,
+      "observer_final_height_error_m": 0.13211590121591466,
+      "airborne_stable": true,
+      "strict_height_hover": true,
+      "actual_final_xy_offset_m": 0.22599612703718677
+    },
+    {
+      "policy": "candidate_2",
+      "parameters": {
+        "kp": [
+          0.18614519582463507,
+          0.14732954292611267
+        ],
+        "kd": [
+          0.11521863335342444,
+          0.12737236761918022
+        ],
+        "sensor_tau": 0.13045658515789563,
+        "ki": [
+          0.05321777874733716,
+          -0.010427299646852857
+        ],
+        "trim": [
+          0.009403938176356088,
+          -0.0038897827014125488
+        ],
+        "derivative_tau": 0.004482330374373422,
+        "action_tau": 0.008214071849913296,
+        "servo_kp": 1.0452581209739018,
+        "servo_kd": 0.0022354534127223885,
+        "motor": 3190.0,
+        "height_gains": [
+          500.0,
+          500.0,
+          80.0
+        ],
+        "release": "rest",
+        "motor_start_s": 0.1
+      },
+      "seed": 310300005,
+      "phase": 1,
+      "elapsed": 15.0,
+      "score": 26.18446691887206,
+      "termination": "time_limit",
+      "tilt_rms_deg": 3.3668781287428033,
+      "max_tilt_deg": 17.158984004510728,
+      "height_rmse_m": 0.05184666611827262,
+      "min_base_height_m": 0.6074171488795969,
+      "final_position": [
+        -0.06780945472874651,
+        0.25039817490170874,
+        0.7418922096619204
+      ],
+      "final_velocity": [
+        -0.2043447147379912,
+        0.0002715389268783964,
+        0.0012428500256916998
+      ],
+      "saturation": 0.0,
+      "trace": [],
+      "minimum_clearance_m": 0.5650342527538261,
+      "settled_tilt_rms_deg": 3.1586268217868554,
+      "late_height_span_m": 0.0377130147500877,
+      "late_height_slope_m_s": -0.007394482569406954,
+      "observer_final_height_error_m": 0.05141744333284512,
+      "airborne_stable": true,
+      "strict_height_hover": true,
+      "actual_final_xy_offset_m": 0.24052553723162945
+    },
+    {
+      "policy": "candidate_2",
+      "parameters": {
+        "kp": [
+          0.18614519582463507,
+          0.14732954292611267
+        ],
+        "kd": [
+          0.11521863335342444,
+          0.12737236761918022
+        ],
+        "sensor_tau": 0.13045658515789563,
+        "ki": [
+          0.05321777874733716,
+          -0.010427299646852857
+        ],
+        "trim": [
+          0.009403938176356088,
+          -0.0038897827014125488
+        ],
+        "derivative_tau": 0.004482330374373422,
+        "action_tau": 0.008214071849913296,
+        "servo_kp": 1.0452581209739018,
+        "servo_kd": 0.0022354534127223885,
+        "motor": 3190.0,
+        "height_gains": [
+          500.0,
+          500.0,
+          80.0
+        ],
+        "release": "rest",
+        "motor_start_s": 0.1
+      },
+      "seed": 310300006,
+      "phase": 3,
+      "elapsed": 15.0,
+      "score": 25.651802207687275,
+      "termination": "time_limit",
+      "tilt_rms_deg": 4.624611942457007,
+      "max_tilt_deg": 29.223852358408518,
+      "height_rmse_m": 0.06603096193943131,
+      "min_base_height_m": 0.6238571634545101,
+      "final_position": [
+        -0.11153408026190081,
+        0.23722900965702837,
+        0.6897539801028825
+      ],
+      "final_velocity": [
+        -0.017517452269198014,
+        0.014712509451427836,
+        -0.025846859653744298
+      ],
+      "saturation": 0.007066666666666666,
+      "trace": [],
+      "minimum_clearance_m": 0.5816417010589361,
+      "settled_tilt_rms_deg": 3.4002639373626744,
+      "late_height_span_m": 0.08119467993112894,
+      "late_height_slope_m_s": -0.016275936487315686,
+      "observer_final_height_error_m": 0.12076483810649591,
+      "airborne_stable": true,
+      "strict_height_hover": true,
+      "actual_final_xy_offset_m": 0.2596235073292179
+    },
+    {
+      "policy": "candidate_2",
+      "parameters": {
+        "kp": [
+          0.18614519582463507,
+          0.14732954292611267
+        ],
+        "kd": [
+          0.11521863335342444,
+          0.12737236761918022
+        ],
+        "sensor_tau": 0.13045658515789563,
+        "ki": [
+          0.05321777874733716,
+          -0.010427299646852857
+        ],
+        "trim": [
+          0.009403938176356088,
+          -0.0038897827014125488
+        ],
+        "derivative_tau": 0.004482330374373422,
+        "action_tau": 0.008214071849913296,
+        "servo_kp": 1.0452581209739018,
+        "servo_kd": 0.0022354534127223885,
+        "motor": 3190.0,
+        "height_gains": [
+          500.0,
+          500.0,
+          80.0
+        ],
+        "release": "rest",
+        "motor_start_s": 0.1
+      },
+      "seed": 310300007,
+      "phase": 6,
+      "elapsed": 15.0,
+      "score": 25.871373468268317,
+      "termination": "time_limit",
+      "tilt_rms_deg": 4.5309095914170525,
+      "max_tilt_deg": 26.67382744738597,
+      "height_rmse_m": 0.056155505171591964,
+      "min_base_height_m": 0.6144559078692902,
+      "final_position": [
+        -0.06769422318416424,
+        0.22290610752686332,
+        0.7304163415920781
+      ],
+      "final_velocity": [
+        0.15701813483476104,
+        0.034324228169151774,
+        -0.0548545888086468
+      ],
+      "saturation": 0.006,
+      "trace": [],
+      "minimum_clearance_m": 0.5722030001294814,
+      "settled_tilt_rms_deg": 3.4022259822422614,
+      "late_height_span_m": 0.045179092105226526,
+      "late_height_slope_m_s": -0.009064260416628861,
+      "observer_final_height_error_m": 0.0721886252766134,
+      "airborne_stable": true,
+      "strict_height_hover": true,
+      "actual_final_xy_offset_m": 0.23116645996415047
+    }
+  ]
+}

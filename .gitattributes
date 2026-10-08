@@ -23,3 +23,7 @@ artifacts/hover9_pid_20261008/robot_upper7_lower8.xml -whitespace
 # Keep the exact training-source bytes recorded before optimization.
 experiments/algorithms/hover9/common.py whitespace=-blank-at-eof
 experiments/algorithms/hover9/environment.py whitespace=-blank-at-eof
+
+# Preserve PID experiment data, policy fingerprints and source snapshots.
+artifacts/pid_airborne_20261008/** -text !eol
+artifacts/pid_airborne_20261008/robot_upper7_lower8.xml -whitespace
