@@ -53,6 +53,10 @@ def test_test_instrumentation_preserves_pid_episode():
     task=(None,case(409900007,.05,'stress',2),'pid','height',False)
     reference=evaluate(task);instrumented=intervention_task(task)
     for key in reference:
+        if key=='saturation_fraction':continue
         assert reference[key]==instrumented[key],key
     assert instrumented['actor_step_delta_rms']==[0.,0.,0.]
     assert np.isfinite(instrumented['command_step_delta_rms']).all()
+    trace=evaluate((*task[:4],True))['trace']
+    expected=np.mean(np.column_stack([np.abs(np.array(trace)[:,8:10])>=.3-1e-9,(np.array(trace)[:,10]<=3115.224079+1e-6)|(np.array(trace)[:,10]>=3807.496097-1e-6)]),axis=0)
+    np.testing.assert_array_equal(instrumented['saturation_fraction'],expected)

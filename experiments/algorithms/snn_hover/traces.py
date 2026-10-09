@@ -24,6 +24,7 @@ def record(task):
     p.act=act;r=record_criteria(rollout(env,p,c,True),env)
     r['reference_position']=env.air.start.tolist()
     trace=np.asarray(r.pop('trace'));activations=np.asarray(acts)
+    r['saturation_fraction']=np.mean(np.column_stack([np.abs(trace[:,8:10])>=.3-1e-9,(trace[:,10]<=3115.224079+1e-6)|(trace[:,10]>=3807.496097-1e-6)]),axis=0).tolist()
     internal=np.asarray(p.internal_trace) if temporal else np.empty((0,0))
     # Recompute the actor solely from recorded sensor inputs, independent of flight.
     replay=policy(spec) if spec else Zero()

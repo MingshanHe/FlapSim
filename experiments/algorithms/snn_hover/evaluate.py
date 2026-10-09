@@ -105,12 +105,18 @@ def intervention_task(task):
         return y
     p.act=act
     commands=[];advance=env.air.advance
-    def instrumented(command,params):commands.append(np.asarray(command).copy());return advance(command,params)
+    def instrumented(command,params):
+        # Plant gain uncertainty is applied after controller clipping. Measure
+        # saturation on the requested command, not the gain-scaled plant input.
+        commands.append(env.command.copy());return advance(command,params)
     env.air.advance=instrumented
     try:r=record_criteria(rollout(env,p,c,trace),env)
     finally:env.air.advance=advance
     delta=np.asarray(action_diff) if action_diff else np.zeros((1,3));physical=np.diff(commands,axis=0)
     if not len(physical):physical=np.zeros((1,3))
+    requested=np.asarray(commands)
+    r['saturation_fraction']=np.mean(np.column_stack([np.abs(requested[:,:2])>=.3-1e-9,(requested[:,2]<=3115.224079+1e-6)|(requested[:,2]>=3807.496097-1e-6)]),axis=0).tolist()
+    r['saturation_measurement']='Controller command after clipping, before plant motor-gain uncertainty; observation-only test correction of training instrumentation.'
     r.update(actor_step_delta_rms=np.sqrt(np.mean(delta**2,axis=0)).tolist(),command_step_delta_rms=np.sqrt(np.mean(physical**2,axis=0)).tolist(),
         command_step_delta_units=['rad/2ms','rad/2ms','rad_per_second/2ms'],actor_step_delta_interval_s=.01)
     if spikes is not None:
