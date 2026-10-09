@@ -135,7 +135,7 @@ def audit(root):
             assert (path.parent/target.split('#')[0]).exists(),f'Missing report link: {target}'
             links.append(target)
     sources=sorted(x for x in Path('experiments/algorithms/snn_hover').iterdir() if x.is_file() and x.suffix in ['.py','.md'])
-    sources += [Path('tests/test_snn_hover.py'),Path('tests/test_snn_analysis.py')]
+    sources += [Path('tests/test_snn_hover.py'),Path('tests/test_snn_analysis.py'),Path('tests/test_snn_publication.py')]
     write(root/'final_implementation_hashes.json',{str(f):sha(f) for f in sources})
     with zipfile.ZipFile(root/'final_implementation_source.zip','w',zipfile.ZIP_DEFLATED) as z:
         for f in sources:z.write(f,str(f))

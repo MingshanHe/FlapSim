@@ -57,6 +57,25 @@ once. `finish_status.json`, `campaign_status.json` and the current run's
 The optional `dashboard` module writes a read-only HTML index; serve the artifact
 directory locally to see live progress. Offline analysis is in `report.md`.
 
+For this user's authorized final push, a separate finite publisher may wait for
+the completion queue. It requires all35 training runs and11,888 tests, reruns the
+full integrity audit and controller tests, then commits only this study's paths
+and the two root reports to `research/neat-snn-hover`. It refuses a changed branch,
+an already staged index, unrelated tracked edits, incomplete results or failed
+checks. It uses an ordinary push, never a force push, and verifies the remote SHA.
+Its status receipt is outside the study directory so it cannot invalidate the
+sealed result manifest. No recurring automation is created.
+
+```bash
+python -m experiments.algorithms.snn_hover.publish --root artifacts/snn_hover_20261009 --preflight
+python -u -m experiments.algorithms.snn_hover.publish --root artifacts/snn_hover_20261009 --wait
+```
+
+The publisher's Git executable/remote are deliberately specific to this host and
+repository; `--preflight` is read-only. Final report generation also writes
+`research_result.json`, separating predefined mechanism evidence from descriptive
+flight performance and explicitly withholding confirmatory significance claims.
+
 `visualize` archives every individual, both parent links and mutation events.
 Ancestry heatmaps follow the smaller-ID parent, explicitly just one branch.
 Temporal traces contain every1ms internal state and are recomputed from recorded

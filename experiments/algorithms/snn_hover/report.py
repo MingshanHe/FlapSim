@@ -9,6 +9,9 @@ LABELS={'pid':'固定 PID','snn_neat':'SNN 联合演化','snn_fixed_tau':'SNN �
 
 def report(root):
     p=read_protocol(root);d=json.loads((root/'analysis.json').read_text());cap=p['final_budget'];methods=p['methods'];g=d['groups'];reps=json.loads((root/'representatives.json').read_text())
+    assert json.loads((root/'campaign_status.json').read_text())['status']=='training_complete'
+    assert json.loads((root/'evaluation_status.json').read_text())['status']=='completed'
+    assert d['total_evaluation_episodes']==p['evaluation_addendum']['total_evaluation_episodes']
     def entry(m,group,condition,budget=None):return g[f'{m}/{0 if m=="pid" else cap if budget is None else budget}/{group}/{condition}']
     def count(x,recovery=False):return f'{x["recovery_count" if recovery else "success_count"]}/{x["episodes"]} ({100*x["recovery_count" if recovery else "success_count"]/x["episodes"]:.1f}%)'
     def pctinterval(x):return f'[{x[0]*100:+.1f}, {x[1]*100:+.1f}] pp'
@@ -30,7 +33,35 @@ def report(root):
     z=d['hypothesis_checks'][2]
     lines += [f'- **规模收益**：联合 SNN 对固定拓扑的平均有效连接减少 {100*z["effective_connection_reduction"]:.1f}%；'+('同时达到预设探索性非劣与20%压缩判据。' if z['exploratory_noninferiority'] else '未同时达到预设探索性非劣与20%压缩判据，不能宣称“更小且性能相当”。'),'',
         '**统计限度：**只有五个训练种子，两侧精确符号翻转检验的最小 p 值是2/32=0.0625，因此本设计无法在0.05水平给出精确显著性结论。自助区间可能更乐观，需与每个种子的原始结果一起读；区间不包含零也不等于稳定性证明。区间以训练种子为重采样单位，条件于此组固定测试场景，不把80个回合当80次独立训练。','',
-        '## 公平比较的范围','',
+        '### 可以作为 research result 的具体结论','']
+    supported=[]
+    for r in d['hypothesis_checks'][:2]:
+        if r['exploratory_large_positive_effect']:
+            supported.append('时间常数搜索' if r['hypothesis'].startswith('H1') else '拓扑搜索')
+    if supported:
+        mechanism_claim='在匹配初始图、共同PID和固定预算下，'+ '、'.join(supported)+'达到预设的探索性收益判据；这支持进一步扩大独立训练种子验证，但不是已确认的普遍优势。'
+    elif z['exploratory_noninferiority']:
+        mechanism_claim='联合搜索未达到预设成功率提升判据，但达到探索性的连接压缩与性能非劣判据。可以主张该条件下的规模收益，不能改写为更高成功率。'
+    else:
+        mechanism_claim='在本轮传感器接口、初始网络、搜索范围与固定预算下，未获得满足预设判据的时间常数或拓扑收益证据。该结果限定了这套实现的收益边界，不说明所有SNN或NEAT无效。'
+    lines += [mechanism_claim,'']
+    engineering_results=[]
+    for m in leaders:
+        stress=entry(m,'core','stress');long=entry(m,'long','stress');nominal=entry(m,'core','nominal')
+        seed_rates=[x['success_rate'] for x in stress['per_seed']]
+        delta=stress['success_rate']-entry('pid','core','stress')['success_rate']
+        result=dict(method=m,nominal_strict_rate=nominal['success_rate'],stress_strict_rate=stress['success_rate'],
+            stress_minus_pid_pp=100*delta,stress_seed_range=[min(seed_rates),max(seed_rates)],
+            long_stress_strict_count=long['success_count'],long_stress_full_count=long['full_count'],
+            long_stress_episodes=long['episodes'],long_stress_xy_mean_m=long['xy_end_mean_m'])
+        engineering_results.append(result)
+        lines += [f'{LABELS[m]}在20秒扰动测试上的描述性成功率与固定PID之差为 {delta*100:+.1f} 个百分点，五个训练种子的成功率范围为 {min(seed_rates):.1%}–{max(seed_rates):.1%}。其60秒扰动测试严格通过 {long["success_count"]}/{long["episodes"]}，飞满 {long["full_count"]}/{long["episodes"]}；平均末端水平漂移 {long["xy_end_mean_m"]:.2f} m。短时成绩、持续离地、严格定高和水平位置是不同结论，不能互相替代。','']
+    write(root/'research_result.json',dict(status='complete_data_exploratory_interpretation',
+        mechanism_claim=mechanism_claim,supported_exploratory_mechanisms=supported,
+        topology_parsimony_criterion=bool(z['exploratory_noninferiority']),
+        descriptive_leaders=engineering_results,engineering_gate_methods=gate,
+        confirmatory_significance_claim=False,scope='Frozen simulator; height-assisted11D; no XY/yaw stationkeeping; five training seeds'))
+    lines += ['## 公平比较的范围','',
         '所有方法使用上部7 g、下部8 g的同一模型；IMU位于 base_link，策略输入为姿态3维、角速度3维、加速度3维、测高误差和估计垂直速度，共11维。**这轮依赖测高信息；不是纯 IMU 的9维定高证明，也不是水平定点悬停。** yaw 和 XY没有闭环目标，水平漂移完整报告。','',
         '输出均为[-1,1]内的 α、β、电机残差，分别乘0.035 rad、0.035 rad、100 rad/s叠加同一固定 PID。执行器最终受 α/β ±0.3 rad、电机3115.224–3807.496 rad/s限制。PID为500 Hz，策略100 Hz，物理步长5 μs。SNN和Leaky ANN每次决策内部积分10次，每步1 ms；没有因此获得更多观测或控制机会。','',
         'SNN采用连续电流输入、隐藏CUBA-LIF神经元和连续tanh读出，是混合脉冲控制器。隐藏背景电流1.2、阈值1、减法重置1，脉冲幅值20；膜时间常数允许5–200 ms，突触时间常数2–100 ms，初值20/10 ms。连续泄漏对照使用同一双时间滤波和图结构，但背景为0，因此它检验的是阈值／重置／背景的组合机制，不能隔离单一“脉冲阈值”效应。','']
