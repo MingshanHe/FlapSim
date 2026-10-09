@@ -1,3 +1,34 @@
-# Preserve the bytes covered by this study's provenance hashes across platforms.
-docs/research/snn_neat_20261009/evidence/** -text
-artifacts/snn_hover_20261009/** -text
+# Checkpoint fingerprints and robot XML hashes must survive Windows checkouts.
+*.py text eol=lf
+*.cpp text eol=lf
+*.xml text eol=lf
+*.urdf text eol=lf
+*.csv text eol=lf
+# Preserve the original bytes of legacy SolidWorks exports already in history.
+flapsim/robot/SingleThrustFlapper*/urdf/*.urdf -text !eol
+
+# Keep the recorded comparison files byte-identical across checkouts.
+experiments/algorithms/neat_imu/config.ini text eol=lf
+artifacts/neat_ppo_7g8g_20261008/** -text !eol
+# This frozen XML contains an original whitespace-only line; keep its hash.
+artifacts/neat_ppo_7g8g_20261008/robot_upper7_lower8.xml -whitespace
+
+# Preserve IMU diagnostic data and checksums.
+artifacts/imu_history_20261008/** -text !eol
+artifacts/imu_history_20261008/robot_upper7_lower8.xml -whitespace
+
+# Preserve this IMU-history training round and policy fingerprints.
+artifacts/hover9_pid_20261008/** -text !eol
+artifacts/hover9_pid_20261008/robot_upper7_lower8.xml -whitespace
+# Keep the exact training-source bytes recorded before optimization.
+experiments/algorithms/hover9/common.py whitespace=-blank-at-eof
+experiments/algorithms/hover9/environment.py whitespace=-blank-at-eof
+
+# Preserve PID experiment data, policy fingerprints and source snapshots.
+artifacts/pid_airborne_20261008/** -text !eol
+artifacts/pid_airborne_20261008/robot_upper7_lower8.xml -whitespace
+artifacts/pid_wing_video_20261008/** -text !eol
+
+# Preserve bytes covered by the NEAT-SNN study provenance hashes.
+docs/research/snn_neat_20261009/evidence/** -text !eol
+artifacts/snn_hover_20261009/** -text !eol
