@@ -1,5 +1,5 @@
 """Data-bound report; negative hypotheses and failed episodes remain visible."""
-import argparse,json
+import argparse,json,posixpath,re
 from pathlib import Path
 from .design import read_protocol
 import numpy as np
@@ -119,12 +119,19 @@ def report(root):
         '## 复现与完整性','',
         '运行入口及依赖见[实验说明](../../experiments/algorithms/snn_hover/README.md)。protocol.json保存训练前版本、包版本、全部核心源码哈希；frozen_source保存冻结训练实现，test_manifest记录独立评估前策略哈希。final_implementation_source.zip保存评估与可视化的最终实现。verification.json及manifest.json由完整性检查生成；未通过检查不能交付为完成。','',
         '所有终止原因、逐项失败标准、完整种子结果和成本均保留。未通过统计／工程门槛时，贡献应表述为该控制接口下的定量边界与可重放对照证据；不能把“某个种子飞得好”改写成“拓扑或SNN普遍更优”。','']
-    (root/'report.md').write_text('\n'.join(lines)+'\n',encoding='utf8')
+    final_text='\n'.join(lines)+'\n'
+    (root/'report.md').write_text(final_text,encoding='utf8')
+    (root/'report_final.md').write_text(final_text,encoding='utf8')
+    def root_link(match):
+        target=match.group(1)
+        if '://' in target or target.startswith('#'):return match.group(0)
+        return ']('+posixpath.normpath((root/target).as_posix())+')'
+    Path('report_final.md').write_text(re.sub(r'\]\(([^)]+)\)',root_link,final_text),encoding='utf8')
     index=Path('report.md');old=index.read_text();marker='<!-- topology-hover-index -->'
     if marker in old:
         history=old[old.index(marker):];prefix=root.as_posix()
         header=['<!-- snn-study-index -->','# 最新实验：NEAT、SNN 时间尺度与 PPO 悬停比较','',
-            f'[完整 report.md]({prefix}/report.md) · [全部35次训练与11,888回合统计]({prefix}/analysis.json) · [演化浏览器]({prefix}/evolution_index.html)','',
+            f'[最终研究报告](report_final.md) · [完整 report.md]({prefix}/report.md) · [全部35次训练与11,888回合统计]({prefix}/analysis.json) · [演化浏览器]({prefix}/evolution_index.html)','',
             f'上部7 g、下部8 g；同一 PID、11维观测、3维有符号残差。共同扰动测试中，最高描述性严格成功率为{count(entry(best,"core","stress"))}（{"、".join(LABELS[m] for m in leaders)}）；联合SNN为{count(entry("snn_neat","core","stress"))}。五个训练种子的结果属于探索性证据，不能仅按最高均值宣称算法显著优胜。','',
             f'达到预设短时与60秒联合工程门槛：{"、".join(gate) if gate else "暂无方法全部达到"}。完整报告公开固定时间／固定拓扑消融、机制干预、单因素配对诊断、大角度恢复和所有失败。水平位置与yaw仍不闭环。','',
             f'[SNN脉冲及膜电位]({prefix}/flight/snn_neat_stress.html) · [PID/SNN/ANN视频]({prefix}/videos/comparison_stress_ann_neat.mp4) · [真实翅膀慢动作]({prefix}/videos/snn_wings_stress_10x.mp4)','',

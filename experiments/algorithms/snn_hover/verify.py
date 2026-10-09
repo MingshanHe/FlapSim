@@ -114,7 +114,7 @@ def audit(root):
         assert all(v['peak_to_peak']>10 for v in meta['wing_joint_ranges_deg'].values())
     assert len(list((root/'videos').glob('verification_*.json')))==4
     links=[]
-    for path in [root/'report.md']:
+    for path in [root/'report.md',root/'report_final.md',Path('report_final.md')]:
         for target in re.findall(r'\]\(([^)]+)\)',path.read_text()):
             if '://' in target or target.startswith('#'):continue
             assert (path.parent/target.split('#')[0]).exists(),f'Missing report link: {target}'
@@ -127,6 +127,7 @@ def audit(root):
     result=dict(status='passed',frozen_training_source_hashes=len(p['source_hashes']),physical_evidence_files=len(evidence['files']),
         historical_files_unchanged=True,training_runs=runs,test_episodes=len(rows),test_keys_unique=True,test_case_design_verified=True,
         heldout_seed_count=len(heldout),test_seed_overlap_with_new_training_or_validation=0,media=media,report_links_checked=len(links),
+        final_report_sha256=sha('report_final.md'),artifact_final_report_sha256=sha(root/'report_final.md'),
         limitation='Five training seeds, simulation only, height-assisted11D, no horizontal stationkeeping or energy claim.')
     write(root/'verification.json',result)
     manifest={str(f.relative_to(root)):dict(sha256=sha(f),bytes=f.stat().st_size) for f in sorted(root.rglob('*')) if f.is_file() and f.name not in ['manifest.json','finish_status.json'] and '.tmp' not in f.name}

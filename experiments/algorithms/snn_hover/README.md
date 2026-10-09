@@ -21,6 +21,12 @@ and their interaction costs are retained under `development/`; they never enter
 formal test comparisons. This is a disclosed implementation modification, not
 the unmodified default NEAT species implementation or the main novelty claim.
 
+The final deliverable includes a standalone repository-root `report_final.md`
+with research results, supported contributions, controls and failure boundaries.
+It is generated only after all independent tests, analysis and media are complete;
+the artifact directory also retains `report.md` and `report_final.md`. Final Git
+commit/push follows an integrity check and review of the claims against raw data.
+
 Budgets are 256,000 and 1,024,000 allocated transitions, rounded down from the
 proposal by 2.34375% to avoid truncated evolution generations. Early failures use
 fewer actual transitions in evolution; both quantities are reported. PPO consumes
