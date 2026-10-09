@@ -160,5 +160,5 @@ def main():
     for folder in sorted((a.root/'training').iterdir()):
         if (folder/'results.json').exists() and (folder/'initial_population.json.gz').exists():
             out=build(folder);links.append(f'<li><a href="{out.relative_to(a.root).as_posix()}/explorer.html">{folder.name}</a></li>')
-    (a.root/'evolution_index.html').write_text('<!doctype html><html lang="zh"><meta charset="utf-8"><title>演化档案</title><body style="font:18px system-ui;max-width:900px;margin:40px auto"><h1>NEAT / SNN 演化档案</h1><p>25 次训练的完整种群、双亲、结构、权重、偏置及时间常数。训练片段分数不能用来跨代判断泛化性能。</p><ul>'+''.join(links)+'</ul></body></html>')
+    (a.root/'evolution_index.html').write_text('<!doctype html><html lang="zh"><meta charset="utf-8"><title>演化档案</title><body style="font:18px system-ui;max-width:900px;margin:40px auto"><h1>NEAT / SNN 演化档案</h1><p>'+str(len(links))+' 次已完成演化训练的完整种群、双亲、结构、权重、偏置及时间常数。训练片段分数不能用来跨代判断泛化性能。</p><ul>'+''.join(links)+'</ul></body></html>')
 if __name__=='__main__':main()

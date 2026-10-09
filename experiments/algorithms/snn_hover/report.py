@@ -150,7 +150,7 @@ def report(root):
         '## 复现与完整性','',
         '运行入口及依赖见[实验说明](../../experiments/algorithms/snn_hover/README.md)。protocol.json保存训练前版本、包版本、全部核心源码哈希；frozen_source保存冻结训练实现，test_manifest记录独立评估前策略哈希。final_implementation_source.zip保存评估与可视化的最终实现。verification.json及manifest.json由完整性检查生成；未通过检查不能交付为完成。','',
         '所有终止原因、逐项失败标准、完整种子结果和成本均保留。未通过统计／工程门槛时，贡献应表述为该控制接口下的定量边界与可重放对照证据；不能把“某个种子飞得好”改写成“拓扑或SNN普遍更优”。','']
-    final_text='\n'.join(lines)+'\n'
+    final_text='\n'.join(lines).rstrip()+'\n'
     (root/'report.md').write_text(final_text,encoding='utf8')
     (root/'report_final.md').write_text(final_text,encoding='utf8')
     def root_link(match):

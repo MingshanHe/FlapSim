@@ -1,5 +1,11 @@
-<!-- snn-proposal-index -->
-**本轮执行中（2026-10-09）：** [NEAT-SNN 训练与比较进度](artifacts/snn_hover_20261009/report.md) · [已审阅研究方案](research_proposal.md) · [冻结协议](artifacts/snn_hover_20261009/protocol.json)。新分支 `research/neat-snn-hover`；最终性能和贡献结论需等独立测试完成。以下历史结果保持原样。
+<!-- snn-stage-index -->
+# 本轮阶段结果与迁移
+
+[2201阶段性报告](report_stage_2201.md) · [exec.md：部署与续跑](exec.md)
+
+五个演化组在8秒选模验证中均为8/8，两个PPO组为5/8且选中初始化模型。ANN选中图为19个学习参数、12条连接；联合SNN暂未体现额外收益。单种子验证结果不代表独立泛化结论。按要求在snn_neat_seed2202完成后暂停，保留剩余27次训练。
+
+以下历史结果保留原文。
 
 ---
 

@@ -59,6 +59,8 @@ def check_scope(root):
 def check_ready(root):
     def read(name):
         return json.loads((root / name).read_text())
+    if (root / 'pause_request.json').exists():
+        raise RuntimeError('Study is paused by user; final publication is disabled')
     if read('finish_status.json').get('status') != 'completed':
         raise RuntimeError('Full training, independent testing, media and report are not complete')
     if read('campaign_status.json').get('completed') != 35:
@@ -132,6 +134,9 @@ def main():
         if args.wait:
             write(state,dict(status='waiting_for_complete_study',branch=BRANCH,time=time.time()))
             while True:
+                if (root / 'pause_request.json').exists():
+                    write(state,dict(status='paused_by_user',branch=BRANCH,time=time.time()))
+                    return
                 for name in ['campaign_failure.json','finish_failure.json']:
                     if (root / name).exists():
                         raise RuntimeError('Study stopped; partial results will not be published as final: ' + name)

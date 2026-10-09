@@ -1,0 +1,22 @@
+{
+  "status": "pause_requested",
+  "after_run": "snn_neat_seed2202",
+  "training_pid": 139813,
+  "completed_at_request": 7,
+  "requested_unix": 1791537211.7915366,
+  "reason": "User requested pause after snn_neat_seed2202; stage report uses seed2201; no further training/evaluation/publication.",
+  "stopped_helpers": [
+    {
+      "pid": 116181,
+      "command": "/home/robot/miniconda3/envs/mujoco/bin/python -u -m experiments.algorithms.snn_hover.campaign --root artifacts/snn_hover_20261009 "
+    },
+    {
+      "pid": 116407,
+      "command": "/home/robot/miniconda3/envs/mujoco/bin/python -u -m experiments.algorithms.snn_hover.finish --root artifacts/snn_hover_20261009 "
+    },
+    {
+      "pid": 126211,
+      "command": "/home/robot/miniconda3/envs/mujoco/bin/python -u -m experiments.algorithms.snn_hover.publish --root artifacts/snn_hover_20261009 --wait "
+    }
+  ]
+}

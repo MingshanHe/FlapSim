@@ -1,0 +1,39 @@
+{
+  "generations": 40,
+  "archived_individual_evaluations": 2560,
+  "unique_genomes": 1833,
+  "selected": {
+    "generation": 3,
+    "genome_id": 248,
+    "training_steps": 51200,
+    "allocated_steps": 51200,
+    "validation": {
+      "episodes": 8,
+      "success_rate": 1.0,
+      "mean_return": 28.20291719125697,
+      "mean_elapsed": 8.0,
+      "tilt_rms_deg": 6.252081851693009,
+      "height_rmse_m": 0.06348233901746583,
+      "steps": 6400,
+      "minimum_clearance_m": 0.5051628764552029
+    },
+    "complexity": {
+      "nodes": 7,
+      "hidden": 4,
+      "connections": 59,
+      "effective_connections": 59,
+      "recurrent_edges": 16,
+      "parameters": 80,
+      "state_floats": 21,
+      "time_constants": 14,
+      "evolved_time_constants": 14,
+      "stored_scalar_parameters": 80,
+      "internal_updates_per_action": 10
+    }
+  },
+  "main_lineage": "Follow smaller-ID recorded parent at each birth. Both parents retained in family tree; no causal parent attribution.",
+  "mutation_events": "Mutation measured after crossover. Count each genome once at first appearance.",
+  "capacity_merges": 25,
+  "time_constants_unit": "seconds in exports; milliseconds in plots",
+  "graph_dynamics": "Temporal hidden nodes update synchronously every1ms, readouts filtered continuously. Ordinary ANN uses10ms actor ticks. All evolved parameters stay fixed in flight."
+}

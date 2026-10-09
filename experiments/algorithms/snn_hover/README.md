@@ -5,6 +5,15 @@ is `artifacts/snn_hover_20261009/protocol.json`. Do not change frozen training c
 while the campaign runs. Historical `topology_hover` code and artifacts are reused
 without modification. All paths below are relative to the repository root.
 
+The user requested a pause after `snn_neat_seed2202`. See repository-root
+`report_stage_2201.md` for the one-seed validation-only interim analysis and
+`exec.md` for the tested CPU environment, immutable-asset path handling, migration
+manifest and explicit `campaign --resume` instructions. A pause marker blocks
+automatic continuation, full testing and final publication. Completed runs are
+retained and skipped; this is continuation at a complete-run boundary, not an
+arbitrary mid-rollout checkpoint restore. The new host must pass migration checks
+before resuming. The original Windows Git publisher is host-specific.
+
 The current experiment includes five evolution arms and two PPO arms, each with
 five training seeds. All actors receive the same 11 sensor values and issue the
 same three signed residual actions on the same fixed PID. The neural clock is

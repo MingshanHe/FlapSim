@@ -1,0 +1,19 @@
+{
+  "status": "passed",
+  "host": "robot",
+  "platform": "Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "python": "3.11.11",
+  "packages": {
+    "neat-python": "2.0.0",
+    "mujoco": "3.8.0",
+    "numpy": "2.2.4",
+    "torch": "2.6.0+cpu",
+    "stable_baselines3": "2.6.0"
+  },
+  "frozen_core_files": 67,
+  "migration_files": 909,
+  "source_checkout": "/home/robot/rl/FlapSim-v3-neat-ppo",
+  "mesh_files": 17,
+  "formal_test_data_accessed": false,
+  "validation_replay_steps": 0
+}

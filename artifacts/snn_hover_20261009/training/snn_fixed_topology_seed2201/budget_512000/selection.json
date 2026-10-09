@@ -1,0 +1,29 @@
+{
+  "generation": 27,
+  "genome_id": 1729,
+  "training_steps": 460551,
+  "allocated_steps": 460800,
+  "validation": {
+    "episodes": 8,
+    "success_rate": 1.0,
+    "mean_return": 28.59356541848184,
+    "mean_elapsed": 8.0,
+    "tilt_rms_deg": 5.537292669384609,
+    "height_rmse_m": 0.0644069528640044,
+    "steps": 6400,
+    "minimum_clearance_m": 0.5063483351103462
+  },
+  "complexity": {
+    "nodes": 7,
+    "hidden": 4,
+    "connections": 60,
+    "effective_connections": 60,
+    "recurrent_edges": 16,
+    "parameters": 81,
+    "state_floats": 21,
+    "time_constants": 14,
+    "evolved_time_constants": 14,
+    "stored_scalar_parameters": 81,
+    "internal_updates_per_action": 10
+  }
+}

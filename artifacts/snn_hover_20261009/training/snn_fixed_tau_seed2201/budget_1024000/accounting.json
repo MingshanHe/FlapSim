@@ -1,0 +1,21 @@
+{
+  "method": "snn_fixed_tau",
+  "seed": 2201,
+  "status": "training",
+  "training_steps": 1024000,
+  "allocated_steps": 1024000,
+  "validation_steps": 134400,
+  "budget": 1024000,
+  "generation": 39,
+  "best_validation": {
+    "episodes": 8,
+    "success_rate": 1.0,
+    "mean_return": 28.827322668573082,
+    "mean_elapsed": 8.0,
+    "tilt_rms_deg": 5.355592894592622,
+    "height_rmse_m": 0.06569638880925291,
+    "steps": 6400,
+    "minimum_clearance_m": 0.500040820798016
+  },
+  "wall_seconds": 3547.44059002999
+}

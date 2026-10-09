@@ -13,6 +13,9 @@ def main():
     try:
         while True:
             status=json.loads((root/'campaign_status.json').read_text())
+            if (root/'pause_request.json').exists() or status['status'] in ('paused','pausing_after_current_run'):
+                write(root/'finish_status.json',dict(stage='paused_by_user',status='paused',completed=status.get('completed'),total=35))
+                return
             if status['status']=='training_complete':break
             if (root/'campaign_failure.json').exists():raise RuntimeError('Training failed; inspect campaign_failure.json')
             if time.monotonic()-start>72*3600:raise TimeoutError('72-hour training wait bound reached')
