@@ -4,7 +4,8 @@ from pathlib import Path
 from .design import read_protocol
 import numpy as np
 from .common import write
-from .evaluate import entries,core_cases,extra_cases
+from .evaluate import entries,core_cases,extra_cases,variants
+from .environment import case
 
 def read(p):return json.loads(Path(p).read_text())
 def sha(p):return hashlib.sha256(Path(p).read_bytes()).hexdigest()
@@ -61,11 +62,19 @@ def audit(root):
     assert read(root/'evaluation_status.json')['status']=='completed'
     for path,expected in p['source_hashes'].items():
         assert sha(path)==sha(root/'frozen_source'/path)==expected,path
+    frozen_evaluation=read(root/'evaluation_code_hashes.json')
+    assert frozen_evaluation['status']=='frozen_before_independent_tests'
+    for path,expected in frozen_evaluation['files'].items():
+        assert sha(path)==expected,f'Evaluation or statistics code changed: {path}'
+    test_manifest=read(root/'test_manifest.json')
+    assert test_manifest['protocol_sha256']==sha(root/'protocol.json')
+    assert test_manifest['evaluation_addendum_sha256']==sha(root/'evaluation_addendum.json')
+    assert frozen_evaluation['created_unix']<test_manifest['timestamp']
     evidence=read('docs/research/snn_neat_20261009/evidence/manifest.json')
     for r in evidence['files']:assert sha(r['snapshot'])==r['sha256']
     historical=['experiments/algorithms/topology_hover','artifacts/topology_hover_20261008','experiments/algorithms/pid_airborne','artifacts/pid_airborne_20261008']
     olddiff=subprocess.check_output(['git','diff',p['base_commit'],'--',*historical],text=True);assert not olddiff,'Historical files changed'
-    index=entries(root,p);assert index==read(root/'test_manifest.json')['policies']
+    index=entries(root,p);assert index==test_manifest['policies']
     rows=[json.loads(x) for x in (root/'evaluation/episodes.jsonl').read_text().splitlines() if x.strip()]
     assert len(rows)==len({r['key'] for r in rows})==p['evaluation_addendum']['total_evaluation_episodes']
     expected={}
@@ -73,8 +82,14 @@ def audit(root):
         for cid,c in core_cases(p):expected[f'{e["name"]}|core|{cid}|original']=c
         if e['stage']=='baseline' or e['stage']=='new' and e['budget']==p['final_budget']:
             for group,cid,c in extra_cases(p):expected[f'{e["name"]}|{group}|{cid}|original']=c
+        if e['method']=='snn_neat' and e['budget']==p['final_budget']:
+            spec=read(e['path'])
+            for variant,_ in variants(spec,e['training_seed']):
+                for i,seed in enumerate(p['interventions']['seeds']):
+                    expected[f'{e["name"]}|intervention|{seed}|{variant}']=case(seed,20.,'stress',i%8)
+    assert len(expected)==p['evaluation_addendum']['total_evaluation_episodes']
     for r in rows:
-        if r['group']!='intervention':assert r['case']==expected.pop(r['key'])
+        assert r['case']==expected.pop(r['key'])
         assert r['steps']>0 and r['elapsed']<=r['case']['seconds']+1e-9
         assert all(np.isfinite(r[k]) for k in ['tilt_rms_deg','height_rmse_m','minimum_clearance_m','return_sum'])
     assert not expected
@@ -124,7 +139,9 @@ def audit(root):
     write(root/'final_implementation_hashes.json',{str(f):sha(f) for f in sources})
     with zipfile.ZipFile(root/'final_implementation_source.zip','w',zipfile.ZIP_DEFLATED) as z:
         for f in sources:z.write(f,str(f))
-    result=dict(status='passed',frozen_training_source_hashes=len(p['source_hashes']),physical_evidence_files=len(evidence['files']),
+    result=dict(status='passed',frozen_training_source_hashes=len(p['source_hashes']),
+        frozen_evaluation_source_hashes=len(frozen_evaluation['files']),test_protocol_hashes_verified=True,
+        physical_evidence_files=len(evidence['files']),
         historical_files_unchanged=True,training_runs=runs,test_episodes=len(rows),test_keys_unique=True,test_case_design_verified=True,
         heldout_seed_count=len(heldout),test_seed_overlap_with_new_training_or_validation=0,media=media,report_links_checked=len(links),
         final_report_sha256=sha('report_final.md'),artifact_final_report_sha256=sha(root/'report_final.md'),
