@@ -1,6 +1,7 @@
 """All-seed statistics, explicit hypothesis limits, and scientific figures."""
 import argparse,itertools,json
 from pathlib import Path
+from .design import read_protocol
 import numpy as np
 import matplotlib
 matplotlib.use('Agg')
@@ -46,7 +47,7 @@ def aggregate(rows):
 
 def analyze(root):
     status=json.loads((root/'evaluation_status.json').read_text());assert status['status']=='completed'
-    protocol=json.loads((root/'protocol.json').read_text());index=json.loads((root/'test_manifest.json').read_text())['policies']
+    protocol=read_protocol(root);index=json.loads((root/'test_manifest.json').read_text())['policies']
     rows=[json.loads(line) for line in (root/'evaluation/episodes.jsonl').read_text().splitlines() if line.strip()]
     assert len(rows)==len({r['key'] for r in rows})==status['total']
     groups={}
@@ -75,6 +76,15 @@ def analyze(root):
         A={x['seed']:x['success_rate'] for x in data[f'{a}/{cap}/core/stress']['per_seed']}
         B={x['seed']:x['success_rate'] for x in data[f'{b}/{cap}/core/stress']['per_seed']}
         d=[A[s]-B[s] for s in sorted(A)];pairwise.append(dict(a=a,b=b,success_difference=float(np.mean(d)),success_interval=interval(d),scope='Exploratory; unadjusted95% interval; all21 pairs disclosed'))
+    factor_effects=[]
+    for m in ['pid']+main:
+        b=0 if m=='pid' else cap
+        baseline={x['seed']:x['success_rate'] for x in data[f'{m}/{b}/factor/stress_baseline']['per_seed']}
+        for name in protocol['factors']['names'][1:]:
+            altered={x['seed']:x['success_rate'] for x in data[f'{m}/{b}/factor/{name}']['per_seed']}
+            delta=[altered[s]-baseline[s] for s in sorted(baseline)]
+            factor_effects.append(dict(method=m,factor=name,success_difference=float(np.mean(delta)),success_interval=interval(delta) if m!='pid' else None,
+                per_seed_difference=delta,scope='Same policy, same8 scenario seeds/noise/phases; change listed factor only; exploratory95% seed interval'))
     costs=[]
     for e in index:
         if e['stage']!='new' or e['budget']!=cap:continue
@@ -116,7 +126,7 @@ def analyze(root):
         rep_pass={c:sum(r['success'] for r in lr if r['case']['condition']==c) for c in ['nominal','stress']}
         engineering[method]=dict(qualifying_training_seeds=good,total_training_seeds=5,representative_seed=rep,
             representative_long_success=rep_pass,meets_proposed_gate=good>=4 and min(rep_pass.values())>=7)
-    out=dict(groups=data,contrasts=contrasts,all_pairwise_exploratory=pairwise,costs=costs,temporal=temporal,hypothesis_checks=findings,engineering=engineering,
+    out=dict(groups=data,contrasts=contrasts,all_pairwise_exploratory=pairwise,factor_effects=factor_effects,costs=costs,temporal=temporal,hypothesis_checks=findings,engineering=engineering,
         total_evaluation_episodes=len(rows),actual_evaluation_steps=sum(r['steps'] for r in rows),
         statistical_scope='Training seeds are the resampling units, conditional on this fixed common test set. Two primary success-rate contrasts use97.5% bootstrap intervals and Holm-adjusted exact sign-flip tests. Secondary contrasts exploratory; no generalization-distribution or stability guarantee.')
     write(root/'analysis.json',out)

@@ -5,6 +5,7 @@ from concurrent.futures import ProcessPoolExecutor,as_completed
 import numpy as np
 from .common import write,evaluate,selection
 from .environment import case
+from .design import read_protocol
 
 
 def entries(root,protocol):
@@ -55,7 +56,7 @@ def extra_cases(protocol):
     for name in p['names']:
         for i,seed in enumerate(p['seeds']):
             c=case(seed,p['seconds'],'stress',i%8)
-            c.update({'delay_10ms':dict(delay_steps=5),'motor_3pct':dict(motor_uncertainty=.03),
+            c.update({'stress_baseline':{},'delay_10ms':dict(delay_steps=5),'motor_3pct':dict(motor_uncertainty=.03),
                 'lower9g':dict(lower_mass_scale=1.125),'pulse_1p5x':dict(pulse_force=.009,pulse_torque=.000012)}[name])
             c['factor']=name;yield 'factor',f'{name}_{seed}',c
 
@@ -126,13 +127,16 @@ def intervention_task(task):
 
 
 def run(root,workers=16):
-    protocol=json.loads((root/'protocol.json').read_text())
+    protocol=read_protocol(root)
     if json.loads((root/'campaign_status.json').read_text())['status']!='training_complete':raise RuntimeError('Finish all training before independent tests')
     for path,expected in protocol['source_hashes'].items():
         if hashlib.sha256(Path(path).read_bytes()).hexdigest()!=expected:raise RuntimeError(f'Frozen source changed: {path}')
     index=entries(root,protocol);manifest=root/'test_manifest.json'
-    if manifest.exists():assert json.loads(manifest.read_text())['policies']==index,'Policies changed after tests began'
-    else:write(manifest,dict(status='frozen_before_tests',policies=index,protocol_sha256=hashlib.sha256((root/'protocol.json').read_bytes()).hexdigest(),timestamp=time.time()))
+    if manifest.exists():
+        prior=json.loads(manifest.read_text());assert prior['policies']==index,'Policies changed after tests began'
+        assert prior['evaluation_addendum_sha256']==hashlib.sha256((root/'evaluation_addendum.json').read_bytes()).hexdigest(),'Test addendum changed'
+    else:write(manifest,dict(status='frozen_before_tests',policies=index,protocol_sha256=hashlib.sha256((root/'protocol.json').read_bytes()).hexdigest(),
+        evaluation_addendum_sha256=hashlib.sha256((root/'evaluation_addendum.json').read_bytes()).hexdigest(),timestamp=time.time()))
     selected={}
     for e in index:
         if e['stage']=='new' and e['budget']==protocol['final_budget']:

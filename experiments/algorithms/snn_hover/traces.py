@@ -1,6 +1,7 @@
 """Paired replay with exact state checks and millisecond neural recordings."""
 import argparse,base64,gzip,json
 from pathlib import Path
+from .design import read_protocol
 from concurrent.futures import ProcessPoolExecutor
 import numpy as np
 import matplotlib
@@ -78,7 +79,7 @@ el('tick').oninput=render;el('play').onclick=()=>{if(timer){clearInterval(timer)
 def main():
     p=argparse.ArgumentParser();p.add_argument('--root',type=Path,required=True);p.add_argument('--workers',type=int,default=8);args=p.parse_args();root=args.root
     assert json.loads((root/'evaluation_status.json').read_text())['status']=='completed'
-    protocol=json.loads((root/'protocol.json').read_text());reps=json.loads((root/'representatives.json').read_text())
+    protocol=read_protocol(root);reps=json.loads((root/'representatives.json').read_text())
     selected=[dict(method='pid',name='pid',path=None,mode='pid')]+list(reps.values())
     rows=[json.loads(x) for x in (root/'evaluation/episodes.jsonl').read_text().splitlines()];tasks=[];metadata=[]
     cases=[(c['condition'],c,'core') for cid,c in core_cases(protocol) if c['seed']==protocol['test']['seeds'][0] and c['condition']!='ood']

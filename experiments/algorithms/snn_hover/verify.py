@@ -1,6 +1,7 @@
 """Audit all generations, frozen sources, split membership, paired tests and media."""
 import argparse,gzip,hashlib,json,pickle,re,subprocess,zipfile
 from pathlib import Path
+from .design import read_protocol
 import numpy as np
 from .common import write
 from .evaluate import entries,core_cases,extra_cases
@@ -56,7 +57,7 @@ def evolution(folder):
     return dict(generations=40,individual_evaluations=count,unique_genomes=len(known),actual_training_steps=steps,checkpoint_load=True)
 
 def audit(root):
-    p=read(root/'protocol.json');assert read(root/'campaign_status.json')['status']=='training_complete'
+    p=read_protocol(root);assert read(root/'campaign_status.json')['status']=='training_complete'
     assert read(root/'evaluation_status.json')['status']=='completed'
     for path,expected in p['source_hashes'].items():
         assert sha(path)==sha(root/'frozen_source'/path)==expected,path
@@ -66,7 +67,7 @@ def audit(root):
     olddiff=subprocess.check_output(['git','diff',p['base_commit'],'--',*historical],text=True);assert not olddiff,'Historical files changed'
     index=entries(root,p);assert index==read(root/'test_manifest.json')['policies']
     rows=[json.loads(x) for x in (root/'evaluation/episodes.jsonl').read_text().splitlines() if x.strip()]
-    assert len(rows)==len({r['key'] for r in rows})==11600
+    assert len(rows)==len({r['key'] for r in rows})==p['evaluation_addendum']['total_evaluation_episodes']
     expected={}
     for e in index:
         for cid,c in core_cases(p):expected[f'{e["name"]}|core|{cid}|original']=c

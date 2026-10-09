@@ -6,14 +6,15 @@ import pytest
 from experiments.algorithms.snn_hover.evaluate import core_cases,extra_cases,variants
 from experiments.algorithms.snn_hover.analyze import interval,signflip,holm
 from experiments.algorithms.snn_hover.common import validation_cases
+from experiments.algorithms.snn_hover.design import read_protocol
 
 PROTOCOL=Path('artifacts/snn_hover_20261009/protocol.json')
 
 def test_case_design_is_balanced_and_held_out():
-    p=json.loads(PROTOCOL.read_text());core=list(core_cases(p));extra=list(extra_cases(p))
-    assert len(core)==48 and len(extra)==192
+    p=read_protocol(PROTOCOL.parent);core=list(core_cases(p));extra=list(extra_cases(p))
+    assert len(core)==48 and len(extra)==200
     assert len({cid for cid,c in core})==48
-    assert len({(g,cid) for g,cid,c in extra})==192
+    assert len({(g,cid) for g,cid,c in extra})==200
     testseeds={c['seed'] for cid,c in core}|{c['seed'] for g,cid,c in extra}|set(p['interventions']['seeds'])
     for seed in p['seeds']:
         validation={c['seed'] for c in validation_cases(seed)}
@@ -24,7 +25,14 @@ def test_case_design_is_balanced_and_held_out():
         assert len(cases)==16
         assert all(sum(c['direction_deg']==d for c in cases)==2 for d in p['recovery']['directions'])
     # 70 new checkpoints + 20 old policies + PID; extra tests only final/PID.
-    assert 91*len(core)+36*len(extra)+5*8*8==11600
+    assert 91*len(core)+36*len(extra)+5*8*8==11888
+    for seed in p['factors']['seeds']:
+        paired=[c for g,cid,c in extra if g=='factor' and c['seed']==seed]
+        baseline=next(c for c in paired if c['factor']=='stress_baseline')
+        for c in paired:
+            changed={k for k in c if c[k]!=baseline[k]}-{'factor'}
+            expected={'stress_baseline':set(),'delay_10ms':{'delay_steps'},'motor_3pct':{'motor_uncertainty'},'lower9g':{'lower_mass_scale'},'pulse_1p5x':{'pulse_force','pulse_torque'}}
+            assert changed==expected[c['factor']]
 
 def test_interventions_preserve_matched_deletion_and_tau_multisets():
     spec=dict(kind='snn',inputs=11,outputs=[0,1,2],nodes=[dict(id=i,bias=0,tau_m=.005+i*.003,tau_s=.003+i*.002) for i in range(7)],

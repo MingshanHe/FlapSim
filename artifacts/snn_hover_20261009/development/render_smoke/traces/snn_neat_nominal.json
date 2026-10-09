@@ -1,0 +1,70 @@
+{
+  "episode": {
+    "seed": 409900020,
+    "case": {
+      "seed": 409900020,
+      "seconds": 0.2,
+      "condition": "nominal",
+      "phase": 0,
+      "degrees": 2.0,
+      "motor_uncertainty": 0.0,
+      "acceleration_bias": 0.0,
+      "attitude_bias_deg": 0.0,
+      "delay_steps": 0,
+      "attitude_noise_deg": 0.02,
+      "gyro_noise": 0.002,
+      "accel_noise": 0.02,
+      "height_noise": 0.002,
+      "height_delay": 0.02,
+      "lower_mass_scale": 1.0,
+      "pulse_force": 0.0,
+      "pulse_torque": 0.0
+    },
+    "steps": 20,
+    "physics_steps": 40000,
+    "elapsed": 0.2,
+    "termination": "time_limit",
+    "success": false,
+    "return_sum": 0.6357280148985269,
+    "tilt_rms_deg": 13.468040134545237,
+    "height_rmse_m": 0.057290240763690374,
+    "height_slope_m_s": -0.5914441492732185,
+    "minimum_clearance_m": 0.6405377347474626,
+    "xy_offset_m": 0.009877275916636952,
+    "accel_clipped_fraction": 0.006025,
+    "estimated_height_error_m": 0.04502031963063147,
+    "phase": 0,
+    "height_late_peak_to_peak_m": 0.10818023135221932,
+    "initial_tilt_deg": 1.9175691199200517,
+    "maximum_tilt_deg": 23.995108597525803,
+    "maximum_height_loss_m": 0.10819602893786373,
+    "saturation_fraction": [
+      0.09,
+      0.0,
+      0.0
+    ],
+    "height_sensor_out_of_angle_fraction": 0.0,
+    "peak_angular_speed_rad_s": 16.512808690018662,
+    "recovery_time_s": null,
+    "recovery_success": false,
+    "criterion_pass": {
+      "full_horizon": true,
+      "clearance": true,
+      "tilt": false,
+      "height_rms": true,
+      "height_late_range": true,
+      "height_late_slope": false
+    },
+    "reference_position": [
+      0.026030915215446978,
+      -0.007089031906362896,
+      0.7905225008045413
+    ]
+  },
+  "verification": {
+    "maximum_recomputed_error": 0.0,
+    "neural_substeps_per_action": 10,
+    "weights_fixed_during_flight": true
+  },
+  "scope": "Development media smoke only"
+}

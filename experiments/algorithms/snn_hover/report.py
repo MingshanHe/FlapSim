@@ -1,24 +1,26 @@
 """Data-bound report; negative hypotheses and failed episodes remain visible."""
 import argparse,json
 from pathlib import Path
+from .design import read_protocol
 import numpy as np
 from .common import write
 
 LABELS={'pid':'固定 PID','snn_neat':'SNN 联合演化','snn_fixed_tau':'SNN 固定时间常数','snn_fixed_topology':'SNN 固定拓扑','leaky_ann_neat':'Leaky ANN-NEAT','ann_neat':'ANN-NEAT','rnn_ppo':'RNN-PPO','ff_ppo':'FF-PPO'}
 
 def report(root):
-    p=json.loads((root/'protocol.json').read_text());d=json.loads((root/'analysis.json').read_text());cap=p['final_budget'];methods=p['methods'];g=d['groups'];reps=json.loads((root/'representatives.json').read_text())
+    p=read_protocol(root);d=json.loads((root/'analysis.json').read_text());cap=p['final_budget'];methods=p['methods'];g=d['groups'];reps=json.loads((root/'representatives.json').read_text())
     def entry(m,group,condition,budget=None):return g[f'{m}/{0 if m=="pid" else cap if budget is None else budget}/{group}/{condition}']
     def count(x,recovery=False):return f'{x["recovery_count" if recovery else "success_count"]}/{x["episodes"]} ({100*x["recovery_count" if recovery else "success_count"]/x["episodes"]:.1f}%)'
     def pctinterval(x):return f'[{x[0]*100:+.1f}, {x[1]*100:+.1f}] pp'
     def table(headers,rows):return ['| '+' | '.join(headers)+' |','|'+'|'.join(['---']*len(headers))+'|']+['| '+' | '.join(map(str,row))+' |' for row in rows]+['']
     costs=d['costs'];cost=lambda m,k:float(np.mean([r[k] for r in costs if r['method']==m]))
     rank=sorted(methods,key=lambda m:entry(m,'core','stress')['success_rate'],reverse=True);best=rank[0];gate=[LABELS[m] for m in methods if d['engineering'][m]['meets_proposed_gate']]
+    leaders=[m for m in rank if entry(m,'core','stress')['success_rate']==entry(best,'core','stress')['success_rate']]
     lines=['# 扑翼悬停：拓扑、时间常数与脉冲机制的配对比较','',
         '**状态：35 次正式训练和全部独立评估已完成。以下结论只适用于冻结的仿真平台、传感器接口与执行器范围。**','',
         '[原 proposal](research_proposal_approved.md) · [执行协议](protocol.json) · [全部分析数据](analysis.json) · [逐回合原始结果](evaluation/episodes.jsonl) · [完整演化浏览器](evolution_index.html)','',
         '## 结果与贡献','',
-        f'在这组共同扰动测试中，描述性成功率最高的是 **{LABELS[best]}：{count(entry(best,"core","stress"))}**；联合 SNN 为 **{count(entry("snn_neat","core","stress"))}**，固定 PID 为 **{count(entry("pid","core","stress"))}**。方法间比较使用五个独立训练种子的配对差异；此处的最高均值不是统计优胜声明。','',
+        f'在这组共同扰动测试中，描述性成功率最高为 **{count(entry(best,"core","stress"))}（{"、".join(LABELS[m] for m in leaders)}）**；联合 SNN 为 **{count(entry("snn_neat","core","stress"))}**，固定 PID 为 **{count(entry("pid","core","stress"))}**。方法间比较使用五个独立训练种子的配对差异；此处的最高均值不是统计优胜声明。','',
         f'达到预设“可用仿真候选”工程门槛的方法：**{"、".join(gate) if gate else "没有方法全部达到"}**。该门槛同时要求多数训练种子的20秒稳健性，以及验证选中代表的60秒常规／扰动成功，不能只靠一次视频判定。','',
         '本研究可明确交付的贡献，是把有实验约束的扑翼模型、同一 PID 和11维观测接口下的拓扑／时间尺度搜索，与固定拓扑、固定时间常数、连续泄漏网络和 PPO 做可重放的匹配比较；同时给出参数规模、长时失效和大角度经验恢复范围。NEAT 与 SNN 的组合已有先例，组合本身不作为新颖性声明。','']
     for r in d['hypothesis_checks'][:2]:
@@ -75,8 +77,11 @@ def report(root):
     lines+=['![经验恢复范围](figures/large_angle_recovery.png)','',
         '该曲线只测定给定状态、传感器和控制权限下的经验恢复范围，不是吸引域证明。以合力近似沿机体倾斜方向估算，30°/45°定高分别需要约15.5%/41.4%额外推力；实际α/β偏转和扑翼非定常载荷会改变这一近似。测高有效性受机体倾角限制，失败不能直接归于某种网络缺乏记忆。','',
         '## 单因素诊断与机制干预','',
-        '单因素实验从同一扰动基线分别提高观测延迟、电机增益不确定性、下部质量、外力与力矩强度；不与组合OOD混为一组。','']
+        '单因素实验从同一扰动基线分别提高观测延迟、电机增益不确定性、下部质量、外力与力矩强度；不与组合OOD混为一组。[测试前补充协议](evaluation_addendum.json)为每个策略增加8个完全同随机种子／相位／噪声的原始扰动对照，共增加288回合，正式测试总数11,888。此补充未改变训练或选模，也未访问测试结果。','']
     lines+=table(['方法']+p['factors']['names'],[[LABELS[m]]+[count(entry(m,'factor',x)) for x in p['factors']['names']] for m in ['pid']+methods])
+    lines+=['同一策略和同一场景下，改变因素相对原始扰动的成功率差（百分点；负值表示下降）：','']
+    lines+=table(['方法']+p['factors']['names'][1:],[[LABELS[m]]+[f'{100*next(r for r in d["factor_effects"] if r["method"]==m and r["factor"]==x)["success_difference"]:+.1f}' for x in p['factors']['names'][1:]] for m in ['pid']+methods])
+    lines+=['饱和比例按控制器裁剪后的请求命令计算，在电机增益不确定性乘入物理模型之前测量；这是测试记录层的修正，不修改冻结训练控制器或物理轨迹。','']
     lines+=table(['联合SNN干预','严格成功','倾角RMS','高度RMS','飞满'],[[x,count(entry('snn_neat','intervention',x)),f'{entry("snn_neat","intervention",x)["tilt_rms_deg"]:.2f}°',f'{entry("snn_neat","intervention",x)["height_rmse_m"]:.3f} m',f'{entry("snn_neat","intervention",x)["full_count"]}/40'] for x in p['interventions']['variants']])
     lines+=['tau_initial恢复20/10 ms；tau_shuffle在隐藏／读出节点内分别打乱成对时间常数；reset_each_tick每个100 Hz决策前清零动态状态；remove_recurrent移除隐藏节点之间的连接（含自环），三个随机删边对照删去相同数量。干预可能破坏共同适应或控制容量，应结合重新训练的消融组解释，不能单凭破坏后性能下降证明某条边的独立因果贡献。','',
         '## 参数、计算成本及活动','',
@@ -115,7 +120,18 @@ def report(root):
         '运行入口及依赖见[实验说明](../../experiments/algorithms/snn_hover/README.md)。protocol.json保存训练前版本、包版本、全部核心源码哈希；frozen_source保存冻结训练实现，test_manifest记录独立评估前策略哈希。final_implementation_source.zip保存评估与可视化的最终实现。verification.json及manifest.json由完整性检查生成；未通过检查不能交付为完成。','',
         '所有终止原因、逐项失败标准、完整种子结果和成本均保留。未通过统计／工程门槛时，贡献应表述为该控制接口下的定量边界与可重放对照证据；不能把“某个种子飞得好”改写成“拓扑或SNN普遍更优”。','']
     (root/'report.md').write_text('\n'.join(lines)+'\n',encoding='utf8')
-    return dict(descriptive_stress_leader=best,engineering_gate_passes=gate,actual_training_steps=formal_steps,validation_steps=validation_steps)
+    index=Path('report.md');old=index.read_text();marker='<!-- topology-hover-index -->'
+    if marker in old:
+        history=old[old.index(marker):];prefix=root.as_posix()
+        header=['<!-- snn-study-index -->','# 最新实验：NEAT、SNN 时间尺度与 PPO 悬停比较','',
+            f'[完整 report.md]({prefix}/report.md) · [全部35次训练与11,888回合统计]({prefix}/analysis.json) · [演化浏览器]({prefix}/evolution_index.html)','',
+            f'上部7 g、下部8 g；同一 PID、11维观测、3维有符号残差。共同扰动测试中，最高描述性严格成功率为{count(entry(best,"core","stress"))}（{"、".join(LABELS[m] for m in leaders)}）；联合SNN为{count(entry("snn_neat","core","stress"))}。五个训练种子的结果属于探索性证据，不能仅按最高均值宣称算法显著优胜。','',
+            f'达到预设短时与60秒联合工程门槛：{"、".join(gate) if gate else "暂无方法全部达到"}。完整报告公开固定时间／固定拓扑消融、机制干预、单因素配对诊断、大角度恢复和所有失败。水平位置与yaw仍不闭环。','',
+            f'[SNN脉冲及膜电位]({prefix}/flight/snn_neat_stress.html) · [PID/SNN/ANN视频]({prefix}/videos/comparison_stress_ann_neat.mp4) · [真实翅膀慢动作]({prefix}/videos/snn_wings_stress_10x.mp4)','',
+            f'![性能与规模]({prefix}/figures/performance_complexity.png)','',
+            '以下为上一轮历史结果，保持原文。','', '---','']
+        index.write_text('\n'.join(header)+history,encoding='utf8')
+    return dict(descriptive_stress_leaders=leaders,engineering_gate_passes=gate,actual_training_steps=formal_steps,validation_steps=validation_steps)
 
 
 def main():

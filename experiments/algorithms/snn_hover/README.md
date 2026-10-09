@@ -64,6 +64,14 @@ limitation rather than claiming a conventional p<0.05 discovery from bootstrap
 intervals alone. All21 method pairs are disclosed as exploratory secondary
 comparisons. Seed intervals are conditional on the common finite test set.
 
+The evaluation-only addendum freezes an additional identical-seed stress
+baseline for the four single-factor tests. It adds288 episodes (8 scenarios for
+35 final learned policies andPID), for11,888 total evaluation episodes. It was
+added during pre-test design review, without accessing held-out outcomes or
+changing any training/selection code. `design.read_protocol` combines the frozen
+training protocol and this separately hashed supplement. Saturation is measured
+on clipped controller requests before multiplying in plant motor-gain error.
+
 `protocol` refuses to replace a frozen protocol. `campaign` skips completed jobs
 but refuses to replace incomplete output. Every individual, parent pair, gene,
 mutation and episode is archived for every evolution generation. Checkpoints use
