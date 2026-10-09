@@ -44,7 +44,7 @@ def train(args):
             entry=dict(generation=generation,training_steps=state['training_steps'],allocated_steps=state['allocated_steps'],case=c,
                 champion_id=champion['id'],fitness_max=champion['fitness'],fitness_mean=float(np.mean([s['fitness'] for s in snaps])),
                 species=len(pop.species.species),**complexity(champion['policy']))
-            compressed(out/f'generation_{generation:04d}.json.gz',dict(generation=generation,individuals=snaps))
+            compressed(out/f'generation_{generation:04d}.json.gz',dict(generation=generation,individuals=snaps,species_merges=pop.species.merge_events))
             if state['allocated_steps']>=next_validation or state['allocated_steps']>=args.steps:
                 entry['validation']=validation(champion['policy'],champion['id'],generation);entry['best_validation']=best
                 next_validation+=51200

@@ -12,6 +12,15 @@ same three signed residual actions on the same fixed PID. The neural clock is
 perform ten internal steps per decision. The CUBA-LIF hidden neurons are spiking;
 their inputs and readouts are continuous, so this is a hybrid SNN.
 
+Execution protocol v3 caps the64-member population at16 species for every
+evolution arm. After default NEAT speciation, closest representative pairs merge
+as necessary; genomes do not change. With two elites per species, at least32
+newborn individuals remain available per normal generation. Merge events are
+archived separately from mutations. Both abandoned uncapped protocol attempts
+and their interaction costs are retained under `development/`; they never enter
+formal test comparisons. This is a disclosed implementation modification, not
+the unmodified default NEAT species implementation or the main novelty claim.
+
 Budgets are 256,000 and 1,024,000 allocated transitions, rounded down from the
 proposal by 2.34375% to avoid truncated evolution generations. Early failures use
 fewer actual transitions in evolution; both quantities are reported. PPO consumes
@@ -69,3 +78,18 @@ It records recovery, saturation and height-sensor angular availability. It does
 not replace the previous physical plant, PID, observation, or reward. The unit
 tests compare baseline qpos and reward against the frozen environment, verify
 exact tilt across eight directions and check no truth-state feedback is added.
+
+For a portable replay of a saved policy, including SNN state, use the new replay
+entry point. It relocates mesh paths in a temporary asset copy, leaves the
+archived physical model untouched and refuses to overwrite the output directory:
+
+```bash
+python -m experiments.algorithms.snn_hover.replay \
+  --policy artifacts/snn_hover_20261009/training/snn_neat_seed2201/best_policy.json \
+  --output /tmp/my-snn-replay --seconds 20 --condition stress
+```
+
+Omit `--policy` for the same PID baseline. `--tilt 30 --direction 90` sets a true
+30-degree rigid-root release angle. A replay is an additional demonstration, not
+a replacement for the complete held-out benchmark. Use the validation-selected
+representative paths in the final report, rather than choosing by video quality.

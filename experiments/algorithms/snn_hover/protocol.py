@@ -12,7 +12,7 @@ def freeze(root):
     paths+=list(Path('experiments/algorithms/topology_hover').glob('*.py'))+list(Path('experiments/algorithms/topology_hover').glob('*.cpp'))
     paths+=list(Path('experiments/algorithms/pid_airborne').glob('*.py'))+list(Path('experiments/algorithms/hover9').glob('*.py'))
     hashes={str(p):hashlib.sha256(p.read_bytes()).hexdigest() for p in paths}
-    protocol=dict(status='frozen_before_formal_training',version=2,created_unix=time.time(),base_commit='3711664acf1e9660e304a6c8a473bb55e0eb102f',
+    protocol=dict(status='frozen_before_formal_training',version=3,created_unix=time.time(),base_commit='3711664acf1e9660e304a6c8a473bb55e0eb102f',
         methods=METHODS+['rnn_ppo','ff_ppo'],seeds=list(range(2201,2206)),population=64,workers=16,
         bridge_budget=256000,final_budget=1024000,validation_interval=51200,validation_episodes=8,validation_seconds=8.,
         curriculum=[dict(until=256000,seconds=2.),dict(until=512000,seconds=4.),dict(until=1024000,seconds=8.)],
@@ -20,6 +20,8 @@ def freeze(root):
         reward='Unchanged topology_hover reward; evolution fitness = return/requested duration - 0.00002*enabled edges for every evolution arm',
         selection='lexicographic validation strict-success rate, mean return, negative tilt RMS; initial policy eligible; no test selection',
         stop='Common fixed allocated budget; plateau diagnostic only, no data-dependent training extension',
+        speciation=dict(compatibility_threshold=1.,max_species=16,elitism_per_species=2,minimum_newborn_per_normal_generation=32,
+            capacity_rule='After ordinary NEAT speciation, merge the genetically closest representative pair until species<=16; retain older-ID representative and its fitness history, latest last_improved, all genes unchanged. Merge events archived. Same rule for all five evolution arms.'),
         development_seed_range=[409900000,409999999],training_seed_range=[360000000,399999999],validation_seed_formula='410000000 + training_seed*10 + index(0..7)',
         test=dict(seeds=list(range(420000000,420000016)),seconds=20.,conditions=['nominal','stress','ood']),
         long_test=dict(seeds=list(range(420100000,420100008)),seconds=60.,conditions=['nominal','stress'],all_training_seeds=True),
@@ -33,6 +35,8 @@ def freeze(root):
         proposal_adjustments=[
             'Common budgets rounded down by 2.34375% from 262144/1048576 to 256000/1024000 to align full evolution generations and PPO rollouts; previous policies retain their 262144 budget label.',
             'Protocol v1 stopped early because threshold0.25 over-fragmented the population; all data archived under development/aborted_speciation_v1. Version2 uses threshold1.0/elitism2 based on a 60-generation independent random-fitness screen (2 species median,4 maximum), not on flight rewards. Pilot costs are recorded in protocol_revision.json. No guarantee of multiple species.',
+            'Protocol v2 stopped after486400 recorded actor steps and64000 validation steps when copied-checkpoint reproduction-only checks showed a33-species allocation conflict. Version3 adds the shared capacity rule above, tested on25 independent80-generation reproduction-only runs and forced-fragmentation tests; no held-out flight data accessed. Old sources, policies and costs preserved.',
+            'Version3 corrects the nonfunctional activation metadata label for Leaky ANN hidden nodes from lif to leaky_tanh; runtime was already continuous and governed by policy.kind.',
             'PPO curriculum set at each rollout boundary; an already active episode completes under its previous horizon.',
             'Analog temporal control has zero background; SNN background1.2 prevents quiescence. It tests the combined threshold/reset/background mechanism, not threshold alone.'
         ],source_hashes=hashes,packages={p:importlib.metadata.version(p) for p in ['neat-python','mujoco','numpy','torch','stable_baselines3']},python=platform.python_version())

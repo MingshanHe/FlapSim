@@ -89,3 +89,20 @@ def test_controllers_do_not_gain_truth_feedback():
     def forbidden():raise AssertionError('Truth entered policy observation or PID')
     e.air.env._state=forbidden
     assert np.isfinite(e.observation()).all() and np.isfinite(e.pid()).all()
+
+def test_capacity_speciation_preserves_genomes_and_offspring(tmp_path):
+    from experiments.algorithms.snn_hover.evolution import CapacitySpeciesSet
+    random.seed(141);c=configuration(tmp_path,'snn_neat',12);p=neat.Population(c);initialize(p,c,141)
+    c.species_set_config.compatibility_threshold=.000001
+    for _ in range(8):
+        before={k:export(g,'snn_neat') for k,g in p.population.items()}
+        p.species.speciate(c,p.population,p.generation)
+        assert len(p.species.species)<=3
+        assert before=={k:export(g,'snn_neat') for k,g in p.population.items()}
+        assert set(p.species.genome_to_species)==set(p.population)
+        assert sum(len(s.members) for s in p.species.species.values())==12
+        old=set(p.population)
+        def fit(genomes,config):
+            for gid,g in genomes:g.fitness=float(gid%17)
+        p.run(fit,1)
+        assert len(p.population)==12 and len(set(p.population)-old)>=6

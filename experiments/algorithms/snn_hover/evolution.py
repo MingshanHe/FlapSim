@@ -6,9 +6,31 @@ import numpy as np
 from neat.attributes import FloatAttribute
 from neat.genes import DefaultNodeGene,DefaultConnectionGene
 from neat.genome import DefaultGenomeConfig
+from neat.config import ConfigParameter,DefaultClassConfig
 from ..topology_hover.evolve import AuditGenome,plain_tanh
 
 METHODS=['snn_neat','snn_fixed_tau','snn_fixed_topology','leaky_ann_neat','ann_neat']
+
+class CapacitySpeciesSet(neat.DefaultSpeciesSet):
+    """Keep at least half the population available for offspring at elitism2.
+
+    Default NEAT preserves an existing representative even after raising the
+    compatibility threshold. A hard population-capacity invariant therefore
+    needs explicit merges, not repeated threshold tuning. Only species labels
+    change; every genome and all its genes remain intact.
+    """
+    @classmethod
+    def parse_config(cls,params):
+        return DefaultClassConfig(params,[ConfigParameter('compatibility_threshold',float),ConfigParameter('max_species',int)],cls.__name__)
+    def speciate(self,config,population,generation):
+        super().speciate(config,population,generation);self.merge_events=[]
+        while len(self.species)>self.species_set_config.max_species:
+            pairs=itertools.combinations(sorted(self.species),2)
+            distance,keep,drop=min((self.species[a].representative.distance(self.species[b].representative,config.genome_config),a,b) for a,b in pairs)
+            a,b=self.species[keep],self.species.pop(drop)
+            moved=sorted(b.members);a.members.update(b.members);a.last_improved=max(a.last_improved,b.last_improved)
+            for gid in moved:self.genome_to_species[gid]=keep
+            self.merge_events.append(dict(speciation_generation=generation,keep=keep,drop=drop,representative_distance=distance,moved_genomes=moved))
 
 class TemporalNode(DefaultNodeGene):
     _gene_attributes=DefaultNodeGene._gene_attributes+[
@@ -51,9 +73,9 @@ def configuration(out,method,population):
         key=line.split('=')[0].strip();lines.append(f'{key} = {change[key]}' if key in change else line)
     text='\n'.join(lines).replace('[DefaultGenome]','[TemporalGenome]')
     additions='\n'.join(f'log_tau_{tag}_{key} = {val}' for tag in ['m','s'] for key,val in [('mutate_rate',0 if ft else .2),('replace_rate',0 if ft else .01)])
-    text=text.replace('[DefaultSpeciesSet]',additions+'\n\n[DefaultSpeciesSet]')
+    text=text.replace('[DefaultSpeciesSet]',additions+f'\n\n[CapacitySpeciesSet]\nmax_species = {max(1,population//4)}')
     p=out/'neat.ini';p.write_text(text)
-    cfg=neat.Config(TemporalGenome,neat.DefaultReproduction,neat.DefaultSpeciesSet,neat.DefaultStagnation,str(p))
+    cfg=neat.Config(TemporalGenome,neat.DefaultReproduction,CapacitySpeciesSet,neat.DefaultStagnation,str(p))
     cfg.genome_config.activation_defs.add('plain_tanh',plain_tanh);return cfg
 
 def initialize(pop,cfg,seed):
@@ -73,5 +95,5 @@ def initialize(pop,cfg,seed):
 def export(g,method):
     return dict(kind='graph' if method=='ann_neat' else 'leaky_ann' if method=='leaky_ann_neat' else 'snn',inputs=11,outputs=[0,1,2],
         genome_id=g.key,fixed_tau=method in ('snn_fixed_tau','ann_neat'),method=method,
-        nodes=[dict(id=k,bias=n.bias,tau_m=math.exp(n.log_tau_m),tau_s=math.exp(n.log_tau_s),activation='plain_tanh' if method=='ann_neat' else 'lif' if k>=3 else 'leaky_tanh_readout') for k,n in sorted(g.nodes.items())],
+        nodes=[dict(id=k,bias=n.bias,tau_m=math.exp(n.log_tau_m),tau_s=math.exp(n.log_tau_s),activation='plain_tanh' if method=='ann_neat' else ('lif' if method!='leaky_ann_neat' else 'leaky_tanh') if k>=3 else 'leaky_tanh_readout') for k,n in sorted(g.nodes.items())],
         edges=[dict(source=a,target=b,weight=e.weight,enabled=e.enabled,innovation=e.innovation) for (a,b),e in sorted(g.connections.items())])

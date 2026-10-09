@@ -1,0 +1,26 @@
+{
+  "status": "training",
+  "current": "artifacts/snn_hover_20261009/training/snn_neat_seed2201",
+  "pid": 111866,
+  "command": [
+    "/home/robot/miniconda3/envs/mujoco/bin/python",
+    "-u",
+    "-m",
+    "experiments.algorithms.snn_hover.train",
+    "--output",
+    "artifacts/snn_hover_20261009/training/snn_neat_seed2201",
+    "--method",
+    "snn_neat",
+    "--seed",
+    "2201",
+    "--steps",
+    "1024000",
+    "--workers",
+    "16",
+    "--population",
+    "64"
+  ],
+  "started": 1791507104.1668978,
+  "completed": 0,
+  "total": 35
+}

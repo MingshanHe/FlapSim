@@ -58,6 +58,8 @@ def build(folder):
         line=[dict(records[chosen['genome_id']],generation=-1,policy=spec)]
     write(out/'selected_ancestry.json',line)
     write(out/'all_parent_links.json',[dict(id=k,generation=birth[k],parents=r['parents']) for k,r in records.items()])
+    merges=[event for g in generations for event in g.get('species_merges',[])]
+    write(out/'species_capacity_merges.json',merges)
     fig,axes=plt.subplots(2,2,figsize=(12,8),constrained_layout=True)
     for field,fun in [('best',np.max),('mean',np.mean),('worst',np.min)]:
         axes[0,0].plot(xs,[fun([r['fitness'] for r in g['individuals']]) for g in generations],label=field)
@@ -144,10 +146,11 @@ def build(folder):
     html=html.replace("DATA.findIndex(g=>g.generation===SELECTION.generation)","Math.max(0,DATA.findIndex(g=>g.generation===SELECTION.generation))")
     html=html.replace('主祖先路径每次沿一个父代回溯','主祖先路径每次沿编号较小的父代回溯，不代表该父代贡献更大')
     if spec['kind'] in ('snn','leaky_ann'):html=html.replace('</main>','<div class="card"><h2>祖先时间常数</h2><img width="100%" src="lineage_tau_m.png"><img width="100%" src="lineage_tau_s.png"></div></main>')
+    html=html.replace('</main>','<div class="card"><h2>物种容量约束</h2><p>超过16个物种时，合并遗传代表距离最近的两个物种，基因本身不改变。该步骤只限制分组，不能算作基因突变。</p><a href="species_capacity_merges.json">查看全部真实合并事件</a></div></main>')
     (out/'explorer.html').write_text(html,encoding='utf8')
     write(out/'visualization_manifest.json',dict(generations=len(generations),archived_individual_evaluations=sum(len(g['individuals']) for g in generations),unique_genomes=len(records),selected=chosen,
         main_lineage='Follow smaller-ID recorded parent at each birth. Both parents retained in family tree; no causal parent attribution.',
-        mutation_events='Mutation measured after crossover. Count each genome once at first appearance.',time_constants_unit='seconds in exports; milliseconds in plots',
+        mutation_events='Mutation measured after crossover. Count each genome once at first appearance.',capacity_merges=len(merges),time_constants_unit='seconds in exports; milliseconds in plots',
         graph_dynamics='Temporal hidden nodes update synchronously every1ms, readouts filtered continuously. Ordinary ANN uses10ms actor ticks. All evolved parameters stay fixed in flight.'))
     return out
 

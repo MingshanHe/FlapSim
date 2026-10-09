@@ -11,11 +11,16 @@ def sha(p):return hashlib.sha256(Path(p).read_bytes()).hexdigest()
 def evolution(folder):
     history=[r for r in read(folder/'history.json') if r['generation']>=0];known={};births={};steps=0;allocated=0;count=0
     args=read(folder/'arguments.json')
+    previous_ids=None
     for entry in history:
         g=entry['generation']
         with gzip.open(folder/f'generation_{g:04d}.json.gz','rt') as f:archive=json.load(f)
         assert archive['generation']==g and len(archive['individuals'])==args['population']
         assert len({r['id'] for r in archive['individuals']})==args['population']
+        ids={r['id'] for r in archive['individuals']}
+        if previous_ids is not None:assert len(ids-previous_ids)>=32
+        previous_ids=ids
+        assert len({r['species'] for r in archive['individuals']})<=16
         for r in archive['individuals']:
             k=r['id'];s=r['policy'];steps+=r['episode']['steps'];allocated+=round(r['episode']['case']['seconds']*100);count+=1
             if k in known:assert known[k]==s,'Elite changed without a new genome ID';continue
@@ -30,6 +35,8 @@ def evolution(folder):
             event=r['mutation']
             for c in event.get('changed_weights',[]):assert edges[tuple(c['edge'])]['weight']==c['after']
             for c in event.get('toggled_edges',[]):assert edges[tuple(c['edge'])]['enabled']==c['enabled']
+            for c in event.get('changed_nodes',[]):
+                n=nodes[c['id']];np.testing.assert_allclose([n['bias'],np.log(n['tau_m']),np.log(n['tau_s'])],c['after'],atol=1e-12,rtol=0)
             assert all(tuple(e) in edges for e in event.get('added_edges',[]))
             assert all(tuple(e) not in edges for e in event.get('removed_edges',[]))
             assert all(n in nodes for n in event.get('added_nodes',[]))

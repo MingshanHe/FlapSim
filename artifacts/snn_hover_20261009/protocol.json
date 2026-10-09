@@ -1,7 +1,7 @@
 {
   "status": "frozen_before_formal_training",
-  "version": 2,
-  "created_unix": 1791507103.684661,
+  "version": 3,
+  "created_unix": 1791509053.0948331,
   "base_commit": "3711664acf1e9660e304a6c8a473bb55e0eb102f",
   "methods": [
     "snn_neat",
@@ -44,6 +44,13 @@
   "reward": "Unchanged topology_hover reward; evolution fitness = return/requested duration - 0.00002*enabled edges for every evolution arm",
   "selection": "lexicographic validation strict-success rate, mean return, negative tilt RMS; initial policy eligible; no test selection",
   "stop": "Common fixed allocated budget; plateau diagnostic only, no data-dependent training extension",
+  "speciation": {
+    "compatibility_threshold": 1.0,
+    "max_species": 16,
+    "elitism_per_species": 2,
+    "minimum_newborn_per_normal_generation": 32,
+    "capacity_rule": "After ordinary NEAT speciation, merge the genetically closest representative pair until species<=16; retain older-ID representative and its fitness history, latest last_improved, all genes unchanged. Merge events archived. Same rule for all five evolution arms."
+  },
   "development_seed_range": [
     409900000,
     409999999
@@ -210,6 +217,8 @@
   "proposal_adjustments": [
     "Common budgets rounded down by 2.34375% from 262144/1048576 to 256000/1024000 to align full evolution generations and PPO rollouts; previous policies retain their 262144 budget label.",
     "Protocol v1 stopped early because threshold0.25 over-fragmented the population; all data archived under development/aborted_speciation_v1. Version2 uses threshold1.0/elitism2 based on a 60-generation independent random-fitness screen (2 species median,4 maximum), not on flight rewards. Pilot costs are recorded in protocol_revision.json. No guarantee of multiple species.",
+    "Protocol v2 stopped after486400 recorded actor steps and64000 validation steps when copied-checkpoint reproduction-only checks showed a33-species allocation conflict. Version3 adds the shared capacity rule above, tested on25 independent80-generation reproduction-only runs and forced-fragmentation tests; no held-out flight data accessed. Old sources, policies and costs preserved.",
+    "Version3 corrects the nonfunctional activation metadata label for Leaky ANN hidden nodes from lif to leaky_tanh; runtime was already continuous and governed by policy.kind.",
     "PPO curriculum set at each rollout boundary; an already active episode completes under its previous horizon.",
     "Analog temporal control has zero background; SNN background1.2 prevents quiescence. It tests the combined threshold/reset/background mechanism, not threshold alone."
   ],
@@ -218,8 +227,8 @@
     "experiments/algorithms/snn_hover/networks.py": "1fce751d31a644b28d9f399c418c0d0710ec6f7cd0ea12094a490e71207ce9fc",
     "experiments/algorithms/snn_hover/environment.py": "2f3850c46f085a433179d37b2e11b0e1800afcaa2f8bebf1203dcac4d44289d3",
     "experiments/algorithms/snn_hover/common.py": "27a820e458fdf444b52c56c6b26d7c099c8f1179d171741f875bde92edb5f32e",
-    "experiments/algorithms/snn_hover/evolution.py": "4c1949ae62692ff6d407024baa7b4af51435ba8c56fc2ccee146f4a82064ba04",
-    "experiments/algorithms/snn_hover/train.py": "92a17931bd5ce5d7b9c75125c5937b32cbcd118ff2698fb7c3db92e5ed32a4a1",
+    "experiments/algorithms/snn_hover/evolution.py": "92e530844d52cabec3ca26461420bf96d50d5c659442aa7ef0d14fbbf94fe37b",
+    "experiments/algorithms/snn_hover/train.py": "6ea902af95b4f3c7043c9b18f4423d0f5cdbbd2bc98907be046953d85a4e91e8",
     "experiments/algorithms/snn_hover/ppo.py": "e861cd3c2fbdc9e5be120e43c96556bbd96dd8d8fdc4c119d7e243e579cc1dc0",
     "experiments/algorithms/topology_hover/verify.py": "f50e9bf1689f594628edad4f4e7fb34ac597a8b30e03d597fd6ad1ac01f4e88a",
     "experiments/algorithms/topology_hover/evaluate.py": "a91a546a376ff9cee67616eaeecaeca16414c6b7bcbb28d730529f702993bf14",
