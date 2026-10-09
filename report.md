@@ -1,3 +1,8 @@
+<!-- snn-proposal-index -->
+**本轮执行中（2026-10-09）：** [NEAT-SNN 训练与比较进度](artifacts/snn_hover_20261009/report.md) · [已审阅研究方案](research_proposal.md) · [冻结协议](artifacts/snn_hover_20261009/protocol.json)。新分支 `research/neat-snn-hover`；最终性能和贡献结论需等独立测试完成。以下历史结果保持原样。
+
+---
+
 <!-- topology-hover-index -->
 # 最新实验：拓扑演化与 PPO 对照
 

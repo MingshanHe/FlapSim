@@ -32,3 +32,6 @@ artifacts/pid_wing_video_20261008/** -text !eol
 # Preserve bytes covered by the NEAT-SNN study provenance hashes.
 docs/research/snn_neat_20261009/evidence/** -text !eol
 artifacts/snn_hover_20261009/** -text !eol
+# Frozen snapshots retain the original blank final line used by their hashes.
+artifacts/snn_hover_20261009/**/frozen_source/experiments/algorithms/hover9/common.py whitespace=-blank-at-eof
+artifacts/snn_hover_20261009/**/frozen_source/experiments/algorithms/hover9/environment.py whitespace=-blank-at-eof

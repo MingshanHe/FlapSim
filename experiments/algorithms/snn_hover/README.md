@@ -26,6 +26,35 @@ python -m experiments.algorithms.snn_hover.protocol --root artifacts/snn_hover_2
 OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python -u -m experiments.algorithms.snn_hover.campaign --root artifacts/snn_hover_20261009
 ```
 
+In a separate local process, the finite completion queue waits for all training,
+then runs the frozen tests, statistics, complete population viewers, paired
+trajectory replay, physical video rendering, report and integrity audit:
+
+```bash
+OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MUJOCO_GL=egl python -u -m experiments.algorithms.snn_hover.finish --root artifacts/snn_hover_20261009
+```
+
+It has bounded execution times, stops on errors and never pushes Git. Individual
+postprocessing stages also accept `--root`; the test journal resumes completed
+keys without replacing earlier outcomes. Do not run two completion queues at
+once. `finish_status.json`, `campaign_status.json` and the current run's
+`status.json` distinguish training, waiting, evaluating and completed states.
+The optional `dashboard` module writes a read-only HTML index; serve the artifact
+directory locally to see live progress. Offline analysis is in `report.md`.
+
+`visualize` archives every individual, both parent links and mutation events.
+Ancestry heatmaps follow the smaller-ID parent, explicitly just one branch.
+Temporal traces contain every1ms internal state and are recomputed from recorded
+100Hz inputs before rendering. Video reconstructs the exact MuJoCo qpos; slow
+wing playback is labeled10x and never adds artificial animation.
+
+The primary endpoint is stress strict success. Two primary contrasts use97.5%
+seed-bootstrap intervals and Holm-adjusted exact paired sign-flip tests. With
+five training seeds, the minimum two-sided exact p-value is0.0625. Report this
+limitation rather than claiming a conventional p<0.05 discovery from bootstrap
+intervals alone. All21 method pairs are disclosed as exploratory secondary
+comparisons. Seed intervals are conditional on the common finite test set.
+
 `protocol` refuses to replace a frozen protocol. `campaign` skips completed jobs
 but refuses to replace incomplete output. Every individual, parent pair, gene,
 mutation and episode is archived for every evolution generation. Checkpoints use

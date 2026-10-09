@@ -12,7 +12,7 @@ def freeze(root):
     paths+=list(Path('experiments/algorithms/topology_hover').glob('*.py'))+list(Path('experiments/algorithms/topology_hover').glob('*.cpp'))
     paths+=list(Path('experiments/algorithms/pid_airborne').glob('*.py'))+list(Path('experiments/algorithms/hover9').glob('*.py'))
     hashes={str(p):hashlib.sha256(p.read_bytes()).hexdigest() for p in paths}
-    protocol=dict(status='frozen_before_formal_training',created_unix=time.time(),base_commit='3711664acf1e9660e304a6c8a473bb55e0eb102f',
+    protocol=dict(status='frozen_before_formal_training',version=2,created_unix=time.time(),base_commit='3711664acf1e9660e304a6c8a473bb55e0eb102f',
         methods=METHODS+['rnn_ppo','ff_ppo'],seeds=list(range(2201,2206)),population=64,workers=16,
         bridge_budget=256000,final_budget=1024000,validation_interval=51200,validation_episodes=8,validation_seconds=8.,
         curriculum=[dict(until=256000,seconds=2.),dict(until=512000,seconds=4.),dict(until=1024000,seconds=8.)],
@@ -32,7 +32,7 @@ def freeze(root):
         interpretation='H1/H2 primary; simultaneous bootstrap intervals and paired sign-flip tests with Holm adjustment; five training seeds exploratory',
         proposal_adjustments=[
             'Common budgets rounded down by 2.34375% from 262144/1048576 to 256000/1024000 to align full evolution generations and PPO rollouts; previous policies retain their 262144 budget label.',
-            'Initial compatibility distances checked on development seed2198 (median0.14256, max0.20128); threshold0.25 selected before formal reward evaluation; no guarantee of multiple species.',
+            'Protocol v1 stopped early because threshold0.25 over-fragmented the population; all data archived under development/aborted_speciation_v1. Version2 uses threshold1.0/elitism2 based on a 60-generation independent random-fitness screen (2 species median,4 maximum), not on flight rewards. Pilot costs are recorded in protocol_revision.json. No guarantee of multiple species.',
             'PPO curriculum set at each rollout boundary; an already active episode completes under its previous horizon.',
             'Analog temporal control has zero background; SNN background1.2 prevents quiescence. It tests the combined threshold/reset/background mechanism, not threshold alone.'
         ],source_hashes=hashes,packages={p:importlib.metadata.version(p) for p in ['neat-python','mujoco','numpy','torch','stable_baselines3']},python=platform.python_version())

@@ -1,6 +1,7 @@
 {
   "status": "frozen_before_formal_training",
-  "created_unix": 1791506675.1779833,
+  "version": 2,
+  "created_unix": 1791507103.684661,
   "base_commit": "3711664acf1e9660e304a6c8a473bb55e0eb102f",
   "methods": [
     "snn_neat",
@@ -208,7 +209,7 @@
   "interpretation": "H1/H2 primary; simultaneous bootstrap intervals and paired sign-flip tests with Holm adjustment; five training seeds exploratory",
   "proposal_adjustments": [
     "Common budgets rounded down by 2.34375% from 262144/1048576 to 256000/1024000 to align full evolution generations and PPO rollouts; previous policies retain their 262144 budget label.",
-    "Initial compatibility distances checked on development seed2198 (median0.14256, max0.20128); threshold0.25 selected before formal reward evaluation; no guarantee of multiple species.",
+    "Protocol v1 stopped early because threshold0.25 over-fragmented the population; all data archived under development/aborted_speciation_v1. Version2 uses threshold1.0/elitism2 based on a 60-generation independent random-fitness screen (2 species median,4 maximum), not on flight rewards. Pilot costs are recorded in protocol_revision.json. No guarantee of multiple species.",
     "PPO curriculum set at each rollout boundary; an already active episode completes under its previous horizon.",
     "Analog temporal control has zero background; SNN background1.2 prevents quiescence. It tests the combined threshold/reset/background mechanism, not threshold alone."
   ],
@@ -217,7 +218,7 @@
     "experiments/algorithms/snn_hover/networks.py": "1fce751d31a644b28d9f399c418c0d0710ec6f7cd0ea12094a490e71207ce9fc",
     "experiments/algorithms/snn_hover/environment.py": "2f3850c46f085a433179d37b2e11b0e1800afcaa2f8bebf1203dcac4d44289d3",
     "experiments/algorithms/snn_hover/common.py": "27a820e458fdf444b52c56c6b26d7c099c8f1179d171741f875bde92edb5f32e",
-    "experiments/algorithms/snn_hover/evolution.py": "6fbf446fcde41ab9ca40969fd657838dd647d6b311abbaee5617b5b3812d19c6",
+    "experiments/algorithms/snn_hover/evolution.py": "4c1949ae62692ff6d407024baa7b4af51435ba8c56fc2ccee146f4a82064ba04",
     "experiments/algorithms/snn_hover/train.py": "92a17931bd5ce5d7b9c75125c5937b32cbcd118ff2698fb7c3db92e5ed32a4a1",
     "experiments/algorithms/snn_hover/ppo.py": "e861cd3c2fbdc9e5be120e43c96556bbd96dd8d8fdc4c119d7e243e579cc1dc0",
     "experiments/algorithms/topology_hover/verify.py": "f50e9bf1689f594628edad4f4e7fb34ac597a8b30e03d597fd6ad1ac01f4e88a",

@@ -45,7 +45,7 @@ def configuration(out,method,population):
     change=dict(pop_size=population,num_inputs=11,feed_forward='False',initial_connection='unconnected',activation_default='plain_tanh',activation_options='plain_tanh',
         bias_init_stdev=.01,bias_mutate_power=.04,weight_init_stdev=.15,weight_mutate_power=.1,
         conn_add_prob=0 if fixed else .30,conn_delete_prob=0 if fixed else .06,node_add_prob=0 if fixed else .20,node_delete_prob=0 if fixed else .03,
-        enabled_mutate_rate=0 if fixed else .015,compatibility_threshold=.25,max_stagnation=15)
+        enabled_mutate_rate=0 if fixed else .015,compatibility_threshold=1.,max_stagnation=15)
     lines=[]
     for line in base.splitlines():
         key=line.split('=')[0].strip();lines.append(f'{key} = {change[key]}' if key in change else line)
