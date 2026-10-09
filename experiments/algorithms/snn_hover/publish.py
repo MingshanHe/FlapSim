@@ -78,13 +78,16 @@ def publish(root, state):
     allowed = check_scope(root)
     check_ready(root)
     env = dict(os.environ, OPENBLAS_NUM_THREADS='1', OMP_NUM_THREADS='1')
+    checks = subprocess.run([sys.executable, '-m', 'pytest', '-q', 'tests/test_snn_hover.py',
+                    'tests/test_snn_analysis.py', 'tests/test_snn_publication.py', 'tests/test_topology_hover.py'],
+                   capture_output=True, text=True, env=env, timeout=600)
+    (root / 'final_tests.txt').write_text(checks.stdout + checks.stderr, encoding='utf8')
+    print(checks.stdout, flush=True)
+    checks.check_returncode()
     # The study is now idle. This second audit seals logs after finish.py closed
-    # them, avoiding a manifest entry for a still-being-written verification log.
+    # them, including the final tests and no still-being-written verification log.
     subprocess.run([sys.executable, '-m', 'experiments.algorithms.snn_hover.verify', '--root', str(root)],
                    check=True, env=env, timeout=3600)
-    subprocess.run([sys.executable, '-m', 'pytest', '-q', 'tests/test_snn_hover.py',
-                    'tests/test_snn_analysis.py', 'tests/test_snn_publication.py', 'tests/test_topology_hover.py'],
-                   check=True, env=env, timeout=600)
     command = windows_git()
     before = git('rev-parse', 'HEAD')
     remote_before = remote_head(command)
