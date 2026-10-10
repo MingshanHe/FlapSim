@@ -1,0 +1,97 @@
+{
+  "passed": true,
+  "runs": [
+    {
+      "task": "hover",
+      "mode": "residual",
+      "kind": "snn",
+      "method": "ppo",
+      "completed": true
+    },
+    {
+      "task": "hover",
+      "mode": "residual",
+      "kind": "snn",
+      "method": "neat",
+      "completed": true
+    },
+    {
+      "task": "hover",
+      "mode": "residual",
+      "kind": "ann",
+      "method": "ppo",
+      "completed": true
+    },
+    {
+      "task": "hover",
+      "mode": "residual",
+      "kind": "ann",
+      "method": "neat",
+      "completed": true
+    },
+    {
+      "task": "hover",
+      "mode": "direct",
+      "kind": "snn",
+      "method": "ppo",
+      "completed": true
+    },
+    {
+      "task": "hover",
+      "mode": "direct",
+      "kind": "snn",
+      "method": "neat",
+      "completed": true
+    },
+    {
+      "task": "hover",
+      "mode": "direct",
+      "kind": "ann",
+      "method": "ppo",
+      "completed": true
+    },
+    {
+      "task": "hover",
+      "mode": "direct",
+      "kind": "ann",
+      "method": "neat",
+      "completed": true
+    },
+    {
+      "task": "velocity",
+      "mode": "residual",
+      "kind": "snn",
+      "method": "ppo",
+      "completed": true
+    },
+    {
+      "task": "velocity",
+      "mode": "residual",
+      "kind": "snn",
+      "method": "neat",
+      "completed": true
+    },
+    {
+      "task": "velocity",
+      "mode": "residual",
+      "kind": "ann",
+      "method": "ppo",
+      "completed": true
+    },
+    {
+      "task": "velocity",
+      "mode": "residual",
+      "kind": "ann",
+      "method": "neat",
+      "completed": true
+    }
+  ],
+  "source_hashes": {
+    "experiments.algorithms.robust_control.environment": "f6f44af32a69e688e722238049dfbf0e2cc7f63cd4849cc8599d3d20cf5bcd13",
+    "experiments.algorithms.robust_control.train_ppo": "6d08772dc2263f0144216301e06c398ac920a38ded6753ad1da6d16c4e51ce4c",
+    "experiments.algorithms.robust_control.train_neat": "b8baac55a64b2af741a92125f9c73644b2623983f3e90484d7d0d7f4da6f1deb",
+    "experiments.algorithms.robust_control.networks": "abf0676e7a0c4fbdcb59960a645bc45c3205bc69033ad7e9e8aa96702c8a05e3",
+    "experiments.algorithms.robust_control.evolution": "8f9f2887ed01525296060a286b755a29e9ef6e4834fa3814203dd547ac8478fe"
+  },
+  "scientific_performance_evidence": false
+}

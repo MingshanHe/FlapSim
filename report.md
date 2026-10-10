@@ -1,3 +1,7 @@
+## PID 残差与速度控制新研究（v3）
+
+[当前进展与报告](artifacts/robust_control_20261010/report.md) · [新实验方案](research_proposal_v3.md) · [PID 替代失败分析](artifacts/snn_pid_compare_20261010/failure_analysis.md)。这是独立的新队列；旧 v2.1 的未通过结果保留在下方。
+
 <!-- snn-pid-v21:start -->
 ## PID 模仿与 SNN ANN 对照（2026-10-10）
 
