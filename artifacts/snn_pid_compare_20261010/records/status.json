@@ -1,51 +1,8 @@
 {
-  "stage": "imitation_training",
-  "unix": 1791621174.527762,
+  "stage": "development_gate_not_met",
+  "unix": 1791632053.6057332,
   "pid": 21788,
-  "round": 0,
-  "seeds": [
-    5101,
-    5102,
-    5103
-  ],
-  "heartbeat_unix": 1791621864.743712,
-  "heartbeat_pid": 21788,
-  "load_average": [
-    3.20556640625,
-    6.0537109375,
-    5.80517578125
-  ],
-  "model_progress": {
-    "development/round0/ann_seed5103": {
-      "epoch": 30,
-      "loss": 0.0037790188263075405,
-      "completed": true
-    },
-    "development/round0/snn_seed5103": {
-      "epoch": 25,
-      "loss": 0.0033401689124127948,
-      "completed": false
-    },
-    "development/round0/ann_seed5102": {
-      "epoch": 30,
-      "loss": 0.0040543060674925495,
-      "completed": true
-    },
-    "development/round0/snn_seed5102": {
-      "epoch": 26,
-      "loss": 0.0035300517355650847,
-      "completed": false
-    },
-    "development/round0/ann_seed5101": {
-      "epoch": 30,
-      "loss": 0.004371755772873711,
-      "completed": true
-    },
-    "development/round0/snn_seed5101": {
-      "epoch": 25,
-      "loss": 0.0035877778482349618,
-      "completed": false
-    }
-  },
-  "host_cpu_percent": 19.5
+  "formal_training_started": false,
+  "reason": "Closed-loop imitation thresholds remain unmet after the two predeclared aggregation rounds",
+  "report": "/home/hemingshan/FlapSim/runs/snn_pid_compare/20261010_v21/development_results.json"
 }

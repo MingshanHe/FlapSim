@@ -1,8 +1,10 @@
 # PID 模仿与 SNN ANN 控制实验报告
 
-更新：2026-10-10T17:44:27+09:00。
+更新：2026-10-10T20:34:13+09:00。
 
-**训练仍在进行，这是进度快照。** 当前阶段 `imitation_training`，正式运行完成 0/40；尚无完整比较结论。
+**模仿阶段及限定的 DAgger 已结束，但六个开发模型未全部达到闭环门槛。正式 PPO/NEAT 比较没有启动。**
+
+这说明当前网络、数据和训练预算还不足以稳定复现 PID；不能据此判断 PPO 与 NEAT、或 SNN 与 ANN 谁更好。
 
 计算采用原来的逐时间步 Python 与 PyTorch 自动求导、float64 和 5 µs 物理步长。只增加独立任务并行，不使用自定义加速内核。
 
@@ -12,16 +14,30 @@
 
 固定 PID 在共同常规验证中通过 16/16；倾角 RMS 3.497°，高度 RMS 3.781 cm。
 
-闭环选模结果尚未全部生成。当前训练进度如下，轮数和损失不代表已经学会控制。
+以下是参与选模的验证结果，不是独立测试。第 0 轮为初始 PID 模仿，后续轮为共享 DAgger 数据聚合。
 
-| 模型 | 完成轮数 | 训练损失 |
-|---|---:|---:|
-| round0/ann_seed5101 | 30 | 0.004372 |
-| round0/ann_seed5102 | 30 | 0.004054 |
-| round0/ann_seed5103 | 30 | 0.003779 |
-| round0/snn_seed5101 | 25 | 0.003588 |
-| round0/snn_seed5102 | 26 | 0.003530 |
-| round0/snn_seed5103 | 26 | 0.003446 |
+| 轮次 | 模型 | 选中轮数 | 常规成功 | 长期成功 | 扰动成功 | 倾角 RMS ° | 高度 RMS cm | 门槛 |
+|---|---|---:|---:|---:|---:|---:|---:|---|
+| round0 | ann_seed5101 | policy_epoch030.json | 0/16 | 0/4 | 0/16 | 40.414 | 19.908 | 未通过 |
+| round0 | ann_seed5102 | policy_epoch030.json | 0/16 | 0/4 | 0/16 | 40.101 | 18.858 | 未通过 |
+| round0 | ann_seed5103 | policy_epoch030.json | 0/16 | 0/4 | 0/16 | 40.818 | 19.366 | 未通过 |
+| round0 | snn_seed5101 | policy_epoch030.json | 0/16 | 0/4 | 0/16 | 42.627 | 16.551 | 未通过 |
+| round0 | snn_seed5102 | policy_epoch030.json | 0/16 | 0/4 | 0/16 | 38.489 | 13.786 | 未通过 |
+| round0 | snn_seed5103 | policy_epoch030.json | 0/16 | 0/4 | 0/16 | 38.440 | 14.040 | 未通过 |
+| round1 | ann_seed5101 | policy_epoch000.json | 0/16 | 0/4 | 0/16 | 40.414 | 19.908 | 未通过 |
+| round1 | ann_seed5102 | policy_epoch000.json | 0/16 | 0/4 | 0/16 | 40.101 | 18.858 | 未通过 |
+| round1 | ann_seed5103 | policy_epoch000.json | 0/16 | 0/4 | 0/16 | 40.818 | 19.366 | 未通过 |
+| round1 | snn_seed5101 | policy_epoch030.json | 4/16 | 1/4 | 0/16 | 28.068 | 9.679 | 未通过 |
+| round1 | snn_seed5102 | policy_epoch030.json | 0/16 | 0/4 | 0/16 | 28.463 | 9.097 | 未通过 |
+| round1 | snn_seed5103 | policy_epoch020.json | 0/16 | 0/4 | 0/16 | 39.249 | 24.122 | 未通过 |
+| round2 | ann_seed5101 | policy_epoch010.json | 0/16 | 0/4 | 0/16 | 39.241 | 20.634 | 未通过 |
+| round2 | ann_seed5102 | policy_epoch010.json | 0/16 | 0/4 | 0/16 | 39.519 | 20.597 | 未通过 |
+| round2 | ann_seed5103 | policy_epoch000.json | 0/16 | 0/4 | 0/16 | 40.818 | 19.366 | 未通过 |
+| round2 | snn_seed5101 | policy_epoch010.json | 7/16 | 3/4 | 0/16 | 21.874 | 8.622 | 未通过 |
+| round2 | snn_seed5102 | policy_epoch020.json | 5/16 | 2/4 | 0/16 | 20.970 | 7.444 | 未通过 |
+| round2 | snn_seed5103 | policy_epoch020.json | 6/16 | 0/4 | 0/16 | 21.193 | 7.165 | 未通过 |
+
+离线动作误差、各项门槛和每回合终止原因见 `records/development/`。离线损失下降不等于闭环稳定；早期失败的 RMS 只覆盖失败前的短片段。
 
 ![模仿训练损失](imitation_learning.png)
 

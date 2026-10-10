@@ -1,0 +1,833 @@
+[
+  {
+    "round": 0,
+    "models": [
+      "/home/hemingshan/FlapSim/runs/snn_pid_compare/20261010_v21/development/round0/snn_seed5101",
+      "/home/hemingshan/FlapSim/runs/snn_pid_compare/20261010_v21/development/round0/snn_seed5102",
+      "/home/hemingshan/FlapSim/runs/snn_pid_compare/20261010_v21/development/round0/snn_seed5103",
+      "/home/hemingshan/FlapSim/runs/snn_pid_compare/20261010_v21/development/round0/ann_seed5101",
+      "/home/hemingshan/FlapSim/runs/snn_pid_compare/20261010_v21/development/round0/ann_seed5102",
+      "/home/hemingshan/FlapSim/runs/snn_pid_compare/20261010_v21/development/round0/ann_seed5103"
+    ],
+    "gates": [
+      {
+        "passed": false,
+        "checks": {
+          "nominal_success": false,
+          "tilt": false,
+          "height": false,
+          "long_success": false
+        },
+        "offline_diagnostic_pass": false,
+        "offline_rmse": [
+          0.06433228694776577,
+          0.03240330629142059,
+          0.04453073736846473
+        ],
+        "nominal": {
+          "episodes": 16,
+          "successes": 0,
+          "completed": 0,
+          "steps": 16437,
+          "tilt_rms_deg": 42.62745099923937,
+          "height_rmse_m": 0.16551435195124342,
+          "mean_return": 4.424347127688952
+        },
+        "long": {
+          "episodes": 4,
+          "successes": 0,
+          "completed": 0,
+          "steps": 4268,
+          "tilt_rms_deg": 42.78033682657508,
+          "height_rmse_m": 0.17750157308326142,
+          "mean_return": 4.660321867412137
+        },
+        "selected_checkpoint": "policy_epoch030.json",
+        "policy_sha256": "7af6ab6cafb49ab582479701a3f9b6d9499f928a2f5f5185a2c4821cfb8db787",
+        "stress": {
+          "episodes": 16,
+          "successes": 0,
+          "completed": 0,
+          "steps": 11317,
+          "tilt_rms_deg": 43.524320727793345,
+          "height_rmse_m": 0.16024889356670385,
+          "mean_return": 2.561459798700209
+        }
+      },
+      {
+        "passed": false,
+        "checks": {
+          "nominal_success": false,
+          "tilt": false,
+          "height": false,
+          "long_success": false
+        },
+        "offline_diagnostic_pass": false,
+        "offline_rmse": [
+          0.06605571218011298,
+          0.027723013966759708,
+          0.056541662522703845
+        ],
+        "nominal": {
+          "episodes": 16,
+          "successes": 0,
+          "completed": 0,
+          "steps": 16866,
+          "tilt_rms_deg": 38.488501808676915,
+          "height_rmse_m": 0.13786247605227622,
+          "mean_return": 4.799103632978051
+        },
+        "long": {
+          "episodes": 4,
+          "successes": 0,
+          "completed": 0,
+          "steps": 4205,
+          "tilt_rms_deg": 40.306906813893136,
+          "height_rmse_m": 0.1521459030973896,
+          "mean_return": 4.750589749118793
+        },
+        "selected_checkpoint": "policy_epoch030.json",
+        "policy_sha256": "0ec8ebe4cd66ee2f89bce26c123289cf84d326c8eaa8790c1b7d7e709f2992b6",
+        "stress": {
+          "episodes": 16,
+          "successes": 0,
+          "completed": 0,
+          "steps": 11696,
+          "tilt_rms_deg": 43.15798217784813,
+          "height_rmse_m": 0.16080013072648958,
+          "mean_return": 2.6921292869290614
+        }
+      },
+      {
+        "passed": false,
+        "checks": {
+          "nominal_success": false,
+          "tilt": false,
+          "height": false,
+          "long_success": false
+        },
+        "offline_diagnostic_pass": false,
+        "offline_rmse": [
+          0.06553426157339727,
+          0.028093658991217827,
+          0.04732151461006082
+        ],
+        "nominal": {
+          "episodes": 16,
+          "successes": 0,
+          "completed": 0,
+          "steps": 17576,
+          "tilt_rms_deg": 38.439854402528304,
+          "height_rmse_m": 0.14040210129394287,
+          "mean_return": 5.0087806526595
+        },
+        "long": {
+          "episodes": 4,
+          "successes": 0,
+          "completed": 0,
+          "steps": 4755,
+          "tilt_rms_deg": 41.237727442828174,
+          "height_rmse_m": 0.1570170753263485,
+          "mean_return": 5.497355908369587
+        },
+        "selected_checkpoint": "policy_epoch030.json",
+        "policy_sha256": "c835ad724829866337998112ca4efd9afdade4a777fc7b458eced0e137c6ba4c",
+        "stress": {
+          "episodes": 16,
+          "successes": 0,
+          "completed": 0,
+          "steps": 12388,
+          "tilt_rms_deg": 42.955658826824774,
+          "height_rmse_m": 0.19269988933418014,
+          "mean_return": 2.7493527000697897
+        }
+      },
+      {
+        "passed": false,
+        "checks": {
+          "nominal_success": false,
+          "tilt": false,
+          "height": false,
+          "long_success": false
+        },
+        "offline_diagnostic_pass": false,
+        "offline_rmse": [
+          0.09525082401737951,
+          0.02797228705011179,
+          0.02765419965454738
+        ],
+        "nominal": {
+          "episodes": 16,
+          "successes": 0,
+          "completed": 0,
+          "steps": 9377,
+          "tilt_rms_deg": 40.41359509581689,
+          "height_rmse_m": 0.1990825581043312,
+          "mean_return": 1.945009742293723
+        },
+        "long": {
+          "episodes": 4,
+          "successes": 0,
+          "completed": 0,
+          "steps": 2362,
+          "tilt_rms_deg": 38.70495661620573,
+          "height_rmse_m": 0.1961075858907227,
+          "mean_return": 2.0146040562090204
+        },
+        "selected_checkpoint": "policy_epoch030.json",
+        "policy_sha256": "8c3f1ea80d4cf86062b5a04e04186a6450a256c8f8c98ff086ab3d20cc760451",
+        "stress": {
+          "episodes": 16,
+          "successes": 0,
+          "completed": 0,
+          "steps": 8481,
+          "tilt_rms_deg": 40.83551589015336,
+          "height_rmse_m": 0.19671099448678328,
+          "mean_return": 1.5962602734485178
+        }
+      },
+      {
+        "passed": false,
+        "checks": {
+          "nominal_success": false,
+          "tilt": false,
+          "height": false,
+          "long_success": false
+        },
+        "offline_diagnostic_pass": false,
+        "offline_rmse": [
+          0.0834194157575376,
+          0.027462282880690258,
+          0.02720002148264985
+        ],
+        "nominal": {
+          "episodes": 16,
+          "successes": 0,
+          "completed": 0,
+          "steps": 9809,
+          "tilt_rms_deg": 40.10116765763084,
+          "height_rmse_m": 0.1885774849884063,
+          "mean_return": 2.1601428088070453
+        },
+        "long": {
+          "episodes": 4,
+          "successes": 0,
+          "completed": 0,
+          "steps": 2548,
+          "tilt_rms_deg": 41.26611222184751,
+          "height_rmse_m": 0.18762140383763573,
+          "mean_return": 2.3208276944672837
+        },
+        "selected_checkpoint": "policy_epoch030.json",
+        "policy_sha256": "9535fb6957f498ffe1412e3a353f6cc64dd72d7cfff87be25ee1f6e352884f95",
+        "stress": {
+          "episodes": 16,
+          "successes": 0,
+          "completed": 0,
+          "steps": 8572,
+          "tilt_rms_deg": 40.36225861904133,
+          "height_rmse_m": 0.1901892140303346,
+          "mean_return": 1.64404024903582
+        }
+      },
+      {
+        "passed": false,
+        "checks": {
+          "nominal_success": false,
+          "tilt": false,
+          "height": false,
+          "long_success": false
+        },
+        "offline_diagnostic_pass": false,
+        "offline_rmse": [
+          0.09566262956440218,
+          0.028009467212277584,
+          0.03311536281218238
+        ],
+        "nominal": {
+          "episodes": 16,
+          "successes": 0,
+          "completed": 0,
+          "steps": 9874,
+          "tilt_rms_deg": 40.81810258592238,
+          "height_rmse_m": 0.1936634233738978,
+          "mean_return": 2.1531313589253758
+        },
+        "long": {
+          "episodes": 4,
+          "successes": 0,
+          "completed": 0,
+          "steps": 2627,
+          "tilt_rms_deg": 37.6360489313474,
+          "height_rmse_m": 0.18539609315010658,
+          "mean_return": 2.483966819764424
+        },
+        "selected_checkpoint": "policy_epoch030.json",
+        "policy_sha256": "9e006439bb487727b26aa1259b5cb9bec3a293e25520072fa415e4e649e91578",
+        "stress": {
+          "episodes": 16,
+          "successes": 0,
+          "completed": 0,
+          "steps": 8933,
+          "tilt_rms_deg": 42.60030968012545,
+          "height_rmse_m": 0.20449280193859437,
+          "mean_return": 1.7171775796985793
+        }
+      }
+    ]
+  },
+  {
+    "round": 1,
+    "models": [
+      "/home/hemingshan/FlapSim/runs/snn_pid_compare/20261010_v21/development/round1/snn_seed5101",
+      "/home/hemingshan/FlapSim/runs/snn_pid_compare/20261010_v21/development/round1/snn_seed5102",
+      "/home/hemingshan/FlapSim/runs/snn_pid_compare/20261010_v21/development/round1/snn_seed5103",
+      "/home/hemingshan/FlapSim/runs/snn_pid_compare/20261010_v21/development/round1/ann_seed5101",
+      "/home/hemingshan/FlapSim/runs/snn_pid_compare/20261010_v21/development/round1/ann_seed5102",
+      "/home/hemingshan/FlapSim/runs/snn_pid_compare/20261010_v21/development/round1/ann_seed5103"
+    ],
+    "gates": [
+      {
+        "passed": false,
+        "checks": {
+          "nominal_success": false,
+          "tilt": false,
+          "height": false,
+          "long_success": false
+        },
+        "offline_diagnostic_pass": false,
+        "offline_rmse": [
+          0.05879658458841385,
+          0.03275522842740259,
+          0.04127840981826192
+        ],
+        "nominal": {
+          "episodes": 16,
+          "successes": 4,
+          "completed": 4,
+          "steps": 56591,
+          "tilt_rms_deg": 28.06805954395835,
+          "height_rmse_m": 0.0967933931305679,
+          "mean_return": 21.717439549567132
+        },
+        "long": {
+          "episodes": 4,
+          "successes": 1,
+          "completed": 1,
+          "steps": 34474,
+          "tilt_rms_deg": 26.499447254558014,
+          "height_rmse_m": 0.09213203173883996,
+          "mean_return": 56.60573438599671
+        },
+        "selected_checkpoint": "policy_epoch030.json",
+        "policy_sha256": "f7ad6e43c714805216c8659c35c285c122cda9e49571a340496886d1c4e8250d",
+        "stress": {
+          "episodes": 16,
+          "successes": 0,
+          "completed": 0,
+          "steps": 28462,
+          "tilt_rms_deg": 33.95876609744525,
+          "height_rmse_m": 0.12471358617755421,
+          "mean_return": 8.959081504203354
+        }
+      },
+      {
+        "passed": false,
+        "checks": {
+          "nominal_success": false,
+          "tilt": false,
+          "height": false,
+          "long_success": false
+        },
+        "offline_diagnostic_pass": false,
+        "offline_rmse": [
+          0.054988317630604765,
+          0.03220291276143736,
+          0.04335252899351615
+        ],
+        "nominal": {
+          "episodes": 16,
+          "successes": 0,
+          "completed": 5,
+          "steps": 66916,
+          "tilt_rms_deg": 28.46314983908082,
+          "height_rmse_m": 0.09096625660352464,
+          "mean_return": 25.0055280899725
+        },
+        "long": {
+          "episodes": 4,
+          "successes": 0,
+          "completed": 1,
+          "steps": 34831,
+          "tilt_rms_deg": 29.57568534323873,
+          "height_rmse_m": 0.09392544341047004,
+          "mean_return": 51.50068825559911
+        },
+        "selected_checkpoint": "policy_epoch030.json",
+        "policy_sha256": "e63249a19f8dab526083722454cea1db7f32f0b7487226b8faa8e970cbfc2ca3",
+        "stress": {
+          "episodes": 16,
+          "successes": 0,
+          "completed": 1,
+          "steps": 39960,
+          "tilt_rms_deg": 33.724953315140375,
+          "height_rmse_m": 0.1168841336268808,
+          "mean_return": 13.152317151774772
+        }
+      },
+      {
+        "passed": false,
+        "checks": {
+          "nominal_success": false,
+          "tilt": false,
+          "height": false,
+          "long_success": false
+        },
+        "offline_diagnostic_pass": false,
+        "offline_rmse": [
+          0.05506025192861931,
+          0.042751354236236036,
+          0.0412733261424094
+        ],
+        "nominal": {
+          "episodes": 16,
+          "successes": 0,
+          "completed": 0,
+          "steps": 55811,
+          "tilt_rms_deg": 39.24877746989527,
+          "height_rmse_m": 0.24121734412616247,
+          "mean_return": 16.765575361517556
+        },
+        "long": {
+          "episodes": 4,
+          "successes": 0,
+          "completed": 0,
+          "steps": 13561,
+          "tilt_rms_deg": 39.654810232064996,
+          "height_rmse_m": 0.23268165927441187,
+          "mean_return": 16.3105806498551
+        },
+        "selected_checkpoint": "policy_epoch020.json",
+        "policy_sha256": "83864c0c28ed7e4cb87d41232c329da96ac0763295ee3b8941f856bf3ead3a58",
+        "stress": {
+          "episodes": 16,
+          "successes": 0,
+          "completed": 0,
+          "steps": 28527,
+          "tilt_rms_deg": 38.700602832760026,
+          "height_rmse_m": 0.15416716933256355,
+          "mean_return": 8.365292415840248
+        }
+      },
+      {
+        "passed": false,
+        "checks": {
+          "nominal_success": false,
+          "tilt": false,
+          "height": false,
+          "long_success": false
+        },
+        "offline_diagnostic_pass": false,
+        "offline_rmse": [
+          0.09525082401737951,
+          0.02797228705011179,
+          0.02765419965454738
+        ],
+        "nominal": {
+          "episodes": 16,
+          "successes": 0,
+          "completed": 0,
+          "steps": 9377,
+          "tilt_rms_deg": 40.41359509581689,
+          "height_rmse_m": 0.1990825581043312,
+          "mean_return": 1.945009742293723
+        },
+        "long": {
+          "episodes": 4,
+          "successes": 0,
+          "completed": 0,
+          "steps": 2362,
+          "tilt_rms_deg": 38.70495661620573,
+          "height_rmse_m": 0.1961075858907227,
+          "mean_return": 2.0146040562090204
+        },
+        "selected_checkpoint": "policy_epoch000.json",
+        "policy_sha256": "8c3f1ea80d4cf86062b5a04e04186a6450a256c8f8c98ff086ab3d20cc760451",
+        "stress": {
+          "episodes": 16,
+          "successes": 0,
+          "completed": 0,
+          "steps": 8481,
+          "tilt_rms_deg": 40.83551589015336,
+          "height_rmse_m": 0.19671099448678328,
+          "mean_return": 1.5962602734485178
+        }
+      },
+      {
+        "passed": false,
+        "checks": {
+          "nominal_success": false,
+          "tilt": false,
+          "height": false,
+          "long_success": false
+        },
+        "offline_diagnostic_pass": false,
+        "offline_rmse": [
+          0.0834194157575376,
+          0.027462282880690258,
+          0.02720002148264985
+        ],
+        "nominal": {
+          "episodes": 16,
+          "successes": 0,
+          "completed": 0,
+          "steps": 9809,
+          "tilt_rms_deg": 40.10116765763084,
+          "height_rmse_m": 0.1885774849884063,
+          "mean_return": 2.1601428088070453
+        },
+        "long": {
+          "episodes": 4,
+          "successes": 0,
+          "completed": 0,
+          "steps": 2548,
+          "tilt_rms_deg": 41.26611222184751,
+          "height_rmse_m": 0.18762140383763573,
+          "mean_return": 2.3208276944672837
+        },
+        "selected_checkpoint": "policy_epoch000.json",
+        "policy_sha256": "9535fb6957f498ffe1412e3a353f6cc64dd72d7cfff87be25ee1f6e352884f95",
+        "stress": {
+          "episodes": 16,
+          "successes": 0,
+          "completed": 0,
+          "steps": 8572,
+          "tilt_rms_deg": 40.36225861904133,
+          "height_rmse_m": 0.1901892140303346,
+          "mean_return": 1.64404024903582
+        }
+      },
+      {
+        "passed": false,
+        "checks": {
+          "nominal_success": false,
+          "tilt": false,
+          "height": false,
+          "long_success": false
+        },
+        "offline_diagnostic_pass": false,
+        "offline_rmse": [
+          0.09566262956440218,
+          0.028009467212277584,
+          0.03311536281218238
+        ],
+        "nominal": {
+          "episodes": 16,
+          "successes": 0,
+          "completed": 0,
+          "steps": 9874,
+          "tilt_rms_deg": 40.81810258592238,
+          "height_rmse_m": 0.1936634233738978,
+          "mean_return": 2.1531313589253758
+        },
+        "long": {
+          "episodes": 4,
+          "successes": 0,
+          "completed": 0,
+          "steps": 2627,
+          "tilt_rms_deg": 37.6360489313474,
+          "height_rmse_m": 0.18539609315010658,
+          "mean_return": 2.483966819764424
+        },
+        "selected_checkpoint": "policy_epoch000.json",
+        "policy_sha256": "9e006439bb487727b26aa1259b5cb9bec3a293e25520072fa415e4e649e91578",
+        "stress": {
+          "episodes": 16,
+          "successes": 0,
+          "completed": 0,
+          "steps": 8933,
+          "tilt_rms_deg": 42.60030968012545,
+          "height_rmse_m": 0.20449280193859437,
+          "mean_return": 1.7171775796985793
+        }
+      }
+    ]
+  },
+  {
+    "round": 2,
+    "models": [
+      "/home/hemingshan/FlapSim/runs/snn_pid_compare/20261010_v21/development/round2/snn_seed5101",
+      "/home/hemingshan/FlapSim/runs/snn_pid_compare/20261010_v21/development/round2/snn_seed5102",
+      "/home/hemingshan/FlapSim/runs/snn_pid_compare/20261010_v21/development/round2/snn_seed5103",
+      "/home/hemingshan/FlapSim/runs/snn_pid_compare/20261010_v21/development/round2/ann_seed5101",
+      "/home/hemingshan/FlapSim/runs/snn_pid_compare/20261010_v21/development/round2/ann_seed5102",
+      "/home/hemingshan/FlapSim/runs/snn_pid_compare/20261010_v21/development/round2/ann_seed5103"
+    ],
+    "gates": [
+      {
+        "passed": false,
+        "checks": {
+          "nominal_success": false,
+          "tilt": false,
+          "height": false,
+          "long_success": false
+        },
+        "offline_diagnostic_pass": false,
+        "offline_rmse": [
+          0.05789049948144143,
+          0.043875635276763775,
+          0.06132627207557472
+        ],
+        "nominal": {
+          "episodes": 16,
+          "successes": 7,
+          "completed": 8,
+          "steps": 90704,
+          "tilt_rms_deg": 21.873658459595006,
+          "height_rmse_m": 0.08621862689963827,
+          "mean_return": 37.054353044048966
+        },
+        "long": {
+          "episodes": 4,
+          "successes": 3,
+          "completed": 3,
+          "steps": 91292,
+          "tilt_rms_deg": 15.495540210958248,
+          "height_rmse_m": 0.05535228042923266,
+          "mean_return": 156.36789390973655
+        },
+        "selected_checkpoint": "policy_epoch010.json",
+        "policy_sha256": "f6fba70c74cf7461f5365a938ea9e4199ffa5fcb9ee425b14208a356088a9c65",
+        "stress": {
+          "episodes": 16,
+          "successes": 0,
+          "completed": 1,
+          "steps": 37598,
+          "tilt_rms_deg": 33.792827043970846,
+          "height_rmse_m": 0.13037623132213522,
+          "mean_return": 12.56497766906402
+        }
+      },
+      {
+        "passed": false,
+        "checks": {
+          "nominal_success": false,
+          "tilt": false,
+          "height": false,
+          "long_success": false
+        },
+        "offline_diagnostic_pass": false,
+        "offline_rmse": [
+          0.052320896765430294,
+          0.034922261368174355,
+          0.053911062157179966
+        ],
+        "nominal": {
+          "episodes": 16,
+          "successes": 5,
+          "completed": 8,
+          "steps": 97287,
+          "tilt_rms_deg": 20.96961337122078,
+          "height_rmse_m": 0.07443540180751199,
+          "mean_return": 39.01937235404381
+        },
+        "long": {
+          "episodes": 4,
+          "successes": 2,
+          "completed": 2,
+          "steps": 63814,
+          "tilt_rms_deg": 22.076135590137326,
+          "height_rmse_m": 0.0699807572496765,
+          "mean_return": 106.98355166689245
+        },
+        "selected_checkpoint": "policy_epoch020.json",
+        "policy_sha256": "eabcf5b136b9bb9c166b4b8e6eb6c70b11dd6b63b95a0e164589ea67f8a1c885",
+        "stress": {
+          "episodes": 16,
+          "successes": 0,
+          "completed": 3,
+          "steps": 55853,
+          "tilt_rms_deg": 29.987340429874934,
+          "height_rmse_m": 0.12424453865007587,
+          "mean_return": 19.44570733294067
+        }
+      },
+      {
+        "passed": false,
+        "checks": {
+          "nominal_success": false,
+          "tilt": false,
+          "height": false,
+          "long_success": false
+        },
+        "offline_diagnostic_pass": false,
+        "offline_rmse": [
+          0.06091857739473925,
+          0.032037834513974774,
+          0.05226736272743273
+        ],
+        "nominal": {
+          "episodes": 16,
+          "successes": 6,
+          "completed": 9,
+          "steps": 101026,
+          "tilt_rms_deg": 21.1932255207236,
+          "height_rmse_m": 0.07164608127369045,
+          "mean_return": 41.84152872340562
+        },
+        "long": {
+          "episodes": 4,
+          "successes": 0,
+          "completed": 2,
+          "steps": 62791,
+          "tilt_rms_deg": 23.077202727432525,
+          "height_rmse_m": 0.06994795709304164,
+          "mean_return": 106.4770435437675
+        },
+        "selected_checkpoint": "policy_epoch020.json",
+        "policy_sha256": "9b97d19003fb74bbdb7a8651539c2e9753640992bbff5b84607f0631b30d0a46",
+        "stress": {
+          "episodes": 16,
+          "successes": 0,
+          "completed": 0,
+          "steps": 38320,
+          "tilt_rms_deg": 33.94988192262105,
+          "height_rmse_m": 0.11796632907376318,
+          "mean_return": 12.945526806518561
+        }
+      },
+      {
+        "passed": false,
+        "checks": {
+          "nominal_success": false,
+          "tilt": false,
+          "height": false,
+          "long_success": false
+        },
+        "offline_diagnostic_pass": false,
+        "offline_rmse": [
+          0.09655295403895123,
+          0.037421145572941655,
+          0.03135638301236183
+        ],
+        "nominal": {
+          "episodes": 16,
+          "successes": 0,
+          "completed": 0,
+          "steps": 9740,
+          "tilt_rms_deg": 39.24069284321487,
+          "height_rmse_m": 0.2063424913672652,
+          "mean_return": 1.9970875954973468
+        },
+        "long": {
+          "episodes": 4,
+          "successes": 0,
+          "completed": 0,
+          "steps": 2559,
+          "tilt_rms_deg": 38.05287077717056,
+          "height_rmse_m": 0.19943993810436567,
+          "mean_return": 2.2237173675560364
+        },
+        "selected_checkpoint": "policy_epoch010.json",
+        "policy_sha256": "7e9a8f4344a7821e77b01e30c9084840d24776c3aa12b0a94148fbbe6ba4ecea",
+        "stress": {
+          "episodes": 16,
+          "successes": 0,
+          "completed": 0,
+          "steps": 8825,
+          "tilt_rms_deg": 41.32512027858488,
+          "height_rmse_m": 0.20921568339154134,
+          "mean_return": 1.6196942346740912
+        }
+      },
+      {
+        "passed": false,
+        "checks": {
+          "nominal_success": false,
+          "tilt": false,
+          "height": false,
+          "long_success": false
+        },
+        "offline_diagnostic_pass": false,
+        "offline_rmse": [
+          0.09792810320374098,
+          0.04278948715448407,
+          0.032499224887388864
+        ],
+        "nominal": {
+          "episodes": 16,
+          "successes": 0,
+          "completed": 0,
+          "steps": 10384,
+          "tilt_rms_deg": 39.51871155319385,
+          "height_rmse_m": 0.20597219059723937,
+          "mean_return": 2.2204251376453574
+        },
+        "long": {
+          "episodes": 4,
+          "successes": 0,
+          "completed": 0,
+          "steps": 2553,
+          "tilt_rms_deg": 38.01111466533901,
+          "height_rmse_m": 0.19465941974233675,
+          "mean_return": 2.233507840126366
+        },
+        "selected_checkpoint": "policy_epoch010.json",
+        "policy_sha256": "695ff2c2789903a150163837afe9a8f3e0aa8c4f26e76f952f62703bb422b28b",
+        "stress": {
+          "episodes": 16,
+          "successes": 0,
+          "completed": 0,
+          "steps": 8800,
+          "tilt_rms_deg": 40.97189221932242,
+          "height_rmse_m": 0.2070552759285843,
+          "mean_return": 1.6117673752008057
+        }
+      },
+      {
+        "passed": false,
+        "checks": {
+          "nominal_success": false,
+          "tilt": false,
+          "height": false,
+          "long_success": false
+        },
+        "offline_diagnostic_pass": false,
+        "offline_rmse": [
+          0.09566262956440218,
+          0.028009467212277584,
+          0.03311536281218238
+        ],
+        "nominal": {
+          "episodes": 16,
+          "successes": 0,
+          "completed": 0,
+          "steps": 9874,
+          "tilt_rms_deg": 40.81810258592238,
+          "height_rmse_m": 0.1936634233738978,
+          "mean_return": 2.1531313589253758
+        },
+        "long": {
+          "episodes": 4,
+          "successes": 0,
+          "completed": 0,
+          "steps": 2627,
+          "tilt_rms_deg": 37.6360489313474,
+          "height_rmse_m": 0.18539609315010658,
+          "mean_return": 2.483966819764424
+        },
+        "selected_checkpoint": "policy_epoch000.json",
+        "policy_sha256": "9e006439bb487727b26aa1259b5cb9bec3a293e25520072fa415e4e649e91578",
+        "stress": {
+          "episodes": 16,
+          "successes": 0,
+          "completed": 0,
+          "steps": 8933,
+          "tilt_rms_deg": 42.60030968012545,
+          "height_rmse_m": 0.20449280193859437,
+          "mean_return": 1.7171775796985793
+        }
+      }
+    ]
+  }
+]
