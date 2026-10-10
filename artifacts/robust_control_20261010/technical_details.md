@@ -2,6 +2,8 @@
 
 本文件说明新的独立研究。实时执行状态与实际结果见 [report.md](report.md)，完整设计见 [research_proposal_v3.md](../../research_proposal_v3.md)。队列尚未完成时不能将下述测试计划写成结果。
 
+[速度任务开发回放与逐例结果](velocity_development.md)：新的固定外环八例都飞满 20 s，四例严格通过；水平轴向跟踪仍需改进。这是开发证据，没有神经网络训练收益或独立测试结论。
+
 ## 计算与物理
 
 Python 3.11.11、NumPy 2.2.4、PyTorch 2.6.0 CPU、MuJoCo 3.8.0、NEAT-Python 2.0.0。使用已有 Conda 前缀 `.venv`，环境的原始锁定记录见 v2.1 运行目录。所有网络训练使用 float64、逐个时间步调用 Python 和 PyTorch 自动求导；没有自定义序列内核。物理沿用既有原生后端和 5 μs 步长，不进行粗化；每次动作持续 2 ms，包含 400 个物理子步。

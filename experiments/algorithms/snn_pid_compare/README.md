@@ -1,5 +1,11 @@
 # PID imitation and matched SNN/ANN control study
 
+The v2.1 development run finished without meeting its imitation gate. The new
+authorized research queue is [robust_control v3](../robust_control/README.md),
+with live status in `runs/robust_control/20261010_v3/status.json`. Keep this
+campaign's failed-gate records as evidence; do not resume its gated formal queue
+to launch the new study.
+
 This implements the approved repository-root `research_proposal.md` v2.1 in a
 separate 500 Hz environment. Historical `snn_hover` and `topology_hover` sources
 remain frozen. `ppo_v2` policies and demonstrations are not used.

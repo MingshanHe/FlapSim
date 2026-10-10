@@ -1,8 +1,35 @@
 {
-  "stage": "ready_to_seal",
-  "unix": 1791635337.2572777,
-  "pid": 70507,
-  "planned_training_runs": 65,
-  "formal_training_started": false,
-  "final_tests_accessed": false
+  "stage": "training",
+  "unix": 1791635356.2587733,
+  "pid": 70635,
+  "runs": [
+    "hover_residual_snn_neat_seed6201",
+    "hover_residual_snn_ppo_seed6201"
+  ],
+  "completed": 0,
+  "total": 65,
+  "steps_per_run": 3584000,
+  "final_tests_accessed": false,
+  "heartbeat_unix": 1791635445.0937402,
+  "heartbeat_pid": 70635,
+  "load_average": [
+    12.755859375,
+    8.28955078125,
+    8.3203125
+  ],
+  "model_progress": {
+    "training/hover_residual_snn_neat_seed6201": {
+      "generation": 0,
+      "training_steps": 0,
+      "budget": 3584000,
+      "completed": false
+    },
+    "training/hover_residual_snn_ppo_seed6201": {
+      "update": 0,
+      "training_steps": 0,
+      "budget": 3584000,
+      "completed": false
+    }
+  },
+  "host_cpu_percent": 100.0
 }

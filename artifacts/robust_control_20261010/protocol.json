@@ -1,0 +1,1114 @@
+{
+  "version": "robust-control-v3.0",
+  "created_unix": 1791635356.226713,
+  "user_authorized_large_training": true,
+  "original_v21_retained": true,
+  "seeds": [
+    6201,
+    6202,
+    6203,
+    6204,
+    6205
+  ],
+  "jobs": [
+    {
+      "task": "hover",
+      "mode": "residual",
+      "kind": "snn",
+      "method": "neat",
+      "seed": 6201,
+      "name": "hover_residual_snn_neat_seed6201",
+      "budget": 3584000
+    },
+    {
+      "task": "hover",
+      "mode": "residual",
+      "kind": "snn",
+      "method": "ppo",
+      "seed": 6201,
+      "name": "hover_residual_snn_ppo_seed6201",
+      "budget": 3584000
+    },
+    {
+      "task": "hover",
+      "mode": "residual",
+      "kind": "ann",
+      "method": "neat",
+      "seed": 6201,
+      "name": "hover_residual_ann_neat_seed6201",
+      "budget": 3584000
+    },
+    {
+      "task": "hover",
+      "mode": "residual",
+      "kind": "ann",
+      "method": "ppo",
+      "seed": 6201,
+      "name": "hover_residual_ann_ppo_seed6201",
+      "budget": 3584000
+    },
+    {
+      "task": "hover",
+      "mode": "residual",
+      "kind": "snn",
+      "method": "neat",
+      "seed": 6202,
+      "name": "hover_residual_snn_neat_seed6202",
+      "budget": 3584000
+    },
+    {
+      "task": "hover",
+      "mode": "residual",
+      "kind": "snn",
+      "method": "ppo",
+      "seed": 6202,
+      "name": "hover_residual_snn_ppo_seed6202",
+      "budget": 3584000
+    },
+    {
+      "task": "hover",
+      "mode": "residual",
+      "kind": "ann",
+      "method": "neat",
+      "seed": 6202,
+      "name": "hover_residual_ann_neat_seed6202",
+      "budget": 3584000
+    },
+    {
+      "task": "hover",
+      "mode": "residual",
+      "kind": "ann",
+      "method": "ppo",
+      "seed": 6202,
+      "name": "hover_residual_ann_ppo_seed6202",
+      "budget": 3584000
+    },
+    {
+      "task": "hover",
+      "mode": "residual",
+      "kind": "snn",
+      "method": "neat",
+      "seed": 6203,
+      "name": "hover_residual_snn_neat_seed6203",
+      "budget": 3584000
+    },
+    {
+      "task": "hover",
+      "mode": "residual",
+      "kind": "snn",
+      "method": "ppo",
+      "seed": 6203,
+      "name": "hover_residual_snn_ppo_seed6203",
+      "budget": 3584000
+    },
+    {
+      "task": "hover",
+      "mode": "residual",
+      "kind": "ann",
+      "method": "neat",
+      "seed": 6203,
+      "name": "hover_residual_ann_neat_seed6203",
+      "budget": 3584000
+    },
+    {
+      "task": "hover",
+      "mode": "residual",
+      "kind": "ann",
+      "method": "ppo",
+      "seed": 6203,
+      "name": "hover_residual_ann_ppo_seed6203",
+      "budget": 3584000
+    },
+    {
+      "task": "hover",
+      "mode": "residual",
+      "kind": "snn",
+      "method": "neat",
+      "seed": 6204,
+      "name": "hover_residual_snn_neat_seed6204",
+      "budget": 3584000
+    },
+    {
+      "task": "hover",
+      "mode": "residual",
+      "kind": "snn",
+      "method": "ppo",
+      "seed": 6204,
+      "name": "hover_residual_snn_ppo_seed6204",
+      "budget": 3584000
+    },
+    {
+      "task": "hover",
+      "mode": "residual",
+      "kind": "ann",
+      "method": "neat",
+      "seed": 6204,
+      "name": "hover_residual_ann_neat_seed6204",
+      "budget": 3584000
+    },
+    {
+      "task": "hover",
+      "mode": "residual",
+      "kind": "ann",
+      "method": "ppo",
+      "seed": 6204,
+      "name": "hover_residual_ann_ppo_seed6204",
+      "budget": 3584000
+    },
+    {
+      "task": "hover",
+      "mode": "residual",
+      "kind": "snn",
+      "method": "neat",
+      "seed": 6205,
+      "name": "hover_residual_snn_neat_seed6205",
+      "budget": 3584000
+    },
+    {
+      "task": "hover",
+      "mode": "residual",
+      "kind": "snn",
+      "method": "ppo",
+      "seed": 6205,
+      "name": "hover_residual_snn_ppo_seed6205",
+      "budget": 3584000
+    },
+    {
+      "task": "hover",
+      "mode": "residual",
+      "kind": "ann",
+      "method": "neat",
+      "seed": 6205,
+      "name": "hover_residual_ann_neat_seed6205",
+      "budget": 3584000
+    },
+    {
+      "task": "hover",
+      "mode": "residual",
+      "kind": "ann",
+      "method": "ppo",
+      "seed": 6205,
+      "name": "hover_residual_ann_ppo_seed6205",
+      "budget": 3584000
+    },
+    {
+      "task": "hover",
+      "mode": "direct",
+      "kind": "snn",
+      "method": "neat",
+      "seed": 6201,
+      "name": "hover_direct_snn_neat_seed6201",
+      "budget": 3584000
+    },
+    {
+      "task": "hover",
+      "mode": "direct",
+      "kind": "snn",
+      "method": "ppo",
+      "seed": 6201,
+      "name": "hover_direct_snn_ppo_seed6201",
+      "budget": 3584000
+    },
+    {
+      "task": "hover",
+      "mode": "direct",
+      "kind": "ann",
+      "method": "neat",
+      "seed": 6201,
+      "name": "hover_direct_ann_neat_seed6201",
+      "budget": 3584000
+    },
+    {
+      "task": "hover",
+      "mode": "direct",
+      "kind": "ann",
+      "method": "ppo",
+      "seed": 6201,
+      "name": "hover_direct_ann_ppo_seed6201",
+      "budget": 3584000
+    },
+    {
+      "task": "hover",
+      "mode": "direct",
+      "kind": "snn",
+      "method": "neat",
+      "seed": 6202,
+      "name": "hover_direct_snn_neat_seed6202",
+      "budget": 3584000
+    },
+    {
+      "task": "hover",
+      "mode": "direct",
+      "kind": "snn",
+      "method": "ppo",
+      "seed": 6202,
+      "name": "hover_direct_snn_ppo_seed6202",
+      "budget": 3584000
+    },
+    {
+      "task": "hover",
+      "mode": "direct",
+      "kind": "ann",
+      "method": "neat",
+      "seed": 6202,
+      "name": "hover_direct_ann_neat_seed6202",
+      "budget": 3584000
+    },
+    {
+      "task": "hover",
+      "mode": "direct",
+      "kind": "ann",
+      "method": "ppo",
+      "seed": 6202,
+      "name": "hover_direct_ann_ppo_seed6202",
+      "budget": 3584000
+    },
+    {
+      "task": "hover",
+      "mode": "direct",
+      "kind": "snn",
+      "method": "neat",
+      "seed": 6203,
+      "name": "hover_direct_snn_neat_seed6203",
+      "budget": 3584000
+    },
+    {
+      "task": "hover",
+      "mode": "direct",
+      "kind": "snn",
+      "method": "ppo",
+      "seed": 6203,
+      "name": "hover_direct_snn_ppo_seed6203",
+      "budget": 3584000
+    },
+    {
+      "task": "hover",
+      "mode": "direct",
+      "kind": "ann",
+      "method": "neat",
+      "seed": 6203,
+      "name": "hover_direct_ann_neat_seed6203",
+      "budget": 3584000
+    },
+    {
+      "task": "hover",
+      "mode": "direct",
+      "kind": "ann",
+      "method": "ppo",
+      "seed": 6203,
+      "name": "hover_direct_ann_ppo_seed6203",
+      "budget": 3584000
+    },
+    {
+      "task": "hover",
+      "mode": "direct",
+      "kind": "snn",
+      "method": "neat",
+      "seed": 6204,
+      "name": "hover_direct_snn_neat_seed6204",
+      "budget": 3584000
+    },
+    {
+      "task": "hover",
+      "mode": "direct",
+      "kind": "snn",
+      "method": "ppo",
+      "seed": 6204,
+      "name": "hover_direct_snn_ppo_seed6204",
+      "budget": 3584000
+    },
+    {
+      "task": "hover",
+      "mode": "direct",
+      "kind": "ann",
+      "method": "neat",
+      "seed": 6204,
+      "name": "hover_direct_ann_neat_seed6204",
+      "budget": 3584000
+    },
+    {
+      "task": "hover",
+      "mode": "direct",
+      "kind": "ann",
+      "method": "ppo",
+      "seed": 6204,
+      "name": "hover_direct_ann_ppo_seed6204",
+      "budget": 3584000
+    },
+    {
+      "task": "hover",
+      "mode": "direct",
+      "kind": "snn",
+      "method": "neat",
+      "seed": 6205,
+      "name": "hover_direct_snn_neat_seed6205",
+      "budget": 3584000
+    },
+    {
+      "task": "hover",
+      "mode": "direct",
+      "kind": "snn",
+      "method": "ppo",
+      "seed": 6205,
+      "name": "hover_direct_snn_ppo_seed6205",
+      "budget": 3584000
+    },
+    {
+      "task": "hover",
+      "mode": "direct",
+      "kind": "ann",
+      "method": "neat",
+      "seed": 6205,
+      "name": "hover_direct_ann_neat_seed6205",
+      "budget": 3584000
+    },
+    {
+      "task": "hover",
+      "mode": "direct",
+      "kind": "ann",
+      "method": "ppo",
+      "seed": 6205,
+      "name": "hover_direct_ann_ppo_seed6205",
+      "budget": 3584000
+    },
+    {
+      "task": "velocity",
+      "mode": "residual",
+      "kind": "snn",
+      "method": "neat",
+      "seed": 6201,
+      "name": "velocity_residual_snn_neat_seed6201",
+      "budget": 5120000
+    },
+    {
+      "task": "velocity",
+      "mode": "residual",
+      "kind": "snn",
+      "method": "ppo",
+      "seed": 6201,
+      "name": "velocity_residual_snn_ppo_seed6201",
+      "budget": 5120000
+    },
+    {
+      "task": "velocity",
+      "mode": "residual",
+      "kind": "ann",
+      "method": "neat",
+      "seed": 6201,
+      "name": "velocity_residual_ann_neat_seed6201",
+      "budget": 5120000
+    },
+    {
+      "task": "velocity",
+      "mode": "residual",
+      "kind": "ann",
+      "method": "ppo",
+      "seed": 6201,
+      "name": "velocity_residual_ann_ppo_seed6201",
+      "budget": 5120000
+    },
+    {
+      "task": "velocity",
+      "mode": "residual",
+      "kind": "snn",
+      "method": "neat",
+      "seed": 6202,
+      "name": "velocity_residual_snn_neat_seed6202",
+      "budget": 5120000
+    },
+    {
+      "task": "velocity",
+      "mode": "residual",
+      "kind": "snn",
+      "method": "ppo",
+      "seed": 6202,
+      "name": "velocity_residual_snn_ppo_seed6202",
+      "budget": 5120000
+    },
+    {
+      "task": "velocity",
+      "mode": "residual",
+      "kind": "ann",
+      "method": "neat",
+      "seed": 6202,
+      "name": "velocity_residual_ann_neat_seed6202",
+      "budget": 5120000
+    },
+    {
+      "task": "velocity",
+      "mode": "residual",
+      "kind": "ann",
+      "method": "ppo",
+      "seed": 6202,
+      "name": "velocity_residual_ann_ppo_seed6202",
+      "budget": 5120000
+    },
+    {
+      "task": "velocity",
+      "mode": "residual",
+      "kind": "snn",
+      "method": "neat",
+      "seed": 6203,
+      "name": "velocity_residual_snn_neat_seed6203",
+      "budget": 5120000
+    },
+    {
+      "task": "velocity",
+      "mode": "residual",
+      "kind": "snn",
+      "method": "ppo",
+      "seed": 6203,
+      "name": "velocity_residual_snn_ppo_seed6203",
+      "budget": 5120000
+    },
+    {
+      "task": "velocity",
+      "mode": "residual",
+      "kind": "ann",
+      "method": "neat",
+      "seed": 6203,
+      "name": "velocity_residual_ann_neat_seed6203",
+      "budget": 5120000
+    },
+    {
+      "task": "velocity",
+      "mode": "residual",
+      "kind": "ann",
+      "method": "ppo",
+      "seed": 6203,
+      "name": "velocity_residual_ann_ppo_seed6203",
+      "budget": 5120000
+    },
+    {
+      "task": "velocity",
+      "mode": "residual",
+      "kind": "snn",
+      "method": "neat",
+      "seed": 6204,
+      "name": "velocity_residual_snn_neat_seed6204",
+      "budget": 5120000
+    },
+    {
+      "task": "velocity",
+      "mode": "residual",
+      "kind": "snn",
+      "method": "ppo",
+      "seed": 6204,
+      "name": "velocity_residual_snn_ppo_seed6204",
+      "budget": 5120000
+    },
+    {
+      "task": "velocity",
+      "mode": "residual",
+      "kind": "ann",
+      "method": "neat",
+      "seed": 6204,
+      "name": "velocity_residual_ann_neat_seed6204",
+      "budget": 5120000
+    },
+    {
+      "task": "velocity",
+      "mode": "residual",
+      "kind": "ann",
+      "method": "ppo",
+      "seed": 6204,
+      "name": "velocity_residual_ann_ppo_seed6204",
+      "budget": 5120000
+    },
+    {
+      "task": "velocity",
+      "mode": "residual",
+      "kind": "snn",
+      "method": "neat",
+      "seed": 6205,
+      "name": "velocity_residual_snn_neat_seed6205",
+      "budget": 5120000
+    },
+    {
+      "task": "velocity",
+      "mode": "residual",
+      "kind": "snn",
+      "method": "ppo",
+      "seed": 6205,
+      "name": "velocity_residual_snn_ppo_seed6205",
+      "budget": 5120000
+    },
+    {
+      "task": "velocity",
+      "mode": "residual",
+      "kind": "ann",
+      "method": "neat",
+      "seed": 6205,
+      "name": "velocity_residual_ann_neat_seed6205",
+      "budget": 5120000
+    },
+    {
+      "task": "velocity",
+      "mode": "residual",
+      "kind": "ann",
+      "method": "ppo",
+      "seed": 6205,
+      "name": "velocity_residual_ann_ppo_seed6205",
+      "budget": 5120000
+    },
+    {
+      "task": "hover",
+      "mode": "residual",
+      "kind": "snn",
+      "method": "evo",
+      "seed": 6201,
+      "name": "hover_residual_snn_evo_seed6201",
+      "budget": 3584000
+    },
+    {
+      "task": "hover",
+      "mode": "residual",
+      "kind": "snn",
+      "method": "evo",
+      "seed": 6202,
+      "name": "hover_residual_snn_evo_seed6202",
+      "budget": 3584000
+    },
+    {
+      "task": "hover",
+      "mode": "residual",
+      "kind": "snn",
+      "method": "evo",
+      "seed": 6203,
+      "name": "hover_residual_snn_evo_seed6203",
+      "budget": 3584000
+    },
+    {
+      "task": "hover",
+      "mode": "residual",
+      "kind": "snn",
+      "method": "evo",
+      "seed": 6204,
+      "name": "hover_residual_snn_evo_seed6204",
+      "budget": 3584000
+    },
+    {
+      "task": "hover",
+      "mode": "residual",
+      "kind": "snn",
+      "method": "evo",
+      "seed": 6205,
+      "name": "hover_residual_snn_evo_seed6205",
+      "budget": 3584000
+    }
+  ],
+  "population": 16,
+  "generations": 12,
+  "validation_after_generations": [
+    0,
+    4,
+    8,
+    12
+  ],
+  "steps_per_run": 3584000,
+  "steps_per_task": {
+    "hover": 3584000,
+    "velocity": 5120000
+  },
+  "total_allocated_training_steps": 263680000,
+  "horizons_seconds": [
+    4.0,
+    8.0,
+    16.0
+  ],
+  "cases_per_generation": 4,
+  "task_horizons_seconds": {
+    "hover": [
+      4.0,
+      8.0,
+      16.0
+    ],
+    "velocity": [
+      8.0,
+      12.0,
+      20.0
+    ]
+  },
+  "velocity_controller": {
+    "feedforward": [
+      7.0,
+      1.0
+    ],
+    "kp": [
+      0.02,
+      1.0
+    ],
+    "ki": [
+      0.01,
+      0.3
+    ],
+    "startup_seconds": 6.0,
+    "reference_limit_rad": 0.6,
+    "reference_rate_rad_s": 0.6
+  },
+  "workers_per_run": 8,
+  "concurrent_runs": 2,
+  "evaluation_workers": 16,
+  "ppo": {
+    "rollout": 500,
+    "window": 500,
+    "epochs": 4,
+    "learning_rate": 0.0003,
+    "resume": "optimizer/RNG preserved; unfinished episodes explicitly reset at rollout boundary"
+  },
+  "backend": "original_python_torch_eager_float64",
+  "physical_dt": 5e-06,
+  "control_dt": 0.002,
+  "observation_dimensions": {
+    "hover": 11,
+    "velocity": 16
+  },
+  "residual_scale": [
+    0.035,
+    0.035,
+    100.0
+  ],
+  "initializations": {
+    "hover_direct_snn": {
+      "path": "/home/hemingshan/FlapSim/runs/robust_control/20261010_v3/initialization/direct_snn.json",
+      "sha256": "f6fba70c74cf7461f5365a938ea9e4199ffa5fcb9ee425b14208a356088a9c65",
+      "prior_source": "/home/hemingshan/FlapSim/runs/snn_pid_compare/20261010_v21/development/round2/snn_seed5101/best_policy.json",
+      "prior_sha256": "f6fba70c74cf7461f5365a938ea9e4199ffa5fcb9ee425b14208a356088a9c65",
+      "selection": "highest original nominal validation rank within architecture; fixed BC prior shared across five RL/evolution seeds"
+    },
+    "hover_residual_snn_6201": {
+      "path": "/home/hemingshan/FlapSim/runs/robust_control/20261010_v3/initialization/hover_residual_snn_6201.json",
+      "sha256": "d3aa9cf95697862993ff3e618fa99770cb34baa9ce13a4e72fb592a9cc4bd3a1"
+    },
+    "hover_residual_snn_6202": {
+      "path": "/home/hemingshan/FlapSim/runs/robust_control/20261010_v3/initialization/hover_residual_snn_6202.json",
+      "sha256": "9c53747c7d0e0f1f7242766e0eebb76ffc2d36c137be523d4d0f71b155426220"
+    },
+    "hover_residual_snn_6203": {
+      "path": "/home/hemingshan/FlapSim/runs/robust_control/20261010_v3/initialization/hover_residual_snn_6203.json",
+      "sha256": "181c3419ce59ea4868755160afe2eb9f7a3c4bcaf74b1c8b6dfa4119e4166f10"
+    },
+    "hover_residual_snn_6204": {
+      "path": "/home/hemingshan/FlapSim/runs/robust_control/20261010_v3/initialization/hover_residual_snn_6204.json",
+      "sha256": "663e379765ec9fc94642bb498d293308c2ce3955576ac205df3c4881004db250"
+    },
+    "hover_residual_snn_6205": {
+      "path": "/home/hemingshan/FlapSim/runs/robust_control/20261010_v3/initialization/hover_residual_snn_6205.json",
+      "sha256": "d0610a9ad0cb9838cca39ef5bd4d45bcb69381d8d32bcdc17d2463e1f1c63b9c"
+    },
+    "velocity_residual_snn_6201": {
+      "path": "/home/hemingshan/FlapSim/runs/robust_control/20261010_v3/initialization/velocity_residual_snn_6201.json",
+      "sha256": "44d15bea8a91681868374686e274feb22aa582a5079cc0e6075b49d38a39dd82"
+    },
+    "velocity_residual_snn_6202": {
+      "path": "/home/hemingshan/FlapSim/runs/robust_control/20261010_v3/initialization/velocity_residual_snn_6202.json",
+      "sha256": "5a29ad65a308cdae470320d566494335cbe5b106d9367c0d7314081194c2f789"
+    },
+    "velocity_residual_snn_6203": {
+      "path": "/home/hemingshan/FlapSim/runs/robust_control/20261010_v3/initialization/velocity_residual_snn_6203.json",
+      "sha256": "40f9c22af457f8676a8734b391c59514f3064e2c049120b06095374d11f51b1b"
+    },
+    "velocity_residual_snn_6204": {
+      "path": "/home/hemingshan/FlapSim/runs/robust_control/20261010_v3/initialization/velocity_residual_snn_6204.json",
+      "sha256": "83be5feca42fa6513001aa06b9345078fe707fa371fe4fb576f90f7c474d1578"
+    },
+    "velocity_residual_snn_6205": {
+      "path": "/home/hemingshan/FlapSim/runs/robust_control/20261010_v3/initialization/velocity_residual_snn_6205.json",
+      "sha256": "d9e78f3d2e049e3b0c75513de5e7915a039e2678773e906da256c670bfa986e0"
+    },
+    "hover_direct_ann": {
+      "path": "/home/hemingshan/FlapSim/runs/robust_control/20261010_v3/initialization/direct_ann.json",
+      "sha256": "695ff2c2789903a150163837afe9a8f3e0aa8c4f26e76f952f62703bb422b28b",
+      "prior_source": "/home/hemingshan/FlapSim/runs/snn_pid_compare/20261010_v21/development/round2/ann_seed5102/best_policy.json",
+      "prior_sha256": "695ff2c2789903a150163837afe9a8f3e0aa8c4f26e76f952f62703bb422b28b",
+      "selection": "highest original nominal validation rank within architecture; fixed BC prior shared across five RL/evolution seeds"
+    },
+    "hover_residual_ann_6201": {
+      "path": "/home/hemingshan/FlapSim/runs/robust_control/20261010_v3/initialization/hover_residual_ann_6201.json",
+      "sha256": "a3bffb45c52a6edb756ec98f26ebb8d1818fd554bac8bdcb63607c42b700a129"
+    },
+    "hover_residual_ann_6202": {
+      "path": "/home/hemingshan/FlapSim/runs/robust_control/20261010_v3/initialization/hover_residual_ann_6202.json",
+      "sha256": "507c673726fa0846fc499a0bb81c0681c3ba9ae2fa5babe1992459294773eff7"
+    },
+    "hover_residual_ann_6203": {
+      "path": "/home/hemingshan/FlapSim/runs/robust_control/20261010_v3/initialization/hover_residual_ann_6203.json",
+      "sha256": "6b6561c52d0e841af9fff694505e0eab1b80887fd11f4e606c05817841012a4e"
+    },
+    "hover_residual_ann_6204": {
+      "path": "/home/hemingshan/FlapSim/runs/robust_control/20261010_v3/initialization/hover_residual_ann_6204.json",
+      "sha256": "dede5ed85dcf13747beae781bbbcce345435e1c25f96196e6dd199fa253f5bc1"
+    },
+    "hover_residual_ann_6205": {
+      "path": "/home/hemingshan/FlapSim/runs/robust_control/20261010_v3/initialization/hover_residual_ann_6205.json",
+      "sha256": "a786cb35e768518010d6109a213a3b70eb4a3bf594c44065d09b010f0f6d356e"
+    },
+    "velocity_residual_ann_6201": {
+      "path": "/home/hemingshan/FlapSim/runs/robust_control/20261010_v3/initialization/velocity_residual_ann_6201.json",
+      "sha256": "0580b0886a37e9ca34ed14424904633dadd09b842db988d53c02d09849f642ca"
+    },
+    "velocity_residual_ann_6202": {
+      "path": "/home/hemingshan/FlapSim/runs/robust_control/20261010_v3/initialization/velocity_residual_ann_6202.json",
+      "sha256": "ec44b7c5f0f62ad77087e71716d7feeddd73a522e874025e0c4e78146099ad3b"
+    },
+    "velocity_residual_ann_6203": {
+      "path": "/home/hemingshan/FlapSim/runs/robust_control/20261010_v3/initialization/velocity_residual_ann_6203.json",
+      "sha256": "3d25ab16c636a5f9de0395a05f6d7017469ebe19698f8a7faea77fde24b4e3a2"
+    },
+    "velocity_residual_ann_6204": {
+      "path": "/home/hemingshan/FlapSim/runs/robust_control/20261010_v3/initialization/velocity_residual_ann_6204.json",
+      "sha256": "d2006a2ff675729c69f479ceaa681a9327714ad6862ed5c485cf9647d9318db0"
+    },
+    "velocity_residual_ann_6205": {
+      "path": "/home/hemingshan/FlapSim/runs/robust_control/20261010_v3/initialization/velocity_residual_ann_6205.json",
+      "sha256": "a867e4fa6bf6d526501e0814b6b665ffc879754f6dc282b642fc2385d6c730f9"
+    }
+  },
+  "historical": {
+    "snn_neat": {
+      "path": "/home/hemingshan/FlapSim/runs/robust_control/20261010_v3/initialization/historical_snn_neat_2201.json",
+      "sha256": "a9eb68c15f0f6222f437eff5859eddc0614967a98ae815209d34629640d4a2ee",
+      "prior_source": "/home/hemingshan/FlapSim/artifacts/snn_hover_20261009/training/snn_neat_seed2201/best_policy.json",
+      "prior_sha256": "fda81a45cfb177ba563e93d8d4c2e0351574e2acfca5c71b89cdca07189085c7",
+      "policy_hz": 100,
+      "inputs": 11
+    },
+    "ann_neat": {
+      "path": "/home/hemingshan/FlapSim/runs/robust_control/20261010_v3/initialization/historical_ann_neat_2201.json",
+      "sha256": "5f74514de591e7dab1cb195cc7b0a9cce9a6ce5eef4f0e8a5e960a59be292d05",
+      "prior_source": "/home/hemingshan/FlapSim/artifacts/snn_hover_20261009/training/ann_neat_seed2201/best_policy.json",
+      "prior_sha256": "a2228bf65b85e94b193a1dfcedf716cb27f0bbe0475af8ad8b612780203a97e2",
+      "policy_hz": 100,
+      "inputs": 11
+    },
+    "rnn_ppo": {
+      "path": "/home/hemingshan/FlapSim/runs/robust_control/20261010_v3/initialization/historical_rnn_ppo_2201.json",
+      "sha256": "bbbd969a69491448c6c789c8ade0521a0e3a6d00b54887cf4a7dff5da6f13a77",
+      "prior_source": "/home/hemingshan/FlapSim/artifacts/snn_hover_20261009/training/rnn_ppo_seed2201/best_policy.json",
+      "prior_sha256": "6fa69950f5798612ae54c1785ee54459f0f26867b533ea19e70ae88218e2fab7",
+      "policy_hz": 100,
+      "inputs": 11
+    }
+  },
+  "source_hashes": {
+    "experiments/algorithms/README.md": "005907689fd5a42d9d95372d34fa956a149f5097c57099d4038727392e739fc9",
+    "experiments/algorithms/hover9/README.md": "7ac6c7d7e4e25ec3b9d4f453c2fe336057b414e3f4bc3699517f0105fa8f7177",
+    "experiments/algorithms/hover9/__init__.py": "a2d0f5abac82647cce01b2c49614c0dce3eb8949c5eee7e85b4112732d8a5f64",
+    "experiments/algorithms/hover9/audit.py": "0e7b57af9b6dd7b83b0d81c4fd990628bf39090e9c7ed12efb344f4db23a6953",
+    "experiments/algorithms/hover9/campaign.py": "ad49fecf25be75a9f70e53c572b22285ebdb7e9a7355aef4d9ec085db55ba08d",
+    "experiments/algorithms/hover9/common.py": "2abf7251480f7baf6102598ada09da2eec6e51960529f42b69b7f81688422cc6",
+    "experiments/algorithms/hover9/compensated_pid.py": "6e982a829ddbd4d2e52b63fffc46d4d124f0f0a07a1d962305e72faf2140d26e",
+    "experiments/algorithms/hover9/compensated_search.py": "7695022ce6f0b0e1a2a8954b5962128fa7d8c294a1e8c08547f2b43ca195c59a",
+    "experiments/algorithms/hover9/environment.py": "391a4d32ae1a4e0b1e99b3196495dc425702a30357588e34fbc5fda3f5b9837d",
+    "experiments/algorithms/hover9/filtered_plant.py": "ea5161e846d29e1a27ea50447943542701b50c2f6d471f2f2f9a226938a238a7",
+    "experiments/algorithms/hover9/filtered_search.py": "50cd95f8a8d0a06c82a4607e574d045a8e3dd34206c3c03db96c92c10cdaaa08",
+    "experiments/algorithms/hover9/imu.py": "6dde93e859889adb0287045bc573fc2a14d9d481bb5149a5073bd3c9526c172e",
+    "experiments/algorithms/hover9/imu_step.cpp": "4f044b907c4f0fe0096a954223f915a43772493d152d00966b0d6c31e6cf5be0",
+    "experiments/algorithms/hover9/pid_grid.py": "7b2efb0711f531bfbf13144315eeb80b27ca60440850dd25d54bc171613bd56b",
+    "experiments/algorithms/hover9/pid_search.py": "80528aa56ebe92a21975c208235a2f181d84ea47c11f1f973d43c4021227de42",
+    "experiments/algorithms/hover9/plant.py": "517a9e440c7949cdc8c367f0ab92c4f084c6901f26c007b35bbd0d05de673250",
+    "experiments/algorithms/hover9/preflight.py": "8532d7313b6410f12003a82f9b7cd87f71285bdf722eb54ba249ce60da1c4fdc",
+    "experiments/algorithms/hover9/protocol.py": "efa393ea318fbe80793bf8ed78c0d38c9879ad1925e53ea937265c2c65e000c3",
+    "experiments/algorithms/hover9/replay.py": "e2b19c0dcf6355c896cbdd5bf311676eaa97ff2351f27ea0826c96d5f56377e9",
+    "experiments/algorithms/hover9/report.py": "6acbea7173b75be0f45adac3e3b0781e7f6a4f727cc2b24d903d922a612a361d",
+    "experiments/algorithms/hover9/results.py": "a19e414327ea510350643f3273b9990d1fc3b92e517aecb610d3410401744c4b",
+    "experiments/algorithms/hover9/setup.py": "3e6e869cbfbcd1812a981d23d26491396b4b79b8ec5c224894c94714d57d7a3a",
+    "experiments/algorithms/hover9/test_history.py": "4a539da38dbb42dc52623bce47333f42c2388a55a053d49c55787707cea94d84",
+    "experiments/algorithms/hover9/train.py": "2638d82b0f18181f35ef223ff6f1a9c805180fb1f5d8fc6d86779b0c30a9585e",
+    "experiments/algorithms/neat/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "experiments/algorithms/neat/ppo_refine.py": "aae006674b307093e3c0bf82bd09ac5179281482e1424913c52cd5d67a6f7d26",
+    "experiments/algorithms/neat_imu/COMPARE_README.md": "dec1d72b1a01ed1c0dbe89bd26ef17e040eccc5d0d00b7e1408be2495c3949f1",
+    "experiments/algorithms/neat_imu/README.md": "9dd3e280cfe51d7e00fa26ae42e7c6e62636d773e0ef19f217ca192fe5b1ef9b",
+    "experiments/algorithms/neat_imu/__init__.py": "522f469ef385d2da1502b937b484db7b55e53653ba11453b7949251c5fcd41a5",
+    "experiments/algorithms/neat_imu/activation.py": "0a6072a464742fa511917d0baf61cda98ed134f9d094bb7b68983cefd333cfe5",
+    "experiments/algorithms/neat_imu/activation_probe.py": "1a678ede3db1fac5268822ff52f90909a9793003a170c469581d862fce340fe1",
+    "experiments/algorithms/neat_imu/architecture.py": "febcb83ed3587a2790a703f621fd9bbd0ffec8383cb4f16fdaf5ae959ddb227d",
+    "experiments/algorithms/neat_imu/authority_probe.py": "6c4159bb01a714ae70a84345bd992f04a9c51e2a869993d8befdb949fccc2865",
+    "experiments/algorithms/neat_imu/compare_campaign.py": "da64ff7bff04858d99a08f2cddfff2f118238312eef2c7cfcfd7ac9be7050258",
+    "experiments/algorithms/neat_imu/compare_env.py": "e4af537bb7a41af6fda9dd0a7b9d56945a4e92ae4fb493624635864cd7a0f168",
+    "experiments/algorithms/neat_imu/compare_prepare.py": "78466f3c2ea672ed38199a698c5ff3b2340385f55288326c030fd5a05ecd3ce1",
+    "experiments/algorithms/neat_imu/compare_replay.py": "ab98ca696f71daeb1677e9e2c49f4c3e7d61647386fb63d0e2b4b5aed62e31b2",
+    "experiments/algorithms/neat_imu/compare_report.py": "fbcf4dc755e20cd3cc2eeadc6804e107779e0e8d948bf568252961c0fae864b7",
+    "experiments/algorithms/neat_imu/compare_results.py": "d6f35d03e286bd559d451743ae5504e0d1c981782af2ad3c462833fc0bdf0023",
+    "experiments/algorithms/neat_imu/compare_train.py": "a5f3a98ce1a6405cee7d3535c56764c1deddf22d932c903358921d17af254e72",
+    "experiments/algorithms/neat_imu/config.ini": "ff40f9ae9802d1d1af993ba1e1a774ea90421f6a992991bc583b4b8742cdc020",
+    "experiments/algorithms/neat_imu/environment.py": "9dcf0c31fee592ff26e31a4d942d767757c6cf4624e77b520509c78c4f0f12a1",
+    "experiments/algorithms/neat_imu/filter_probe.py": "666006286185b76c9224c80d5d742be1f64e78c21f0fe09fb00171f17881ab6a",
+    "experiments/algorithms/neat_imu/finalize.py": "a43a4735cfa900bd0babd134801458bd0d52ac5ab71959a98318c990d1ef1e1b",
+    "experiments/algorithms/neat_imu/gyro_probe.py": "1b193708762e0da17d61e349b9ee717a2cd5b82dc14bb27563b31cbb4af8acb0",
+    "experiments/algorithms/neat_imu/hover_initial.py": "fc9103228db16411ba79d3964643ca41d5d0635474c829d29edb5b5ec38a0d10",
+    "experiments/algorithms/neat_imu/hover_initial_probe.py": "c573e599fca25f138fe01c4f81dc1368f789429399f45f338107cc570f0c154f",
+    "experiments/algorithms/neat_imu/imu_history_probe.py": "5b6d1c7779f111d4149b5c041666721927a68ee613af84cb0e53a1ba79314807",
+    "experiments/algorithms/neat_imu/imu_sampling_audit.py": "070a869c394e277d4644c1fb041c8404b7bf55523c5e4eaf8997f5d2748b7a5c",
+    "experiments/algorithms/neat_imu/mass_audit_refine.py": "f5a9aa2fdf4966cc139b1ab188f2283b1ed3102992649816830be8ff6176a7df",
+    "experiments/algorithms/neat_imu/mass_audit_report.py": "ed049087f051e7f5bdc359142d0ac7aa4712fe3b15054c7ebd53c51f5c82477d",
+    "experiments/algorithms/neat_imu/mass_audit_run.py": "3b1913653f41fcb96cca5c6d83c8b9ed1eeaff04ecaeb3d3da236e02e91b47c7",
+    "experiments/algorithms/neat_imu/mass_model.py": "1a120e0bd1f2448234c28938373de87cbcfdcab5981c228629ae95e198059131",
+    "experiments/algorithms/neat_imu/mass_trim_probe.py": "e1411780731d01f2613b170d063d246fff98949883477cbc581e39a183dc002d",
+    "experiments/algorithms/neat_imu/plot_policy.py": "26ba07d4e942754eb1e1fc13759efbe298538ce89d59650fcc2ed130b394a3aa",
+    "experiments/algorithms/neat_imu/policy.py": "a1518e643455796ae77ea95bc47557faa441d0b747b18693cfdb61c774bad28b",
+    "experiments/algorithms/neat_imu/replay.py": "523a234670e8e4209fda195ed4898f5feb230535f6bd1369520d7e2ad5c6eca2",
+    "experiments/algorithms/neat_imu/requirements-compare.txt": "28a379d68deae9d87beea49982bdcea9389892b0e2d3056173bb1f26ec62c31d",
+    "experiments/algorithms/neat_imu/residual.py": "861f95811e000e7189ef47c7be4a11b5b8c978933068ad75e7c109ed4524af27",
+    "experiments/algorithms/neat_imu/residual_probe.py": "4c24a725177527ac5a3f6752964d8498451260f9424780c1c201628750be4c5b",
+    "experiments/algorithms/neat_imu/residual_replay.py": "25e51216cc8f2212d8a5b92f3529c12142d8917ae2e53377b931cf11480eae82",
+    "experiments/algorithms/neat_imu/residual_train.py": "332c16021e4c9f3806a87b9a64f90daa1b3cccf8e03f04d641204b12c569c3c3",
+    "experiments/algorithms/neat_imu/robust.py": "8cd55b9ad0a3b1a77eba0309f3cd08557fc9c85d6cf2cd7ff14693ea33fe66e4",
+    "experiments/algorithms/neat_imu/robust_replay.py": "25bb2e613e75964998214486e32aaa2c6a052d2e8151d23d128a379ed5975946",
+    "experiments/algorithms/neat_imu/robust_seed_probe.py": "8b262818d1e279db4f91dd89863e6aa215ea730a2f82dd21b48fa7f845d8c08c",
+    "experiments/algorithms/neat_imu/robust_train.py": "d018a7e7491ef9d6b7cae9ce4d8298e7d7fb31ed93ddf7db2be19b50da9f02ba",
+    "experiments/algorithms/neat_imu/signed_activations.py": "35ba3e2ab66ca8fd800fe7959e8be5f388a8518d9a2c2276dd4f585054d15327",
+    "experiments/algorithms/neat_imu/train.py": "eed12f9a2ebbc8a8497eda766f53219ba6987c5ce53ac26eb2c3f25b448c07e9",
+    "experiments/algorithms/neat_imu/trim.py": "365ca1edd2d695804fb77aa05bf5a47b2fd723fb79dbce4648c4a73c4ace8dd3",
+    "experiments/algorithms/neat_imu/trim_probe.py": "5c812261f7e722235169e999e657a0d60f4cf05f6f7abdbded576de84af9ad3e",
+    "experiments/algorithms/pid_airborne/README.md": "827cde1c713c4643e37ba7d73edfd6ea628dface089841e91eba5889328d1382",
+    "experiments/algorithms/pid_airborne/__init__.py": "a6803a9f6c3bf381ba76d9f56bae8e11725aa3291128c7c27733bf20d51ee27f",
+    "experiments/algorithms/pid_airborne/advanced.py": "e252bdeb4f15de7a38d995999e2e2611d94df9414f59c3f7c89775c21211fc24",
+    "experiments/algorithms/pid_airborne/audit.py": "ca38377b0704fc097ea92f6757d6b6f9df5a57504a8c118be780594c3674871b",
+    "experiments/algorithms/pid_airborne/core.py": "71b348ae6c544ae2cf71eb7fe32f8cb94665588090fd12995938d6f0e86a361d",
+    "experiments/algorithms/pid_airborne/duration_probe.py": "6c839634244fd4c462e0f242a77055d49be81e277788cea0313befc0b835c82c",
+    "experiments/algorithms/pid_airborne/finalize.py": "05631240758e1b5e778ada991b484b560153e25a7544ec893bac1a4b7d24f6c3",
+    "experiments/algorithms/pid_airborne/height_search.py": "90ee27767d3166dcca73261498ac2a0b418ba6e2fac16a0fad9692364d2d7640",
+    "experiments/algorithms/pid_airborne/initialization.py": "715037c804ec512af5a83f703bda6ba5940aa43abafb5f30e2d744c22ff5e9f5",
+    "experiments/algorithms/pid_airborne/lift_probe.py": "66bdd954c677d4066896586a83003d4ea9bbe55325939dbf92d386743c0cd82f",
+    "experiments/algorithms/pid_airborne/long_probe.py": "8bb50b44b18cc131e3e9550741f3e44e220ef3f82cdf77b73a07ad915c7678dc",
+    "experiments/algorithms/pid_airborne/notch_search.py": "ea015fd8efe8050e00acf18d08d857888ff912e94f521035628fc8f16c032d02",
+    "experiments/algorithms/pid_airborne/results.py": "70b694878cd5de08537ad969c0470731c39b31b52220cb07cc2f37f17762e2d8",
+    "experiments/algorithms/pid_airborne/search.py": "173a1106178efd04ffcfe6f512fdc9b1529f0b50d23be60f3de36d3c648be0cb",
+    "experiments/algorithms/pid_airborne/startup_probe.py": "c215dac9eaa68085f167325f9a83095982f3dfcb7b4bfe0ddb6599e5f8477077",
+    "experiments/algorithms/pid_airborne/velocity_pid.py": "2ec11d809d8b6f8fb269f0b4b9e744300d7590429cf052ce246e5431263c9686",
+    "experiments/algorithms/pid_airborne/wing_motion.py": "105fe0e9913a5e00b7f1d2cd408c3361069721c5a1a17138303cf2012bd03c66",
+    "experiments/algorithms/robust_control/README.md": "79aac202f9f1d5747f06a34cf3a87f4fb1b8e2f1a325679eddfa4fc59b6b68ea",
+    "experiments/algorithms/robust_control/__init__.py": "aa4b3357adc7eb286e3ffba1a8703256d7fb905eb3468e372f8433864f6e74f6",
+    "experiments/algorithms/robust_control/campaign.py": "b3f05e0a7c61f1bd75136805e20a76ee462d36e4e1afad7e4470f5741ee4d9fe",
+    "experiments/algorithms/robust_control/environment.py": "f6f44af32a69e688e722238049dfbf0e2cc7f63cd4849cc8599d3d20cf5bcd13",
+    "experiments/algorithms/robust_control/evaluate.py": "14d1c0e5a976c4de945f86dde27668721d4d5867482c4ad91085a9e5e1cbe2a2",
+    "experiments/algorithms/robust_control/evolution.py": "8f9f2887ed01525296060a286b755a29e9ef6e4834fa3814203dd547ac8478fe",
+    "experiments/algorithms/robust_control/identify.py": "bfc57107e3bbcbaf4dae051e4f452bc40385efeae0779dfb6d4e24e2ff8d5779",
+    "experiments/algorithms/robust_control/networks.py": "abf0676e7a0c4fbdcb59960a645bc45c3205bc69033ad7e9e8aa96702c8a05e3",
+    "experiments/algorithms/robust_control/reporting.py": "8f5874a590a7b5302cf841ecf27e88fd31a0dc2ee1bba1ebf244424c9106ea4e",
+    "experiments/algorithms/robust_control/smoke.py": "5b2dc87dc1c03d46cb7c8802d191b2cc5454364f3da092d5696f6b3b39e43d0b",
+    "experiments/algorithms/robust_control/train_neat.py": "b8baac55a64b2af741a92125f9c73644b2623983f3e90484d7d0d7f4da6f1deb",
+    "experiments/algorithms/robust_control/train_ppo.py": "6d08772dc2263f0144216301e06c398ac920a38ded6753ad1da6d16c4e51ce4c",
+    "experiments/algorithms/snn_hover/README.md": "3bad60f48f2b074c9a72d0618efc74b6cda58fad6ac726d576af0412ca52e697",
+    "experiments/algorithms/snn_hover/__init__.py": "0a2bdbc4680c3ac7734c9876f6f81d85eb4450ce29d2abe9b2255f692f3a97c6",
+    "experiments/algorithms/snn_hover/analyze.py": "e3106cdce0804fb6fe43c24fe9f571dc23b04cc6724e7a3ad566e495c3540c17",
+    "experiments/algorithms/snn_hover/campaign.py": "b7edab90a4b69c73c4b5505469a39c4dc026806dafce34f53ccc0a866b5c6c3c",
+    "experiments/algorithms/snn_hover/capacity_screen.py": "5b20acebd3b78a96ef1e88ed2d82ced50845587a914ec0a65b3c0966f43a5a8d",
+    "experiments/algorithms/snn_hover/common.py": "27a820e458fdf444b52c56c6b26d7c099c8f1179d171741f875bde92edb5f32e",
+    "experiments/algorithms/snn_hover/dashboard.py": "78bb2801962d699611999471b05face42cbc762112cff6b7320f013c116a3dfe",
+    "experiments/algorithms/snn_hover/design.py": "8520fa2d73fc2762b7dbc4b716c14dccef0c8c909bacffe1d95ab7ed86c1e48a",
+    "experiments/algorithms/snn_hover/development.py": "9e0538c178dacd406912a9eaa305ad70b26f841a9064ba011b73cefb46d2ebef",
+    "experiments/algorithms/snn_hover/environment.py": "2f3850c46f085a433179d37b2e11b0e1800afcaa2f8bebf1203dcac4d44289d3",
+    "experiments/algorithms/snn_hover/evaluate.py": "ba4d576d0daf9980489fb4fa867a6b70fce23472d9c0dafd147e9a8d70c2abbb",
+    "experiments/algorithms/snn_hover/evolution.py": "92e530844d52cabec3ca26461420bf96d50d5c659442aa7ef0d14fbbf94fe37b",
+    "experiments/algorithms/snn_hover/finish.py": "2948ad55007523124bee5462054b530a7fd176cb885b8c28d5b258fa0ff7ba7d",
+    "experiments/algorithms/snn_hover/interim.py": "c943bc120695aa2d961c17aa9013b5013521f1ec54ab0db7f52449a997bf065e",
+    "experiments/algorithms/snn_hover/migration.py": "228f3832b67c8dc0b8cacdff29c8633b7b78184a4d742388218513f88a8698ee",
+    "experiments/algorithms/snn_hover/networks.py": "1fce751d31a644b28d9f399c418c0d0710ec6f7cd0ea12094a490e71207ce9fc",
+    "experiments/algorithms/snn_hover/pause.py": "9627699cfb01f78657f162f1018c6136c43ea48c7a0a4dedc1c136df6c5e6b59",
+    "experiments/algorithms/snn_hover/ppo.py": "e861cd3c2fbdc9e5be120e43c96556bbd96dd8d8fdc4c119d7e243e579cc1dc0",
+    "experiments/algorithms/snn_hover/protocol.py": "320703a329e2cdc478d9dccd72bfd0b7c20fec6d34791d5998f02ee8211905a4",
+    "experiments/algorithms/snn_hover/publish.py": "4ab09c17243fc6953761047ce7db93d2a5db3d000d49d30ed3460d80964c7c8a",
+    "experiments/algorithms/snn_hover/render.py": "24b763488ff7137cd115862de8de69134d36874741813447a6737d1c45dae887",
+    "experiments/algorithms/snn_hover/replay.py": "ed042029c1d8ddbe0bf81f310baf540f1ac9c00bcb9ec51e121c631cf3ee3977",
+    "experiments/algorithms/snn_hover/report.py": "8fea1b419ee5bbc4df725c0d31b429189321ec3c03007a2bf45d9deb74ae55f2",
+    "experiments/algorithms/snn_hover/requirements-portable.txt": "1133192ab5b98c45c216c07ea882ef7279289e8b04cda0e51788c08a4a5c6654",
+    "experiments/algorithms/snn_hover/traces.py": "ae3386c9dd00794c038f5374aff5c004b56443c4f3b1cef286f62a3956c4ee32",
+    "experiments/algorithms/snn_hover/train.py": "6ea902af95b4f3c7043c9b18f4423d0f5cdbbd2bc98907be046953d85a4e91e8",
+    "experiments/algorithms/snn_hover/verify.py": "a1780aade3ddea1d04ffa96e5ff4dfd4a23d87b6d70ee10bdcfe9f468f18ce78",
+    "experiments/algorithms/snn_hover/visualize.py": "66790eb0421cad456f7352246779260af5f86652eed0a5ff974e6084e6001a9d",
+    "experiments/algorithms/snn_pid_compare/README.md": "2a481a59eff3b6046981eaf99531007df356592874e9b7ac510566b617970ac3",
+    "experiments/algorithms/snn_pid_compare/TECHNICAL_DETAILS.md": "cffee548d622694e3ac24564d2acd6396120a37d6d38af6f155ed657511c80b9",
+    "experiments/algorithms/snn_pid_compare/__init__.py": "6d6a73e1cd6ea21b4585e6b65c9e0b241fd3660852a18d24b792f953931aa3c1",
+    "experiments/algorithms/snn_pid_compare/analysis.py": "1c2bdba55bd63afcb850e56c6987dfdae7a1448f0665562e9bc6c153bd32bc9d",
+    "experiments/algorithms/snn_pid_compare/campaign.py": "d24b89d028ff16352af1e6cf9053fd97c31569137ebe8fd75b537e408177a80a",
+    "experiments/algorithms/snn_pid_compare/common.py": "72b2ba350ad70443da5ed8b90ff87808da55834a43b60d6b1f7ca2bb96736184",
+    "experiments/algorithms/snn_pid_compare/demonstrations.py": "98de35bcaec01df29453d24e9e76d9ef353b6c715dfd69ac1f4f27bc2b88a3fd",
+    "experiments/algorithms/snn_pid_compare/development.py": "50ceac5df229b74b4ddd4d884235000a7cbf7be09d2463c80d7241389f77ceb8",
+    "experiments/algorithms/snn_pid_compare/diagnose.py": "c1712a7d50b60aa4990f15d3bb8b2b01fd966146d090b4b56f0923be4df793d7",
+    "experiments/algorithms/snn_pid_compare/environment.py": "58daa8f4a64eef488cd6c2be422093f71bd53cd6add95e7be54cb9084f89362a",
+    "experiments/algorithms/snn_pid_compare/evaluate.py": "97de69ae855ce22989b67e5017478e1ee666c005d66b85e105f3e475e770126e",
+    "experiments/algorithms/snn_pid_compare/evolution.py": "648a6d6242272a7911f8925fbe4274e11173776ca13093d74bfba7f33235c58a",
+    "experiments/algorithms/snn_pid_compare/imitation.py": "c59b5188e0f7744396d92102d3ecb00a1d7f3215d1dcc22ad5bc4e243838fc74",
+    "experiments/algorithms/snn_pid_compare/networks.py": "27f33545a6c6fdb5408af5051d8a69db9796e3e8588aefb6f6963a4b5b08dd10",
+    "experiments/algorithms/snn_pid_compare/reporting.py": "8850604c7d16134ff793af67861dfcc2ba3d0c0abcc061f08a577e31b0e10b33",
+    "experiments/algorithms/snn_pid_compare/requirements.txt": "bb07eb8e1882abe4d3512477594b06c93051fa1189120e96ca6e9c0052c7469f",
+    "experiments/algorithms/snn_pid_compare/run.sh": "3e42210388ac8d32646d38f51d120428697aa5f1ab8bec0c647bd28558252894",
+    "experiments/algorithms/snn_pid_compare/supervise.py": "844ea576856449cfccbf524a700289d4e91327c1dad03bf91425d4e0ae024d41",
+    "experiments/algorithms/snn_pid_compare/train_neat.py": "e94c47e42fd16dcbd195e3d405189b2f3abfd0411f697f76d111e180ce049775",
+    "experiments/algorithms/snn_pid_compare/train_ppo.py": "fb152ac658ce4a2cfb6d754de511bb7564e1e4c0e30ba60718e39d57e3d362e1",
+    "experiments/algorithms/topology_hover/README.md": "c32221476f5f6c7474d564be12d848e6b3f015b8ca35f7da4de159ba5aa9c016",
+    "experiments/algorithms/topology_hover/__init__.py": "23d086341951b90e3da43daba94111c14392e5581442042710d4648503b39249",
+    "experiments/algorithms/topology_hover/analyze.py": "176806d164c1aac16e9b2ee571b0e947d9f24643779eef1621f1aa4fdccd3735",
+    "experiments/algorithms/topology_hover/campaign.py": "4f8b6f4dac98454492b5315de387f6b583aa83aa160409256f589b2963484a1f",
+    "experiments/algorithms/topology_hover/checkpoint.py": "438d59c772ef86c6edb399aa8ae25d6d8fa4a704b44e1c79d792cb21a853c11a",
+    "experiments/algorithms/topology_hover/common.py": "d2134bea8cfea288d84eacfe3dcac2c8a6fd88d2f85adf0380a804d081431dae",
+    "experiments/algorithms/topology_hover/dashboard.py": "6123780915ef9df7103035de6fabc3fed0d72558d061c0c1228ae02571804d4d",
+    "experiments/algorithms/topology_hover/early_transfer.py": "793a618e27c7f4e7213f36c3fc641fcda1209502d2303d066a986cc2a50f6077",
+    "experiments/algorithms/topology_hover/environment.py": "dbcaf03fee613015a6f68d4d5bc105879eba8ebba47b597772b5a4075ae79ac7",
+    "experiments/algorithms/topology_hover/evaluate.py": "a91a546a376ff9cee67616eaeecaeca16414c6b7bcbb28d730529f702993bf14",
+    "experiments/algorithms/topology_hover/evolve.py": "a8619df4141c2df0872027bec2bd4ef740409de488062cd4b46d8509df6eca5a",
+    "experiments/algorithms/topology_hover/finish.py": "b7685be6c42673b0153c3baf4b0cb5e9079288e730308ee070ffe3f33ee74c07",
+    "experiments/algorithms/topology_hover/flight_browser.py": "9120bf471d96fae08162d6dc065daee7a4a939f3c0973b691c174defdec4432f",
+    "experiments/algorithms/topology_hover/networks.py": "c5cfee40bef48b85bf6eb5db64fee27d90d8947e4e15b109250d43ed12e5f642",
+    "experiments/algorithms/topology_hover/ppo.py": "727c67cf4f29c7aa885b36e43db88e195661da272c943a19cd2e95406e2a6a64",
+    "experiments/algorithms/topology_hover/preflight.py": "8269fac5cfec6d0566bfe919f1dc82ae5df8462a1d5b2dad6ea45e444275f976",
+    "experiments/algorithms/topology_hover/render.py": "32b2277d2f2c2c2e5288da0980abfd16cde5b4d6b1ad3f3693e6f4f6790d806f",
+    "experiments/algorithms/topology_hover/replay.py": "ef6d7b342d575bab60f9ed2e631a4268450d1cffcf6d1baa5cfd94373152d48c",
+    "experiments/algorithms/topology_hover/report.py": "a10803220c5296f2597c065a5d79fa928cde4e34a79f9bbc2f76aed9720b925f",
+    "experiments/algorithms/topology_hover/sensor_step.cpp": "7a8c8da2b05f2399d3794955621a4d1ca940882769e82fa0e292e99691b5e3d8",
+    "experiments/algorithms/topology_hover/sensors.py": "09b3c6a6750efd5f152d582971a63a8d0a34159c2c8950c0546d49833534ae82",
+    "experiments/algorithms/topology_hover/smoke_media.py": "1231aef470c3306c1de10ecc63fe3220c3d859d3512216de82c0dc7c968eabc2",
+    "experiments/algorithms/topology_hover/verify.py": "f50e9bf1689f594628edad4f4e7fb34ac597a8b30e03d597fd6ad1ac01f4e88a",
+    "experiments/algorithms/topology_hover/visualize.py": "a6cf3f8fb5cd2dd544af56f41cadfdcd7d94ed70fe240842f5128124d5a341da",
+    "experiments/ppo_v2/README.md": "4db60b6387c3e16ed76bbf3117b133077160cdcfa3f422761a3c445c964fb7bd",
+    "experiments/ppo_v2/compare_master.py": "43c7d822ee1654a9f0f6a33686273dee42af81ca3653d6c6f5ba7d3f9fa6b2e6",
+    "experiments/ppo_v2/diagnose.py": "4a4e618cdc67f10bbd60ad1fb69b316dfe418669e27da8c7df4cbca910886f00",
+    "experiments/ppo_v2/evaluate_seeds.py": "cdb919373e1976f441298f5b447fc34c8627c1f01a8feeeadabc1f36f9c7006a",
+    "experiments/ppo_v2/hybrid_probe.py": "6d7998acf3473b09f2faaf0c3fb71a120a00f415841f67f34724705ca229ff37",
+    "experiments/ppo_v2/plot_evaluation.py": "c01c5fd117cbe4f70f1597a1b60fd1bd599f408df5c44e484367fb10907a2379",
+    "experiments/ppo_v2/plot_progress.py": "15031ef9ca3420b9a3123687fca4806433f35ff6ff2f55fe95cf0d1b97bed590",
+    "experiments/ppo_v2/probe_control.py": "f54d1a6ade251d9b8af9e8ccec1bdbbf51dcbe9589382fc4101f3f374a3e0561",
+    "experiments/ppo_v2/requirements.txt": "949472726d40143b10f63130d6b74e5807fe6a8c3f54a5aecd4305aa46522572",
+    "experiments/ppo_v2/tune_control.py": "4016b09cd66cbe11330bac190a6dcbfef0469f4c45148e6e394eeb5b3c302844",
+    "flapsim/__init__.py": "212427f3fd1d4b6454a925e336cc3bb3e7d61abe7c6fb7e9d0e131b88c268e88",
+    "flapsim/__main__.py": "f38fd2f2c920c29c828645e87ed64743d567aaaef7fba7a15d2c7d7f8094f91f",
+    "flapsim/actuator/__init__.py": "477d89921c87f78691a34a646464861ee30397b4f1850ccea400ddd7572b26f8",
+    "flapsim/actuator/base.py": "a58e86772e193cd3bdaf715293acaf80c533b1796cbf28affd96afa7e5e335c4",
+    "flapsim/actuator/bldcmotor.py": "dba94f4b6ea739a449285721d9a215e1e7705ce78acacaa69ce9a7ce1fa33ccd",
+    "flapsim/actuator/dcmotor.py": "fdecaafc6c15392a007fed32e5a24b3d38936982cb860623c1e476bac5634471",
+    "flapsim/actuator/dea.py": "2f71fceb345ae1c503ef8de8d3609da16c07cf839bbbe811dec5766370f73eb9",
+    "flapsim/backends.py": "54db61b72c6228f28d3e4e2021c98053b22d45ef962be10024b439e616936a13",
+    "flapsim/cli.py": "3dc8a3ba3ec05fa8f9ec86e251eb2722332f29e516b569da8caf3abfe7bad7cd",
+    "flapsim/config/__init__.py": "533d8617cac56489ae538bd18867407c262b2ca7fffe219356e705a4f651a72f",
+    "flapsim/config/loader.py": "e788404157bb5927df5c15229ecd6c7fed6c0c02ccc7d3ee738dcc28d7c88bb7",
+    "flapsim/config/robots/IST_robot-V2.json": "f8d2a970f11093e8e4a6e24ef090af556f8ee170d0c381203ad87739cb91f0bc",
+    "flapsim/config/robots/IST_robot.json": "84eeb7ad223b83975ad9621e0d878c54d258126337b36f5ecb57f061840957e8",
+    "flapsim/config/robots/SingleThrustFlapper-V2.json": "e6e5bf83fd42f5c9c0d642bb65a239a43dbb8333e51ccc3a070762241c164ea4",
+    "flapsim/config/robots/SingleThrustFlapper.json": "7867662abed5ccc802260129bc9c33e80b04c0e091de4e3735112d36d04b4f62",
+    "flapsim/config/scene.py": "0b8c7771939ff5367da1cb26ddceef5e1dd505b471a9c2c455d97b2ee71caff0",
+    "flapsim/config/settings.py": "d084b4fdf912a84c6fddfd1c2c7a617b313822f1a2192123f7a9a5955af870db",
+    "flapsim/config/training/ist_v2_flight.json": "62e0d0fe7fe74a95187a55f1904a4566aea5a0bb4f6194d0401fd8f0dc0de669",
+    "flapsim/controller/__init__.py": "f3b78d172c951464f4041d446bda59c04f95a1e6ebb47f3bb7acac883b821f74",
+    "flapsim/controller/allocation.py": "87e5a25d1d995975ae73247a9f6db58dc8ec1e13011d7e00538155d0ce92d1e1",
+    "flapsim/controller/base.py": "a043819e9e0edf160cd272897835cdcb332b4a78d3aaf62f86f1eae56c1876ba",
+    "flapsim/controller/hovering.py": "567832dc679f14d5d728c2fc8b93a512f8f249499a0b0e680abaf99a3e8079dd",
+    "flapsim/controller/move.py": "412962211787c0c2059b296febe566669f7fe46802d17abc09422d95e08e2a61",
+    "flapsim/controller/speed.py": "bc6ffa10fb5fcbd644e16a9ec8323862727ce5047eb94d58cfb28b849c9f25df",
+    "flapsim/fluid/__init__.py": "59c6a17614714232c312e4ab4fa864fdb2b9c40581fda57d0a46aeaf306705ff",
+    "flapsim/fluid/base.py": "d6361bf29af671c4f0d655fe9002376f3aa7077c5cf4418094190c2ba349d860",
+    "flapsim/fluid/blade_element.py": "35761c4fccf2a4ca0ee08a108a220b84dc01e4f6afd8ecc1036efda20213041d",
+    "flapsim/fluid/mujoco.py": "e7bb8f7cf8d2cde20c46be30ee8a1c67afbb15d2251323f09ef95f3bbfc3fdac",
+    "flapsim/kinematics.py": "a772a0ab6c59718f3c8af98566177e1e1abe8537668f7f72d125c451871e9192",
+    "flapsim/measurement.py": "abd3f189873afc4013005f8d29c6a9b0b44766d289e0ad513c63d3d2f128b552",
+    "flapsim/rl/README.md": "41ff54582419834512397361c3ab0052ff6f47cd7cdd5c46977b1073556ff5ad",
+    "flapsim/rl/__init__.py": "18e7d6523bcfb61d91fd169ba16a07501bd5be40b8c8888e944c587be18be4a0",
+    "flapsim/rl/env.py": "628256780aabadc4adec0f4c831086e1d48026a614740361ab0d40ee89564c00",
+    "flapsim/rl/evaluate.py": "0c31975c5f4beeeac89771b88a8782e93a9e68e8365a904ed952d285a639dca8",
+    "flapsim/rl/export_policy.py": "92119ac85cb349d2625cd8e367207b57458f7bdfde356907c8b622984fa4eafa",
+    "flapsim/rl/features.py": "df3af9663b2f22d29feb248509f39a2c3d8ef461deef1423b89a16a8a7a2d974",
+    "flapsim/rl/native.py": "4992b2e5694bf37a0c71aba9fc9aae0ddce1f0bc43b6155b7bd6c7e5531a65ac",
+    "flapsim/rl/native_fast.py": "fabd8a6285e461d0b65c3343adfeabcb8c3651c2ead9804ec1abfa138d20b988",
+    "flapsim/rl/native_fast_step.cpp": "5ed6b94d581ec810efc6519fcf5b2f1aeef2605cdf11851ff7019319e293a7f4",
+    "flapsim/rl/native_step.cpp": "5a83e804e1528c33a5c4f355a9f331d6fe5e15948af1c70f253944e3e0b3ecb6",
+    "flapsim/rl/preflight.py": "27cac38f9f5262a1ed73cc89fcaaefd04d1d729d8885874447ecf3bc426874ed",
+    "flapsim/rl/train.py": "161d1cd4c01c39ff67e9860ec41b83ef17f8ae9ce5ce42e3532619dcef48a8ab",
+    "flapsim/rl/trajectories.py": "c0d714ead83dd547ae9ecc7248c762b7982953961d1e1b3f91f605a6b3d616b7",
+    "flapsim/rl/transfer.py": "5fb60137e3ddeb6386d8fe96590248ada314348e331f6d8b88b5c7a5505c4780",
+    "flapsim/robot/IST_robot/README.md": "93ffcdda261d7562ffa9ca8c5ded3b1eb264b1e89956385bbc95b0d97c99f920",
+    "flapsim/robot/IST_robot/build_aerodynamics.py": "3a1eeb9454bca56581baa4f0466585edd9cfa22e355059301088051e0f78f50a",
+    "flapsim/robot/IST_robot/build_rectangular.py": "410297bd3433418cc019bf3d974547bfb7afd4bcc76d0dabe1e982313c1e29ad",
+    "flapsim/robot/IST_robot/cad_inertials_original.json": "ef9448338c1b5659f52a51c717e80337ff7d2468f6460025eafa22b1523335eb",
+    "flapsim/robot/IST_robot/curved_wing_aerodynamics.json": "3e0cbfbcf6f25b9fe0d60223af40fdcca99d00d518ed5f1f0cd008978d47a464",
+    "flapsim/robot/IST_robot/material_inertials.json": "a418ddd4f44723bf23395f111c32d3faff9b70196086d54e593ea918aa4e54e2",
+    "flapsim/robot/IST_robot/materials.json": "7cc963f74e49a576309366b815e1d4a945db84e75fd7c112d6613fc1730f7109",
+    "flapsim/robot/IST_robot/meshes/Curve.STL": "c0c2c48b7ff5f29748e2b0ff59eb2a2db60b093f59ffdb084696b458e556af30",
+    "flapsim/robot/IST_robot/meshes/Rectangular.STL": "98df4f6211ec0b21f975eee127a99d997ae0bb13a291cf11ad57faa59bc3b6e6",
+    "flapsim/robot/IST_robot/meshes/base_link.stl": "cabc75109852510a7dc4517b32d9b67ecbd0ddfb3e3a0a14c4e4d1975075ed50",
+    "flapsim/robot/IST_robot/meshes/carrier_1.stl": "1ddd2280c4476d66d5b1cee094478fccc582e3b2ffca95eb5cc14dc74366831d",
+    "flapsim/robot/IST_robot/meshes/carrier_2.stl": "76da64737ed7f2b47f5220f6b53975dce0108773687005600372f13d798388c9",
+    "flapsim/robot/IST_robot/meshes/left_flapping.stl": "a88d52f6d6838dd1b25978c2d5f0415b1f9dd40f1e79b5faac3acfa16637cf06",
+    "flapsim/robot/IST_robot/meshes/left_rectangular_wing.stl": "503346f333de05ecc23d9e5196d15d11604d1b11aeb1cfc031955775ce407e63",
+    "flapsim/robot/IST_robot/meshes/left_wing.stl": "12da89c20d6758c321ea796a8c4c0b38df7ab605af55906103f920fdc5a2e28d",
+    "flapsim/robot/IST_robot/meshes/motor_sun.stl": "71649e8220faf34e1e1a64666571c5dae105a5e13515e585873b3fc2cfc13c1e",
+    "flapsim/robot/IST_robot/meshes/planet_1_1.stl": "401d286bd88081412c2e9dd270d5efa93d20f5496acb0c3eebcd9425907a3ede",
+    "flapsim/robot/IST_robot/meshes/planet_1_2.stl": "85dae36e9df2219314dc2ed7b17182074687c55a7efa4938690c1b2c490ea434",
+    "flapsim/robot/IST_robot/meshes/planet_1_3.stl": "acee18e9d2f25145648659336e77d29ed7eeb1499cb45771006d9b6e78db4009",
+    "flapsim/robot/IST_robot/meshes/planet_2_1.stl": "dad370c406d325910b5bcee69b615335560077a89ecbededf75fed593e71239f",
+    "flapsim/robot/IST_robot/meshes/planet_2_2.stl": "4ae40382439ae9e15352f004dce79c92f3404404a6d4a2c451b6c2b009b20574",
+    "flapsim/robot/IST_robot/meshes/planet_2_3.stl": "26848454db2bf4b0efc508c5cee6ab3700adbb0aa2c01098a32028c753b69c22",
+    "flapsim/robot/IST_robot/meshes/rectangular_membrane.stl": "75080353b34251f33b50c70076db3ff1ae59443b59c4b56c525d3847b9f4c86b",
+    "flapsim/robot/IST_robot/meshes/right_flapping.stl": "4b6dc722346913b5e852e628668428b0374a6397779c284c3594f44c2118021a",
+    "flapsim/robot/IST_robot/meshes/right_rectangular_wing.stl": "376bfc75e4dfd16716c77501f72e721f57e8347a94c748688a063e3ff8162a56",
+    "flapsim/robot/IST_robot/meshes/right_wing.stl": "6b38d5352e984ce86b0261a1d05f79f1a93e91d600304dc4a84c4bfc425d5fe7",
+    "flapsim/robot/IST_robot/meshes/slider.stl": "6b5d65bab8efc0b337fb1e374f9ecfdb4fc55e8837bf2b1c9b9db763d355cc0f",
+    "flapsim/robot/IST_robot/recalculate_inertials.py": "7d10830e8eb7ba30170dd0e1245452955d88be8d30667bfbcc1342e9f95a2c38",
+    "flapsim/robot/IST_robot/rectangular_inertials.json": "96daed69d218eec482b5b0f3dba97fd85a070ed8b79477c6f4efca179df02626",
+    "flapsim/robot/IST_robot/urdf/IST_robot.urdf": "19e94f288357893c87f0e1757aa49bfbbf7fc7922c83ab1de0fd73d75d0a4b24",
+    "flapsim/robot/IST_robot/urdf/IST_robot.xml": "67436dffa79d0c83bbe1cfe9f991611e51641cf162290082eb33812eb393afdf",
+    "flapsim/robot/IST_robot/urdf/IST_robot_rectangular.urdf": "d0d1d3216ee3cc72e96dda2b42ab6a491fccaf46e6d2bc4fa7da6acf54933ff8",
+    "flapsim/robot/IST_robot/urdf/IST_robot_rectangular.xml": "f75170ba11d9ae5e1e963ff8179f75b16dea84be495724d80f60ed879207cd56",
+    "flapsim/robot/IST_robot-V2/README.md": "bbad20e8c8a757678024b54a8404da8f5e1e34f32d2108bf6ddff5f85bcb80e8",
+    "flapsim/robot/IST_robot-V2/build_model.py": "cfebb36eaf85f7721f62a582b977e8244a4b6c782b0b05e4a15420ce1bb352f7",
+    "flapsim/robot/IST_robot-V2/meshes/mount_base.STL": "aa082029310ca05243845356af4d74ff927575fb1445e0b9a60207171aaaf914",
+    "flapsim/robot/IST_robot-V2/meshes/pitch_link.STL": "4d737632b862d3053574457b3fdeb7064e2083de9ebbc9c7ca2943f7ae8d32c6",
+    "flapsim/robot/IST_robot-V2/motor_reference.md": "db35460fc120219c1e16d2649fe5e113bc2d6c6d457a79108bbe59896dc473f7",
+    "flapsim/robot/IST_robot-V2/urdf/IST_robot-V2.urdf": "36a2000e89c1c4970037c6773410608799da14eea3dfc7cb64c262859bca86de",
+    "flapsim/robot/IST_robot-V2/urdf/IST_robot-V2.xml": "c3fcec3057491e3c1d91545d19ef8a436b7536d30aec954a91ce7b02152f7751",
+    "flapsim/robot/SingleThrustFlapper/meshes/base_link.STL": "aa082029310ca05243845356af4d74ff927575fb1445e0b9a60207171aaaf914",
+    "flapsim/robot/SingleThrustFlapper/meshes/left_arm.STL": "fb41658aef14b407a6d63c229502e521f305c1e5ed0a8ebf44472e78dbb92546",
+    "flapsim/robot/SingleThrustFlapper/meshes/left_wing.STL": "7b984643fff601e3555c2f83388e456307217f2d1bffda3383a8604a59c2ef03",
+    "flapsim/robot/SingleThrustFlapper/meshes/link1.STL": "4d737632b862d3053574457b3fdeb7064e2083de9ebbc9c7ca2943f7ae8d32c6",
+    "flapsim/robot/SingleThrustFlapper/meshes/link2.STL": "82ac7a8d5664df3dc844f6dc4c1bb669f662cb4b43983725f3b24ecba67087d3",
+    "flapsim/robot/SingleThrustFlapper/meshes/right_arm.STL": "bf6fb54cb2a9fdcb19d690bf513bfb21456ff8f65c78f25ed9e3ed3045ddc6ac",
+    "flapsim/robot/SingleThrustFlapper/meshes/right_wing.STL": "c18ab51b972e611ef6a5f3b9e1fca8b91c475c026796d037f7f41bc6156fb8b8",
+    "flapsim/robot/SingleThrustFlapper/urdf/SingleThrustFlapper.urdf": "b4c3041eaec72d54f439b9c3fdc488011e69290b6d61f90cd145efd6353102b9",
+    "flapsim/robot/SingleThrustFlapper-V2/meshes/base_link.STL": "6dc990a9ff13ec377df88af052553c8d1668703e4846ceb85ec73e1b1d8965fb",
+    "flapsim/robot/SingleThrustFlapper-V2/meshes/left_gear.STL": "8d17aa2f9216f49b9ffafdd033a08d3283f8003b638774ac3f8fa6694753270b",
+    "flapsim/robot/SingleThrustFlapper-V2/meshes/left_wing.STL": "1681e6ae3c9feb1226997e79c0ca0986a5bfbbceb4e5658326e174dd18bacbaf",
+    "flapsim/robot/SingleThrustFlapper-V2/meshes/right_gear.STL": "f694b5d0a87304eda08133a8b04a98044c5221a326e7423de8d5f05488742b45",
+    "flapsim/robot/SingleThrustFlapper-V2/meshes/right_wing.STL": "248eb5b00ff8e941eb050204dd2d6b46e63f26c6a3f1547a3e9095bf45657df7",
+    "flapsim/robot/SingleThrustFlapper-V2/urdf/SingleThrustFlapper-V2.urdf": "6b3f16842e93c77c1c26f6cc739eae8bfe48bb93d17bc7335fd692b2f440adf8",
+    "flapsim/sim_core.py": "6f469229942e46e88195153402efb5b5d9530754a8f91152f217e4cba2d49438",
+    "flapsim/simulator.py": "25d4939abbf28c2403dab6be3a93b9c488feadb7607795e752169d7a3bbfdda6"
+  },
+  "frozen_source": "/home/hemingshan/FlapSim/runs/robust_control/20261010_v3/frozen_source",
+  "final_tests_accessed": false,
+  "plant_asset_hashes": {
+    "calibration/trim.json": "447f1cf007a18a12406264736ea6b20fae12e99756cd957792f35190ee9b5caf",
+    "phase_bank.npz": "d786ea9ce091a3d623f157f7f26450828cfea6407f2d909b57943b5cbbeb719d",
+    "provenance.json": "caade96f31c2c4e85dbae64e83e3c7025f49fa83d4ec2c30b53a9bfaea1d99fb",
+    "robot_upper7_lower8.xml": "e841c2cf914b898d9db5a28d947893c9861f7e7f160d85a585763f7bd3cee10a",
+    "selected_pid.json": "ec162473f29b8fd6fbef5bff7aa5373276227be74214fd11bd6d2ecdbe8cb32b"
+  },
+  "final_counts": {
+    "nominal_20s": 16,
+    "stress_20s": 16,
+    "nominal_60s": 4,
+    "stress_60s": 4,
+    "factor_delay_20s": 8,
+    "factor_mass_20s": 8,
+    "factor_motor_20s": 8,
+    "ood_20s": 8,
+    "velocity_command_generalization_20s": 8
+  },
+  "robust_gate": {
+    "nominal": 0.9375,
+    "stress": 0.875,
+    "long_nominal": 1.0,
+    "long_stress": 0.75
+  },
+  "limits": [
+    "Simulation only; fixed teacher and prior shared across training seeds",
+    "Different direct and residual priors/authority; paired comparison tests complete control designs",
+    "NEAT allocated and consumed steps differ after early termination",
+    "Velocity task assumes an additional physical horizontal velocity sensor",
+    "No result may be rewritten to favor SNN or NEAT"
+  ],
+  "result_destination": "/home/hemingshan/FlapSim/artifacts/robust_control_20261010",
+  "publication": "local_only",
+  "repository": "/home/hemingshan/FlapSim",
+  "branch": "research/pid-residual-velocity-v3",
+  "git_commit_at_seal": "12a835c4e45254acfd3f144703a9ef4ee6e9cfeb"
+}
