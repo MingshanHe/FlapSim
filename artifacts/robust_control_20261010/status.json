@@ -10,12 +10,12 @@
   "total": 65,
   "steps_per_run": 3584000,
   "final_tests_accessed": false,
-  "heartbeat_unix": 1791635445.0937402,
+  "heartbeat_unix": 1791635665.1667798,
   "heartbeat_pid": 70635,
   "load_average": [
-    12.755859375,
-    8.28955078125,
-    8.3203125
+    13.68505859375,
+    11.5576171875,
+    9.68115234375
   ],
   "model_progress": {
     "training/hover_residual_snn_neat_seed6201": {
@@ -25,11 +25,12 @@
       "completed": false
     },
     "training/hover_residual_snn_ppo_seed6201": {
-      "update": 0,
-      "training_steps": 0,
+      "update": 4,
+      "loss": 0.06534672767007264,
+      "training_steps": 16000,
       "budget": 3584000,
       "completed": false
     }
   },
-  "host_cpu_percent": 100.0
+  "host_cpu_percent": 91.6
 }
