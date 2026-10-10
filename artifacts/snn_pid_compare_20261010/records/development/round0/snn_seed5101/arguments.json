@@ -1,0 +1,15 @@
+{
+  "kind": "snn",
+  "seed": 5101,
+  "hidden": 16,
+  "epochs": 30,
+  "window_steps": 500,
+  "batch": 8,
+  "lr": 0.002,
+  "data": [
+    "/home/hemingshan/FlapSim/runs/snn_pid_compare/20261010_v21/data/demo"
+  ],
+  "validation": "/home/hemingshan/FlapSim/runs/snn_pid_compare/20261010_v21/data/offline",
+  "initial": null,
+  "demonstration_samples": 320000
+}

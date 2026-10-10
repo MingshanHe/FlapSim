@@ -1,7 +1,12 @@
 # NEAT-SNN hovering study
 
-The accepted design is in `research_proposal.md`; the immutable execution contract
-is `artifacts/snn_hover_20261009/protocol.json`. Do not change frozen training code
+The accepted design for this residual-control campaign is archived in
+`artifacts/snn_hover_20261009/research_proposal_approved.md`; its immutable execution
+contract is `artifacts/snn_hover_20261009/protocol.json`. The repository-root
+`research_proposal.md` now describes a separate study comparing SNN/ANN with
+PPO/NEAT under PID-imitation-initialized direct control and matched PID-residual
+control. It does not revise or resume this paused campaign.
+Do not change frozen training code
 while the campaign runs. Historical `topology_hover` code and artifacts are reused
 without modification. All paths below are relative to the repository root.
 

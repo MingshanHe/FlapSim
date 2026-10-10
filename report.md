@@ -1,3 +1,11 @@
+<!-- snn-pid-v21:start -->
+## PID 模仿与 SNN ANN 对照（2026-10-10）
+
+当前状态：`imitation_training`；正式运行完成 0/40。[本轮 report.md](artifacts/snn_pid_compare_20261010/report.md) · [详细技术说明](artifacts/snn_pid_compare_20261010/technical_details.md)。
+
+使用原逐时间步计算；结果只提交本地新分支，由用户自行上传 GitHub。
+<!-- snn-pid-v21:end -->
+
 <!-- snn-stage-index -->
 # 本轮阶段结果与迁移
 

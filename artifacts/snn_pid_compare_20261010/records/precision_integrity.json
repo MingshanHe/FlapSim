@@ -1,0 +1,29 @@
+{
+  "unix": 1791621671.7356975,
+  "training_backend": "original_stepwise_torch_float64",
+  "custom_kernel_in_training": false,
+  "checks": {
+    "experiments/algorithms/snn_pid_compare/environment.py": {
+      "sha256": "58daa8f4a64eef488cd6c2be422093f71bd53cd6add95e7be54cb9084f89362a",
+      "matches_original": true
+    },
+    "experiments/algorithms/snn_pid_compare/networks.py": {
+      "sha256": "27f33545a6c6fdb5408af5051d8a69db9796e3e8588aefb6f6963a4b5b08dd10",
+      "matches_original": true
+    },
+    "experiments/algorithms/snn_pid_compare/imitation.py": {
+      "sha256": "c59b5188e0f7744396d92102d3ecb00a1d7f3215d1dcc22ad5bc4e243838fc74",
+      "matches_original": true
+    },
+    "experiments/algorithms/snn_pid_compare/train_ppo.py": {
+      "sha256": "fb152ac658ce4a2cfb6d754de511bb7564e1e4c0e30ba60718e39d57e3d362e1",
+      "matches_original": true
+    },
+    "experiments/algorithms/snn_pid_compare/train_neat.py": {
+      "sha256": "e94c47e42fd16dcbd195e3d405189b2f3abfd0411f697f76d111e180ce049775",
+      "matches_original": true
+    }
+  },
+  "unit_tests_passed": 18,
+  "legacy_frozen_files_unchanged": 67
+}
