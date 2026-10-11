@@ -6,6 +6,9 @@
 [研究报告](artifacts/robust_control_20261010/report.md)和
 [独立阶段报告](artifacts/robust_control_20261010/interim_20261012/report.md)分别记录实际进展。
 
+本分支 `research/wingbeat-synchronous-snn` 是独立的新研究线草案：[以翅拍为时钟的脉冲控制](research_proposal_wingbeat_snn.md)，
+目前只有仿真预研，[probe.py](experiments/algorithms/wingbeat_feasibility/probe.py) 可复算。v3 队列仍以交接文档为准。
+
 新增算法实验位于 [experiments/algorithms](experiments/algorithms/README.md)。
 [旧工作目录记录](START_HERE.md)和下文的 PPO 自由飞行示例保留作历史资料；
 旧 `ppo_v2` 因观测接口不同，不参与当前研究比较。
