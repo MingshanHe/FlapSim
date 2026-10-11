@@ -51,6 +51,43 @@ class VelocitySensor:
         self.count += 1
 
 
+class WingbeatPhase:
+    """Causal IMU-only wingbeat phase from the pitch gyro (500 Hz samples).
+
+    Sliding least-squares phase detector (fundamental + 2nd harmonic, 25
+    samples = 50 ms) inside a 2nd-order PLL of about 1.5 Hz bandwidth. The
+    constant gyro-to-crank offset is a one-time calibration, like a bench
+    calibration against an encoder. ``slow`` is the gyro with the fitted
+    wingbeat oscillation removed (an adaptive notch).
+    """
+    def __init__(self, offset=0., hz=25., window=25, kp=13., ki=89.):
+        self.theta, self.omega, self.offset = 0., 2*math.pi*hz, offset
+        self.buffer = deque(maxlen=window)
+        self.kp, self.ki, self.t, self.slow = kp, ki, None, 0.
+
+    def update(self, t, y):
+        if self.t is not None:
+            self.theta += self.omega*(t-self.t)
+        self.t = t
+        self.buffer.append((self.theta, y))
+        self.slow = y
+        if len(self.buffer) == self.buffer.maxlen:
+            theta = np.array([b[0] for b in self.buffer])
+            X = np.c_[np.cos(theta), np.sin(theta), np.cos(2*theta), np.sin(2*theta), np.ones_like(theta)]
+            coef, *_ = np.linalg.lstsq(X, np.array([b[1] for b in self.buffer]), rcond=None)
+            error = math.atan2(coef[1], coef[0])  # y ~ R cos(theta - error)
+            self.slow = y-float(X[-1, :4]@coef[:4])
+            self.theta -= self.kp*error*DT
+            self.omega -= self.ki*error*DT
+
+    def crank(self, t):
+        return self.theta+self.omega*(t-self.t)-self.offset
+
+
+def wrap(angle):
+    return (angle+math.pi) % (2*math.pi)-math.pi
+
+
 def com_velocity(m, d, body):
     mujoco.mj_subtreeVel(m, d)
     return d.subtree_linvel[body].copy()
@@ -78,6 +115,12 @@ def install(env):
         air.action += (1. if tau == 0 else 1.-math.exp(-DT/tau))*(command-air.action)
         air.predicted_gimbal += (1.-math.exp(-DT/.02))*(air.action[:2]-air.predicted_gimbal)
         t = air.steps*DT
+        estimator = st.get('estimator')
+        if estimator is not None:
+            estimator.update(float(sim.data.time), float(env.last_reading[4]))
+            if t >= 1.5:
+                st['phase_errors'].append(wrap(estimator.crank(sim.data.time)-sim.data.qpos[crank]))
+        imu_phase = estimator is not None and st.get('phase_source') == 'imu'
         gimbal = air.action[:2].copy()
         window = st.get('window')
         inside = bool(window) and window[0] <= t < window[1]
@@ -93,7 +136,8 @@ def install(env):
         sim.external_body_forces[body] += st['disturbance'](env, t)
         e = st['electric']
         for _ in range(blocks):
-            target = float(air.action[2]+amplitude*math.sin(sim.data.qpos[crank]+phase))
+            angle = estimator.crank(sim.data.time) if imu_phase else sim.data.qpos[crank]
+            target = float(air.action[2]+amplitude*math.sin(angle+phase))
             v = float(sim.data.qvel[dof])
             volt = c.resistance*(c.speed_gain*(target-v)/c.torque_constant+c.no_load_current*math.tanh(v))+c.back_emf*v
             saturated = abs(volt) >= c.max_voltage
@@ -153,6 +197,8 @@ def make_law(spec):
             return 0., 0.
         r = env.last_reading
         theta, q, yaw = r[1], r[4], r[2]
+        if law.get('rate') == 'notch':
+            q = env.drive['estimator'].slow
         forward = math.cos(yaw)*sensor.value[0]+math.sin(yaw)*sensor.value[1]
         u = -(k_theta*theta+k_q*q)-k_v*law['velocity_sign']*forward
         u = max(-1., min(1., u))
@@ -161,7 +207,9 @@ def make_law(spec):
         if law.get('jitter_deg'):
             phase += math.radians(law['jitter_deg'])*rng.standard_normal()
         if law.get('update') == 'wingbeat':
-            cycle = int(env.sim.data.joint('carrier_2_joint').qpos[0]//(2*math.pi))
+            angle = (env.drive['estimator'].crank(env.sim.data.time) if law.get('phase_source') == 'imu'
+                     else env.sim.data.joint('carrier_2_joint').qpos[0])
+            cycle = int(angle//(2*math.pi))
             if cycle != state['cycle']:
                 state['cycle'], state['latched'] = cycle, (amplitude, phase)
             return state['latched']
@@ -179,7 +227,9 @@ def run(spec):
     env.drive = dict(native=spec.get('native', False), window=spec.get('window'), hold=None,
                      gimbal_step=spec.get('gimbal_step', [0., 0.]), burst=spec.get('burst', (0., 0.)),
                      law=make_law(spec), disturbance=make_disturbance(spec.get('pulses', [])),
-                     sensor=VelocitySensor(spec['seed']), electric=electric)
+                     sensor=VelocitySensor(spec['seed']), electric=electric,
+                     estimator=WingbeatPhase(spec['phase_offset']) if 'phase_offset' in spec else None,
+                     phase_source=(spec.get('law') or {}).get('phase_source', 'crank'), phase_errors=[])
     env.reset(seed=c['seed'])
     m, d = env.sim.model, env.sim.data
     body, unit = env.air.env.body, m.body('thrust_unit').id
@@ -200,6 +250,12 @@ def run(spec):
                   electric={k: dict(mean_power_W=v['power']/max(v['n'], 1), peak_current_A=v['peak_current'],
                                     saturated_fraction=v['saturated']/max(v['n'], 1))
                             for k, v in electric.items()})
+    errors = np.asarray(env.drive['phase_errors'])
+    if len(errors):
+        mean = math.atan2(np.mean(np.sin(errors)), np.mean(np.cos(errors)))
+        result['phase_error_deg'] = dict(circular_mean=math.degrees(mean),
+                                         rms=math.degrees(float(np.sqrt(np.mean(errors**2)))),
+                                         p95_abs=math.degrees(float(np.quantile(np.abs(errors), .95))))
     if spec.get('trace'):
         keep = (rows[:, 0] >= spec['trace'][0]-.004) & (rows[:, 0] <= spec['trace'][1]+.004)
         result['trace'] = rows[keep].tolist()
@@ -302,6 +358,11 @@ def gust(force_mN):
     return [dict(t=3., duration=.15, force=force_mN*1e-3), dict(t=5.5, duration=.15, force=-force_mN*1e-3)]
 
 
+def e2_families():
+    return {'nominal': [], **{f'gust_{g}mN': gust(g) for g in (6., 20., 40., 80.)},
+            **{f'torque_{tq}uNm': [dict(t=3., duration=.05, torque=tq*1e-6)] for tq in (30., 100., 300.)}}
+
+
 def summarize(rows, keys=('tilt_rms_deg', 'pitch_peak_deg', 'foreaft_max_m', 'foreaft_final_m',
                           'foreaft_speed_rms_m_s', 'height_rmse_m')):
     groups = {}
@@ -359,9 +420,7 @@ def stage_e2(executor, e1, amplitude):
                                    r['pitch_peak_deg']/reference[r['spec']['seed']]['pitch_peak_deg'] for r in items]))
     best = min(scores, key=scores.get)
     law = dict(base_law, gains=list(grid[best]))
-    families = {'nominal': [], **{f'gust_{g}mN': gust(g) for g in (6., 20., 40., 80.)},
-                **{f'torque_{tq}uNm': [dict(t=3., duration=.05, torque=tq*1e-6)] for tq in (30., 100., 300.)}}
-    rows = list(executor.map(run, episode_specs(1000, families, {'B1_pid': None, 'B2_split': law})))
+    rows = list(executor.map(run, episode_specs(1000, e2_families(), {'B1_pid': None, 'B2_split': law})))
     return dict(chosen_phase=chosen, psi_rad=psi, velocity_sign=velocity_sign, amplitude=amplitude,
                 tuning=dict(grid=grid, score_relative_to_pid=scores, best=list(grid[best]), cases=4,
                             family='gust 40 mN', seeds=[SEED0+500+i for i in range(4)]),
@@ -384,9 +443,39 @@ def stage_e3(executor, e2):
                 episodes=[{k: v for k, v in r.items() if k != 'trace'} for r in rows])
 
 
+def stage_e4(executor, e2):
+    """IMU-only phase: calibrate the constant gyro-to-crank offset once, then rerun E2's exact cases."""
+    calibration = list(executor.map(run, [dict(seed=SEED0+4000+i, phase=i, seconds=4., family='calibration',
+                                               controller='B1_pid', law=None, pulses=[], phase_offset=0.)
+                                          for i in range(3)]))
+    means = np.radians([r['phase_error_deg']['circular_mean'] for r in calibration])
+    offset = math.atan2(np.mean(np.sin(means)), np.mean(np.cos(means)))
+    law = dict(e2['law'], phase_source='imu')
+    variants = {'B2_imu': law, 'B2_imu_notch': dict(law, rate='notch')}
+    specs = [dict(s, phase_offset=offset) for s in episode_specs(1000, e2_families(), variants)]
+    rows = list(executor.map(run, specs))
+    archived = e2['episodes']  # B1_pid and crank-phase B2_split on the same seeds, deterministic
+    everything = archived+rows
+    keys = ('pitch_peak_deg', 'tilt_rms_deg', 'foreaft_max_m', 'height_rmse_m')
+    tracking = {}
+    for name in variants:
+        stats = [r['phase_error_deg'] for r in rows if r['spec']['controller'] == name and 'phase_error_deg' in r]
+        tracking[name] = dict(episodes=len(stats), rms_deg_mean=float(np.mean([s['rms'] for s in stats])),
+                              p95_abs_deg_max=float(np.max([s['p95_abs'] for s in stats])),
+                              circular_mean_deg=float(np.mean([s['circular_mean'] for s in stats])))
+    return dict(offset_deg=math.degrees(offset),
+                calibration=[dict(seed=r['spec']['seed'], **r['phase_error_deg']) for r in calibration],
+                closed_loop_phase_tracking=tracking, law=law,
+                summary=summarize(everything),
+                paired={f'{a}__minus__{b}': {k: paired(everything, a, b, k) for k in keys}
+                        for a, b in [('B2_imu', 'B2_split'), ('B2_imu', 'B1_pid'),
+                                     ('B2_imu_notch', 'B2_imu'), ('B2_imu_notch', 'B1_pid')]},
+                episodes=[{k: v for k, v in r.items() if k != 'trace'} for r in rows])
+
+
 def main():
     p = argparse.ArgumentParser()
-    p.add_argument('stage', choices=['e1', 'e2', 'e3'])
+    p.add_argument('stage', choices=['e1', 'e2', 'e3', 'e4'])
     p.add_argument('--output', type=Path, required=True, help='directory for p0_*.json')
     p.add_argument('--scratch', type=Path, required=True, help='prepared plant source (outside the repo)')
     p.add_argument('--workers', type=int, default=18)
@@ -401,8 +490,10 @@ def main():
             result = stage_e1(executor)
         elif a.stage == 'e2':
             result = stage_e2(executor, json.loads((a.output/'p0_e1.json').read_text()), a.amplitude)
-        else:
+        elif a.stage == 'e3':
             result = stage_e3(executor, json.loads((a.output/'p0_e2.json').read_text()))
+        else:
+            result = stage_e4(executor, json.loads((a.output/'p0_e2.json').read_text()))
     (a.output/f'p0_{a.stage}.json').write_text(json.dumps(result, indent=1)+'\n')
     print(json.dumps({k: v for k, v in result.items() if k != 'episodes'}, indent=1)[:12000])
 
