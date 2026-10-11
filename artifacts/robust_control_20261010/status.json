@@ -1,36 +1,107 @@
 {
   "stage": "training",
-  "unix": 1791635356.2587733,
+  "unix": 1791699218.65947,
   "pid": 70635,
   "runs": [
-    "hover_residual_snn_neat_seed6201",
-    "hover_residual_snn_ppo_seed6201"
+    "hover_residual_ann_ppo_seed6203",
+    "hover_residual_snn_neat_seed6204"
   ],
-  "completed": 0,
+  "completed": 11,
   "total": 65,
   "steps_per_run": 3584000,
   "final_tests_accessed": false,
-  "heartbeat_unix": 1791635665.1667798,
+  "heartbeat_unix": 1791705545.1667876,
   "heartbeat_pid": 70635,
+  "host_cpu_percent": 78.8,
   "load_average": [
-    13.68505859375,
-    11.5576171875,
-    9.68115234375
+    13.8408203125,
+    13.34423828125,
+    13.166015625
   ],
   "model_progress": {
-    "training/hover_residual_snn_neat_seed6201": {
-      "generation": 0,
-      "training_steps": 0,
+    "training/hover_residual_ann_ppo_seed6203": {
+      "update": 717,
+      "loss": 0.004788725050274279,
+      "training_steps": 2868000,
       "budget": 3584000,
       "completed": false
     },
-    "training/hover_residual_snn_ppo_seed6201": {
-      "update": 4,
-      "loss": 0.06534672767007264,
-      "training_steps": 16000,
+    "training/hover_residual_snn_ppo_seed6202": {
+      "update": 896,
+      "loss": 0.006665534178039403,
+      "training_steps": 3584000,
+      "budget": 3584000,
+      "completed": true
+    },
+    "training/hover_residual_ann_ppo_seed6201": {
+      "update": 896,
+      "loss": 0.004331102512641146,
+      "training_steps": 3584000,
+      "budget": 3584000,
+      "completed": true
+    },
+    "training/hover_residual_ann_neat_seed6203": {
+      "generation": 12,
+      "training_steps": 3474764,
+      "budget": 3584000,
+      "completed": true
+    },
+    "training/hover_residual_ann_neat_seed6202": {
+      "generation": 12,
+      "training_steps": 3495425,
+      "budget": 3584000,
+      "completed": true
+    },
+    "training/hover_residual_snn_neat_seed6202": {
+      "generation": 12,
+      "training_steps": 3407293,
+      "budget": 3584000,
+      "completed": true
+    },
+    "training/hover_residual_snn_neat_seed6203": {
+      "generation": 12,
+      "training_steps": 3354644,
+      "budget": 3584000,
+      "completed": true
+    },
+    "training/hover_residual_snn_neat_seed6201": {
+      "generation": 12,
+      "training_steps": 3504915,
+      "budget": 3584000,
+      "completed": true
+    },
+    "training/hover_residual_snn_neat_seed6204": {
+      "generation": 10,
+      "training_steps": 2531486,
       "budget": 3584000,
       "completed": false
+    },
+    "training/hover_residual_ann_ppo_seed6202": {
+      "update": 896,
+      "loss": 0.005109159829296652,
+      "training_steps": 3584000,
+      "budget": 3584000,
+      "completed": true
+    },
+    "training/hover_residual_ann_neat_seed6201": {
+      "generation": 12,
+      "training_steps": 3526424,
+      "budget": 3584000,
+      "completed": true
+    },
+    "training/hover_residual_snn_ppo_seed6203": {
+      "update": 896,
+      "loss": 0.0053229253410093285,
+      "training_steps": 3584000,
+      "budget": 3584000,
+      "completed": true
+    },
+    "training/hover_residual_snn_ppo_seed6201": {
+      "update": 896,
+      "loss": 0.005728459967913901,
+      "training_steps": 3584000,
+      "budget": 3584000,
+      "completed": true
     }
-  },
-  "host_cpu_percent": 91.6
+  }
 }
