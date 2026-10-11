@@ -1,0 +1,3693 @@
+{
+ "summary": {
+  "gust_40mN": {
+   "B1_pid": {
+    "episodes": 8,
+    "completed": 0,
+    "terminations": [
+     "tilt",
+     "tilt",
+     "tilt",
+     "tilt",
+     "tilt",
+     "tilt",
+     "tilt",
+     "tilt"
+    ],
+    "tilt_rms_deg": null,
+    "pitch_peak_deg": null,
+    "foreaft_max_m": null,
+    "foreaft_final_m": null,
+    "foreaft_speed_rms_m_s": null,
+    "height_rmse_m": null,
+    "mean_power_W": 6.640996049605694,
+    "peak_current_A": 3.243061556569309
+   },
+   "B2_err180": {
+    "episodes": 8,
+    "completed": 0,
+    "terminations": [
+     "tilt",
+     "tilt",
+     "tilt",
+     "tilt",
+     "tilt",
+     "tilt",
+     "tilt",
+     "tilt"
+    ],
+    "tilt_rms_deg": null,
+    "pitch_peak_deg": null,
+    "foreaft_max_m": null,
+    "foreaft_final_m": null,
+    "foreaft_speed_rms_m_s": null,
+    "height_rmse_m": null,
+    "mean_power_W": 6.818469702522986,
+    "peak_current_A": 3.294284640430256
+   },
+   "B2_err30": {
+    "episodes": 8,
+    "completed": 0,
+    "terminations": [
+     "tilt",
+     "tilt",
+     "tilt",
+     "tilt",
+     "tilt",
+     "tilt",
+     "tilt",
+     "tilt"
+    ],
+    "tilt_rms_deg": null,
+    "pitch_peak_deg": null,
+    "foreaft_max_m": null,
+    "foreaft_final_m": null,
+    "foreaft_speed_rms_m_s": null,
+    "height_rmse_m": null,
+    "mean_power_W": 6.819638090144794,
+    "peak_current_A": 3.2375285040376767
+   },
+   "B2_err60": {
+    "episodes": 8,
+    "completed": 0,
+    "terminations": [
+     "height_escape",
+     "height_escape",
+     "height_escape",
+     "height_escape",
+     "height_escape",
+     "height_escape",
+     "height_escape",
+     "height_escape"
+    ],
+    "tilt_rms_deg": null,
+    "pitch_peak_deg": null,
+    "foreaft_max_m": null,
+    "foreaft_final_m": null,
+    "foreaft_speed_rms_m_s": null,
+    "height_rmse_m": null,
+    "mean_power_W": 6.9585739924463414,
+    "peak_current_A": 3.218757097742332
+   },
+   "B2_err90": {
+    "episodes": 8,
+    "completed": 0,
+    "terminations": [
+     "height_escape",
+     "height_escape",
+     "tilt",
+     "tilt",
+     "tilt",
+     "tilt",
+     "tilt",
+     "tilt"
+    ],
+    "tilt_rms_deg": null,
+    "pitch_peak_deg": null,
+    "foreaft_max_m": null,
+    "foreaft_final_m": null,
+    "foreaft_speed_rms_m_s": null,
+    "height_rmse_m": null,
+    "mean_power_W": 6.89177302870087,
+    "peak_current_A": 3.2424009949361823
+   },
+   "B2_jitter30": {
+    "episodes": 8,
+    "completed": 3,
+    "terminations": [
+     "tilt",
+     "tilt",
+     "tilt",
+     "tilt",
+     "tilt"
+    ],
+    "tilt_rms_deg": 23.58541417514564,
+    "pitch_peak_deg": 57.97034878879726,
+    "foreaft_max_m": 0.06753301874982483,
+    "foreaft_final_m": 0.016291592628763767,
+    "foreaft_speed_rms_m_s": 0.222238208837268,
+    "height_rmse_m": 0.09853729094557447,
+    "mean_power_W": 6.875334766416357,
+    "peak_current_A": 3.451350464901469
+   },
+   "B2_tick": {
+    "episodes": 8,
+    "completed": 8,
+    "terminations": [],
+    "tilt_rms_deg": 19.75241503515332,
+    "pitch_peak_deg": 56.22678946905265,
+    "foreaft_max_m": 0.06236675815419297,
+    "foreaft_final_m": 0.024899158175656175,
+    "foreaft_speed_rms_m_s": 0.18532566342670434,
+    "height_rmse_m": 0.10524272930699664,
+    "mean_power_W": 6.714856056998274,
+    "peak_current_A": 3.2496888637425654
+   },
+   "B2_wingbeat": {
+    "episodes": 8,
+    "completed": 8,
+    "terminations": [],
+    "tilt_rms_deg": 19.36836717728442,
+    "pitch_peak_deg": 53.87691181114059,
+    "foreaft_max_m": 0.5957944336156823,
+    "foreaft_final_m": 0.5956857888766457,
+    "foreaft_speed_rms_m_s": 0.20591499685724235,
+    "height_rmse_m": 0.07444373531591209,
+    "mean_power_W": 6.673156228087998,
+    "peak_current_A": 3.4514056557038453
+   }
+  }
+ },
+ "paired_minus_tick": {
+  "B1_pid": {
+   "foreaft_max_m": {
+    "gust_40mN": {
+     "mean": null,
+     "better": 0,
+     "n": 0,
+     "failures": {
+      "B1_pid": 8,
+      "B2_tick": 0
+     }
+    }
+   },
+   "pitch_peak_deg": {
+    "gust_40mN": {
+     "mean": null,
+     "better": 0,
+     "n": 0,
+     "failures": {
+      "B1_pid": 8,
+      "B2_tick": 0
+     }
+    }
+   }
+  },
+  "B2_wingbeat": {
+   "foreaft_max_m": {
+    "gust_40mN": {
+     "mean": 0.5334276754614894,
+     "better": 0,
+     "n": 8,
+     "failures": {
+      "B2_wingbeat": 0,
+      "B2_tick": 0
+     }
+    }
+   },
+   "pitch_peak_deg": {
+    "gust_40mN": {
+     "mean": -2.3498776579120593,
+     "better": 7,
+     "n": 8,
+     "failures": {
+      "B2_wingbeat": 0,
+      "B2_tick": 0
+     }
+    }
+   }
+  },
+  "B2_jitter30": {
+   "foreaft_max_m": {
+    "gust_40mN": {
+     "mean": 0.006672865723886839,
+     "better": 2,
+     "n": 3,
+     "failures": {
+      "B2_jitter30": 5,
+      "B2_tick": 0
+     }
+    }
+   },
+   "pitch_peak_deg": {
+    "gust_40mN": {
+     "mean": 1.792631360919664,
+     "better": 0,
+     "n": 3,
+     "failures": {
+      "B2_jitter30": 5,
+      "B2_tick": 0
+     }
+    }
+   }
+  },
+  "B2_err30": {
+   "foreaft_max_m": {
+    "gust_40mN": {
+     "mean": null,
+     "better": 0,
+     "n": 0,
+     "failures": {
+      "B2_err30": 8,
+      "B2_tick": 0
+     }
+    }
+   },
+   "pitch_peak_deg": {
+    "gust_40mN": {
+     "mean": null,
+     "better": 0,
+     "n": 0,
+     "failures": {
+      "B2_err30": 8,
+      "B2_tick": 0
+     }
+    }
+   }
+  },
+  "B2_err60": {
+   "foreaft_max_m": {
+    "gust_40mN": {
+     "mean": null,
+     "better": 0,
+     "n": 0,
+     "failures": {
+      "B2_err60": 8,
+      "B2_tick": 0
+     }
+    }
+   },
+   "pitch_peak_deg": {
+    "gust_40mN": {
+     "mean": null,
+     "better": 0,
+     "n": 0,
+     "failures": {
+      "B2_err60": 8,
+      "B2_tick": 0
+     }
+    }
+   }
+  },
+  "B2_err90": {
+   "foreaft_max_m": {
+    "gust_40mN": {
+     "mean": null,
+     "better": 0,
+     "n": 0,
+     "failures": {
+      "B2_err90": 8,
+      "B2_tick": 0
+     }
+    }
+   },
+   "pitch_peak_deg": {
+    "gust_40mN": {
+     "mean": null,
+     "better": 0,
+     "n": 0,
+     "failures": {
+      "B2_err90": 8,
+      "B2_tick": 0
+     }
+    }
+   }
+  },
+  "B2_err180": {
+   "foreaft_max_m": {
+    "gust_40mN": {
+     "mean": null,
+     "better": 0,
+     "n": 0,
+     "failures": {
+      "B2_err180": 8,
+      "B2_tick": 0
+     }
+    }
+   },
+   "pitch_peak_deg": {
+    "gust_40mN": {
+     "mean": null,
+     "better": 0,
+     "n": 0,
+     "failures": {
+      "B2_err180": 8,
+      "B2_tick": 0
+     }
+    }
+   }
+  }
+ },
+ "episodes": [
+  {
+   "spec": {
+    "seed": 1950002000,
+    "phase": 0,
+    "seconds": 8.0,
+    "family": "gust_40mN",
+    "controller": "B1_pid",
+    "law": null
+   },
+   "pulses": [
+    {
+     "t": 3.0,
+     "duration": 0.15,
+     "force": 0.04
+    },
+    {
+     "t": 5.5,
+     "duration": 0.15,
+     "force": -0.04
+    }
+   ],
+   "termination": "tilt",
+   "elapsed": 3.212,
+   "height_rmse_m": 0.08972315918643538,
+   "electric": {
+    "all": {
+     "mean_power_W": 6.614435803494555,
+     "peak_current_A": 3.2120231204729137,
+     "saturated_fraction": 0.05930884184308842
+    },
+    "window": {
+     "mean_power_W": 0.0,
+     "peak_current_A": 0.0,
+     "saturated_fraction": 0.0
+    }
+   },
+   "tilt_rms_deg": 19.523699284251133,
+   "pitch_peak_deg": 81.09397094778843,
+   "foreaft_max_m": 0.030136808725886446,
+   "foreaft_final_m": 0.0241756150789027,
+   "horizontal_final_m": 0.02937874038490528,
+   "foreaft_speed_rms_m_s": 0.13527232883024753
+  },
+  {
+   "spec": {
+    "seed": 1950002000,
+    "phase": 0,
+    "seconds": 8.0,
+    "family": "gust_40mN",
+    "controller": "B2_tick",
+    "law": {
+     "amplitude": 300.0,
+     "psi": 4.71238898038469,
+     "velocity_sign": 1.0,
+     "start": 1.0,
+     "gains": [
+      5.0,
+      0.2,
+      0.0
+     ]
+    }
+   },
+   "pulses": [
+    {
+     "t": 3.0,
+     "duration": 0.15,
+     "force": 0.04
+    },
+    {
+     "t": 5.5,
+     "duration": 0.15,
+     "force": -0.04
+    }
+   ],
+   "termination": "time_limit",
+   "elapsed": 8.0,
+   "height_rmse_m": 0.1046208934965964,
+   "electric": {
+    "all": {
+     "mean_power_W": 6.7084020900054835,
+     "peak_current_A": 3.2431846111367415,
+     "saturated_fraction": 0.06625
+    },
+    "window": {
+     "mean_power_W": 0.0,
+     "peak_current_A": 0.0,
+     "saturated_fraction": 0.0
+    }
+   },
+   "tilt_rms_deg": 19.51032280342212,
+   "pitch_peak_deg": 56.18499707800744,
+   "foreaft_max_m": 0.05923856340021126,
+   "foreaft_final_m": 0.033796547631718625,
+   "horizontal_final_m": 0.09920382886770467,
+   "foreaft_speed_rms_m_s": 0.1839702706935278
+  },
+  {
+   "spec": {
+    "seed": 1950002000,
+    "phase": 0,
+    "seconds": 8.0,
+    "family": "gust_40mN",
+    "controller": "B2_wingbeat",
+    "law": {
+     "amplitude": 300.0,
+     "psi": 4.71238898038469,
+     "velocity_sign": 1.0,
+     "start": 1.0,
+     "gains": [
+      5.0,
+      0.2,
+      0.0
+     ],
+     "update": "wingbeat"
+    }
+   },
+   "pulses": [
+    {
+     "t": 3.0,
+     "duration": 0.15,
+     "force": 0.04
+    },
+    {
+     "t": 5.5,
+     "duration": 0.15,
+     "force": -0.04
+    }
+   ],
+   "termination": "time_limit",
+   "elapsed": 8.0,
+   "height_rmse_m": 0.0802628990471602,
+   "electric": {
+    "all": {
+     "mean_power_W": 6.6954149766001265,
+     "peak_current_A": 3.4454789276961786,
+     "saturated_fraction": 0.05540625
+    },
+    "window": {
+     "mean_power_W": 0.0,
+     "peak_current_A": 0.0,
+     "saturated_fraction": 0.0
+    }
+   },
+   "tilt_rms_deg": 21.274083834012938,
+   "pitch_peak_deg": 56.16047159111252,
+   "foreaft_max_m": 0.6072727484862479,
+   "foreaft_final_m": 0.6072727484862479,
+   "horizontal_final_m": 0.6169685424785334,
+   "foreaft_speed_rms_m_s": 0.21841624232021992
+  },
+  {
+   "spec": {
+    "seed": 1950002000,
+    "phase": 0,
+    "seconds": 8.0,
+    "family": "gust_40mN",
+    "controller": "B2_jitter30",
+    "law": {
+     "amplitude": 300.0,
+     "psi": 4.71238898038469,
+     "velocity_sign": 1.0,
+     "start": 1.0,
+     "gains": [
+      5.0,
+      0.2,
+      0.0
+     ],
+     "jitter_deg": 30.0
+    }
+   },
+   "pulses": [
+    {
+     "t": 3.0,
+     "duration": 0.15,
+     "force": 0.04
+    },
+    {
+     "t": 5.5,
+     "duration": 0.15,
+     "force": -0.04
+    }
+   ],
+   "termination": "tilt",
+   "elapsed": 7.474,
+   "height_rmse_m": 0.14243400617904609,
+   "electric": {
+    "all": {
+     "mean_power_W": 6.94273590737665,
+     "peak_current_A": 3.3674367622414256,
+     "saturated_fraction": 0.11988225849611989
+    },
+    "window": {
+     "mean_power_W": 0.0,
+     "peak_current_A": 0.0,
+     "saturated_fraction": 0.0
+    }
+   },
+   "tilt_rms_deg": 32.24170060788884,
+   "pitch_peak_deg": 62.57723439850179,
+   "foreaft_max_m": 0.15460864212487768,
+   "foreaft_final_m": 0.15460864212487768,
+   "horizontal_final_m": 0.16755140797569715,
+   "foreaft_speed_rms_m_s": 0.33061893143278165
+  },
+  {
+   "spec": {
+    "seed": 1950002000,
+    "phase": 0,
+    "seconds": 8.0,
+    "family": "gust_40mN",
+    "controller": "B2_err30",
+    "law": {
+     "amplitude": 300.0,
+     "psi": 4.71238898038469,
+     "velocity_sign": 1.0,
+     "start": 1.0,
+     "gains": [
+      5.0,
+      0.2,
+      0.0
+     ],
+     "phase_error_deg": 30.0
+    }
+   },
+   "pulses": [
+    {
+     "t": 3.0,
+     "duration": 0.15,
+     "force": 0.04
+    },
+    {
+     "t": 5.5,
+     "duration": 0.15,
+     "force": -0.04
+    }
+   ],
+   "termination": "tilt",
+   "elapsed": 3.54,
+   "height_rmse_m": 0.4299726631962699,
+   "electric": {
+    "all": {
+     "mean_power_W": 6.791759814107906,
+     "peak_current_A": 3.2120231204729137,
+     "saturated_fraction": 0.05409604519774011
+    },
+    "window": {
+     "mean_power_W": 0.0,
+     "peak_current_A": 0.0,
+     "saturated_fraction": 0.0
+    }
+   },
+   "tilt_rms_deg": 28.182830593676385,
+   "pitch_peak_deg": 81.84497753984459,
+   "foreaft_max_m": 0.18441686982613154,
+   "foreaft_final_m": 0.18441686982613154,
+   "horizontal_final_m": 0.18532416931449092,
+   "foreaft_speed_rms_m_s": 0.35057702975782173
+  },
+  {
+   "spec": {
+    "seed": 1950002000,
+    "phase": 0,
+    "seconds": 8.0,
+    "family": "gust_40mN",
+    "controller": "B2_err60",
+    "law": {
+     "amplitude": 300.0,
+     "psi": 4.71238898038469,
+     "velocity_sign": 1.0,
+     "start": 1.0,
+     "gains": [
+      5.0,
+      0.2,
+      0.0
+     ],
+     "phase_error_deg": 60.0
+    }
+   },
+   "pulses": [
+    {
+     "t": 3.0,
+     "duration": 0.15,
+     "force": 0.04
+    },
+    {
+     "t": 5.5,
+     "duration": 0.15,
+     "force": -0.04
+    }
+   ],
+   "termination": "height_escape",
+   "elapsed": 2.996,
+   "height_rmse_m": 0.42089851522490523,
+   "electric": {
+    "all": {
+     "mean_power_W": 6.953831990547434,
+     "peak_current_A": 3.2120231204729137,
+     "saturated_fraction": 0.06358477970627503
+    },
+    "window": {
+     "mean_power_W": 0.0,
+     "peak_current_A": 0.0,
+     "saturated_fraction": 0.0
+    }
+   },
+   "tilt_rms_deg": 4.088556536412089,
+   "pitch_peak_deg": NaN,
+   "foreaft_max_m": 0.017420731599262048,
+   "foreaft_final_m": 0.003075550654641512,
+   "horizontal_final_m": 0.016931184003756577,
+   "foreaft_speed_rms_m_s": 0.11463129265498309
+  },
+  {
+   "spec": {
+    "seed": 1950002000,
+    "phase": 0,
+    "seconds": 8.0,
+    "family": "gust_40mN",
+    "controller": "B2_err90",
+    "law": {
+     "amplitude": 300.0,
+     "psi": 4.71238898038469,
+     "velocity_sign": 1.0,
+     "start": 1.0,
+     "gains": [
+      5.0,
+      0.2,
+      0.0
+     ],
+     "phase_error_deg": 90.0
+    }
+   },
+   "pulses": [
+    {
+     "t": 3.0,
+     "duration": 0.15,
+     "force": 0.04
+    },
+    {
+     "t": 5.5,
+     "duration": 0.15,
+     "force": -0.04
+    }
+   ],
+   "termination": "tilt",
+   "elapsed": 3.182,
+   "height_rmse_m": 0.3794632179488479,
+   "electric": {
+    "all": {
+     "mean_power_W": 6.855094661099027,
+     "peak_current_A": 3.235050477695858,
+     "saturated_fraction": 0.06505342551854179
+    },
+    "window": {
+     "mean_power_W": 0.0,
+     "peak_current_A": 0.0,
+     "saturated_fraction": 0.0
+    }
+   },
+   "tilt_rms_deg": 33.36128274198864,
+   "pitch_peak_deg": 81.00961084015046,
+   "foreaft_max_m": 0.14149577199145266,
+   "foreaft_final_m": 0.14149577199145266,
+   "horizontal_final_m": 0.1426780772963711,
+   "foreaft_speed_rms_m_s": 0.5712381983683504
+  },
+  {
+   "spec": {
+    "seed": 1950002000,
+    "phase": 0,
+    "seconds": 8.0,
+    "family": "gust_40mN",
+    "controller": "B2_err180",
+    "law": {
+     "amplitude": 300.0,
+     "psi": 4.71238898038469,
+     "velocity_sign": 1.0,
+     "start": 1.0,
+     "gains": [
+      5.0,
+      0.2,
+      0.0
+     ],
+     "phase_error_deg": 180.0
+    }
+   },
+   "pulses": [
+    {
+     "t": 3.0,
+     "duration": 0.15,
+     "force": 0.04
+    },
+    {
+     "t": 5.5,
+     "duration": 0.15,
+     "force": -0.04
+    }
+   ],
+   "termination": "tilt",
+   "elapsed": 2.02,
+   "height_rmse_m": 0.11753168188544699,
+   "electric": {
+    "all": {
+     "mean_power_W": 6.820288339927974,
+     "peak_current_A": 3.266685516141064,
+     "saturated_fraction": 0.12722772277227723
+    },
+    "window": {
+     "mean_power_W": 0.0,
+     "peak_current_A": 0.0,
+     "saturated_fraction": 0.0
+    }
+   },
+   "tilt_rms_deg": 76.1193148043391,
+   "pitch_peak_deg": NaN,
+   "foreaft_max_m": 0.0007162891415739973,
+   "foreaft_final_m": 0.0007162891415739973,
+   "horizontal_final_m": 0.0007742242872389295,
+   "foreaft_speed_rms_m_s": 0.09650251290858772
+  },
+  {
+   "spec": {
+    "seed": 1950002001,
+    "phase": 1,
+    "seconds": 8.0,
+    "family": "gust_40mN",
+    "controller": "B1_pid",
+    "law": null
+   },
+   "pulses": [
+    {
+     "t": 3.0,
+     "duration": 0.15,
+     "force": 0.04
+    },
+    {
+     "t": 5.5,
+     "duration": 0.15,
+     "force": -0.04
+    }
+   ],
+   "termination": "tilt",
+   "elapsed": 3.248,
+   "height_rmse_m": 0.08587282531808847,
+   "electric": {
+    "all": {
+     "mean_power_W": 6.605841856996915,
+     "peak_current_A": 3.2180650699484463,
+     "saturated_fraction": 0.052647783251231525
+    },
+    "window": {
+     "mean_power_W": 0.0,
+     "peak_current_A": 0.0,
+     "saturated_fraction": 0.0
+    }
+   },
+   "tilt_rms_deg": 22.259794441799443,
+   "pitch_peak_deg": 80.93887461043452,
+   "foreaft_max_m": 0.013108851496870872,
+   "foreaft_final_m": 0.00952319683316903,
+   "horizontal_final_m": 0.02055657542533519,
+   "foreaft_speed_rms_m_s": 0.14180467442592845
+  },
+  {
+   "spec": {
+    "seed": 1950002001,
+    "phase": 1,
+    "seconds": 8.0,
+    "family": "gust_40mN",
+    "controller": "B2_tick",
+    "law": {
+     "amplitude": 300.0,
+     "psi": 4.71238898038469,
+     "velocity_sign": 1.0,
+     "start": 1.0,
+     "gains": [
+      5.0,
+      0.2,
+      0.0
+     ]
+    }
+   },
+   "pulses": [
+    {
+     "t": 3.0,
+     "duration": 0.15,
+     "force": 0.04
+    },
+    {
+     "t": 5.5,
+     "duration": 0.15,
+     "force": -0.04
+    }
+   ],
+   "termination": "time_limit",
+   "elapsed": 8.0,
+   "height_rmse_m": 0.10255391627678026,
+   "electric": {
+    "all": {
+     "mean_power_W": 6.713526218120462,
+     "peak_current_A": 3.2479187490751737,
+     "saturated_fraction": 0.06525
+    },
+    "window": {
+     "mean_power_W": 0.0,
+     "peak_current_A": 0.0,
+     "saturated_fraction": 0.0
+    }
+   },
+   "tilt_rms_deg": 19.48156671827679,
+   "pitch_peak_deg": 56.37982291327067,
+   "foreaft_max_m": 0.06171302875937271,
+   "foreaft_final_m": 0.027342445137714614,
+   "horizontal_final_m": 0.10141577893317402,
+   "foreaft_speed_rms_m_s": 0.18397732378393566
+  },
+  {
+   "spec": {
+    "seed": 1950002001,
+    "phase": 1,
+    "seconds": 8.0,
+    "family": "gust_40mN",
+    "controller": "B2_wingbeat",
+    "law": {
+     "amplitude": 300.0,
+     "psi": 4.71238898038469,
+     "velocity_sign": 1.0,
+     "start": 1.0,
+     "gains": [
+      5.0,
+      0.2,
+      0.0
+     ],
+     "update": "wingbeat"
+    }
+   },
+   "pulses": [
+    {
+     "t": 3.0,
+     "duration": 0.15,
+     "force": 0.04
+    },
+    {
+     "t": 5.5,
+     "duration": 0.15,
+     "force": -0.04
+    }
+   ],
+   "termination": "time_limit",
+   "elapsed": 8.0,
+   "height_rmse_m": 0.0615735865697798,
+   "electric": {
+    "all": {
+     "mean_power_W": 6.644804556560821,
+     "peak_current_A": 3.3556303935056166,
+     "saturated_fraction": 0.046875
+    },
+    "window": {
+     "mean_power_W": 0.0,
+     "peak_current_A": 0.0,
+     "saturated_fraction": 0.0
+    }
+   },
+   "tilt_rms_deg": 17.89445352633209,
+   "pitch_peak_deg": 53.891805455795506,
+   "foreaft_max_m": 0.6330529861457784,
+   "foreaft_final_m": 0.6330529861457784,
+   "horizontal_final_m": 0.6434334302017529,
+   "foreaft_speed_rms_m_s": 0.19880274470019774
+  },
+  {
+   "spec": {
+    "seed": 1950002001,
+    "phase": 1,
+    "seconds": 8.0,
+    "family": "gust_40mN",
+    "controller": "B2_jitter30",
+    "law": {
+     "amplitude": 300.0,
+     "psi": 4.71238898038469,
+     "velocity_sign": 1.0,
+     "start": 1.0,
+     "gains": [
+      5.0,
+      0.2,
+      0.0
+     ],
+     "jitter_deg": 30.0
+    }
+   },
+   "pulses": [
+    {
+     "t": 3.0,
+     "duration": 0.15,
+     "force": 0.04
+    },
+    {
+     "t": 5.5,
+     "duration": 0.15,
+     "force": -0.04
+    }
+   ],
+   "termination": "tilt",
+   "elapsed": 7.492,
+   "height_rmse_m": 0.1390138174094558,
+   "electric": {
+    "all": {
+     "mean_power_W": 6.992637111878626,
+     "peak_current_A": 3.451350464901469,
+     "saturated_fraction": 0.12863721302722905
+    },
+    "window": {
+     "mean_power_W": 0.0,
+     "peak_current_A": 0.0,
+     "saturated_fraction": 0.0
+    }
+   },
+   "tilt_rms_deg": 34.33231672836322,
+   "pitch_peak_deg": 62.08767488914802,
+   "foreaft_max_m": 0.12937297165443568,
+   "foreaft_final_m": 0.12937297165443568,
+   "horizontal_final_m": 0.1386124932894368,
+   "foreaft_speed_rms_m_s": 0.35159111704955315
+  },
+  {
+   "spec": {
+    "seed": 1950002001,
+    "phase": 1,
+    "seconds": 8.0,
+    "family": "gust_40mN",
+    "controller": "B2_err30",
+    "law": {
+     "amplitude": 300.0,
+     "psi": 4.71238898038469,
+     "velocity_sign": 1.0,
+     "start": 1.0,
+     "gains": [
+      5.0,
+      0.2,
+      0.0
+     ],
+     "phase_error_deg": 30.0
+    }
+   },
+   "pulses": [
+    {
+     "t": 3.0,
+     "duration": 0.15,
+     "force": 0.04
+    },
+    {
+     "t": 5.5,
+     "duration": 0.15,
+     "force": -0.04
+    }
+   ],
+   "termination": "tilt",
+   "elapsed": 3.5340000000000003,
+   "height_rmse_m": 0.4239122801106117,
+   "electric": {
+    "all": {
+     "mean_power_W": 6.803510756333489,
+     "peak_current_A": 3.2375285040376767,
+     "saturated_fraction": 0.05241935483870968
+    },
+    "window": {
+     "mean_power_W": 0.0,
+     "peak_current_A": 0.0,
+     "saturated_fraction": 0.0
+    }
+   },
+   "tilt_rms_deg": 27.967589991720914,
+   "pitch_peak_deg": 81.93331423832497,
+   "foreaft_max_m": 0.18229566798701882,
+   "foreaft_final_m": 0.18229566798701882,
+   "horizontal_final_m": 0.18342839075357678,
+   "foreaft_speed_rms_m_s": 0.34956652950780276
+  },
+  {
+   "spec": {
+    "seed": 1950002001,
+    "phase": 1,
+    "seconds": 8.0,
+    "family": "gust_40mN",
+    "controller": "B2_err60",
+    "law": {
+     "amplitude": 300.0,
+     "psi": 4.71238898038469,
+     "velocity_sign": 1.0,
+     "start": 1.0,
+     "gains": [
+      5.0,
+      0.2,
+      0.0
+     ],
+     "phase_error_deg": 60.0
+    }
+   },
+   "pulses": [
+    {
+     "t": 3.0,
+     "duration": 0.15,
+     "force": 0.04
+    },
+    {
+     "t": 5.5,
+     "duration": 0.15,
+     "force": -0.04
+    }
+   ],
+   "termination": "height_escape",
+   "elapsed": 2.996,
+   "height_rmse_m": 0.41987173476900885,
+   "electric": {
+    "all": {
+     "mean_power_W": 6.950968523323373,
+     "peak_current_A": 3.2180650699484463,
+     "saturated_fraction": 0.05707610146862483
+    },
+    "window": {
+     "mean_power_W": 0.0,
+     "peak_current_A": 0.0,
+     "saturated_fraction": 0.0
+    }
+   },
+   "tilt_rms_deg": 3.208988455055573,
+   "pitch_peak_deg": NaN,
+   "foreaft_max_m": 0.0034645454037709176,
+   "foreaft_final_m": 0.0008834563468095338,
+   "horizontal_final_m": 0.017404413261888147,
+   "foreaft_speed_rms_m_s": 0.10708415816629754
+  },
+  {
+   "spec": {
+    "seed": 1950002001,
+    "phase": 1,
+    "seconds": 8.0,
+    "family": "gust_40mN",
+    "controller": "B2_err90",
+    "law": {
+     "amplitude": 300.0,
+     "psi": 4.71238898038469,
+     "velocity_sign": 1.0,
+     "start": 1.0,
+     "gains": [
+      5.0,
+      0.2,
+      0.0
+     ],
+     "phase_error_deg": 90.0
+    }
+   },
+   "pulses": [
+    {
+     "t": 3.0,
+     "duration": 0.15,
+     "force": 0.04
+    },
+    {
+     "t": 5.5,
+     "duration": 0.15,
+     "force": -0.04
+    }
+   ],
+   "termination": "height_escape",
+   "elapsed": 3.106,
+   "height_rmse_m": 0.42762775375944195,
+   "electric": {
+    "all": {
+     "mean_power_W": 6.910126387545468,
+     "peak_current_A": 3.2180650699484463,
+     "saturated_fraction": 0.05505473277527367
+    },
+    "window": {
+     "mean_power_W": 0.0,
+     "peak_current_A": 0.0,
+     "saturated_fraction": 0.0
+    }
+   },
+   "tilt_rms_deg": 6.581588409441708,
+   "pitch_peak_deg": 28.135127393222447,
+   "foreaft_max_m": 0.032348715464933106,
+   "foreaft_final_m": 0.029061508943992176,
+   "horizontal_final_m": 0.03462909338173,
+   "foreaft_speed_rms_m_s": 0.13709917498144258
+  },
+  {
+   "spec": {
+    "seed": 1950002001,
+    "phase": 1,
+    "seconds": 8.0,
+    "family": "gust_40mN",
+    "controller": "B2_err180",
+    "law": {
+     "amplitude": 300.0,
+     "psi": 4.71238898038469,
+     "velocity_sign": 1.0,
+     "start": 1.0,
+     "gains": [
+      5.0,
+      0.2,
+      0.0
+     ],
+     "phase_error_deg": 180.0
+    }
+   },
+   "pulses": [
+    {
+     "t": 3.0,
+     "duration": 0.15,
+     "force": 0.04
+    },
+    {
+     "t": 5.5,
+     "duration": 0.15,
+     "force": -0.04
+    }
+   ],
+   "termination": "tilt",
+   "elapsed": 2.654,
+   "height_rmse_m": 0.1099232459638116,
+   "electric": {
+    "all": {
+     "mean_power_W": 6.8035122364208735,
+     "peak_current_A": 3.2574766812445457,
+     "saturated_fraction": 0.10352298417483044
+    },
+    "window": {
+     "mean_power_W": 0.0,
+     "peak_current_A": 0.0,
+     "saturated_fraction": 0.0
+    }
+   },
+   "tilt_rms_deg": 38.37254626631299,
+   "pitch_peak_deg": NaN,
+   "foreaft_max_m": 0.2585426909895369,
+   "foreaft_final_m": 0.2585426909895369,
+   "horizontal_final_m": 0.2586672939340699,
+   "foreaft_speed_rms_m_s": 0.6749218359028251
+  },
+  {
+   "spec": {
+    "seed": 1950002002,
+    "phase": 2,
+    "seconds": 8.0,
+    "family": "gust_40mN",
+    "controller": "B1_pid",
+    "law": null
+   },
+   "pulses": [
+    {
+     "t": 3.0,
+     "duration": 0.15,
+     "force": 0.04
+    },
+    {
+     "t": 5.5,
+     "duration": 0.15,
+     "force": -0.04
+    }
+   ],
+   "termination": "tilt",
+   "elapsed": 3.496,
+   "height_rmse_m": 0.0946815658043709,
+   "electric": {
+    "all": {
+     "mean_power_W": 6.690193053762458,
+     "peak_current_A": 3.236351738061032,
+     "saturated_fraction": 0.07751716247139588
+    },
+    "window": {
+     "mean_power_W": 0.0,
+     "peak_current_A": 0.0,
+     "saturated_fraction": 0.0
+    }
+   },
+   "tilt_rms_deg": 28.466695626664073,
+   "pitch_peak_deg": 80.49050416979107,
+   "foreaft_max_m": 0.2841446627995808,
+   "foreaft_final_m": 0.2841446627995808,
+   "horizontal_final_m": 0.2846625680689271,
+   "foreaft_speed_rms_m_s": 0.4474054795370733
+  },
+  {
+   "spec": {
+    "seed": 1950002002,
+    "phase": 2,
+    "seconds": 8.0,
+    "family": "gust_40mN",
+    "controller": "B2_tick",
+    "law": {
+     "amplitude": 300.0,
+     "psi": 4.71238898038469,
+     "velocity_sign": 1.0,
+     "start": 1.0,
+     "gains": [
+      5.0,
+      0.2,
+      0.0
+     ]
+    }
+   },
+   "pulses": [
+    {
+     "t": 3.0,
+     "duration": 0.15,
+     "force": 0.04
+    },
+    {
+     "t": 5.5,
+     "duration": 0.15,
+     "force": -0.04
+    }
+   ],
+   "termination": "time_limit",
+   "elapsed": 8.0,
+   "height_rmse_m": 0.10462751122186577,
+   "electric": {
+    "all": {
+     "mean_power_W": 6.710318426269506,
+     "peak_current_A": 3.2480372674680105,
+     "saturated_fraction": 0.07040625
+    },
+    "window": {
+     "mean_power_W": 0.0,
+     "peak_current_A": 0.0,
+     "saturated_fraction": 0.0
+    }
+   },
+   "tilt_rms_deg": 19.28259713658457,
+   "pitch_peak_deg": 56.15076260607759,
+   "foreaft_max_m": 0.05218602861474773,
+   "foreaft_final_m": 0.011328640373824882,
+   "horizontal_final_m": 0.09952293229018778,
+   "foreaft_speed_rms_m_s": 0.1822519067790875
+  },
+  {
+   "spec": {
+    "seed": 1950002002,
+    "phase": 2,
+    "seconds": 8.0,
+    "family": "gust_40mN",
+    "controller": "B2_wingbeat",
+    "law": {
+     "amplitude": 300.0,
+     "psi": 4.71238898038469,
+     "velocity_sign": 1.0,
+     "start": 1.0,
+     "gains": [
+      5.0,
+      0.2,
+      0.0
+     ],
+     "update": "wingbeat"
+    }
+   },
+   "pulses": [
+    {
+     "t": 3.0,
+     "duration": 0.15,
+     "force": 0.04
+    },
+    {
+     "t": 5.5,
+     "duration": 0.15,
+     "force": -0.04
+    }
+   ],
+   "termination": "time_limit",
+   "elapsed": 8.0,
+   "height_rmse_m": 0.09888652972558085,
+   "electric": {
+    "all": {
+     "mean_power_W": 6.7339694816257545,
+     "peak_current_A": 3.377228165354248,
+     "saturated_fraction": 0.068
+    },
+    "window": {
+     "mean_power_W": 0.0,
+     "peak_current_A": 0.0,
+     "saturated_fraction": 0.0
+    }
+   },
+   "tilt_rms_deg": 23.69195600674044,
+   "pitch_peak_deg": 57.85675327687837,
+   "foreaft_max_m": 0.6354115497971243,
+   "foreaft_final_m": 0.6351285917592749,
+   "horizontal_final_m": 0.6455817183744331,
+   "foreaft_speed_rms_m_s": 0.2361657637646001
+  },
+  {
+   "spec": {
+    "seed": 1950002002,
+    "phase": 2,
+    "seconds": 8.0,
+    "family": "gust_40mN",
+    "controller": "B2_jitter30",
+    "law": {
+     "amplitude": 300.0,
+     "psi": 4.71238898038469,
+     "velocity_sign": 1.0,
+     "start": 1.0,
+     "gains": [
+      5.0,
+      0.2,
+      0.0
+     ],
+     "jitter_deg": 30.0
+    }
+   },
+   "pulses": [
+    {
+     "t": 3.0,
+     "duration": 0.15,
+     "force": 0.04
+    },
+    {
+     "t": 5.5,
+     "duration": 0.15,
+     "force": -0.04
+    }
+   ],
+   "termination": "time_limit",
+   "elapsed": 8.0,
+   "height_rmse_m": 0.10159046926265951,
+   "electric": {
+    "all": {
+     "mean_power_W": 6.777219712948338,
+     "peak_current_A": 3.3636668431992853,
+     "saturated_fraction": 0.0874375
+    },
+    "window": {
+     "mean_power_W": 0.0,
+     "peak_current_A": 0.0,
+     "saturated_fraction": 0.0
+    }
+   },
+   "tilt_rms_deg": 22.737744076963,
+   "pitch_peak_deg": 57.95408156417871,
+   "foreaft_max_m": 0.0752786864686031,
+   "foreaft_final_m": 0.020417412196295323,
+   "horizontal_final_m": 0.10055323788752536,
+   "foreaft_speed_rms_m_s": 0.21698977394110397
+  },
+  {
+   "spec": {
+    "seed": 1950002002,
+    "phase": 2,
+    "seconds": 8.0,
+    "family": "gust_40mN",
+    "controller": "B2_err30",
+    "law": {
+     "amplitude": 300.0,
+     "psi": 4.71238898038469,
+     "velocity_sign": 1.0,
+     "start": 1.0,
+     "gains": [
+      5.0,
+      0.2,
+      0.0
+     ],
+     "phase_error_deg": 30.0
+    }
+   },
+   "pulses": [
+    {
+     "t": 3.0,
+     "duration": 0.15,
+     "force": 0.04
+    },
+    {
+     "t": 5.5,
+     "duration": 0.15,
+     "force": -0.04
+    }
+   ],
+   "termination": "tilt",
+   "elapsed": 3.528,
+   "height_rmse_m": 0.4205365472425759,
+   "electric": {
+    "all": {
+     "mean_power_W": 6.813976302529961,
+     "peak_current_A": 3.2172694356622054,
+     "saturated_fraction": 0.06356292517006802
+    },
+    "window": {
+     "mean_power_W": 0.0,
+     "peak_current_A": 0.0,
+     "saturated_fraction": 0.0
+    }
+   },
+   "tilt_rms_deg": 27.39498197070935,
+   "pitch_peak_deg": 80.33451732304376,
+   "foreaft_max_m": 0.18429155458199442,
+   "foreaft_final_m": 0.18429155458199442,
+   "horizontal_final_m": 0.18549945005425483,
+   "foreaft_speed_rms_m_s": 0.3456605752817138
+  },
+  {
+   "spec": {
+    "seed": 1950002002,
+    "phase": 2,
+    "seconds": 8.0,
+    "family": "gust_40mN",
+    "controller": "B2_err60",
+    "law": {
+     "amplitude": 300.0,
+     "psi": 4.71238898038469,
+     "velocity_sign": 1.0,
+     "start": 1.0,
+     "gains": [
+      5.0,
+      0.2,
+      0.0
+     ],
+     "phase_error_deg": 60.0
+    }
+   },
+   "pulses": [
+    {
+     "t": 3.0,
+     "duration": 0.15,
+     "force": 0.04
+    },
+    {
+     "t": 5.5,
+     "duration": 0.15,
+     "force": -0.04
+    }
+   ],
+   "termination": "height_escape",
+   "elapsed": 3.028,
+   "height_rmse_m": 0.4220415624895541,
+   "electric": {
+    "all": {
+     "mean_power_W": 6.957102116373651,
+     "peak_current_A": 3.2172694356622054,
+     "saturated_fraction": 0.06993064729194187
+    },
+    "window": {
+     "mean_power_W": 0.0,
+     "peak_current_A": 0.0,
+     "saturated_fraction": 0.0
+    }
+   },
+   "tilt_rms_deg": 5.487031633476023,
+   "pitch_peak_deg": 4.217539333839195,
+   "foreaft_max_m": 0.025743658621177713,
+   "foreaft_final_m": 0.005230820022924987,
+   "horizontal_final_m": 0.019591781602721584,
+   "foreaft_speed_rms_m_s": 0.13021352343836146
+  },
+  {
+   "spec": {
+    "seed": 1950002002,
+    "phase": 2,
+    "seconds": 8.0,
+    "family": "gust_40mN",
+    "controller": "B2_err90",
+    "law": {
+     "amplitude": 300.0,
+     "psi": 4.71238898038469,
+     "velocity_sign": 1.0,
+     "start": 1.0,
+     "gains": [
+      5.0,
+      0.2,
+      0.0
+     ],
+     "phase_error_deg": 90.0
+    }
+   },
+   "pulses": [
+    {
+     "t": 3.0,
+     "duration": 0.15,
+     "force": 0.04
+    },
+    {
+     "t": 5.5,
+     "duration": 0.15,
+     "force": -0.04
+    }
+   ],
+   "termination": "tilt",
+   "elapsed": 2.83,
+   "height_rmse_m": 0.28432965794985765,
+   "electric": {
+    "all": {
+     "mean_power_W": 6.871240052589125,
+     "peak_current_A": 3.2172694356622054,
+     "saturated_fraction": 0.07570671378091873
+    },
+    "window": {
+     "mean_power_W": 0.0,
+     "peak_current_A": 0.0,
+     "saturated_fraction": 0.0
+    }
+   },
+   "tilt_rms_deg": 33.99732737410853,
+   "pitch_peak_deg": NaN,
+   "foreaft_max_m": 0.1343001142389067,
+   "foreaft_final_m": 0.07384881304297952,
+   "horizontal_final_m": 0.07513315641487245,
+   "foreaft_speed_rms_m_s": 0.4801518437567202
+  },
+  {
+   "spec": {
+    "seed": 1950002002,
+    "phase": 2,
+    "seconds": 8.0,
+    "family": "gust_40mN",
+    "controller": "B2_err180",
+    "law": {
+     "amplitude": 300.0,
+     "psi": 4.71238898038469,
+     "velocity_sign": 1.0,
+     "start": 1.0,
+     "gains": [
+      5.0,
+      0.2,
+      0.0
+     ],
+     "phase_error_deg": 180.0
+    }
+   },
+   "pulses": [
+    {
+     "t": 3.0,
+     "duration": 0.15,
+     "force": 0.04
+    },
+    {
+     "t": 5.5,
+     "duration": 0.15,
+     "force": -0.04
+    }
+   ],
+   "termination": "tilt",
+   "elapsed": 1.952,
+   "height_rmse_m": 0.12769930076882383,
+   "electric": {
+    "all": {
+     "mean_power_W": 6.838532538192198,
+     "peak_current_A": 3.2551162032930763,
+     "saturated_fraction": 0.13550204918032788
+    },
+    "window": {
+     "mean_power_W": 0.0,
+     "peak_current_A": 0.0,
+     "saturated_fraction": 0.0
+    }
+   },
+   "tilt_rms_deg": NaN,
+   "pitch_peak_deg": NaN,
+   "foreaft_max_m": NaN,
+   "foreaft_final_m": NaN,
+   "horizontal_final_m": NaN,
+   "foreaft_speed_rms_m_s": NaN
+  },
+  {
+   "spec": {
+    "seed": 1950002003,
+    "phase": 3,
+    "seconds": 8.0,
+    "family": "gust_40mN",
+    "controller": "B1_pid",
+    "law": null
+   },
+   "pulses": [
+    {
+     "t": 3.0,
+     "duration": 0.15,
+     "force": 0.04
+    },
+    {
+     "t": 5.5,
+     "duration": 0.15,
+     "force": -0.04
+    }
+   ],
+   "termination": "tilt",
+   "elapsed": 3.494,
+   "height_rmse_m": 0.09558627520007706,
+   "electric": {
+    "all": {
+     "mean_power_W": 6.686026190438994,
+     "peak_current_A": 3.243061556569309,
+     "saturated_fraction": 0.08163995420721236
+    },
+    "window": {
+     "mean_power_W": 0.0,
+     "peak_current_A": 0.0,
+     "saturated_fraction": 0.0
+    }
+   },
+   "tilt_rms_deg": 28.67701355859754,
+   "pitch_peak_deg": 80.89664576100374,
+   "foreaft_max_m": 0.2813339532707054,
+   "foreaft_final_m": 0.2813339532707054,
+   "horizontal_final_m": 0.2817518408357168,
+   "foreaft_speed_rms_m_s": 0.44758637137473023
+  },
+  {
+   "spec": {
+    "seed": 1950002003,
+    "phase": 3,
+    "seconds": 8.0,
+    "family": "gust_40mN",
+    "controller": "B2_tick",
+    "law": {
+     "amplitude": 300.0,
+     "psi": 4.71238898038469,
+     "velocity_sign": 1.0,
+     "start": 1.0,
+     "gains": [
+      5.0,
+      0.2,
+      0.0
+     ]
+    }
+   },
+   "pulses": [
+    {
+     "t": 3.0,
+     "duration": 0.15,
+     "force": 0.04
+    },
+    {
+     "t": 5.5,
+     "duration": 0.15,
+     "force": -0.04
+    }
+   ],
+   "termination": "time_limit",
+   "elapsed": 8.0,
+   "height_rmse_m": 0.10637293962569647,
+   "electric": {
+    "all": {
+     "mean_power_W": 6.717794345352439,
+     "peak_current_A": 3.2476309370475263,
+     "saturated_fraction": 0.07421875
+    },
+    "window": {
+     "mean_power_W": 0.0,
+     "peak_current_A": 0.0,
+     "saturated_fraction": 0.0
+    }
+   },
+   "tilt_rms_deg": 19.877665406624022,
+   "pitch_peak_deg": 56.05752747597794,
+   "foreaft_max_m": 0.053915111087773464,
+   "foreaft_final_m": 0.008962103130581168,
+   "horizontal_final_m": 0.09261688365993986,
+   "foreaft_speed_rms_m_s": 0.18599803376189783
+  },
+  {
+   "spec": {
+    "seed": 1950002003,
+    "phase": 3,
+    "seconds": 8.0,
+    "family": "gust_40mN",
+    "controller": "B2_wingbeat",
+    "law": {
+     "amplitude": 300.0,
+     "psi": 4.71238898038469,
+     "velocity_sign": 1.0,
+     "start": 1.0,
+     "gains": [
+      5.0,
+      0.2,
+      0.0
+     ],
+     "update": "wingbeat"
+    }
+   },
+   "pulses": [
+    {
+     "t": 3.0,
+     "duration": 0.15,
+     "force": 0.04
+    },
+    {
+     "t": 5.5,
+     "duration": 0.15,
+     "force": -0.04
+    }
+   ],
+   "termination": "time_limit",
+   "elapsed": 8.0,
+   "height_rmse_m": 0.07687573644678951,
+   "electric": {
+    "all": {
+     "mean_power_W": 6.668776697124563,
+     "peak_current_A": 3.340923752620121,
+     "saturated_fraction": 0.05490625
+    },
+    "window": {
+     "mean_power_W": 0.0,
+     "peak_current_A": 0.0,
+     "saturated_fraction": 0.0
+    }
+   },
+   "tilt_rms_deg": 18.708093897592452,
+   "pitch_peak_deg": 53.177483750285006,
+   "foreaft_max_m": 0.5978164672164973,
+   "foreaft_final_m": 0.5978164672164973,
+   "horizontal_final_m": 0.6081309312541914,
+   "foreaft_speed_rms_m_s": 0.20067520500047922
+  },
+  {
+   "spec": {
+    "seed": 1950002003,
+    "phase": 3,
+    "seconds": 8.0,
+    "family": "gust_40mN",
+    "controller": "B2_jitter30",
+    "law": {
+     "amplitude": 300.0,
+     "psi": 4.71238898038469,
+     "velocity_sign": 1.0,
+     "start": 1.0,
+     "gains": [
+      5.0,
+      0.2,
+      0.0
+     ],
+     "jitter_deg": 30.0
+    }
+   },
+   "pulses": [
+    {
+     "t": 3.0,
+     "duration": 0.15,
+     "force": 0.04
+    },
+    {
+     "t": 5.5,
+     "duration": 0.15,
+     "force": -0.04
+    }
+   ],
+   "termination": "tilt",
+   "elapsed": 6.63,
+   "height_rmse_m": 0.11585368708892291,
+   "electric": {
+    "all": {
+     "mean_power_W": 6.8909400567395265,
+     "peak_current_A": 3.43906568029295,
+     "saturated_fraction": 0.11757164404223228
+    },
+    "window": {
+     "mean_power_W": 0.0,
+     "peak_current_A": 0.0,
+     "saturated_fraction": 0.0
+    }
+   },
+   "tilt_rms_deg": 31.872524087865372,
+   "pitch_peak_deg": 69.11284045550352,
+   "foreaft_max_m": 0.08418538728260327,
+   "foreaft_final_m": 0.08122358121791706,
+   "horizontal_final_m": 0.11106746150106962,
+   "foreaft_speed_rms_m_s": 0.3197751757478801
+  },
+  {
+   "spec": {
+    "seed": 1950002003,
+    "phase": 3,
+    "seconds": 8.0,
+    "family": "gust_40mN",
+    "controller": "B2_err30",
+    "law": {
+     "amplitude": 300.0,
+     "psi": 4.71238898038469,
+     "velocity_sign": 1.0,
+     "start": 1.0,
+     "gains": [
+      5.0,
+      0.2,
+      0.0
+     ],
+     "phase_error_deg": 30.0
+    }
+   },
+   "pulses": [
+    {
+     "t": 3.0,
+     "duration": 0.15,
+     "force": 0.04
+    },
+    {
+     "t": 5.5,
+     "duration": 0.15,
+     "force": -0.04
+    }
+   ],
+   "termination": "tilt",
+   "elapsed": 3.52,
+   "height_rmse_m": 0.42868111792668645,
+   "electric": {
+    "all": {
+     "mean_power_W": 6.846541441746296,
+     "peak_current_A": 3.2354550368324193,
+     "saturated_fraction": 0.07180397727272728
+    },
+    "window": {
+     "mean_power_W": 0.0,
+     "peak_current_A": 0.0,
+     "saturated_fraction": 0.0
+    }
+   },
+   "tilt_rms_deg": 26.88589446430405,
+   "pitch_peak_deg": 80.98171325567584,
+   "foreaft_max_m": 0.17649992381144833,
+   "foreaft_final_m": 0.17649992381144833,
+   "horizontal_final_m": 0.17767178605764458,
+   "foreaft_speed_rms_m_s": 0.341703522038085
+  },
+  {
+   "spec": {
+    "seed": 1950002003,
+    "phase": 3,
+    "seconds": 8.0,
+    "family": "gust_40mN",
+    "controller": "B2_err60",
+    "law": {
+     "amplitude": 300.0,
+     "psi": 4.71238898038469,
+     "velocity_sign": 1.0,
+     "start": 1.0,
+     "gains": [
+      5.0,
+      0.2,
+      0.0
+     ],
+     "phase_error_deg": 60.0
+    }
+   },
+   "pulses": [
+    {
+     "t": 3.0,
+     "duration": 0.15,
+     "force": 0.04
+    },
+    {
+     "t": 5.5,
+     "duration": 0.15,
+     "force": -0.04
+    }
+   ],
+   "termination": "height_escape",
+   "elapsed": 3.0140000000000002,
+   "height_rmse_m": 0.42295657594180375,
+   "electric": {
+    "all": {
+     "mean_power_W": 6.969364235535791,
+     "peak_current_A": 3.2167756252732316,
+     "saturated_fraction": 0.0743198407431984
+    },
+    "window": {
+     "mean_power_W": 0.0,
+     "peak_current_A": 0.0,
+     "saturated_fraction": 0.0
+    }
+   },
+   "tilt_rms_deg": 5.354552403171455,
+   "pitch_peak_deg": 4.640873442378693,
+   "foreaft_max_m": 0.02578811375958818,
+   "foreaft_final_m": 0.005018552101817251,
+   "horizontal_final_m": 0.01734577208753432,
+   "foreaft_speed_rms_m_s": 0.12845230214157874
+  },
+  {
+   "spec": {
+    "seed": 1950002003,
+    "phase": 3,
+    "seconds": 8.0,
+    "family": "gust_40mN",
+    "controller": "B2_err90",
+    "law": {
+     "amplitude": 300.0,
+     "psi": 4.71238898038469,
+     "velocity_sign": 1.0,
+     "start": 1.0,
+     "gains": [
+      5.0,
+      0.2,
+      0.0
+     ],
+     "phase_error_deg": 90.0
+    }
+   },
+   "pulses": [
+    {
+     "t": 3.0,
+     "duration": 0.15,
+     "force": 0.04
+    },
+    {
+     "t": 5.5,
+     "duration": 0.15,
+     "force": -0.04
+    }
+   ],
+   "termination": "tilt",
+   "elapsed": 2.822,
+   "height_rmse_m": 0.28218635914162876,
+   "electric": {
+    "all": {
+     "mean_power_W": 6.9009023278361195,
+     "peak_current_A": 3.2167756252732316,
+     "saturated_fraction": 0.08593196314670447
+    },
+    "window": {
+     "mean_power_W": 0.0,
+     "peak_current_A": 0.0,
+     "saturated_fraction": 0.0
+    }
+   },
+   "tilt_rms_deg": 33.703497396455276,
+   "pitch_peak_deg": NaN,
+   "foreaft_max_m": 0.14767581429723253,
+   "foreaft_final_m": 0.07496732171156016,
+   "horizontal_final_m": 0.0759011677137514,
+   "foreaft_speed_rms_m_s": 0.5105567015168928
+  },
+  {
+   "spec": {
+    "seed": 1950002003,
+    "phase": 3,
+    "seconds": 8.0,
+    "family": "gust_40mN",
+    "controller": "B2_err180",
+    "law": {
+     "amplitude": 300.0,
+     "psi": 4.71238898038469,
+     "velocity_sign": 1.0,
+     "start": 1.0,
+     "gains": [
+      5.0,
+      0.2,
+      0.0
+     ],
+     "phase_error_deg": 180.0
+    }
+   },
+   "pulses": [
+    {
+     "t": 3.0,
+     "duration": 0.15,
+     "force": 0.04
+    },
+    {
+     "t": 5.5,
+     "duration": 0.15,
+     "force": -0.04
+    }
+   ],
+   "termination": "tilt",
+   "elapsed": 1.98,
+   "height_rmse_m": 0.1309220618477549,
+   "electric": {
+    "all": {
+     "mean_power_W": 6.857316535244634,
+     "peak_current_A": 3.2446698141839283,
+     "saturated_fraction": 0.1527777777777778
+    },
+    "window": {
+     "mean_power_W": 0.0,
+     "peak_current_A": 0.0,
+     "saturated_fraction": 0.0
+    }
+   },
+   "tilt_rms_deg": NaN,
+   "pitch_peak_deg": NaN,
+   "foreaft_max_m": NaN,
+   "foreaft_final_m": NaN,
+   "horizontal_final_m": NaN,
+   "foreaft_speed_rms_m_s": NaN
+  },
+  {
+   "spec": {
+    "seed": 1950002004,
+    "phase": 4,
+    "seconds": 8.0,
+    "family": "gust_40mN",
+    "controller": "B1_pid",
+    "law": null
+   },
+   "pulses": [
+    {
+     "t": 3.0,
+     "duration": 0.15,
+     "force": 0.04
+    },
+    {
+     "t": 5.5,
+     "duration": 0.15,
+     "force": -0.04
+    }
+   ],
+   "termination": "tilt",
+   "elapsed": 3.49,
+   "height_rmse_m": 0.08892001364360982,
+   "electric": {
+    "all": {
+     "mean_power_W": 6.6697663661228015,
+     "peak_current_A": 3.2385552448460166,
+     "saturated_fraction": 0.07249283667621777
+    },
+    "window": {
+     "mean_power_W": 0.0,
+     "peak_current_A": 0.0,
+     "saturated_fraction": 0.0
+    }
+   },
+   "tilt_rms_deg": 28.86457916496879,
+   "pitch_peak_deg": 80.52984332533806,
+   "foreaft_max_m": 0.275329162328402,
+   "foreaft_final_m": 0.275329162328402,
+   "horizontal_final_m": 0.27572826523614286,
+   "foreaft_speed_rms_m_s": 0.44967422212571406
+  },
+  {
+   "spec": {
+    "seed": 1950002004,
+    "phase": 4,
+    "seconds": 8.0,
+    "family": "gust_40mN",
+    "controller": "B2_tick",
+    "law": {
+     "amplitude": 300.0,
+     "psi": 4.71238898038469,
+     "velocity_sign": 1.0,
+     "start": 1.0,
+     "gains": [
+      5.0,
+      0.2,
+      0.0
+     ]
+    }
+   },
+   "pulses": [
+    {
+     "t": 3.0,
+     "duration": 0.15,
+     "force": 0.04
+    },
+    {
+     "t": 5.5,
+     "duration": 0.15,
+     "force": -0.04
+    }
+   ],
+   "termination": "time_limit",
+   "elapsed": 8.0,
+   "height_rmse_m": 0.10489122673060487,
+   "electric": {
+    "all": {
+     "mean_power_W": 6.72303839819892,
+     "peak_current_A": 3.245896194792802,
+     "saturated_fraction": 0.07159375
+    },
+    "window": {
+     "mean_power_W": 0.0,
+     "peak_current_A": 0.0,
+     "saturated_fraction": 0.0
+    }
+   },
+   "tilt_rms_deg": 20.291610452987882,
+   "pitch_peak_deg": 56.17396362100041,
+   "foreaft_max_m": 0.058975710609897966,
+   "foreaft_final_m": 0.01511217526132982,
+   "horizontal_final_m": 0.09709289294064836,
+   "foreaft_speed_rms_m_s": 0.18867092234300517
+  },
+  {
+   "spec": {
+    "seed": 1950002004,
+    "phase": 4,
+    "seconds": 8.0,
+    "family": "gust_40mN",
+    "controller": "B2_wingbeat",
+    "law": {
+     "amplitude": 300.0,
+     "psi": 4.71238898038469,
+     "velocity_sign": 1.0,
+     "start": 1.0,
+     "gains": [
+      5.0,
+      0.2,
+      0.0
+     ],
+     "update": "wingbeat"
+    }
+   },
+   "pulses": [
+    {
+     "t": 3.0,
+     "duration": 0.15,
+     "force": 0.04
+    },
+    {
+     "t": 5.5,
+     "duration": 0.15,
+     "force": -0.04
+    }
+   ],
+   "termination": "time_limit",
+   "elapsed": 8.0,
+   "height_rmse_m": 0.061125728241998446,
+   "electric": {
+    "all": {
+     "mean_power_W": 6.614701052949181,
+     "peak_current_A": 3.3311954952689273,
+     "saturated_fraction": 0.04028125
+    },
+    "window": {
+     "mean_power_W": 0.0,
+     "peak_current_A": 0.0,
+     "saturated_fraction": 0.0
+    }
+   },
+   "tilt_rms_deg": 14.812764334478059,
+   "pitch_peak_deg": 49.07284832028145,
+   "foreaft_max_m": 0.5261390315219173,
+   "foreaft_final_m": 0.5261390315219173,
+   "horizontal_final_m": 0.5385982812522132,
+   "foreaft_speed_rms_m_s": 0.17197380933882456
+  },
+  {
+   "spec": {
+    "seed": 1950002004,
+    "phase": 4,
+    "seconds": 8.0,
+    "family": "gust_40mN",
+    "controller": "B2_jitter30",
+    "law": {
+     "amplitude": 300.0,
+     "psi": 4.71238898038469,
+     "velocity_sign": 1.0,
+     "start": 1.0,
+     "gains": [
+      5.0,
+      0.2,
+      0.0
+     ],
+     "jitter_deg": 30.0
+    }
+   },
+   "pulses": [
+    {
+     "t": 3.0,
+     "duration": 0.15,
+     "force": 0.04
+    },
+    {
+     "t": 5.5,
+     "duration": 0.15,
+     "force": -0.04
+    }
+   ],
+   "termination": "time_limit",
+   "elapsed": 8.0,
+   "height_rmse_m": 0.09458183941796529,
+   "electric": {
+    "all": {
+     "mean_power_W": 6.782508240010075,
+     "peak_current_A": 3.3696314847139814,
+     "saturated_fraction": 0.08615625
+    },
+    "window": {
+     "mean_power_W": 0.0,
+     "peak_current_A": 0.0,
+     "saturated_fraction": 0.0
+    }
+   },
+   "tilt_rms_deg": 23.333932370505277,
+   "pitch_peak_deg": 58.19634744297608,
+   "foreaft_max_m": 0.0565651189120932,
+   "foreaft_final_m": 0.000527720720466606,
+   "horizontal_final_m": 0.0976349009296687,
+   "foreaft_speed_rms_m_s": 0.21968930417470695
+  },
+  {
+   "spec": {
+    "seed": 1950002004,
+    "phase": 4,
+    "seconds": 8.0,
+    "family": "gust_40mN",
+    "controller": "B2_err30",
+    "law": {
+     "amplitude": 300.0,
+     "psi": 4.71238898038469,
+     "velocity_sign": 1.0,
+     "start": 1.0,
+     "gains": [
+      5.0,
+      0.2,
+      0.0
+     ],
+     "phase_error_deg": 30.0
+    }
+   },
+   "pulses": [
+    {
+     "t": 3.0,
+     "duration": 0.15,
+     "force": 0.04
+    },
+    {
+     "t": 5.5,
+     "duration": 0.15,
+     "force": -0.04
+    }
+   ],
+   "termination": "tilt",
+   "elapsed": 3.5180000000000002,
+   "height_rmse_m": 0.42383070679493356,
+   "electric": {
+    "all": {
+     "mean_power_W": 6.829327959187453,
+     "peak_current_A": 3.236952986683079,
+     "saturated_fraction": 0.06225127913587265
+    },
+    "window": {
+     "mean_power_W": 0.0,
+     "peak_current_A": 0.0,
+     "saturated_fraction": 0.0
+    }
+   },
+   "tilt_rms_deg": 26.644424528207924,
+   "pitch_peak_deg": 80.16278934150851,
+   "foreaft_max_m": 0.17255839399704118,
+   "foreaft_final_m": 0.17255839399704118,
+   "horizontal_final_m": 0.1737509160263597,
+   "foreaft_speed_rms_m_s": 0.33883748089603183
+  },
+  {
+   "spec": {
+    "seed": 1950002004,
+    "phase": 4,
+    "seconds": 8.0,
+    "family": "gust_40mN",
+    "controller": "B2_err60",
+    "law": {
+     "amplitude": 300.0,
+     "psi": 4.71238898038469,
+     "velocity_sign": 1.0,
+     "start": 1.0,
+     "gains": [
+      5.0,
+      0.2,
+      0.0
+     ],
+     "phase_error_deg": 60.0
+    }
+   },
+   "pulses": [
+    {
+     "t": 3.0,
+     "duration": 0.15,
+     "force": 0.04
+    },
+    {
+     "t": 5.5,
+     "duration": 0.15,
+     "force": -0.04
+    }
+   ],
+   "termination": "height_escape",
+   "elapsed": 2.998,
+   "height_rmse_m": 0.42026565987330283,
+   "electric": {
+    "all": {
+     "mean_power_W": 6.950551117259198,
+     "peak_current_A": 3.214166780840024,
+     "saturated_fraction": 0.06479319546364243
+    },
+    "window": {
+     "mean_power_W": 0.0,
+     "peak_current_A": 0.0,
+     "saturated_fraction": 0.0
+    }
+   },
+   "tilt_rms_deg": 4.023916589593658,
+   "pitch_peak_deg": NaN,
+   "foreaft_max_m": 0.014605956482708942,
+   "foreaft_final_m": 0.0008822608859678923,
+   "horizontal_final_m": 0.017418449811022765,
+   "foreaft_speed_rms_m_s": 0.11378133346450571
+  },
+  {
+   "spec": {
+    "seed": 1950002004,
+    "phase": 4,
+    "seconds": 8.0,
+    "family": "gust_40mN",
+    "controller": "B2_err90",
+    "law": {
+     "amplitude": 300.0,
+     "psi": 4.71238898038469,
+     "velocity_sign": 1.0,
+     "start": 1.0,
+     "gains": [
+      5.0,
+      0.2,
+      0.0
+     ],
+     "phase_error_deg": 90.0
+    }
+   },
+   "pulses": [
+    {
+     "t": 3.0,
+     "duration": 0.15,
+     "force": 0.04
+    },
+    {
+     "t": 5.5,
+     "duration": 0.15,
+     "force": -0.04
+    }
+   ],
+   "termination": "tilt",
+   "elapsed": 3.378,
+   "height_rmse_m": 0.41612772887039773,
+   "electric": {
+    "all": {
+     "mean_power_W": 6.918084095332102,
+     "peak_current_A": 3.2424009949361823,
+     "saturated_fraction": 0.08903197158081705
+    },
+    "window": {
+     "mean_power_W": 0.0,
+     "peak_current_A": 0.0,
+     "saturated_fraction": 0.0
+    }
+   },
+   "tilt_rms_deg": 34.45472572496375,
+   "pitch_peak_deg": 80.9886949916016,
+   "foreaft_max_m": 0.3130876887303712,
+   "foreaft_final_m": 0.3130876887303712,
+   "horizontal_final_m": 0.31348976811320545,
+   "foreaft_speed_rms_m_s": 0.610209470489558
+  },
+  {
+   "spec": {
+    "seed": 1950002004,
+    "phase": 4,
+    "seconds": 8.0,
+    "family": "gust_40mN",
+    "controller": "B2_err180",
+    "law": {
+     "amplitude": 300.0,
+     "psi": 4.71238898038469,
+     "velocity_sign": 1.0,
+     "start": 1.0,
+     "gains": [
+      5.0,
+      0.2,
+      0.0
+     ],
+     "phase_error_deg": 180.0
+    }
+   },
+   "pulses": [
+    {
+     "t": 3.0,
+     "duration": 0.15,
+     "force": 0.04
+    },
+    {
+     "t": 5.5,
+     "duration": 0.15,
+     "force": -0.04
+    }
+   ],
+   "termination": "tilt",
+   "elapsed": 2.054,
+   "height_rmse_m": 0.12161154041838608,
+   "electric": {
+    "all": {
+     "mean_power_W": 6.857219145025682,
+     "peak_current_A": 3.294284640430256,
+     "saturated_fraction": 0.1364410905550146
+    },
+    "window": {
+     "mean_power_W": 0.0,
+     "peak_current_A": 0.0,
+     "saturated_fraction": 0.0
+    }
+   },
+   "tilt_rms_deg": 72.01289385348157,
+   "pitch_peak_deg": NaN,
+   "foreaft_max_m": 0.025785633448746462,
+   "foreaft_final_m": 0.025785633448746462,
+   "horizontal_final_m": 0.025787461227570512,
+   "foreaft_speed_rms_m_s": 0.5084096895861967
+  },
+  {
+   "spec": {
+    "seed": 1950002005,
+    "phase": 5,
+    "seconds": 8.0,
+    "family": "gust_40mN",
+    "controller": "B1_pid",
+    "law": null
+   },
+   "pulses": [
+    {
+     "t": 3.0,
+     "duration": 0.15,
+     "force": 0.04
+    },
+    {
+     "t": 5.5,
+     "duration": 0.15,
+     "force": -0.04
+    }
+   ],
+   "termination": "tilt",
+   "elapsed": 3.228,
+   "height_rmse_m": 0.08647516149021696,
+   "electric": {
+    "all": {
+     "mean_power_W": 6.607646857819117,
+     "peak_current_A": 3.215441197718899,
+     "saturated_fraction": 0.05421313506815366
+    },
+    "window": {
+     "mean_power_W": 0.0,
+     "peak_current_A": 0.0,
+     "saturated_fraction": 0.0
+    }
+   },
+   "tilt_rms_deg": 20.49304477377529,
+   "pitch_peak_deg": 80.9163590195185,
+   "foreaft_max_m": 0.0192771391997287,
+   "foreaft_final_m": 0.0065664345102672906,
+   "horizontal_final_m": 0.020700108969113576,
+   "foreaft_speed_rms_m_s": 0.12843923995853976
+  },
+  {
+   "spec": {
+    "seed": 1950002005,
+    "phase": 5,
+    "seconds": 8.0,
+    "family": "gust_40mN",
+    "controller": "B2_tick",
+    "law": {
+     "amplitude": 300.0,
+     "psi": 4.71238898038469,
+     "velocity_sign": 1.0,
+     "start": 1.0,
+     "gains": [
+      5.0,
+      0.2,
+      0.0
+     ]
+    }
+   },
+   "pulses": [
+    {
+     "t": 3.0,
+     "duration": 0.15,
+     "force": 0.04
+    },
+    {
+     "t": 5.5,
+     "duration": 0.15,
+     "force": -0.04
+    }
+   ],
+   "termination": "time_limit",
+   "elapsed": 8.0,
+   "height_rmse_m": 0.10114828404217503,
+   "electric": {
+    "all": {
+     "mean_power_W": 6.71857802050101,
+     "peak_current_A": 3.2496888637425654,
+     "saturated_fraction": 0.06765625
+    },
+    "window": {
+     "mean_power_W": 0.0,
+     "peak_current_A": 0.0,
+     "saturated_fraction": 0.0
+    }
+   },
+   "tilt_rms_deg": 20.203786052139566,
+   "pitch_peak_deg": 56.2084260565548,
+   "foreaft_max_m": 0.07141871985316828,
+   "foreaft_final_m": 0.023410947687473392,
+   "horizontal_final_m": 0.10636449093290017,
+   "foreaft_speed_rms_m_s": 0.18859133581921586
+  },
+  {
+   "spec": {
+    "seed": 1950002005,
+    "phase": 5,
+    "seconds": 8.0,
+    "family": "gust_40mN",
+    "controller": "B2_wingbeat",
+    "law": {
+     "amplitude": 300.0,
+     "psi": 4.71238898038469,
+     "velocity_sign": 1.0,
+     "start": 1.0,
+     "gains": [
+      5.0,
+      0.2,
+      0.0
+     ],
+     "update": "wingbeat"
+    }
+   },
+   "pulses": [
+    {
+     "t": 3.0,
+     "duration": 0.15,
+     "force": 0.04
+    },
+    {
+     "t": 5.5,
+     "duration": 0.15,
+     "force": -0.04
+    }
+   ],
+   "termination": "time_limit",
+   "elapsed": 8.0,
+   "height_rmse_m": 0.061225559972097846,
+   "electric": {
+    "all": {
+     "mean_power_W": 6.648388172865116,
+     "peak_current_A": 3.4459869694258973,
+     "saturated_fraction": 0.0446875
+    },
+    "window": {
+     "mean_power_W": 0.0,
+     "peak_current_A": 0.0,
+     "saturated_fraction": 0.0
+    }
+   },
+   "tilt_rms_deg": 17.775668761102438,
+   "pitch_peak_deg": 51.734702814647804,
+   "foreaft_max_m": 0.6246963756907117,
+   "foreaft_final_m": 0.6246083993288206,
+   "horizontal_final_m": 0.636871372719366,
+   "foreaft_speed_rms_m_s": 0.19866082067789753
+  },
+  {
+   "spec": {
+    "seed": 1950002005,
+    "phase": 5,
+    "seconds": 8.0,
+    "family": "gust_40mN",
+    "controller": "B2_jitter30",
+    "law": {
+     "amplitude": 300.0,
+     "psi": 4.71238898038469,
+     "velocity_sign": 1.0,
+     "start": 1.0,
+     "gains": [
+      5.0,
+      0.2,
+      0.0
+     ],
+     "jitter_deg": 30.0
+    }
+   },
+   "pulses": [
+    {
+     "t": 3.0,
+     "duration": 0.15,
+     "force": 0.04
+    },
+    {
+     "t": 5.5,
+     "duration": 0.15,
+     "force": -0.04
+    }
+   ],
+   "termination": "time_limit",
+   "elapsed": 8.0,
+   "height_rmse_m": 0.09943956415609863,
+   "electric": {
+    "all": {
+     "mean_power_W": 6.816063803848107,
+     "peak_current_A": 3.400328116760526,
+     "saturated_fraction": 0.093375
+    },
+    "window": {
+     "mean_power_W": 0.0,
+     "peak_current_A": 0.0,
+     "saturated_fraction": 0.0
+    }
+   },
+   "tilt_rms_deg": 24.68456607796864,
+   "pitch_peak_deg": 57.76061735923701,
+   "foreaft_max_m": 0.0707552508687782,
+   "foreaft_final_m": 0.02792964496952937,
+   "horizontal_final_m": 0.10970759061764525,
+   "foreaft_speed_rms_m_s": 0.23003554839599316
+  },
+  {
+   "spec": {
+    "seed": 1950002005,
+    "phase": 5,
+    "seconds": 8.0,
+    "family": "gust_40mN",
+    "controller": "B2_err30",
+    "law": {
+     "amplitude": 300.0,
+     "psi": 4.71238898038469,
+     "velocity_sign": 1.0,
+     "start": 1.0,
+     "gains": [
+      5.0,
+      0.2,
+      0.0
+     ],
+     "phase_error_deg": 30.0
+    }
+   },
+   "pulses": [
+    {
+     "t": 3.0,
+     "duration": 0.15,
+     "force": 0.04
+    },
+    {
+     "t": 5.5,
+     "duration": 0.15,
+     "force": -0.04
+    }
+   ],
+   "termination": "tilt",
+   "elapsed": 3.5180000000000002,
+   "height_rmse_m": 0.422442553552441,
+   "electric": {
+    "all": {
+     "mean_power_W": 6.8075124342447655,
+     "peak_current_A": 3.2262093358648283,
+     "saturated_fraction": 0.054363274587834
+    },
+    "window": {
+     "mean_power_W": 0.0,
+     "peak_current_A": 0.0,
+     "saturated_fraction": 0.0
+    }
+   },
+   "tilt_rms_deg": 26.926126868193954,
+   "pitch_peak_deg": 81.08218911687788,
+   "foreaft_max_m": 0.17255578393770815,
+   "foreaft_final_m": 0.17255578393770815,
+   "horizontal_final_m": 0.17405442830963258,
+   "foreaft_speed_rms_m_s": 0.3440626024686033
+  },
+  {
+   "spec": {
+    "seed": 1950002005,
+    "phase": 5,
+    "seconds": 8.0,
+    "family": "gust_40mN",
+    "controller": "B2_err60",
+    "law": {
+     "amplitude": 300.0,
+     "psi": 4.71238898038469,
+     "velocity_sign": 1.0,
+     "start": 1.0,
+     "gains": [
+      5.0,
+      0.2,
+      0.0
+     ],
+     "phase_error_deg": 60.0
+    }
+   },
+   "pulses": [
+    {
+     "t": 3.0,
+     "duration": 0.15,
+     "force": 0.04
+    },
+    {
+     "t": 5.5,
+     "duration": 0.15,
+     "force": -0.04
+    }
+   ],
+   "termination": "height_escape",
+   "elapsed": 2.994,
+   "height_rmse_m": 0.41933258449656247,
+   "electric": {
+    "all": {
+     "mean_power_W": 6.949879453869445,
+     "peak_current_A": 3.215441197718899,
+     "saturated_fraction": 0.058450233800935204
+    },
+    "window": {
+     "mean_power_W": 0.0,
+     "peak_current_A": 0.0,
+     "saturated_fraction": 0.0
+    }
+   },
+   "tilt_rms_deg": 3.1606355052610797,
+   "pitch_peak_deg": NaN,
+   "foreaft_max_m": 0.0028913807323842815,
+   "foreaft_final_m": 0.0009112077602963625,
+   "horizontal_final_m": 0.01855339207656734,
+   "foreaft_speed_rms_m_s": 0.1067356226898297
+  },
+  {
+   "spec": {
+    "seed": 1950002005,
+    "phase": 5,
+    "seconds": 8.0,
+    "family": "gust_40mN",
+    "controller": "B2_err90",
+    "law": {
+     "amplitude": 300.0,
+     "psi": 4.71238898038469,
+     "velocity_sign": 1.0,
+     "start": 1.0,
+     "gains": [
+      5.0,
+      0.2,
+      0.0
+     ],
+     "phase_error_deg": 90.0
+    }
+   },
+   "pulses": [
+    {
+     "t": 3.0,
+     "duration": 0.15,
+     "force": 0.04
+    },
+    {
+     "t": 5.5,
+     "duration": 0.15,
+     "force": -0.04
+    }
+   ],
+   "termination": "height_escape",
+   "elapsed": 3.102,
+   "height_rmse_m": 0.42816415586610973,
+   "electric": {
+    "all": {
+     "mean_power_W": 6.899228549499019,
+     "peak_current_A": 3.215441197718899,
+     "saturated_fraction": 0.056415215989684075
+    },
+    "window": {
+     "mean_power_W": 0.0,
+     "peak_current_A": 0.0,
+     "saturated_fraction": 0.0
+    }
+   },
+   "tilt_rms_deg": 8.890121948645712,
+   "pitch_peak_deg": 37.613438777891055,
+   "foreaft_max_m": 0.03557768588400741,
+   "foreaft_final_m": 0.03557768588400741,
+   "horizontal_final_m": 0.0411721241008903,
+   "foreaft_speed_rms_m_s": 0.16826731769992057
+  },
+  {
+   "spec": {
+    "seed": 1950002005,
+    "phase": 5,
+    "seconds": 8.0,
+    "family": "gust_40mN",
+    "controller": "B2_err180",
+    "law": {
+     "amplitude": 300.0,
+     "psi": 4.71238898038469,
+     "velocity_sign": 1.0,
+     "start": 1.0,
+     "gains": [
+      5.0,
+      0.2,
+      0.0
+     ],
+     "phase_error_deg": 180.0
+    }
+   },
+   "pulses": [
+    {
+     "t": 3.0,
+     "duration": 0.15,
+     "force": 0.04
+    },
+    {
+     "t": 5.5,
+     "duration": 0.15,
+     "force": -0.04
+    }
+   ],
+   "termination": "tilt",
+   "elapsed": 2.302,
+   "height_rmse_m": 0.1119907876391366,
+   "electric": {
+    "all": {
+     "mean_power_W": 6.770703930435123,
+     "peak_current_A": 3.2872228131996675,
+     "saturated_fraction": 0.10805821025195482
+    },
+    "window": {
+     "mean_power_W": 0.0,
+     "peak_current_A": 0.0,
+     "saturated_fraction": 0.0
+    }
+   },
+   "tilt_rms_deg": 39.427600297456564,
+   "pitch_peak_deg": NaN,
+   "foreaft_max_m": 0.21837635479342038,
+   "foreaft_final_m": 0.21837635479342038,
+   "horizontal_final_m": 0.21841816307688408,
+   "foreaft_speed_rms_m_s": 0.7630450922219314
+  },
+  {
+   "spec": {
+    "seed": 1950002006,
+    "phase": 6,
+    "seconds": 8.0,
+    "family": "gust_40mN",
+    "controller": "B1_pid",
+    "law": null
+   },
+   "pulses": [
+    {
+     "t": 3.0,
+     "duration": 0.15,
+     "force": 0.04
+    },
+    {
+     "t": 5.5,
+     "duration": 0.15,
+     "force": -0.04
+    }
+   ],
+   "termination": "tilt",
+   "elapsed": 3.218,
+   "height_rmse_m": 0.09481923840673952,
+   "electric": {
+    "all": {
+     "mean_power_W": 6.628621665978764,
+     "peak_current_A": 3.2125959498702508,
+     "saturated_fraction": 0.06253884400248602
+    },
+    "window": {
+     "mean_power_W": 0.0,
+     "peak_current_A": 0.0,
+     "saturated_fraction": 0.0
+    }
+   },
+   "tilt_rms_deg": 20.730197590055973,
+   "pitch_peak_deg": 80.45378963727411,
+   "foreaft_max_m": 0.03618321453252827,
+   "foreaft_final_m": 0.02805755308037033,
+   "horizontal_final_m": 0.03278042468297804,
+   "foreaft_speed_rms_m_s": 0.14553456462102105
+  },
+  {
+   "spec": {
+    "seed": 1950002006,
+    "phase": 6,
+    "seconds": 8.0,
+    "family": "gust_40mN",
+    "controller": "B2_tick",
+    "law": {
+     "amplitude": 300.0,
+     "psi": 4.71238898038469,
+     "velocity_sign": 1.0,
+     "start": 1.0,
+     "gains": [
+      5.0,
+      0.2,
+      0.0
+     ]
+    }
+   },
+   "pulses": [
+    {
+     "t": 3.0,
+     "duration": 0.15,
+     "force": 0.04
+    },
+    {
+     "t": 5.5,
+     "duration": 0.15,
+     "force": -0.04
+    }
+   ],
+   "termination": "time_limit",
+   "elapsed": 8.0,
+   "height_rmse_m": 0.10643759100909826,
+   "electric": {
+    "all": {
+     "mean_power_W": 6.718843359301857,
+     "peak_current_A": 3.2437020033076585,
+     "saturated_fraction": 0.07378125
+    },
+    "window": {
+     "mean_power_W": 0.0,
+     "peak_current_A": 0.0,
+     "saturated_fraction": 0.0
+    }
+   },
+   "tilt_rms_deg": 20.081281748336384,
+   "pitch_peak_deg": 56.58530611277722,
+   "foreaft_max_m": 0.08004930584825434,
+   "foreaft_final_m": 0.04588442525774359,
+   "horizontal_final_m": 0.10428327111477975,
+   "foreaft_speed_rms_m_s": 0.1874933797290282
+  },
+  {
+   "spec": {
+    "seed": 1950002006,
+    "phase": 6,
+    "seconds": 8.0,
+    "family": "gust_40mN",
+    "controller": "B2_wingbeat",
+    "law": {
+     "amplitude": 300.0,
+     "psi": 4.71238898038469,
+     "velocity_sign": 1.0,
+     "start": 1.0,
+     "gains": [
+      5.0,
+      0.2,
+      0.0
+     ],
+     "update": "wingbeat"
+    }
+   },
+   "pulses": [
+    {
+     "t": 3.0,
+     "duration": 0.15,
+     "force": 0.04
+    },
+    {
+     "t": 5.5,
+     "duration": 0.15,
+     "force": -0.04
+    }
+   ],
+   "termination": "time_limit",
+   "elapsed": 8.0,
+   "height_rmse_m": 0.0828136316453738,
+   "electric": {
+    "all": {
+     "mean_power_W": 6.696963969651408,
+     "peak_current_A": 3.286262836530725,
+     "saturated_fraction": 0.0595
+    },
+    "window": {
+     "mean_power_W": 0.0,
+     "peak_current_A": 0.0,
+     "saturated_fraction": 0.0
+    }
+   },
+   "tilt_rms_deg": 20.918700423120022,
+   "pitch_peak_deg": 54.63556768434823,
+   "foreaft_max_m": 0.6096044781185735,
+   "foreaft_final_m": 0.6093511727071294,
+   "horizontal_final_m": 0.6187451824022123,
+   "foreaft_speed_rms_m_s": 0.21744913144279718
+  },
+  {
+   "spec": {
+    "seed": 1950002006,
+    "phase": 6,
+    "seconds": 8.0,
+    "family": "gust_40mN",
+    "controller": "B2_jitter30",
+    "law": {
+     "amplitude": 300.0,
+     "psi": 4.71238898038469,
+     "velocity_sign": 1.0,
+     "start": 1.0,
+     "gains": [
+      5.0,
+      0.2,
+      0.0
+     ],
+     "jitter_deg": 30.0
+    }
+   },
+   "pulses": [
+    {
+     "t": 3.0,
+     "duration": 0.15,
+     "force": 0.04
+    },
+    {
+     "t": 5.5,
+     "duration": 0.15,
+     "force": -0.04
+    }
+   ],
+   "termination": "tilt",
+   "elapsed": 6.622,
+   "height_rmse_m": 0.10313853700853966,
+   "electric": {
+    "all": {
+     "mean_power_W": 6.868207455764653,
+     "peak_current_A": 3.359407511853887,
+     "saturated_fraction": 0.10721836303231652
+    },
+    "window": {
+     "mean_power_W": 0.0,
+     "peak_current_A": 0.0,
+     "saturated_fraction": 0.0
+    }
+   },
+   "tilt_rms_deg": 30.025297248942913,
+   "pitch_peak_deg": 64.8096073168143,
+   "foreaft_max_m": 0.13788024275951122,
+   "foreaft_final_m": 0.13788024275951122,
+   "horizontal_final_m": 0.15702126377892664,
+   "foreaft_speed_rms_m_s": 0.3034506154539598
+  },
+  {
+   "spec": {
+    "seed": 1950002006,
+    "phase": 6,
+    "seconds": 8.0,
+    "family": "gust_40mN",
+    "controller": "B2_err30",
+    "law": {
+     "amplitude": 300.0,
+     "psi": 4.71238898038469,
+     "velocity_sign": 1.0,
+     "start": 1.0,
+     "gains": [
+      5.0,
+      0.2,
+      0.0
+     ],
+     "phase_error_deg": 30.0
+    }
+   },
+   "pulses": [
+    {
+     "t": 3.0,
+     "duration": 0.15,
+     "force": 0.04
+    },
+    {
+     "t": 5.5,
+     "duration": 0.15,
+     "force": -0.04
+    }
+   ],
+   "termination": "tilt",
+   "elapsed": 3.516,
+   "height_rmse_m": 0.42784659320076673,
+   "electric": {
+    "all": {
+     "mean_power_W": 6.829080033574425,
+     "peak_current_A": 3.2267014167735724,
+     "saturated_fraction": 0.0627844141069397
+    },
+    "window": {
+     "mean_power_W": 0.0,
+     "peak_current_A": 0.0,
+     "saturated_fraction": 0.0
+    }
+   },
+   "tilt_rms_deg": 26.833066142270223,
+   "pitch_peak_deg": 80.57464069883346,
+   "foreaft_max_m": 0.17095968862620897,
+   "foreaft_final_m": 0.17095968862620897,
+   "horizontal_final_m": 0.17201482424561,
+   "foreaft_speed_rms_m_s": 0.3494386296384438
+  },
+  {
+   "spec": {
+    "seed": 1950002006,
+    "phase": 6,
+    "seconds": 8.0,
+    "family": "gust_40mN",
+    "controller": "B2_err60",
+    "law": {
+     "amplitude": 300.0,
+     "psi": 4.71238898038469,
+     "velocity_sign": 1.0,
+     "start": 1.0,
+     "gains": [
+      5.0,
+      0.2,
+      0.0
+     ],
+     "phase_error_deg": 60.0
+    }
+   },
+   "pulses": [
+    {
+     "t": 3.0,
+     "duration": 0.15,
+     "force": 0.04
+    },
+    {
+     "t": 5.5,
+     "duration": 0.15,
+     "force": -0.04
+    }
+   ],
+   "termination": "height_escape",
+   "elapsed": 2.996,
+   "height_rmse_m": 0.4220703217081561,
+   "electric": {
+    "all": {
+     "mean_power_W": 6.968724238442697,
+     "peak_current_A": 3.2125959498702508,
+     "saturated_fraction": 0.06717289719626168
+    },
+    "window": {
+     "mean_power_W": 0.0,
+     "peak_current_A": 0.0,
+     "saturated_fraction": 0.0
+    }
+   },
+   "tilt_rms_deg": 4.916352706704435,
+   "pitch_peak_deg": NaN,
+   "foreaft_max_m": 0.022729681604108116,
+   "foreaft_final_m": 0.004973941616016235,
+   "horizontal_final_m": 0.017079499554631384,
+   "foreaft_speed_rms_m_s": 0.12250549876170967
+  },
+  {
+   "spec": {
+    "seed": 1950002006,
+    "phase": 6,
+    "seconds": 8.0,
+    "family": "gust_40mN",
+    "controller": "B2_err90",
+    "law": {
+     "amplitude": 300.0,
+     "psi": 4.71238898038469,
+     "velocity_sign": 1.0,
+     "start": 1.0,
+     "gains": [
+      5.0,
+      0.2,
+      0.0
+     ],
+     "phase_error_deg": 90.0
+    }
+   },
+   "pulses": [
+    {
+     "t": 3.0,
+     "duration": 0.15,
+     "force": 0.04
+    },
+    {
+     "t": 5.5,
+     "duration": 0.15,
+     "force": -0.04
+    }
+   ],
+   "termination": "tilt",
+   "elapsed": 3.112,
+   "height_rmse_m": 0.335683765525313,
+   "electric": {
+    "all": {
+     "mean_power_W": 6.896065363069149,
+     "peak_current_A": 3.230088614672313,
+     "saturated_fraction": 0.08145886889460155
+    },
+    "window": {
+     "mean_power_W": 0.0,
+     "peak_current_A": 0.0,
+     "saturated_fraction": 0.0
+    }
+   },
+   "tilt_rms_deg": 39.05701832229887,
+   "pitch_peak_deg": 83.11730192955984,
+   "foreaft_max_m": 0.17635057765509662,
+   "foreaft_final_m": 0.17635057765509662,
+   "horizontal_final_m": 0.17724775439588392,
+   "foreaft_speed_rms_m_s": 0.6589479935055158
+  },
+  {
+   "spec": {
+    "seed": 1950002006,
+    "phase": 6,
+    "seconds": 8.0,
+    "family": "gust_40mN",
+    "controller": "B2_err180",
+    "law": {
+     "amplitude": 300.0,
+     "psi": 4.71238898038469,
+     "velocity_sign": 1.0,
+     "start": 1.0,
+     "gains": [
+      5.0,
+      0.2,
+      0.0
+     ],
+     "phase_error_deg": 180.0
+    }
+   },
+   "pulses": [
+    {
+     "t": 3.0,
+     "duration": 0.15,
+     "force": 0.04
+    },
+    {
+     "t": 5.5,
+     "duration": 0.15,
+     "force": -0.04
+    }
+   ],
+   "termination": "tilt",
+   "elapsed": 1.8860000000000001,
+   "height_rmse_m": 0.12428011201346098,
+   "electric": {
+    "all": {
+     "mean_power_W": 6.783843917974289,
+     "peak_current_A": 3.2650783238798624,
+     "saturated_fraction": 0.12208377518557795
+    },
+    "window": {
+     "mean_power_W": 0.0,
+     "peak_current_A": 0.0,
+     "saturated_fraction": 0.0
+    }
+   },
+   "tilt_rms_deg": NaN,
+   "pitch_peak_deg": NaN,
+   "foreaft_max_m": NaN,
+   "foreaft_final_m": NaN,
+   "horizontal_final_m": NaN,
+   "foreaft_speed_rms_m_s": NaN
+  },
+  {
+   "spec": {
+    "seed": 1950002007,
+    "phase": 7,
+    "seconds": 8.0,
+    "family": "gust_40mN",
+    "controller": "B1_pid",
+    "law": null
+   },
+   "pulses": [
+    {
+     "t": 3.0,
+     "duration": 0.15,
+     "force": 0.04
+    },
+    {
+     "t": 5.5,
+     "duration": 0.15,
+     "force": -0.04
+    }
+   ],
+   "termination": "tilt",
+   "elapsed": 3.214,
+   "height_rmse_m": 0.09516417145766612,
+   "electric": {
+    "all": {
+     "mean_power_W": 6.625436602231948,
+     "peak_current_A": 3.218757097742332,
+     "saturated_fraction": 0.06572806471686372
+    },
+    "window": {
+     "mean_power_W": 0.0,
+     "peak_current_A": 0.0,
+     "saturated_fraction": 0.0
+    }
+   },
+   "tilt_rms_deg": 20.072769114295017,
+   "pitch_peak_deg": 80.62999558042794,
+   "foreaft_max_m": 0.03619108827460814,
+   "foreaft_final_m": 0.029585097710327215,
+   "horizontal_final_m": 0.03395691307297506,
+   "foreaft_speed_rms_m_s": 0.1422206990994077
+  },
+  {
+   "spec": {
+    "seed": 1950002007,
+    "phase": 7,
+    "seconds": 8.0,
+    "family": "gust_40mN",
+    "controller": "B2_tick",
+    "law": {
+     "amplitude": 300.0,
+     "psi": 4.71238898038469,
+     "velocity_sign": 1.0,
+     "start": 1.0,
+     "gains": [
+      5.0,
+      0.2,
+      0.0
+     ]
+    }
+   },
+   "pulses": [
+    {
+     "t": 3.0,
+     "duration": 0.15,
+     "force": 0.04
+    },
+    {
+     "t": 5.5,
+     "duration": 0.15,
+     "force": -0.04
+    }
+   ],
+   "termination": "time_limit",
+   "elapsed": 8.0,
+   "height_rmse_m": 0.11128947205315605,
+   "electric": {
+    "all": {
+     "mean_power_W": 6.708347598236513,
+     "peak_current_A": 3.2388845463051887,
+     "saturated_fraction": 0.07009375
+    },
+    "window": {
+     "mean_power_W": 0.0,
+     "peak_current_A": 0.0,
+     "saturated_fraction": 0.0
+    }
+   },
+   "tilt_rms_deg": 19.290489962855208,
+   "pitch_peak_deg": 56.07350988875514,
+   "foreaft_max_m": 0.06143759706011798,
+   "foreaft_final_m": 0.03335598092486331,
+   "horizontal_final_m": 0.09769538337744167,
+   "foreaft_speed_rms_m_s": 0.1816521345039366
+  },
+  {
+   "spec": {
+    "seed": 1950002007,
+    "phase": 7,
+    "seconds": 8.0,
+    "family": "gust_40mN",
+    "controller": "B2_wingbeat",
+    "law": {
+     "amplitude": 300.0,
+     "psi": 4.71238898038469,
+     "velocity_sign": 1.0,
+     "start": 1.0,
+     "gains": [
+      5.0,
+      0.2,
+      0.0
+     ],
+     "update": "wingbeat"
+    }
+   },
+   "pulses": [
+    {
+     "t": 3.0,
+     "duration": 0.15,
+     "force": 0.04
+    },
+    {
+     "t": 5.5,
+     "duration": 0.15,
+     "force": -0.04
+    }
+   ],
+   "termination": "time_limit",
+   "elapsed": 8.0,
+   "height_rmse_m": 0.07278621087851621,
+   "electric": {
+    "all": {
+     "mean_power_W": 6.682230917327012,
+     "peak_current_A": 3.4514056557038453,
+     "saturated_fraction": 0.055625
+    },
+    "window": {
+     "mean_power_W": 0.0,
+     "peak_current_A": 0.0,
+     "saturated_fraction": 0.0
+    }
+   },
+   "tilt_rms_deg": 19.871216634896914,
+   "pitch_peak_deg": 54.48566159577585,
+   "foreaft_max_m": 0.5323618319486083,
+   "foreaft_final_m": 0.5321169138474997,
+   "horizontal_final_m": 0.5422472471356442,
+   "foreaft_speed_rms_m_s": 0.2051762576129226
+  },
+  {
+   "spec": {
+    "seed": 1950002007,
+    "phase": 7,
+    "seconds": 8.0,
+    "family": "gust_40mN",
+    "controller": "B2_jitter30",
+    "law": {
+     "amplitude": 300.0,
+     "psi": 4.71238898038469,
+     "velocity_sign": 1.0,
+     "start": 1.0,
+     "gains": [
+      5.0,
+      0.2,
+      0.0
+     ],
+     "jitter_deg": 30.0
+    }
+   },
+   "pulses": [
+    {
+     "t": 3.0,
+     "duration": 0.15,
+     "force": 0.04
+    },
+    {
+     "t": 5.5,
+     "duration": 0.15,
+     "force": -0.04
+    }
+   ],
+   "termination": "tilt",
+   "elapsed": 7.154,
+   "height_rmse_m": 0.1280560550581671,
+   "electric": {
+    "all": {
+     "mean_power_W": 6.9323658427648756,
+     "peak_current_A": 3.4026087536223693,
+     "saturated_fraction": 0.11860497623707017
+    },
+    "window": {
+     "mean_power_W": 0.0,
+     "peak_current_A": 0.0,
+     "saturated_fraction": 0.0
+    }
+   },
+   "tilt_rms_deg": 32.146492504654745,
+   "pitch_peak_deg": 64.06116234321627,
+   "foreaft_max_m": 0.11357886287439407,
+   "foreaft_final_m": 0.11357886287439407,
+   "horizontal_final_m": 0.12855942047602797,
+   "foreaft_speed_rms_m_s": 0.33699186861951175
+  },
+  {
+   "spec": {
+    "seed": 1950002007,
+    "phase": 7,
+    "seconds": 8.0,
+    "family": "gust_40mN",
+    "controller": "B2_err30",
+    "law": {
+     "amplitude": 300.0,
+     "psi": 4.71238898038469,
+     "velocity_sign": 1.0,
+     "start": 1.0,
+     "gains": [
+      5.0,
+      0.2,
+      0.0
+     ],
+     "phase_error_deg": 30.0
+    }
+   },
+   "pulses": [
+    {
+     "t": 3.0,
+     "duration": 0.15,
+     "force": 0.04
+    },
+    {
+     "t": 5.5,
+     "duration": 0.15,
+     "force": -0.04
+    }
+   ],
+   "termination": "tilt",
+   "elapsed": 3.536,
+   "height_rmse_m": 0.43559870585487676,
+   "electric": {
+    "all": {
+     "mean_power_W": 6.83539597943405,
+     "peak_current_A": 3.218757097742332,
+     "saturated_fraction": 0.06624717194570136
+    },
+    "window": {
+     "mean_power_W": 0.0,
+     "peak_current_A": 0.0,
+     "saturated_fraction": 0.0
+    }
+   },
+   "tilt_rms_deg": 28.094002895257336,
+   "pitch_peak_deg": 80.71765483362876,
+   "foreaft_max_m": 0.18286509844338314,
+   "foreaft_final_m": 0.18286509844338314,
+   "horizontal_final_m": 0.18375841962607917,
+   "foreaft_speed_rms_m_s": 0.3519363728553965
+  },
+  {
+   "spec": {
+    "seed": 1950002007,
+    "phase": 7,
+    "seconds": 8.0,
+    "family": "gust_40mN",
+    "controller": "B2_err60",
+    "law": {
+     "amplitude": 300.0,
+     "psi": 4.71238898038469,
+     "velocity_sign": 1.0,
+     "start": 1.0,
+     "gains": [
+      5.0,
+      0.2,
+      0.0
+     ],
+     "phase_error_deg": 60.0
+    }
+   },
+   "pulses": [
+    {
+     "t": 3.0,
+     "duration": 0.15,
+     "force": 0.04
+    },
+    {
+     "t": 5.5,
+     "duration": 0.15,
+     "force": -0.04
+    }
+   ],
+   "termination": "height_escape",
+   "elapsed": 2.994,
+   "height_rmse_m": 0.4223623221676982,
+   "electric": {
+    "all": {
+     "mean_power_W": 6.968170264219143,
+     "peak_current_A": 3.218757097742332,
+     "saturated_fraction": 0.07055778223112892
+    },
+    "window": {
+     "mean_power_W": 0.0,
+     "peak_current_A": 0.0,
+     "saturated_fraction": 0.0
+    }
+   },
+   "tilt_rms_deg": 4.988168003435546,
+   "pitch_peak_deg": NaN,
+   "foreaft_max_m": 0.02357157050881754,
+   "foreaft_final_m": 0.003506286962724438,
+   "horizontal_final_m": 0.01655019811061613,
+   "foreaft_speed_rms_m_s": 0.1228213729768403
+  },
+  {
+   "spec": {
+    "seed": 1950002007,
+    "phase": 7,
+    "seconds": 8.0,
+    "family": "gust_40mN",
+    "controller": "B2_err90",
+    "law": {
+     "amplitude": 300.0,
+     "psi": 4.71238898038469,
+     "velocity_sign": 1.0,
+     "start": 1.0,
+     "gains": [
+      5.0,
+      0.2,
+      0.0
+     ],
+     "phase_error_deg": 90.0
+    }
+   },
+   "pulses": [
+    {
+     "t": 3.0,
+     "duration": 0.15,
+     "force": 0.04
+    },
+    {
+     "t": 5.5,
+     "duration": 0.15,
+     "force": -0.04
+    }
+   ],
+   "termination": "tilt",
+   "elapsed": 2.858,
+   "height_rmse_m": 0.30006369585391474,
+   "electric": {
+    "all": {
+     "mean_power_W": 6.883442792636946,
+     "peak_current_A": 3.218757097742332,
+     "saturated_fraction": 0.07583974807557732
+    },
+    "window": {
+     "mean_power_W": 0.0,
+     "peak_current_A": 0.0,
+     "saturated_fraction": 0.0
+    }
+   },
+   "tilt_rms_deg": 35.9737118896704,
+   "pitch_peak_deg": NaN,
+   "foreaft_max_m": 0.12692422634731934,
+   "foreaft_final_m": 0.09377881987684984,
+   "horizontal_final_m": 0.09437133173226284,
+   "foreaft_speed_rms_m_s": 0.4861766488389952
+  },
+  {
+   "spec": {
+    "seed": 1950002007,
+    "phase": 7,
+    "seconds": 8.0,
+    "family": "gust_40mN",
+    "controller": "B2_err180",
+    "law": {
+     "amplitude": 300.0,
+     "psi": 4.71238898038469,
+     "velocity_sign": 1.0,
+     "start": 1.0,
+     "gains": [
+      5.0,
+      0.2,
+      0.0
+     ],
+     "phase_error_deg": 180.0
+    }
+   },
+   "pulses": [
+    {
+     "t": 3.0,
+     "duration": 0.15,
+     "force": 0.04
+    },
+    {
+     "t": 5.5,
+     "duration": 0.15,
+     "force": -0.04
+    }
+   ],
+   "termination": "tilt",
+   "elapsed": 1.946,
+   "height_rmse_m": 0.12459122934466925,
+   "electric": {
+    "all": {
+     "mean_power_W": 6.81634097696311,
+     "peak_current_A": 3.2402689933258846,
+     "saturated_fraction": 0.13142343268242548
+    },
+    "window": {
+     "mean_power_W": 0.0,
+     "peak_current_A": 0.0,
+     "saturated_fraction": 0.0
+    }
+   },
+   "tilt_rms_deg": NaN,
+   "pitch_peak_deg": NaN,
+   "foreaft_max_m": NaN,
+   "foreaft_final_m": NaN,
+   "horizontal_final_m": NaN,
+   "foreaft_speed_rms_m_s": NaN
+  }
+ ]
+}
