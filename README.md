@@ -1,9 +1,14 @@
 # FlapSim
 
-当前后续算法开发目录是 **`/home/robot/rl/FlapSim-current`**，本地分支 `algorithms-dev`，
-起点为 GitHub `v2` 的 `ad17767`。先看 [工作目录入口](START_HERE.md)；
-新增算法实验放在 [experiments/algorithms](experiments/algorithms/README.md)。
-已训练的 PPO 保留为历史基线。
+当前研究是 **PID 内环/网络残差与 SNN/ANN × NEAT/PPO 的闭环比较**，分支
+`research/pid-residual-velocity-v3`。协作者和其他 AI 请先看 [当前研究交接](AI_HANDOFF.md)，
+其中包含已做工作、最新计划、结果边界和正在运行的队列说明。
+[研究报告](artifacts/robust_control_20261010/report.md)和
+[独立阶段报告](artifacts/robust_control_20261010/interim_20261012/report.md)分别记录实际进展。
+
+新增算法实验位于 [experiments/algorithms](experiments/algorithms/README.md)。
+[旧工作目录记录](START_HERE.md)和下文的 PPO 自由飞行示例保留作历史资料；
+旧 `ppo_v2` 因观测接口不同，不参与当前研究比较。
 
 扑翼机器人仿真 Python package。默认模型是 `IST_robot`；可选的 `flapsim.rl`
 提供 Gymnasium 环境和 stable-baselines3 PPO 自由飞行轨迹训练。所有接口使用 SI 单位。

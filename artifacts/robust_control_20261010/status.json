@@ -1,28 +1,27 @@
 {
   "stage": "training",
-  "unix": 1791699218.65947,
+  "unix": 1791707676.2032108,
   "pid": 70635,
   "runs": [
-    "hover_residual_ann_ppo_seed6203",
-    "hover_residual_snn_neat_seed6204"
+    "hover_residual_ann_ppo_seed6203"
   ],
-  "completed": 11,
+  "completed": 12,
   "total": 65,
   "steps_per_run": 3584000,
   "final_tests_accessed": false,
-  "heartbeat_unix": 1791707096.100698,
+  "heartbeat_unix": 1791707716.436551,
   "heartbeat_pid": 70635,
-  "host_cpu_percent": 80.0,
+  "host_cpu_percent": 32.2,
   "load_average": [
-    13.08984375,
-    13.21142578125,
-    13.14892578125
+    7.74072265625,
+    11.8486328125,
+    12.76806640625
   ],
   "model_progress": {
     "training/hover_residual_ann_ppo_seed6203": {
-      "update": 821,
-      "loss": 0.010188303277272414,
-      "training_steps": 3284000,
+      "update": 862,
+      "loss": 0.004781774825450829,
+      "training_steps": 3448000,
       "budget": 3584000,
       "completed": false
     },
@@ -71,10 +70,10 @@
       "completed": true
     },
     "training/hover_residual_snn_neat_seed6204": {
-      "generation": 11,
-      "training_steps": 3033492,
+      "generation": 12,
+      "training_steps": 3542014,
       "budget": 3584000,
-      "completed": false
+      "completed": true
     },
     "training/hover_residual_ann_ppo_seed6202": {
       "update": 896,

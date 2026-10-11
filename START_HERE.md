@@ -1,4 +1,8 @@
-# 当前工作目录：FlapSim-current
+# 历史工作目录记录：FlapSim-current
+
+**当前入口已更新为 [AI_HANDOFF.md](AI_HANDOFF.md)。** 下面是 2026-10-06 的旧机器/分支说明，
+不能据此判断当前训练状态或切换工作目录。当前研究位于 `/home/hemingshan/FlapSim`，
+分支 `research/pid-residual-velocity-v3`。
 
 整理日期：2026-10-06。后续其他算法开发统一在此目录进行。
 

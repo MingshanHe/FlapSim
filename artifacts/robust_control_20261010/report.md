@@ -1,6 +1,6 @@
 # PID 内环、神经网络残差与速度控制研究
 
-当前阶段：`training`。训练完成 11/65。
+当前阶段：`training`。训练完成 12/65。
 
 **只有下面存在的记录才代表已经执行；队列、预算和测试计划不代表完成。**
 
@@ -25,6 +25,7 @@
 | hover_residual_snn_neat_seed6203 | 3354644 | 3584000 | 16/16 | 12 |
 | hover_residual_snn_ppo_seed6203 | 3584000 | 3584000 | 13/16 | 384 |
 | hover_residual_ann_neat_seed6203 | 3474764 | 3584000 | 14/16 | 8 |
+| hover_residual_snn_neat_seed6204 | 3542014 | 3584000 | 16/16 | 4 |
 
 ## 独立测试
 

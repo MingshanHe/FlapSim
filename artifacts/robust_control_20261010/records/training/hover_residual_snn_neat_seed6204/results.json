@@ -1,0 +1,24 @@
+{
+  "status": "completed",
+  "training_steps": 3542014,
+  "allocated_steps": 3584000,
+  "validation_steps": 384000,
+  "generation": 12,
+  "kind": "snn",
+  "mode": "residual",
+  "seed": 6204,
+  "budget": 3584000,
+  "best_validation": {
+    "episodes": 16,
+    "successes": 16,
+    "completed": 16,
+    "steps": 96000,
+    "tilt_rms_deg": 6.302759485955685,
+    "height_rmse_m": 0.05798008172417941,
+    "mean_return": 42.54850477267236,
+    "minimum_clearance_m": 0.5108751181540531
+  },
+  "wall_seconds": 8592.790507896992,
+  "task": "hover",
+  "fixed_topology": false
+}
