@@ -149,8 +149,8 @@ min_species_size = 2
     return cfg
 
 
-def initialize(pop, cfg, method, seed):
-    """Shared start: hidden units read all inputs; genome 0 has zero readout (= PID + zero drive)."""
+def initialize(pop, cfg, method, seed, readout_std=.05):
+    """Shared start: hidden units read all inputs; genome 0 has zero readout (= the base controller)."""
     m = METHODS[method]
     rng = np.random.default_rng(seed)
     gc = cfg.genome_config
@@ -171,16 +171,17 @@ def initialize(pop, cfg, method, seed):
             innovation = gc.innovation_tracker.get_innovation_number(source, target, 'shared_initial')
             edge = g.create_connection(gc, source, target, innovation)
             readout = target in gc.output_keys
-            edge.weight = 0. if (readout and index == 0) else float(rng.normal(0., .05 if readout else .5))
+            edge.weight = 0. if (readout and index == 0) else float(rng.normal(0., readout_std if readout else .5))
             edge.delay = float(rng.integers(0, 9)) if m['delays'] else 0.
             g.connections[(source, target)] = edge
     pop.species.speciate(cfg, pop.population, 0)
 
 
-def export(g, method):
+def export(g, method, residual=False, spike_scale=1., residual_scale=.5):
     m = METHODS[method]
+    extra = dict(residual_on='B2plus', residual_scale=residual_scale) if residual else {}
     return dict(kind=m['kind'], method=method, mode='phasor', inputs=INPUTS, outputs=list(range(OUTPUTS)),
-                tau_m=.01, tau_s=.005, genome_id=g.key,
+                tau_m=.01, tau_s=.005, spike_scale=spike_scale if m['kind'] == 'snn' else 1., genome_id=g.key, **extra,
                 nodes=[dict(id=k, bias=float(n.bias)) for k, n in sorted(g.nodes.items())],
                 edges=[dict(source=a, target=b, weight=float(e.weight), delay=float(round(e.delay)),
                             enabled=bool(e.enabled)) for (a, b), e in sorted(g.connections.items())])
@@ -203,7 +204,7 @@ def train(args):
     random.seed(args.seed)
     cfg = make_config(out, args.method, args.population)
     pop = neat.Population(cfg)
-    initialize(pop, cfg, args.method, args.seed)
+    initialize(pop, cfg, args.method, args.seed, args.readout_std)
     validation = cases('validation', args.validation_cases, args.seconds)
     best, history, start = None, [], time.monotonic()
     with E.pool(Path(args.scratch)/'source', args.workers) as executor:
@@ -212,7 +213,7 @@ def train(args):
             generation = len(history)
             batch = cases('training', args.cases, args.seconds, offset=args.seed*10_000+generation*args.cases)
             peaks = [args.levels[(generation*args.cases+i) % len(args.levels)] for i in range(args.cases)]
-            specs = {gid: export(g, args.method) for gid, g in genomes}
+            specs = {gid: export(g, args.method, args.residual, args.spike_scale) for gid, g in genomes}
             tasks = [(dict(name=str(gid), kind='graph', policy=specs[gid], phase_inputs=True), c, p)
                      for gid, _ in genomes for c, p in zip(batch, peaks)]
             rows = list(executor.map(E.run_task, tasks))
@@ -239,6 +240,7 @@ def train(args):
         pop.run(score, args.generations)
     result = dict(method=args.method, seed=args.seed, generations=args.generations, population=args.population,
                   cases_per_generation=args.cases, seconds=args.seconds, levels=args.levels,
+                  residual=args.residual, readout_std=args.readout_std, spike_scale=args.spike_scale,
                   selected_generation=best['generation'], selected_validation=best['key'],
                   selected_complexity=complexity(best['spec']), wall_s=time.monotonic()-start)
     (out/'results.json').write_text(json.dumps(result, indent=1))
@@ -260,6 +262,9 @@ def main():
     p.add_argument('--validation-levels', type=float, nargs='+', default=[1.5, 2.])
     p.add_argument('--validate-every', type=int, default=5)
     p.add_argument('--workers', type=int, default=18)
+    p.add_argument('--residual', action='store_true', help='learn a bounded residual on the B2+ hand law')
+    p.add_argument('--readout-std', type=float, default=.05)
+    p.add_argument('--spike-scale', type=float, default=1.)
     train(p.parse_args())
 
 

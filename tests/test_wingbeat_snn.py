@@ -89,6 +89,27 @@ def test_initial_genome_zero_is_the_pid(tmp_path):
             assert np.all(y == 0.)
 
 
+def test_zero_residual_network_reproduces_b2plus_bitwise(tmp_path):
+    import neat
+    from experiments.algorithms.snn_pid_compare.common import prepare_source
+    from experiments.algorithms.wingbeat_snn import evolve
+    from experiments.algorithms.wingbeat_snn.networks import GraphController
+    from experiments.algorithms.wingbeat_snn.plant import Plant, HandLaw, cases, gusts
+    source = tmp_path/'source'
+    prepare_source(source)
+    cfg = evolve.make_config(tmp_path, 'snn_neat_delay', 4)
+    pop = neat.Population(cfg)
+    evolve.initialize(pop, cfg, 'snn_neat_delay', 3, readout_std=.3)
+    spec = evolve.export(pop.population[min(pop.population)], 'snn_neat_delay', residual=True, spike_scale=5.)
+    c = cases('development', 1, seconds=1.4)[0]
+    plant = Plant(source)
+    alone = plant.run(c, HandLaw(highpass_s=1.), gusts(1., onsets=(1.1,)))
+    q_alone = plant.env.sim.data.qpos.copy()
+    with_net = plant.run(c, GraphController(spec), gusts(1., onsets=(1.1,)))
+    assert alone['drive_activity'] > 0 and with_net['spikes_per_s'] > 0
+    assert np.array_equal(q_alone, plant.env.sim.data.qpos)
+
+
 def test_zero_drive_reproduces_the_original_plant_bitwise(tmp_path):
     from experiments.algorithms.snn_pid_compare.common import prepare_source
     from experiments.algorithms.robust_control.environment import ResearchEnv
