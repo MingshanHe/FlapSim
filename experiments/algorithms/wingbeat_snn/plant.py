@@ -229,8 +229,9 @@ class Controller:
 
 class HandLaw(Controller):
     """B2+: PLL phase, notch-filtered pitch rate, PD on pitch; optional high-pass to drop steady output."""
-    def __init__(self, k_theta=5., k_q=.2, highpass_s=None, psi=math.radians(270.)):
+    def __init__(self, k_theta=5., k_q=.2, highpass_s=None, psi=math.radians(270.), limit=1.):
         self.k_theta, self.k_q, self.highpass_s, self.psi = k_theta, k_q, highpass_s, psi
+        self.limit = limit  # |u| bound in units of A_MAX; the plant still clips the phasor norm at 1
 
     def reset(self):
         self.mean = 0.
@@ -241,5 +242,5 @@ class HandLaw(Controller):
         if self.highpass_s:
             self.mean += (1-math.exp(-DT/self.highpass_s))*(u-self.mean)
             u -= self.mean
-        u = max(-1., min(1., u))
+        u = max(-self.limit, min(self.limit, u))
         return u*math.cos(self.psi), u*math.sin(self.psi)

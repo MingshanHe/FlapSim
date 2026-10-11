@@ -1,6 +1,11 @@
 # 新方向研究方案（草案）：以翅拍为时钟——NEAT 进化的相位锁定脉冲回路，用于扑翼机器人的逐翅拍控制
 
-**状态：草案。** 已完成固定支座预研，以及 **P0 自由飞行预备研究（决策点 G0 通过，见 [P0 报告](artifacts/wingbeat_feasibility_20261012/P0_report.md)）**。尚未实现 SNN/NEAT 控制器，也未开始训练。分支 `research/wingbeat-synchronous-snn`，2026-10-12 起草。
+**状态：草案。** 已完成固定支座预研、**P0 自由飞行预备研究**（决策点 G0 通过，见 [P0 报告](artifacts/wingbeat_feasibility_20261012/P0_report.md)）和 **P1 试跑**（见 [P1 报告](artifacts/wingbeat_snn_p1/P1_pilot_report.md)）。分支 `research/wingbeat-synchronous-snn`，2026-10-12 起草。
+
+**P1 试跑的要点**（每组 1 个种子，只作参考）：
+- 只用 IMU 的 split-cycle 控制律调好参数后，在测试集 1.5 m/s 前后阵风下 8/8 飞满；PID 在 0.5 m/s 时就有 5/8 失败。
+- 进化出的 SNN/ANN 残差网络生存数与调好参数的手工控制律相同，连续指标更差；SNN 与 ANN、有无延迟之间没有可分辨的差异。
+- 因此下一步只在手工控制律做不到的条件下检验 SNN＋NEAT：只用原始 IMU、不提供锁相环（见 P3），以及未知的执行器相位滞后（见 H5）。
 
 这是一条独立的新研究线，不依赖 v3/v4 的训练结果，只复用 `flapsim` 仿真器和 IST_robot-V2 模型。v3 队列和 v4 方案（分支 `research/v4-contribution-decomposition`）不受影响。
 

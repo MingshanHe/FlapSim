@@ -91,9 +91,26 @@ BASELINES = [dict(name='B1_pid', kind='pid'),
              dict(name='B2plus_hand_hp1s', kind='hand', params=dict(highpass_s=1.))]
 
 
+def retune(executor, offset=500_000, count=8, peaks=(1.25, 1.5)):
+    """Grid-tune B2+ (gains and phase) on training-split cases only; never on validation or test."""
+    grid = [dict(k_theta=kt, k_q=kq, highpass_s=1., psi=math.radians(psi))
+            for kt in (3., 5., 8., 12.) for kq in (.1, .2, .4, .8) for psi in (250., 270., 290.)]
+    specs = [dict(name=f'g{i}', kind='hand', params=params) for i, params in enumerate(grid)]
+    rows = evaluate(executor, specs, cases('training', count, 7., offset=offset), peaks)
+    scores = {}
+    for i, spec in enumerate(specs):
+        items = [r for r in rows if r['controller'] == spec['name']]
+        scores[spec['name']] = [sum(r['termination'] == 'time_limit' for r in items),
+                                float(np.mean([r['return_sum']/r['seconds']-.2*r['drive_activity']/300. for r in items]))]
+    best = max(scores, key=lambda k: scores[k])
+    return dict(grid=grid, scores=scores, best=dict(name='B2plus_retuned', kind='hand', params=grid[int(best[1:])]),
+                episodes_per_setting=count*len(peaks), tuning_split='training', offset=offset, peaks=list(peaks))
+
+
 def main():
     p = argparse.ArgumentParser()
-    p.add_argument('stage', choices=['gust_scan', 'compare'])
+    p.add_argument('stage', choices=['gust_scan', 'compare', 'retune'])
+    p.add_argument('--retuned', type=Path, help='retune output JSON whose best setting joins the comparison')
     p.add_argument('--scratch', type=Path, required=True)
     p.add_argument('--output', type=Path, required=True)
     p.add_argument('--workers', type=int, default=18)
@@ -101,15 +118,26 @@ def main():
     p.add_argument('--levels', type=float, nargs='+', default=[0., .5, 1., 1.25, 1.5])
     p.add_argument('--count', type=int, default=8)
     a = p.parse_args()
+    if a.stage == 'retune':
+        with pool(a.scratch/'source', a.workers) as executor:
+            result = retune(executor)
+        a.output.parent.mkdir(parents=True, exist_ok=True)
+        a.output.write_text(json.dumps(result, indent=1)+'\n')
+        print(json.dumps(dict(best=result['best'], top=sorted(result['scores'].items(), key=lambda kv: kv[1])[-5:]),
+                         indent=1))
+        return
     if a.stage == 'gust_scan':
         specs, case_list, levels, references = BASELINES, cases('development', 8), (0., .5, 1., 1.5, 2., 3.), ['B1_pid']
     else:
         # Held-out test split; the policies were selected on the validation split only.
         specs = [BASELINES[0], BASELINES[2]]
+        if a.retuned:
+            specs.append(json.loads(a.retuned.read_text())['best'])
         for item in a.policy:
             name, path = item.split('=', 1)
             specs.append(dict(name=name, kind='graph', policy=json.loads(Path(path).read_text()), phase_inputs=True))
-        case_list, levels, references = cases('test', a.count), a.levels, ['B1_pid', 'B2plus_hand_hp1s']
+        case_list, levels = cases('test', a.count), a.levels
+        references = ['B1_pid', 'B2plus_hand_hp1s']+(['B2plus_retuned'] if a.retuned else [])
     with pool(a.scratch/'source', a.workers) as executor:
         rows = evaluate(executor, specs, case_list, levels)
     result = dict(stage=a.stage, summary=summarize(rows),
