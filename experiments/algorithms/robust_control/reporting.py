@@ -32,10 +32,13 @@ def generate(root, destination):
         lines.append(f"| {j['name']} | {result['training_steps']} | {result['allocated_steps']} | "
                      f"{s['successes']}/{s['episodes']} | {selected.get('generation', selected.get('update'))} |")
     lines += ['', '## 独立测试', '']
+    if (destination/'interim_20261012/report.md').exists():
+        lines += ['另行提前执行的阶段独立评估见 [SNN＋NEAT 阶段报告](interim_20261012/report.md)。'
+                  '它使用独立的新案例，下面仍仅记录原协议的最终测试。', '']
     groups = {}
     manifest = {}
     if not evaluated:
-        lines += ['尚未运行独立测试。不能据此宣布获得稳健策略，或判定某种训练方法获胜。']
+        lines += ['原协议的最终独立测试尚未运行。选模验证不能代替独立测试或判定某种训练方法获胜。']
     else:
         lines += ['下表逐训练种子汇总，测试场景在所有方法间配对。', '',
                   '| 控制器 | 工况 | 严格成功 | 倾角 RMS ° | 高度 RMS m | 速度误差 m/s |',

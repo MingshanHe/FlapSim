@@ -4,6 +4,25 @@ See [research_proposal_v3.md](../../../research_proposal_v3.md) for the frozen-d
 
 Runtime: `runs/robust_control/20261010_v3`. Report: `artifacts/robust_control_20261010/report.md`.
 
+The user-authorized [October 12 interim delivery](../../../artifacts/robust_control_20261010/interim_plan_20261012.md)
+adds a separate holdout and brings predeclared fixed-topology controls forward.
+It drains active whole runs, compares the first three paired seeds for all four
+methods against PID, evaluates controls and additional SNN-NEAT seeds, and then
+automatically resumes the original queue. It changes scheduling only, not the
+sealed training implementation, budgets, checkpoint selection, or final tests.
+The [interim report](../../../artifacts/robust_control_20261010/interim_20261012/report.md)
+updates after each model; runtime case progress is in
+`runs/robust_control/20261010_v3/interim_20261012/evaluation_progress.json`.
+
+```bash
+bash experiments/algorithms/snn_pid_compare/run.sh -m experiments.algorithms.robust_control.interim \
+  --root runs/robust_control/20261010_v3 \
+  --destination artifacts/robust_control_20261010
+```
+
+This launcher requires the owned `pause_request.json` handoff described in the
+amendment; do not start an independent original queue during the handoff.
+
 The 65-run queue contains five seeds for each direct/residual ANN/SNN × PPO/NEAT hover arm, five fixed-topology SNN evolution controls, and twenty residual velocity runs. Each hover run allocates 3,584,000 original 500 Hz action steps; velocity allocates 5,120,000, with longer episodes covering the whole command sequence. Allocated and consumed steps are reported separately. This is a multi-day study, not a completed result.
 
 ```bash
