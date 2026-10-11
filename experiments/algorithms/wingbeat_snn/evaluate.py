@@ -9,7 +9,7 @@ import math
 from pathlib import Path
 import numpy as np
 from ..snn_pid_compare.common import prepare_source
-from .plant import Plant, HandLaw, cases, gusts
+from .plant import Plant, HandLaw, cases, gusts, with_lags
 
 _PLANT = None
 
@@ -91,26 +91,48 @@ BASELINES = [dict(name='B1_pid', kind='pid'),
              dict(name='B2plus_hand_hp1s', kind='hand', params=dict(highpass_s=1.))]
 
 
-def retune(executor, offset=500_000, count=8, peaks=(1.25, 1.5)):
-    """Grid-tune B2+ (gains and phase) on training-split cases only; never on validation or test."""
+def retune(executor, offset=500_000, count=8, peaks=(1.25, 1.5), lag_range=0.):
+    """Grid-tune B2+ (gains and phase) on training-split cases only; never on validation or test.
+
+    With ``lag_range`` the tuning cases carry the same kind of unknown actuator lag the networks see."""
     grid = [dict(k_theta=kt, k_q=kq, highpass_s=1., psi=math.radians(psi))
             for kt in (3., 5., 8., 12.) for kq in (.1, .2, .4, .8) for psi in (250., 270., 290.)]
     specs = [dict(name=f'g{i}', kind='hand', params=params) for i, params in enumerate(grid)]
-    rows = evaluate(executor, specs, cases('training', count, 7., offset=offset), peaks)
+    rows = evaluate(executor, specs, with_lags(cases('training', count, 7., offset=offset), lag_range, 0), peaks)
     scores = {}
     for i, spec in enumerate(specs):
         items = [r for r in rows if r['controller'] == spec['name']]
         scores[spec['name']] = [sum(r['termination'] == 'time_limit' for r in items),
                                 float(np.mean([r['return_sum']/r['seconds']-.2*r['drive_activity']/300. for r in items]))]
     best = max(scores, key=lambda k: scores[k])
-    return dict(grid=grid, scores=scores, best=dict(name='B2plus_retuned', kind='hand', params=grid[int(best[1:])]),
-                episodes_per_setting=count*len(peaks), tuning_split='training', offset=offset, peaks=list(peaks))
+    name = 'B2plus_robust' if lag_range else 'B2plus_retuned'
+    return dict(grid=grid, scores=scores, best=dict(name=name, kind='hand', params=grid[int(best[1:])]),
+                episodes_per_setting=count*len(peaks), tuning_split='training', offset=offset, peaks=list(peaks),
+                lag_range_deg=lag_range)
+
+
+def lag_scan(executor, specs, case_list, peaks, lags):
+    """Unknown actuator phase lag: the same paired cases with the drive phase shifted by each lag."""
+    tasks = [(dict(s, name=f"{s['name']}|lag{lag:+.0f}"), dict(c, phase_lag_deg=lag), peak)
+             for lag in lags for peak in peaks for c in case_list for s in specs]
+    rows = list(executor.map(run_task, tasks))
+    table = {}
+    for r in rows:
+        name, lag = r['controller'].split('|lag')
+        entry = table.setdefault(name, {}).setdefault(lag, {}).setdefault(str(r['gust_peak_m_s']), [0, 0])
+        entry[0] += r['termination'] == 'time_limit'
+        entry[1] += 1
+    return dict(lags_deg=list(lags), peaks=list(peaks), completed=table, summary=summarize(rows), episodes=rows)
 
 
 def main():
     p = argparse.ArgumentParser()
-    p.add_argument('stage', choices=['gust_scan', 'compare', 'retune'])
-    p.add_argument('--retuned', type=Path, help='retune output JSON whose best setting joins the comparison')
+    p.add_argument('stage', choices=['gust_scan', 'compare', 'retune', 'lag_scan'])
+    p.add_argument('--lags', type=float, nargs='+', default=[-60., -30., 0., 30., 60.])
+    p.add_argument('--lag-range', type=float, default=0., help='retune: unknown lag, uniform +-deg per case')
+    p.add_argument('--retune-peaks', type=float, nargs='+', default=[1.25, 1.5])
+    p.add_argument('--retuned', type=Path, action='append', default=[],
+                   help='retune output JSON whose best setting joins the comparison (repeatable)')
     p.add_argument('--scratch', type=Path, required=True)
     p.add_argument('--output', type=Path, required=True)
     p.add_argument('--workers', type=int, default=18)
@@ -120,24 +142,33 @@ def main():
     a = p.parse_args()
     if a.stage == 'retune':
         with pool(a.scratch/'source', a.workers) as executor:
-            result = retune(executor)
+            result = retune(executor, peaks=tuple(a.retune_peaks), lag_range=a.lag_range)
         a.output.parent.mkdir(parents=True, exist_ok=True)
         a.output.write_text(json.dumps(result, indent=1)+'\n')
         print(json.dumps(dict(best=result['best'], top=sorted(result['scores'].items(), key=lambda kv: kv[1])[-5:]),
                          indent=1))
         return
+    if a.stage == 'lag_scan':
+        specs = [BASELINES[2]]+[json.loads(path.read_text())['best'] for path in a.retuned]
+        for item in a.policy:
+            name, path = item.split('=', 1)
+            specs.append(dict(name=name, kind='graph', policy=json.loads(Path(path).read_text()), phase_inputs=True))
+        with pool(a.scratch/'source', a.workers) as executor:
+            result = lag_scan(executor, specs, cases('test', a.count), a.levels, a.lags)
+        a.output.parent.mkdir(parents=True, exist_ok=True)
+        a.output.write_text(json.dumps(result, indent=1)+'\n')
+        print(json.dumps(result['completed'], indent=1))
+        return
     if a.stage == 'gust_scan':
         specs, case_list, levels, references = BASELINES, cases('development', 8), (0., .5, 1., 1.5, 2., 3.), ['B1_pid']
     else:
         # Held-out test split; the policies were selected on the validation split only.
-        specs = [BASELINES[0], BASELINES[2]]
-        if a.retuned:
-            specs.append(json.loads(a.retuned.read_text())['best'])
+        specs = [BASELINES[0], BASELINES[2]]+[json.loads(path.read_text())['best'] for path in a.retuned]
         for item in a.policy:
             name, path = item.split('=', 1)
             specs.append(dict(name=name, kind='graph', policy=json.loads(Path(path).read_text()), phase_inputs=True))
         case_list, levels = cases('test', a.count), a.levels
-        references = ['B1_pid', 'B2plus_hand_hp1s']+(['B2plus_retuned'] if a.retuned else [])
+        references = ['B1_pid', 'B2plus_hand_hp1s']+[s['name'] for s in specs if s['name'].startswith('B2plus_r')]
     with pool(a.scratch/'source', a.workers) as executor:
         rows = evaluate(executor, specs, case_list, levels)
     result = dict(stage=a.stage, summary=summarize(rows),

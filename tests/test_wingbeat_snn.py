@@ -110,6 +110,22 @@ def test_zero_residual_network_reproduces_b2plus_bitwise(tmp_path):
     assert np.array_equal(q_alone, plant.env.sim.data.qpos)
 
 
+def test_unknown_lag_only_moves_the_drive(tmp_path):
+    from experiments.algorithms.snn_pid_compare.common import prepare_source
+    from experiments.algorithms.wingbeat_snn.plant import Plant, HandLaw, cases, gusts
+    source = tmp_path/'source'
+    prepare_source(source)
+    c = cases('development', 1, seconds=1.3)[0]
+    plant = Plant(source)
+    finals = {}
+    for name, controller in (('none', None), ('hand', HandLaw(highpass_s=1.))):
+        for lag in (0., 40.):
+            plant.run(dict(c, phase_lag_deg=lag), controller, gusts(1., onsets=(1.05,)))
+            finals[(name, lag)] = plant.env.sim.data.qpos.copy()
+    assert np.array_equal(finals[('none', 0.)], finals[('none', 40.)])
+    assert not np.array_equal(finals[('hand', 0.)], finals[('hand', 40.)])
+
+
 def test_zero_drive_reproduces_the_original_plant_bitwise(tmp_path):
     from experiments.algorithms.snn_pid_compare.common import prepare_source
     from experiments.algorithms.robust_control.environment import ResearchEnv

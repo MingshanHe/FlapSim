@@ -23,7 +23,7 @@ from neat.genes import DefaultConnectionGene, DefaultNodeGene
 from neat.genome import DefaultGenomeConfig
 import numpy as np
 from .networks import MAX_DELAY
-from .plant import A_MAX, SPLITS, cases
+from .plant import A_MAX, SPLITS, cases, with_lags
 from . import evaluate as E
 
 METHODS = dict(snn_neat_delay=dict(kind='snn', structure=True, delays=True, hidden=4),
@@ -177,9 +177,11 @@ def initialize(pop, cfg, method, seed, readout_std=.05):
     pop.species.speciate(cfg, pop.population, 0)
 
 
-def export(g, method, residual=False, spike_scale=1., residual_scale=.5):
+def export(g, method, residual=False, spike_scale=1., residual_scale=.5, residual_base=None):
     m = METHODS[method]
     extra = dict(residual_on='B2plus', residual_scale=residual_scale) if residual else {}
+    if residual and residual_base:
+        extra['residual_base'] = residual_base
     return dict(kind=m['kind'], method=method, mode='phasor', inputs=INPUTS, outputs=list(range(OUTPUTS)),
                 tau_m=.01, tau_s=.005, spike_scale=spike_scale if m['kind'] == 'snn' else 1., genome_id=g.key, **extra,
                 nodes=[dict(id=k, bias=float(n.bias)) for k, n in sorted(g.nodes.items())],
@@ -205,15 +207,18 @@ def train(args):
     cfg = make_config(out, args.method, args.population)
     pop = neat.Population(cfg)
     initialize(pop, cfg, args.method, args.seed, args.readout_std)
-    validation = cases('validation', args.validation_cases, args.seconds)
+    validation = with_lags(cases('validation', args.validation_cases, args.seconds), args.lag_range, 0)
+    base = json.loads(Path(args.residual_base).read_text())['best']['params'] if args.residual_base else None
     best, history, start = None, [], time.monotonic()
     with E.pool(Path(args.scratch)/'source', args.workers) as executor:
         def score(genomes, config):
             nonlocal best
             generation = len(history)
-            batch = cases('training', args.cases, args.seconds, offset=args.seed*10_000+generation*args.cases)
+            batch = with_lags(cases('training', args.cases, args.seconds, offset=args.seed*10_000+generation*args.cases),
+                              args.lag_range, args.seed)
             peaks = [args.levels[(generation*args.cases+i) % len(args.levels)] for i in range(args.cases)]
-            specs = {gid: export(g, args.method, args.residual, args.spike_scale) for gid, g in genomes}
+            specs = {gid: export(g, args.method, args.residual, args.spike_scale, residual_base=base)
+                     for gid, g in genomes}
             tasks = [(dict(name=str(gid), kind='graph', policy=specs[gid], phase_inputs=True), c, p)
                      for gid, _ in genomes for c, p in zip(batch, peaks)]
             rows = list(executor.map(E.run_task, tasks))
@@ -241,6 +246,7 @@ def train(args):
     result = dict(method=args.method, seed=args.seed, generations=args.generations, population=args.population,
                   cases_per_generation=args.cases, seconds=args.seconds, levels=args.levels,
                   residual=args.residual, readout_std=args.readout_std, spike_scale=args.spike_scale,
+                  residual_base=base, lag_range_deg=args.lag_range,
                   selected_generation=best['generation'], selected_validation=best['key'],
                   selected_complexity=complexity(best['spec']), wall_s=time.monotonic()-start)
     (out/'results.json').write_text(json.dumps(result, indent=1))
@@ -265,6 +271,8 @@ def main():
     p.add_argument('--residual', action='store_true', help='learn a bounded residual on the B2+ hand law')
     p.add_argument('--readout-std', type=float, default=.05)
     p.add_argument('--spike-scale', type=float, default=1.)
+    p.add_argument('--residual-base', help='retune JSON; its best hand-law setting becomes the residual base')
+    p.add_argument('--lag-range', type=float, default=0., help='unknown actuator phase lag, uniform +-deg per case')
     train(p.parse_args())
 
 

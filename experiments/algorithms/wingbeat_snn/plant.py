@@ -149,7 +149,8 @@ class Plant:
             norm = math.hypot(a, b)
             if norm > 1.:
                 a, b = a/norm, b/norm
-            drive[0], drive[1], drive[2] = self.estimator.crank(time), self.estimator.omega, time
+            # An unknown actuator lag shifts where the commanded phasor physically lands; controllers never see it.
+            drive[0], drive[1], drive[2] = self.estimator.crank(time)-self.lag, self.estimator.omega, time
             drive[3], drive[4] = A_MAX*a, A_MAX*b
         else:
             drive[5], drive[6] = A_MAX*float(np.clip(out[0], -1, 1)), A_MAX*float(np.clip(out[1], -1, 1))
@@ -161,6 +162,7 @@ class Plant:
         env.mode = 'pid'
         env.configure(c)
         self.controller, self.gusts = controller, [dict(g) for g in gust_list]
+        self.lag = math.radians(c.get('phase_lag_deg', 0.))
         self.estimator, self.phase_errors, self.activity = WingbeatPhase(PHASE_OFFSET), [], []
         env.reset(seed=c['seed'])
         if controller is not None:
@@ -212,6 +214,17 @@ def metrics(rows, gust_list, settle=2.):
 def cases(split, count, seconds=8., offset=0):
     base = SPLITS[split]+offset
     return [make_case(base+i, seconds, 'nominal', i % 8) for i in range(count)]
+
+
+def with_lags(case_list, lag_range, seed):
+    """Unknown actuator lag per case, uniform in +-lag_range degrees, deterministic in the case seed."""
+    if not lag_range:
+        return case_list
+    out = []
+    for c in case_list:
+        rng = np.random.default_rng(np.random.SeedSequence([c['seed'], seed, 7717]))
+        out.append(dict(c, phase_lag_deg=float(rng.uniform(-lag_range, lag_range))))
+    return out
 
 
 class Controller:

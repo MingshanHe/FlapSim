@@ -104,7 +104,8 @@ class GraphController(Controller):
             from .plant import HandLaw
             if spec['residual_on'] != 'B2plus' or self.mode != 'phasor':
                 raise ValueError('only phasor residuals on B2plus are defined')
-            self.base, self.residual_scale = HandLaw(highpass_s=1.), float(spec['residual_scale'])
+            base = spec.get('residual_base', dict(highpass_s=1.))  # default: the original B2+
+            self.base, self.residual_scale = HandLaw(**base), float(spec['residual_scale'])
 
     @property
     def spikes(self):
