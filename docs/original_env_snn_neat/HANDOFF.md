@@ -1,0 +1,128 @@
+# 交接：原环境内的 SNN+NEAT 研究线
+
+分支：`research/original-env-snn-neat`（仅在本地，未推送）。最后更新：2026-10-13 约 08:50 JST。
+
+本文件取代了之前那段长对话。原始对话记录含个人信息，没有放进仓库。新会话（例如 Claude Code 桌面版）先读本文件；如需细节，再读文中链接的报告。
+
+## 0. 当前状态（先看这里）
+
+### 正在运行或等待运行
+
+| 任务 | 位置 | 说明 |
+|---|---|---|
+| v3 全流程冒烟测试 | tmux `v3_quick`，日志 `runs/spike_steer_v3_quick.log` | 使用 `--quick`，所有阶段都缩小规模，用来在 2 小时的正式运行之前发现会让程序崩溃的问题。约 6 分钟。 |
+| v3 正式运行 | 冒烟测试通过后启动：`tmux new-session -d -s spike_steer_v3 "bash runs/run_steer_v3.sh 2>&1 \| tee -a runs/spike_steer_v3.log"` | 约 2 小时。中间结果在 `runs/spike_steer/pilot_v3_s3/`，结束后复制到 `artifacts/spike_steer/v3/`。 |
+
+v3 的判读：
+- 结论看 `artifacts/spike_steer/v3/test.json` 中的 `report.overall.PASS` 和 `ROBUST_PASS`。
+- 预注册的判据在 `preregistration.json`，测试开始之前就已写入。
+
+用 `tmux ls` 查看任务是否还在。不要在任务运行时修改它正在使用的脚本或模块（见第 5 节）。
+
+### 用户最新的授权（2026-10-13）
+
+先做验证。结果不理想就尝试修正；修正不了，就寻找新课题，设计 SNN+NEAT 在本平台上的应用方案，然后再次运行。
+
+## 1. 用户的决定与约束
+
+1. **守住原 v3 环境接口**（`experiments/algorithms/robust_control/environment.py` 里的 `ResearchEnv`）。
+   - 传感：IMU 与测距高度，共 11 维，500 Hz。
+   - 执行：云台 α、β 不超过 ±0.3 rad；电机转速 3115–3807 rad/s；每 2 ms 更新一次，经过 8.2 ms 平滑。
+   - 可以新增测试场景（扰动、飞行中途的参数变化、任务）。不可以改传感器、执行器、更新率或限幅。
+2. **论文的创新要以 SNN 和 NEAT 为核心**。用户不接受"以机制为主、SNN/NEAT 当配角"的定位。
+3. **任何学习方法都必须与同预算重调的经典控制比较**，否定结果同样如实报告。
+4. **推送 GitHub 等对外操作，先征得用户同意。** 本分支目前只在本地。
+
+## 2. 已有结论
+
+### 2.1 旧的翅拍同步线不在范围内
+
+旧线在分支 `research/wingbeat-synchronous-snn`。它的 C++ 相位驱动每 5 µs 改一次电机目标，绕过了 2 ms 采样、平滑和转速上下限；实测目标被压到 2815 rad/s。所以它不符合原接口。另一台电脑上旧线的 E6–E8 是否停掉，用户尚未答复。
+
+### 2.2 原环境的预备检验（[gates_report.md](../../artifacts/neuro_gates/gates_report.md)）
+
+- **翅拍晃动**：下体俯仰随翅拍（约 25–27 Hz）晃动 ±4.4°。环境给出的姿态经过 0.13 s 低通，残余约 0.2°。
+- **PID 只能依赖慢姿态**：给 PID 任何更快的姿态（包括去掉晃动后的真值）或推力单元的姿态，所有增益都会坠机。
+  - 原因是两体反向响应：一个云台脉冲让 IMU 所在的下体先反向转 −2.3°（推力单元 +1.5°），随后两体以约 4–5 Hz、几乎无阻尼地来回摆动。
+- **飞行中适应没有空间**：推力 −10%、舵机刚度 ×0.4、负载 +2 g、延迟 10 ms 这几种中途变化下，5 种情况有 4 种的最优 PID 增益完全相同。
+- **v3 的 PID 没有针对应力调参**：kp×1.5 就能让倾角降低 1.1–1.7°，超过 v3 学习型残差约 1° 的改进。
+
+### 2.3 原接口内的翅拍定时驱动（[timing.py](../../experiments/algorithms/neuro_gates/timing.py)）
+
+- **单边脉冲最有效**：在特定曲柄相位把转速指令拉满到上限，俯仰权限是 v3 云台残差的 4.1 倍；正弦调制只有 2.7 倍。
+- **事件触发的相位锁定脉冲律**：把应力下的俯仰 RMS 从 7.35° 降到约 3.0°（只用 IMU 的经典实现），但高度误差会增加。
+
+### 2.4 脉冲定时转向的短验证（`experiments/algorithms/spike_steer/`）
+
+指标：J = 俯仰 RMS（°）+ 0.3 × 高度 RMSE（cm）。测试集为 16 个应力案例，每例 8 s。
+
+| 控制器 | J | 俯仰 RMS | 高度 RMSE | 备注 |
+|---|---|---|---|---|
+| 重调 PID（kp×1.5） | 9.74 | 7.35° | 8.0 cm | |
+| SNN v1（NEAT，1 个运动神经元） | 8.17 | 4.74° | 11.4 cm | 放电锁相（R=0.90，平均 338°，接近下推最优的 315°），但只学会一个方向 |
+| SNN v2（2 个运动神经元，按方向均衡，0.6 物种阈值） | 9.14 | 5.52° | 12.1 cm | **未通过**：只有一个神经元放电，且在约 240°；种群一直有 10 个物种，每个物种保留精英，每代只有约 12 个新个体，从第 3 代起停滞 |
+| 经典脉冲律（108 点网格调参） | **5.86** | 2.49° | 11.2 cm | v3 要通过，需要 J ≤ 6.15 |
+
+**重要混杂因素**（由备选方案工作流发现，并通过 RNG 复算核实）：
+- `motor_gain`（1 ± 1.5%）是在截断**之后**乘到转速指令上的（`snn_pid_compare/environment.py` 第 97–100 行），所以每个案例的向下余量是 16–108 rad/s。
+- 脉冲律的高度代价主要出现在 g > 1.008（余量很小）的约 1/3 案例：PID 为 10.6 cm，脉冲律为 18.1 cm。余量充足的案例几乎没有高度代价。
+- 一个会参考余量的经典律可能就能修掉大部分高度代价，这会让经典基线更强。
+
+### 2.5 备选方案工作流（[contingency_plans_20261013.json](../../artifacts/spike_steer/workflows/contingency_plans_20261013.json)，23 个代理）
+
+**修正方案**（评审 7.5/10，已实现为 [pilot_v3.py](../../experiments/algorithms/spike_steer/pilot_v3.py)）：
+- 镜像绑定的拮抗神经元池：相位 +180°，误差正负对调；
+- 从 v1 冠军热启动，并加入零权重的"需求→运动"直连；
+- 温和的变异模板（`neat_template_v3.ini`）；
+- `AdaptiveSpeciesSet`：物种数不超过 5，避免 neat-python 在物种过多时报错；
+- 训练批次按扰动方向和余量分层；
+- 按验证集结果选择，再做 16 例的最终选择；
+- 与经典律同预算的 4 旋钮校准；
+- 扩展的经典律 law_ext：加入相位偏置，作为更强的对照；
+- 预注册判据：飞满 16/16，J ≤ 1.05 × law_tuned，两个方向都学会（每个方向至少 20 次放电，且至少 70% 落在 135° 或 315° 的 ±67.5° 内）。
+
+评审预计：学会两个方向的概率约 0.85，J 达标的概率约 0.35–0.45。
+
+**D1 决策**（v3 第一步）：
+- mirror(v1) 不比 v1 差，且上推方向的放电至少 70% 落在窗口内 → 采用镜像绑定；
+- 否则改用"不绑定的成对神经元池"：两个池都从 mirror(v1) 开始，各自独立进化。
+
+**新课题排名**：6 个角度，每个经过两位对抗评审，**没有一个强**（2–3.5/10）。
+- 第一：**大扰动下的脉冲翻正反射**。先做经典的 Stage A（约 1.2 h），确认多阶段反射逻辑本身有没有收益。评审估计 Stage A 不通过的概率约 70%，SNN/NEAT 最终成为核心的概率约 3–5%。
+- 第二：**Lamarckian NEAT 加植物核代理梯度**，属于方法学，同样偏弱。
+- 被否定的课题：升力中性的相位编码、可塑性自校准等。被否定的原因见文件。
+
+## 3. 代码地图
+
+| 路径 | 作用 |
+|---|---|
+| `experiments/algorithms/neuro_gates/gates.py` | 原环境检验：`Oracle`（真值或去晃动的姿态，仅作诊断）、`run`、`apply_change`、适应检验 |
+| `.../neuro_gates/diagnostics.py` | 晃动幅度、滞后扫描、云台脉冲响应 |
+| `.../neuro_gates/timing.py` | 原接口内的定时驱动：权限测量、闭环、只用 IMU 的经典脉冲律（`PULSE_PHASE`=135°） |
+| `.../spike_steer/pilot.py` | v1/v2：`SpikingGraph`（输出也发放脉冲）、`Steer`、`run`、`balanced_cases`、`tune_law`、`test` |
+| `.../spike_steer/pilot_v3.py` | v3（见 2.5）：`selftest`（不跑仿真）、`all [--quick]` |
+| `.../wingbeat_snn/networks.py`、`evolve.py` | 带延迟的 LIF 图、NEAT 的 `DelayGenome`（带延迟基因） |
+| `.../wingbeat_snn/phase_train.py` | 替代梯度 SNN 与 GRU（相位估计），可作为梯度训练的模板 |
+| `.../wingbeat_feasibility/preliminary.py` | `WingbeatPhase`（从陀螺仪估计翅拍相位的锁相环，同时给出陷波后的角速度 `slow`） |
+
+## 4. 下一步决策树
+
+1. **v3 通过**：写正式研究计划，内容包括：
+   - 5–10 个种子；
+   - 消融：去掉延迟、固定拓扑、去掉镜像；
+   - ANN/GRU 对照；
+   - 会参考余量的经典律作为更强的对照；
+   - 独立测试集。
+2. **v3 未通过**：按用户指令转向新课题，首选"翻正反射"的 Stage A（纯经典，回答"多阶段反射有没有收益"）。评审特别提醒：投入 Stage B（SNN/NEAT 部分）之前，先问用户是否接受"只有经典结果或否定结果"。
+3. 无论哪种结果，都要如实报告。
+
+## 5. 运行与操作约定
+
+- **Python**：`/home/robot/miniconda3/envs/mujoco/bin/python`（MuJoCo 3.8.0、torch 2.6.0、neat-python 2.0.0）；20 个逻辑 CPU，评估用 18 个进程。
+- **吞吐**：约每分钟 40 个 6 s 的案例。一个 8 s 案例约占一个核 45 s。
+- **长任务放在 tmux 里运行**。从 `wsl.exe bash -c "... &"` 启动的进程会在调用的 shell 退出时被杀掉。
+- **等待用后台任务加完成通知**，不要长时间 `sleep` 轮询（用户会以为卡住了）。
+- **不要修改正在运行的 bash 脚本**；也不要修改之后的阶段还会重新 import 的 Python 模块（例如 v2 运行期间的 `pilot.py`）。
+- **Git**：WSL 里的 git 没有 GitHub 凭据。推送用 Windows 端的 git：`& "E:\功能软件\Git\cmd\git.exe" -c "safe.directory=*" -C \\wsl.localhost\Ubuntu\home\robot\FlapSim-repo\FlapSim push ...`，推送前先征得用户同意。仓库是私有的。
+- **`runs/` 不进 git**，需要保留的结果放在 `artifacts/`。
+- **Claude 的自动记忆**在 `C:\Users\hemin\.claude\projects\--wsl-localhost-Ubuntu-home-robot-FlapSim-repo-FlapSim\memory\`。它按项目路径区分，所以用同一路径（`\\wsl.localhost\Ubuntu\home\robot\FlapSim-repo\FlapSim`）打开项目才会加载。

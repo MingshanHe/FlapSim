@@ -1,27 +1,38 @@
-# CLAUDE.md（分支 research/wingbeat-synchronous-snn）
+# CLAUDE.md（分支 research/original-env-snn-neat）
 
-本分支研究单电机扑翼机器人的"翅拍同步施力（split-cycle）"抗阵风控制：只用 IMU 锁定翅拍相位，并比较脉冲网络（SNN）、NEAT 与经典控制。论文写作之前的正式实验在其他电脑上运行。
+本分支在**原 v3 环境接口内**寻找以 SNN 和 NEAT 为核心的论文创新点。当前在验证"脉冲定时转向"：进化出的脉冲回路在特定翅拍相位发出电机脉冲，类似昆虫的转向肌。
 
-**开始工作前先读** [docs/wingbeat_paper/HANDOFF.md](docs/wingbeat_paper/HANDOFF.md)，其中有完整背景、用户做过的决定和全部结果。再按需读：
-- [docs/wingbeat_paper/RUNBOOK.md](docs/wingbeat_paper/RUNBOOK.md)：正式实验怎么跑；
-- [docs/wingbeat_paper/paper_outline.md](docs/wingbeat_paper/paper_outline.md)：论文大纲和各主张的判据。
+原接口指：
+- 传感：IMU 与测距高度；
+- 执行：云台 α/β 在 ±0.3 rad 内，电机转速在 3115–3807 rad/s 内；每 2 ms 更新一次，经过 8.2 ms 平滑。
 
-v3（`AI_HANDOFF.md`）和 v4 是另外的研究线，与本分支无关。
+**开始工作前先读** [docs/original_env_snn_neat/HANDOFF.md](docs/original_env_snn_neat/HANDOFF.md)，其中有：
+- 当前在跑的任务；
+- 用户的决定；
+- 全部结果；
+- 下一步决策树。
+
+再按需读：
+- [artifacts/neuro_gates/gates_report.md](artifacts/neuro_gates/gates_report.md)：原环境的预备检验；
+- [artifacts/spike_steer/](artifacts/spike_steer/)：脉冲定时转向 v1、v2、v3 的结果，以及备选方案工作流的输出。
+
+旧的翅拍同步线（`docs/wingbeat_paper/`，分支 `research/wingbeat-synchronous-snn`）改动了执行器接口，已不在范围内。v3 线（`AI_HANDOFF.md`）和 v4 线是另外的研究线。
 
 ## 常用命令
 
 ```bash
-export PYTHON=$(which python)                                   # 需要 MuJoCo 3.8.0、torch 2.6.0、neat-python 2.0.0
-bash experiments/algorithms/wingbeat_snn/paper/check_env.sh     # 环境检查和 9 个单元测试
-QUICK=1 bash experiments/algorithms/wingbeat_snn/paper/run_all.sh   # 约 10 分钟的端到端冒烟测试
-tmux new-session -d -s wingbeat_paper "PYTHON=$PYTHON bash experiments/algorithms/wingbeat_snn/paper/run_all.sh 2>&1 | tee -a runs/wingbeat_paper.log"
-python -m experiments.algorithms.wingbeat_snn.paper_stats --input artifacts/wingbeat_paper --output artifacts/wingbeat_paper/report
+PY=/home/robot/miniconda3/envs/mujoco/bin/python      # MuJoCo 3.8.0、torch 2.6.0、neat-python 2.0.0
+$PY -m experiments.algorithms.spike_steer.pilot_v3 selftest                 # 不跑仿真的自测
+$PY -m experiments.algorithms.spike_steer.pilot_v3 all --quick --output runs/spike_steer/pilot_v3_quick   # 约 6 分钟的冒烟测试
+tmux new-session -d -s spike_steer_v3 "bash runs/run_steer_v3.sh 2>&1 | tee -a runs/spike_steer_v3.log"   # 正式 v3，约 2 小时
+$PY -m pytest tests/test_wingbeat_snn.py -q                                  # 10 个单元测试
 ```
 
 ## 约定
 
 - 用户使用中文交流：先给结论，再给依据；需要用户做决定的地方明确提问。
-- 所有结论都必须与"同预算重新调参的经典控制律"比较；否定结果同样如实报告。
-- 长任务放在 tmux 里运行，不要修改正在执行的 shell 脚本。等待时用后台等待任务加完成通知，不要用长时间 sleep 轮询。
-- 推送 GitHub、删除数据等对外或不可逆的操作，先征得用户同意。
+- 不改传感器、执行器、更新率或限幅。可以新增测试场景，但要说明。
+- 所有结论都必须与"同预算重新调参的经典控制"比较；否定结果同样如实报告。判据在看结果之前写下。
+- 长任务放在 tmux 里运行。不要修改正在执行的脚本，也不要修改之后的阶段还会重新导入的 Python 模块。等待时用后台等待任务加完成通知，不要用长时间 sleep 轮询。
+- 推送 GitHub、删除数据等对外或不可逆的操作，先征得用户同意。WSL 里的 git 没有凭据，推送要用 Windows 端的 git，见 HANDOFF 第 5 节。
 - `runs/` 不进 git；需要保留的结果放在 `artifacts/`。
