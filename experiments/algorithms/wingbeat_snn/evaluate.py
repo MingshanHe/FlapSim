@@ -9,7 +9,7 @@ import math
 from pathlib import Path
 import numpy as np
 from ..snn_pid_compare.common import prepare_source
-from .plant import Plant, HandLaw, cases, gusts, with_lags
+from .plant import A_MAX, Plant, HandLaw, cases, gusts, with_lags
 
 _PLANT = None
 
@@ -169,6 +169,31 @@ def factor_scan(executor, specs, case_list, peaks, factors):
     return dict(factors=factors, peaks=list(peaks), completed=table, summary=summarize(rows), episodes=rows)
 
 
+def authority_scan(executor, law, case_list, peaks, amplitudes):
+    """Is the gust limit set by drive authority? Raise the modulation amplitude A two ways:
+    ``same_gain`` rescales the gains by A_MAX/A (identical law in rad/s until it saturates at the larger A),
+    ``raw_gain`` keeps the tuned gains (loop gain grows with A)."""
+    p = law['params']
+    variants = []
+    for amp in amplitudes:
+        if amp == A_MAX:
+            variants.append((dict(law, name=f'A{amp:g}'), amp))
+            continue
+        scale = A_MAX/amp
+        variants.append((dict(law, name=f'A{amp:g}_same_gain',
+                              params=dict(p, k_theta=p['k_theta']*scale, k_q=p['k_q']*scale)), amp))
+        variants.append((dict(law, name=f'A{amp:g}_raw_gain'), amp))
+    tasks = [(spec, dict(c, drive_amplitude=amp), peak) for peak in peaks for c in case_list for spec, amp in variants]
+    rows = list(executor.map(run_task, tasks))
+    reference = f'A{A_MAX:g}'
+    return dict(amplitudes=list(amplitudes), peaks=list(peaks), law=law, summary=summarize(rows),
+                paired={f'{s["name"]}__minus__{reference}': {k: paired(rows, s['name'], reference, k) for k in
+                                                             ('pitch_peak_deg', 'tilt_rms_deg', 'height_rmse_m',
+                                                              'foreaft_max_m')}
+                        for s, _ in variants if s['name'] != reference},
+                episodes=rows)
+
+
 def ablation_specs(law, pll_tuned=None):
     p = law['params']
     specs = [dict(law, name='full'), dict(law, name='no_highpass', params=dict(p, highpass_s=None)),
@@ -184,7 +209,9 @@ def ablation_specs(law, pll_tuned=None):
 def main():
     p = argparse.ArgumentParser()
     p.add_argument('stage', choices=['gust_scan', 'compare', 'retune', 'lag_scan', 'phase_closed_loop',
-                                     'robustness', 'ablation'])
+                                     'robustness', 'ablation', 'authority'])
+    p.add_argument('--amplitudes', type=float, nargs='+', default=[300., 450.],
+                   help='authority: drive modulation amplitudes in rad/s (the default plant uses A_MAX)')
     p.add_argument('--offset', type=int, help='case-seed offset within the test split (stage default if omitted)')
     p.add_argument('--pll-tuned', type=Path, help='ablation: pll_tuned.json to include as a phase source')
     p.add_argument('--estimator', action='append', default=[],
@@ -203,11 +230,13 @@ def main():
     a = p.parse_args()
     def test_cases(default_offset, seconds=8.):
         return cases('test', a.count, seconds, offset=default_offset if a.offset is None else a.offset)
-    if a.stage in ('robustness', 'ablation'):
+    if a.stage in ('robustness', 'ablation', 'authority'):
         law = json.loads(a.retuned[0].read_text())['best']
         with pool(a.scratch/'source', a.workers) as executor:
             if a.stage == 'robustness':
                 result = factor_scan(executor, [BASELINES[0], law], test_cases(800_000), a.levels, FACTORS)
+            elif a.stage == 'authority':
+                result = authority_scan(executor, law, test_cases(600_000), a.levels, a.amplitudes)
             else:
                 rows = evaluate(executor, ablation_specs(law, a.pll_tuned), test_cases(900_000), a.levels)
                 result = dict(summary=summarize(rows), episodes=rows,

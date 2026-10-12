@@ -165,9 +165,10 @@ class Plant:
                 a, b = a/norm, b/norm
             # An unknown actuator lag shifts where the commanded phasor physically lands; controllers never see it.
             drive[0], drive[1], drive[2] = self.estimator.crank(time)-self.lag, self.estimator.omega, time
-            drive[3], drive[4] = A_MAX*a, A_MAX*b
+            drive[3], drive[4] = self.amplitude*a, self.amplitude*b
         else:
-            drive[5], drive[6] = A_MAX*float(np.clip(out[0], -1, 1)), A_MAX*float(np.clip(out[1], -1, 1))
+            drive[5], drive[6] = (self.amplitude*float(np.clip(out[0], -1, 1)),
+                                  self.amplitude*float(np.clip(out[1], -1, 1)))
         self.activity.append(float(np.hypot(drive[3], drive[4])+.5*(abs(drive[5])+abs(drive[6]))))
 
     def run(self, c, controller=None, gust_list=(), settle=2., estimator=None, record=False):
@@ -179,6 +180,7 @@ class Plant:
         env.configure(c)
         self.controller, self.gusts = controller, [dict(g) for g in gust_list]
         self.lag = math.radians(c.get('phase_lag_deg', 0.))
+        self.amplitude = float(c.get('drive_amplitude', A_MAX))  # authority scan: rad/s at |u| = 1
         from dataclasses import replace
         self.env.sim.fluid.config = replace(self.base_fluid, **{field: getattr(self.base_fluid, field)*c[key]
                                                                 for key, field in AERO_KEYS.items() if key in c})

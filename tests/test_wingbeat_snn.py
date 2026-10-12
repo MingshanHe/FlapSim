@@ -142,6 +142,25 @@ def test_unknown_lag_only_moves_the_drive(tmp_path):
     assert not np.array_equal(finals[('hand', 0.)], finals[('hand', 40.)])
 
 
+def test_drive_amplitude_only_scales_the_drive(tmp_path):
+    from experiments.algorithms.snn_pid_compare.common import prepare_source
+    from experiments.algorithms.wingbeat_snn.plant import Plant, HandLaw, cases, gusts
+    source = tmp_path/'source'
+    prepare_source(source)
+    c = cases('development', 1, seconds=1.3)[0]
+    plant = Plant(source)
+    finals = {}
+    for name, controller, amplitude in (('none', None, None), ('hand', HandLaw(highpass_s=1.), 0.),
+                                        ('hand', HandLaw(highpass_s=1.), 300.), ('hand', HandLaw(highpass_s=1.), 450.)):
+        case = c if amplitude is None else dict(c, drive_amplitude=amplitude)
+        plant.run(case, controller, gusts(1., onsets=(1.05,)))
+        finals[(name, amplitude)] = plant.env.sim.data.qpos.copy()
+    plant.run(c, HandLaw(highpass_s=1.), gusts(1., onsets=(1.05,)))
+    assert np.array_equal(finals[('none', None)], finals[('hand', 0.)])
+    assert np.array_equal(finals[('hand', 300.)], plant.env.sim.data.qpos)  # default is A_MAX
+    assert not np.array_equal(finals[('hand', 300.)], finals[('hand', 450.)])
+
+
 def test_zero_drive_reproduces_the_original_plant_bitwise(tmp_path):
     from experiments.algorithms.snn_pid_compare.common import prepare_source
     from experiments.algorithms.robust_control.environment import ResearchEnv
