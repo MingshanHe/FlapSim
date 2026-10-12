@@ -272,6 +272,48 @@ def train_neat(data, out, generations, population, seed, workers):
     return best
 
 
+# ---------------------------------------------------------------- tuned classical PLL (same recordings)
+def pll_replay(trace, window, bandwidth_hz, offset):
+    """Replay WingbeatPhase on a recorded pitch-gyro stream; 2nd-order loop with damping 0.7."""
+    from ..wingbeat_feasibility.preliminary import WingbeatPhase
+    wn = 2*math.pi*bandwidth_hz
+    est = WingbeatPhase(offset, window=window, kp=2*.7*wn, ki=wn*wn)
+    out = np.empty(len(trace))
+    for i, row in enumerate(trace):
+        est.update(float(row[0]), float(row[5]))
+        out[i] = est.crank(float(row[0]))
+    return out
+
+
+def pll_setting(task):
+    """Calibrate the constant offset on training flights, then score on validation flights."""
+    window, bandwidth, train_path, valid_path = task
+    train, valid = load(train_path)['episodes'], load(valid_path)['episodes']
+    errors = []
+    for trace in train[::4]:
+        est = pll_replay(trace, window, bandwidth, 0.)
+        keep = trace[:, 0] >= 1.5
+        errors.append(np.angle(np.exp(1j*(est[keep]-trace[keep, 10]))))
+    offset = float(np.angle(np.mean(np.exp(1j*np.concatenate(errors)))))
+    score = aggregate([phase_metrics(t, pll_replay(t, window, bandwidth, offset)) for t in valid])
+    return dict(window=window, bandwidth_hz=bandwidth, offset_rad=offset, validation=score)
+
+
+def pll_tune(data, out, workers):
+    # First sweep (15/25/40 x 0.75/1.5/3/6 Hz) picked the grid edge (15, 3 Hz); extended toward shorter windows.
+    grid = [(w, b, str(data/'training.npz'), str(data/'validation.npz'))
+            for w in (8, 10, 12, 15, 25) for b in (1.5, 2., 3., 4., 5.)]
+    with ProcessPoolExecutor(workers) as pool:
+        rows = list(pool.map(pll_setting, grid))
+    best = min(rows, key=lambda r: r['validation']['rms_all'])
+    test = [phase_metrics(t, pll_replay(t, best['window'], best['bandwidth_hz'], best['offset_rad']))
+            for t in load(data/'test.npz')['episodes']]
+    result = dict(grid=rows, best=best, test=aggregate(test),
+                  note='P0 default: window 25, bandwidth about 1.5 Hz, offset calibrated in P0')
+    (out/'pll_tuned.json').write_text(json.dumps(result, indent=1))
+    return result
+
+
 # ---------------------------------------------------------------- held-out offline comparison
 def offline_test(data, models):
     test = dataset(data/'test.npz')
@@ -307,7 +349,7 @@ def load_models(model_dir):
 
 def main():
     p = argparse.ArgumentParser()
-    p.add_argument('stage', choices=['gru', 'snn_grad', 'snn_neat', 'offline_test'])
+    p.add_argument('stage', choices=['gru', 'snn_grad', 'snn_neat', 'offline_test', 'pll_tune'])
     p.add_argument('--data', type=Path, required=True)
     p.add_argument('--output', type=Path, required=True)
     p.add_argument('--seed', type=int, default=1)
@@ -327,6 +369,8 @@ def main():
                                 a.tag)
     elif a.stage == 'snn_neat':
         result = train_neat(a.data, a.output, a.generations, a.population, a.seed, a.workers)
+    elif a.stage == 'pll_tune':
+        result = pll_tune(a.data, a.output, a.workers)
     else:
         result = offline_test(a.data, load_models(a.output))
         (a.output/'offline_test.json').write_text(json.dumps(result, indent=1))

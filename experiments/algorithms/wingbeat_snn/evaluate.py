@@ -37,6 +37,10 @@ def make_estimator(spec):
         return None
     from .phase_data import NetPhase
     from .phase_train import GraphStep, TorchStep, load_gru
+    if spec['kind'] == 'pll':  # a re-tuned classical PLL: window, 2nd-order loop bandwidth, calibrated offset
+        from ..wingbeat_feasibility.preliminary import WingbeatPhase
+        wn = 2*math.pi*spec['bandwidth_hz']
+        return WingbeatPhase(spec['offset_rad'], window=spec['window'], kp=2*.7*wn, ki=wn*wn)
     if spec['kind'] == 'graph':
         return NetPhase(GraphStep(spec['policy']))
     import torch
@@ -167,10 +171,15 @@ def main():
         # Same retuned hand law; only the wingbeat-phase source changes. Fresh test cases (offset 400000).
         law = json.loads(a.retuned[0].read_text())['best']
         specs = [dict(law, name='law_pll')]
-        for item in a.estimator:  # name=path; .pt is a GRU, .json an exported graph
+        for item in a.estimator:  # name=path; .pt is a GRU, pll_tuned*.json a tuned PLL, other .json a graph
             name, path = item.split('=', 1)
-            est = dict(kind='gru', path=path) if path.endswith('.pt') else \
-                dict(kind='graph', policy=json.loads(Path(path).read_text()))
+            if path.endswith('.pt'):
+                est = dict(kind='gru', path=path)
+            elif Path(path).name.startswith('pll_tuned'):
+                est = dict(kind='pll', **{k: json.loads(Path(path).read_text())['best'][k]
+                                          for k in ('window', 'bandwidth_hz', 'offset_rad')})
+            else:
+                est = dict(kind='graph', policy=json.loads(Path(path).read_text()))
             specs.append(dict(law, name=f'law_{name}', estimator=est))
         with pool(a.scratch/'source', a.workers) as executor:
             rows = evaluate(executor, specs, cases('test', a.count, 8., offset=400_000), a.levels)
