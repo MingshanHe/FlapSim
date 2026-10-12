@@ -77,6 +77,18 @@
 | `.../wingbeat_snn/paper/*.sh`、`paper_stats.py` | 正式实验脚本（可续跑，有 QUICK 模式）和统计作图 |
 | `tests/test_wingbeat_snn.py` | 9 个测试：逐位一致、延迟语义、NEAT 结构约束、残差等价、滞后、SNN 导出一致 |
 
+## 4b. 正式实验进展（2026-10-12）
+
+另一台电脑在跑 RUNBOOK，每完成一步自动提交到本分支。已完成：
+- E1–E5，结论见 [paper_outline.md](paper_outline.md) 开头"正式实验进展"一节：
+  - C1 成立：调参 B2+ 每档 32 例飞满到 1.5 m/s，PID 只到 0.25 m/s；
+  - E3 的时序容许范围约为 ±45°；
+  - 陷波是关键部件；
+  - 密度 ×1.1 和电机 ±4% 的失败来自底层 PID 的电机下限，与 split-cycle 无关。
+- E8 的数据录制和 NEAT 种子 1。
+
+E8 的其余部分、E6、E7 仍在运行或未开始。
+
 ## 5. 下一步
 
 1. 在新机器上按 RUNBOOK 运行：`check_env.sh` → `QUICK=1 run_all.sh` → 正式的 `run_all.sh`（约 27 h，可拆分到多台机器）。
