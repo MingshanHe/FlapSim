@@ -145,3 +145,4 @@ paired cases: 16; wrapper equivalence max |Δqpos| = 0.0
 ## E8 phase estimation
 
 
+Operation count per tick (proxy, not energy): GRU-32 ≈ 3904 MAC; SNN-48: 768 MAC for the analog input projection over two substeps, plus (spikes per tick) × 50 accumulates.
