@@ -18,4 +18,6 @@ for m in snn_neat_delay ann_neat snn_fixed; do
     --validation-cases 8 --validate-every 5 --workers 6 "$@" > "$OUT/${m}_seed${SEED}.log" 2>&1 &
 done
 wait
-echo "finished $(date -Is)" > "$OUT/DONE"
+ok=1
+for m in snn_neat_delay ann_neat snn_fixed; do [ -s "$OUT/${m}_seed${SEED}/results.json" ] || ok=0; done
+[ $ok = 1 ] && echo "finished $(date -Is)" > "$OUT/DONE_seed${SEED}"

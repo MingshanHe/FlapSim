@@ -480,6 +480,7 @@ def main():
     p.add_argument('--scratch', type=Path, required=True, help='prepared plant source (outside the repo)')
     p.add_argument('--workers', type=int, default=18)
     p.add_argument('--amplitude', type=float, default=300.)
+    p.add_argument('--e1-seeds', type=int, default=4, help='e1: number of paired free-flight cases')
     a = p.parse_args()
     source = a.scratch/'source'
     if not (source/'robot_upper7_lower8.xml').exists():
@@ -487,7 +488,7 @@ def main():
     a.output.mkdir(parents=True, exist_ok=True)
     with pool(source, a.workers) as executor:
         if a.stage == 'e1':
-            result = stage_e1(executor)
+            result = stage_e1(executor, seeds=a.e1_seeds)
         elif a.stage == 'e2':
             result = stage_e2(executor, json.loads((a.output/'p0_e1.json').read_text()), a.amplitude)
         elif a.stage == 'e3':

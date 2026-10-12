@@ -41,7 +41,7 @@ def record_task(task):
     return dict(seed=c['seed'], peak=peak, termination=out['termination'], trace=out['trace'])
 
 
-def record(source, output, workers=18):
+def record(source, output, workers=18, scale=1.):
     source, output = Path(source), Path(output)
     if not (source/'robot_upper7_lower8.xml').exists():
         prepare_source(source)
@@ -50,7 +50,7 @@ def record(source, output, workers=18):
     summary = {}
     with ProcessPoolExecutor(workers, initializer=worker_init, initargs=(str(source),)) as pool:
         for split, (count, offset) in SPLIT_PLAN.items():
-            case_list = cases(split, count, 8., offset=offset)
+            case_list = cases(split, max(1, round(count*scale)), 8., offset=offset)
             tasks = [(c, PEAKS[i % len(PEAKS)], params) for i, c in enumerate(case_list)]
             rows = list(pool.map(record_task, tasks))
             np.savez_compressed(output/f'{split}.npz', columns=np.array(COLUMNS),
@@ -97,12 +97,26 @@ def phase_metrics(trace, estimate, settle=1.5, lock_deg=15., hold=.5):
     return dict(all=stats(after), calm=stats(after & ~wind), gust=stats(after & wind), lock_time_s=lock)
 
 
-class NetPhase:
+class _Notched:
+    """Shared by phase sources other than the PLL: ``slow`` is the pitch gyro minus a sliding
+    least-squares wingbeat fit (fundamental + 2nd harmonic) on this source's own phase."""
+    def _notch(self, y):
+        self.buffer.append((self.theta, y))
+        self.slow = y
+        if len(self.buffer) == self.window:
+            theta = np.array([b[0] for b in self.buffer])
+            X = np.c_[np.cos(theta), np.sin(theta), np.cos(2*theta), np.sin(2*theta), np.ones_like(theta)]
+            coef, *_ = np.linalg.lstsq(X, np.array([b[1] for b in self.buffer]), rcond=None)
+            self.slow = y-float(X[-1, :4]@coef[:4])
+
+    def crank(self, t):
+        return self.theta+self.omega*(t-self.t)
+
+
+class NetPhase(_Notched):
     """Closed-loop adapter: a model mapping raw IMU to (cos, sin) of the crank replaces the PLL.
 
-    Frequency is a 50 ms low-pass of successive phase increments; ``slow`` is the
-    pitch gyro minus a sliding least-squares wingbeat fit on the model's own phase,
-    the same notch the PLL estimator provides."""
+    Frequency is a 50 ms low-pass of successive phase increments."""
     def __init__(self, model, window=25, tau=.05):
         self.model, self.window, self.tau = model, window, tau
         self.model.reset()
@@ -120,17 +134,23 @@ class NetPhase:
             self.omega += (1-math.exp(-dt/self.tau))*(step/dt-self.omega)
             self.theta += step
         self.t = t
-        y = float(reading[4])
-        self.buffer.append((self.theta, y))
-        self.slow = y
-        if len(self.buffer) == self.window:
-            theta = np.array([b[0] for b in self.buffer])
-            X = np.c_[np.cos(theta), np.sin(theta), np.cos(2*theta), np.sin(2*theta), np.ones_like(theta)]
-            coef, *_ = np.linalg.lstsq(X, np.array([b[1] for b in self.buffer]), rcond=None)
-            self.slow = y-float(X[-1, :4]@coef[:4])
+        self._notch(float(reading[4]))
 
-    def crank(self, t):
-        return self.theta+self.omega*(t-self.t)
+
+class TruthPhase(_Notched):
+    """Perfect phase: the true crank angle and rate (an upper bound, not a sensor)."""
+    def __init__(self, window=25):
+        self.window, self.plant = window, None
+        self.theta, self.t, self.omega, self.slow = None, None, 2*math.pi*25., 0.
+        self.buffer = deque(maxlen=window)
+
+    def attach(self, plant):
+        self.plant = plant
+
+    def update_reading(self, t, reading):
+        d = self.plant.env.sim.data
+        self.theta, self.omega, self.t = float(d.qpos[self.plant.crank]), float(d.qvel[self.plant.crank_dof]), t
+        self._notch(float(reading[4]))
 
 
 def main():
@@ -139,8 +159,9 @@ def main():
     p.add_argument('--scratch', type=Path, required=True)
     p.add_argument('--output', type=Path, required=True)
     p.add_argument('--workers', type=int, default=18)
+    p.add_argument('--scale', type=float, default=1., help='fraction of the 48/16/16 flights (smoke tests)')
     a = p.parse_args()
-    print(json.dumps(record(a.scratch/'source', a.output, a.workers), indent=1))
+    print(json.dumps(record(a.scratch/'source', a.output, a.workers, a.scale), indent=1))
 
 
 if __name__ == '__main__':

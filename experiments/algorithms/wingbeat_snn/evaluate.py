@@ -35,8 +35,10 @@ def make_estimator(spec):
     """None keeps the PLL; otherwise a learned raw-IMU phase model wrapped by NetPhase."""
     if not spec:
         return None
-    from .phase_data import NetPhase
+    from .phase_data import NetPhase, TruthPhase
     from .phase_train import GraphStep, TorchStep, load_gru
+    if spec['kind'] == 'truth':
+        return TruthPhase()
     if spec['kind'] == 'pll':  # a re-tuned classical PLL: window, 2nd-order loop bandwidth, calibrated offset
         from ..wingbeat_feasibility.preliminary import WingbeatPhase
         wn = 2*math.pi*spec['bandwidth_hz']
@@ -50,7 +52,8 @@ def make_estimator(spec):
 
 def run_task(task):
     spec, c, peak = task
-    out = _PLANT.run(c, make_controller(spec), gusts(peak) if peak else (), estimator=make_estimator(spec.get('estimator')))
+    gust_list = gusts(peak, axis=c.get('gust_axis', 'forward')) if peak else ()
+    out = _PLANT.run(c, make_controller(spec), gust_list, estimator=make_estimator(spec.get('estimator')))
     out.update(controller=spec['name'], gust_peak_m_s=peak)
     return out
 
@@ -142,9 +145,48 @@ def lag_scan(executor, specs, case_list, peaks, lags):
     return dict(lags_deg=list(lags), peaks=list(peaks), completed=table, summary=summarize(rows), episodes=rows)
 
 
+FACTORS = {  # one change at a time; all other case settings nominal
+    'nominal': {},
+    'density_x0.9': dict(aero_density_scale=.9), 'density_x1.1': dict(aero_density_scale=1.1),
+    'chord_drag_x0.5': dict(aero_chord_drag_scale=.5), 'chord_drag_x1.5': dict(aero_chord_drag_scale=1.5),
+    'rot_drag_x0.5': dict(aero_rotational_drag_scale=.5), 'rot_drag_x1.5': dict(aero_rotational_drag_scale=1.5),
+    'lower_mass_x1.1': dict(lower_mass_scale=1.1), 'motor_uncertainty_0.04': dict(motor_uncertainty=.04),
+    'imu_delay_2_steps': dict(delay_steps=2), 'gyro_noise_x10': dict(gyro_noise=.02),
+    'accel_noise_x10': dict(accel_noise=.2), 'lateral_gust': dict(gust_axis='lateral'),
+}
+
+
+def factor_scan(executor, specs, case_list, peaks, factors):
+    tasks = [(dict(s, name=f"{s['name']}|{name}"), dict(c, **overrides), peak)
+             for name, overrides in factors.items() for peak in peaks for c in case_list for s in specs]
+    rows = list(executor.map(run_task, tasks))
+    table = {}
+    for r in rows:
+        controller, factor = r['controller'].split('|')
+        entry = table.setdefault(controller, {}).setdefault(factor, {}).setdefault(str(r['gust_peak_m_s']), [0, 0])
+        entry[0] += r['termination'] == 'time_limit'
+        entry[1] += 1
+    return dict(factors=factors, peaks=list(peaks), completed=table, summary=summarize(rows), episodes=rows)
+
+
+def ablation_specs(law, pll_tuned=None):
+    p = law['params']
+    specs = [dict(law, name='full'), dict(law, name='no_highpass', params=dict(p, highpass_s=None)),
+             dict(law, name='no_notch', params=dict(p, notch=False)),
+             dict(law, name='truth_phase', estimator=dict(kind='truth'))]
+    if pll_tuned:
+        best = json.loads(Path(pll_tuned).read_text())['best']
+        specs.append(dict(law, name='pll_tuned', estimator=dict(kind='pll', **{k: best[k] for k in
+                                                                               ('window', 'bandwidth_hz', 'offset_rad')})))
+    return specs
+
+
 def main():
     p = argparse.ArgumentParser()
-    p.add_argument('stage', choices=['gust_scan', 'compare', 'retune', 'lag_scan', 'phase_closed_loop'])
+    p.add_argument('stage', choices=['gust_scan', 'compare', 'retune', 'lag_scan', 'phase_closed_loop',
+                                     'robustness', 'ablation'])
+    p.add_argument('--offset', type=int, help='case-seed offset within the test split (stage default if omitted)')
+    p.add_argument('--pll-tuned', type=Path, help='ablation: pll_tuned.json to include as a phase source')
     p.add_argument('--estimator', action='append', default=[],
                    help='phase_closed_loop: name=path to a gru*.pt or an exported graph JSON (repeatable)')
     p.add_argument('--lags', type=float, nargs='+', default=[-60., -30., 0., 30., 60.])
@@ -159,6 +201,24 @@ def main():
     p.add_argument('--levels', type=float, nargs='+', default=[0., .5, 1., 1.25, 1.5])
     p.add_argument('--count', type=int, default=8)
     a = p.parse_args()
+    def test_cases(default_offset, seconds=8.):
+        return cases('test', a.count, seconds, offset=default_offset if a.offset is None else a.offset)
+    if a.stage in ('robustness', 'ablation'):
+        law = json.loads(a.retuned[0].read_text())['best']
+        with pool(a.scratch/'source', a.workers) as executor:
+            if a.stage == 'robustness':
+                result = factor_scan(executor, [BASELINES[0], law], test_cases(800_000), a.levels, FACTORS)
+            else:
+                rows = evaluate(executor, ablation_specs(law, a.pll_tuned), test_cases(900_000), a.levels)
+                result = dict(summary=summarize(rows), episodes=rows,
+                              paired={f'{n}__minus__full': {k: paired(rows, n, 'full', k)
+                                                            for k in ('pitch_peak_deg', 'tilt_rms_deg', 'height_rmse_m',
+                                                                      'foreaft_max_m')}
+                                      for n in sorted({r['controller'] for r in rows}) if n != 'full'})
+        a.output.parent.mkdir(parents=True, exist_ok=True)
+        a.output.write_text(json.dumps(result, indent=1)+'\n')
+        print(json.dumps(result.get('completed', result['summary']), indent=1)[:12000])
+        return
     if a.stage == 'retune':
         with pool(a.scratch/'source', a.workers) as executor:
             result = retune(executor, peaks=tuple(a.retune_peaks), lag_range=a.lag_range)
@@ -171,9 +231,11 @@ def main():
         # Same retuned hand law; only the wingbeat-phase source changes. Fresh test cases (offset 400000).
         law = json.loads(a.retuned[0].read_text())['best']
         specs = [dict(law, name='law_pll')]
-        for item in a.estimator:  # name=path; .pt is a GRU, pll_tuned*.json a tuned PLL, other .json a graph
+        for item in a.estimator:  # name=path; 'truth', .pt is a GRU, pll_tuned*.json a tuned PLL, other .json a graph
             name, path = item.split('=', 1)
-            if path.endswith('.pt'):
+            if path == 'truth':
+                est = dict(kind='truth')
+            elif path.endswith('.pt'):
                 est = dict(kind='gru', path=path)
             elif Path(path).name.startswith('pll_tuned'):
                 est = dict(kind='pll', **{k: json.loads(Path(path).read_text())['best'][k]
@@ -182,7 +244,7 @@ def main():
                 est = dict(kind='graph', policy=json.loads(Path(path).read_text()))
             specs.append(dict(law, name=f'law_{name}', estimator=est))
         with pool(a.scratch/'source', a.workers) as executor:
-            rows = evaluate(executor, specs, cases('test', a.count, 8., offset=400_000), a.levels)
+            rows = evaluate(executor, specs, test_cases(400_000), a.levels)
         result = dict(stage=a.stage, summary=summarize(rows),
                       paired={f'{s["name"]}__minus__law_pll': {k: paired(rows, s['name'], 'law_pll', k) for k in
                                                               ('pitch_peak_deg', 'tilt_rms_deg', 'phase_error_rms_deg')}
@@ -198,7 +260,7 @@ def main():
             name, path = item.split('=', 1)
             specs.append(dict(name=name, kind='graph', policy=json.loads(Path(path).read_text()), phase_inputs=True))
         with pool(a.scratch/'source', a.workers) as executor:
-            result = lag_scan(executor, specs, cases('test', a.count), a.levels, a.lags)
+            result = lag_scan(executor, specs, test_cases(0), a.levels, a.lags)
         a.output.parent.mkdir(parents=True, exist_ok=True)
         a.output.write_text(json.dumps(result, indent=1)+'\n')
         print(json.dumps(result['completed'], indent=1))
@@ -211,7 +273,7 @@ def main():
         for item in a.policy:
             name, path = item.split('=', 1)
             specs.append(dict(name=name, kind='graph', policy=json.loads(Path(path).read_text()), phase_inputs=True))
-        case_list, levels = cases('test', a.count), a.levels
+        case_list, levels = test_cases(0), a.levels
         references = ['B1_pid', 'B2plus_hand_hp1s']+[s['name'] for s in specs if s['name'].startswith('B2plus_r')]
     with pool(a.scratch/'source', a.workers) as executor:
         rows = evaluate(executor, specs, case_list, levels)

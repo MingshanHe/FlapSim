@@ -79,9 +79,13 @@ def enable(backend):
     return backend
 
 
-def gusts(peak, onsets=(3., 5.5), duration=.3):
-    """Fore-aft 1-cos gusts with alternating sign; peak in m/s."""
-    return [dict(t=t, duration=duration, peak=peak*(1 if i % 2 == 0 else -1)) for i, t in enumerate(onsets)]
+def gusts(peak, onsets=(3., 5.5), duration=.3, axis='forward'):
+    """1-cos gusts with alternating sign; peak in m/s; along the heading ('forward') or across it ('lateral')."""
+    return [dict(t=t, duration=duration, peak=peak*(1 if i % 2 == 0 else -1), axis=axis) for i, t in enumerate(onsets)]
+
+
+AERO_KEYS = dict(aero_density_scale='density', aero_chord_drag_scale='chord_drag',
+                 aero_rotational_drag_scale='rotational_drag')
 
 
 class Plant:
@@ -94,6 +98,7 @@ class Plant:
         self.crank = int(m.joint('carrier_2_joint').qposadr[0])
         self.crank_dof = int(m.joint('carrier_2_joint').dofadr[0])
         self.unit = m.body('thrust_unit').id
+        self.base_fluid = self.env.sim.fluid.config  # aero mismatch cases scale this per run
         air.advance = self._advance
 
     # -- one 2 ms control tick, same bookkeeping as Airborne/InitializedAirborne.advance
@@ -117,10 +122,11 @@ class Plant:
         w = np.zeros(3)
         for g in self.gusts:
             if g['t'] <= t < g['t']+g['duration']:
-                if 'forward' not in g:
+                if 'direction' not in g:
                     yaw = rotation_to_rpy(self.env.air.env._state()[2])[2]
-                    g['forward'] = np.array([math.cos(yaw), math.sin(yaw), 0.])
-                w += .5*g['peak']*(1-math.cos(2*math.pi*(t-g['t'])/g['duration']))*g['forward']
+                    g['direction'] = (np.array([math.cos(yaw), math.sin(yaw), 0.]) if g.get('axis', 'forward') == 'forward'
+                                      else np.array([-math.sin(yaw), math.cos(yaw), 0.]))
+                w += .5*g['peak']*(1-math.cos(2*math.pi*(t-g['t'])/g['duration']))*g['direction']
         return w
 
     def observation(self, phase_inputs):
@@ -173,7 +179,12 @@ class Plant:
         env.configure(c)
         self.controller, self.gusts = controller, [dict(g) for g in gust_list]
         self.lag = math.radians(c.get('phase_lag_deg', 0.))
+        from dataclasses import replace
+        self.env.sim.fluid.config = replace(self.base_fluid, **{field: getattr(self.base_fluid, field)*c[key]
+                                                                for key, field in AERO_KEYS.items() if key in c})
         self.estimator = estimator if estimator is not None else WingbeatPhase(PHASE_OFFSET)
+        if hasattr(self.estimator, 'attach'):
+            self.estimator.attach(self)
         self.phase_errors, self.activity = [], []
         self.trace = [] if record else None
         env.reset(seed=c['seed'])
@@ -256,16 +267,17 @@ class Controller:
 
 class HandLaw(Controller):
     """B2+: PLL phase, notch-filtered pitch rate, PD on pitch; optional high-pass to drop steady output."""
-    def __init__(self, k_theta=5., k_q=.2, highpass_s=None, psi=math.radians(270.), limit=1.):
+    def __init__(self, k_theta=5., k_q=.2, highpass_s=None, psi=math.radians(270.), limit=1., notch=True):
         self.k_theta, self.k_q, self.highpass_s, self.psi = k_theta, k_q, highpass_s, psi
         self.limit = limit  # |u| bound in units of A_MAX; the plant still clips the phasor norm at 1
+        self.notch = notch  # False: use the raw pitch gyro, wingbeat oscillation included (ablation)
 
     def reset(self):
         self.mean = 0.
 
     def act(self, plant, time):
         r = plant.env.last_reading
-        u = -(self.k_theta*r[1]+self.k_q*plant.estimator.slow)
+        u = -(self.k_theta*r[1]+self.k_q*(plant.estimator.slow if self.notch else r[4]))
         if self.highpass_s:
             self.mean += (1-math.exp(-DT/self.highpass_s))*(u-self.mean)
             u -= self.mean

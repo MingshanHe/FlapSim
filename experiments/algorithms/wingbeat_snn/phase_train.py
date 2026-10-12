@@ -236,12 +236,14 @@ def neat_loss(task):
     return total/len(picks)
 
 
-def train_neat(data, out, generations, population, seed, workers):
+def train_neat(data, out, generations, population, seed, workers, tag=''):
     import neat
     from . import evolve
     random.seed(seed)
     rng = np.random.default_rng(seed)
-    cfg = evolve.make_config(out, 'snn_neat_delay', population, inputs=8)
+    config_dir = out/f'neat{tag}'
+    config_dir.mkdir(parents=True, exist_ok=True)
+    cfg = evolve.make_config(config_dir, 'snn_neat_delay', population, inputs=8)
     pop = neat.Population(cfg)
     evolve.initialize(pop, cfg, 'snn_neat_delay', seed, readout_std=.3, hidden_count=8)
     train, valid = dataset(data/'training.npz'), dataset(data/'validation.npz')
@@ -264,11 +266,11 @@ def train_neat(data, out, generations, population, seed, workers):
                 row['validation'] = v
                 if best is None or v['rms_all'] < best['validation']['rms_all']:
                     best = row
-                    (out/'snn_neat.json').write_text(json.dumps(spec))
+                    (out/f'snn_neat{tag}.json').write_text(json.dumps(spec))
             history.append(row)
             print(json.dumps(row), flush=True)
         pop.run(score, generations)
-    (out/'snn_neat_history.json').write_text(json.dumps(dict(history=history, best=best), indent=1))
+    (out/f'snn_neat{tag}_history.json').write_text(json.dumps(dict(history=history, best=best, seed=seed), indent=1))
     return best
 
 
@@ -368,7 +370,7 @@ def main():
         result = train_gradient(a.stage, a.data, a.output, a.steps, a.seed, a.threads, a.hidden, a.tau_m, a.tau_s,
                                 a.tag)
     elif a.stage == 'snn_neat':
-        result = train_neat(a.data, a.output, a.generations, a.population, a.seed, a.workers)
+        result = train_neat(a.data, a.output, a.generations, a.population, a.seed, a.workers, a.tag)
     elif a.stage == 'pll_tune':
         result = pll_tune(a.data, a.output, a.workers)
     else:

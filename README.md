@@ -8,6 +8,8 @@
 
 本分支 `research/wingbeat-synchronous-snn` 是独立的新研究线草案：[以翅拍为时钟的脉冲控制](research_proposal_wingbeat_snn.md)，
 目前只有仿真预研，[probe.py](experiments/algorithms/wingbeat_feasibility/probe.py) 可复算。v3 队列仍以交接文档为准。
+论文大纲见 [docs/wingbeat_paper/paper_outline.md](docs/wingbeat_paper/paper_outline.md)，投稿前的全部正式实验及命令见
+[docs/wingbeat_paper/RUNBOOK.md](docs/wingbeat_paper/RUNBOOK.md)。
 
 新增算法实验位于 [experiments/algorithms](experiments/algorithms/README.md)。
 [旧工作目录记录](START_HERE.md)和下文的 PPO 自由飞行示例保留作历史资料；
