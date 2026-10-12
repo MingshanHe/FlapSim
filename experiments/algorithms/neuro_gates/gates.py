@@ -58,6 +58,7 @@ class Oracle:
         self.crank_v = int(m.joint('carrier_2_joint').dofadr[0])
         self.history = deque(maxlen=64)
         self.lp = self.lagged = None
+        self.rate = np.zeros(2)
         self.queue = deque()
         self.update()
 
@@ -89,7 +90,7 @@ class Oracle:
                 design = np.column_stack([np.ones_like(t), t, t*t]+[f(k*phi) for k in (1, 2, 3)
                                                                    for f in (np.cos, np.sin)])
                 coef = np.linalg.lstsq(design, np.array([h[2] for h in items]), rcond=None)[0]
-                value = coef[0]
+                value, self.rate = coef[0], coef[1]  # de-rocked angle and rate at the window end
         else:
             value = x
         if self.tau:
