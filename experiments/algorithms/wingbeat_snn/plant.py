@@ -135,9 +135,17 @@ class Plant:
         drive = self.backend.drive
         drive[:] = 0.
         drive[7] = time+DT/2  # split between the two 1 ms offsets
-        self.estimator.update(time, float(self.env.last_reading[4]))
+        reading = self.env.last_reading
+        if hasattr(self.estimator, 'update_reading'):  # learned estimators read the whole IMU vector
+            self.estimator.update_reading(time, reading)
+        else:
+            self.estimator.update(time, float(reading[4]))
+        true_crank = float(self.env.sim.data.qpos[self.crank])
         if t >= 1.5:
-            self.phase_errors.append(wrap(self.estimator.crank(time)-self.env.sim.data.qpos[self.crank]))
+            self.phase_errors.append(wrap(self.estimator.crank(time)-true_crank))
+        if self.trace is not None:
+            self.trace.append([time, *reading[:9], true_crank, self.estimator.crank(time), self.estimator.omega,
+                               *self.backend.wind[:2]])
         ctl = self.controller
         if ctl is None or (t < ctl.start and not ctl.prewarm):
             return
@@ -156,14 +164,18 @@ class Plant:
             drive[5], drive[6] = A_MAX*float(np.clip(out[0], -1, 1)), A_MAX*float(np.clip(out[1], -1, 1))
         self.activity.append(float(np.hypot(drive[3], drive[4])+.5*(abs(drive[5])+abs(drive[6]))))
 
-    def run(self, c, controller=None, gust_list=(), settle=2.):
+    def run(self, c, controller=None, gust_list=(), settle=2., estimator=None, record=False):
+        """``estimator`` replaces the PLL (default WingbeatPhase); ``record`` returns a per-tick IMU trace:
+        time, roll, pitch, yaw, gyro xyz, accel xyz, true crank, estimated crank, estimated omega, wind xy."""
         env = self.env
         c = dict(c, task='hover')
         env.mode = 'pid'
         env.configure(c)
         self.controller, self.gusts = controller, [dict(g) for g in gust_list]
         self.lag = math.radians(c.get('phase_lag_deg', 0.))
-        self.estimator, self.phase_errors, self.activity = WingbeatPhase(PHASE_OFFSET), [], []
+        self.estimator = estimator if estimator is not None else WingbeatPhase(PHASE_OFFSET)
+        self.phase_errors, self.activity = [], []
+        self.trace = [] if record else None
         env.reset(seed=c['seed'])
         if controller is not None:
             controller.reset()
@@ -189,6 +201,8 @@ class Plant:
         if len(errors):
             out['phase_error_rms_deg'] = math.degrees(float(np.sqrt(np.mean(errors**2))))
         out.update(metrics(rows, self.gusts, settle))
+        if record:
+            out['trace'] = np.asarray(self.trace, dtype=np.float32)
         return out
 
 

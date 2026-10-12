@@ -70,7 +70,7 @@ def plain_tanh(x):
     return math.tanh(x)
 
 
-def make_config(out, method, population):
+def make_config(out, method, population, inputs=INPUTS):
     m = METHODS[method]
     structural = dict(conn_add_prob=.2, conn_delete_prob=.05, node_add_prob=.1, node_delete_prob=.03,
                       enabled_mutate_rate=.01) if m['structure'] else \
@@ -83,7 +83,7 @@ reset_on_extinction = False
 no_fitness_termination = True
 
 [DelayGenome]
-num_inputs = {INPUTS}
+num_inputs = {inputs}
 num_outputs = {OUTPUTS}
 num_hidden = 0
 feed_forward = False
@@ -149,13 +149,14 @@ min_species_size = 2
     return cfg
 
 
-def initialize(pop, cfg, method, seed, readout_std=.05):
+def initialize(pop, cfg, method, seed, readout_std=.05, hidden_count=None):
     """Shared start: hidden units read all inputs; genome 0 has zero readout (= the base controller)."""
     m = METHODS[method]
     rng = np.random.default_rng(seed)
     gc = cfg.genome_config
-    hidden = list(range(OUTPUTS, OUTPUTS+m['hidden']))
-    gc.node_indexer = itertools.count(OUTPUTS+m['hidden'])
+    count = hidden_count or m['hidden']
+    hidden = list(range(OUTPUTS, OUTPUTS+count))
+    gc.node_indexer = itertools.count(OUTPUTS+count)
     for index, g in enumerate(pop.population.values()):
         g.nodes.clear()
         g.connections.clear()
@@ -177,12 +178,12 @@ def initialize(pop, cfg, method, seed, readout_std=.05):
     pop.species.speciate(cfg, pop.population, 0)
 
 
-def export(g, method, residual=False, spike_scale=1., residual_scale=.5, residual_base=None):
+def export(g, method, residual=False, spike_scale=1., residual_scale=.5, residual_base=None, inputs=INPUTS):
     m = METHODS[method]
     extra = dict(residual_on='B2plus', residual_scale=residual_scale) if residual else {}
     if residual and residual_base:
         extra['residual_base'] = residual_base
-    return dict(kind=m['kind'], method=method, mode='phasor', inputs=INPUTS, outputs=list(range(OUTPUTS)),
+    return dict(kind=m['kind'], method=method, mode='phasor', inputs=inputs, outputs=list(range(OUTPUTS)),
                 tau_m=.01, tau_s=.005, spike_scale=spike_scale if m['kind'] == 'snn' else 1., genome_id=g.key, **extra,
                 nodes=[dict(id=k, bias=float(n.bias)) for k, n in sorted(g.nodes.items())],
                 edges=[dict(source=a, target=b, weight=float(e.weight), delay=float(round(e.delay)),

@@ -110,6 +110,22 @@ def test_zero_residual_network_reproduces_b2plus_bitwise(tmp_path):
     assert np.array_equal(q_alone, plant.env.sim.data.qpos)
 
 
+def test_torch_snn_exports_to_identical_numpy_graph():
+    torch = pytest.importorskip('torch')
+    from experiments.algorithms.wingbeat_snn.phase_train import TorchSNN, GraphStep
+    model = TorchSNN(hidden=6, seed=3).double()
+    with torch.no_grad():
+        model.w_out.mul_(20.)  # make the readout non-trivial
+    x = np.random.default_rng(0).normal(size=(1, 120, 8))
+    with torch.no_grad():
+        expected = model(torch.from_numpy(x))[0].numpy()
+    step = GraphStep(model.export())
+    step.reset()
+    got = np.array([step.step(row) for row in x[0]])
+    assert step.g.spikes > 0
+    assert np.allclose(got, expected, atol=1e-10)
+
+
 def test_unknown_lag_only_moves_the_drive(tmp_path):
     from experiments.algorithms.snn_pid_compare.common import prepare_source
     from experiments.algorithms.wingbeat_snn.plant import Plant, HandLaw, cases, gusts

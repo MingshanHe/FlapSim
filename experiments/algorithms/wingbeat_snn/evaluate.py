@@ -31,9 +31,22 @@ def make_controller(spec):
     raise ValueError(kind)
 
 
+def make_estimator(spec):
+    """None keeps the PLL; otherwise a learned raw-IMU phase model wrapped by NetPhase."""
+    if not spec:
+        return None
+    from .phase_data import NetPhase
+    from .phase_train import GraphStep, TorchStep, load_gru
+    if spec['kind'] == 'graph':
+        return NetPhase(GraphStep(spec['policy']))
+    import torch
+    torch.set_num_threads(1)
+    return NetPhase(TorchStep(load_gru(spec['path'])))
+
+
 def run_task(task):
     spec, c, peak = task
-    out = _PLANT.run(c, make_controller(spec), gusts(peak) if peak else ())
+    out = _PLANT.run(c, make_controller(spec), gusts(peak) if peak else (), estimator=make_estimator(spec.get('estimator')))
     out.update(controller=spec['name'], gust_peak_m_s=peak)
     return out
 
@@ -127,7 +140,9 @@ def lag_scan(executor, specs, case_list, peaks, lags):
 
 def main():
     p = argparse.ArgumentParser()
-    p.add_argument('stage', choices=['gust_scan', 'compare', 'retune', 'lag_scan'])
+    p.add_argument('stage', choices=['gust_scan', 'compare', 'retune', 'lag_scan', 'phase_closed_loop'])
+    p.add_argument('--estimator', action='append', default=[],
+                   help='phase_closed_loop: name=path to a gru*.pt or an exported graph JSON (repeatable)')
     p.add_argument('--lags', type=float, nargs='+', default=[-60., -30., 0., 30., 60.])
     p.add_argument('--lag-range', type=float, default=0., help='retune: unknown lag, uniform +-deg per case')
     p.add_argument('--retune-peaks', type=float, nargs='+', default=[1.25, 1.5])
@@ -147,6 +162,26 @@ def main():
         a.output.write_text(json.dumps(result, indent=1)+'\n')
         print(json.dumps(dict(best=result['best'], top=sorted(result['scores'].items(), key=lambda kv: kv[1])[-5:]),
                          indent=1))
+        return
+    if a.stage == 'phase_closed_loop':
+        # Same retuned hand law; only the wingbeat-phase source changes. Fresh test cases (offset 400000).
+        law = json.loads(a.retuned[0].read_text())['best']
+        specs = [dict(law, name='law_pll')]
+        for item in a.estimator:  # name=path; .pt is a GRU, .json an exported graph
+            name, path = item.split('=', 1)
+            est = dict(kind='gru', path=path) if path.endswith('.pt') else \
+                dict(kind='graph', policy=json.loads(Path(path).read_text()))
+            specs.append(dict(law, name=f'law_{name}', estimator=est))
+        with pool(a.scratch/'source', a.workers) as executor:
+            rows = evaluate(executor, specs, cases('test', a.count, 8., offset=400_000), a.levels)
+        result = dict(stage=a.stage, summary=summarize(rows),
+                      paired={f'{s["name"]}__minus__law_pll': {k: paired(rows, s['name'], 'law_pll', k) for k in
+                                                              ('pitch_peak_deg', 'tilt_rms_deg', 'phase_error_rms_deg')}
+                              for s in specs[1:]},
+                      episodes=rows)
+        a.output.parent.mkdir(parents=True, exist_ok=True)
+        a.output.write_text(json.dumps(result, indent=1)+'\n')
+        print(json.dumps({k: v for k, v in result.items() if k != 'episodes'}, indent=1)[:15000])
         return
     if a.stage == 'lag_scan':
         specs = [BASELINES[2]]+[json.loads(path.read_text())['best'] for path in a.retuned]
