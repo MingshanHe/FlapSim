@@ -1,0 +1,146 @@
+{
+ "pll": {
+  "rms_all": 6.881837786826807,
+  "rms_calm": 6.852458297062084,
+  "rms_gust": 8.12301555427132,
+  "p95_gust": 15.805628760866398,
+  "lock_time_s_mean": 1.1633749902248383,
+  "never_locked": 0,
+  "episodes": 16
+ },
+ "gru_s1": {
+  "rms_all": 0.7307961436686516,
+  "rms_calm": 0.6795122609646262,
+  "rms_gust": 1.3412993176825665,
+  "p95_gust": 2.885611901851401,
+  "lock_time_s_mean": 0.13137500174343586,
+  "never_locked": 0,
+  "episodes": 16
+ },
+ "gru_s2": {
+  "rms_all": 0.6757142200096526,
+  "rms_calm": 0.6342778505120958,
+  "rms_gust": 1.1739699917168858,
+  "p95_gust": 2.470366653681082,
+  "lock_time_s_mean": 0.1372500010766089,
+  "never_locked": 0,
+  "episodes": 16
+ },
+ "gru_s3": {
+  "rms_all": 0.6281446239137285,
+  "rms_calm": 0.5748488854450153,
+  "rms_gust": 1.2210556200978195,
+  "p95_gust": 2.527927639996435,
+  "lock_time_s_mean": 0.10550000006332994,
+  "never_locked": 0,
+  "episodes": 16
+ },
+ "gru_s4": {
+  "rms_all": 0.6290409063837761,
+  "rms_calm": 0.5885877697597708,
+  "rms_gust": 1.1296852026704445,
+  "p95_gust": 2.460586574521714,
+  "lock_time_s_mean": 0.1327500008046627,
+  "never_locked": 0,
+  "episodes": 16
+ },
+ "gru_s5": {
+  "rms_all": 0.7281336808610765,
+  "rms_calm": 0.6790766658551546,
+  "rms_gust": 1.3337719024865304,
+  "p95_gust": 2.971178349792172,
+  "lock_time_s_mean": 0.12625000067055225,
+  "never_locked": 0,
+  "episodes": 16
+ },
+ "snn_grad_s1": {
+  "rms_all": 2.3499177745999136,
+  "rms_calm": 2.272108193246109,
+  "rms_gust": 3.42421614925903,
+  "p95_gust": 6.8918346649077975,
+  "lock_time_s_mean": 0.1735000000335276,
+  "never_locked": 0,
+  "episodes": 16
+ },
+ "snn_grad_s2": {
+  "rms_all": 2.5900156792777285,
+  "rms_calm": 2.500688844759037,
+  "rms_gust": 3.830491070627326,
+  "p95_gust": 7.6472164256560236,
+  "lock_time_s_mean": 0.1963749984279275,
+  "never_locked": 0,
+  "episodes": 16
+ },
+ "snn_grad_s3": {
+  "rms_all": 2.3817152796932435,
+  "rms_calm": 2.315146034203923,
+  "rms_gust": 3.331188877510914,
+  "p95_gust": 6.71329824819972,
+  "lock_time_s_mean": 0.2269999971613288,
+  "never_locked": 0,
+  "episodes": 16
+ },
+ "snn_grad_s4": {
+  "rms_all": 2.452047389767346,
+  "rms_calm": 2.372078662660387,
+  "rms_gust": 3.5350967326565024,
+  "p95_gust": 7.034699168429452,
+  "lock_time_s_mean": 0.22475000144913793,
+  "never_locked": 0,
+  "episodes": 16
+ },
+ "snn_grad_s5": {
+  "rms_all": 2.4494005354309536,
+  "rms_calm": 2.3589137663032167,
+  "rms_gust": 3.651786099186323,
+  "p95_gust": 7.4900276870871245,
+  "lock_time_s_mean": 0.21412499947473407,
+  "never_locked": 0,
+  "episodes": 16
+ },
+ "snn_neat_s1": {
+  "rms_all": 9.827488372961525,
+  "rms_calm": 9.645116621570295,
+  "rms_gust": 13.071663561335866,
+  "p95_gust": 27.35162323490942,
+  "lock_time_s_mean": 3.0251999855041505,
+  "never_locked": 6,
+  "episodes": 16
+ },
+ "snn_neat_s2": {
+  "rms_all": 9.349746416651566,
+  "rms_calm": 9.020736242554221,
+  "rms_gust": 14.048739208542246,
+  "p95_gust": 28.943026492880396,
+  "lock_time_s_mean": 3.343571432999202,
+  "never_locked": 2,
+  "episodes": 16
+ },
+ "snn_neat_s3": {
+  "rms_all": 9.97892846408449,
+  "rms_calm": 9.794757418743837,
+  "rms_gust": 13.114696923029504,
+  "p95_gust": 26.84720776634235,
+  "lock_time_s_mean": null,
+  "never_locked": 16,
+  "episodes": 16
+ },
+ "snn_neat_s4": {
+  "rms_all": 9.520003361709643,
+  "rms_calm": 9.29576979868339,
+  "rms_gust": 13.237060502131873,
+  "p95_gust": 26.519882316283056,
+  "lock_time_s_mean": 3.479636376554316,
+  "never_locked": 5,
+  "episodes": 16
+ },
+ "snn_neat_s5": {
+  "rms_all": 8.715011267668524,
+  "rms_calm": 8.46098373961363,
+  "rms_gust": 12.403127233820717,
+  "p95_gust": 25.172864249524196,
+  "lock_time_s_mean": 3.953499957919121,
+  "never_locked": 8,
+  "episodes": 16
+ }
+}

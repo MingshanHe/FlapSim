@@ -144,5 +144,15 @@ paired cases: 16; wrapper equivalence max |Δqpos| = 0.0
 
 ## E8 phase estimation
 
+### offline, held-out flights (mean ± sd over seeds)
+
+| estimator | seeds | RMS all (deg) | RMS gust | p95 gust | lock time (s) | never locked |
+|---|---:|---:|---:|---:|---:|---:|
+| gru | 5 | 0.68 ± 0.05 | 1.24 ± 0.08 | 2.66 ± 0.22 | 0.13 ± 0.01 | 0 |
+| pll | 1 | 6.88 ± 0.00 | 8.12 ± 0.00 | 15.81 ± 0.00 | 1.16 ± 0.00 | 0 |
+| pll_tuned | 1 | 4.69 ± 0.00 | 7.30 ± 0.00 | 14.35 ± 0.00 | 0.39 ± 0.00 | 0 |
+| snn_grad | 5 | 2.44 ± 0.08 | 3.55 ± 0.17 | 7.16 ± 0.36 | 0.21 ± 0.02 | 0 |
+| snn_neat | 5 | 9.48 ± 0.44 | 13.18 ± 0.52 | 26.97 ± 1.22 | 3.45 ± 0.33 | 37 |
+
 
 Operation count per tick (proxy, not energy): GRU-32 ≈ 3904 MAC; SNN-48: 768 MAC for the analog input projection over two substeps, plus (spikes per tick) × 50 accumulates.
