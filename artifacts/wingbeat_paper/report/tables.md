@@ -154,5 +154,20 @@ paired cases: 16; wrapper equivalence max |Δqpos| = 0.0
 | snn_grad | 5 | 2.44 ± 0.08 | 3.55 ± 0.17 | 7.16 ± 0.36 | 0.21 ± 0.02 | 0 |
 | snn_neat | 5 | 9.48 ± 0.44 | 13.18 ± 0.52 | 26.97 ± 1.22 | 3.45 ± 0.33 | 37 |
 
+### closed loop, fixed phase sources (survival, Wilson 95 %)
+
+| controller | 1.0 m/s | 1.25 m/s | 1.5 m/s |
+|---|---|---|---|
+| law_pll | 16/16 [0.81, 1.00] | 16/16 [0.81, 1.00] | 16/16 [0.81, 1.00] |
+| law_pll_tuned | 16/16 [0.81, 1.00] | 16/16 [0.81, 1.00] | 16/16 [0.81, 1.00] |
+| law_truth | 16/16 [0.81, 1.00] | 16/16 [0.81, 1.00] | 16/16 [0.81, 1.00] |
+
+### closed loop, learned sources per seed vs default PLL (pitch peak)
+
+| arm | seeds | survival 1.0 | survival 1.25 | survival 1.5 | Δpitch_peak_deg vs law_pll at 1.0 (seeds lower) | Δpitch_peak_deg vs law_pll at 1.25 (seeds lower) | Δpitch_peak_deg vs law_pll at 1.5 (seeds lower) |
+|---|---|---|---|---|---|---|---|
+| gru | 5 | 1.00 ± 0.00 | 1.00 ± 0.00 | 1.00 ± 0.00 | -0.10 ± 0.05 (5/5, p=0.062) | -0.33 ± 0.04 (5/5, p=0.062) | -4.71 ± 0.18 (5/5, p=0.062) |
+| snn_grad | 5 | 1.00 ± 0.00 | 1.00 ± 0.00 | 1.00 ± 0.00 | +0.20 ± 0.07 (0/5, p=0.062) | +0.05 ± 0.11 (3/5, p=1.000) | -3.61 ± 0.46 (5/5, p=0.062) |
+| snn_neat | 5 | 1.00 ± 0.00 | 0.86 ± 0.24 | 0.51 ± 0.34 | +1.47 ± 0.33 (0/5, p=0.062) | +2.45 ± 0.98 (0/5, p=0.062) | +5.30 ± 1.44 (0/4, p=0.125) |
 
 Operation count per tick (proxy, not energy): GRU-32 ≈ 3904 MAC; SNN-48: 768 MAC for the analog input projection over two substeps, plus (spikes per tick) × 50 accumulates.
