@@ -1,0 +1,35 @@
+{
+ "method": "snn_fixed",
+ "seed": 1,
+ "generations": 15,
+ "population": 20,
+ "cases_per_generation": 4,
+ "seconds": 7.0,
+ "levels": [
+  0.75,
+  1.0,
+  1.25
+ ],
+ "residual": true,
+ "readout_std": 0.3,
+ "spike_scale": 5.0,
+ "residual_base": {
+  "k_theta": 5.0,
+  "k_q": 0.4,
+  "highpass_s": 1.0,
+  "psi": 4.363323129985824
+ },
+ "lag_range_deg": 60.0,
+ "selected_generation": 9,
+ "selected_validation": [
+  15,
+  3.343489701799748
+ ],
+ "selected_complexity": {
+  "nodes": 10,
+  "connections": 168,
+  "delayed": 0,
+  "mean_delay_ms": 0.0
+ },
+ "wall_s": 7039.645669260997
+}
