@@ -10,8 +10,8 @@
 
 | 任务 | 位置 | 说明 |
 |---|---|---|
-| v3 全流程冒烟测试 | tmux `v3_quick`，日志 `runs/spike_steer_v3_quick.log` | 使用 `--quick`，所有阶段都缩小规模，用来在 2 小时的正式运行之前发现会让程序崩溃的问题。约 6 分钟。 |
-| v3 正式运行 | 冒烟测试通过后启动：`tmux new-session -d -s spike_steer_v3 "bash runs/run_steer_v3.sh 2>&1 \| tee -a runs/spike_steer_v3.log"` | 约 2 小时。中间结果在 `runs/spike_steer/pilot_v3_s3/`，结束后复制到 `artifacts/spike_steer/v3/`。 |
+| v3 全流程冒烟测试 | 日志 `runs/spike_steer_v3_quick.log` | **已通过**（08:48）。所有阶段都跑通，没有报错，物种数保持在 3。它的 PASS 不计（每个阶段只用了 4 个案例）。 |
+| **v3 正式运行** | tmux `spike_steer_v3`，日志 `runs/spike_steer_v3.log` | **2026-10-13 08:49 已启动，不要重复启动。** 约 2 小时，预计 11:00 前后结束。中间结果在 `runs/spike_steer/pilot_v3_s3/`，结束后复制到 `artifacts/spike_steer/v3/`。 |
 
 v3 的判读：
 - 结论看 `artifacts/spike_steer/v3/test.json` 中的 `report.overall.PASS` 和 `ROBUST_PASS`。
