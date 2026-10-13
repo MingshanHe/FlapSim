@@ -191,7 +191,8 @@ def train(a):
     Xva, yva = targets(np.load(out/'val.npz')['X'])
     model = DelaySNN(hidden=a.hidden, seed=a.seed)
     opt = torch.optim.Adam(model.parameters(), lr=a.lr)
-    pos = max(1., float((1-ytr.mean())/max(ytr.mean(), 1e-4)))
+    pos = a.pos_weight if a.pos_weight else max(1., float((1-ytr.mean())/max(ytr.mean(), 1e-4)))
+    print(json.dumps(dict(pos_weight=pos, hidden=a.hidden, epochs=a.epochs, tag=a.tag)), flush=True)
     bce = torch.nn.BCELoss(reduction='none')
     E, T, _ = Xtr.shape
     W = a.window
@@ -226,14 +227,14 @@ def train(a):
         history.append(row)
         print(json.dumps(row), flush=True)
     spec = model.export()
-    (out/'imitate_spec.json').write_text(json.dumps(spec, indent=1))
-    (out/'train_history.json').write_text(json.dumps(history, indent=1))
+    (out/f'imitate_spec{a.tag}.json').write_text(json.dumps(spec, indent=1))
+    (out/f'train_history{a.tag}.json').write_text(json.dumps(history, indent=1))
     print(f'exported {len(spec["edges"])} edges, {len(spec["nodes"])} nodes, tau {spec["tau_m"]*1e3:.2f}/{spec["tau_s"]*1e3:.2f} ms')
 
 
 def evaluate(a):
     out = Path(a.output)
-    spec = json.loads((out/'imitate_spec.json').read_text())
+    spec = json.loads((out/f'imitate_spec{a.tag}.json').read_text())
     law = json.loads(V.V2_LAW.read_text())['best']
     V.task = Y.task
     sets = dict(old16=P.cases('test', 16, 8.), fresh16=V.consecutive(V.BASES['test3'], 16, 8.))
@@ -249,7 +250,7 @@ def evaluate(a):
             print(label, json.dumps(dict(J_ratio=round(report[label]['J_ratio'], 3), imitate=dict(flown=table['imitate']['flown'], J=round(table['imitate']['J'], 2),
                                                                                                    pitch=round(table['imitate']['pitch_rms_deg'] or 0, 2), height=round(table['imitate']['height_rmse_cm'] or 0, 1)),
                                          law=round(table['law_tuned']['J'], 2), directions=d)), flush=True)
-    (out/'evaluate.json').write_text(json.dumps(report, indent=1))
+    (out/f'evaluate{a.tag}.json').write_text(json.dumps(report, indent=1))
 
 
 # ----------------------------------------------------------------------------------------- selftest
@@ -304,6 +305,8 @@ def main():
     p.add_argument('--batch', type=int, default=32)
     p.add_argument('--lr', type=float, default=3e-3)
     p.add_argument('--seed', type=int, default=0)
+    p.add_argument('--pos-weight', type=float, default=None, help='BCE weight of pulse ticks (default: class ratio)')
+    p.add_argument('--tag', default='', help='suffix for spec/history/evaluate files')
     a = p.parse_args()
     dict(selftest=lambda a: selftest(), collect=collect, train=train, evaluate=evaluate)[a.stage](a)
 
