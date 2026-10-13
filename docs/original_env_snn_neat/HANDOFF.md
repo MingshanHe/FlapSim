@@ -1,23 +1,28 @@
 # 交接：原环境内的 SNN+NEAT 研究线
 
-分支：`research/original-env-snn-neat`（仅在本地，未推送）。最后更新：2026-10-13 约 10:50 JST。
+分支：`research/original-env-snn-neat`（仅在本地，未推送）。最后更新：2026-10-13 约 11:40 JST。
 
 本文件取代了之前那段长对话。原始对话记录含个人信息，没有放进仓库。新会话（例如 Claude Code 桌面版）先读本文件；如需细节，再读文中链接的报告。
 
 ## 0. 当前状态（先看这里）
 
-### 正在运行或等待运行（2026-10-13 10:50 更新）
+### 正在运行或等待运行（2026-10-13 11:40 更新）
 
 | 任务 | 位置 | 说明 |
 |---|---|---|
-| v3 正式运行 | 已结束（10:45），结果在 `artifacts/spike_steer/v3/` | **未通过**，见 2.6 |
-| 翻正反射 Stage A 正式运行 | 脚本 `runs/run_upset_a.sh`，代码 [upset.py](../../experiments/algorithms/spike_steer/upset.py) | **10:46 启动后按用户要求于约 10:55 停止**（标定未完成，无中间结果），等用户决定是否重启。重启需约 1.5 h。中间结果在 `runs/spike_steer/upset_s1/`（各阶段 json 可续跑），结束后复制到 `artifacts/spike_steer/upset_a/`。判据见 `upset.py` 中的 `PREREGISTRATION`，测试前写入 `preregistration.json`。 |
+| v3 正式运行 | 已结束（10:45），`artifacts/spike_steer/v3/` | **未通过**，见 2.6；根因分析见 [analysis.md](../../artifacts/spike_steer/v3/analysis.md) |
+| 翻正反射 Stage A | 脚本 `runs/run_upset_a.sh`，代码 [upset.py](../../experiments/algorithms/spike_steer/upset.py) | 10:46 启动、约 10:55 按用户要求停止（无中间结果）。**暂缓**，等 A、C 门结果后再决定 |
+| **C 门：全状态反馈上限**（gates 5.6） | tmux `fullstate`，日志 `runs/fullstate.log`，代码 [fullstate.py](../../experiments/algorithms/neuro_gates/fullstate.py) | **11:35 已启动，不要重复启动。** 约 35 分钟。结果 `artifacts/neuro_gates/fullstate.json` |
+| **A：v4（τ 可进化）** | 代码 [pilot_v4.py](../../experiments/algorithms/spike_steer/pilot_v4.py)，脚本 `runs/run_steer_v4.sh` | 自测通过；`--quick` 冒烟在跑（日志 `runs/spike_steer/pilot_v4_quick.log`）。**fullstate 结束且冒烟通过后再启动**（约 1 h 45 m），tmux 名 `spike_steer_v4` |
 
-Stage A 的判读：看 `artifacts/spike_steer/upset_a/test.json` 的 `verdict.GO`（C1、C2、C3 都要满足）。不论结果如何，**投入 Stage B（SNN/NEAT）之前先问用户**。
+判读：
+- C 门看 `fullstate.json` 的 `summary`：`fullstate_bound` 相对 `pid_grid_best` 的倾角 RMS 下降幅度与配对 CI。下降很小 → 原接口内悬停任务对任何控制器都没有性能空间。
+- v4 看 `artifacts/spike_steer/v4/test.json` 的 `report.overall.PASS`/`ROBUST_PASS`，判据与 v3 相同，测试前写入 `preregistration.json`。另看 `overall.tau_ms`：τ 是否收敛到 ≤1 ms。
 
 ### 用户最新的授权（2026-10-13）
 
-先做验证。结果不理想就尝试修正；修正不了，就寻找新课题，设计 SNN+NEAT 在本平台上的应用方案，然后再次运行。
+- 上午：先做验证。结果不理想就尝试修正；修正不了，就寻找新课题，设计 SNN+NEAT 在本平台上的应用方案，然后再次运行。
+- 11:30：同意按建议顺序做 **A（v4，τ 可进化，约 2 h）** 和 **C 的 30 分钟门（全状态反馈上限）**；两者出结果后，再在 B（涌现/机制分析，持平即可）、C 全做、D（翻正反射）之间选。论文定位（是否接受"持平 + 涌现与机制分析"）**尚未答复**。
 
 ## 1. 用户的决定与约束
 
