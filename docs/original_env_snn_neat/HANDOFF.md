@@ -1,6 +1,6 @@
 # 交接：原环境内的 SNN+NEAT 研究线
 
-分支：`research/original-env-snn-neat`（仅在本地，未推送）。最后更新：2026-10-13 约 12:20 JST。
+分支：`research/original-env-snn-neat`（仅在本地，未推送）。最后更新：2026-10-13 约 13:50 JST。
 
 本文件取代了之前那段长对话。原始对话记录含个人信息，没有放进仓库。新会话（例如 Claude Code 桌面版）先读本文件；如需细节，再读文中链接的报告。
 
@@ -13,7 +13,7 @@
 | v3 正式运行 | 已结束（10:45），`artifacts/spike_steer/v3/` | **未通过**，见 2.6；根因分析见 [analysis.md](../../artifacts/spike_steer/v3/analysis.md) |
 | 翻正反射 Stage A | 脚本 `runs/run_upset_a.sh`，代码 [upset.py](../../experiments/algorithms/spike_steer/upset.py) | 10:46 启动、约 10:55 按用户要求停止（无中间结果）。**暂缓**，等 A、C 门结果后再决定 |
 | C 门：全状态反馈上限（gates 5.6） | 已结束（12:10），报告 [fullstate_report.md](../../artifacts/neuro_gates/fullstate_report.md) | **空间小**：理想全状态反馈比网格最优 PID 只少 1.1° 倾角 RMS（12%），且经典可实现。**方案 C 排除。** |
-| **A：v4（τ 可进化、增益保持）** | tmux `spike_steer_v4`，日志 `runs/spike_steer_v4.log`，代码 [pilot_v4.py](../../experiments/algorithms/spike_steer/pilot_v4.py) | **12:11 已启动，不要重复启动。** 约 1 h 45 m，预计 14:00 前后结束。结果复制到 `artifacts/spike_steer/v4/`。冒烟已通过 |
+| A：v4（τ 可进化、增益保持） | 已结束（13:39），`artifacts/spike_steer/v4/`，分析 [analysis.md](../../artifacts/spike_steer/v4/analysis.md) | **未通过，比 v3 差**（J 比值 1.25 / 1.18）。τ_m 进化到 10 ms 上界，快 τ 个体全被淘汰：NEAT 停在「慢膜预判」盆地，到不了手工可构造的比较器解 |
 
 判读：
 - C 门看 `fullstate.json` 的 `summary`：`fullstate_bound` 相对 `pid_grid_best` 的倾角 RMS 下降幅度与配对 CI。下降很小 → 原接口内悬停任务对任何控制器都没有性能空间。
@@ -90,6 +90,10 @@
 - **根因（analysis.md 第 5 节）**：LIF 时间常数（τ_m=5 ms、τ_s=2.5 ms）相对 5 ms 的相位窗口太慢。手工构造的等价 SNN 在 τ=5 ms 时 J=8.7（几乎不放电），τ=0.5 ms 时 J=6.03（通过 1.05 倍线）。NEAT 在 τ=5 ms 下靠膜积分提前充电补偿，所以相位分散。不是搜索失败。
 - 相位检测（第 6 节）：陀螺→曲柄偏移的圆标准差 0.7°，经典 PLL 接近完美，SNN 没有优势空间。
 - **结论**：在原接口内，NEAT 进化的脉冲回路可以学会双向的锁相"转向肌"放电，但控制质量比同预算的经典脉冲律差约 12%。这个课题不能以 SNN/NEAT 为核心成立。按决策树转向翻正反射 Stage A。
+
+### 2.8 v4 结果（2026-10-13 13:39，未通过，比 v3 差）
+
+见 [v4/analysis.md](../../artifacts/spike_steer/v4/analysis.md)。τ 作为基因后，选择一致地偏向慢膜（最优个体 τ_m 到 10 ms 上界），快 τ（≤2 ms）个体验证 J 8.1–9.5，被淘汰。snn_v4 旧 16 例 J 7.31（law_tuned 的 1.25 倍），方向仍双向学会。结论：v3 的差距是载体限制（固定 τ）与搜索限制（从 v1 热启动跨不到比较器盆地）叠加；手工比较器解 J 6.03 存在但 NEAT 找不到。对 B（涌现）方向是警示。
 
 ### 2.7 全状态反馈上限（2026-10-13 12:10，gates 5.6 已回答）
 
