@@ -1,6 +1,6 @@
 # 交接：原环境内的 SNN+NEAT 研究线
 
-分支：`research/original-env-snn-neat`（**已推送到 origin**，两台机器通过它协同，见第 5 节）。最后更新：2026-10-13 约 19:20 JST。
+分支：`research/original-env-snn-neat`（**已推送到 origin**，两台机器通过它协同，见第 5 节）。最后更新：2026-10-13 约 19:25 JST。
 
 本文件取代了之前那段长对话。原始对话记录含个人信息，没有放进仓库。新会话（例如 Claude Code 桌面版）先读本文件；如需细节，再读文中链接的报告。
 
@@ -171,6 +171,22 @@
 - **已发给 tanakalab 的过夜计划（19:05，19:20 改为只跑 seed 1）**：tanakalab 实测比本机慢 2.3 倍（Xeon W-2245，14 worker）。v5c 预计 21:30–22:00 结束。之后按 v5b/v5c 的 PASS 选 B' 搜索开关（都过 → `--tied --fitness balanced`；只 v5b → `--fitness balanced`；只 v5c → `--tied`；都不过 → `--tied --fitness balanced` 并标注"探索性"），然后只跑 `run_v6.sh main 1 14 64 40 <开关>`（约 13–16 h，预计 10-14 中午前后结束），结束后提交 `artifacts/spike_steer/v6/main*_s1/` 并推送、发消息。**seed 2 与四个消融臂明天放 AWS**（CLOUD_SETUP.md；每次约 2 h）。
 - 本机 19:20 v5b 结束后的窗口（到 21:45）：跑 v5d（`run_v5.sh d 3 18 --tied --fitness balanced`，约 1.5 h），验证两种修法的组合；结果推送后本机下线。
 - 明天的新会话（任一台机器）先 `git pull`，读本文件第 0 节、`artifacts/spike_steer/v5{b,c,d}/test.json` 和 `artifacts/spike_steer/v6/*/test.json`、`mechanism.json`。
+
+### 4c. 明天（10-14）的 AWS 队列（按 CLOUD_SETUP.md 开 c7a.16xlarge，62 worker，每次约 1.6–2 h）
+
+搜索开关 `<开关>` 与 tanakalab 过夜用的保持一致（见 4b 的规则）。每个任务结束后 `git add artifacts/spike_steer/v6 && git commit && git pull --rebase && git push`。
+
+```bash
+PY=~/miniconda3/envs/mujoco/bin/python
+bash experiments/algorithms/spike_steer/scripts/run_v6.sh main    2 62 64 40 <开关>   # 主臂 seed 2
+bash experiments/algorithms/spike_steer/scripts/run_v6.sh main    3 62 64 40 <开关>   # 主臂 seed 3
+bash experiments/algorithms/spike_steer/scripts/run_v6.sh nodelay 1 62 64 40 <开关>   # 消融：延迟冻结为 0
+bash experiments/algorithms/spike_steer/scripts/run_v6.sh ahrs    1 62 64 40 <开关>   # 消融：只给 AHRS
+bash experiments/algorithms/spike_steer/scripts/run_v6.sh fixed   1 62 64 40 <开关>   # 消融：固定稠密拓扑
+bash experiments/algorithms/spike_steer/scripts/run_v6.sh rate    1 62 64 40 <开关>   # 消融：非脉冲隐层
+```
+注意：`fixed` 与 `--tied` 组合时隐层节点 id 从 1 起（输出只有 1 个），`dense_population` 已按 `len(output_keys)` 处理。
+一天 6 次 ≈ 12 h ≈ $40。若 tanakalab 的 seed 1 在中午出结果且 H1/H2a 明显不成立，先停下来诊断（v4/analysis.md 的盆地方法）再继续消融。
 
 ## 5. 运行与操作约定
 
