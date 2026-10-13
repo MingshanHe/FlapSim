@@ -13,6 +13,11 @@
 | 本机 GPU：RTX 5060 Ti 16 GB，JAX 0.10.0 已识别 CUDA 设备 | 探针可以就地做 |
 | JAX 默认 float32；消费级 GPU 的 FP64 吞吐约为 FP32 的 1/32–1/64 | 5 µs 步长 + 33 000 rpm 齿轮在 float32 下的数值稳定性是最大的未知 |
 
+## 22:55 更新：阻塞点 1 解除
+
+实测（`ResearchEnv` 的 `sim.model`，即 `build_model(config, fluid)` 构建后的模型，nv 23，含浮动基座）：**`opt.density = 0`，内置椭球流体对任何自由度的贡献为 0**；全部气动来自叶素模型（`flapsim/fluid/blade_element.py`，60 行），机翼合力约 0.127 N/翼。叶素模型的 `forces(data, xp)` 已按 NumPy/JAX 双后端写好（`xp.arctan2`、`xp.cross` 等；`kinematics.point_velocity` 同样带 `xp`）。所以 P2 的工作量从"重写椭球模型"降为"把 `BladeElement.forces` 接进 `mjx.Data` 并验证"。
+注意：`runs/neuro_gates/scratch/source/*.xml` 是原始 XML（nv 17、density 1.225、无浮动基座）；P1 用它只测机构；**P3 起必须用构建后的模型**（`env.sim.model`）。
+
 ## 阻塞点（必须逐个解决）
 
 1. **椭球流体**：要么确认 XML 的椭球流体在当前配置下实际贡献为零（叶素模型承担全部气动），要么在 JAX 里重写 MuJoCo 的椭球模型（附加质量、黏性阻力、Kutta 升力、Magnus，公式在 MuJoCo 文档里，约 200 行），并逐步对照 `mj_passive` 的输出做单元测试。
