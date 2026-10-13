@@ -1,6 +1,6 @@
 # 交接：原环境内的 SNN+NEAT 研究线
 
-分支：`research/original-env-snn-neat`（**已推送到 origin**，两台机器通过它协同，见第 5 节）。最后更新：2026-10-13 约 17:50 JST。
+分支：`research/original-env-snn-neat`（**已推送到 origin**，两台机器通过它协同，见第 5 节）。最后更新：2026-10-13 约 18:50 JST。
 
 本文件取代了之前那段长对话。原始对话记录含个人信息，没有放进仓库。新会话（例如 Claude Code 桌面版）先读本文件；如需细节，再读文中链接的报告。
 
@@ -11,7 +11,7 @@
 | 任务 | 位置 | 说明 |
 |---|---|---|
 | v3 正式运行 | 已结束（10:45），`artifacts/spike_steer/v3/` | **未通过**，见 2.6；根因分析见 [analysis.md](../../artifacts/spike_steer/v3/analysis.md) |
-| **翻正反射 Stage A（tanakalab 机器）** | tanakalab 的 Claude 会话 `tanakalab-ws-whimsical-sprout`，tmux `upset_a`，代码 [upset.py](../../experiments/algorithms/spike_steer/upset.py) | 16:30 派发给第二台机器运行（约 1.5 h）。结果由它提交到 `artifacts/spike_steer/upset_a/` 并推送。判读 `test.json` 的 `verdict.GO`（C1–C3）。本机 10:46 的那次已停止，无中间结果 |
+| 翻正反射 Stage A（tanakalab） | 已结束（18:34），`artifacts/spike_steer/upset_a/`，报告 [report.md](../../artifacts/spike_steer/upset_a/report.md) | **NO-GO**：自动机最差（9/96 飞成）；但校准把俯仰轴水平外推到网格外、三个水平挤在一起，训练集几乎全坠，结果不能区分"逻辑无用"与"调参失败"。正面发现：脉冲律把存活率从 45/96 提到 85/96。修正方案见报告，是否重跑待用户决定 |
 | C 门：全状态反馈上限（gates 5.6） | 已结束（12:10），报告 [fullstate_report.md](../../artifacts/neuro_gates/fullstate_report.md) | **空间小**：理想全状态反馈比网格最优 PID 只少 1.1° 倾角 RMS（12%），且经典可实现。**方案 C 排除。** |
 | v5（经典起点） | 已结束（17:38），`artifacts/spike_steer/v5/`，分析 [analysis.md](../../artifacts/spike_steer/v5/analysis.md) | **未通过、预测失败**：J 比值 1.30 / 1.44，只学会上推方向（下推 0% 在窗内）。诊断补一条：单向平台。修法 v5b（平衡适应度，本机）与 v5c（镜像绑定，tanakalab）各 1.5 h，通过者成为 B' 的搜索设置 |
 | **v5b（平衡适应度）** | tmux `v5b`，日志 `runs/spike_steer_v5b.log`，脚本 [scripts/run_v5.sh](../../experiments/algorithms/spike_steer/scripts/run_v5.sh) `b 3 18 --fitness balanced` | **17:47 已启动，不要重复启动。** 约 1.5 h，预计 19:20。结果 `artifacts/spike_steer/v5b/` |
@@ -109,6 +109,10 @@
 ### 2.10 v5 结果（2026-10-13 17:38，未通过，预测失败）
 
 见 [v5/analysis.md](../../artifacts/spike_steer/v5/analysis.md)。经典起点 9 代内进化出一个方向的锁相比较器（上推 99% 在窗内），但下推方向始终没有出现（0% 在窗内），J 比值 1.30。完整诊断：初始化盆地（v1–v4）+ 单向平台（v1、v5）。B' 启动前先在 v5 上验证两种搜索修法：平衡适应度（½ 均值 + ½ 最差案例）与镜像绑定拮抗对。
+
+### 2.11 翻正反射 Stage A（2026-10-13 18:34，NO-GO，校准有缺陷）
+
+见 [upset_a/report.md](../../artifacts/spike_steer/upset_a/report.md)。预注册判读 NO-GO（自动机 9/96 飞成，脉冲律 85/96，PID 45/96）。但俯仰轴校准外推到网格之外、三个水平塌成一个，训练集几乎全坠，自动机的 CEM 没有梯度；结论只能是"本次运行没有看到多阶段逻辑的收益"，不能算关闭。正面发现：相位锁定脉冲律在大扰动恢复中把存活率翻倍。修正版 upset.py 待写；优先级在 B' 之后。
 
 ### 2.7 全状态反馈上限（2026-10-13 12:10，gates 5.6 已回答）
 
