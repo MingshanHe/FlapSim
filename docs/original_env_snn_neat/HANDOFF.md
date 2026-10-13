@@ -82,6 +82,8 @@ Stage A 的判读：看 `artifacts/spike_steer/upset_a/test.json` 的 `verdict.G
 - D1 选择了"不绑定成对池"（mirror(v1) 的 J 为 8.37，差于 v1 的 8.11）。进化让 J 从热启动的 8.08 降到 6.52（选择集），校准再降约 10%，但仍追不上经典律。
 - 经典律加相位偏置（law_ext）只比 law_tuned 略好（ΔJ −0.06，CI 跨 0），说明经典律已接近这一类控制律的上限。
 - 逐拍诊断见 [analysis.md](../../artifacts/spike_steer/v3/analysis.md)：中等误差时放电只有经典律的约 1/3，放电相位标准差 28–40°（经典律 11°），下推方向偏晚约 34°。
+- **根因（analysis.md 第 5 节）**：LIF 时间常数（τ_m=5 ms、τ_s=2.5 ms）相对 5 ms 的相位窗口太慢。手工构造的等价 SNN 在 τ=5 ms 时 J=8.7（几乎不放电），τ=0.5 ms 时 J=6.03（通过 1.05 倍线）。NEAT 在 τ=5 ms 下靠膜积分提前充电补偿，所以相位分散。不是搜索失败。
+- 相位检测（第 6 节）：陀螺→曲柄偏移的圆标准差 0.7°，经典 PLL 接近完美，SNN 没有优势空间。
 - **结论**：在原接口内，NEAT 进化的脉冲回路可以学会双向的锁相"转向肌"放电，但控制质量比同预算的经典脉冲律差约 12%。这个课题不能以 SNN/NEAT 为核心成立。按决策树转向翻正反射 Stage A。
 
 ### 2.5 备选方案工作流（[contingency_plans_20261013.json](../../artifacts/spike_steer/workflows/contingency_plans_20261013.json)，23 个代理）

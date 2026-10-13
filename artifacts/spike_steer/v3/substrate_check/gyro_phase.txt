@@ -1,0 +1,23 @@
+seed 2020100000: pitch gyro wingbeat amp 10.66 rad/s (sd 0.15); slow |gy| rms 1.02; gyro->crank offset mean 287.6 deg, circ sd 0.7; wingbeat 24.9 Hz (range 24.3-25.9); motor cmd 3221 (3120-3312)
+   corr(offset, motor cmd) +0.48; corr(offset, wingbeat Hz) +0.35; slope +0.91 deg per 100 rad/s
+   gx: wingbeat amp 0.187, offset 78 deg, circ sd 122
+   ax: wingbeat amp 24.023, offset 234 deg, circ sd 3
+   az: wingbeat amp 0.617, offset 52 deg, circ sd 77
+seed 2020100001: pitch gyro wingbeat amp 10.67 rad/s (sd 0.26); slow |gy| rms 1.10; gyro->crank offset mean 287.5 deg, circ sd 0.6; wingbeat 25.0 Hz (range 24.3-26.0); motor cmd 3205 (3115-3309)
+   corr(offset, motor cmd) +0.26; corr(offset, wingbeat Hz) +0.14; slope +0.37 deg per 100 rad/s
+   gx: wingbeat amp 0.192, offset 50 deg, circ sd 124
+   ax: wingbeat amp 24.033, offset 232 deg, circ sd 3
+   az: wingbeat amp 0.638, offset 36 deg, circ sd 95
+seed 2020100002: pitch gyro wingbeat amp 10.65 rad/s (sd 0.16); slow |gy| rms 1.18; gyro->crank offset mean 287.5 deg, circ sd 0.7; wingbeat 24.9 Hz (range 24.4-26.1); motor cmd 3174 (3115-3297)
+   corr(offset, motor cmd) +0.53; corr(offset, wingbeat Hz) +0.47; slope +1.01 deg per 100 rad/s
+   gx: wingbeat amp 0.162, offset 20 deg, circ sd 124
+   ax: wingbeat amp 23.996, offset 233 deg, circ sd 3
+   az: wingbeat amp 0.716, offset 54 deg, circ sd 82
+seed 2020100003: pitch gyro wingbeat amp 10.67 rad/s (sd 0.15); slow |gy| rms 1.05; gyro->crank offset mean 287.5 deg, circ sd 0.7; wingbeat 25.0 Hz (range 24.4-26.1); motor cmd 3175 (3115-3296)
+   corr(offset, motor cmd) +0.50; corr(offset, wingbeat Hz) +0.36; slope +1.04 deg per 100 rad/s
+   gx: wingbeat amp 0.193, offset 172 deg, circ sd 131
+   ax: wingbeat amp 24.128, offset 232 deg, circ sd 3
+   az: wingbeat amp 0.663, offset 54 deg, circ sd 80
+PHASE_OFFSET (PLL calibration) = 84.1
+
+[exited with code 0]
