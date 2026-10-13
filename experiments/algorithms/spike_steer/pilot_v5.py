@@ -33,10 +33,12 @@ from ..wingbeat_snn.evolve import plain_tanh
 
 V3 = W.V3
 OUTPUTS = 2
-COLD = {  # cold-start mutation settings; everything else stays as in neat_template_v3.ini
+COLD = {  # cold-start settings; everything else stays as in neat_template_v3.ini
     'initial_connection': 'full_direct', 'num_hidden': '0',
-    'bias_init_mean': '0.0', 'bias_init_stdev': '1.0', 'bias_mutate_power': '0.3', 'bias_mutate_rate': '0.5',
-    'weight_init_stdev': '1.0', 'weight_mutate_power': '0.5', 'weight_mutate_rate': '0.5',
+    # silent-at-rest prior: with bias ~ N(-2, 0.5) and weights ~ N(0, 0.5) a random genome fires sparsely instead
+    # of continuously (the smoke run with bias N(0, 1), weights N(0, 1) crashed every genome by over-pulsing)
+    'bias_init_mean': '-2.0', 'bias_init_stdev': '0.5', 'bias_mutate_power': '0.3', 'bias_mutate_rate': '0.5',
+    'weight_init_stdev': '0.5', 'weight_mutate_power': '0.5', 'weight_mutate_rate': '0.5',
     'delay_init_mean': '0.0', 'delay_init_stdev': '0.0'}
 
 
