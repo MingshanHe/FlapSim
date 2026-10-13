@@ -1,6 +1,6 @@
 # 交接：原环境内的 SNN+NEAT 研究线
 
-分支：`research/original-env-snn-neat`（**已推送到 origin**，两台机器通过它协同，见第 5 节）。最后更新：2026-10-13 约 22:12 JST（本机延长到约 24:00）。
+分支：`research/original-env-snn-neat`（**已推送到 origin**，两台机器通过它协同，见第 5 节）。最后更新：2026-10-13 约 22:45 JST（本机延长到约 24:00）。
 
 本文件取代了之前那段长对话。原始对话记录含个人信息，没有放进仓库。新会话（例如 Claude Code 桌面版）先读本文件；如需细节，再读文中链接的报告。
 
@@ -207,7 +207,7 @@ bash experiments/algorithms/spike_steer/scripts/run_v6.sh rate    1 62 64 40 <�
 
 ## 4c''. 机动基准可行性运行（2026-10-13 22:10 启动，本机，tmux `maneuver`，约 35 分钟）
 
-代码 [maneuver.py](../../experiments/algorithms/spike_steer/maneuver.py)：T2 点头、T3 前飞急停的任务与打分；混合经典基线 = PID + 脉冲律悬停 + 机动窗口内的调度（S1 三旋钮网格、S2 八旋钮 CEM）；S3 = 真值角速度反馈刹停（特权，上限指示）；hover_only 对照。4 个调参案例、8 个保留案例。预注册：`runs/spike_steer/maneuver/preregistration.json`；**空间判据**：S2 或 S3 比 S1 好 ≥ 20% → 机动任务有学习空间。T2 的"到达 30°"改为须持续 0.1 s（冒烟暴露了云台快踢让下体来回摆过 30° 的漏洞，修订在正式运行之前）。结果复制到 `artifacts/spike_steer/maneuver/`。
+代码 [maneuver.py](../../experiments/algorithms/spike_steer/maneuver.py)：T2 点头、T3 前飞急停的任务与打分；混合经典基线 = PID + 脉冲律悬停 + 机动窗口内的调度（S1 三旋钮网格、S2 八旋钮 CEM）；S3 = 真值角速度反馈刹停（特权，上限指示）；hover_only 对照。4 个调参案例、8 个保留案例。预注册：`runs/spike_steer/maneuver/preregistration.json`；**空间判据**：S2 或 S3 比 S1 好 ≥ 20% → 机动任务有学习空间。T2 的"到达 30°"改为须持续 0.1 s（冒烟暴露了云台快踢让下体来回摆过 30° 的漏洞，修订在正式运行之前）。**已结束（22:39）**，报告 [maneuver/report.md](../../artifacts/spike_steer/maneuver/report.md)：流水线跑通；T2 可行但难（S1 只 3/8 达到持续 30°），T3 按 0.5 m/2.5 s 定义不可行（最远 0.20 m）；S2/S3 在 4 个调参案例上过拟合、保留集坠机，空间判据 false 但原因是过拟合与架构（机动模块在以 0° 为目标的 PID 上叠加）。修订：机动模块获得姿态设定值权限、T3 目标 0.25 m、调参案例 8 个、CEM 加坠机硬约束。
 
 ## 4d. 研究方向更新（2026-10-13 20:00，用户决定）：悬停 + 机动的综合基准
 
