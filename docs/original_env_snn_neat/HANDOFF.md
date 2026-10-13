@@ -1,6 +1,6 @@
 # 交接：原环境内的 SNN+NEAT 研究线
 
-分支：`research/original-env-snn-neat`（仅在本地，未推送）。最后更新：2026-10-13 约 11:40 JST。
+分支：`research/original-env-snn-neat`（仅在本地，未推送）。最后更新：2026-10-13 约 12:20 JST。
 
 本文件取代了之前那段长对话。原始对话记录含个人信息，没有放进仓库。新会话（例如 Claude Code 桌面版）先读本文件；如需细节，再读文中链接的报告。
 
@@ -12,8 +12,8 @@
 |---|---|---|
 | v3 正式运行 | 已结束（10:45），`artifacts/spike_steer/v3/` | **未通过**，见 2.6；根因分析见 [analysis.md](../../artifacts/spike_steer/v3/analysis.md) |
 | 翻正反射 Stage A | 脚本 `runs/run_upset_a.sh`，代码 [upset.py](../../experiments/algorithms/spike_steer/upset.py) | 10:46 启动、约 10:55 按用户要求停止（无中间结果）。**暂缓**，等 A、C 门结果后再决定 |
-| **C 门：全状态反馈上限**（gates 5.6） | tmux `fullstate`，日志 `runs/fullstate.log`，代码 [fullstate.py](../../experiments/algorithms/neuro_gates/fullstate.py) | **11:35 已启动，不要重复启动。** 约 35 分钟。结果 `artifacts/neuro_gates/fullstate.json` |
-| **A：v4（τ 可进化）** | 代码 [pilot_v4.py](../../experiments/algorithms/spike_steer/pilot_v4.py)，脚本 `runs/run_steer_v4.sh` | 自测通过；`--quick` 冒烟在跑（日志 `runs/spike_steer/pilot_v4_quick.log`）。**fullstate 结束且冒烟通过后再启动**（约 1 h 45 m），tmux 名 `spike_steer_v4` |
+| C 门：全状态反馈上限（gates 5.6） | 已结束（12:10），报告 [fullstate_report.md](../../artifacts/neuro_gates/fullstate_report.md) | **空间小**：理想全状态反馈比网格最优 PID 只少 1.1° 倾角 RMS（12%），且经典可实现。**方案 C 排除。** |
+| **A：v4（τ 可进化、增益保持）** | tmux `spike_steer_v4`，日志 `runs/spike_steer_v4.log`，代码 [pilot_v4.py](../../experiments/algorithms/spike_steer/pilot_v4.py) | **12:11 已启动，不要重复启动。** 约 1 h 45 m，预计 14:00 前后结束。结果复制到 `artifacts/spike_steer/v4/`。冒烟已通过 |
 
 判读：
 - C 门看 `fullstate.json` 的 `summary`：`fullstate_bound` 相对 `pid_grid_best` 的倾角 RMS 下降幅度与配对 CI。下降很小 → 原接口内悬停任务对任何控制器都没有性能空间。
@@ -90,6 +90,10 @@
 - **根因（analysis.md 第 5 节）**：LIF 时间常数（τ_m=5 ms、τ_s=2.5 ms）相对 5 ms 的相位窗口太慢。手工构造的等价 SNN 在 τ=5 ms 时 J=8.7（几乎不放电），τ=0.5 ms 时 J=6.03（通过 1.05 倍线）。NEAT 在 τ=5 ms 下靠膜积分提前充电补偿，所以相位分散。不是搜索失败。
 - 相位检测（第 6 节）：陀螺→曲柄偏移的圆标准差 0.7°，经典 PLL 接近完美，SNN 没有优势空间。
 - **结论**：在原接口内，NEAT 进化的脉冲回路可以学会双向的锁相"转向肌"放电，但控制质量比同预算的经典脉冲律差约 12%。这个课题不能以 SNN/NEAT 为核心成立。按决策树转向翻正反射 Stage A。
+
+### 2.7 全状态反馈上限（2026-10-13 12:10，gates 5.6 已回答）
+
+见 [fullstate_report.md](../../artifacts/neuro_gates/fullstate_report.md)。理想全状态线性反馈（真值去晃动姿态/角速度 + 云台状态，CEM 调参）比网格最优 PID 只少 **1.1° 倾角 RMS（8.93°→7.81°，12%）**，16/16 例更好，高度不变。增量是 30 ms 滞后的角速度项和一点云台角反馈，经典可实现。电机脉冲**没有横滚权限**，脉冲律剩下的倾角基本是横滚。结论：原接口内权限大的只有翅拍定时脉冲通道（俯仰），其最优律是经典的；方案 C 排除。
 
 ### 2.5 备选方案工作流（[contingency_plans_20261013.json](../../artifacts/spike_steer/workflows/contingency_plans_20261013.json)，23 个代理）
 

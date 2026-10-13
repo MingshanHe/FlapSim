@@ -114,9 +114,10 @@ def paired(rows_a, rows_b, key='objective'):
     b = {r['seed']: r for r in rows_b}
     common = [s for s in a if s in b and a[s]['termination'] == b[s]['termination'] == 'time_limit']
     d = np.array([a[s][key]-b[s][key] for s in common])
+    rng = np.random.default_rng(0)
+    boot = [rng.choice(d, len(d)).mean() for _ in range(2000)] if len(d) else []
     return dict(n=len(d), mean=float(d.mean()) if len(d) else None, wins=int((d < 0).sum()),
-                ci95=[float(np.percentile([np.random.default_rng(0).choice(d, len(d)).mean() for _ in range(2000)], q))
-                      for q in (2.5, 97.5)] if len(d) else None)
+                ci95=[float(np.percentile(boot, q)) for q in (2.5, 97.5)] if len(d) else None)
 
 
 def main():
