@@ -32,6 +32,7 @@ from . import pilot as P
 from . import pilot_v3 as V
 
 T0, SECONDS, WINDOW, MISS = 2.4, 5., 2.5, 2.5
+HOLD_S = .1  # T2: |pitch| >= 30 deg must be held this long to count (preregistered after the quick run exposed the gimbal-kick swing)
 BEAT, PULSE_WIN = .04, math.radians(45.)
 UP, DOWN = math.radians(135.), math.radians(315.)
 PID_GAINS = (1.5, .85)
@@ -157,7 +158,12 @@ def run(env, c, task, man):
     res = dict(seed=c['seed'], task=task, termination=ep['termination'], flown=flown, pulses=pulses,
                height_loss_cm=dz, tilt_peak_deg=float(np.degrees(w[:, 8].max())) if len(w) else None, duration=man.duration())
     if task == 'nod':
-        t30 = first(np.abs(pitch) >= 30.)
+        # reaching 30 deg counts only if held for >= HOLD_S: a 0.1 s gimbal kick swings the base body (two-body reverse
+        # response) through 30 deg and back within 0.1 s without re-orienting the vehicle; that is not a nod
+        hold = int(round(HOLD_S/DT))
+        big = np.abs(pitch) >= 30.
+        sustained = np.array([big[i:i+hold].all() if i+hold <= len(big) else False for i in range(len(big))])
+        t30 = first(sustained)
         trec = first(np.abs(pitch) < 5., (t30 or 0.)+.02) if t30 is not None else None
         drift = float(abs(fwd[-1])) if len(fwd) else 0.
         score = (t30 if t30 is not None else MISS)+((trec-t30) if (t30 is not None and trec is not None) else MISS)+.03*dz+.5*drift+crash
@@ -258,7 +264,7 @@ def main():
         prepare_source(source)
     tune, test = cases(BASES['tune'], 2 if a.quick else 4), cases(BASES['test'], 2 if a.quick else 8)
     rng = np.random.default_rng(a.seed)
-    prereg = dict(tasks=dict(nod='t_30 + t_recover + .03 dz_cm + .5 |drift_m| (+ crash 10 + 5 x unflown); miss = 2.5 s each',
+    prereg = dict(tasks=dict(nod='t_30 (|pitch| >= 30 deg held >= 0.1 s) + t_recover (to < 5 deg) + .03 dz_cm + .5 |drift_m| (+ crash 10 + 5 x unflown); miss = 2.5 s each',
                              dash='t_reach + t_settle + 2 overshoot_m + .03 dz_cm + .5 |lateral_m| (+ crash); miss = 2.5 s (+2 x shortfall)'),
                   arms=['hover_only', 'S1 schedule grid (3 knobs)', 'S2 schedule CEM (8 knobs)', 'S3 privileged truth-rate brake CEM (6 knobs)'],
                   headroom_rule='maneuver has learning room if S2 or S3 beats S1 by >= 20 % on the 8 test cases; '
