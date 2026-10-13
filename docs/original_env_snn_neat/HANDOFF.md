@@ -1,6 +1,6 @@
 # 交接：原环境内的 SNN+NEAT 研究线
 
-分支：`research/original-env-snn-neat`（**已推送到 origin**，两台机器通过它协同，见第 5 节）。最后更新：2026-10-13 约 23:12 JST（本机延长到约 24:00）。
+分支：`research/original-env-snn-neat`（**已推送到 origin**，两台机器通过它协同，见第 5 节）。最后更新：2026-10-13 约 23:18 JST（本机延长到约 24:00）。
 
 本文件取代了之前那段长对话。原始对话记录含个人信息，没有放进仓库。新会话（例如 Claude Code 桌面版）先读本文件；如需细节，再读文中链接的报告。
 
@@ -18,6 +18,7 @@
 | v5c_local（镜像绑定，seed 4，本机） | 已结束（20:58），`artifacts/spike_steer/v5c_local/`，[analysis.md](../../artifacts/spike_steer/v5c_local/analysis.md) | **J 比值 1.081 / 1.075，差 3% 过线；双向学会；冠军 τ 0.95/0.30 ms 无隐层（比较器区域）；适应度仍在上升**。镜像绑定是唯一打破单向平台的修法 → B' 用 `--tied` |
 | v5c（镜像绑定，seed 3，tanakalab） | 已结束（21:5x），`artifacts/spike_steer/v5c/`，[analysis.md](../../artifacts/spike_steer/v5c/analysis.md) | **PASS + ROBUST_PASS：J 比值 0.997 / 1.016，双向，τ 0.3/0.3 ms 无隐层。NEAT 首次过线**；B' 过夜用 `--tied` 为正式设置 |
 | **B' 代码 v6** | [pilot_v6.py](../../experiments/algorithms/spike_steer/pilot_v6.py)，运行脚本 [scripts/run_v6.sh](../../experiments/algorithms/spike_steer/scripts/run_v6.sh)（两台机器通用：`PY=<python> bash .../run_v6.sh <arm> <seed> [workers] [pop] [gen]`） | 自测与 `--quick` 端到端冒烟都已通过（16:52，日志 `runs/spike_steer/pilot_v6_quick.log`）；`analyze` 命令的冒烟在跑。冒烟通过且 v5 结果确认冷启动能找到解后，启动主臂：本机 seed 1，tanakalab seed 2（Stage A 结束后），AWS 承担其余臂（见 PLAN 第 6 节） |
+| **B' 主臂过夜** | tanakalab：`run_v6.sh main 1 14 64 40 --tied`（约 21:50–22:00 启动，约 13–16 h）；32 核机器：`run_v6.sh main 2 30 64 40 --tied`（配环境后启动，约 4 h） | 结果各自提交到 `artifacts/spike_steer/v6/main_tied_s{1,2}/`，含 `mechanism.json`。明早 `git pull` 后按 PLAN_B_emergence.md 第 5 节判读 H1/H2 |
 | A：v4（τ 可进化、增益保持） | 已结束（13:39），`artifacts/spike_steer/v4/`，分析 [analysis.md](../../artifacts/spike_steer/v4/analysis.md) | **未通过，比 v3 差**（J 比值 1.25 / 1.18）。τ_m 进化到 10 ms 上界，快 τ 个体全被淘汰：NEAT 停在「慢膜预判」盆地，到不了手工可构造的比较器解 |
 
 判读：
@@ -232,7 +233,7 @@ bash experiments/algorithms/spike_steer/scripts/run_v6.sh rate    1 62 64 40 <�
 | T3 前飞 0.5 m 急停（应力案例，t0=2.4 s，目标 1 s 到位并稳住） | 位置误差积分(m·s)×100 + 倾角峰值/10 + 0.3×高度损失 + 坠机罚 | 25% | 饱和下的预判、两体反向响应 |
 综合 = 各任务得分除以**最强经典基线在该任务上的得分**后加权（无量纲化，经典 = 1.0）。学习方、经典方、混合体三者比较。各任务判据细节在实现时写入各自的 `PREREGISTRATION`，训练前落盘。
 
-## 4e. ~~主线切换：以 MJX（GPU）版为主~~ **已撤销（23:10）**：P1 探针显示 MJX 单环境每步 35.6 ms（CPU 8 µs），齿轮等式约束的 Newton 求解在 GPU 上被延迟支配；用户决定**不再做 GPU，以 CPU 多核为主**。用户新配了一台 **32 核 CPU 机器并开通了 Claude Remote Control**（会话名待确认），接管原计划给 AWS 的队列（4c 节，workers 改为 30）。详见 [MJX_FEASIBILITY.md](MJX_FEASIBILITY.md)。以下为撤销前的计划，仅存档。
+## 4e. ~~主线切换：以 MJX（GPU）版为主~~ **已撤销（23:10）**：P1 探针显示 MJX 单环境每步 35.6 ms（CPU 8 µs），齿轮等式约束的 Newton 求解在 GPU 上被延迟支配；用户决定**不再做 GPU，以 CPU 多核为主**。用户新配了一台 **32 核 CPU 机器并开通了 Claude Remote Control**（会话名 `32核CPU配置确认 [6d4858]`，23:15 已发接管指令：配环境 → 验证（10 个测试、各 selftest、law_tuned 旧 16 例 J=5.858623147804074 逐位）→ 过夜 `run_v6.sh main 2 30 64 40 --tied` → 提交 `artifacts/spike_steer/v6/main_tied_s2/` 并推送）。它接管原计划给 AWS 的队列（4c 节，workers 改为 30）；**AWS 不再需要**。详见 [MJX_FEASIBILITY.md](MJX_FEASIBILITY.md)。以下为撤销前的计划，仅存档。
 
 ### （存档）原 MJX 计划
 
