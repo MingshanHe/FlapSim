@@ -1,6 +1,6 @@
 # 交接：原环境内的 SNN+NEAT 研究线
 
-分支：`research/original-env-snn-neat`（**已推送到 origin**，两台机器通过它协同，见第 5 节）。最后更新：2026-10-13 约 19:00 JST。
+分支：`research/original-env-snn-neat`（**已推送到 origin**，两台机器通过它协同，见第 5 节）。最后更新：2026-10-13 约 19:10 JST。
 
 本文件取代了之前那段长对话。原始对话记录含个人信息，没有放进仓库。新会话（例如 Claude Code 桌面版）先读本文件；如需细节，再读文中链接的报告。
 
@@ -168,7 +168,9 @@
 
 - **本机（robot）可能在 22:00 关机**，本会话随之结束；本机上的 tmux 任务必须在 21:45 前结束并推送。
 - **tanakalab 不关机**：过夜任务放那里。它的 Claude 会话 `tanakalab-ws-whimsical-sprout` 会按我 22:00 前发出的过夜计划自行执行（v5c → 选搜索设置 → B' 主臂 seed 1 → seed 2，每步结束提交推送 artifacts）。
-- 明天的新会话（任一台机器）先 `git pull`，读本文件第 0 节和 `artifacts/spike_steer/v6/*/test.json`。
+- **已发给 tanakalab 的过夜计划（19:05）**：v5c 结束后，按 v5b/v5c 的 PASS 选 B' 搜索开关（都过 → `--tied --fitness balanced`；只 v5b → `--fitness balanced`；只 v5c → `--tied`；都不过 → `--tied --fitness balanced` 并标注"探索性"），然后顺序跑 `run_v6.sh main 1 14 64 40 <开关>` 和 `main 2 ...`（各约 7 h），每个结束后提交 `artifacts/spike_steer/v6/` 并推送，再发消息。
+- 本机 19:20 v5b 结束后的窗口（到 21:45）：跑 v5d（`run_v5.sh d 3 18 --tied --fitness balanced`，约 1.5 h），验证两种修法的组合；结果推送后本机下线。
+- 明天的新会话（任一台机器）先 `git pull`，读本文件第 0 节、`artifacts/spike_steer/v5{b,c,d}/test.json` 和 `artifacts/spike_steer/v6/*/test.json`、`mechanism.json`。
 
 ## 5. 运行与操作约定
 
