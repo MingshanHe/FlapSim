@@ -1,6 +1,6 @@
 # 交接：原环境内的 SNN+NEAT 研究线
 
-分支：`research/original-env-snn-neat`（仅在本地，未推送）。最后更新：2026-10-13 约 16:12 JST。
+分支：`research/original-env-snn-neat`（**已推送到 origin**，两台机器通过它协同，见第 5 节）。最后更新：2026-10-13 约 16:35 JST。
 
 本文件取代了之前那段长对话。原始对话记录含个人信息，没有放进仓库。新会话（例如 Claude Code 桌面版）先读本文件；如需细节，再读文中链接的报告。
 
@@ -11,7 +11,7 @@
 | 任务 | 位置 | 说明 |
 |---|---|---|
 | v3 正式运行 | 已结束（10:45），`artifacts/spike_steer/v3/` | **未通过**，见 2.6；根因分析见 [analysis.md](../../artifacts/spike_steer/v3/analysis.md) |
-| 翻正反射 Stage A | 脚本 `runs/run_upset_a.sh`，代码 [upset.py](../../experiments/algorithms/spike_steer/upset.py) | 10:46 启动、约 10:55 按用户要求停止（无中间结果）。**暂缓**，等 A、C 门结果后再决定 |
+| **翻正反射 Stage A（tanakalab 机器）** | tanakalab 的 Claude 会话 `tanakalab-ws-whimsical-sprout`，tmux `upset_a`，代码 [upset.py](../../experiments/algorithms/spike_steer/upset.py) | 16:30 派发给第二台机器运行（约 1.5 h）。结果由它提交到 `artifacts/spike_steer/upset_a/` 并推送。判读 `test.json` 的 `verdict.GO`（C1–C3）。本机 10:46 的那次已停止，无中间结果 |
 | C 门：全状态反馈上限（gates 5.6） | 已结束（12:10），报告 [fullstate_report.md](../../artifacts/neuro_gates/fullstate_report.md) | **空间小**：理想全状态反馈比网格最优 PID 只少 1.1° 倾角 RMS（12%），且经典可实现。**方案 C 排除。** |
 | **v5（经典起点）** | tmux `spike_steer_v5`，日志 `runs/spike_steer_v5.log`，代码 [pilot_v5.py](../../experiments/algorithms/spike_steer/pilot_v5.py) | **16:10 已启动，不要重复启动。** 约 1 h 45 m，预计 17:55 前后结束。结果复制到 `artifacts/spike_steer/v5/`。判读：`test.json` 的 `report.overall.PASS`/`ROBUST_PASS`/`prediction_ok`（预测：冠军 τ_m ≤ 2 ms、隐层 ≤ 2、J 比值 ≤ 1.05） |
 | A：v4（τ 可进化、增益保持） | 已结束（13:39），`artifacts/spike_steer/v4/`，分析 [analysis.md](../../artifacts/spike_steer/v4/analysis.md) | **未通过，比 v3 差**（J 比值 1.25 / 1.18）。τ_m 进化到 10 ms 上界，快 τ 个体全被淘汰：NEAT 停在「慢膜预判」盆地，到不了手工可构造的比较器解 |
@@ -158,6 +158,7 @@
 - **长任务放在 tmux 里运行**。从 `wsl.exe bash -c "... &"` 启动的进程会在调用的 shell 退出时被杀掉。
 - **等待用后台任务加完成通知**，不要长时间 `sleep` 轮询（用户会以为卡住了）。
 - **不要修改正在运行的 bash 脚本**；也不要修改之后的阶段还会重新 import 的 Python 模块（例如 v2 运行期间的 `pilot.py`）。
-- **Git**：WSL 里的 git 没有 GitHub 凭据。推送用 Windows 端的 git：`& "E:\功能软件\Git\cmd\git.exe" -c "safe.directory=*" -C \\wsl.localhost\Ubuntu\home\robot\FlapSim-repo\FlapSim push ...`，推送前先征得用户同意。仓库是私有的。
+- **两台机器协同（2026-10-13 起）**：本机（robot 的 WSL）和 tanakalab（hemingshan 的 WSL，Claude 会话 `tanakalab-ws-whimsical-sprout`，可用 SendMessage 派任务）共用本分支。规则：各机只提交自己产出的 `artifacts/` 子目录和自己负责的文件；代码改动只在本机做；推送前 `git pull --rebase`；不 force push。
+- **Git**：WSL 里的 git 本身没有凭据，但可以借 Windows 的凭据管理器直接从 WSL 推送（已验证，无需弹窗）：`git -c credential.helper='/mnt/e/功能软件/Git/mingw64/bin/git-credential-manager.exe' push origin research/original-env-snn-neat`。旧办法是用 Windows 端的 git：`& "E:\功能软件\Git\cmd\git.exe" -c "safe.directory=*" -C \\wsl.localhost\Ubuntu\home\robot\FlapSim-repo\FlapSim push ...`，推送前先征得用户同意。仓库是私有的。
 - **`runs/` 不进 git**，需要保留的结果放在 `artifacts/`。
 - **Claude 的自动记忆**在 `C:\Users\hemin\.claude\projects\--wsl-localhost-Ubuntu-home-robot-FlapSim-repo-FlapSim\memory\`。它按项目路径区分，所以用同一路径（`\\wsl.localhost\Ubuntu\home\robot\FlapSim-repo\FlapSim`）打开项目才会加载。
