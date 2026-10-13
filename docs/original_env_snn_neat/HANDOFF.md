@@ -1,6 +1,6 @@
 # 交接：原环境内的 SNN+NEAT 研究线
 
-分支：`research/original-env-snn-neat`（**已推送到 origin**，两台机器通过它协同，见第 5 节）。最后更新：2026-10-13 约 22:50 JST（本机延长到约 24:00）。
+分支：`research/original-env-snn-neat`（**已推送到 origin**，两台机器通过它协同，见第 5 节）。最后更新：2026-10-13 约 23:12 JST（本机延长到约 24:00）。
 
 本文件取代了之前那段长对话。原始对话记录含个人信息，没有放进仓库。新会话（例如 Claude Code 桌面版）先读本文件；如需细节，再读文中链接的报告。
 
@@ -232,7 +232,9 @@ bash experiments/algorithms/spike_steer/scripts/run_v6.sh rate    1 62 64 40 <�
 | T3 前飞 0.5 m 急停（应力案例，t0=2.4 s，目标 1 s 到位并稳住） | 位置误差积分(m·s)×100 + 倾角峰值/10 + 0.3×高度损失 + 坠机罚 | 25% | 饱和下的预判、两体反向响应 |
 综合 = 各任务得分除以**最强经典基线在该任务上的得分**后加权（无量纲化，经典 = 1.0）。学习方、经典方、混合体三者比较。各任务判据细节在实现时写入各自的 `PREREGISTRATION`，训练前落盘。
 
-## 4e. 主线切换（2026-10-13 22:45，用户决定）：以 MJX（GPU）版 FlapSim 为主推进
+## 4e. ~~主线切换：以 MJX（GPU）版为主~~ **已撤销（23:10）**：P1 探针显示 MJX 单环境每步 35.6 ms（CPU 8 µs），齿轮等式约束的 Newton 求解在 GPU 上被延迟支配；用户决定**不再做 GPU，以 CPU 多核为主**。用户新配了一台 **32 核 CPU 机器并开通了 Claude Remote Control**（会话名待确认），接管原计划给 AWS 的队列（4c 节，workers 改为 30）。详见 [MJX_FEASIBILITY.md](MJX_FEASIBILITY.md)。以下为撤销前的计划，仅存档。
+
+### （存档）原 MJX 计划
 
 评估见 [MJX_FEASIBILITY.md](MJX_FEASIBILITY.md)。P1 探针（本机 RTX 5060 Ti，脚本在 scratchpad `mjx_probe_p1.py`，结果写入 MJX_FEASIBILITY.md）回答：模型能否加载、float32 下齿轮等式约束是否稳定、吞吐。
 
