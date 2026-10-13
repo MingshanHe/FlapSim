@@ -48,7 +48,7 @@ $PY -m experiments.algorithms.spike_steer.pilot_v3 selftest
 $PY -m experiments.algorithms.spike_steer.pilot_v4 selftest
 $PY -m experiments.algorithms.spike_steer.upset selftest
 ```
-再跑一个确定性的对照数字：旧 16 例测试集上 law_tuned 的 J 应为 **5.86**（`artifacts/spike_steer/v3/test.json`）。x86 上应逐位一致；ARM 上会有微小差别。
+再跑一个确定性的对照数字：旧 16 例测试集上 law_tuned 的 J 应为 **5.86**（`artifacts/spike_steer/v3/test.json`）。**同一台机器上逐位可复现；跨机器不行**（2026-10-13 实测：EPYC/Ubuntu 20.04/g++ 9 机器得 5.8628，本机 5.8586，相对差 7e-4——`native_step.cpp` 的即时编译、glibc 的 libm、OpenBLAS 内核不同，ULP 差被 5 µs 步长的混沌动力学放大）。所以**所有比较都必须在同一台机器上配对**，流水线已如此设计（测试阶段同机重跑经典对照）；跨机器只看统计等价。
 
 ## 运行
 

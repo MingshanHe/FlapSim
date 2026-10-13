@@ -1,6 +1,6 @@
 # 交接：原环境内的 SNN+NEAT 研究线
 
-分支：`research/original-env-snn-neat`（**已推送到 origin**，两台机器通过它协同，见第 5 节）。最后更新：2026-10-13 约 23:22 JST（本机延长到约 24:00）。
+分支：`research/original-env-snn-neat`（**已推送到 origin**，两台机器通过它协同，见第 5 节）。最后更新：2026-10-13 约 23:35 JST（本机今日最后一次更新）。
 
 本文件取代了之前那段长对话。原始对话记录含个人信息，没有放进仓库。新会话（例如 Claude Code 桌面版）先读本文件；如需细节，再读文中链接的报告。
 
@@ -233,7 +233,7 @@ bash experiments/algorithms/spike_steer/scripts/run_v6.sh rate    1 62 64 40 <�
 | T3 前飞 0.5 m 急停（应力案例，t0=2.4 s，目标 1 s 到位并稳住） | 位置误差积分(m·s)×100 + 倾角峰值/10 + 0.3×高度损失 + 坠机罚 | 25% | 饱和下的预判、两体反向响应 |
 综合 = 各任务得分除以**最强经典基线在该任务上的得分**后加权（无量纲化，经典 = 1.0）。学习方、经典方、混合体三者比较。各任务判据细节在实现时写入各自的 `PREREGISTRATION`，训练前落盘。
 
-## 4e. ~~主线切换：以 MJX（GPU）版为主~~ **已撤销（23:10）**：P1 探针显示 MJX 单环境每步 35.6 ms（CPU 8 µs），齿轮等式约束的 Newton 求解在 GPU 上被延迟支配；用户决定**不再做 GPU，以 CPU 多核为主**。用户新配了一台 **32 核 CPU 机器并开通了 Claude Remote Control**（会话名 `32核CPU配置确认 [6d4858]`，23:15 已发接管指令：配环境 → 验证（10 个测试、各 selftest、law_tuned 旧 16 例 J=5.858623147804074 逐位）→ 过夜 `run_v6.sh main 2 30 64 40 --tied` → 提交 `artifacts/spike_steer/v6/main_tied_s2/` 并推送）。它接管原计划给 AWS 的队列（4c 节，workers 改为 30）；**AWS 不再需要**。机器信息（23:20 自报）：容器 `4dc50209d9c2`，宿主 AMD EPYC 7702P，cgroup 限 32 核，503 GB 内存，20 GB overlay 磁盘，Ubuntu 20.04，有 g++/tmux/sudo，无 conda（自装 Miniconda）。**没有 GitHub 推送凭据**：能匿名拉取，push 需用户提供 token 或部署密钥；在此之前结果先本地 commit、用消息发我。单核比本机慢，B' 一次约 5–6 h。详见 [MJX_FEASIBILITY.md](MJX_FEASIBILITY.md)。以下为撤销前的计划，仅存档。
+## 4e. ~~主线切换：以 MJX（GPU）版为主~~ **已撤销（23:10）**：P1 探针显示 MJX 单环境每步 35.6 ms（CPU 8 µs），齿轮等式约束的 Newton 求解在 GPU 上被延迟支配；用户决定**不再做 GPU，以 CPU 多核为主**。用户新配了一台 **32 核 CPU 机器并开通了 Claude Remote Control**（会话名 `32核CPU配置确认 [6d4858]`，23:15 已发接管指令：配环境 → 验证（10 个测试、各 selftest、law_tuned 旧 16 例 J=5.858623147804074 逐位）→ 过夜 `run_v6.sh main 2 30 64 40 --tied` → 提交 `artifacts/spike_steer/v6/main_tied_s2/` 并推送）。它接管原计划给 AWS 的队列（4c 节，workers 改为 30）；**AWS 不再需要**。机器信息（23:20 自报）：容器 `4dc50209d9c2`，宿主 AMD EPYC 7702P，cgroup 限 32 核，503 GB 内存，20 GB overlay 磁盘，Ubuntu 20.04，有 g++/tmux/sudo，无 conda（自装 Miniconda）。**没有 GitHub 推送凭据**：能匿名拉取，push 需用户提供 token 或部署密钥；在此之前结果先本地 commit、用消息发我。单核比本机慢，B' 一次约 5–6 h。**23:22 已启动 `main 2 30 64 40 --tied`**（tmux `v6_main_s2`），验证全部通过。**跨机器不逐位复现**：law_tuned 旧 16 例 J 该机 5.8628、本机 5.8586（相对差 7e-4，ULP 差被混沌放大）；所有判据都是同机配对比较，不受影响；跨机器只看统计等价。详见 [MJX_FEASIBILITY.md](MJX_FEASIBILITY.md)。以下为撤销前的计划，仅存档。
 
 ### （存档）原 MJX 计划
 
@@ -255,6 +255,6 @@ P1 若失败（float32 不稳或吞吐不足）：先试 Warp 后端（`mujoco_w
 - **等待用后台任务加完成通知**，不要长时间 `sleep` 轮询（用户会以为卡住了）。
 - **不要修改正在运行的 bash 脚本**；也不要修改之后的阶段还会重新 import 的 Python 模块（例如 v2 运行期间的 `pilot.py`）。
 - **两台机器协同（2026-10-13 起）**：本机（robot 的 WSL）和 tanakalab（hemingshan 的 WSL，Claude 会话 `tanakalab-ws-whimsical-sprout`，可用 SendMessage 派任务）共用本分支。规则：各机只提交自己产出的 `artifacts/` 子目录和自己负责的文件；代码改动只在本机做；推送前 `git pull --rebase`；不 force push。
-- **Git**：WSL 里的 git 本身没有凭据，但可以借 Windows 的凭据管理器直接从 WSL 推送（已验证，无需弹窗）：`git -c credential.helper='/mnt/e/功能软件/Git/mingw64/bin/git-credential-manager.exe' push origin research/original-env-snn-neat`。旧办法是用 Windows 端的 git：`& "E:\功能软件\Git\cmd\git.exe" -c "safe.directory=*" -C \\wsl.localhost\Ubuntu\home\robot\FlapSim-repo\FlapSim push ...`，推送前先征得用户同意。仓库是私有的。
+- **Git**：WSL 里的 git 本身没有凭据，但可以借 Windows 的凭据管理器直接从 WSL 推送（已验证，无需弹窗）：`git -c credential.helper='/mnt/e/功能软件/Git/mingw64/bin/git-credential-manager.exe' push origin research/original-env-snn-neat`。旧办法是用 Windows 端的 git：`& "E:\功能软件\Git\cmd\git.exe" -c "safe.directory=*" -C \\wsl.localhost\Ubuntu\home\robot\FlapSim-repo\FlapSim push ...`，推送前先征得用户同意。**仓库目前是公开的**（2026-10-13 23:20 两台机器分别用 api.github.com 匿名验证返回 200；已转告用户核实）。
 - **`runs/` 不进 git**，需要保留的结果放在 `artifacts/`。
 - **Claude 的自动记忆**在 `C:\Users\hemin\.claude\projects\--wsl-localhost-Ubuntu-home-robot-FlapSim-repo-FlapSim\memory\`。它按项目路径区分，所以用同一路径（`\\wsl.localhost\Ubuntu\home\robot\FlapSim-repo\FlapSim`）打开项目才会加载。
