@@ -40,6 +40,7 @@ IDX = (0, 1, 3, 4, 5, 6, 7, 8)                      # indices in the 11-D readin
 SCALE = np.array([.1, .1, 10., 10., 10., 25., 25., 25.])  # unit ~ 'large': 0.1 rad, wingbeat gyro and accel amplitude
 INPUTS = 2*len(CHANNELS)+2                         # rectified pairs (+ then -) and constants 1, 0
 OUTPUTS = 2
+MIRROR = [i+len(CHANNELS) for i in range(len(CHANNELS))]+[i for i in range(len(CHANNELS))]+[2*len(CHANNELS), 2*len(CHANNELS)+1]
 MASKS = dict(all=np.ones(len(CHANNELS)), ahrs=np.array([1., 1., 0., 0., 0., 0., 0., 0.]))
 ARMS = dict(main=dict(), nodelay=dict(), fixed=dict(), ahrs=dict(mask='ahrs'), rate=dict(rate_hidden=True))
 FIXED_HIDDEN = 6
@@ -106,11 +107,11 @@ def task(args):
 
 
 # ----------------------------------------------------------------------------------------- genomes
-def make_config(out, population, arm):
+def make_config(out, population, arm, outputs=OUTPUTS):
     text = (Path(V.__file__).with_name('neat_template_v3.ini').read_text()
             .replace('[DelayGenome]', '[TauGenome]')
             .replace('{population}', str(population)).replace('{inputs}', str(INPUTS))
-            .replace('{outputs}', str(OUTPUTS)))
+            .replace('{outputs}', str(outputs)))
     for key, value in {**X.COLD, **OVERRIDES[arm]}.items():
         text, n = re.subn(rf'^{key}\s*=.*$', f'{key} = {value}', text, flags=re.M)
         assert n == 1, key
@@ -121,13 +122,28 @@ def make_config(out, population, arm):
     return cfg
 
 
-def export(g, arm):
+def export(g, arm, tied=False):
     spec = dict(kind='snn', inputs=INPUTS, genome_id=g.key, tau_m=float(g.tau_m), tau_s=float(g.tau_s),
-                spike_scale=P.SPEC['spike_scale'], outputs=list(range(OUTPUTS)), arm=dict(ARMS[arm]), tied=False,
+                spike_scale=P.SPEC['spike_scale'], outputs=list(range(1 if tied else OUTPUTS)), arm=dict(ARMS[arm]), tied=False,
                 nodes=[dict(id=k, bias=float(n.bias)) for k, n in sorted(g.nodes.items())],
                 edges=[dict(source=a, target=b, weight=float(e.weight), delay=0. if arm == 'nodelay' else float(round(e.delay)),
                             enabled=bool(e.enabled)) for (a, b), e in sorted(g.connections.items())])
-    return spec
+    return mirror_spec(spec) if tied else spec
+
+
+def mirror_spec(spec):
+    """Antagonist pool as the mirror image of the evolved pool: every +/- input pair swapped (constants kept), nodes
+    and edges copied with pilot_v3.MIRROR_OFFSET. On raw IMU inputs the swap moves a gyro threshold detector by half
+    a wingbeat, which is exactly the 180 deg the opposite pulse direction needs."""
+    off = V.MIRROR_OFFSET
+    def source(sid):
+        return -(MIRROR[-sid-1]+1) if sid < 0 else sid+off
+    out = dict(spec)
+    out['nodes'] = list(spec['nodes'])+[dict(n, id=n['id']+off) for n in spec['nodes']]
+    out['edges'] = list(spec['edges'])+[dict(e, source=source(e['source']), target=e['target']+off) for e in spec['edges']]
+    out['outputs'] = list(spec['outputs'])+[o+off for o in spec['outputs']]
+    out['tied'] = True
+    return out
 
 
 def silent_spec(arm):
@@ -138,8 +154,9 @@ def silent_spec(arm):
 def dense_population(pop, cfg):
     """Fixed-topology arm: 6 hidden LIF units read every input; outputs read every hidden unit; outputs start silent."""
     gc = cfg.genome_config
-    hidden = list(range(OUTPUTS, OUTPUTS+FIXED_HIDDEN))
-    gc.node_indexer = itertools.count(OUTPUTS+FIXED_HIDDEN)
+    n_out = len(gc.output_keys)
+    hidden = list(range(n_out, n_out+FIXED_HIDDEN))
+    gc.node_indexer = itertools.count(n_out+FIXED_HIDDEN)
     for g in pop.population.values():
         g.nodes.clear()
         g.connections.clear()
@@ -160,7 +177,9 @@ def dense_population(pop, cfg):
 def stage_train(executor, out, a):
     arm = a.arm
     random.seed(a.seed)
-    cfg = make_config(out, a.population, arm)
+    tied, balanced = bool(a.tied), a.fitness == 'balanced'
+    X.N_OUT = W.OUTPUT_KEYS = 1 if tied else OUTPUTS
+    cfg = make_config(out, a.population, arm, X.N_OUT)
     pop = neat.Population(cfg)
     if arm == 'fixed':
         dense_population(pop, cfg)
@@ -173,11 +192,11 @@ def stage_train(executor, out, a):
     def score(genomes, config):
         generation = len(history)
         batch = V.stratified(V.BASES['train']+a.seed*100_000+generation*1_000, a.cases, 6.)
-        specs = {gid: export(g, arm) for gid, g in genomes}
+        specs = {gid: export(g, arm, tied) for gid, g in genomes}
         rows = V.run_all(executor, [(str(gid), c, specs[gid], None, False) for gid, _ in genomes for c in batch])
         for k, (gid, g) in enumerate(genomes):
             js = [r['objective'] for r in rows[k*a.cases:(k+1)*a.cases]]
-            g.fitness = -float(np.mean(js))
+            g.fitness = -float(.5*np.mean(js)+.5*np.max(js)) if balanced else -float(np.mean(js))
             seen.setdefault(gid, []).extend(js)
         best = max(genomes, key=lambda x: x[1].fitness)[1]
         duty = float(np.mean([r['pulse_duty'] for r in rows]))
@@ -215,7 +234,7 @@ def stage_train(executor, out, a):
         unique.setdefault(v['genome'], v)
     best = list(unique.values())[:3]
     (out/'validated.json').write_text(json.dumps([dict(v, spec=None) for v in validated], indent=1))
-    return dict(candidates=[v['spec'] for v in best], source=silent_spec(arm), tied=False)
+    return dict(candidates=[v['spec'] for v in best], source=silent_spec(arm), tied=tied)
 
 
 def concentration(rows, need):
@@ -254,8 +273,8 @@ def stage_test(executor, out, calibrated, raw, law_ext, arm):
         print(label, json.dumps({n: dict(flown=t['flown'], J=round(t['J'], 3), pitch=round(t['pitch_rms_deg'] or 0, 2),
                                          height=round(t['height_rmse_cm'] or 0, 1)) for n, t in table.items()}, indent=1),
               json.dumps(verdict), flush=True)
-    hidden = [n['id'] for n in calibrated['nodes'] if n['id'] >= OUTPUTS]
-    report['overall'] = dict(arm=arm, H1=report['old16']['verdict']['H1'] and report['fresh16']['verdict']['H1'],
+    hidden = [n['id'] for n in calibrated['nodes'] if n['id'] not in calibrated['outputs']]
+    report['overall'] = dict(arm=arm, tied=bool(calibrated.get('tied', False)), fitness=getattr(stage_test, 'fitness', 'mean'), H1=report['old16']['verdict']['H1'] and report['fresh16']['verdict']['H1'],
                              H2a=report['old16']['verdict']['H2a'] and report['fresh16']['verdict']['H2a'],
                              tau_ms=[1e3*calibrated['tau_m'], 1e3*calibrated['tau_s']], hidden=len(hidden),
                              edges=sum(e['enabled'] for e in calibrated['edges']), calib=calibrated.get('calib'))
@@ -381,6 +400,29 @@ def selftest():
             if arm == 'rate' and X.structure(g)['hidden']:
                 hist = steer.net.spike_history[:, steer.net.hidden]
                 assert np.all(np.abs(hist) <= 1.) and not np.array_equal(hist, np.round(hist)), 'rate hidden units should be graded'
+    # mirror map: swaps the +/- halves, keeps the constants; a tied export has two pools and 2x the edges
+    assert sorted(MIRROR) == list(range(INPUTS)) and all(MIRROR[MIRROR[i]] == i for i in range(INPUTS)) and MIRROR[16:] == [16, 17]
+    with tempfile.TemporaryDirectory() as tmp:
+        X.N_OUT = W.OUTPUT_KEYS = 1
+        cfg = make_config(tmp, 8, 'main', 1)
+        random.seed(3)
+        pop = neat.Population(cfg)
+        X.strip_output_loops(pop)
+        g = next(iter(pop.population.values()))
+        assert X.structure(g)['direct'] == INPUTS
+        m = export(g, 'main', tied=True)
+        assert m['tied'] and m['outputs'] == [0, V.MIRROR_OFFSET] and len(m['edges']) == 2*INPUTS and len(m['nodes']) == 2
+        a, b = P.SpikingGraph(m), P.SpikingGraph(m)
+        rng = np.random.default_rng(4)
+        for _ in range(100):  # mirrored inputs into the copy == original inputs into the original pool
+            x = rng.random(INPUTS)*(rng.random(INPUTS) < .3)
+            x[16], x[17] = 1., 0.
+            xm = np.zeros(INPUTS)
+            for i in range(INPUTS):
+                xm[MIRROR[i]] = x[i]
+            fa, fb = a.snn_substep(x), b.snn_substep(xm)
+            assert fa[0] == fb[1] and fa[1] == fb[0], 'mirror equivalence failed'
+        X.N_OUT = W.OUTPUT_KEYS = OUTPUTS
     net = P.SpikingGraph(silent_spec('main'))
     assert not any(net.snn_substep(np.ones(INPUTS)).any() for _ in range(50))
     assert set(OVERRIDES) == set(ARMS)
@@ -401,8 +443,11 @@ def main():
     p.add_argument('--validate-top', type=int, default=3)
     p.add_argument('--workers', type=int, default=18)
     p.add_argument('--quick', action='store_true')
+    p.add_argument('--fitness', default='mean', choices=['mean', 'balanced'], help='balanced: 0.5 mean + 0.5 worst case per batch')
+    p.add_argument('--tied', action='store_true', help='mirror-tied antagonist pair: evolve one pool, mirror it')
     a = p.parse_args()
     V.QUICK = a.quick
+    stage_test.fitness = a.fitness
     if a.quick:
         a.population, a.generations, a.validate_every, a.validate_top = 8, 2, 1, 2
     if a.stage == 'selftest':
@@ -413,11 +458,11 @@ def main():
     if a.stage == 'analyze':
         analyze(a)
         return
-    out = Path(a.output or f'runs/spike_steer/pilot_v6_{a.arm}_s{a.seed}')
+    out = Path(a.output or f'runs/spike_steer/pilot_v6_{a.arm}_s{a.seed}')  # scripts/run_v6.sh adds the fix tag
     out.mkdir(parents=True, exist_ok=True)
     law_ext = json.loads((V3/'law_ext.json').read_text())['best']
-    choice = dict(tied=False, source='cold', lockout=False)
-    print(json.dumps(dict(arm=a.arm, seed=a.seed, population=a.population, generations=a.generations, law_ext=law_ext)), flush=True)
+    choice = dict(tied=a.tied, source='cold', lockout=False)
+    print(json.dumps(dict(arm=a.arm, seed=a.seed, tied=a.tied, fitness=a.fitness, population=a.population, generations=a.generations, law_ext=law_ext)), flush=True)
     with P.pool(a.workers) as executor:
         trained = stage_train(executor, out, a)
         raw = V.stage_select(executor, out, trained, choice)
