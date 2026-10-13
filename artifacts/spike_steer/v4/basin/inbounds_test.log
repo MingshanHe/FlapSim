@@ -1,0 +1,11 @@
+bounds weight 5.0 bias 3.0 -> G = 2.40, P_gate = 1.1666666666666667
+old16 comparator_inbounds          flown 16 J 5.98 (ratio 1.021) pitch 2.39 h 12.0 duty 0.0138 up 279 0.93 dn 164 0.85
+old16 comparator_inbounds_tau1ms   flown 16 J 6.04 (ratio 1.030) pitch 2.69 h 11.1 duty 0.0114 up 218 0.95 dn 146 0.85
+old16 law_tuned                    flown 16 J 5.86 (ratio 1.000) pitch 2.49 h 11.2 duty 0.0106 up 284 0.94 dn 167 0.84
+   paired comparator_inbounds vs law_tuned: dJ +0.120 CI [-0.046, 0.324] wins 8/16
+   paired comparator_inbounds_tau1ms vs law_tuned: dJ +0.177 CI [0.011, 0.362] wins 4/16
+fresh16 comparator_inbounds          flown 16 J 5.48 (ratio 1.017) pitch 2.47 h 10.0 duty 0.0141 up 234 0.89 dn 217 0.88
+fresh16 comparator_inbounds_tau1ms   flown 16 J 5.57 (ratio 1.034) pitch 2.71 h 9.5 duty 0.0113 up 182 0.92 dn 179 0.91
+fresh16 law_tuned                    flown 16 J 5.39 (ratio 1.000) pitch 2.58 h 9.3 duty 0.0105 up 250 0.91 dn 213 0.92
+   paired comparator_inbounds vs law_tuned: dJ +0.093 CI [-0.124, 0.362] wins 11/16
+   paired comparator_inbounds_tau1ms vs law_tuned: dJ +0.184 CI [0.075, 0.31] wins 6/16
