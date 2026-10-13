@@ -1,0 +1,31 @@
+{
+ "method": "snn_neat_delay",
+ "seed": 2,
+ "generations": 15,
+ "population": 20,
+ "cases_per_generation": 4,
+ "seconds": 7.0,
+ "levels": [
+  0.75,
+  1.0,
+  1.25,
+  1.5
+ ],
+ "residual": true,
+ "readout_std": 0.3,
+ "spike_scale": 5.0,
+ "residual_base": null,
+ "lag_range_deg": 0.0,
+ "selected_generation": 9,
+ "selected_validation": [
+  16,
+  3.30921295593835
+ ],
+ "selected_complexity": {
+  "nodes": 6,
+  "connections": 50,
+  "delayed": 35,
+  "mean_delay_ms": 4.28
+ },
+ "wall_s": 17840.637405073998
+}
