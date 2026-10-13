@@ -33,6 +33,7 @@ from ..wingbeat_snn.evolve import plain_tanh
 
 V3 = W.V3
 OUTPUTS = 2
+N_OUT = 2  # output keys of the genome: 2 (untied pair) or 1 (--tied: the second pool is the mirror of the first)
 COLD = {  # cold-start settings; everything else stays as in neat_template_v3.ini
     'initial_connection': 'full_direct', 'num_hidden': '0',
     # silent-at-rest prior: with bias ~ N(-2, 0.5) and weights ~ N(0, 0.5) a random genome fires sparsely instead
@@ -42,11 +43,11 @@ COLD = {  # cold-start settings; everything else stays as in neat_template_v3.in
     'delay_init_mean': '0.0', 'delay_init_stdev': '0.0'}
 
 
-def make_config(out, population):
+def make_config(out, population, outputs=OUTPUTS):
     text = (Path(V.__file__).with_name('neat_template_v3.ini').read_text()
             .replace('[DelayGenome]', '[TauGenome]')
             .replace('{population}', str(population)).replace('{inputs}', str(P.INPUTS))
-            .replace('{outputs}', str(OUTPUTS)))
+            .replace('{outputs}', str(outputs)))
     for key, value in COLD.items():
         text, n = re.subn(rf'^{key}\s*=.*$', f'{key} = {value}', text, flags=re.M)
         assert n == 1, key
@@ -67,22 +68,25 @@ def strip_output_loops(pop):
     """neat's full_direct start adds an output->output self-loop per output when feed_forward is False; the graph
     convention since v1 is that outputs are never sources (pilot_v3 mutate_add_connection), so drop them."""
     for g in pop.population.values():
-        for key in [k for k in g.connections if k[0] >= 0 and k[0] < OUTPUTS]:
+        for key in [k for k in g.connections if k[0] >= 0 and k[0] < N_OUT]:
             del g.connections[key]
 
 
 def structure(g):
-    hidden = [k for k in g.nodes if k >= OUTPUTS]
+    hidden = [k for k in g.nodes if k >= N_OUT]
     enabled = [c for c in g.connections.values() if c.enabled]
-    return dict(hidden=len(hidden), edges=len(enabled), direct=sum(1 for c in enabled if c.key[0] < 0 and c.key[1] < OUTPUTS),
+    return dict(hidden=len(hidden), edges=len(enabled), direct=sum(1 for c in enabled if c.key[0] < 0 and c.key[1] < N_OUT),
                 delayed=sum(1 for c in enabled if round(c.delay) > 0))
 
 
 def stage_train(executor, out, a):
     """pilot_v4.stage_train from a cold start: neat creates the population; history logs tau and structure."""
+    global N_OUT
     random.seed(a.seed)
-    W.OUTPUT_KEYS = OUTPUTS
-    cfg = make_config(out, a.population)
+    tied = bool(getattr(a, 'tied', False))
+    N_OUT = W.OUTPUT_KEYS = 1 if tied else OUTPUTS
+    balanced = getattr(a, 'fitness', 'mean') == 'balanced'
+    cfg = make_config(out, a.population, N_OUT)
     pop = neat.Population(cfg)  # TauGenome.configure_new: full_direct wiring, tau log-uniform over TAU_WARM
     strip_output_loops(pop)
     pop.species.speciate(cfg, pop.population, 0)
@@ -92,11 +96,13 @@ def stage_train(executor, out, a):
     def score(genomes, config):
         generation = len(history)
         batch = V.stratified(V.BASES['train']+a.seed*100_000+generation*1_000, a.cases, 6.)
-        specs = {gid: W.export(g, False) for gid, g in genomes}
+        specs = {gid: W.export(g, tied) for gid, g in genomes}
         rows = V.run_all(executor, [(str(gid), c, specs[gid], None, False) for gid, _ in genomes for c in batch])
         for k, (gid, g) in enumerate(genomes):
             js = [r['objective'] for r in rows[k*a.cases:(k+1)*a.cases]]
-            g.fitness = -float(np.mean(js))
+            # balanced: half mean, half worst case over the 4 sign-stratified cases, so that a one-direction
+            # solution (v5 seed 3: push-up only, J ratio 1.30) cannot plateau on the mean
+            g.fitness = -float(.5*np.mean(js)+.5*np.max(js)) if balanced else -float(np.mean(js))
             seen.setdefault(gid, []).extend(js)
         best = max(genomes, key=lambda x: x[1].fitness)[1]
         row = dict(generation=generation, fitness_max=best.fitness,
@@ -131,7 +137,7 @@ def stage_train(executor, out, a):
         unique.setdefault(v['genome'], v)
     best = list(unique.values())[:3]
     (out/'validated.json').write_text(json.dumps([dict(v, spec=None) for v in validated], indent=1))
-    return dict(candidates=[v['spec'] for v in best], source=silent_spec(), tied=False)
+    return dict(candidates=[v['spec'] for v in best], source=silent_spec(), tied=tied)
 
 
 def stage_test(executor, out, calibrated, raw, law_ext):
@@ -144,6 +150,7 @@ def stage_test(executor, out, calibrated, raw, law_ext):
                             'J ratio <= 1.05 on the old 16 cases (the in-bounds hand-built comparator scored 1.021)'],
                 changes_from_v4=['canonical NEAT start (full_direct, no hidden units, no warm start)',
                                  'cold-start mutation rates (COLD)', 'no D1; law_ext reused from v3'],
+                search_fix=dict(fitness=getattr(stage_test, 'fitness', 'mean'), tied=bool(calibrated.get('tied', False))),
                 registered_before_test=True, time=time.strftime('%Y-%m-%d %H:%M:%S'))
     (out/'preregistration.json').write_text(json.dumps(rule, indent=1))
     law_tuned = json.loads(V.V2_LAW.read_text())['best']
@@ -168,7 +175,7 @@ def stage_test(executor, out, calibrated, raw, law_ext):
         print(label, json.dumps({a: dict(flown=t['flown'], J=round(t['J'], 3), pitch=round(t['pitch_rms_deg'] or 0, 2),
                                          height=round(t['height_rmse_cm'] or 0, 1)) for a, t in table.items()}, indent=1),
               flush=True)
-    hidden = [n['id'] for n in calibrated['nodes'] if n['id'] >= OUTPUTS]
+    hidden = [n['id'] for n in calibrated['nodes'] if n['id'] not in calibrated['outputs']]
     report['overall'] = dict(PASS=report['old16']['verdict']['pass'], ROBUST_PASS=report['fresh16']['verdict']['pass'],
                              tau_ms=[1e3*calibrated['tau_m'], 1e3*calibrated['tau_s']], hidden=len(hidden),
                              edges=sum(e['enabled'] for e in calibrated['edges']), calib=calibrated.get('calib'),
@@ -213,6 +220,21 @@ def selftest():
                 g.mutate(cfg.genome_config)
             assert all(np.isfinite(c.weight) for c in g.connections.values()) and all(np.isfinite(n.bias) for n in g.nodes.values())
             assert not any(0 <= k[0] < OUTPUTS for k in g.connections)
+        # tied path: one output key, mirrored at export into two pools
+        global N_OUT
+        N_OUT = W.OUTPUT_KEYS = 1
+        cfg1 = make_config(tmp, 8, 1)
+        pop1 = neat.Population(cfg1)
+        strip_output_loops(pop1)
+        g1 = next(iter(pop1.population.values()))
+        assert structure(g1)['direct'] == P.INPUTS and structure(g1)['hidden'] == 0
+        m = W.export(g1, True)
+        assert m['tied'] and m['outputs'] == [0, V.MIRROR_OFFSET] and len(m['edges']) == 2*P.INPUTS
+        st = V.SteerV3(m)
+        st.reset()
+        for _ in range(20):
+            st.net.snn_substep(np.random.default_rng(2).random(P.INPUTS))
+        N_OUT = W.OUTPUT_KEYS = OUTPUTS
         s = silent_spec()
         net = P.SpikingGraph(s)
         fired = np.zeros(2, bool)
@@ -235,8 +257,11 @@ def main():
     p.add_argument('--validate-top', type=int, default=3)
     p.add_argument('--workers', type=int, default=18)
     p.add_argument('--quick', action='store_true')
+    p.add_argument('--fitness', default='mean', choices=['mean', 'balanced'], help='balanced: 0.5 mean + 0.5 worst case per batch')
+    p.add_argument('--tied', action='store_true', help='mirror-tied antagonist pair: evolve one pool, mirror it')
     a = p.parse_args()
     V.QUICK = a.quick
+    stage_test.fitness = a.fitness
     if a.quick:
         a.population, a.generations, a.validate_every, a.validate_top = 8, 2, 1, 2
     if a.stage == 'selftest':
@@ -246,8 +271,8 @@ def main():
     out.mkdir(parents=True, exist_ok=True)
     law_ext = json.loads((V3/'law_ext.json').read_text())['best']
     V.CALIB_GRID = W.CALIB_GRID
-    choice = dict(tied=False, source='cold', lockout=False)
-    print(json.dumps(dict(choice=choice, law_ext=law_ext, cold=COLD)), flush=True)
+    choice = dict(tied=a.tied, source='cold', lockout=False)
+    print(json.dumps(dict(choice=choice, fitness=a.fitness, law_ext=law_ext, cold=COLD)), flush=True)
     with P.pool(a.workers) as executor:
         trained = stage_train(executor, out, a)
         raw = V.stage_select(executor, out, trained, choice)
