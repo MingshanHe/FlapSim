@@ -1,6 +1,6 @@
 # 交接：原环境内的 SNN+NEAT 研究线
 
-分支：`research/original-env-snn-neat`（**已推送到 origin**，两台机器通过它协同，见第 5 节）。最后更新：2026-10-13 约 23:18 JST（本机延长到约 24:00）。
+分支：`research/original-env-snn-neat`（**已推送到 origin**，两台机器通过它协同，见第 5 节）。最后更新：2026-10-13 约 23:22 JST（本机延长到约 24:00）。
 
 本文件取代了之前那段长对话。原始对话记录含个人信息，没有放进仓库。新会话（例如 Claude Code 桌面版）先读本文件；如需细节，再读文中链接的报告。
 
@@ -233,7 +233,7 @@ bash experiments/algorithms/spike_steer/scripts/run_v6.sh rate    1 62 64 40 <�
 | T3 前飞 0.5 m 急停（应力案例，t0=2.4 s，目标 1 s 到位并稳住） | 位置误差积分(m·s)×100 + 倾角峰值/10 + 0.3×高度损失 + 坠机罚 | 25% | 饱和下的预判、两体反向响应 |
 综合 = 各任务得分除以**最强经典基线在该任务上的得分**后加权（无量纲化，经典 = 1.0）。学习方、经典方、混合体三者比较。各任务判据细节在实现时写入各自的 `PREREGISTRATION`，训练前落盘。
 
-## 4e. ~~主线切换：以 MJX（GPU）版为主~~ **已撤销（23:10）**：P1 探针显示 MJX 单环境每步 35.6 ms（CPU 8 µs），齿轮等式约束的 Newton 求解在 GPU 上被延迟支配；用户决定**不再做 GPU，以 CPU 多核为主**。用户新配了一台 **32 核 CPU 机器并开通了 Claude Remote Control**（会话名 `32核CPU配置确认 [6d4858]`，23:15 已发接管指令：配环境 → 验证（10 个测试、各 selftest、law_tuned 旧 16 例 J=5.858623147804074 逐位）→ 过夜 `run_v6.sh main 2 30 64 40 --tied` → 提交 `artifacts/spike_steer/v6/main_tied_s2/` 并推送）。它接管原计划给 AWS 的队列（4c 节，workers 改为 30）；**AWS 不再需要**。详见 [MJX_FEASIBILITY.md](MJX_FEASIBILITY.md)。以下为撤销前的计划，仅存档。
+## 4e. ~~主线切换：以 MJX（GPU）版为主~~ **已撤销（23:10）**：P1 探针显示 MJX 单环境每步 35.6 ms（CPU 8 µs），齿轮等式约束的 Newton 求解在 GPU 上被延迟支配；用户决定**不再做 GPU，以 CPU 多核为主**。用户新配了一台 **32 核 CPU 机器并开通了 Claude Remote Control**（会话名 `32核CPU配置确认 [6d4858]`，23:15 已发接管指令：配环境 → 验证（10 个测试、各 selftest、law_tuned 旧 16 例 J=5.858623147804074 逐位）→ 过夜 `run_v6.sh main 2 30 64 40 --tied` → 提交 `artifacts/spike_steer/v6/main_tied_s2/` 并推送）。它接管原计划给 AWS 的队列（4c 节，workers 改为 30）；**AWS 不再需要**。机器信息（23:20 自报）：容器 `4dc50209d9c2`，宿主 AMD EPYC 7702P，cgroup 限 32 核，503 GB 内存，20 GB overlay 磁盘，Ubuntu 20.04，有 g++/tmux/sudo，无 conda（自装 Miniconda）。**没有 GitHub 推送凭据**：能匿名拉取，push 需用户提供 token 或部署密钥；在此之前结果先本地 commit、用消息发我。单核比本机慢，B' 一次约 5–6 h。详见 [MJX_FEASIBILITY.md](MJX_FEASIBILITY.md)。以下为撤销前的计划，仅存档。
 
 ### （存档）原 MJX 计划
 
