@@ -1,6 +1,6 @@
 # 交接：原环境内的 SNN+NEAT 研究线
 
-分支：`research/original-env-snn-neat`（**已推送到 origin**，两台机器通过它协同，见第 5 节）。最后更新：2026-10-13 约 21:12 JST。
+分支：`research/original-env-snn-neat`（**已推送到 origin**，两台机器通过它协同，见第 5 节）。最后更新：2026-10-13 约 21:15 JST（本机今日最后一次更新）。
 
 本文件取代了之前那段长对话。原始对话记录含个人信息，没有放进仓库。新会话（例如 Claude Code 桌面版）先读本文件；如需细节，再读文中链接的报告。
 
@@ -178,7 +178,7 @@
 - **本机（robot）可能在 22:00 关机**，本会话随之结束；本机上的 tmux 任务必须在 21:45 前结束并推送。
 - **tanakalab 不关机**：过夜任务放那里。它的 Claude 会话 `tanakalab-ws-whimsical-sprout` 会按我 22:00 前发出的过夜计划自行执行（v5c → 选搜索设置 → B' 主臂 seed 1 → seed 2，每步结束提交推送 artifacts）。
 - **已发给 tanakalab 的过夜计划（19:05，19:20 改为只跑 seed 1）**：tanakalab 实测比本机慢 2.3 倍（Xeon W-2245，14 worker）。v5c 预计 21:30–22:00 结束。之后**（19:25 更新规则）** 看 `artifacts/spike_steer/v5c/test.json`（tanakalab）与 `v5c_local/test.json`（本机）的 PASS：任一 PASS → `--tied`；都不 PASS → 仍 `--tied` 但标注"探索性"。`--fitness balanced` 已因 v5b 失败去掉，然后只跑 `run_v6.sh main 1 14 64 40 <开关>`（约 13–16 h，预计 10-14 中午前后结束），结束后提交 `artifacts/spike_steer/v6/main*_s1/` 并推送、发消息。**seed 2 与四个消融臂明天放 AWS**（CLOUD_SETUP.md；每次约 2 h）。
-- 本机 19:20 v5b 结束后的窗口（到 21:45）：跑 v5d（`run_v5.sh d 3 18 --tied --fitness balanced`，约 1.5 h），验证两种修法的组合；结果推送后本机下线。
+- 本机 19:20–21:15 实际做了：v5c_local（1.08，见 2.13）、模仿基线（pw3/pw10/pw3 剪枝/pw1.5 + 机制分析，见 4c'）。**21:15 本机全部结果已推送，下线。**
 - 明天的新会话（任一台机器）先 `git pull`，读本文件第 0 节、`artifacts/spike_steer/v5{b,c,d}/test.json` 和 `artifacts/spike_steer/v6/*/test.json`、`mechanism.json`。
 
 ### 4c. 明天（10-14）的 AWS 队列（按 CLOUD_SETUP.md 开 c7a.16xlarge，62 worker，每次约 1.6–2 h）
@@ -199,7 +199,7 @@ bash experiments/algorithms/spike_steer/scripts/run_v6.sh rate    1 62 64 40 <�
 
 ## 4c'. 梯度模仿基线（2026-10-13 20:30，进行中，[imitate/report.md](../../artifacts/spike_steer/imitate/report.md)）
 
-`experiments/algorithms/spike_steer/imitate.py`：原始 IMU（18 维，无 PLL、无相位格）→ 经典律的逐拍放电决策，替代梯度 BPTT，torch 模型与 `SpikingGraph` 逐拍一致，导出 spec 可进闭环与 `pilot_v6 analyze`。**结果：解存在且梯度能找到**——pw10 模型飞成 12–13/16，飞成案例俯仰 RMS 2.4–2.5°（经典律 2.5°），上推相位锁定 R=0.97；失败全是过放电（占空比 4.6–5%）导致的高度逃逸。**pw3**：新 16 例 16/16 飞成、J 比值 1.19、俯仰 2.41°（经典律 2.58°）、双向 R 0.86–0.95；差距全在占空比（2.0% 对 1.06%）。**机制**（`mechanism_pw3.json`）：钳位陀螺/加速度计 → 网络沉默；隐层→输出延迟置零 → 失效；相位参考是分布式群体编码（单元 9 管上推、3/5 管下推），切除单元 7 反而更好（J 7.68→5.90）。**剪枝版 pw3（切除单元 7）：新 16 例 16/16、J 比值 1.044（过线）、俯仰 2.42° 对 2.58°、配对 CI 跨 0；旧 16 例 16/16、比值 1.125。学习方首个过预注册线的模型。** 含义：B' 的靶子存在且可达；综合基准的学习方以梯度方法（模仿 + RL）为主。下一步：pw1.5 评估（21:15）、RL 微调占空比、把流水线扩到 T2/T3。
+`experiments/algorithms/spike_steer/imitate.py`：原始 IMU（18 维，无 PLL、无相位格）→ 经典律的逐拍放电决策，替代梯度 BPTT，torch 模型与 `SpikingGraph` 逐拍一致，导出 spec 可进闭环与 `pilot_v6 analyze`。**结果：解存在且梯度能找到**——pw10 模型飞成 12–13/16，飞成案例俯仰 RMS 2.4–2.5°（经典律 2.5°），上推相位锁定 R=0.97；失败全是过放电（占空比 4.6–5%）导致的高度逃逸。**pw3**：新 16 例 16/16 飞成、J 比值 1.19、俯仰 2.41°（经典律 2.58°）、双向 R 0.86–0.95；差距全在占空比（2.0% 对 1.06%）。**机制**（`mechanism_pw3.json`）：钳位陀螺/加速度计 → 网络沉默；隐层→输出延迟置零 → 失效；相位参考是分布式群体编码（单元 9 管上推、3/5 管下推），切除单元 7 反而更好（J 7.68→5.90）。**剪枝版 pw3（切除单元 7）：新 16 例 16/16、J 比值 1.044（过线）、俯仰 2.42° 对 2.58°、配对 CI 跨 0；旧 16 例 16/16、比值 1.125。学习方首个过预注册线的模型；pw1.5（未剪枝）在新 16 例上同样过线（1.046，CI 跨 0），旧 16 例 1.144——两个独立模型复现。** 含义：B' 的靶子存在且可达；综合基准的学习方以梯度方法（模仿 + RL）为主。下一步：pw1.5 评估（21:15）、RL 微调占空比、把流水线扩到 T2/T3。
 
 ## 4d. 研究方向更新（2026-10-13 20:00，用户决定）：悬停 + 机动的综合基准
 
