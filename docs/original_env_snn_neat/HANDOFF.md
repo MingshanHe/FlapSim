@@ -1,6 +1,6 @@
 # 交接：原环境内的 SNN+NEAT 研究线
 
-分支：`research/original-env-snn-neat`（**已推送到 origin**，两台机器通过它协同，见第 5 节）。最后更新：2026-10-13 约 19:25 JST。
+分支：`research/original-env-snn-neat`（**已推送到 origin**，两台机器通过它协同，见第 5 节）。最后更新：2026-10-13 约 19:30 JST。
 
 本文件取代了之前那段长对话。原始对话记录含个人信息，没有放进仓库。新会话（例如 Claude Code 桌面版）先读本文件；如需细节，再读文中链接的报告。
 
@@ -14,7 +14,8 @@
 | 翻正反射 Stage A（tanakalab） | 已结束（18:34），`artifacts/spike_steer/upset_a/`，报告 [report.md](../../artifacts/spike_steer/upset_a/report.md) | **NO-GO**：自动机最差（9/96 飞成）；但校准把俯仰轴水平外推到网格外、三个水平挤在一起，训练集几乎全坠，结果不能区分"逻辑无用"与"调参失败"。正面发现：脉冲律把存活率从 45/96 提到 85/96。修正方案见报告，是否重跑待用户决定 |
 | C 门：全状态反馈上限（gates 5.6） | 已结束（12:10），报告 [fullstate_report.md](../../artifacts/neuro_gates/fullstate_report.md) | **空间小**：理想全状态反馈比网格最优 PID 只少 1.1° 倾角 RMS（12%），且经典可实现。**方案 C 排除。** |
 | v5（经典起点） | 已结束（17:38），`artifacts/spike_steer/v5/`，分析 [analysis.md](../../artifacts/spike_steer/v5/analysis.md) | **未通过、预测失败**：J 比值 1.30 / 1.44，只学会上推方向（下推 0% 在窗内）。诊断补一条：单向平台。修法 v5b（平衡适应度，本机）与 v5c（镜像绑定，tanakalab）各 1.5 h，通过者成为 B' 的搜索设置 |
-| **v5b（平衡适应度）** | tmux `v5b`，日志 `runs/spike_steer_v5b.log`，脚本 [scripts/run_v5.sh](../../experiments/algorithms/spike_steer/scripts/run_v5.sh) `b 3 18 --fitness balanced` | **17:47 已启动，不要重复启动。** 约 1.5 h，预计 19:20。结果 `artifacts/spike_steer/v5b/` |
+| v5b（平衡适应度） | 已结束（19:18），`artifacts/spike_steer/v5b/`，[analysis.md](../../artifacts/spike_steer/v5b/analysis.md) | **未通过**（比值 1.27 / 1.16）：只学会下推，和 v5 相反。平衡适应度不是单向平台的解，**从 B' 开关里去掉** |
+| **v5c_local（镜像绑定，seed 4，本机）** | tmux `v5c_local`，日志 `runs/spike_steer_v5c_local.log` | **19:20 已启动**，约 1.5 h，预计 20:50；结果 `artifacts/spike_steer/v5c_local/`。与 tanakalab 的 v5c（seed 3）一起给镜像绑定两个种子的验证 |
 | **v5c（镜像绑定，tanakalab）** | tanakalab 会话，Stage A 结束（约 18:40）后它自行启动 `run_v5.sh c 3 14 --tied` | 结果由它提交到 `artifacts/spike_steer/v5c/`。判据同 v5；通过者成为 B' 主臂的搜索设置 |
 | **B' 代码 v6** | [pilot_v6.py](../../experiments/algorithms/spike_steer/pilot_v6.py)，运行脚本 [scripts/run_v6.sh](../../experiments/algorithms/spike_steer/scripts/run_v6.sh)（两台机器通用：`PY=<python> bash .../run_v6.sh <arm> <seed> [workers] [pop] [gen]`） | 自测与 `--quick` 端到端冒烟都已通过（16:52，日志 `runs/spike_steer/pilot_v6_quick.log`）；`analyze` 命令的冒烟在跑。冒烟通过且 v5 结果确认冷启动能找到解后，启动主臂：本机 seed 1，tanakalab seed 2（Stage A 结束后），AWS 承担其余臂（见 PLAN 第 6 节） |
 | A：v4（τ 可进化、增益保持） | 已结束（13:39），`artifacts/spike_steer/v4/`，分析 [analysis.md](../../artifacts/spike_steer/v4/analysis.md) | **未通过，比 v3 差**（J 比值 1.25 / 1.18）。τ_m 进化到 10 ms 上界，快 τ 个体全被淘汰：NEAT 停在「慢膜预判」盆地，到不了手工可构造的比较器解 |
@@ -114,6 +115,10 @@
 
 见 [upset_a/report.md](../../artifacts/spike_steer/upset_a/report.md)。预注册判读 NO-GO（自动机 9/96 飞成，脉冲律 85/96，PID 45/96）。但俯仰轴校准外推到网格之外、三个水平塌成一个，训练集几乎全坠，自动机的 CEM 没有梯度；结论只能是"本次运行没有看到多阶段逻辑的收益"，不能算关闭。正面发现：相位锁定脉冲律在大扰动恢复中把存活率翻倍。修正版 upset.py 待写；优先级在 B' 之后。
 
+### 2.12 v5b 结果（2026-10-13 19:18，未通过）
+
+见 [v5b/analysis.md](../../artifacts/spike_steer/v5b/analysis.md)。平衡适应度下只学会下推（与 v5 相反），J 比值 1.27。单向控制器对所有案例都有改善，最差案例项不构成尖锐惩罚。结论：平衡适应度不是单向平台的解；B' 只保留镜像绑定（`--tied`）。
+
 ### 2.7 全状态反馈上限（2026-10-13 12:10，gates 5.6 已回答）
 
 见 [fullstate_report.md](../../artifacts/neuro_gates/fullstate_report.md)。理想全状态线性反馈（真值去晃动姿态/角速度 + 云台状态，CEM 调参）比网格最优 PID 只少 **1.1° 倾角 RMS（8.93°→7.81°，12%）**，16/16 例更好，高度不变。增量是 30 ms 滞后的角速度项和一点云台角反馈，经典可实现。电机脉冲**没有横滚权限**，脉冲律剩下的倾角基本是横滚。结论：原接口内权限大的只有翅拍定时脉冲通道（俯仰），其最优律是经典的；方案 C 排除。
@@ -168,7 +173,7 @@
 
 - **本机（robot）可能在 22:00 关机**，本会话随之结束；本机上的 tmux 任务必须在 21:45 前结束并推送。
 - **tanakalab 不关机**：过夜任务放那里。它的 Claude 会话 `tanakalab-ws-whimsical-sprout` 会按我 22:00 前发出的过夜计划自行执行（v5c → 选搜索设置 → B' 主臂 seed 1 → seed 2，每步结束提交推送 artifacts）。
-- **已发给 tanakalab 的过夜计划（19:05，19:20 改为只跑 seed 1）**：tanakalab 实测比本机慢 2.3 倍（Xeon W-2245，14 worker）。v5c 预计 21:30–22:00 结束。之后按 v5b/v5c 的 PASS 选 B' 搜索开关（都过 → `--tied --fitness balanced`；只 v5b → `--fitness balanced`；只 v5c → `--tied`；都不过 → `--tied --fitness balanced` 并标注"探索性"），然后只跑 `run_v6.sh main 1 14 64 40 <开关>`（约 13–16 h，预计 10-14 中午前后结束），结束后提交 `artifacts/spike_steer/v6/main*_s1/` 并推送、发消息。**seed 2 与四个消融臂明天放 AWS**（CLOUD_SETUP.md；每次约 2 h）。
+- **已发给 tanakalab 的过夜计划（19:05，19:20 改为只跑 seed 1）**：tanakalab 实测比本机慢 2.3 倍（Xeon W-2245，14 worker）。v5c 预计 21:30–22:00 结束。之后**（19:25 更新规则）** 看 `artifacts/spike_steer/v5c/test.json`（tanakalab）与 `v5c_local/test.json`（本机）的 PASS：任一 PASS → `--tied`；都不 PASS → 仍 `--tied` 但标注"探索性"。`--fitness balanced` 已因 v5b 失败去掉，然后只跑 `run_v6.sh main 1 14 64 40 <开关>`（约 13–16 h，预计 10-14 中午前后结束），结束后提交 `artifacts/spike_steer/v6/main*_s1/` 并推送、发消息。**seed 2 与四个消融臂明天放 AWS**（CLOUD_SETUP.md；每次约 2 h）。
 - 本机 19:20 v5b 结束后的窗口（到 21:45）：跑 v5d（`run_v5.sh d 3 18 --tied --fitness balanced`，约 1.5 h），验证两种修法的组合；结果推送后本机下线。
 - 明天的新会话（任一台机器）先 `git pull`，读本文件第 0 节、`artifacts/spike_steer/v5{b,c,d}/test.json` 和 `artifacts/spike_steer/v6/*/test.json`、`mechanism.json`。
 

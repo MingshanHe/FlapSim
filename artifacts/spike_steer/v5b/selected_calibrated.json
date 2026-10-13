@@ -1,0 +1,223 @@
+{
+ "kind": "snn",
+ "inputs": 12,
+ "genome_id": 265,
+ "tau_m": 0.0018274926641558625,
+ "tau_s": 0.002165694742934364,
+ "spike_scale": 5.0,
+ "outputs": [
+  0,
+  1
+ ],
+ "nodes": [
+  {
+   "id": 0,
+   "bias": -4.874229369519129
+  },
+  {
+   "id": 1,
+   "bias": -1.6754516360389897
+  },
+  {
+   "id": 2,
+   "bias": -0.9842919470132875
+  }
+ ],
+ "edges": [
+  {
+   "source": -12,
+   "target": 0,
+   "weight": 0.8897680632232837,
+   "delay": 0.0,
+   "enabled": true
+  },
+  {
+   "source": -12,
+   "target": 1,
+   "weight": -1.7175429195806844,
+   "delay": 1.0,
+   "enabled": true
+  },
+  {
+   "source": -11,
+   "target": 0,
+   "weight": -2.743127393720622,
+   "delay": 0.0,
+   "enabled": true
+  },
+  {
+   "source": -11,
+   "target": 1,
+   "weight": 0.6370995715594939,
+   "delay": 0.0,
+   "enabled": true
+  },
+  {
+   "source": -10,
+   "target": 0,
+   "weight": -2.26796700080499,
+   "delay": 0.0,
+   "enabled": true
+  },
+  {
+   "source": -10,
+   "target": 1,
+   "weight": -1.0952444973211863,
+   "delay": 0.0,
+   "enabled": true
+  },
+  {
+   "source": -9,
+   "target": 0,
+   "weight": -0.9330833874513164,
+   "delay": 0.0,
+   "enabled": true
+  },
+  {
+   "source": -9,
+   "target": 1,
+   "weight": 1.3323197490309888,
+   "delay": 0.0,
+   "enabled": true
+  },
+  {
+   "source": -9,
+   "target": 2,
+   "weight": 1.2640819279929227,
+   "delay": 0.0,
+   "enabled": true
+  },
+  {
+   "source": -8,
+   "target": 0,
+   "weight": 1.8760139831875007,
+   "delay": 0.0,
+   "enabled": true
+  },
+  {
+   "source": -8,
+   "target": 1,
+   "weight": 3.367158168171378,
+   "delay": 0.0,
+   "enabled": true
+  },
+  {
+   "source": -8,
+   "target": 2,
+   "weight": -1.2809764918396374,
+   "delay": 0.0,
+   "enabled": true
+  },
+  {
+   "source": -7,
+   "target": 0,
+   "weight": 1.4328663662728753,
+   "delay": 0.0,
+   "enabled": true
+  },
+  {
+   "source": -7,
+   "target": 1,
+   "weight": -1.1032133384943636,
+   "delay": 1.0,
+   "enabled": true
+  },
+  {
+   "source": -6,
+   "target": 0,
+   "weight": -1.1546666658819251,
+   "delay": 0.0,
+   "enabled": true
+  },
+  {
+   "source": -6,
+   "target": 1,
+   "weight": 1.0464006768259753,
+   "delay": 0.0,
+   "enabled": true
+  },
+  {
+   "source": -5,
+   "target": 0,
+   "weight": 3.4580395159909845,
+   "delay": 0.0,
+   "enabled": true
+  },
+  {
+   "source": -5,
+   "target": 1,
+   "weight": -1.0548203812352126,
+   "delay": 1.0,
+   "enabled": true
+  },
+  {
+   "source": -4,
+   "target": 0,
+   "weight": -5.0,
+   "delay": 0.0,
+   "enabled": true
+  },
+  {
+   "source": -4,
+   "target": 1,
+   "weight": -2.195871003568782,
+   "delay": 0.0,
+   "enabled": true
+  },
+  {
+   "source": -3,
+   "target": 0,
+   "weight": 0.3290849344626597,
+   "delay": 0.0,
+   "enabled": true
+  },
+  {
+   "source": -3,
+   "target": 1,
+   "weight": 0.30440949865319245,
+   "delay": 0.0,
+   "enabled": true
+  },
+  {
+   "source": -2,
+   "target": 0,
+   "weight": 0.9707547420587945,
+   "delay": 0.0,
+   "enabled": true
+  },
+  {
+   "source": -2,
+   "target": 1,
+   "weight": -0.010642189596602214,
+   "delay": 0.0,
+   "enabled": true
+  },
+  {
+   "source": -1,
+   "target": 0,
+   "weight": 2.195827932316849,
+   "delay": 0.0,
+   "enabled": true
+  },
+  {
+   "source": -1,
+   "target": 1,
+   "weight": 1.122607731917154,
+   "delay": 0.0,
+   "enabled": true
+  },
+  {
+   "source": 2,
+   "target": 0,
+   "weight": -3.3596471806298043,
+   "delay": 0.0,
+   "enabled": true
+  }
+ ],
+ "calib": {
+  "g_theta": 1.6,
+  "g_q": 1.0,
+  "d_out": 0.15,
+  "twitch": 1
+ }
+}
