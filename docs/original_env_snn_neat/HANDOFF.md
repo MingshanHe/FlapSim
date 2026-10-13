@@ -11,7 +11,7 @@
 | 任务 | 位置 | 说明 |
 |---|---|---|
 | v3 正式运行 | 已结束（10:45），结果在 `artifacts/spike_steer/v3/` | **未通过**，见 2.6 |
-| **翻正反射 Stage A 正式运行** | tmux `upset_a`，日志 `runs/upset_a.log`，代码 [upset.py](../../experiments/algorithms/spike_steer/upset.py) | **10:46 已启动，不要重复启动。** 约 1.5 h。中间结果在 `runs/spike_steer/upset_s1/`（各阶段 json 可续跑），结束后复制到 `artifacts/spike_steer/upset_a/`。判据见 `upset.py` 中的 `PREREGISTRATION`，测试前写入 `preregistration.json`。 |
+| 翻正反射 Stage A 正式运行 | 脚本 `runs/run_upset_a.sh`，代码 [upset.py](../../experiments/algorithms/spike_steer/upset.py) | **10:46 启动后按用户要求于约 10:55 停止**（标定未完成，无中间结果），等用户决定是否重启。重启需约 1.5 h。中间结果在 `runs/spike_steer/upset_s1/`（各阶段 json 可续跑），结束后复制到 `artifacts/spike_steer/upset_a/`。判据见 `upset.py` 中的 `PREREGISTRATION`，测试前写入 `preregistration.json`。 |
 
 Stage A 的判读：看 `artifacts/spike_steer/upset_a/test.json` 的 `verdict.GO`（C1、C2、C3 都要满足）。不论结果如何，**投入 Stage B（SNN/NEAT）之前先问用户**。
 
@@ -81,6 +81,7 @@ Stage A 的判读：看 `artifacts/spike_steer/upset_a/test.json` 的 `verdict.G
 - **J 不达标**：与 law_tuned 配对比较，旧集 ΔJ = +0.76（95% CI 0.57–0.92，16 例中只赢 1 例），新集 ΔJ = +0.66（CI 0.45–0.91，赢 0 例）。差距全部来自俯仰（3.2° 对 2.5°），高度代价两者相同。按余量分层看，每一层 SNN 都比经典律差约 0.7。
 - D1 选择了"不绑定成对池"（mirror(v1) 的 J 为 8.37，差于 v1 的 8.11）。进化让 J 从热启动的 8.08 降到 6.52（选择集），校准再降约 10%，但仍追不上经典律。
 - 经典律加相位偏置（law_ext）只比 law_tuned 略好（ΔJ −0.06，CI 跨 0），说明经典律已接近这一类控制律的上限。
+- 逐拍诊断见 [analysis.md](../../artifacts/spike_steer/v3/analysis.md)：中等误差时放电只有经典律的约 1/3，放电相位标准差 28–40°（经典律 11°），下推方向偏晚约 34°。
 - **结论**：在原接口内，NEAT 进化的脉冲回路可以学会双向的锁相"转向肌"放电，但控制质量比同预算的经典脉冲律差约 12%。这个课题不能以 SNN/NEAT 为核心成立。按决策树转向翻正反射 Stage A。
 
 ### 2.5 备选方案工作流（[contingency_plans_20261013.json](../../artifacts/spike_steer/workflows/contingency_plans_20261013.json)，23 个代理）
