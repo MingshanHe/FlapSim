@@ -1,6 +1,6 @@
 # 交接：原环境内的 SNN+NEAT 研究线
 
-分支：`research/original-env-snn-neat`（**已推送到 origin**，两台机器通过它协同，见第 5 节）。最后更新：2026-10-13 约 20:35 JST。
+分支：`research/original-env-snn-neat`（**已推送到 origin**，两台机器通过它协同，见第 5 节）。最后更新：2026-10-13 约 21:05 JST。
 
 本文件取代了之前那段长对话。原始对话记录含个人信息，没有放进仓库。新会话（例如 Claude Code 桌面版）先读本文件；如需细节，再读文中链接的报告。
 
@@ -15,7 +15,7 @@
 | C 门：全状态反馈上限（gates 5.6） | 已结束（12:10），报告 [fullstate_report.md](../../artifacts/neuro_gates/fullstate_report.md) | **空间小**：理想全状态反馈比网格最优 PID 只少 1.1° 倾角 RMS（12%），且经典可实现。**方案 C 排除。** |
 | v5（经典起点） | 已结束（17:38），`artifacts/spike_steer/v5/`，分析 [analysis.md](../../artifacts/spike_steer/v5/analysis.md) | **未通过、预测失败**：J 比值 1.30 / 1.44，只学会上推方向（下推 0% 在窗内）。诊断补一条：单向平台。修法 v5b（平衡适应度，本机）与 v5c（镜像绑定，tanakalab）各 1.5 h，通过者成为 B' 的搜索设置 |
 | v5b（平衡适应度） | 已结束（19:18），`artifacts/spike_steer/v5b/`，[analysis.md](../../artifacts/spike_steer/v5b/analysis.md) | **未通过**（比值 1.27 / 1.16）：只学会下推，和 v5 相反。平衡适应度不是单向平台的解，**从 B' 开关里去掉** |
-| **v5c_local（镜像绑定，seed 4，本机）** | tmux `v5c_local`，日志 `runs/spike_steer_v5c_local.log` | **19:20 已启动**，约 1.5 h，预计 20:50；结果 `artifacts/spike_steer/v5c_local/`。与 tanakalab 的 v5c（seed 3）一起给镜像绑定两个种子的验证 |
+| v5c_local（镜像绑定，seed 4，本机） | 已结束（20:58），`artifacts/spike_steer/v5c_local/`，[analysis.md](../../artifacts/spike_steer/v5c_local/analysis.md) | **J 比值 1.081 / 1.075，差 3% 过线；双向学会；冠军 τ 0.95/0.30 ms 无隐层（比较器区域）；适应度仍在上升**。镜像绑定是唯一打破单向平台的修法 → B' 用 `--tied` |
 | **v5c（镜像绑定，tanakalab）** | tanakalab 会话，Stage A 结束（约 18:40）后它自行启动 `run_v5.sh c 3 14 --tied` | 结果由它提交到 `artifacts/spike_steer/v5c/`。判据同 v5；通过者成为 B' 主臂的搜索设置 |
 | **B' 代码 v6** | [pilot_v6.py](../../experiments/algorithms/spike_steer/pilot_v6.py)，运行脚本 [scripts/run_v6.sh](../../experiments/algorithms/spike_steer/scripts/run_v6.sh)（两台机器通用：`PY=<python> bash .../run_v6.sh <arm> <seed> [workers] [pop] [gen]`） | 自测与 `--quick` 端到端冒烟都已通过（16:52，日志 `runs/spike_steer/pilot_v6_quick.log`）；`analyze` 命令的冒烟在跑。冒烟通过且 v5 结果确认冷启动能找到解后，启动主臂：本机 seed 1，tanakalab seed 2（Stage A 结束后），AWS 承担其余臂（见 PLAN 第 6 节） |
 | A：v4（τ 可进化、增益保持） | 已结束（13:39），`artifacts/spike_steer/v4/`，分析 [analysis.md](../../artifacts/spike_steer/v4/analysis.md) | **未通过，比 v3 差**（J 比值 1.25 / 1.18）。τ_m 进化到 10 ms 上界，快 τ 个体全被淘汰：NEAT 停在「慢膜预判」盆地，到不了手工可构造的比较器解 |
@@ -118,6 +118,10 @@
 ### 2.12 v5b 结果（2026-10-13 19:18，未通过）
 
 见 [v5b/analysis.md](../../artifacts/spike_steer/v5b/analysis.md)。平衡适应度下只学会下推（与 v5 相反），J 比值 1.27。单向控制器对所有案例都有改善，最差案例项不构成尖锐惩罚。结论：平衡适应度不是单向平台的解；B' 只保留镜像绑定（`--tied`）。
+
+### 2.13 v5c_local 结果（2026-10-13 20:58，差 3% 过线）
+
+见 [v5c_local/analysis.md](../../artifacts/spike_steer/v5c_local/analysis.md)。镜像绑定的经典起点 16 代内进化出双向锁相比较器（上推 99%、下推 86–88% 在窗内），τ 0.95/0.30 ms、无隐层，J 比值 1.081 / 1.075，适应度仍在上升。三种修法里唯一打破单向平台的。B' 的搜索设置定为 `--tied`。
 
 ### 2.7 全状态反馈上限（2026-10-13 12:10，gates 5.6 已回答）
 
