@@ -1,6 +1,6 @@
 # 交接：原环境内的 SNN+NEAT 研究线
 
-分支：`research/original-env-snn-neat`（**已推送到 origin**，两台机器通过它协同，见第 5 节）。最后更新：2026-10-13 约 21:05 JST。
+分支：`research/original-env-snn-neat`（**已推送到 origin**，两台机器通过它协同，见第 5 节）。最后更新：2026-10-13 约 21:10 JST。
 
 本文件取代了之前那段长对话。原始对话记录含个人信息，没有放进仓库。新会话（例如 Claude Code 桌面版）先读本文件；如需细节，再读文中链接的报告。
 
@@ -199,7 +199,7 @@ bash experiments/algorithms/spike_steer/scripts/run_v6.sh rate    1 62 64 40 <�
 
 ## 4c'. 梯度模仿基线（2026-10-13 20:30，进行中，[imitate/report.md](../../artifacts/spike_steer/imitate/report.md)）
 
-`experiments/algorithms/spike_steer/imitate.py`：原始 IMU（18 维，无 PLL、无相位格）→ 经典律的逐拍放电决策，替代梯度 BPTT，torch 模型与 `SpikingGraph` 逐拍一致，导出 spec 可进闭环与 `pilot_v6 analyze`。**结果：解存在且梯度能找到**——pw10 模型飞成 12–13/16，飞成案例俯仰 RMS 2.4–2.5°（经典律 2.5°），上推相位锁定 R=0.97；失败全是过放电（占空比 4.6–5%）导致的高度逃逸。pw3 评估中。含义：B' 的靶子存在；综合基准的学习方应以梯度方法（模仿 + RL）为主，NEAT 为可选。下一步：进一步压假阳性（更低权重/更久训练/脉冲数惩罚），然后对模仿网络跑 `pilot_v6 analyze` 看机制。
+`experiments/algorithms/spike_steer/imitate.py`：原始 IMU（18 维，无 PLL、无相位格）→ 经典律的逐拍放电决策，替代梯度 BPTT，torch 模型与 `SpikingGraph` 逐拍一致，导出 spec 可进闭环与 `pilot_v6 analyze`。**结果：解存在且梯度能找到**——pw10 模型飞成 12–13/16，飞成案例俯仰 RMS 2.4–2.5°（经典律 2.5°），上推相位锁定 R=0.97；失败全是过放电（占空比 4.6–5%）导致的高度逃逸。**pw3**：新 16 例 16/16 飞成、J 比值 1.19、俯仰 2.41°（经典律 2.58°）、双向 R 0.86–0.95；差距全在占空比（2.0% 对 1.06%）。**机制**（`mechanism_pw3.json`）：钳位陀螺/加速度计 → 网络沉默；隐层→输出延迟置零 → 失效；相位参考是分布式群体编码（单元 9 管上推、3/5 管下推），切除单元 7 反而更好（J 7.68→5.90）。含义：B' 的靶子存在；综合基准的学习方以梯度方法（模仿 + RL）为主。下一步：pw1.5（21:20 评估）、按消融剪枝、RL 微调占空比。
 
 ## 4d. 研究方向更新（2026-10-13 20:00，用户决定）：悬停 + 机动的综合基准
 
