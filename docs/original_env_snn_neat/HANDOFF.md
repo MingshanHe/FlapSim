@@ -1,6 +1,6 @@
 # 交接：原环境内的 SNN+NEAT 研究线
 
-分支：`research/original-env-snn-neat`（**已推送到 origin**，两台机器通过它协同，见第 5 节）。最后更新：2026-10-13 约 16:45 JST。
+分支：`research/original-env-snn-neat`（**已推送到 origin**，两台机器通过它协同，见第 5 节）。最后更新：2026-10-13 约 16:40 JST。
 
 本文件取代了之前那段长对话。原始对话记录含个人信息，没有放进仓库。新会话（例如 Claude Code 桌面版）先读本文件；如需细节，再读文中链接的报告。
 
@@ -14,6 +14,7 @@
 | **翻正反射 Stage A（tanakalab 机器）** | tanakalab 的 Claude 会话 `tanakalab-ws-whimsical-sprout`，tmux `upset_a`，代码 [upset.py](../../experiments/algorithms/spike_steer/upset.py) | 16:30 派发给第二台机器运行（约 1.5 h）。结果由它提交到 `artifacts/spike_steer/upset_a/` 并推送。判读 `test.json` 的 `verdict.GO`（C1–C3）。本机 10:46 的那次已停止，无中间结果 |
 | C 门：全状态反馈上限（gates 5.6） | 已结束（12:10），报告 [fullstate_report.md](../../artifacts/neuro_gates/fullstate_report.md) | **空间小**：理想全状态反馈比网格最优 PID 只少 1.1° 倾角 RMS（12%），且经典可实现。**方案 C 排除。** |
 | **v5（经典起点）** | tmux `spike_steer_v5`，日志 `runs/spike_steer_v5.log`，代码 [pilot_v5.py](../../experiments/algorithms/spike_steer/pilot_v5.py) | **16:10 已启动，不要重复启动。** 约 1 h 45 m，预计 17:55 前后结束。结果复制到 `artifacts/spike_steer/v5/`。判读：`test.json` 的 `report.overall.PASS`/`ROBUST_PASS`/`prediction_ok`（预测：冠军 τ_m ≤ 2 ms、隐层 ≤ 2、J 比值 ≤ 1.05） |
+| **B' 代码 v6** | [pilot_v6.py](../../experiments/algorithms/spike_steer/pilot_v6.py)，运行脚本 [scripts/run_v6.sh](../../experiments/algorithms/spike_steer/scripts/run_v6.sh)（两台机器通用：`PY=<python> bash .../run_v6.sh <arm> <seed> [workers] [pop] [gen]`） | 自测通过；`--quick` 冒烟 16:32 起在本机 2 核上跑（日志 `runs/spike_steer/pilot_v6_quick.log`）。冒烟通过且 v5 结果确认冷启动能找到解后，启动主臂：本机 seed 1，tanakalab seed 2（Stage A 结束后），AWS 承担其余臂（见 PLAN 第 6 节） |
 | A：v4（τ 可进化、增益保持） | 已结束（13:39），`artifacts/spike_steer/v4/`，分析 [analysis.md](../../artifacts/spike_steer/v4/analysis.md) | **未通过，比 v3 差**（J 比值 1.25 / 1.18）。τ_m 进化到 10 ms 上界，快 τ 个体全被淘汰：NEAT 停在「慢膜预判」盆地，到不了手工可构造的比较器解 |
 
 判读：
