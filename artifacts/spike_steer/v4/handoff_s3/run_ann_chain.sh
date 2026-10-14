@@ -15,7 +15,7 @@ M=experiments.algorithms.spike_steer.descend_ann
 mkdir -p "$OUT/upset_v2"
 cp -n "$H"/baseline.json "$H"/preregistration.json "$H"/dash_target.json "$OUT"/ 2>/dev/null
 cp -n "$H"/upset_v2/calibrate.json "$OUT/upset_v2/" 2>/dev/null
-log() { echo "[$(date -Iseconds)] $*"; }
+log() { echo "[$(date -Is)] $*"; }
 stage() {
   local name=$1; shift
   if [ -f "$OUT/.done_$name" ]; then log "skip $name"; return 0; fi
