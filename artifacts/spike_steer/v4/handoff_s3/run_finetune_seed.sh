@@ -21,5 +21,5 @@ log "evaluate ft_s$SEED (5 variants)"
 $PY -W ignore -m experiments.algorithms.spike_steer.bench evaluate --output "$OUT" --spec "$OUT/finetune_s$SEED/spec_best.json" --tag ft_s$SEED \
     --variants intact,clamp_fast,nodelay_all,noref,nopulse --workers "$W" || exit 1
 ART=artifacts/spike_steer/v4; mkdir -p "$ART/finetune_s$SEED"
-cp "$OUT"/evaluate_ft_s$SEED.json "$ART"/ && cp "$OUT"/finetune_s$SEED/{history.jsonl,best.json,spec_best.json} "$ART/finetune_s$SEED/"
+cp "$OUT"/evaluate_ft_s$SEED.json "$ART"/ && cp "$OUT"/finetune_s$SEED/{history.jsonl,best.json,spec_best.json,spec_last.json} "$OUT"/finetune_s$SEED/spec_val_g*.json "$ART/finetune_s$SEED/"
 log "done; commit artifacts/spike_steer/v4/{evaluate_ft_s$SEED.json,finetune_s$SEED} and push"
