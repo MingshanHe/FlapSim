@@ -8,7 +8,8 @@ LIF, 1 ms substeps, two per 2 ms tick, threshold 1, subtractive reset; shared le
 S2 imitation (surrogate gradient, BPTT over 200-tick windows): targets are the classical opponents of bench's
 baseline on fresh training cases of every task: pulse this tick (by direction) -> weighted BCE on the fire proxy;
 pitch reference -> MSE. S3 fine-tune: antithetic policy search (OpenAI-ES, rank-shaped, Adam) on the composite score
-of fresh training cases (common random numbers per generation), selection on a fixed validation set.
+of fresh training cases (common random numbers per generation), selection on a fixed validation set (lowest composite;
+every validated centre is kept as spec_val_g<gen>.json).
 
     python -m experiments.algorithms.spike_steer.descend selftest
     python -m experiments.algorithms.spike_steer.descend collect  --output runs/spike_steer/bench --workers 30
@@ -293,7 +294,12 @@ def finetune(a):
             comp, scores = composite_of(rows, tasks, norm, weights)
             flown = sum(r['flown'] for r in rows)
             entry = dict(generation=gen, composite=comp, scores=scores, flown=flown, episodes=len(rows))
-            if best is None or (flown, -comp) > (best['flown'], -best['composite']):
+            (run/f'spec_val_g{gen}.json').write_text(json.dumps(dict(s, trained_by='descend.py finetune', seed=a.seed, generation=gen), indent=1))
+            # selection on the validation composite alone: the crash penalty is already inside every task score, and the
+            # flown count (16 episodes, dominated by the upset task) is too noisy to rank by first -- the lexicographic
+            # (flown, -composite) rule used for SNN seed 1 rejected every ES generation (13 vs 12 flown) despite the
+            # composite falling from 1.75 to 1.10; that run's spec_best therefore equals the imitation spec.
+            if best is None or comp < best['composite']:
                 best = entry
                 (run/'spec_best.json').write_text(json.dumps(dict(s, trained_by='descend.py finetune', seed=a.seed, generation=gen), indent=1))
                 (run/'best.json').write_text(json.dumps(best, indent=1))
