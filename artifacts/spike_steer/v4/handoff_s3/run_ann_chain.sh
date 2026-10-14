@@ -38,7 +38,7 @@ done
 stage finetune_ann_s$S $PY -W ignore -m $M finetune --output "$OUT" --seed $S --generations "$GENS" --hours 12 --workers "$W" || exit 1
 stage eval_ft_ann_s$S $PY -W ignore -m $M evaluate --output "$OUT" --spec "$OUT/finetune_s${S}_ann/spec_best.json" --tag ft_ann_s$S \
     --variants intact,clamp_fast,nodelay_all,noref,nopulse --workers "$W" || exit 1
-ART=artifacts/spike_steer/v4; mkdir -p "$ART/finetune_s${S}_ann"
+ART=artifacts/spike_steer/plan_v4; mkdir -p "$ART/finetune_s${S}_ann"
 cp "$OUT"/evaluate_imit_ann_s?.json "$OUT"/evaluate_ft_ann_s$S.json "$OUT"/imitate_spec_s?_ann.json "$OUT"/imitate_history_s?_ann.json "$ART"/
 cp "$OUT"/finetune_s${S}_ann/{history.jsonl,best.json,spec_best.json,spec_last.json} "$OUT"/finetune_s${S}_ann/spec_val_g*.json "$ART/finetune_s${S}_ann/"
 log "done; commit artifacts/spike_steer/v4/*ann* and push"

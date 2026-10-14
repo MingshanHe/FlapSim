@@ -19,6 +19,6 @@ $PY -W ignore -m experiments.algorithms.spike_steer.descend finetune --output "$
 log "evaluate ft_s3 (5 variants)"
 $PY -W ignore -m experiments.algorithms.spike_steer.bench evaluate --output "$OUT" --spec "$OUT/finetune_s3/spec_best.json" --tag ft_s3 \
     --variants intact,clamp_fast,nodelay_all,noref,nopulse --workers "$W" || exit 1
-ART=artifacts/spike_steer/v4; mkdir -p "$ART/finetune_s3"
+ART=artifacts/spike_steer/plan_v4; mkdir -p "$ART/finetune_s3"
 cp "$OUT"/evaluate_ft_s3.json "$ART"/ && cp "$OUT"/finetune_s3/{history.jsonl,best.json,spec_best.json,spec_last.json} "$OUT"/finetune_s3/spec_val_g*.json "$ART/finetune_s3/"
 log "done; commit artifacts/spike_steer/v4/{evaluate_ft_s3.json,finetune_s3} and push"
