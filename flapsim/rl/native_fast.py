@@ -6,7 +6,7 @@ from pathlib import Path
 import subprocess
 import tempfile
 import mujoco
-from .native import NativeCPUBackend, toolchain
+from .native import NativeCPUBackend
 
 
 def implementation_sha256():
@@ -22,7 +22,7 @@ class FastCPUBackend(NativeCPUBackend):
                                              mujoco.mjtIntegrator.mjINT_IMPLICITFAST):
             raise ValueError('split stepping requires Euler or implicitfast')
         package = Path(mujoco.__file__).parent
-        binary, compiler = toolchain()
+        binary = next(package.glob('libmujoco.so.*'))
         key = hashlib.sha256((implementation_sha256()+str(binary)+mujoco.__version__).encode()).hexdigest()[:20]
         cache = Path(os.environ.get('XDG_CACHE_HOME', Path.home()/'.cache'))/'flapsim'
         target = cache/f'split-{key}.so'
@@ -30,7 +30,7 @@ class FastCPUBackend(NativeCPUBackend):
             fd, temporary = tempfile.mkstemp(suffix='.so', dir=cache)
             os.close(fd)
             try:
-                subprocess.run(compiler+['-O3', '-std=c++17', '-shared', '-fPIC',
+                subprocess.run(['g++', '-O3', '-std=c++17', '-shared', '-fPIC',
                                 str(Path(__file__).with_name('native_fast_step.cpp')),
                                 '-I'+str(package/'include'), str(binary),
                                 '-Wl,-rpath,'+str(package), '-o', temporary],
