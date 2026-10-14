@@ -8,7 +8,7 @@ import tempfile
 import mujoco
 import numpy as np
 from flapsim.kinematics import euler_matrix
-from flapsim.rl.native import NativeCPUBackend,Motor,D,pointer
+from flapsim.rl.native import NativeCPUBackend,Motor,D,pointer,toolchain
 
 
 class ImuState(ct.Structure):
@@ -24,14 +24,14 @@ class ImuBackend(NativeCPUBackend):
         super().__init__(*args,**kwargs)
         source=Path(__file__).with_name('imu_step.cpp')
         original=Path(__file__).resolve().parents[3]/'flapsim/rl/native_step.cpp'
-        package=Path(mujoco.__file__).parent; binary=next(package.glob('libmujoco.so.*'))
+        package=Path(mujoco.__file__).parent; binary,compiler=toolchain()
         key=hashlib.sha256(source.read_bytes()+original.read_bytes()+str(binary).encode()).hexdigest()[:20]
         cache=Path.home()/'.cache/flapsim';cache.mkdir(parents=True,exist_ok=True)
         target=cache/f'imu-{key}.so'
         if not target.exists():
             fd,temporary=tempfile.mkstemp(suffix='.so',dir=cache);os.close(fd)
             try:
-                subprocess.run(['g++','-O3','-std=c++17','-shared','-fPIC',str(source),
+                subprocess.run(compiler+['-O3','-std=c++17','-shared','-fPIC',str(source),
                     '-I'+str(package/'include'),str(binary),'-Wl,-rpath,'+str(package),'-o',temporary],check=True,capture_output=True)
                 os.replace(temporary,target)
             finally:Path(temporary).unlink(missing_ok=True)

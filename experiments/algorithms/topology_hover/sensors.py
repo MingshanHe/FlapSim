@@ -7,7 +7,7 @@ import subprocess
 import tempfile
 import mujoco
 import numpy as np
-from flapsim.rl.native import NativeCPUBackend, pointer
+from flapsim.rl.native import NativeCPUBackend, pointer, toolchain
 from ..neat_imu.environment import rotation_to_rpy
 
 
@@ -30,14 +30,14 @@ class SensorBackend(NativeCPUBackend):
         super().__init__(sim.model,sim.actuator,sim.controller,sim.fluid,controls=sim._gimbal_command)
         source=Path(__file__).with_name('sensor_step.cpp')
         native=Path(__file__).resolve().parents[3]/'flapsim/rl/native_step.cpp'
-        package=Path(mujoco.__file__).parent; binary=next(package.glob('libmujoco.so.*'))
+        package=Path(mujoco.__file__).parent; binary,compiler=toolchain()
         key=hashlib.sha256(source.read_bytes()+native.read_bytes()+str(binary).encode()).hexdigest()[:20]
         cache=Path.home()/'.cache/flapsim'; cache.mkdir(parents=True,exist_ok=True)
         target=cache/f'topology-sensor-{key}.so'
         if not target.exists():
             fd,tmp=tempfile.mkstemp(suffix='.so',dir=cache);os.close(fd)
             try:
-                subprocess.run(['g++','-O3','-std=c++17','-shared','-fPIC',str(source),'-I'+str(package/'include'),str(binary),'-Wl,-rpath,'+str(package),'-o',tmp],check=True,capture_output=True)
+                subprocess.run(compiler+['-O3','-std=c++17','-shared','-fPIC',str(source),'-I'+str(package/'include'),str(binary),'-Wl,-rpath,'+str(package),'-o',tmp],check=True,capture_output=True)
                 os.replace(tmp,target)
             finally: Path(tmp).unlink(missing_ok=True)
         self.sensor_lib=ct.CDLL(str(target))

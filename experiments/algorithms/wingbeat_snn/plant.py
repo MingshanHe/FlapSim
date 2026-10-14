@@ -19,7 +19,7 @@ import subprocess
 import tempfile
 import mujoco
 import numpy as np
-from flapsim.rl.native import pointer, D
+from flapsim.rl.native import pointer, D, toolchain
 from ..snn_pid_compare.common import DT
 from ..robust_control.environment import ResearchEnv
 from ..topology_hover.environment import case as make_case
@@ -37,7 +37,7 @@ def library():
     sources = [HERE/'phase_step.cpp', HERE.parent/'topology_hover/sensor_step.cpp',
                HERE.parents[2]/'flapsim/rl/native_step.cpp']
     package = Path(mujoco.__file__).parent
-    binary = next(package.glob('libmujoco.so.*'))
+    binary, compiler = toolchain()
     key = hashlib.sha256(b''.join(p.read_bytes() for p in sources)+str(binary).encode()).hexdigest()[:20]
     cache = Path(os.environ.get('XDG_CACHE_HOME', Path.home()/'.cache'))/'flapsim'
     cache.mkdir(parents=True, exist_ok=True)
@@ -46,7 +46,7 @@ def library():
         fd, temporary = tempfile.mkstemp(suffix='.so', dir=cache)
         os.close(fd)
         try:
-            subprocess.run(['g++', '-O3', '-std=c++17', '-shared', '-fPIC', str(sources[0]), '-I'+str(package/'include'),
+            subprocess.run(compiler+['-O3', '-std=c++17', '-shared', '-fPIC', str(sources[0]), '-I'+str(package/'include'),
                             str(binary), '-Wl,-rpath,'+str(package), '-o', temporary], check=True, capture_output=True)
             os.replace(temporary, target)
         finally:
