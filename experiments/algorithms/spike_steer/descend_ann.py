@@ -80,9 +80,25 @@ def dispatch(spec):
     return DescendingANN(spec) if spec.get('kind') == KIND else _SNN(spec)
 
 
+def _worker_init(source, dash_m):
+    """Pool initializer: install the dispatch in the worker itself (needed with the spawn start method, e.g. macOS)."""
+    install()
+    B.worker_init(source, dash_m)
+
+
+def _pool(workers, dash_m=None):
+    from concurrent.futures import ProcessPoolExecutor
+    source = Path('runs/neuro_gates/scratch/source')
+    if not (source/'robot_upper7_lower8.xml').exists():
+        B.prepare_source(source)
+    return ProcessPoolExecutor(workers, initializer=_worker_init, initargs=(str(source), dash_m if dash_m is not None else B.DASH_M['value']))
+
+
 def install():
-    """Route bench.Learned to the ANN for kind='descending_ann' specs (workers inherit this via fork)."""
+    """Route bench.Learned to the ANN for kind='descending_ann' specs, in this process and in every pool worker
+    (bench.pool is replaced by a twin whose initializer installs the dispatch, so fork and spawn both work)."""
     B.DescendingNet = dispatch
+    B.pool = _pool
 
 
 # ----------------------------------------------------------------------------------------- torch twin
