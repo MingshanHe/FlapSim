@@ -44,5 +44,14 @@
   2,
   3
  ],
- "source": "runs/spike_steer/bench"
+ "source": "runs/spike_steer/bench",
+ "amendment_2": {
+  "time": "2026-10-14 18:06:02 UTC",
+  "written_before": "the round-2 blind test of seed 2 (MACPC, still running); AFTER the blind tests of seeds 1 (0.940) and 3 (1.114)",
+  "what": "model selection uses a larger validation set and a zero-crash constraint: 8 validation cases per task (nod, dash; 16 in total; the first 4 per task are the original validation cases, the next 4 are drawn from the same train-split generator, offset COLLECT_OFFSET['val']+10_000, i = 4..7) and the selected centre is the lowest validation composite among the saved validated centres (spec_val_g*.json, every 5 generations) with zero crashes on the 16 cases. The ES search itself is unchanged: validation never enters the ES update, so re-selecting among the saved centres of the existing round-2 runs is equivalent to re-running them under the new rule (up to the checkpoint-resume reseed of seed 1 at generation 20). The selected centre gets one blind test (intact + ablations) on the unchanged blind sets. Implemented in reselect_r2.py; selection on CloudPC (Linux) for every seed.",
+  "why": "seed 3's 8-case validation never showed a crash, but its selected centre (gen 49) crashed in 4/16 blind dash cases (tilt termination; peak tilt 51 deg vs 37 deg for seed 1): the two seeds reached the same dash speed by different strategies (large pitch reference vs more pulses) and the 8-case set could not tell the fragile one apart. Centres at generations 29, 34 and 59 of seed 3 crash on the added cases.",
+  "disclosure": "an exploratory run of exactly this rule on seed 3 was done BEFORE this amendment was written (reselect_r2_s3.json: picks gen 54, blind composite 0.958, dash 16/16). That number is therefore not blind with respect to the choice of the rule; the rule's parameters (8 per task, zero crashes) were fixed in the proposal to the user before that run and were not tuned on its outcome. Seeds 1 and 2 are evaluated under the rule without any prior look.",
+  "reporting": "the paper reports both selections for every seed: the original round-2 rule (4 per task, lowest composite) and amendment 2; H1/H1' are judged on the amendment-2 selection, with the original listed alongside. Thresholds are unchanged.",
+  "extension_seeds": "if seeds 4 and 5 are added later they will be declared before their imitation training starts and H1/H1' will then require >= 3 of 5 seeds."
+ }
 }

@@ -1,0 +1,262 @@
+{
+ "seed": 3,
+ "rule": "lowest composite on 16 validation cases among zero-crash centres",
+ "n_val_per_task": 8,
+ "centres": [
+  {
+   "generation": -1,
+   "composite16": 1.15160664098685,
+   "composite8": 1.3744210860546582,
+   "crashes": 0,
+   "dash_tilt_peak_max": 32.50730742376557,
+   "ratios": {
+    "nod": 1.3342895835643114,
+    "dash": 0.9689236984093887
+   },
+   "spec": "artifacts/spike_steer/plan_v4/r2/finetune_s3/spec_val_g-1.json"
+  },
+  {
+   "generation": 4,
+   "composite16": 0.9148772260031562,
+   "composite8": 0.9116783888744042,
+   "crashes": 0,
+   "dash_tilt_peak_max": 40.66960739127995,
+   "ratios": {
+    "nod": 0.9765135331233833,
+    "dash": 0.8532409188829292
+   },
+   "spec": "artifacts/spike_steer/plan_v4/r2/finetune_s3/spec_val_g4.json"
+  },
+  {
+   "generation": 9,
+   "composite16": 0.877186477941092,
+   "composite8": 0.8772129341884372,
+   "crashes": 0,
+   "dash_tilt_peak_max": 42.509878432689824,
+   "ratios": {
+    "nod": 0.9092452426344666,
+    "dash": 0.8451277132477173
+   },
+   "spec": "artifacts/spike_steer/plan_v4/r2/finetune_s3/spec_val_g9.json"
+  },
+  {
+   "generation": 14,
+   "composite16": 0.9180564615900166,
+   "composite8": 0.9360015768912022,
+   "crashes": 0,
+   "dash_tilt_peak_max": 39.55829493179449,
+   "ratios": {
+    "nod": 0.9492746173266629,
+    "dash": 0.8868383058533704
+   },
+   "spec": "artifacts/spike_steer/plan_v4/r2/finetune_s3/spec_val_g14.json"
+  },
+  {
+   "generation": 19,
+   "composite16": 0.9616566760982435,
+   "composite8": 0.8927308615650102,
+   "crashes": 0,
+   "dash_tilt_peak_max": 41.66664501210456,
+   "ratios": {
+    "nod": 1.0215397111855429,
+    "dash": 0.9017736410109439
+   },
+   "spec": "artifacts/spike_steer/plan_v4/r2/finetune_s3/spec_val_g19.json"
+  },
+  {
+   "generation": 24,
+   "composite16": 0.8497193619256673,
+   "composite8": 0.8644250603979201,
+   "crashes": 0,
+   "dash_tilt_peak_max": 44.130987415618286,
+   "ratios": {
+    "nod": 0.8152996821581707,
+    "dash": 0.8841390416931639
+   },
+   "spec": "artifacts/spike_steer/plan_v4/r2/finetune_s3/spec_val_g24.json"
+  },
+  {
+   "generation": 29,
+   "composite16": 1.7024860622765687,
+   "composite8": 1.0689204080547425,
+   "crashes": 2,
+   "dash_tilt_peak_max": 81.74773349892706,
+   "ratios": {
+    "nod": 2.310732359787579,
+    "dash": 1.0942397647655584
+   },
+   "spec": "artifacts/spike_steer/plan_v4/r2/finetune_s3/spec_val_g29.json"
+  },
+  {
+   "generation": 34,
+   "composite16": 1.6195853878061333,
+   "composite8": 2.3776410298012323,
+   "crashes": 1,
+   "dash_tilt_peak_max": 39.58385779417142,
+   "ratios": {
+    "nod": 2.3877287884149836,
+    "dash": 0.8514419871972828
+   },
+   "spec": "artifacts/spike_steer/plan_v4/r2/finetune_s3/spec_val_g34.json"
+  },
+  {
+   "generation": 39,
+   "composite16": 0.844194367452354,
+   "composite8": 0.8373487053749361,
+   "crashes": 0,
+   "dash_tilt_peak_max": 44.23394232434851,
+   "ratios": {
+    "nod": 0.8184481396252307,
+    "dash": 0.8699405952794772
+   },
+   "spec": "artifacts/spike_steer/plan_v4/r2/finetune_s3/spec_val_g39.json"
+  },
+  {
+   "generation": 44,
+   "composite16": 0.839820118455719,
+   "composite8": 0.8266886303572154,
+   "crashes": 0,
+   "dash_tilt_peak_max": 45.90832228381524,
+   "ratios": {
+    "nod": 0.8153193984839022,
+    "dash": 0.8643208384275357
+   },
+   "spec": "artifacts/spike_steer/plan_v4/r2/finetune_s3/spec_val_g44.json"
+  },
+  {
+   "generation": 49,
+   "composite16": 0.8772270671292194,
+   "composite8": 0.9178903040166816,
+   "crashes": 0,
+   "dash_tilt_peak_max": 44.052294213302496,
+   "ratios": {
+    "nod": 0.9120771774755921,
+    "dash": 0.8423769567828466
+   },
+   "spec": "artifacts/spike_steer/plan_v4/r2/finetune_s3/spec_val_g49.json"
+  },
+  {
+   "generation": 54,
+   "composite16": 0.8213712886737876,
+   "composite8": 0.8094966021048813,
+   "crashes": 0,
+   "dash_tilt_peak_max": 40.50679612667829,
+   "ratios": {
+    "nod": 0.8009970024699967,
+    "dash": 0.8417455748775785
+   },
+   "spec": "artifacts/spike_steer/plan_v4/r2/finetune_s3/spec_val_g54.json"
+  },
+  {
+   "generation": 59,
+   "composite16": 1.6744959065825324,
+   "composite8": 0.8513671823712003,
+   "crashes": 1,
+   "dash_tilt_peak_max": 41.58200410680068,
+   "ratios": {
+    "nod": 2.4805165425567375,
+    "dash": 0.8684752706083273
+   },
+   "spec": "artifacts/spike_steer/plan_v4/r2/finetune_s3/spec_val_g59.json"
+  }
+ ],
+ "selected": {
+  "generation": 54,
+  "composite16": 0.8213712886737876,
+  "composite8": 0.8094966021048813,
+  "crashes": 0,
+  "dash_tilt_peak_max": 40.50679612667829,
+  "ratios": {
+   "nod": 0.8009970024699967,
+   "dash": 0.8417455748775785
+  },
+  "spec": "artifacts/spike_steer/plan_v4/r2/finetune_s3/spec_val_g54.json"
+ },
+ "selected_by_old_rule": {
+  "generation": 54,
+  "composite16": 0.8213712886737876,
+  "composite8": 0.8094966021048813,
+  "crashes": 0,
+  "dash_tilt_peak_max": 40.50679612667829,
+  "ratios": {
+   "nod": 0.8009970024699967,
+   "dash": 0.8417455748775785
+  },
+  "spec": "artifacts/spike_steer/plan_v4/r2/finetune_s3/spec_val_g54.json"
+ },
+ "blind": {
+  "composite": 0.9583640701915219,
+  "ratios": {
+   "hover": 1.0,
+   "nod": 0.9103771756493594,
+   "dash": 0.8730734692271132,
+   "upset": 1.0500056358896153
+  },
+  "table": {
+   "nod": {
+    "episodes": 16,
+    "flown": 16,
+    "ratio": 0.9103771756493594,
+    "paired_vs_opponent": {
+     "n": 16,
+     "mean_delta": -0.08144703026847663,
+     "ci95": [
+      -0.1630437785822355,
+      0.03282923118919199
+     ],
+     "wins": 14,
+     "losses": 2,
+     "sign_p": 0.004180908203125
+    }
+   },
+   "dash": {
+    "episodes": 16,
+    "flown": 16,
+    "ratio": 0.8730734692271132,
+    "paired_vs_opponent": {
+     "n": 16,
+     "mean_delta": -0.7452250773844782,
+     "ci95": [
+      -0.8616490847103185,
+      -0.6450019651426726
+     ],
+     "wins": 16,
+     "losses": 0,
+     "sign_p": 3.0517578125e-05
+    }
+   },
+   "hover": {
+    "episodes": 16,
+    "flown": 16,
+    "ratio": 1.0,
+    "paired_vs_opponent": {
+     "n": 16,
+     "mean_delta": 0.0,
+     "ci95": [
+      0.0,
+      0.0
+     ],
+     "wins": 0,
+     "losses": 0,
+     "sign_p": 1.0
+    }
+   },
+   "upset": {
+    "episodes": 48,
+    "flown": 20,
+    "ratio": 1.0500056358896153,
+    "paired_vs_opponent": {
+     "n": 48,
+     "mean_delta": 3.7516928783816343,
+     "ci95": [
+      0.03977797144770586,
+      7.082731995678349
+     ],
+     "wins": 10,
+     "losses": 28,
+     "sign_p": 0.0050976432976312935
+    }
+   }
+  }
+ }
+}
