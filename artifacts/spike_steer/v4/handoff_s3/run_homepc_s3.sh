@@ -13,7 +13,7 @@ H=artifacts/spike_steer/v4/handoff_s3
 mkdir -p "$OUT/upset_v2"
 cp -n "$H"/baseline.json "$H"/preregistration.json "$H"/dash_target.json "$H"/imitate_spec_s3.json "$OUT"/
 cp -n "$H"/upset_v2/calibrate.json "$OUT/upset_v2/"
-log() { echo "[$(date -Is)] $*"; }
+log() { echo "[$(date -Iseconds)] $*"; }
 log "finetune seed 3 with $W workers"
 $PY -W ignore -m experiments.algorithms.spike_steer.descend finetune --output "$OUT" --seed 3 --generations 20 --hours 8 --workers "$W" || exit 1
 log "evaluate ft_s3 (5 variants)"

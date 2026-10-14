@@ -1,4 +1,4 @@
-"""Optional Linux C++ acceleration of the unchanged CPU physics loop."""
+"""Optional C++ acceleration of the unchanged CPU physics loop (Linux/WSL via g++, macOS via clang++)."""
 import ctypes as ct
 import hashlib
 import os
@@ -34,11 +34,14 @@ def pointer(a):
 
 
 def library():
-    if sys.platform != 'linux':
-        raise RuntimeError('native physics requires Linux/WSL and g++; disable native_physics otherwise')
+    if sys.platform not in ('linux', 'darwin'):
+        raise RuntimeError('native physics requires Linux/WSL (g++) or macOS (clang++); disable native_physics otherwise')
+    darwin = sys.platform == 'darwin'
     source = Path(__file__).with_name('native_step.cpp')
     package = Path(mujoco.__file__).parent
-    binary = next(package.glob('libmujoco.so.*'))
+    binary = next(package.glob('libmujoco.*.dylib' if darwin else 'libmujoco.so.*'), None)
+    if binary is None:
+        raise RuntimeError(f'MuJoCo shared library not found in {package}')
     key = hashlib.sha256(source.read_bytes()+str(binary).encode()+mujoco.__version__.encode()).hexdigest()[:20]
     cache = Path(os.environ.get('XDG_CACHE_HOME', Path.home()/'.cache'))/'flapsim'
     cache.mkdir(parents=True, exist_ok=True)
@@ -47,7 +50,8 @@ def library():
         fd, temporary = tempfile.mkstemp(suffix='.so', dir=cache)
         os.close(fd)
         try:
-            subprocess.run(['g++', '-O3', '-std=c++17', '-shared', '-fPIC', str(source),
+            compiler = ['clang++', '-ffp-contract=off'] if darwin else ['g++']   # no FMA contraction: keep macOS numerics close to x86 g++
+            subprocess.run(compiler+['-O3', '-std=c++17', '-shared', '-fPIC', str(source),
                             '-I'+str(package/'include'), str(binary),
                             '-Wl,-rpath,'+str(package), '-o', temporary], check=True, capture_output=True)
             os.replace(temporary, target)
