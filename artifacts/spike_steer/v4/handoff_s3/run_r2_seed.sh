@@ -19,6 +19,6 @@ $PY -W ignore -m $M finetune --output "$OUT" --seed "$SEED" --generations "$GENS
 log "r2 evaluate seed $SEED"
 $PY -W ignore -m $M evaluate --output "$OUT" --seed "$SEED" --variants intact,clamp_fast,nodelay_all,noref,nopulse --workers "$W" || exit 1
 ART=artifacts/spike_steer/plan_v4/r2; mkdir -p "$ART/finetune_s$SEED"
-cp "$OUT"/preregistration_r2.json "$OUT"/evaluate_r2_s$SEED.json "$ART"/
+cp "$OUT"/evaluate_r2_s$SEED.json "$ART"/   # prereg is NOT copied: the committed artifacts copy is canonical
 cp "$OUT"/train/finetune_s$SEED/{history.jsonl,best.json,spec_best.json,spec_last.json} "$OUT"/train/finetune_s$SEED/spec_val_g*.json "$ART/finetune_s$SEED/"
 log "done; commit artifacts/spike_steer/plan_v4/r2 and push"
