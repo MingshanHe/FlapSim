@@ -2,13 +2,14 @@
 # Hand-off runner (any machine, incl. macOS): H4 control = rate-coded ANN of the same size through the same pipeline.
 #   collect teacher traces (deterministic seeds) -> ANN imitation x3 seeds -> blind test x3 -> ES fine-tune seed 1
 #   (GENS generations, default 30 ~ what the SNN seed 1 reached in 4.5 h) -> blind test + 5 ablation variants.
-# Usage (repo root, mujoco env active):  W=8 GENS=30 bash artifacts/spike_steer/v4/handoff_s3/run_ann_chain.sh
+# Usage (repo root, mujoco env active):  W=8 GENS=30 ANN_SEED=1 bash artifacts/spike_steer/v4/handoff_s3/run_ann_chain.sh
 set -u
 cd "$(git rev-parse --show-toplevel)" || exit 1
 export OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1
 PY=${PY:-python}
 W=${W:?set W = number of cores minus 2}
 GENS=${GENS:-30}
+S=${ANN_SEED:-1}        # which ANN seed this machine fine-tunes (imitation always covers seeds 1-3)
 OUT=runs/spike_steer/bench
 H=artifacts/spike_steer/v4/handoff_s3
 M=experiments.algorithms.spike_steer.descend_ann
@@ -34,10 +35,10 @@ fi
 for s in 1 2 3; do
   stage "eval_imit_ann_s$s" $PY -W ignore -m $M evaluate --output "$OUT" --spec "$OUT/imitate_spec_s${s}_ann.json" --tag "imit_ann_s$s" --workers "$W" || exit 1
 done
-stage finetune_ann_s1 $PY -W ignore -m $M finetune --output "$OUT" --seed 1 --generations "$GENS" --hours 12 --workers "$W" || exit 1
-stage eval_ft_ann_s1 $PY -W ignore -m $M evaluate --output "$OUT" --spec "$OUT/finetune_s1_ann/spec_best.json" --tag ft_ann_s1 \
+stage finetune_ann_s$S $PY -W ignore -m $M finetune --output "$OUT" --seed $S --generations "$GENS" --hours 12 --workers "$W" || exit 1
+stage eval_ft_ann_s$S $PY -W ignore -m $M evaluate --output "$OUT" --spec "$OUT/finetune_s${S}_ann/spec_best.json" --tag ft_ann_s$S \
     --variants intact,clamp_fast,nodelay_all,noref,nopulse --workers "$W" || exit 1
-ART=artifacts/spike_steer/v4; mkdir -p "$ART/finetune_s1_ann"
-cp "$OUT"/evaluate_imit_ann_s?.json "$OUT"/evaluate_ft_ann_s1.json "$OUT"/imitate_spec_s?_ann.json "$OUT"/imitate_history_s?_ann.json "$ART"/
-cp "$OUT"/finetune_s1_ann/history.jsonl "$OUT"/finetune_s1_ann/best.json "$OUT"/finetune_s1_ann/spec_best.json "$ART/finetune_s1_ann/"
+ART=artifacts/spike_steer/v4; mkdir -p "$ART/finetune_s${S}_ann"
+cp "$OUT"/evaluate_imit_ann_s?.json "$OUT"/evaluate_ft_ann_s$S.json "$OUT"/imitate_spec_s?_ann.json "$OUT"/imitate_history_s?_ann.json "$ART"/
+cp "$OUT"/finetune_s${S}_ann/{history.jsonl,best.json,spec_best.json,spec_last.json} "$OUT"/finetune_s${S}_ann/spec_val_g*.json "$ART/finetune_s${S}_ann/"
 log "done; commit artifacts/spike_steer/v4/*ann* and push"
