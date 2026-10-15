@@ -1,0 +1,88 @@
+{
+ "version": "plan v4 round 3 (command-gated descending layer + reflex envelope)",
+ "time": "2026-10-15 12:36:16",
+ "written_before": "any round-3 fine-tune or blind test",
+ "weights": {
+  "hover": 0.25,
+  "nod": 0.25,
+  "dash": 0.25,
+  "upset": 0.25
+ },
+ "architecture": {
+  "gate": "command",
+  "tail_s": 1.0,
+  "base_law": "law_tuned",
+  "upset_tilt_deg": 25.0,
+  "cmd_envelope_deg": null,
+  "note": "identical to round 2 (no reflex envelope): the diagnostic showed that an AHRS-tilt envelope fires too late to rescue the divergent pitch oscillation that causes the crashes; round 3 changes the objective and the selection only, so the controller architecture is exactly the round-2 one"
+ },
+ "envelope_choice": "Diagnostic (artifacts/spike_steer/plan_v4/r3/diag, 64 fresh training-split cases per task, round-2 centres s1 g44 / s2 g29 / s3_cloudpc g59): an AHRS-tilt reflex envelope at 35, 40, 45, 50 or 60 deg changed no score and prevented no crash (s2 g29: 1 nod crash in 64 with and without it; s3_cloudpc g59: 1 dash crash in 64 with and without it; s1 g44: 0 crashes). Trace of the s2 g29 crash (trace_crash_s2_g29.py): divergent 3-4 Hz pitch oscillation, true tilt 72 deg while the AHRS reads 33 deg; the envelope fired at 4.19 s (AHRS 50.7 deg) and the episode still terminated 0.2 s later. Decision: no envelope in round 3; the objective penalises the true tilt peak beyond 45 deg (s1 g44 max 47 deg over 64 cases; s3_cloudpc g59 exceeds 45 deg in 28/64 nod cases and 60 deg in 2) and selection requires < 60 deg on all 16 validation cases.",
+ "training": {
+  "method": "descend.py finetune (OpenAI-ES, pop 32, sigma .03, Adam .02), 4 cases per task per candidate, 60 generations",
+  "objective": "per task: mean score ratio + mean over cases of max(0, true tilt_peak_deg - 45.0) * 0.1; nod and dash weighted equally (hover/upset are classical by construction). The penalty uses the simulator tilt (training signal only); the controller still sees only the IMU/AHRS inputs",
+  "start": "round-2 gated start spec of the same seed (imitation + base_law + upset law) with cmd_envelope_deg added",
+  "selection": "reselect_r3.py: lowest penalised composite on 16 validation cases (8 per task) among centres with zero crashes and true tilt peak below 60.0 deg on all 16 cases; the round-2 rules are also reported",
+  "machines": "every search on CloudPC when possible; a HomePC search is a candidate source only (its centres are re-validated and selected on CloudPC, because the same spec scores differently across machines - measured in round 2)"
+ },
+ "test_sets": {
+  "nod_dash": "fresh blind set, maneuver_v2 base 2096400000 (16 cases per task; round 2 used 2_096_100_000)",
+  "hover_upset": "unchanged from rounds 1-2",
+  "normalisers": {
+   "hover": 5.751475424159841,
+   "nod": 0.9542258775167782,
+   "dash": 5.565834461018171,
+   "upset": 75.02540087007979
+  },
+  "normaliser_rule": {
+   "rule": "nod/dash: opponent per-case median on the fresh blind set (learned side: mean incl. crashes); hover/upset: opponent mean (unchanged sets)",
+   "opponent_mean_all": {
+    "hover": 5.751475424159841,
+    "nod": 1.8821816462737173,
+    "dash": 5.729855867907659,
+    "upset": 75.02540087007979
+   },
+   "opponent_mean_flown": {
+    "hover": 5.751475424159841,
+    "nod": 1.2240454680075847,
+    "dash": 5.729855867907659,
+    "upset": 59.387526260842904
+   },
+   "opponent_flown": {
+    "hover": 16,
+    "nod": 15,
+    "dash": 16,
+    "upset": 25
+   },
+   "opponent_median": {
+    "hover": 4.743093294983945,
+    "nod": 0.9542258775167782,
+    "dash": 5.565834461018171,
+    "upset": 88.19304249964715
+   },
+   "round2_normalisers": {
+    "hover": 5.751475424159841,
+    "nod": 0.908775536350238,
+    "dash": 5.871310535682486,
+    "upset": 75.02540087007979
+   }
+  },
+  "secondary_normalisation": "the round-2 rule (opponent mean incl. its crashes) is reported as a secondary number",
+  "note": "the classical opponents (same arms, same tuning) are re-run on the fresh set; the learned layer never sees it before the blind test"
+ },
+ "hypotheses": {
+  "H1": "composite (25/25/25/25) <= 0.95 in >= 3 of 5 seeds AND T1 ratio <= 1.05",
+  "H1_prime": "non-inferiority + superiority: every task ratio <= 1.05 AND at least one of T2/T3 <= 0.90 with paired sign-test p < 0.05, in >= 3 of 5 seeds",
+  "H2": ">= 2 of T2, T3, T4 <= 0.90 in >= 3 of 5 seeds",
+  "H3": "ablations (clamp_fast, nodelay_all, noref, nopulse) raise the composite by >= 10 % or silence the pulses",
+  "H5": "crash rate: 0 crashes in the 32 nod+dash blind episodes in >= 3 of 5 seeds (round 2: 1 crash per 16 in 4 of 5 selected centres)",
+  "secondary": "per-case median ratio, paired win fraction and envelope-trigger count are reported next to the mean ratio for every task"
+ },
+ "seeds": [
+  1,
+  2,
+  3,
+  4,
+  5
+ ],
+ "source": "runs/spike_steer/bench_r2"
+}

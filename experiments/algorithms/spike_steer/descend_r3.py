@@ -1,22 +1,28 @@
 """Research plan v4, round 3: command-gated descending layer + reflex envelope (pre-registered before any round-3 result).
 
 Round 2 (descend_gated.py) won 15 of 16 blind cases per manoeuvre in every seed but lost the composite to single tilt
-crashes: the learned layer, in sole charge while the nod/dash command is on, occasionally pitches past 76 deg and the
-episode terminates at 80 deg. Round 2's righting reflex (amendment 1) only acts while the command is OFF. Round 3 adds
-three things and changes nothing else (same sensors, actuators, control rate, limits, opponents, hover/upset layers):
+crashes. Tracing one (seed 2 gen 29, blind nod case 2096100008): the learned layer drives a divergent 3-4 Hz pitch
+oscillation after the nod (true tilt 54 -> 1 -> 42 -> 72 -> 54 -> 22 -> 80 deg within 0.7 s, pitch rate 14 rad/s;
+the episode terminates at 80 deg) while the AHRS estimate lags badly (33 deg when the true tilt is 72 deg).
 
-  1. reflex envelope while the command is on: once the AHRS tilt exceeds `cmd_envelope_deg` the reflex layer takes
-     over for the rest of the episode (upset-tuned pulse law, pitch reference 0), exactly as it does when the command
-     is off -- a reflex that overrides the descending command (insect descending neurons are gated the same way).
-  2. ES objective with a tilt margin: per task, mean score ratio + mean over cases of
-     max(0, tilt_peak_deg - (cmd_envelope_deg - MARGIN_DEG)) / 10  (one ratio unit per 10 deg beyond the soft margin).
-  3. selection (reselect_r3.py): lowest penalised composite on 16 validation cases among centres with zero crashes AND
-     no envelope trigger (true tilt peak below cmd_envelope_deg on all 16 cases).
-  Fresh blind set for nod/dash (round 2's blind set was looked at ~8 times); hover/upset blind sets unchanged.
+Round 3 changes the OBJECTIVE and the SELECTION only; the controller is the round-2 gated architecture unchanged
+(same sensors, actuators, control rate, limits, opponents, hover/upset layers):
+  1. ES objective with a tilt margin: per task, mean score ratio + mean over cases of
+     max(0, true tilt_peak_deg - SOFT_TILT_DEG) * PENALTY_PER_DEG  (training signal from the simulator state; the
+     controller still sees only the IMU/AHRS inputs). Diagnostic on 64 fresh cases per task: the passing seed-1
+     centre never exceeds 47 deg, the failing seed-3 centre exceeds 45 deg in 28/64 nod cases (60 deg in 2).
+  2. selection (reselect_r3.py): lowest penalised composite on 16 validation cases among centres with zero crashes
+     AND true tilt peak < HARD_TILT_DEG on all 16 cases (re-validated on the selection machine, CloudPC).
+  3. fresh blind set for nod/dash (round 2's blind set was looked at ~8 times); hover/upset blind sets unchanged.
+A reflex envelope (EnvelopedLearned: AHRS tilt > cmd_envelope_deg while the learned layer is in charge -> reflex
+layer for the rest of the episode) was implemented and tested (stage diag, artifacts/spike_steer/plan_v4/r3/diag):
+at 35/40/45/50/60 deg it never prevented a crash and never changed a score of the three round-2 centres, because the
+AHRS tilt reaches the threshold only once the oscillation is already divergent. It is kept in the code (opt-in via
+cmd_envelope_deg) but NOT used in round 3 (prepare --envelope none).
 
 Stages:
     python -m experiments.algorithms.spike_steer.descend_r3 diag     --workers 12 --cases 64 --envelopes none,45,50,60 --specs <spec>[,<spec>...]
-    python -m experiments.algorithms.spike_steer.descend_r3 prepare  --output runs/spike_steer/bench_r3 --source runs/spike_steer/bench_r2 --envelope 50
+    python -m experiments.algorithms.spike_steer.descend_r3 prepare  --output runs/spike_steer/bench_r3 --source runs/spike_steer/bench_r2 --envelope none --soft-tilt 45 --hard-tilt 60
     python -m experiments.algorithms.spike_steer.descend_r3 finetune --output runs/spike_steer/bench_r3 --seed 1 --generations 60 --hours 9 --workers 30
     python -m experiments.algorithms.spike_steer.descend_r3 evaluate --output runs/spike_steer/bench_r3 --seed 1 --spec <spec> --tag r3_s1 --variants intact,clamp_fast,nodelay_all,noref,nopulse
     python -m experiments.algorithms.spike_steer.descend_r3 selftest
@@ -34,9 +40,10 @@ from . import descend_ann as A
 from . import descend_gated as G
 from . import maneuver_v2 as M
 
-ENVELOPE_DEG = 50.               # default; the pre-registered value is written into every round-3 spec (cmd_envelope_deg)
-MARGIN_DEG = 5.                  # soft margin below the envelope where the ES penalty starts
-PENALTY_PER_DEG = .1             # ratio units per degree beyond the soft margin
+ENVELOPE_DEG = 50.               # default; the pre-registered value is written into every round-3 spec (cmd_envelope_deg); None = no envelope
+SOFT_TILT_DEG = 45.              # ES / validation penalty starts here (TRUE tilt peak of the episode; the objective may use the simulator state)
+HARD_TILT_DEG = 60.              # selection: a centre whose true tilt peak reaches this on any of the 16 validation cases is not eligible
+PENALTY_PER_DEG = .1             # ratio units per degree beyond SOFT_TILT_DEG
 TEST_BASE_R3 = dict(nod=2_096_400_000, dash=2_096_400_000)   # fresh blind seeds (round 2 test: 2_096_100_000; ES train < 2_096_310_000)
 DIAG_OFFSET = 70_000             # fresh non-blind cases for the envelope diagnostic (ES: 100_000+; val: 60_000)
 SEEDS = (1, 2, 3, 4, 5)
@@ -98,13 +105,13 @@ def composite_r3(rows, tasks, normalisers, weights):
     pen = {}
     for t in tasks:
         rs = [r for r in rows if r['task'] == t]
-        pen[t] = float(np.mean([max(0., (r.get('tilt_peak_deg') or 0.)-(ENVELOPE['value']-MARGIN_DEG))*PENALTY_PER_DEG for r in rs])) if rs else 0.
+        pen[t] = float(np.mean([max(0., (r.get('tilt_peak_deg') or 0.)-SOFT['value'])*PENALTY_PER_DEG for r in rs])) if rs else 0.
     tot = sum(weights.values())
     comp = float(sum(weights[t]*(scores[t]/normalisers[t]+pen[t]) for t in weights)/tot)
     return comp, scores
 
 
-ENVELOPE = dict(value=ENVELOPE_DEG)   # set from the spec / prereg before finetune (penalty threshold)
+SOFT = dict(value=SOFT_TILT_DEG)      # penalty threshold; set from the round-3 prereg (train/baseline.json) before finetune / reselect
 
 
 def _worker_init(source, dash_m):
@@ -170,7 +177,8 @@ def diag(a):
 # ----------------------------------------------------------------------------------------- round-3 directories
 def prepare(a):
     install()
-    ENVELOPE['value'] = a.envelope
+    envelope = None if str(a.envelope).lower() == 'none' else float(a.envelope)
+    SOFT['value'] = a.soft_tilt
     out, src = Path(a.output), Path(a.source)
     base_ev = json.loads((src/'baseline.json').read_text())
     base_tr = json.loads((src/'train'/'baseline.json').read_text())
@@ -190,19 +198,33 @@ def prepare(a):
             table[tname] = {name: B.summary([r for r in rows if r['controller'] == name]) for name in base_ev['arms_full'][tname]}
             for name, s in table[tname].items():
                 print(f"{tname:6s} {name:13s} flown {s['flown']}/{s['episodes']} score {s['score']:.3f}", flush=True)
-    normalisers = {t: table[t][base_ev['opponent'][t]]['score'] for t in tasks}
-    ev = dict(base_ev, test_rows=test_rows, table=table, normalisers=normalisers)
-    ev['prereg'] = dict(base_ev['prereg'], round=3, normalisers=normalisers, test_sets={t: [c['seed'] for c in B.cases(t, 'test', levels)] for t in tasks})
+    # normalisers: hover/upset as before (opponent mean on the unchanged blind sets); nod/dash = the opponent's per-case MEDIAN on
+    # the fresh set. The opponent (schedule) crashed on 1 and missed on 1 of the 16 fresh nod cases, so its mean (1.88) would make
+    # the nod ratio trivially small; the median (0.95, equal to its median on the round-2 set) keeps the bar where it was. The
+    # learned side is still scored by its MEAN including crashes -> this rule is stricter for the learned layer than round 2's.
+    opp_rows = {t: [r for r in test_rows[t] if r['controller'] == base_ev['opponent'][t]] for t in tasks}
+    normalisers = {t: (float(np.median([r['score'] for r in opp_rows[t]])) if t in ('nod', 'dash') else table[t][base_ev['opponent'][t]]['score']) for t in tasks}
+    norm_notes = dict(rule='nod/dash: opponent per-case median on the fresh blind set (learned side: mean incl. crashes); hover/upset: opponent mean (unchanged sets)',
+                      opponent_mean_all={t: float(np.mean([r['score'] for r in opp_rows[t]])) for t in tasks},
+                      opponent_mean_flown={t: float(np.mean([r['score'] for r in opp_rows[t] if r['flown']])) for t in tasks},
+                      opponent_flown={t: sum(r['flown'] for r in opp_rows[t]) for t in tasks},
+                      opponent_median={t: float(np.median([r['score'] for r in opp_rows[t]])) for t in tasks},
+                      round2_normalisers=base_ev['normalisers'])
+    ev = dict(base_ev, test_rows=test_rows, table=table, normalisers=normalisers, normaliser_notes=norm_notes)
+    ev['prereg'] = dict(base_ev['prereg'], round=3, normalisers=normalisers, normaliser_rule=norm_notes,
+                        test_sets={t: [c['seed'] for c in B.cases(t, 'test', levels)] for t in tasks})
     (out/'baseline.json').write_text(json.dumps(ev))
     tr = dict(base_tr, normalisers={t: normalisers[t] for t in base_tr['opponent']})
-    tr['prereg'] = dict(base_tr['prereg'], round=3, envelope_deg=a.envelope)
+    tr['prereg'] = dict(base_tr['prereg'], round=3, envelope_deg=envelope, soft_tilt_deg=a.soft_tilt, hard_tilt_deg=a.hard_tilt)
     (out/'train'/'baseline.json').write_text(json.dumps(tr))
     seeds = []
     for s in SEEDS:
         for f in (src/'train'/f'imitate_spec_s{s}.json', src/'train'/f'imitate_spec_s{s}.json.hold'):
             if f.exists():
                 spec = json.loads(f.read_text())
-                spec.update(cmd_envelope_deg=a.envelope)
+                spec.pop('cmd_envelope_deg', None)
+                if envelope is not None:
+                    spec.update(cmd_envelope_deg=envelope)
                 (out/'train'/f'imitate_spec_s{s}.json').write_text(json.dumps(spec, indent=1))
                 seeds.append(s)
                 break
@@ -211,21 +233,27 @@ def prepare(a):
         written_before='any round-3 fine-tune or blind test',
         weights=G.WEIGHTS_R2,
         architecture=dict(gate=G.GATE, tail_s=G.TAIL_S, base_law=base_ev['prereg'].get('base_law', 'law_tuned'), upset_tilt_deg=G.UPSET_TILT_DEG,
-                          cmd_envelope_deg=a.envelope,
-                          note='as round 2 plus the reflex envelope: while the learned layer is in charge (command on or tail), an AHRS tilt '
-                               'above cmd_envelope_deg hands control to the reflex layer (pulse_tuned law, pitch reference 0) for the rest of '
-                               'the episode. Hover and upset are unchanged by construction (envelope acts only while the command is on).'),
+                          cmd_envelope_deg=envelope,
+                          note=('as round 2 plus the reflex envelope: while the learned layer is in charge (command on or tail), an AHRS tilt '
+                                'above cmd_envelope_deg hands control to the reflex layer (pulse_tuned law, pitch reference 0) for the rest of '
+                                'the episode. Hover and upset are unchanged by construction (envelope acts only while the command is on).')
+                               if envelope is not None else
+                               ('identical to round 2 (no reflex envelope): the diagnostic showed that an AHRS-tilt envelope fires too late '
+                                'to rescue the divergent pitch oscillation that causes the crashes; round 3 changes the objective and the '
+                                'selection only, so the controller architecture is exactly the round-2 one')),
         envelope_choice=a.envelope_note,
         training=dict(method='descend.py finetune (OpenAI-ES, pop 32, sigma .03, Adam .02), 4 cases per task per candidate, 60 generations',
-                      objective=f'per task: mean score ratio + mean over cases of max(0, tilt_peak_deg - (cmd_envelope_deg - {MARGIN_DEG})) * {PENALTY_PER_DEG}; '
-                                'nod and dash weighted equally (hover/upset are classical by construction)',
+                      objective=f'per task: mean score ratio + mean over cases of max(0, true tilt_peak_deg - {a.soft_tilt}) * {PENALTY_PER_DEG}; '
+                                'nod and dash weighted equally (hover/upset are classical by construction). The penalty uses the simulator '
+                                'tilt (training signal only); the controller still sees only the IMU/AHRS inputs',
                       start='round-2 gated start spec of the same seed (imitation + base_law + upset law) with cmd_envelope_deg added',
-                      selection='reselect_r3.py: lowest penalised composite on 16 validation cases (8 per task) among centres with zero crashes '
-                                'and true tilt peak below cmd_envelope_deg on all 16 cases; the round-2 8-case rule is also reported',
+                      selection=f'reselect_r3.py: lowest penalised composite on 16 validation cases (8 per task) among centres with zero crashes '
+                                f'and true tilt peak below {a.hard_tilt} deg on all 16 cases; the round-2 rules are also reported',
                       machines='every search on CloudPC when possible; a HomePC search is a candidate source only (its centres are re-validated '
                                'and selected on CloudPC, because the same spec scores differently across machines - measured in round 2)'),
         test_sets=dict(nod_dash=f'fresh blind set, maneuver_v2 base {TEST_BASE_R3["nod"]} (16 cases per task; round 2 used 2_096_100_000)',
-                       hover_upset='unchanged from rounds 1-2', normalisers=normalisers,
+                       hover_upset='unchanged from rounds 1-2', normalisers=normalisers, normaliser_rule=norm_notes,
+                       secondary_normalisation='the round-2 rule (opponent mean incl. its crashes) is reported as a secondary number',
                        note='the classical opponents (same arms, same tuning) are re-run on the fresh set; the learned layer never sees it before the blind test'),
         hypotheses=dict(
             H1='composite (25/25/25/25) <= 0.95 in >= 3 of 5 seeds AND T1 ratio <= 1.05',
@@ -236,13 +264,13 @@ def prepare(a):
             secondary='per-case median ratio, paired win fraction and envelope-trigger count are reported next to the mean ratio for every task'),
         seeds=seeds, source=str(src))
     (out/'preregistration_r3.json').write_text(json.dumps(prereg, indent=1))
-    print(json.dumps(dict(prepared=str(out), envelope=a.envelope, seeds=seeds, normalisers=normalisers)), flush=True)
+    print(json.dumps(dict(prepared=str(out), envelope=envelope, soft_tilt=a.soft_tilt, hard_tilt=a.hard_tilt, seeds=seeds, normalisers=normalisers)), flush=True)
 
 
 def finetune(a):
     install()
     out = Path(a.output)
-    ENVELOPE['value'] = json.loads((out/'train'/'baseline.json').read_text())['prereg']['envelope_deg']
+    SOFT['value'] = json.loads((out/'train'/'baseline.json').read_text())['prereg']['soft_tilt_deg']
     Dn.ES['cases_per_task'] = G.ES_R2['cases_per_task']
     a.output = str(out/'train')
     a.spec = a.spec or str(Path(a.output)/f'imitate_spec_s{a.seed}.json')
@@ -279,8 +307,8 @@ def selftest():
     assert type(gated) is G.GatedLearned
     plain = B.Learned(Dn.DescendingSNN(hidden=2, seed=0).export())
     assert type(plain) is G._Learned
-    # penalised objective: 2 rows per task, tilt 40/60 with envelope 50 (soft 45): pen = (0 + 1.5)/2 = .75 on the second task only
-    ENVELOPE['value'] = 50.
+    # penalised objective: 2 rows per task, tilt 40/60 with soft threshold 45: pen = (0 + 1.5)/2 = .75 on the second task only
+    SOFT['value'] = 45.
     rows = [dict(task='nod', score=1., tilt_peak_deg=40.), dict(task='nod', score=1., tilt_peak_deg=44.),
             dict(task='dash', score=2., tilt_peak_deg=40.), dict(task='dash', score=2., tilt_peak_deg=60.)]
     comp, sc = Dn.composite_of(rows, ['nod', 'dash'], dict(nod=1., dash=2.), dict(nod=.5, dash=.5))
@@ -305,7 +333,9 @@ def main():
     p.add_argument('--generations', type=int, default=G.ES_R2['generations'])
     p.add_argument('--hours', type=float, default=9.)
     p.add_argument('--quick', action='store_true')
-    p.add_argument('--envelope', type=float, default=ENVELOPE_DEG)
+    p.add_argument('--envelope', default='none', help='AHRS tilt envelope in deg, or none')
+    p.add_argument('--soft-tilt', type=float, default=SOFT_TILT_DEG)
+    p.add_argument('--hard-tilt', type=float, default=HARD_TILT_DEG)
     p.add_argument('--envelope-note', default='')
     p.add_argument('--envelopes', default='none,45,50,60')
     p.add_argument('--cases', type=int, default=64)
