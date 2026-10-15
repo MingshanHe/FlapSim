@@ -23,7 +23,9 @@ def main():
     p.add_argument('--output', default='runs/spike_steer/bench_r2')
     p.add_argument('--centres', default=None, help='directory with spec_val_g*.json (default: artifacts/spike_steer/plan_v4/r2/finetune_s<seed>)')
     p.add_argument('--blind', action='store_true', help='also blind-test the re-selected centre (intact only)')
+    p.add_argument('--tag', default=None, help='output tag (default r2_s<seed>); blind test tag = <tag>_resel')
     a = p.parse_args()
+    tag = a.tag or f'r2_s{a.seed}'
     G.install()
     out = Path(a.output)
     base_ev = B.load_baseline(out)
@@ -56,11 +58,11 @@ def main():
         print('old rule (8 cases) picks gen', pick8['generation'], '| new rule picks gen', pick and pick['generation'], flush=True)
         if a.blind and pick:
             spec = json.loads(Path(pick['spec']).read_text())
-            rep = B.evaluate_spec(ex, out, spec, f'r2_s{a.seed}_resel', base_ev, ('intact',))
+            rep = B.evaluate_spec(ex, out, spec, f'{tag}_resel', base_ev, ('intact',))
             report['blind'] = dict(composite=rep['variants']['intact']['composite'], ratios=rep['variants']['intact']['ratios'],
                                    table={t: {k: v for k, v in rep['variants']['intact']['table'][t].items() if k in ('flown', 'episodes', 'ratio', 'paired_vs_opponent')} for t in tasks+['hover', 'upset'] if t in rep['variants']['intact']['table']})
-    (out/f'reselect_r2_s{a.seed}.json').write_text(json.dumps(report, indent=1))
-    print('wrote', out/f'reselect_r2_s{a.seed}.json', flush=True)
+    (out/f'reselect_{tag}.json').write_text(json.dumps(report, indent=1))
+    print('wrote', out/f'reselect_{tag}.json', flush=True)
 
 
 if __name__ == '__main__':
