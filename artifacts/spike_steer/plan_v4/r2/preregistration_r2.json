@@ -53,5 +53,13 @@
   "disclosure": "an exploratory run of exactly this rule on seed 3 was done BEFORE this amendment was written (reselect_r2_s3.json: picks gen 54, blind composite 0.958, dash 16/16). That number is therefore not blind with respect to the choice of the rule; the rule's parameters (8 per task, zero crashes) were fixed in the proposal to the user before that run and were not tuned on its outcome. Seeds 1 and 2 are evaluated under the rule without any prior look.",
   "reporting": "the paper reports both selections for every seed: the original round-2 rule (4 per task, lowest composite) and amendment 2; H1/H1' are judged on the amendment-2 selection, with the original listed alongside. Thresholds are unchanged.",
   "extension_seeds": "if seeds 4 and 5 are added later they will be declared before their imitation training starts and H1/H1' will then require >= 3 of 5 seeds."
+ },
+ "amendment_3": {
+  "time": "2026-10-15 01:05:32 UTC",
+  "written_before": "any result of the CloudPC seed-3 search (and before the HomePC seed-2 search finishes)",
+  "what": "seed 3's round-2 ES search is repeated on CloudPC (the machine on which every selection and blind test is run), same seed, same settings (60 generations, 30 workers); the HomePC search is kept and reported. Likewise seed 2's search moved from the Mac to HomePC (Linux); the Mac run is archive-only.",
+  "why": "the saved centres of the HomePC seed-3 search are numerically unstable across machines (gen 49: validation 0.805 on HomePC vs 0.918 on CloudPC; gen 54: 0.807 vs 0.810), so search and selection on different machines evaluate different behaviours of the same weights. Seed 1 was searched and selected on CloudPC; the Mac differs from Linux even more (seed 2 blind 0.981 with upset 1.054 instead of 1.050).",
+  "rule": "for every seed the primary run for the H1/H1' tally is the run searched on CloudPC when one exists (seed 1, seed 3 replicate); seed 2 (HomePC search) has no CloudPC replicate and its HomePC run is primary. Selection by amendment 2 (16 validation cases, zero crashes), one blind test per selected centre. The HomePC seed-3 results (original rule 1.114, amendment 2 0.958) are reported alongside as a machine replicate; if the CloudPC run is worse this is reported as such, the rule is not revisited.",
+  "requested_by": "user, 2026-10-15 ('\u7528cloudpc\u91cd\u65b0\u8dd1\u4e00\u4e0b\u79cd\u5b503'), after the assistant advised that a plain rerun would be selective; the rule above is what makes it reportable."
  }
 }
