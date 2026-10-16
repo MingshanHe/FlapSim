@@ -84,5 +84,62 @@
   4,
   5
  ],
- "source": "runs/spike_steer/bench_r2"
+ "source": "runs/spike_steer/bench_r2",
+ "amendment_1": {
+  "time": "2026-10-16 02:59:40 UTC",
+  "written_before": "any round-3 centre selection or blind test (no round-3 centre has been re-validated or blind-tested on any machine; CloudPC never pushed a round-3 result)",
+  "what": "CloudPC (the selection and blind-test machine) was lost on 2026-10-16 and cannot be recovered. A new Linux machine, claude-ea (32 cores, Python 3.11, mujoco 3.8.0, torch 2.6.0, numpy 2.2.4, neat-python), replaces it in every CloudPC role: (1) the round-3 searches of seeds 1, 3, 4 (CloudPC seed 1 started 2026-10-15 12:47 UTC, nothing pushed) are run from scratch on claude-ea with the unchanged settings (run_r3_seed.sh, 60 generations, 30 workers; --hours raised 9 -> 12 as a wall-clock safety cap only, generation count unchanged); (2) every round-3 centre selection (reselect_r3.py, 16 validation cases, unchanged rule) and blind test, for all five seeds incl. the HomePC searches of seeds 2 and 5, runs on claude-ea; (3) the PRIMARY normalisers and opponent test rows are re-computed on claude-ea: every classical arm of every task re-run on the unchanged blind sets, normalisers by the pre-registered rule (nod/dash: opponent per-case median; hover/upset: opponent mean). The pre-registered CloudPC normalisers are reported as the SECONDARY normalisation. H1/H1prime/H2/H5 counting rules unchanged (>= 3/5 seeds).",
+  "normalisers_primary_claude_ea": {
+   "hover": 5.77345354291285,
+   "nod": 0.9390283255160454,
+   "dash": 5.56288034121123,
+   "upset": 74.96499885854662
+  },
+  "normalisers_secondary_cloudpc": {
+   "hover": 5.751475424159841,
+   "nod": 0.9542258775167782,
+   "dash": 5.565834461018171,
+   "upset": 75.02540087007979
+  },
+  "cross_machine_check": {
+   "per_task": {
+    "hover": {
+     "matched": 32,
+     "same_outcome": 32,
+     "mean_rel": 0.011710116944559975,
+     "max_rel": 0.057420082091431505
+    },
+    "nod": {
+     "matched": 48,
+     "same_outcome": 48,
+     "mean_rel": 0.00403066231996549,
+     "max_rel": 0.07068856673666063
+    },
+    "dash": {
+     "matched": 48,
+     "same_outcome": 48,
+     "mean_rel": 0.0009410089019085208,
+     "max_rel": 0.0043172559252976465
+    },
+    "upset": {
+     "matched": 144,
+     "same_outcome": 143,
+     "mean_rel": 0.008826512723149235,
+     "max_rel": 0.1939680591223467
+    }
+   },
+   "summary": "371/372 classical episodes have the same outcome (flown/crashed) on claude-ea and CloudPC; mean relative score difference 0.1-1.2% per task; the one differing outcome is an upset case. Nod normaliser 0.9390 vs 0.9542 (-1.6%), so the primary normalisation is slightly STRICTER for the learned layer."
+  },
+  "why": "the prereg requires selection and blind test on one machine because the same spec scores differently across machines (round 2). With CloudPC gone, comparing learned specs run on claude-ea against CloudPC opponent rows would be a cross-machine comparison; running both sides on claude-ea keeps the comparison same-machine. Decided by the user (2026-10-16) before any round-3 selection or blind test.",
+  "files": [
+   "artifacts/spike_steer/plan_v4/r3/claude_ea/baseline.json",
+   "artifacts/spike_steer/plan_v4/r3/claude_ea/train/baseline.json",
+   "experiments/algorithms/spike_steer/_local/amend5_baseline.py"
+  ],
+  "commands": [
+   "python -m experiments.algorithms.spike_steer._local.amend5_baseline --workers 2  (-> runs/spike_steer/bench_r3_local)",
+   "python -m experiments.algorithms.spike_steer.reselect_r3 --seed S --output runs/spike_steer/bench_r3_local --centres <finetune_sS> --tag r3_sS --workers W",
+   "python -m experiments.algorithms.spike_steer.descend_r3 evaluate --output runs/spike_steer/bench_r3_local --seed S --spec <selected spec> --tag r3_sS"
+  ]
+ }
 }
