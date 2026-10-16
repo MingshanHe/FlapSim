@@ -141,5 +141,13 @@
    "python -m experiments.algorithms.spike_steer.reselect_r3 --seed S --output runs/spike_steer/bench_r3_local --centres <finetune_sS> --tag r3_sS --workers W",
    "python -m experiments.algorithms.spike_steer.descend_r3 evaluate --output runs/spike_steer/bench_r3_local --seed S --spec <selected spec> --tag r3_sS"
   ]
+ },
+ "amendment_2": {
+  "time": "2026-10-16 06:24:25 UTC",
+  "written_before": "any selection or blind-test result of seed 5 (HomePC search finished and pushed 9885aaa; its claude-ea re-selection had not started) and before any result of the seed-3/4 searches (stopped at generation 3, never validated beyond gen -1)",
+  "written_after": "the claude-ea blind tests of seed 2 (0.973, 0/32 nod+dash crashes) and seed 1 (0.999, 1 dash height_escape crash)",
+  "what": "round 3 stops at three seeds (1, 2, 5). The seed-3 and seed-4 searches (claude-ea, started 2026-10-16 05:45 UTC) are stopped and not reported as results. The round-3 verdict is given on seeds 1, 2, 5 with the counting rule unchanged in absolute terms: H1/H1prime/H2/H5 pass only if >= 3 seeds pass, i.e. all three. Seeds 1 and 2 already fail H1, so round 3 FAILS H1, H1prime and H2 whatever seed 5 gives. Seed 5 is still selected and blind-tested (selection rule, normalisers, machine per amendment 1) and reported in full, with ablations (H3).",
+  "why": "the user decided (2026-10-16 15:2x JST) to move the compute to round 4. With seeds 1 and 2 failing H1, round 3 can pass only if seeds 3, 4 and 5 all pass; the remaining searches would occupy 30 cores until about 22:30 JST. The round-4 design waits for the height_escape diagnostic (HomePC, training-split cases only). Precedent: round-2 amendment 5 (seed 4 not searched in round 2). This amendment is written after two failing seeds were seen, which is disclosed; it cannot turn a failure into a pass (it removes two chances to pass).",
+  "disclosure": "the searches of seeds 3 and 4 had produced only in-run ES centres up to generation 3 (validation at gen -1 only); these logs are not archived as results."
  }
 }
