@@ -1,0 +1,221 @@
+{
+  "status": "passed",
+  "reviewed_on_utc": "2026-10-08",
+  "evolution_review": {
+    "representative": "pilot/neat_seed1204",
+    "files": [
+      "evolution_summary.png",
+      "selected_topology.png",
+      "lineage_weights.png",
+      "selected_family_tree.png",
+      "lineage_weight_curves.png",
+      "lineage_biases.png",
+      "mutations_and_weights.png"
+    ],
+    "checks": [
+      "axis labels and legends readable",
+      "positive/negative edges distinguished",
+      "gray absent or disabled weights distinguished from near-zero white",
+      "both-parent ancestry separated from one weight-history path",
+      "initial-only selected genome case inspected in seed1202"
+    ],
+    "browser": {
+      "selected_policy": "gen8 #1101, 28 enabled edges",
+      "parent_navigation": "#931 located successfully",
+      "weight_threshold": "0.1 verified; restored to 0",
+      "disabled_edges": "checkbox toggled and restored",
+      "console_errors": [],
+      "result": "passed"
+    }
+  },
+  "scope": "Visual review checks presentation and browser behavior, not evidence of real-world flight or causal importance.",
+  "figures_reviewed": [
+    "method_comparison.png",
+    "figures/neat_stress.png",
+    "figures/neat_stress_observations.png",
+    "figures/neat_stress_activations.png"
+  ],
+  "flight_browser": {
+    "page": "flight/neat_stress.html",
+    "ticks": 2000,
+    "recording_hz": 100,
+    "checked_tick": 500,
+    "checked_time_seconds": 5,
+    "target_node": "motor output ID 2",
+    "displayed_sum": 0.1867,
+    "displayed_tanh_output": 0.18456,
+    "recorded_output": 0.18456,
+    "playback_advanced": true,
+    "pause_verified": true,
+    "console_errors": [],
+    "status": "passed"
+  },
+  "image_integrity": {
+    "decoded_evolution_images": 170,
+    "animations": [
+      {
+        "path": "pilot/fixed_evo_seed1201/visuals/topology_evolution.gif",
+        "frames": 9,
+        "size": [
+          1200,
+          720
+        ]
+      },
+      {
+        "path": "pilot/fixed_evo_seed1202/visuals/topology_evolution.gif",
+        "frames": 9,
+        "size": [
+          1200,
+          720
+        ]
+      },
+      {
+        "path": "pilot/fixed_evo_seed1203/visuals/topology_evolution.gif",
+        "frames": 9,
+        "size": [
+          1200,
+          720
+        ]
+      },
+      {
+        "path": "pilot/fixed_evo_seed1204/visuals/topology_evolution.gif",
+        "frames": 9,
+        "size": [
+          1200,
+          720
+        ]
+      },
+      {
+        "path": "pilot/fixed_evo_seed1205/visuals/topology_evolution.gif",
+        "frames": 9,
+        "size": [
+          1200,
+          720
+        ]
+      },
+      {
+        "path": "pilot/neat_seed1201/visuals/topology_evolution.gif",
+        "frames": 9,
+        "size": [
+          1200,
+          720
+        ]
+      },
+      {
+        "path": "pilot/neat_seed1202/visuals/topology_evolution.gif",
+        "frames": 9,
+        "size": [
+          1200,
+          720
+        ]
+      },
+      {
+        "path": "pilot/neat_seed1203/visuals/topology_evolution.gif",
+        "frames": 9,
+        "size": [
+          1200,
+          720
+        ]
+      },
+      {
+        "path": "pilot/neat_seed1204/visuals/topology_evolution.gif",
+        "frames": 9,
+        "size": [
+          1200,
+          720
+        ]
+      },
+      {
+        "path": "pilot/neat_seed1205/visuals/topology_evolution.gif",
+        "frames": 9,
+        "size": [
+          1200,
+          720
+        ]
+      }
+    ]
+  },
+  "nominal_media_visual": {
+    "sampled_frames": [
+      "review_frames/comparison_nominal_frame1199.png",
+      "review_frames/neat_wings_nominal_10x_frame25.png",
+      "review_frames/neat_wings_nominal_10x_frame137.png"
+    ],
+    "checks": [
+      "legible whole-episode verdict and actuator telemetry",
+      "body close-up and height reference visible",
+      "recorded wing pose differs between sampled slow-motion frames",
+      "nominal 20-second endpoint visible"
+    ],
+    "status": "passed"
+  },
+  "stress_media_visual": {
+    "sampled_frames": [
+      "review_frames/comparison_stress_frame1199.png",
+      "review_frames/neat_wings_stress_10x_frame25.png",
+      "review_frames/neat_wings_stress_10x_frame137.png"
+    ],
+    "checks": [
+      "whole-episode FAIL is visible while robot remains airborne",
+      "height, tilt, signed actuator commands and XY drift readable",
+      "wing poses visibly differ between slow-motion frames"
+    ],
+    "status": "passed"
+  },
+  "reviewed_at_utc": "2026-10-08T22:35:56.920795+00:00",
+  "media_format_and_decode": {
+    "comparison_nominal": {
+      "width": 1440,
+      "height": 768,
+      "avg_frame_rate": "60/1",
+      "duration": "21.000000",
+      "nb_frames": "1260",
+      "complete_decode": "passed",
+      "review_frame_indices": [
+        1199
+      ]
+    },
+    "neat_wings_nominal_10x": {
+      "width": 960,
+      "height": 620,
+      "avg_frame_rate": "25/1",
+      "duration": "10.000000",
+      "nb_frames": "250",
+      "complete_decode": "passed",
+      "review_frame_indices": [
+        25,
+        137
+      ]
+    },
+    "comparison_stress": {
+      "width": 1440,
+      "height": 768,
+      "avg_frame_rate": "60/1",
+      "duration": "21.000000",
+      "nb_frames": "1260",
+      "complete_decode": "passed",
+      "review_frame_indices": [
+        1199
+      ]
+    },
+    "neat_wings_stress_10x": {
+      "width": 960,
+      "height": 620,
+      "avg_frame_rate": "25/1",
+      "duration": "10.000000",
+      "nb_frames": "250",
+      "complete_decode": "passed",
+      "review_frame_indices": [
+        25,
+        137
+      ]
+    }
+  },
+  "all_evolution_image_frames_decoded": true,
+  "dashboard_browser": {
+    "status": "passed",
+    "displayed_runs": "35 / 35",
+    "displayed_stage": "报告已完成",
+    "progress_percent": 100
+  }
+}

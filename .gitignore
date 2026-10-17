@@ -1,3 +1,25 @@
+# Python bytecode and tool caches
 __pycache__/
 *.py[cod]
-flapsim/rl/runs/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+.coverage
+.coverage.*
+htmlcov/
+
+# Local environments and packaging output
+.venv/
+venv/
+*.egg-info/
+build/
+dist/
+runs/
+
+# Operating system files
+.DS_Store
+Thumbs.db
+
+# Host-local publication receipt; scientific artifacts and pause records are tracked.
+/artifacts/snn_hover_20261009_publication_status.json

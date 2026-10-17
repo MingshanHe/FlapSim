@@ -1,0 +1,57 @@
+[
+  {
+    "trajectory": "hover",
+    "mean_rmse_m": 0.12026699529921354,
+    "success_rate": 0.0,
+    "mean_completion_fraction": 0.06708333333333334,
+    "randomized_resets": true,
+    "seed": 1000,
+    "controller": "zero_action",
+    "episode_seconds": 8.0,
+    "physics_engine": "split",
+    "policy_timesteps": 540848,
+    "policy_sha256": "6753b5e8201269235804e77167049c6d35c78187da285b12871d05379cbcd1f4",
+    "normalizer_sha256": "d2af637b6c98619bb46e9f8ceff29fa6bda8c9ace2c8c16921edf386989da417",
+    "episodes": [
+      {
+        "episode": 0,
+        "rmse_m": 0.10953689015189692,
+        "max_error_m": 0.21013938812051142,
+        "seconds": 0.54,
+        "completion_fraction": 0.0675,
+        "success": false,
+        "termination_reason": "tilt",
+        "reference_radius_m": 0.20830734776050638,
+        "reference_period_s": 7.907013751431212,
+        "reference_phase_rad": 3.2759632082178998,
+        "reward": 125.12736932119952
+      },
+      {
+        "episode": 1,
+        "rmse_m": 0.12253355642228304,
+        "max_error_m": 0.22979451323493416,
+        "seconds": 0.54,
+        "completion_fraction": 0.0675,
+        "success": false,
+        "termination_reason": "tilt",
+        "reference_radius_m": 0.16125603742562655,
+        "reference_period_s": 7.000606646022176,
+        "reference_phase_rad": 3.8490474544434434,
+        "reward": 120.56416276522067
+      },
+      {
+        "episode": 2,
+        "rmse_m": 0.12873053932346068,
+        "max_error_m": 0.235078527384673,
+        "seconds": 0.53,
+        "completion_fraction": 0.06625,
+        "success": false,
+        "termination_reason": "tilt",
+        "reference_radius_m": 0.18857514701367575,
+        "reference_period_s": 8.792359414618211,
+        "reference_phase_rad": 2.392769913927408,
+        "reward": 115.95001856429647
+      }
+    ]
+  }
+]

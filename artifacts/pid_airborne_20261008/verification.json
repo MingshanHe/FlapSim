@@ -1,0 +1,60 @@
+{
+  "regression_tests": "29 passed",
+  "test_log": "logs/tests.log",
+  "manifests": [
+    {
+      "manifest": "artifacts/neat_ppo_7g8g_20261008/training_source_manifest.json",
+      "files": 85,
+      "all_match": true
+    },
+    {
+      "manifest": "artifacts/hover9_pid_20261008/training_manifest.json",
+      "files": 100,
+      "all_match": true
+    },
+    {
+      "manifest": "artifacts/hover9_pid_20261008/source_manifest.json",
+      "files": 108,
+      "all_match": true
+    },
+    {
+      "manifest": "artifacts/pid_airborne_20261008/source_manifest_test.json",
+      "files": 125,
+      "all_match": true
+    }
+  ],
+  "seed_separation": true,
+  "heldout_seed_count": 26,
+  "video_replays": [
+    {
+      "label": "imu_nominal",
+      "seed": 310900000,
+      "elapsed": 20.0,
+      "trace_verified_atol": 1e-12,
+      "portable_mesh_relocation": true
+    },
+    {
+      "label": "truth_height_diagnostic",
+      "seed": 310900000,
+      "elapsed": 20.0,
+      "trace_verified_atol": 1e-12,
+      "portable_mesh_relocation": true
+    }
+  ],
+  "duration_compression": "All exported float64 trace and audit arrays reloaded and checked by array_equal",
+  "versions": {
+    "mujoco": "3.8.0",
+    "numpy": "2.2.4",
+    "neat-python": "2.0.0",
+    "gymnasium": "1.1.1"
+  },
+  "base_commit": "5926642228194e16e0893c94f2e4364e2cfce530",
+  "video_format": {
+    "width": 1280,
+    "height": 720,
+    "fps": 25,
+    "frames_each": 525,
+    "duration_each_s": 21
+  },
+  "visual_inspection": "Both scientific plots and nominal final video frame inspected; correct labels and visible ground/clearance."
+}

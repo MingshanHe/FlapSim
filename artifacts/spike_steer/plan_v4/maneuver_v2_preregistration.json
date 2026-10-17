@@ -1,0 +1,80 @@
+{
+ "version": "maneuver_v2 (research plan v4, stage S0)",
+ "change_from_v1": "maneuver module has setpoint authority (ReferencePID.rpy_reference); T3 target 0.25 m / 4 s window; 8 tuning + 16 blind test cases; CEM elites must fly all tuning cases",
+ "tasks": {
+  "nod": "t_30 (|pitch| >= 30 deg held >= 0.1 s) + t_recover (to < 5 deg) + .03 dz_cm + .5 |drift_m| (+ crash 10 + 5 x unflown); miss = 2.5 s each",
+  "dash": "t_reach (0.25 m) + t_settle + 2 overshoot_m (beyond 0.35 m) + .03 dz_cm + .5 |lateral_m| (+ crash); miss = 4 s (+2 x shortfall)"
+ },
+ "arms": [
+  "hover_only",
+  "S1 schedule grid (setpoint + optional pulses)",
+  "S2 schedule CEM (crash-constrained)",
+  "S3 privileged truth-rate brake CEM"
+ ],
+ "gate_S0": "classical S1 (or S2) reaches a sustained 30 deg in >= 12/16 test cases (nod) and 0.25 m in >= 12/16 (dash); otherwise the task definition is revised before any learner is trained",
+ "headroom_rule": "S2 or S3 beats S1 by >= 20 % on the 16 test cases -> learning room; the classical opponent for the composite benchmark is the better of S1/S2 on the TEST set only if it was selected on the TUNING set (it is)",
+ "cases": {
+  "nod": {
+   "tune": [
+    2096000000,
+    2096000001,
+    2096000002,
+    2096000003,
+    2096000004,
+    2096000005,
+    2096000006,
+    2096000007
+   ],
+   "test": [
+    2096100000,
+    2096100001,
+    2096100002,
+    2096100003,
+    2096100004,
+    2096100005,
+    2096100006,
+    2096100007,
+    2096100008,
+    2096100009,
+    2096100010,
+    2096100011,
+    2096100012,
+    2096100013,
+    2096100014,
+    2096100015
+   ]
+  },
+  "dash": {
+   "tune": [
+    2096000000,
+    2096000001,
+    2096000002,
+    2096000003,
+    2096000004,
+    2096000005,
+    2096000006,
+    2096000007
+   ],
+   "test": [
+    2096100000,
+    2096100001,
+    2096100002,
+    2096100003,
+    2096100004,
+    2096100005,
+    2096100006,
+    2096100007,
+    2096100008,
+    2096100009,
+    2096100010,
+    2096100011,
+    2096100012,
+    2096100013,
+    2096100014,
+    2096100015
+   ]
+  }
+ },
+ "time": "2026-10-13 15:05:20",
+ "quick": false
+}

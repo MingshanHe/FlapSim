@@ -1,0 +1,18 @@
+{
+  "status": "frozen_before_independent_tests",
+  "created_unix": 1791509586.2729142,
+  "reason": "Audit identified that single-factor effects need a baseline with identical scenario seeds, phases and noise, not a comparison against the different core-test seed set.",
+  "factor_names": [
+    "stress_baseline",
+    "delay_10ms",
+    "motor_3pct",
+    "lower9g",
+    "pulse_1p5x"
+  ],
+  "extra_episodes": 288,
+  "total_evaluation_episodes": 11888,
+  "training_protocol_unchanged": true,
+  "policy_selection_unchanged": true,
+  "no_test_outcomes_accessed": true,
+  "scope": "Add8 paired baseline scenarios for each of35 final learned policies andPID; no new optimization or selection."
+}

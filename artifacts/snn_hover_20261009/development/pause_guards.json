@@ -1,0 +1,14 @@
+[
+  {
+    "arguments": [],
+    "exit_code": 1,
+    "expected_message": "Explicit --resume is required"
+  },
+  {
+    "arguments": [
+      "--resume"
+    ],
+    "exit_code": 1,
+    "expected_message": "final run is still active"
+  }
+]

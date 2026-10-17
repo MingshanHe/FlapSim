@@ -1,0 +1,16 @@
+{
+  "peek_density_kg_m3": 1300.0,
+  "pet_frame_density_kg_m3": 1390.0,
+  "kapton_density_kg_m3": 1420.0,
+  "kapton_thickness_m": 0.00001,
+  "membrane_plane_abs_x_m": 0.00035,
+  "manufacturing": "PEEK solid plate, CNC milled; no infill factor",
+  "material_assignment": "base_link unchanged; left/right wing solids PET and membranes Kapton; all other physical moving links PEEK",
+  "density_status": "Nominal unreinforced material densities; exact purchased grades and measured masses not provided",
+  "sources": {
+    "PEEK": "https://cdn.victrex.com/zh-hans/downloads/datasheets/victrex-peek-450g",
+    "PET": "https://www.mcam.com/mam/49643/GEP-Ertalyte%C2%AE%20PET-P_en_US.pdf",
+    "Kapton": "https://www.dupont.com/content/dam/electronics/amer/us/en/electronics/public/documents/en/EI-10206-Kapton-HN-Data-Sheet.pdf",
+    "thickness_and_assignment": "User confirmed 2026-09-22: PET frame, 10 um Kapton membrane, CNC PEEK mechanisms"
+  }
+}

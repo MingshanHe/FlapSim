@@ -1,0 +1,35 @@
+{
+  "method": "graph_ppo",
+  "seed": 1204,
+  "sensor": "height",
+  "status": "completed",
+  "training_steps": 262144,
+  "validation_steps": 16000,
+  "demonstration_steps": 0,
+  "budget": 262144,
+  "update": 128,
+  "loss": -0.0005464145845811194,
+  "approx_kl": 0.0033495272170209014,
+  "wall_seconds": 1513.2018644659984,
+  "best_validation": {
+    "episodes": 4,
+    "success_rate": 0.75,
+    "mean_return": 27.94956410273368,
+    "mean_elapsed": 8.0,
+    "tilt_rms_deg": 7.042494637117933,
+    "height_rmse_m": 0.061248703976534306,
+    "steps": 3200,
+    "minimum_clearance_m": 0.5259374929108033
+  },
+  "inference": {
+    "nodes": 5,
+    "hidden": 2,
+    "connections": 28,
+    "effective_connections": 27,
+    "recurrent_edges": 4,
+    "parameters": 33,
+    "state_floats": 5,
+    "numpy_inference_us_median": 3.2440795002912637,
+    "implementation": "CPU NumPy dense evaluation of the exported actor; not an MCU measurement"
+  }
+}

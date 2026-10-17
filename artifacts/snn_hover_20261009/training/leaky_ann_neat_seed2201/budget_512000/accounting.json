@@ -1,0 +1,21 @@
+{
+  "method": "leaky_ann_neat",
+  "seed": 2201,
+  "status": "training",
+  "training_steps": 512000,
+  "allocated_steps": 512000,
+  "validation_steps": 70400,
+  "budget": 1024000,
+  "generation": 29,
+  "best_validation": {
+    "episodes": 8,
+    "success_rate": 1.0,
+    "mean_return": 28.709084127617018,
+    "mean_elapsed": 8.0,
+    "tilt_rms_deg": 5.479023573259303,
+    "height_rmse_m": 0.0635829847796989,
+    "steps": 6400,
+    "minimum_clearance_m": 0.5070137943676206
+  },
+  "wall_seconds": 1786.9520322929893
+}

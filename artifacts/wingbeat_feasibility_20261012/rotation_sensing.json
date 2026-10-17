@@ -1,0 +1,45 @@
+{
+  "roll_rate_peak_rad_s": 3.9107258599236094,
+  "per_component": {
+    "Fx": {
+      "flapping_load_rms": 0.9375399547192248,
+      "rotation_gain_rms_per_rad_s": 0.0064753958117398985,
+      "ratio_per_rad_s": 0.006906794509551495,
+      "residual_variance_explained": 0.1435940733642137
+    },
+    "Fy": {
+      "flapping_load_rms": 2.0069743360915564,
+      "rotation_gain_rms_per_rad_s": 0.011767550378508601,
+      "ratio_per_rad_s": 0.005863328776502988,
+      "residual_variance_explained": 0.2819160273161361
+    },
+    "Fz": {
+      "flapping_load_rms": 1.711022039058264,
+      "rotation_gain_rms_per_rad_s": 0.011910894229228084,
+      "ratio_per_rad_s": 0.006961274581701921,
+      "residual_variance_explained": 0.09809513562458283
+    },
+    "Tx": {
+      "flapping_load_rms": 0.008119928290630055,
+      "rotation_gain_rms_per_rad_s": 0.00011151803269304112,
+      "ratio_per_rad_s": 0.013733869155190289,
+      "residual_variance_explained": 0.1062953838857833
+    },
+    "Ty": {
+      "flapping_load_rms": 0.0438378400652682,
+      "rotation_gain_rms_per_rad_s": 0.0003255251192559792,
+      "ratio_per_rad_s": 0.007425665105108267,
+      "residual_variance_explained": 0.08579303057428056
+    },
+    "Tz": {
+      "flapping_load_rms": 0.06549084801722366,
+      "rotation_gain_rms_per_rad_s": 0.0003262438264489511,
+      "ratio_per_rad_s": 0.004981517820064739,
+      "residual_variance_explained": 0.4813041103201804
+    }
+  },
+  "units": "wing-root load on left_wing (parent on child), thrust-unit axes; N and N.m about the wing body origin",
+  "model": "residual = G(phase)*roll_rate + H(phase)*roll_acceleration + c(phase), 72 phase bins",
+  "wing_mass_g": 0.33384950213041803,
+  "scope": "fixed mount; quasi-steady blade elements; ideal noiseless sensors; feasibility only"
+}

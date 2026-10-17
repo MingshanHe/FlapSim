@@ -1,0 +1,106 @@
+{
+  "status": "registered_before_training",
+  "date": "2026-10-08",
+  "stage": "pilot",
+  "seeds": [
+    1201,
+    1202,
+    1203,
+    1204,
+    1205
+  ],
+  "target_actor_steps_per_run": 262144,
+  "population": 128,
+  "methods": [
+    "neat",
+    "fixed_evo",
+    "ff_ppo",
+    "rnn_ppo",
+    "direct_ppo"
+  ],
+  "input_dimensions": {
+    "height": 11,
+    "imu": 9
+  },
+  "mass_g": [
+    7,
+    8
+  ],
+  "actor_hz": 100,
+  "pid_hz": 500,
+  "physics_hz": 200000,
+  "task": "attitude stabilization and height hold; no yaw or XY control",
+  "sensors": {
+    "imu_raw_rate_hz": 1000,
+    "accel_range_g": 32,
+    "gyro_range_deg_s": 2000,
+    "anti_alias": "two cascaded first-order filters, each 80 Hz, before decimation",
+    "orientation": "virtual AHRS: sampled simulated orientation plus bias/noise, not a complete gyro/accelerometer fusion model",
+    "attitude_filter_tau_s": 0.13045658515789563,
+    "height_rate_hz": 50,
+    "height_delay_s": 0.02,
+    "height_range_noise_sigma_m": 0.002,
+    "initial_height": "exact release height supplied as initial reference; subsequent feedback uses delayed noisy range, never true vertical velocity"
+  },
+  "residual_scale": [
+    0.035,
+    0.035,
+    100.0
+  ],
+  "baseline_source": "artifacts/pid_airborne_20261008/selected_pid.json",
+  "selection": "4 validation scenarios per training seed, nominal/stress, 8 seconds; success rate then mean return then tilt RMS",
+  "test": {
+    "seeds": [
+      340000000,
+      340000001,
+      340000002,
+      340000003,
+      340000004,
+      340000005,
+      340000006,
+      340000007
+    ],
+    "seconds": 20,
+    "conditions": [
+      "nominal",
+      "stress",
+      "ood"
+    ],
+    "long_seeds": [
+      340100000,
+      340100001,
+      340100002,
+      340100003
+    ],
+    "long_seconds": 60,
+    "long_conditions": [
+      "nominal",
+      "stress"
+    ],
+    "ood_definition": {
+      "lower_mass_g": 9.0,
+      "upper_mass_g": 7.0,
+      "initial_degrees": 8.0,
+      "sensor_delay_inner_ticks": 5,
+      "motor_command_uncertainty": 0.03,
+      "height_delay_s": 0.04,
+      "pulse_force_N": 0.009,
+      "pulse_torque_Nm": 1.2e-05,
+      "note": "Combined OOD condition; cannot attribute effects to one changed variable."
+    },
+    "structural_interventions": [
+      "unchanged",
+      "remove_past_state_paths",
+      "remove_direct_cross_axis",
+      "three random masks matched to each removal count"
+    ],
+    "sensor_ablation": "Remove height feedback and actor height/vz inputs from trained representatives, without retraining; not a separate 9-D training benchmark. The 32-g IMU preflight revealed severe inertial drift."
+  },
+  "topology_transfer": "Selected NEAT graph: weights reset, same PPO optimizer; compare indegree/node/edge matched random graphs, search cost counted separately and in total",
+  "inference": "Same NumPy CPU actor implementation; not MCU hardware evidence",
+  "statistical_unit": "training seed; paired held-out scenarios; bootstrap over independent training seeds",
+  "stopping": "Pilot first. Expand independent seeds to 10 if measurable residual benefit appears. Lack of benefit is reported, not used to silently select a favorable test.",
+  "failure_accounting": "Initial smoke NEAT failed because the activation registration API requires a Python function; corrected before any training. Smoke/preflight episodes are separate from training budgets.",
+  "expansion_gate": "After five pilot seeds: expand to ten if >=3/5 NEAT seeds improve paired PID validation return >1% and tilt RMS >5%. Gate recorded while first NEAT seed is still training; no PID validation comparison has yet run.",
+  "remaining_plan": "Train matched direct/FF/recurrent PPO, fixed-topology evolution; transfer selected graphs to PPO with independent random graph controls; freeze then test; structural and sensor ablations; final report, all-seed visualizations, videos and v3 push."
+}

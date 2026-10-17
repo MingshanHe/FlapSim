@@ -1,0 +1,27 @@
+{
+  "method": "neat",
+  "seed": 942,
+  "status": "completed",
+  "training_steps": 277096,
+  "validation_steps": 7530,
+  "generation": 25,
+  "best_validation": {
+    "episodes": 8,
+    "successes": 0,
+    "mean_elapsed": 1.6075000000000002,
+    "p10_elapsed": 0.755,
+    "mean_tracking_rmse_m": 0.19891092842320107,
+    "mean_tilt_rmse_deg": 38.88739319909132,
+    "mean_discounted_return": 3.0669021983870324,
+    "mean_saturation_fraction": 0.970912965030507,
+    "control_steps": 1286,
+    "termination_counts": {
+      "ground": 4,
+      "tilt": 4
+    },
+    "mean_observer_rmse_m": 0.02074176922638297,
+    "mean_observer_final_error_m": 0.040477595333242314
+  },
+  "wall_seconds": 1914.4145421770008,
+  "generations": 26
+}

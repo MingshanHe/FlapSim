@@ -1,0 +1,19 @@
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/home/robot/rl/FlapSim-v3-neat-ppo/experiments/algorithms/topology_hover/evolve.py", line 123, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/home/robot/rl/FlapSim-v3-neat-ppo/experiments/algorithms/topology_hover/evolve.py", line 121, in main
+    train(p.parse_args())
+  File "/home/robot/rl/FlapSim-v3-neat-ppo/experiments/algorithms/topology_hover/evolve.py", line 70, in train
+    cfg=config_file(output,args.population,ninputs,args.method=='fixed_evo')
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/robot/rl/FlapSim-v3-neat-ppo/experiments/algorithms/topology_hover/evolve.py", line 40, in config_file
+    cfg.genome_config.activation_defs.add('plain_tanh',math.tanh)
+  File "/home/robot/miniconda3/envs/mujoco/lib/python3.11/site-packages/neat/activations.py", line 141, in add
+    validate_activation(function)
+  File "/home/robot/miniconda3/envs/mujoco/lib/python3.11/site-packages/neat/activations.py", line 109, in validate_activation
+    if function.__code__.co_argcount != 1:  # avoid deprecated use of `inspect`
+       ^^^^^^^^^^^^^^^^^
+AttributeError: 'builtin_function_or_method' object has no attribute '__code__'. Did you mean: '__call__'?

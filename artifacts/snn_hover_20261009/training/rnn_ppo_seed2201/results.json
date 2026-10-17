@@ -1,0 +1,36 @@
+{
+  "method": "rnn_ppo",
+  "seed": 2201,
+  "sensor": "height",
+  "status": "completed",
+  "training_steps": 1024000,
+  "validation_steps": 134400,
+  "demonstration_steps": 0,
+  "budget": 1024000,
+  "update": 500,
+  "loss": 0.00026016430153201026,
+  "approx_kl": 0.0032379825909932456,
+  "wall_seconds": 4179.3606399560085,
+  "best_validation": {
+    "episodes": 8,
+    "success_rate": 0.625,
+    "mean_return": 27.66520896198132,
+    "mean_elapsed": 8.0,
+    "tilt_rms_deg": 7.464860077092225,
+    "height_rmse_m": 0.06306320935936853,
+    "steps": 6400,
+    "minimum_clearance_m": 0.5085136196516465
+  },
+  "validation_plateau": true,
+  "inference": {
+    "nodes": 11,
+    "hidden": 8,
+    "connections": 200,
+    "effective_connections": 200,
+    "recurrent_edges": 112,
+    "parameters": 211,
+    "state_floats": 11,
+    "numpy_inference_us_median": 3.4731589985312894,
+    "implementation": "CPU NumPy; includes all neural substeps; no hardware energy inference"
+  }
+}

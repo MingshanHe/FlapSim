@@ -1,0 +1,118 @@
+{
+  "run": "/home/robot/rl/FlapSim-ppo-v2/runs/tracking_candidate",
+  "seeds": [
+    5000,
+    5001,
+    5002
+  ],
+  "reference_physics": true,
+  "policy_sha256": "b2f891b76dd2dcc4d93816cb69348ecda68f254bcebb112b772bb30ef768a043",
+  "normalizer_sha256": "059a37f5db534d0b93383288049a9b9b9cf4838c16d8f7e3d0056ea37f82f691",
+  "episode_seconds": 16.0,
+  "nominal_period_s": 16.0,
+  "physics_engine": "original",
+  "trajectories": {
+    "helix": {
+      "success_rate": 0.6666666666666666,
+      "completion_rate": 1,
+      "mean_seconds": 16.0,
+      "mean_rmse_m": 0.07258679679060291,
+      "worst_rmse_m": 0.10150301977836462,
+      "episodes": [
+        {
+          "seed": 5000,
+          "episode": 0,
+          "rmse_m": 0.10150301977836462,
+          "max_error_m": 0.18029206687610788,
+          "seconds": 16.0,
+          "completion_fraction": 1.0,
+          "success": false,
+          "termination_reason": "time_limit",
+          "reference_radius_m": 0.22430657339469195,
+          "reference_period_s": 12.929215915716826,
+          "reference_phase_rad": 2.2335052086919545,
+          "reward": 4880.921185468555
+        },
+        {
+          "seed": 5001,
+          "episode": 0,
+          "rmse_m": 0.05027637131377716,
+          "max_error_m": 0.08504629028555674,
+          "seconds": 16.0,
+          "completion_fraction": 1.0,
+          "success": true,
+          "termination_reason": "time_limit",
+          "reference_radius_m": 0.1652504103018501,
+          "reference_period_s": 16.53228182572745,
+          "reference_phase_rad": 4.846688731762197,
+          "reward": 5388.919254647344
+        },
+        {
+          "seed": 5002,
+          "episode": 0,
+          "rmse_m": 0.06598099927966694,
+          "max_error_m": 0.10421146218552192,
+          "seconds": 16.0,
+          "completion_fraction": 1.0,
+          "success": true,
+          "termination_reason": "time_limit",
+          "reference_radius_m": 0.18083636945295936,
+          "reference_period_s": 13.85783948968825,
+          "reference_phase_rad": 4.816039988544673,
+          "reward": 5254.728377736501
+        }
+      ]
+    },
+    "lissajous": {
+      "success_rate": 1,
+      "completion_rate": 1,
+      "mean_seconds": 16.0,
+      "mean_rmse_m": 0.07403376089011468,
+      "worst_rmse_m": 0.09999736111231765,
+      "episodes": [
+        {
+          "seed": 5000,
+          "episode": 0,
+          "rmse_m": 0.09999736111231765,
+          "max_error_m": 0.17057742245763674,
+          "seconds": 16.0,
+          "completion_fraction": 1.0,
+          "success": true,
+          "termination_reason": "time_limit",
+          "reference_radius_m": 0.22430657339469195,
+          "reference_period_s": 12.929215915716826,
+          "reference_phase_rad": 2.2335052086919545,
+          "reward": 4902.424497847796
+        },
+        {
+          "seed": 5001,
+          "episode": 0,
+          "rmse_m": 0.051329422041558374,
+          "max_error_m": 0.08459653065320338,
+          "seconds": 16.0,
+          "completion_fraction": 1.0,
+          "success": true,
+          "termination_reason": "time_limit",
+          "reference_radius_m": 0.1652504103018501,
+          "reference_period_s": 16.53228182572745,
+          "reference_phase_rad": 4.846688731762197,
+          "reward": 5381.3814475006275
+        },
+        {
+          "seed": 5002,
+          "episode": 0,
+          "rmse_m": 0.07077449951646804,
+          "max_error_m": 0.10856835115004035,
+          "seconds": 16.0,
+          "completion_fraction": 1.0,
+          "success": true,
+          "termination_reason": "time_limit",
+          "reference_radius_m": 0.18083636945295936,
+          "reference_period_s": 13.85783948968825,
+          "reference_phase_rad": 4.816039988544673,
+          "reward": 5207.435799447038
+        }
+      ]
+    }
+  }
+}

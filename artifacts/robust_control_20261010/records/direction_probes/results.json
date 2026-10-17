@@ -1,0 +1,1582 @@
+[
+  {
+    "seed": 1412008000,
+    "case": {
+      "seed": 1412008000,
+      "seconds": 8.0,
+      "condition": "nominal",
+      "phase": 0,
+      "degrees": 2.0,
+      "motor_uncertainty": 0.0,
+      "acceleration_bias": 0.0,
+      "attitude_bias_deg": 0.0,
+      "delay_steps": 0,
+      "attitude_noise_deg": 0.02,
+      "gyro_noise": 0.002,
+      "accel_noise": 0.02,
+      "height_noise": 0.002,
+      "height_delay": 0.02,
+      "lower_mass_scale": 1.0,
+      "pulse_force": 0.0,
+      "pulse_torque": 0.0,
+      "task": "velocity",
+      "velocity_command": [
+        0,
+        0,
+        0
+      ],
+      "velocity_noise": 0.01,
+      "velocity_delay": 0.02,
+      "velocity_bias": 0.0,
+      "attitude_reference_override": [
+        0,
+        0
+      ],
+      "probe_name": "phase0_zero"
+    },
+    "steps": 4000,
+    "physics_steps": 1600000,
+    "elapsed": 8.0,
+    "termination": "time_limit",
+    "success": false,
+    "return_sum": 28.99736738366039,
+    "tilt_rms_deg": 3.9248828678170677,
+    "height_rmse_m": 0.058080194836463137,
+    "height_slope_m_s": -0.00047223592774341046,
+    "minimum_clearance_m": 0.5404851268764768,
+    "xy_offset_m": 0.11913458035237658,
+    "accel_clipped_fraction": 0.00577125,
+    "estimated_height_error_m": -0.0009500883506781133,
+    "phase": 0,
+    "velocity_rmse_m_s": [
+      0.028289901034330368,
+      0.016305547033418345,
+      0.007779892944171091
+    ],
+    "velocity_vector_rmse_m_s": 0.033566592004759546,
+    "tracking_nrmse": 1.6783296002379773,
+    "raw_velocity_rmse_m_s": [
+      0.16550038088618593,
+      0.019840836814933985,
+      0.020281811356131482
+    ],
+    "commanded_response_gain": 0.0,
+    "reference_height_rmse_m": 0.058080194836463137,
+    "sensor_assumption": "100 ms prefilter; 50 Hz noisy horizontal velocity; 20 ms delay; 100 ms postfilter",
+    "metric_velocity_filter_seconds": 0.1,
+    "task": "velocity",
+    "mode": "pid",
+    "inner_steps": 4000,
+    "mean_velocity": [
+      -0.004748636827960483,
+      0.016269591820259194,
+      0.0008024434735925372
+    ],
+    "mean_attitude_deg": [
+      0.08410979388771463,
+      -0.7824448830228375,
+      3.8904020313682666
+    ]
+  },
+  {
+    "seed": 1412008000,
+    "case": {
+      "seed": 1412008000,
+      "seconds": 8.0,
+      "condition": "nominal",
+      "phase": 0,
+      "degrees": 2.0,
+      "motor_uncertainty": 0.0,
+      "acceleration_bias": 0.0,
+      "attitude_bias_deg": 0.0,
+      "delay_steps": 0,
+      "attitude_noise_deg": 0.02,
+      "gyro_noise": 0.002,
+      "accel_noise": 0.02,
+      "height_noise": 0.002,
+      "height_delay": 0.02,
+      "lower_mass_scale": 1.0,
+      "pulse_force": 0.0,
+      "pulse_torque": 0.0,
+      "task": "velocity",
+      "velocity_command": [
+        0,
+        0,
+        0
+      ],
+      "velocity_noise": 0.01,
+      "velocity_delay": 0.02,
+      "velocity_bias": 0.0,
+      "attitude_reference_override": [
+        0.08,
+        0
+      ],
+      "probe_name": "phase0_roll_plus"
+    },
+    "steps": 4000,
+    "physics_steps": 1600000,
+    "elapsed": 8.0,
+    "termination": "time_limit",
+    "success": false,
+    "return_sum": 27.455896830076593,
+    "tilt_rms_deg": 4.028669273534732,
+    "height_rmse_m": 0.05784027007088488,
+    "height_slope_m_s": -0.00047227312053336367,
+    "minimum_clearance_m": 0.5411064728277596,
+    "xy_offset_m": 0.4882192257691474,
+    "accel_clipped_fraction": 0.006054583333333334,
+    "estimated_height_error_m": -0.000930040052810055,
+    "phase": 0,
+    "velocity_rmse_m_s": [
+      0.028493933769528506,
+      0.06772179149099972,
+      0.007510101274348747
+    ],
+    "velocity_vector_rmse_m_s": 0.07385490454643952,
+    "tracking_nrmse": 3.692745227321976,
+    "raw_velocity_rmse_m_s": [
+      0.165570555712405,
+      0.06913499440799646,
+      0.02054212778856437
+    ],
+    "commanded_response_gain": 0.0,
+    "reference_height_rmse_m": 0.05784027007088488,
+    "sensor_assumption": "100 ms prefilter; 50 Hz noisy horizontal velocity; 20 ms delay; 100 ms postfilter",
+    "metric_velocity_filter_seconds": 0.1,
+    "task": "velocity",
+    "mode": "pid",
+    "inner_steps": 4000,
+    "mean_velocity": [
+      0.001816607550890139,
+      -0.07029158176024024,
+      0.000733271166245665
+    ],
+    "mean_attitude_deg": [
+      -0.8615593683371088,
+      -0.774740145670805,
+      4.260703386089319
+    ]
+  },
+  {
+    "seed": 1412008000,
+    "case": {
+      "seed": 1412008000,
+      "seconds": 8.0,
+      "condition": "nominal",
+      "phase": 0,
+      "degrees": 2.0,
+      "motor_uncertainty": 0.0,
+      "acceleration_bias": 0.0,
+      "attitude_bias_deg": 0.0,
+      "delay_steps": 0,
+      "attitude_noise_deg": 0.02,
+      "gyro_noise": 0.002,
+      "accel_noise": 0.02,
+      "height_noise": 0.002,
+      "height_delay": 0.02,
+      "lower_mass_scale": 1.0,
+      "pulse_force": 0.0,
+      "pulse_torque": 0.0,
+      "task": "velocity",
+      "velocity_command": [
+        0,
+        0,
+        0
+      ],
+      "velocity_noise": 0.01,
+      "velocity_delay": 0.02,
+      "velocity_bias": 0.0,
+      "attitude_reference_override": [
+        -0.08,
+        0
+      ],
+      "probe_name": "phase0_roll_minus"
+    },
+    "steps": 4000,
+    "physics_steps": 1600000,
+    "elapsed": 8.0,
+    "termination": "time_limit",
+    "success": false,
+    "return_sum": 26.209095021457387,
+    "tilt_rms_deg": 3.959631947921322,
+    "height_rmse_m": 0.05808439256687856,
+    "height_slope_m_s": -0.0004850668971771395,
+    "minimum_clearance_m": 0.5404998223614281,
+    "xy_offset_m": 0.7106622746360487,
+    "accel_clipped_fraction": 0.006088125,
+    "estimated_height_error_m": -0.0007861745036017442,
+    "phase": 0,
+    "velocity_rmse_m_s": [
+      0.027787382432212505,
+      0.09767681515579064,
+      0.007606477175858551
+    ],
+    "velocity_vector_rmse_m_s": 0.10183691539142073,
+    "tracking_nrmse": 5.091845769571036,
+    "raw_velocity_rmse_m_s": [
+      0.16522129690660078,
+      0.09852175233260006,
+      0.020540029144901502
+    ],
+    "commanded_response_gain": 0.0,
+    "reference_height_rmse_m": 0.05808439256687856,
+    "sensor_assumption": "100 ms prefilter; 50 Hz noisy horizontal velocity; 20 ms delay; 100 ms postfilter",
+    "metric_velocity_filter_seconds": 0.1,
+    "task": "velocity",
+    "mode": "pid",
+    "inner_steps": 4000,
+    "mean_velocity": [
+      -0.009740502286065673,
+      0.09953069318063122,
+      0.0009327882862660873
+    ],
+    "mean_attitude_deg": [
+      0.9925169386129888,
+      -0.7696476245095392,
+      3.548972414097192
+    ]
+  },
+  {
+    "seed": 1412008000,
+    "case": {
+      "seed": 1412008000,
+      "seconds": 8.0,
+      "condition": "nominal",
+      "phase": 0,
+      "degrees": 2.0,
+      "motor_uncertainty": 0.0,
+      "acceleration_bias": 0.0,
+      "attitude_bias_deg": 0.0,
+      "delay_steps": 0,
+      "attitude_noise_deg": 0.02,
+      "gyro_noise": 0.002,
+      "accel_noise": 0.02,
+      "height_noise": 0.002,
+      "height_delay": 0.02,
+      "lower_mass_scale": 1.0,
+      "pulse_force": 0.0,
+      "pulse_torque": 0.0,
+      "task": "velocity",
+      "velocity_command": [
+        0,
+        0,
+        0
+      ],
+      "velocity_noise": 0.01,
+      "velocity_delay": 0.02,
+      "velocity_bias": 0.0,
+      "attitude_reference_override": [
+        0,
+        0.08
+      ],
+      "probe_name": "phase0_pitch_plus"
+    },
+    "steps": 4000,
+    "physics_steps": 1600000,
+    "elapsed": 8.0,
+    "termination": "time_limit",
+    "success": false,
+    "return_sum": 29.025413913374205,
+    "tilt_rms_deg": 3.9252487647997993,
+    "height_rmse_m": 0.05781436761457091,
+    "height_slope_m_s": -0.00046767391013484004,
+    "minimum_clearance_m": 0.5412750169812478,
+    "xy_offset_m": 0.1492544133036317,
+    "accel_clipped_fraction": 0.005583125,
+    "estimated_height_error_m": -0.000892171022741528,
+    "phase": 0,
+    "velocity_rmse_m_s": [
+      0.02766264652589379,
+      0.016974035770407125,
+      0.008409175387250011
+    ],
+    "velocity_vector_rmse_m_s": 0.03352691655737425,
+    "tracking_nrmse": 1.6763458278687124,
+    "raw_velocity_rmse_m_s": [
+      0.1652229143714384,
+      0.020589204869577715,
+      0.02052183904155691
+    ],
+    "commanded_response_gain": 0.0,
+    "reference_height_rmse_m": 0.05781436761457091,
+    "sensor_assumption": "100 ms prefilter; 50 Hz noisy horizontal velocity; 20 ms delay; 100 ms postfilter",
+    "metric_velocity_filter_seconds": 0.1,
+    "task": "velocity",
+    "mode": "pid",
+    "inner_steps": 4000,
+    "mean_velocity": [
+      0.007736525517709419,
+      0.01711715098963653,
+      0.0009615999102575351
+    ],
+    "mean_attitude_deg": [
+      0.0829461944824714,
+      -1.1974471787019754,
+      4.0402650998651835
+    ]
+  },
+  {
+    "seed": 1412008000,
+    "case": {
+      "seed": 1412008000,
+      "seconds": 8.0,
+      "condition": "nominal",
+      "phase": 0,
+      "degrees": 2.0,
+      "motor_uncertainty": 0.0,
+      "acceleration_bias": 0.0,
+      "attitude_bias_deg": 0.0,
+      "delay_steps": 0,
+      "attitude_noise_deg": 0.02,
+      "gyro_noise": 0.002,
+      "accel_noise": 0.02,
+      "height_noise": 0.002,
+      "height_delay": 0.02,
+      "lower_mass_scale": 1.0,
+      "pulse_force": 0.0,
+      "pulse_torque": 0.0,
+      "task": "velocity",
+      "velocity_command": [
+        0,
+        0,
+        0
+      ],
+      "velocity_noise": 0.01,
+      "velocity_delay": 0.02,
+      "velocity_bias": 0.0,
+      "attitude_reference_override": [
+        0,
+        -0.08
+      ],
+      "probe_name": "phase0_pitch_minus"
+    },
+    "steps": 4000,
+    "physics_steps": 1600000,
+    "elapsed": 8.0,
+    "termination": "time_limit",
+    "success": false,
+    "return_sum": 28.858167688200247,
+    "tilt_rms_deg": 3.931857809084493,
+    "height_rmse_m": 0.058067662383677714,
+    "height_slope_m_s": -0.0004097985836905848,
+    "minimum_clearance_m": 0.5403582361843365,
+    "xy_offset_m": 0.15360049968353232,
+    "accel_clipped_fraction": 0.005722708333333333,
+    "estimated_height_error_m": -0.0008439038448652125,
+    "phase": 0,
+    "velocity_rmse_m_s": [
+      0.03230932401038073,
+      0.015763811435254182,
+      0.006927667726550196
+    ],
+    "velocity_vector_rmse_m_s": 0.03661123801653668,
+    "tracking_nrmse": 1.830561900826834,
+    "raw_velocity_rmse_m_s": [
+      0.16620702654003322,
+      0.0192016401096123,
+      0.02023114425195332
+    ],
+    "commanded_response_gain": 0.0,
+    "reference_height_rmse_m": 0.058067662383677714,
+    "sensor_assumption": "100 ms prefilter; 50 Hz noisy horizontal velocity; 20 ms delay; 100 ms postfilter",
+    "metric_velocity_filter_seconds": 0.1,
+    "task": "velocity",
+    "mode": "pid",
+    "inner_steps": 4000,
+    "mean_velocity": [
+      -0.014383255295388458,
+      0.01563210561534489,
+      0.0009562059753004187
+    ],
+    "mean_attitude_deg": [
+      0.08520576232138542,
+      -0.3919727188765613,
+      3.7526822172916843
+    ]
+  },
+  {
+    "seed": 1412008002,
+    "case": {
+      "seed": 1412008002,
+      "seconds": 8.0,
+      "condition": "nominal",
+      "phase": 2,
+      "degrees": 2.0,
+      "motor_uncertainty": 0.0,
+      "acceleration_bias": 0.0,
+      "attitude_bias_deg": 0.0,
+      "delay_steps": 0,
+      "attitude_noise_deg": 0.02,
+      "gyro_noise": 0.002,
+      "accel_noise": 0.02,
+      "height_noise": 0.002,
+      "height_delay": 0.02,
+      "lower_mass_scale": 1.0,
+      "pulse_force": 0.0,
+      "pulse_torque": 0.0,
+      "task": "velocity",
+      "velocity_command": [
+        0,
+        0,
+        0
+      ],
+      "velocity_noise": 0.01,
+      "velocity_delay": 0.02,
+      "velocity_bias": 0.0,
+      "attitude_reference_override": [
+        0,
+        0
+      ],
+      "probe_name": "phase2_zero"
+    },
+    "steps": 4000,
+    "physics_steps": 1600000,
+    "elapsed": 8.0,
+    "termination": "time_limit",
+    "success": false,
+    "return_sum": 28.634906276751455,
+    "tilt_rms_deg": 3.9994980051395266,
+    "height_rmse_m": 0.06113546223606147,
+    "height_slope_m_s": -0.001086418642376889,
+    "minimum_clearance_m": 0.5368926289550102,
+    "xy_offset_m": 0.13808776249573215,
+    "accel_clipped_fraction": 0.00554875,
+    "estimated_height_error_m": 0.00482282175899762,
+    "phase": 2,
+    "velocity_rmse_m_s": [
+      0.03300321470706202,
+      0.015178715854870593,
+      0.005054738170783709
+    ],
+    "velocity_vector_rmse_m_s": 0.0366763680587175,
+    "tracking_nrmse": 1.8338184029358748,
+    "raw_velocity_rmse_m_s": [
+      0.1664727724552452,
+      0.02281394373464928,
+      0.01955775767953724
+    ],
+    "commanded_response_gain": 0.0,
+    "reference_height_rmse_m": 0.06113546223606147,
+    "sensor_assumption": "100 ms prefilter; 50 Hz noisy horizontal velocity; 20 ms delay; 100 ms postfilter",
+    "metric_velocity_filter_seconds": 0.1,
+    "task": "velocity",
+    "mode": "pid",
+    "inner_steps": 4000,
+    "mean_velocity": [
+      -0.006473448658432121,
+      0.01513701572841651,
+      -0.0005054582365773365
+    ],
+    "mean_attitude_deg": [
+      0.0725024952534964,
+      -0.538787973109948,
+      6.144907899782904
+    ]
+  },
+  {
+    "seed": 1412008002,
+    "case": {
+      "seed": 1412008002,
+      "seconds": 8.0,
+      "condition": "nominal",
+      "phase": 2,
+      "degrees": 2.0,
+      "motor_uncertainty": 0.0,
+      "acceleration_bias": 0.0,
+      "attitude_bias_deg": 0.0,
+      "delay_steps": 0,
+      "attitude_noise_deg": 0.02,
+      "gyro_noise": 0.002,
+      "accel_noise": 0.02,
+      "height_noise": 0.002,
+      "height_delay": 0.02,
+      "lower_mass_scale": 1.0,
+      "pulse_force": 0.0,
+      "pulse_torque": 0.0,
+      "task": "velocity",
+      "velocity_command": [
+        0,
+        0,
+        0
+      ],
+      "velocity_noise": 0.01,
+      "velocity_delay": 0.02,
+      "velocity_bias": 0.0,
+      "attitude_reference_override": [
+        0.08,
+        0
+      ],
+      "probe_name": "phase2_roll_plus"
+    },
+    "steps": 4000,
+    "physics_steps": 1600000,
+    "elapsed": 8.0,
+    "termination": "time_limit",
+    "success": false,
+    "return_sum": 27.084912713616127,
+    "tilt_rms_deg": 4.157112095618197,
+    "height_rmse_m": 0.06129290464135996,
+    "height_slope_m_s": -0.0010838433072150404,
+    "minimum_clearance_m": 0.536487646931642,
+    "xy_offset_m": 0.48350068957538034,
+    "accel_clipped_fraction": 0.00588375,
+    "estimated_height_error_m": 0.00476616145831521,
+    "phase": 2,
+    "velocity_rmse_m_s": [
+      0.03331882739279477,
+      0.06800265113645562,
+      0.005102394011666028
+    ],
+    "velocity_vector_rmse_m_s": 0.07589821634971158,
+    "tracking_nrmse": 3.794910817485579,
+    "raw_velocity_rmse_m_s": [
+      0.16651898842852608,
+      0.07048095318150066,
+      0.019662136901075183
+    ],
+    "commanded_response_gain": 0.0,
+    "reference_height_rmse_m": 0.06129290464135996,
+    "sensor_assumption": "100 ms prefilter; 50 Hz noisy horizontal velocity; 20 ms delay; 100 ms postfilter",
+    "metric_velocity_filter_seconds": 0.1,
+    "task": "velocity",
+    "mode": "pid",
+    "inner_steps": 4000,
+    "mean_velocity": [
+      0.0029484630156976607,
+      -0.07020924415238115,
+      -0.0003507417914722239
+    ],
+    "mean_attitude_deg": [
+      -0.8614878264282207,
+      -0.523462192939643,
+      6.285222098644737
+    ]
+  },
+  {
+    "seed": 1412008002,
+    "case": {
+      "seed": 1412008002,
+      "seconds": 8.0,
+      "condition": "nominal",
+      "phase": 2,
+      "degrees": 2.0,
+      "motor_uncertainty": 0.0,
+      "acceleration_bias": 0.0,
+      "attitude_bias_deg": 0.0,
+      "delay_steps": 0,
+      "attitude_noise_deg": 0.02,
+      "gyro_noise": 0.002,
+      "accel_noise": 0.02,
+      "height_noise": 0.002,
+      "height_delay": 0.02,
+      "lower_mass_scale": 1.0,
+      "pulse_force": 0.0,
+      "pulse_torque": 0.0,
+      "task": "velocity",
+      "velocity_command": [
+        0,
+        0,
+        0
+      ],
+      "velocity_noise": 0.01,
+      "velocity_delay": 0.02,
+      "velocity_bias": 0.0,
+      "attitude_reference_override": [
+        -0.08,
+        0
+      ],
+      "probe_name": "phase2_roll_minus"
+    },
+    "steps": 4000,
+    "physics_steps": 1600000,
+    "elapsed": 8.0,
+    "termination": "time_limit",
+    "success": false,
+    "return_sum": 25.841301806057732,
+    "tilt_rms_deg": 4.15414112400796,
+    "height_rmse_m": 0.06133516388236333,
+    "height_slope_m_s": -0.0011093408868532964,
+    "minimum_clearance_m": 0.5365102575214107,
+    "xy_offset_m": 0.721686724296873,
+    "accel_clipped_fraction": 0.006037708333333333,
+    "estimated_height_error_m": 0.004702453997986189,
+    "phase": 2,
+    "velocity_rmse_m_s": [
+      0.035831013429351216,
+      0.09691286977374387,
+      0.0050686950895483225
+    ],
+    "velocity_vector_rmse_m_s": 0.10344881594811899,
+    "tracking_nrmse": 5.172440797405949,
+    "raw_velocity_rmse_m_s": [
+      0.16694956456481092,
+      0.09863994225460922,
+      0.01951452798206186
+    ],
+    "commanded_response_gain": 0.0,
+    "reference_height_rmse_m": 0.06133516388236333,
+    "sensor_assumption": "100 ms prefilter; 50 Hz noisy horizontal velocity; 20 ms delay; 100 ms postfilter",
+    "metric_velocity_filter_seconds": 0.1,
+    "task": "velocity",
+    "mode": "pid",
+    "inner_steps": 4000,
+    "mean_velocity": [
+      -0.014990148669076617,
+      0.09904150850769493,
+      -0.0002783351271255651
+    ],
+    "mean_attitude_deg": [
+      0.9916740749323443,
+      -0.5314924553400272,
+      6.005688046823202
+    ]
+  },
+  {
+    "seed": 1412008002,
+    "case": {
+      "seed": 1412008002,
+      "seconds": 8.0,
+      "condition": "nominal",
+      "phase": 2,
+      "degrees": 2.0,
+      "motor_uncertainty": 0.0,
+      "acceleration_bias": 0.0,
+      "attitude_bias_deg": 0.0,
+      "delay_steps": 0,
+      "attitude_noise_deg": 0.02,
+      "gyro_noise": 0.002,
+      "accel_noise": 0.02,
+      "height_noise": 0.002,
+      "height_delay": 0.02,
+      "lower_mass_scale": 1.0,
+      "pulse_force": 0.0,
+      "pulse_torque": 0.0,
+      "task": "velocity",
+      "velocity_command": [
+        0,
+        0,
+        0
+      ],
+      "velocity_noise": 0.01,
+      "velocity_delay": 0.02,
+      "velocity_bias": 0.0,
+      "attitude_reference_override": [
+        0,
+        0.08
+      ],
+      "probe_name": "phase2_pitch_plus"
+    },
+    "steps": 4000,
+    "physics_steps": 1600000,
+    "elapsed": 8.0,
+    "termination": "time_limit",
+    "success": false,
+    "return_sum": 28.434913691314755,
+    "tilt_rms_deg": 4.244607423802928,
+    "height_rmse_m": 0.06116778046931577,
+    "height_slope_m_s": -0.0010766900989066781,
+    "minimum_clearance_m": 0.5366490523426481,
+    "xy_offset_m": 0.1275457030518548,
+    "accel_clipped_fraction": 0.005483958333333334,
+    "estimated_height_error_m": 0.004830618699929623,
+    "phase": 2,
+    "velocity_rmse_m_s": [
+      0.03494466857694794,
+      0.016428312505215578,
+      0.004787151391177518
+    ],
+    "velocity_vector_rmse_m_s": 0.038909332198892956,
+    "tracking_nrmse": 1.9454666099446478,
+    "raw_velocity_rmse_m_s": [
+      0.16726018314476138,
+      0.02403302077002547,
+      0.019957281889980763
+    ],
+    "commanded_response_gain": 0.0,
+    "reference_height_rmse_m": 0.06116778046931577,
+    "sensor_assumption": "100 ms prefilter; 50 Hz noisy horizontal velocity; 20 ms delay; 100 ms postfilter",
+    "metric_velocity_filter_seconds": 0.1,
+    "task": "velocity",
+    "mode": "pid",
+    "inner_steps": 4000,
+    "mean_velocity": [
+      0.005587994968630596,
+      0.016528218765900403,
+      -0.0007089945536554442
+    ],
+    "mean_attitude_deg": [
+      0.07183352959811633,
+      -0.962307925106766,
+      6.313829864017919
+    ]
+  },
+  {
+    "seed": 1412008002,
+    "case": {
+      "seed": 1412008002,
+      "seconds": 8.0,
+      "condition": "nominal",
+      "phase": 2,
+      "degrees": 2.0,
+      "motor_uncertainty": 0.0,
+      "acceleration_bias": 0.0,
+      "attitude_bias_deg": 0.0,
+      "delay_steps": 0,
+      "attitude_noise_deg": 0.02,
+      "gyro_noise": 0.002,
+      "accel_noise": 0.02,
+      "height_noise": 0.002,
+      "height_delay": 0.02,
+      "lower_mass_scale": 1.0,
+      "pulse_force": 0.0,
+      "pulse_torque": 0.0,
+      "task": "velocity",
+      "velocity_command": [
+        0,
+        0,
+        0
+      ],
+      "velocity_noise": 0.01,
+      "velocity_delay": 0.02,
+      "velocity_bias": 0.0,
+      "attitude_reference_override": [
+        0,
+        -0.08
+      ],
+      "probe_name": "phase2_pitch_minus"
+    },
+    "steps": 4000,
+    "physics_steps": 1600000,
+    "elapsed": 8.0,
+    "termination": "time_limit",
+    "success": false,
+    "return_sum": 28.67109301348143,
+    "tilt_rms_deg": 3.9264204990370613,
+    "height_rmse_m": 0.061167732159813845,
+    "height_slope_m_s": -0.0011342648030835357,
+    "minimum_clearance_m": 0.5368578940443826,
+    "xy_offset_m": 0.19754694254632688,
+    "accel_clipped_fraction": 0.005737083333333334,
+    "estimated_height_error_m": 0.004732088391217526,
+    "phase": 2,
+    "velocity_rmse_m_s": [
+      0.03577631460190793,
+      0.01419093065772019,
+      0.006054573865189674
+    ],
+    "velocity_vector_rmse_m_s": 0.03896132780227018,
+    "tracking_nrmse": 1.948066390113509,
+    "raw_velocity_rmse_m_s": [
+      0.16654235037449214,
+      0.021798740807558854,
+      0.019673620861742222
+    ],
+    "commanded_response_gain": 0.0,
+    "reference_height_rmse_m": 0.061167732159813845,
+    "sensor_assumption": "100 ms prefilter; 50 Hz noisy horizontal velocity; 20 ms delay; 100 ms postfilter",
+    "metric_velocity_filter_seconds": 0.1,
+    "task": "velocity",
+    "mode": "pid",
+    "inner_steps": 4000,
+    "mean_velocity": [
+      -0.01650002465690229,
+      0.014107284497045854,
+      -0.0002508809788769837
+    ],
+    "mean_attitude_deg": [
+      0.07316496501487453,
+      -0.1435335139032168,
+      5.9687625724843185
+    ]
+  },
+  {
+    "seed": 1412008004,
+    "case": {
+      "seed": 1412008004,
+      "seconds": 8.0,
+      "condition": "nominal",
+      "phase": 4,
+      "degrees": 2.0,
+      "motor_uncertainty": 0.0,
+      "acceleration_bias": 0.0,
+      "attitude_bias_deg": 0.0,
+      "delay_steps": 0,
+      "attitude_noise_deg": 0.02,
+      "gyro_noise": 0.002,
+      "accel_noise": 0.02,
+      "height_noise": 0.002,
+      "height_delay": 0.02,
+      "lower_mass_scale": 1.0,
+      "pulse_force": 0.0,
+      "pulse_torque": 0.0,
+      "task": "velocity",
+      "velocity_command": [
+        0,
+        0,
+        0
+      ],
+      "velocity_noise": 0.01,
+      "velocity_delay": 0.02,
+      "velocity_bias": 0.0,
+      "attitude_reference_override": [
+        0,
+        0
+      ],
+      "probe_name": "phase4_zero"
+    },
+    "steps": 4000,
+    "physics_steps": 1600000,
+    "elapsed": 8.0,
+    "termination": "time_limit",
+    "success": false,
+    "return_sum": 29.197099501171802,
+    "tilt_rms_deg": 3.6393193559991373,
+    "height_rmse_m": 0.05776911526971487,
+    "height_slope_m_s": -0.0005253075627268343,
+    "minimum_clearance_m": 0.5417384614485191,
+    "xy_offset_m": 0.13408591623400845,
+    "accel_clipped_fraction": 0.005472083333333333,
+    "estimated_height_error_m": -0.0001369812399674153,
+    "phase": 4,
+    "velocity_rmse_m_s": [
+      0.024668711639018494,
+      0.015148691684248957,
+      0.006328162676265753
+    ],
+    "velocity_vector_rmse_m_s": 0.029632310684972966,
+    "tracking_nrmse": 1.4816155342486483,
+    "raw_velocity_rmse_m_s": [
+      0.16467832941338464,
+      0.021929012976177078,
+      0.019581242926133263
+    ],
+    "commanded_response_gain": 0.0,
+    "reference_height_rmse_m": 0.05776911526971487,
+    "sensor_assumption": "100 ms prefilter; 50 Hz noisy horizontal velocity; 20 ms delay; 100 ms postfilter",
+    "metric_velocity_filter_seconds": 0.1,
+    "task": "velocity",
+    "mode": "pid",
+    "inner_steps": 4000,
+    "mean_velocity": [
+      -0.0068396756232760245,
+      0.0151861371053943,
+      0.00011812329668535197
+    ],
+    "mean_attitude_deg": [
+      0.07517050244549511,
+      -0.5693532783190022,
+      5.643540971561144
+    ]
+  },
+  {
+    "seed": 1412008004,
+    "case": {
+      "seed": 1412008004,
+      "seconds": 8.0,
+      "condition": "nominal",
+      "phase": 4,
+      "degrees": 2.0,
+      "motor_uncertainty": 0.0,
+      "acceleration_bias": 0.0,
+      "attitude_bias_deg": 0.0,
+      "delay_steps": 0,
+      "attitude_noise_deg": 0.02,
+      "gyro_noise": 0.002,
+      "accel_noise": 0.02,
+      "height_noise": 0.002,
+      "height_delay": 0.02,
+      "lower_mass_scale": 1.0,
+      "pulse_force": 0.0,
+      "pulse_torque": 0.0,
+      "task": "velocity",
+      "velocity_command": [
+        0,
+        0,
+        0
+      ],
+      "velocity_noise": 0.01,
+      "velocity_delay": 0.02,
+      "velocity_bias": 0.0,
+      "attitude_reference_override": [
+        0.08,
+        0
+      ],
+      "probe_name": "phase4_roll_plus"
+    },
+    "steps": 4000,
+    "physics_steps": 1600000,
+    "elapsed": 8.0,
+    "termination": "time_limit",
+    "success": false,
+    "return_sum": 27.528618464605817,
+    "tilt_rms_deg": 3.881420699828307,
+    "height_rmse_m": 0.05776576330881453,
+    "height_slope_m_s": -0.00048076993047961163,
+    "minimum_clearance_m": 0.541771786471966,
+    "xy_offset_m": 0.4843975922422245,
+    "accel_clipped_fraction": 0.005961875,
+    "estimated_height_error_m": -0.00011770538146915754,
+    "phase": 4,
+    "velocity_rmse_m_s": [
+      0.026783560763620595,
+      0.06825805506812191,
+      0.005792344967332245
+    ],
+    "velocity_vector_rmse_m_s": 0.07355319482579868,
+    "tracking_nrmse": 3.677659741289934,
+    "raw_velocity_rmse_m_s": [
+      0.16464467683567116,
+      0.07037105019667106,
+      0.01914058400995977
+    ],
+    "commanded_response_gain": 0.0,
+    "reference_height_rmse_m": 0.05776576330881453,
+    "sensor_assumption": "100 ms prefilter; 50 Hz noisy horizontal velocity; 20 ms delay; 100 ms postfilter",
+    "metric_velocity_filter_seconds": 0.1,
+    "task": "velocity",
+    "mode": "pid",
+    "inner_steps": 4000,
+    "mean_velocity": [
+      0.0017053562901013348,
+      -0.07060700930842803,
+      0.0004943602746661861
+    ],
+    "mean_attitude_deg": [
+      -0.8611765311645794,
+      -0.5198911535713313,
+      5.65975663330346
+    ]
+  },
+  {
+    "seed": 1412008004,
+    "case": {
+      "seed": 1412008004,
+      "seconds": 8.0,
+      "condition": "nominal",
+      "phase": 4,
+      "degrees": 2.0,
+      "motor_uncertainty": 0.0,
+      "acceleration_bias": 0.0,
+      "attitude_bias_deg": 0.0,
+      "delay_steps": 0,
+      "attitude_noise_deg": 0.02,
+      "gyro_noise": 0.002,
+      "accel_noise": 0.02,
+      "height_noise": 0.002,
+      "height_delay": 0.02,
+      "lower_mass_scale": 1.0,
+      "pulse_force": 0.0,
+      "pulse_torque": 0.0,
+      "task": "velocity",
+      "velocity_command": [
+        0,
+        0,
+        0
+      ],
+      "velocity_noise": 0.01,
+      "velocity_delay": 0.02,
+      "velocity_bias": 0.0,
+      "attitude_reference_override": [
+        -0.08,
+        0
+      ],
+      "probe_name": "phase4_roll_minus"
+    },
+    "steps": 4000,
+    "physics_steps": 1600000,
+    "elapsed": 8.0,
+    "termination": "time_limit",
+    "success": false,
+    "return_sum": 26.27267297272371,
+    "tilt_rms_deg": 3.86010999355624,
+    "height_rmse_m": 0.057855352226852216,
+    "height_slope_m_s": -0.000558420648960439,
+    "minimum_clearance_m": 0.5414959855464606,
+    "xy_offset_m": 0.7200391300680534,
+    "accel_clipped_fraction": 0.005994375,
+    "estimated_height_error_m": -0.00015628044676130326,
+    "phase": 4,
+    "velocity_rmse_m_s": [
+      0.029313527658139167,
+      0.09693942426199818,
+      0.0061127518961910585
+    ],
+    "velocity_vector_rmse_m_s": 0.1014588616916066,
+    "tracking_nrmse": 5.07294308458033,
+    "raw_velocity_rmse_m_s": [
+      0.1652980256327599,
+      0.09853988145861106,
+      0.019442795634805336
+    ],
+    "commanded_response_gain": 0.0,
+    "reference_height_rmse_m": 0.057855352226852216,
+    "sensor_assumption": "100 ms prefilter; 50 Hz noisy horizontal velocity; 20 ms delay; 100 ms postfilter",
+    "metric_velocity_filter_seconds": 0.1,
+    "task": "velocity",
+    "mode": "pid",
+    "inner_steps": 4000,
+    "mean_velocity": [
+      -0.014997420813621279,
+      0.09895948892741782,
+      0.00022975417555670305
+    ],
+    "mean_attitude_deg": [
+      0.9941998532761475,
+      -0.5367013273323483,
+      5.63936415236629
+    ]
+  },
+  {
+    "seed": 1412008004,
+    "case": {
+      "seed": 1412008004,
+      "seconds": 8.0,
+      "condition": "nominal",
+      "phase": 4,
+      "degrees": 2.0,
+      "motor_uncertainty": 0.0,
+      "acceleration_bias": 0.0,
+      "attitude_bias_deg": 0.0,
+      "delay_steps": 0,
+      "attitude_noise_deg": 0.02,
+      "gyro_noise": 0.002,
+      "accel_noise": 0.02,
+      "height_noise": 0.002,
+      "height_delay": 0.02,
+      "lower_mass_scale": 1.0,
+      "pulse_force": 0.0,
+      "pulse_torque": 0.0,
+      "task": "velocity",
+      "velocity_command": [
+        0,
+        0,
+        0
+      ],
+      "velocity_noise": 0.01,
+      "velocity_delay": 0.02,
+      "velocity_bias": 0.0,
+      "attitude_reference_override": [
+        0,
+        0.08
+      ],
+      "probe_name": "phase4_pitch_plus"
+    },
+    "steps": 4000,
+    "physics_steps": 1600000,
+    "elapsed": 8.0,
+    "termination": "time_limit",
+    "success": false,
+    "return_sum": 28.99348902460836,
+    "tilt_rms_deg": 3.9255925182751095,
+    "height_rmse_m": 0.05793371662265379,
+    "height_slope_m_s": -0.00045444159974521994,
+    "minimum_clearance_m": 0.5411635863624745,
+    "xy_offset_m": 0.1292338936526692,
+    "accel_clipped_fraction": 0.005723541666666667,
+    "estimated_height_error_m": -9.93299813504267e-05,
+    "phase": 4,
+    "velocity_rmse_m_s": [
+      0.027786541194326254,
+      0.016277656958178156,
+      0.005380289620881028
+    ],
+    "velocity_vector_rmse_m_s": 0.032649678466972316,
+    "tracking_nrmse": 1.6324839233486157,
+    "raw_velocity_rmse_m_s": [
+      0.164669637038459,
+      0.0230103118945494,
+      0.018692025909699424
+    ],
+    "commanded_response_gain": 0.0,
+    "reference_height_rmse_m": 0.05793371662265379,
+    "sensor_assumption": "100 ms prefilter; 50 Hz noisy horizontal velocity; 20 ms delay; 100 ms postfilter",
+    "metric_velocity_filter_seconds": 0.1,
+    "task": "velocity",
+    "mode": "pid",
+    "inner_steps": 4000,
+    "mean_velocity": [
+      0.005595326759866244,
+      0.0164133700364904,
+      0.00040338537807326044
+    ],
+    "mean_attitude_deg": [
+      0.07483190622841505,
+      -0.9832932070981012,
+      5.801037246667999
+    ]
+  },
+  {
+    "seed": 1412008004,
+    "case": {
+      "seed": 1412008004,
+      "seconds": 8.0,
+      "condition": "nominal",
+      "phase": 4,
+      "degrees": 2.0,
+      "motor_uncertainty": 0.0,
+      "acceleration_bias": 0.0,
+      "attitude_bias_deg": 0.0,
+      "delay_steps": 0,
+      "attitude_noise_deg": 0.02,
+      "gyro_noise": 0.002,
+      "accel_noise": 0.02,
+      "height_noise": 0.002,
+      "height_delay": 0.02,
+      "lower_mass_scale": 1.0,
+      "pulse_force": 0.0,
+      "pulse_torque": 0.0,
+      "task": "velocity",
+      "velocity_command": [
+        0,
+        0,
+        0
+      ],
+      "velocity_noise": 0.01,
+      "velocity_delay": 0.02,
+      "velocity_bias": 0.0,
+      "attitude_reference_override": [
+        0,
+        -0.08
+      ],
+      "probe_name": "phase4_pitch_minus"
+    },
+    "steps": 4000,
+    "physics_steps": 1600000,
+    "elapsed": 8.0,
+    "termination": "time_limit",
+    "success": false,
+    "return_sum": 29.09661800855859,
+    "tilt_rms_deg": 3.701747548507333,
+    "height_rmse_m": 0.05779088273321996,
+    "height_slope_m_s": -0.0004266756407182894,
+    "minimum_clearance_m": 0.5420564007079659,
+    "xy_offset_m": 0.18978680659887065,
+    "accel_clipped_fraction": 0.005475,
+    "estimated_height_error_m": -0.00022180037331742675,
+    "phase": 4,
+    "velocity_rmse_m_s": [
+      0.030712569827832385,
+      0.014341667745752972,
+      0.006738169683096842
+    ],
+    "velocity_vector_rmse_m_s": 0.03455934475416536,
+    "tracking_nrmse": 1.727967237708268,
+    "raw_velocity_rmse_m_s": [
+      0.16551193380012452,
+      0.02118132102071184,
+      0.019655994370126793
+    ],
+    "commanded_response_gain": 0.0,
+    "reference_height_rmse_m": 0.05779088273321996,
+    "sensor_assumption": "100 ms prefilter; 50 Hz noisy horizontal velocity; 20 ms delay; 100 ms postfilter",
+    "metric_velocity_filter_seconds": 0.1,
+    "task": "velocity",
+    "mode": "pid",
+    "inner_steps": 4000,
+    "mean_velocity": [
+      -0.016971864442968235,
+      0.014259267753006885,
+      0.0002679206600860089
+    ],
+    "mean_attitude_deg": [
+      0.07572661061225376,
+      -0.15272882150385458,
+      5.5187089125829445
+    ]
+  },
+  {
+    "seed": 1412008006,
+    "case": {
+      "seed": 1412008006,
+      "seconds": 8.0,
+      "condition": "nominal",
+      "phase": 6,
+      "degrees": 2.0,
+      "motor_uncertainty": 0.0,
+      "acceleration_bias": 0.0,
+      "attitude_bias_deg": 0.0,
+      "delay_steps": 0,
+      "attitude_noise_deg": 0.02,
+      "gyro_noise": 0.002,
+      "accel_noise": 0.02,
+      "height_noise": 0.002,
+      "height_delay": 0.02,
+      "lower_mass_scale": 1.0,
+      "pulse_force": 0.0,
+      "pulse_torque": 0.0,
+      "task": "velocity",
+      "velocity_command": [
+        0,
+        0,
+        0
+      ],
+      "velocity_noise": 0.01,
+      "velocity_delay": 0.02,
+      "velocity_bias": 0.0,
+      "attitude_reference_override": [
+        0,
+        0
+      ],
+      "probe_name": "phase6_zero"
+    },
+    "steps": 4000,
+    "physics_steps": 1600000,
+    "elapsed": 8.0,
+    "termination": "time_limit",
+    "success": false,
+    "return_sum": 28.178827777126582,
+    "tilt_rms_deg": 4.521174298596558,
+    "height_rmse_m": 0.06204341386982172,
+    "height_slope_m_s": -0.0010837431934651457,
+    "minimum_clearance_m": 0.5196505113017124,
+    "xy_offset_m": 0.11868967193335685,
+    "accel_clipped_fraction": 0.00572625,
+    "estimated_height_error_m": 0.002140743235528042,
+    "phase": 6,
+    "velocity_rmse_m_s": [
+      0.03981011267878387,
+      0.015585042587968148,
+      0.007023610505237043
+    ],
+    "velocity_vector_rmse_m_s": 0.043325162763635704,
+    "tracking_nrmse": 2.166258138181785,
+    "raw_velocity_rmse_m_s": [
+      0.16910875030381883,
+      0.017656516430825272,
+      0.020822714589014062
+    ],
+    "commanded_response_gain": 0.0,
+    "reference_height_rmse_m": 0.06204341386982172,
+    "sensor_assumption": "100 ms prefilter; 50 Hz noisy horizontal velocity; 20 ms delay; 100 ms postfilter",
+    "metric_velocity_filter_seconds": 0.1,
+    "task": "velocity",
+    "mode": "pid",
+    "inner_steps": 4000,
+    "mean_velocity": [
+      -0.0037700271108101627,
+      0.01563758126247108,
+      -0.0003570747906292238
+    ],
+    "mean_attitude_deg": [
+      0.07374563302607394,
+      -0.7938517952111948,
+      2.497741755134422
+    ]
+  },
+  {
+    "seed": 1412008006,
+    "case": {
+      "seed": 1412008006,
+      "seconds": 8.0,
+      "condition": "nominal",
+      "phase": 6,
+      "degrees": 2.0,
+      "motor_uncertainty": 0.0,
+      "acceleration_bias": 0.0,
+      "attitude_bias_deg": 0.0,
+      "delay_steps": 0,
+      "attitude_noise_deg": 0.02,
+      "gyro_noise": 0.002,
+      "accel_noise": 0.02,
+      "height_noise": 0.002,
+      "height_delay": 0.02,
+      "lower_mass_scale": 1.0,
+      "pulse_force": 0.0,
+      "pulse_torque": 0.0,
+      "task": "velocity",
+      "velocity_command": [
+        0,
+        0,
+        0
+      ],
+      "velocity_noise": 0.01,
+      "velocity_delay": 0.02,
+      "velocity_bias": 0.0,
+      "attitude_reference_override": [
+        0.08,
+        0
+      ],
+      "probe_name": "phase6_roll_plus"
+    },
+    "steps": 4000,
+    "physics_steps": 1600000,
+    "elapsed": 8.0,
+    "termination": "time_limit",
+    "success": false,
+    "return_sum": 26.783409132411357,
+    "tilt_rms_deg": 4.485605491145377,
+    "height_rmse_m": 0.06213173448559252,
+    "height_slope_m_s": -0.001053043807430988,
+    "minimum_clearance_m": 0.5194823419341532,
+    "xy_offset_m": 0.48421149270624536,
+    "accel_clipped_fraction": 0.006023333333333334,
+    "estimated_height_error_m": 0.0021783594879634105,
+    "phase": 6,
+    "velocity_rmse_m_s": [
+      0.03789735656746121,
+      0.06778522577225535,
+      0.007155090877171053
+    ],
+    "velocity_vector_rmse_m_s": 0.07798872862957507,
+    "tracking_nrmse": 3.8994364314787533,
+    "raw_velocity_rmse_m_s": [
+      0.1680209017901246,
+      0.06865999659687684,
+      0.020519410995887163
+    ],
+    "commanded_response_gain": 0.0,
+    "reference_height_rmse_m": 0.06213173448559252,
+    "sensor_assumption": "100 ms prefilter; 50 Hz noisy horizontal velocity; 20 ms delay; 100 ms postfilter",
+    "metric_velocity_filter_seconds": 0.1,
+    "task": "velocity",
+    "mode": "pid",
+    "inner_steps": 4000,
+    "mean_velocity": [
+      -6.590787029725718e-05,
+      -0.07018173324462766,
+      -0.00016977940068864887
+    ],
+    "mean_attitude_deg": [
+      -0.863357415545513,
+      -0.7755757156577189,
+      2.774213585740958
+    ]
+  },
+  {
+    "seed": 1412008006,
+    "case": {
+      "seed": 1412008006,
+      "seconds": 8.0,
+      "condition": "nominal",
+      "phase": 6,
+      "degrees": 2.0,
+      "motor_uncertainty": 0.0,
+      "acceleration_bias": 0.0,
+      "attitude_bias_deg": 0.0,
+      "delay_steps": 0,
+      "attitude_noise_deg": 0.02,
+      "gyro_noise": 0.002,
+      "accel_noise": 0.02,
+      "height_noise": 0.002,
+      "height_delay": 0.02,
+      "lower_mass_scale": 1.0,
+      "pulse_force": 0.0,
+      "pulse_torque": 0.0,
+      "task": "velocity",
+      "velocity_command": [
+        0,
+        0,
+        0
+      ],
+      "velocity_noise": 0.01,
+      "velocity_delay": 0.02,
+      "velocity_bias": 0.0,
+      "attitude_reference_override": [
+        -0.08,
+        0
+      ],
+      "probe_name": "phase6_roll_minus"
+    },
+    "steps": 4000,
+    "physics_steps": 1600000,
+    "elapsed": 8.0,
+    "termination": "time_limit",
+    "success": false,
+    "return_sum": 25.420359348812248,
+    "tilt_rms_deg": 4.732226809546557,
+    "height_rmse_m": 0.06200358430269267,
+    "height_slope_m_s": -0.0009253913989523721,
+    "minimum_clearance_m": 0.519698019314479,
+    "xy_offset_m": 0.7136799707614142,
+    "accel_clipped_fraction": 0.006102916666666667,
+    "estimated_height_error_m": 0.0020683432426665815,
+    "phase": 6,
+    "velocity_rmse_m_s": [
+      0.04184831241428577,
+      0.09760451955305828,
+      0.0076227752720396105
+    ],
+    "velocity_vector_rmse_m_s": 0.10647079501889248,
+    "tracking_nrmse": 5.323539750944624,
+    "raw_velocity_rmse_m_s": [
+      0.1694604595502605,
+      0.09822923811357949,
+      0.02112882814898715
+    ],
+    "commanded_response_gain": 0.0,
+    "reference_height_rmse_m": 0.06200358430269267,
+    "sensor_assumption": "100 ms prefilter; 50 Hz noisy horizontal velocity; 20 ms delay; 100 ms postfilter",
+    "metric_velocity_filter_seconds": 0.1,
+    "task": "velocity",
+    "mode": "pid",
+    "inner_steps": 4000,
+    "mean_velocity": [
+      -0.007362776634711233,
+      0.09969802910525596,
+      -6.200113663264527e-05
+    ],
+    "mean_attitude_deg": [
+      0.9919710860402364,
+      -0.8181635617567111,
+      2.2426541498378056
+    ]
+  },
+  {
+    "seed": 1412008006,
+    "case": {
+      "seed": 1412008006,
+      "seconds": 8.0,
+      "condition": "nominal",
+      "phase": 6,
+      "degrees": 2.0,
+      "motor_uncertainty": 0.0,
+      "acceleration_bias": 0.0,
+      "attitude_bias_deg": 0.0,
+      "delay_steps": 0,
+      "attitude_noise_deg": 0.02,
+      "gyro_noise": 0.002,
+      "accel_noise": 0.02,
+      "height_noise": 0.002,
+      "height_delay": 0.02,
+      "lower_mass_scale": 1.0,
+      "pulse_force": 0.0,
+      "pulse_torque": 0.0,
+      "task": "velocity",
+      "velocity_command": [
+        0,
+        0,
+        0
+      ],
+      "velocity_noise": 0.01,
+      "velocity_delay": 0.02,
+      "velocity_bias": 0.0,
+      "attitude_reference_override": [
+        0,
+        0.08
+      ],
+      "probe_name": "phase6_pitch_plus"
+    },
+    "steps": 4000,
+    "physics_steps": 1600000,
+    "elapsed": 8.0,
+    "termination": "time_limit",
+    "success": false,
+    "return_sum": 28.24157519648546,
+    "tilt_rms_deg": 4.545769127581912,
+    "height_rmse_m": 0.06208401196229468,
+    "height_slope_m_s": -0.0010811546904664403,
+    "minimum_clearance_m": 0.5198136822670572,
+    "xy_offset_m": 0.1573442426622553,
+    "accel_clipped_fraction": 0.005747083333333333,
+    "estimated_height_error_m": 0.0020555387164545857,
+    "phase": 6,
+    "velocity_rmse_m_s": [
+      0.0396423351032194,
+      0.015895536169037404,
+      0.008331354406971149
+    ],
+    "velocity_vector_rmse_m_s": 0.04351544862220399,
+    "tracking_nrmse": 2.1757724311101994,
+    "raw_velocity_rmse_m_s": [
+      0.16808918268240391,
+      0.018101189728628723,
+      0.020991867586329583
+    ],
+    "commanded_response_gain": 0.0,
+    "reference_height_rmse_m": 0.06208401196229468,
+    "sensor_assumption": "100 ms prefilter; 50 Hz noisy horizontal velocity; 20 ms delay; 100 ms postfilter",
+    "metric_velocity_filter_seconds": 0.1,
+    "task": "velocity",
+    "mode": "pid",
+    "inner_steps": 4000,
+    "mean_velocity": [
+      0.0076185795995670665,
+      0.016049251844286457,
+      -6.710409831280978e-05
+    ],
+    "mean_attitude_deg": [
+      0.07316250513411911,
+      -1.2369893142951507,
+      2.640529554945209
+    ]
+  },
+  {
+    "seed": 1412008006,
+    "case": {
+      "seed": 1412008006,
+      "seconds": 8.0,
+      "condition": "nominal",
+      "phase": 6,
+      "degrees": 2.0,
+      "motor_uncertainty": 0.0,
+      "acceleration_bias": 0.0,
+      "attitude_bias_deg": 0.0,
+      "delay_steps": 0,
+      "attitude_noise_deg": 0.02,
+      "gyro_noise": 0.002,
+      "accel_noise": 0.02,
+      "height_noise": 0.002,
+      "height_delay": 0.02,
+      "lower_mass_scale": 1.0,
+      "pulse_force": 0.0,
+      "pulse_torque": 0.0,
+      "task": "velocity",
+      "velocity_command": [
+        0,
+        0,
+        0
+      ],
+      "velocity_noise": 0.01,
+      "velocity_delay": 0.02,
+      "velocity_bias": 0.0,
+      "attitude_reference_override": [
+        0,
+        -0.08
+      ],
+      "probe_name": "phase6_pitch_minus"
+    },
+    "steps": 4000,
+    "physics_steps": 1600000,
+    "elapsed": 8.0,
+    "termination": "time_limit",
+    "success": false,
+    "return_sum": 28.043264471177295,
+    "tilt_rms_deg": 4.5013003117009065,
+    "height_rmse_m": 0.06209738586613854,
+    "height_slope_m_s": -0.0009849862830421847,
+    "minimum_clearance_m": 0.5194794948160337,
+    "xy_offset_m": 0.14692239485116645,
+    "accel_clipped_fraction": 0.005717916666666666,
+    "estimated_height_error_m": 0.0021965527176585065,
+    "phase": 6,
+    "velocity_rmse_m_s": [
+      0.04266091940340869,
+      0.015273625629117486,
+      0.005898328268508095
+    ],
+    "velocity_vector_rmse_m_s": 0.045694944584337205,
+    "tracking_nrmse": 2.28474722921686,
+    "raw_velocity_rmse_m_s": [
+      0.1697827978429356,
+      0.017245788268939327,
+      0.02041555726060554
+    ],
+    "commanded_response_gain": 0.0,
+    "reference_height_rmse_m": 0.06209738586613854,
+    "sensor_assumption": "100 ms prefilter; 50 Hz noisy horizontal velocity; 20 ms delay; 100 ms postfilter",
+    "metric_velocity_filter_seconds": 0.1,
+    "task": "velocity",
+    "mode": "pid",
+    "inner_steps": 4000,
+    "mean_velocity": [
+      -0.014813425764439387,
+      0.015205373007629235,
+      -8.884016357317345e-05
+    ],
+    "mean_attitude_deg": [
+      0.07439167065775612,
+      -0.4157518865885596,
+      2.3634632095475134
+    ]
+  }
+]

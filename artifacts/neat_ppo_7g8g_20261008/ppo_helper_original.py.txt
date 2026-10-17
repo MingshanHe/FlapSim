@@ -1,0 +1,151 @@
+"""PPO fine-tuning from exactly the same distilled actor used to seed NEAT."""
+import argparse
+from dataclasses import replace
+from functools import partial
+import hashlib
+import json
+import time
+from pathlib import Path
+import numpy as np
+import torch
+from torch import nn
+from stable_baselines3 import PPO
+from stable_baselines3.common.policies import ActorCriticPolicy
+from stable_baselines3.common.callbacks import BaseCallback
+from stable_baselines3.common.vec_env import SubprocVecEnv
+from .rl_baselines import make_env
+from .environment import SensorEnv, Scenario
+from .policy import GenomePolicy, SB3Policy
+from .evaluation import rollout
+from .storage import metadata, write_json
+
+
+class TanhMeanPolicy(ActorCriticPolicy):
+    """Standard Gaussian PPO with a bounded mean, matching the student actor."""
+    def _build(self, lr_schedule):
+        super()._build(lr_schedule)
+        # The Linear parameters are unchanged, so the existing optimizer keeps
+        # the correct references. Tanh itself introduces no parameters.
+        self.action_net = nn.Sequential(self.action_net, nn.Tanh())
+
+
+def copy_genome_actor(model, genome, layers):
+    if genome.nInput != 41 or int(np.sum(genome.node[1] == 3)) != sum(layers):
+        raise ValueError('student architecture differs from PPO actor')
+    linears = [m for m in model.policy.mlp_extractor.policy_net if isinstance(m, nn.Linear)]
+    linears += [model.policy.action_net[0]]
+    sources, offset = list(range(42)), 45
+    with torch.no_grad():
+        for i, linear in enumerate(linears):
+            targets = list(range(offset, offset+layers[i])) if i < len(layers) else [42, 43, 44]
+            for j, target in enumerate(targets):
+                for k, source in enumerate(sources):
+                    mask = (genome.conn[1] == source) & (genome.conn[2] == target) & (genome.conn[4] == 1)
+                    if mask.sum() != 1:
+                        raise ValueError('actor copy requires the exported dense student topology')
+                    value = float(genome.conn[3, mask][0])
+                    if source == 0:
+                        linear.bias[j] = value
+                    else:
+                        linear.weight[j, k-1] = value
+            sources = [0]+targets
+            if i < len(layers):
+                offset += layers[i]
+
+
+class RefineValidation(BaseCallback):
+    def __init__(self, root, deadline, interval=32768):
+        super().__init__()
+        self.root, self.deadline, self.interval = root, deadline, interval
+        self.next_evaluation, self.best, self.history, self.validation_steps = interval, None, [], 0
+        self.env = SensorEnv()
+
+    def validate(self):
+        scenarios = [Scenario(950100000+i, 8., label='nominal') for i in range(4)]
+        scenarios += [replace(s, fault_group=i, fault_start=4., fault_duration=.2, label='dropout')
+                      for i, s in enumerate(scenarios.copy())]
+        rows = [rollout(self.env, SB3Policy(self.model), s, deadline=self.deadline) for s in scenarios]
+        self.validation_steps += sum(r['steps'] for r in rows)
+        if not all(r['complete'] for r in rows):
+            return
+        score = [float(np.mean([r['success'] for r in rows[:4]])),
+                 float(np.mean([r['success'] for r in rows])),
+                 float(np.mean([r['elapsed_seconds'] for r in rows])),
+                 -float(np.mean([r['rmse_m'] for r in rows]))]
+        if self.best is None or tuple(score) > tuple(self.best):
+            self.best = score
+            self.model.save(self.root/'best_policy.zip')
+        snapshot = self.root/'checkpoints'/f'step_{self.model.num_timesteps}'
+        snapshot.mkdir(parents=True, exist_ok=True)
+        self.model.save(snapshot/'policy.zip')
+        self.history.append({'train_steps': self.model.num_timesteps, 'score': score, 'episodes': rows})
+        write_json(self.root/'validation.json', self.history)
+        print(json.dumps({'ppo_refine_steps': self.model.num_timesteps, 'validation_score': score}), flush=True)
+
+    def _on_step(self):
+        if time.monotonic() >= self.deadline:
+            return False
+        if self.num_timesteps >= self.next_evaluation:
+            self.validate()
+            self.next_evaluation += self.interval
+        return time.monotonic() < self.deadline
+
+
+def train(args):
+    root = args.output
+    if root.exists() and any(root.iterdir()):
+        raise ValueError('output directory must be empty')
+    root.mkdir(parents=True, exist_ok=True)
+    torch.set_num_threads(1)
+    config = {'algorithm': 'ppo_refine', 'seed': args.seed, 'workers': args.workers,
+        'short_train_steps': 0, 'short_seconds': 8., 'long_seconds': 8., 'scenario_seed': 81000,
+        'network': [32, 32], 'profile': 'sensor41', 'trajectory': 'hover',
+        'requested_steps': args.steps, 'wall_seconds': args.wall_seconds,
+        'learning_rate': 1e-4, 'clip_range': .1, 'target_kl': .01, 'log_std_init': -4.,
+        'mean_activation': 'tanh', 'initial_policy': str(args.policy.resolve()),
+        'initial_policy_sha256': hashlib.sha256(args.policy.read_bytes()).hexdigest()}
+    record = {'config': config, 'metadata': metadata(), 'status': 'running',
+              'trainer_sha256': hashlib.sha256(Path(__file__).read_bytes()).hexdigest()}
+    write_json(root/'run.json', record)
+    env = SubprocVecEnv([partial(make_env, i, args.workers, config) for i in range(args.workers)], start_method='spawn')
+    model = PPO(TanhMeanPolicy, env, seed=args.seed, device='cpu', learning_rate=1e-4,
+        n_steps=256, batch_size=256, n_epochs=5, gamma=.995, gae_lambda=.95,
+        clip_range=.1, target_kl=.01, policy_kwargs={'net_arch': dict(pi=[32, 32], vf=[32, 32]), 'log_std_init': -4.})
+    source = GenomePolicy.load(args.policy)
+    copy_genome_actor(model, source.genome, [32, 32])
+    started = time.monotonic()
+    callback = RefineValidation(root, started+args.wall_seconds)
+    try:
+        # Validate and retain the exact initial actor before any gradient update.
+        callback.model = model
+        callback.validate()
+        model.learn(total_timesteps=args.steps, callback=callback)
+        if time.monotonic() < callback.deadline:
+            callback.validate()
+        record['status'] = 'completed' if time.monotonic() < callback.deadline else 'wall_timeout'
+    except BaseException:
+        record['status'] = 'interrupted_or_failed'
+        raise
+    finally:
+        model.save(root/'policy.zip')
+        record.update(train_steps=model.num_timesteps, validation_steps=callback.validation_steps,
+                      best_score=callback.best, wall_seconds=time.monotonic()-started)
+        write_json(root/'run.json', record)
+        env.close()
+        callback.env.close()
+    return record
+
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--policy', type=Path, required=True)
+    parser.add_argument('--output', type=Path, required=True)
+    parser.add_argument('--workers', type=int, default=6)
+    parser.add_argument('--seed', type=int, default=44)
+    parser.add_argument('--steps', type=int, default=131072)
+    parser.add_argument('--wall-seconds', type=float, default=1200.)
+    args = parser.parse_args()
+    if args.workers < 1 or args.steps < 1 or args.wall_seconds <= 0:
+        parser.error('workers, steps and wall time must be positive')
+    from .ppo_refine import train as canonical_train
+    print(json.dumps(canonical_train(args)), flush=True)

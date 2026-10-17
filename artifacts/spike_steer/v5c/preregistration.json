@@ -1,0 +1,24 @@
+{
+ "only": "snn_v5 (calibrated, validation-selected)",
+ "pass_rule": [
+  "flies 16/16 on the old 16-case test",
+  "J_snn <= 1.05 x J_law_tuned (v2 108-point law), both re-run here",
+  ">= 20 onsets for need-up and need-down; >= 70 % within +-67.5 deg of 135 / 315 deg"
+ ],
+ "robust_pass": "the same on the fresh 16-case test (v3 test3 stream)",
+ "prediction": [
+  "the champion is comparator-like: tau_m <= 2 ms and <= 2 hidden units",
+  "J ratio <= 1.05 on the old 16 cases (the in-bounds hand-built comparator scored 1.021)"
+ ],
+ "changes_from_v4": [
+  "canonical NEAT start (full_direct, no hidden units, no warm start)",
+  "cold-start mutation rates (COLD)",
+  "no D1; law_ext reused from v3"
+ ],
+ "search_fix": {
+  "fitness": "mean",
+  "tied": true
+ },
+ "registered_before_test": true,
+ "time": "2026-10-13 21:24:55"
+}

@@ -1,0 +1,47 @@
+{
+ "pll": {
+  "rms_all": 6.8996981424747466,
+  "rms_calm": 6.8708411663836735,
+  "rms_gust": 8.139875139625605,
+  "p95_gust": 15.830399580256312,
+  "lock_time_s_mean": 1.1633749902248383,
+  "never_locked": 0,
+  "episodes": 16
+ },
+ "gru_long": {
+  "rms_all": 0.8186752980933886,
+  "rms_calm": 0.7677489175533331,
+  "rms_gust": 1.4605653598527562,
+  "p95_gust": 3.1252141871616312,
+  "lock_time_s_mean": 0.1422500004991889,
+  "never_locked": 0,
+  "episodes": 16
+ },
+ "snn_grad_h24": {
+  "rms_all": 3.510331258387445,
+  "rms_calm": 3.340105315865791,
+  "rms_gust": 5.689120345138362,
+  "p95_gust": 11.551646451328162,
+  "lock_time_s_mean": 0.6372500099241734,
+  "never_locked": 0,
+  "episodes": 16
+ },
+ "snn_grad_h48fast": {
+  "rms_all": 2.366684334883991,
+  "rms_calm": 2.2896793325351057,
+  "rms_gust": 3.4167084137243524,
+  "p95_gust": 6.7602501939687345,
+  "lock_time_s_mean": 0.166999998036772,
+  "never_locked": 0,
+  "episodes": 16
+ },
+ "snn_neat": {
+  "rms_all": 9.309228222434095,
+  "rms_calm": 9.111973350147611,
+  "rms_gust": 12.41358027396754,
+  "p95_gust": 25.65470915302191,
+  "lock_time_s_mean": 4.602999970316887,
+  "never_locked": 8,
+  "episodes": 16
+ }
+}

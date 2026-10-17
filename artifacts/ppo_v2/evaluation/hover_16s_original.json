@@ -1,0 +1,66 @@
+{
+  "run": "/home/robot/rl/FlapSim-ppo-v2/runs/hover_candidate",
+  "seeds": [
+    2000,
+    2001,
+    2002,
+    2003
+  ],
+  "reference_physics": true,
+  "policy_sha256": "6753b5e8201269235804e77167049c6d35c78187da285b12871d05379cbcd1f4",
+  "trajectories": {
+    "hover": {
+      "success_rate": 1,
+      "completion_rate": 1,
+      "mean_seconds": 16.0,
+      "mean_rmse_m": 0.04968348539894689,
+      "worst_rmse_m": 0.05194867362483749,
+      "episodes": [
+        {
+          "seed": 2000,
+          "episode": 0,
+          "rmse_m": 0.0513798376499774,
+          "max_error_m": 0.07457611682403535,
+          "seconds": 16.0,
+          "completion_fraction": 1.0,
+          "success": true,
+          "termination_reason": "time_limit",
+          "reward": 5374.788211328938
+        },
+        {
+          "seed": 2001,
+          "episode": 0,
+          "rmse_m": 0.04644196637521457,
+          "max_error_m": 0.07389986425138229,
+          "seconds": 16.0,
+          "completion_fraction": 1.0,
+          "success": true,
+          "termination_reason": "time_limit",
+          "reward": 5415.291695567634
+        },
+        {
+          "seed": 2002,
+          "episode": 0,
+          "rmse_m": 0.04896346394575811,
+          "max_error_m": 0.07589414404855449,
+          "seconds": 16.0,
+          "completion_fraction": 1.0,
+          "success": true,
+          "termination_reason": "time_limit",
+          "reward": 5397.255387966272
+        },
+        {
+          "seed": 2003,
+          "episode": 0,
+          "rmse_m": 0.05194867362483749,
+          "max_error_m": 0.08394314605347546,
+          "seconds": 16.0,
+          "completion_fraction": 1.0,
+          "success": true,
+          "termination_reason": "time_limit",
+          "reward": 5372.9472693519
+        }
+      ]
+    }
+  }
+}

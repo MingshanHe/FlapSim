@@ -1,0 +1,118 @@
+{
+  "tracking": {
+    "trajectories": [
+      "hover",
+      "circle",
+      "figure8",
+      "ellipse",
+      "line",
+      "helix",
+      "lissajous"
+    ],
+    "control_dt": 0.01,
+    "episode_seconds": 8.0,
+    "center": [
+      0.0,
+      0.0,
+      0.8
+    ],
+    "radius": 0.2,
+    "period": 8.0,
+    "height": 0.1,
+    "gravity_scale": 1.0,
+    "initial_speed": 3400.0,
+    "warmup_seconds": 0.1,
+    "action_tau": 0.02,
+    "randomize": true,
+    "min_altitude": 0.1,
+    "max_position_error": 1.0,
+    "max_tilt": 1.4,
+    "native_physics": true
+  },
+  "seed": 42,
+  "model_sha256": "c3fcec3057491e3c1d91545d19ef8a436b7536d30aec954a91ce7b02152f7751",
+  "implementation_sha256": "c20a0ed845126ef8a4e96c9908b40ff2d747c1002b48839ad2e17754cdd8240e",
+  "arguments": {
+    "config": "/home/robot/rl/FlapSim-ppo-v2/flapsim/config/training/ist_v2_flight.json",
+    "output": "runs/tracking_full",
+    "resume": null,
+    "warm_start": "runs/tracking_small",
+    "from_best": true,
+    "trajectories": [
+      "hover",
+      "circle",
+      "figure8",
+      "ellipse",
+      "line",
+      "helix",
+      "lissajous"
+    ],
+    "total_timesteps": 262144,
+    "n_envs": 16,
+    "n_steps": 256,
+    "batch_size": 256,
+    "seed": 42,
+    "device": "cpu",
+    "native": false,
+    "split_step": true,
+    "features": "centroidal",
+    "learning_rate": 0.0001,
+    "log_std_init": -2.0,
+    "ent_coef": 0.0,
+    "gamma": null,
+    "control_dt": 0.01,
+    "episode_seconds": 8.0,
+    "period": 8.0,
+    "radius": 0.2,
+    "gravity_scale": 1.0,
+    "trim_speed": 4000.0,
+    "checkpoint_steps": 10000,
+    "eval_steps": 32768,
+    "skip_preflight": false
+  },
+  "python": "3.11.11",
+  "status": "exported",
+  "versions": {
+    "mujoco": "3.8.0",
+    "numpy": "2.2.4",
+    "torch": "2.6.0+cu124",
+    "gymnasium": "1.1.1",
+    "stable_baselines3": "2.6.0"
+  },
+  "split_sha256": "0d069f5cdace85123823d9475fa7f62e2731bf21ac2e5fc374793e66623545dd",
+  "features_sha256": "df3af9663b2f22d29feb248509f39a2c3d8ef461deef1423b89a16a8a7a2d974",
+  "transfer_source": "/home/robot/rl/FlapSim-ppo-v2/runs/tracking_small",
+  "transfer_policy": "/home/robot/rl/FlapSim-ppo-v2/runs/tracking_small/best/best_model.zip",
+  "evaluation": {
+    "trajectories": [
+      "hover",
+      "circle",
+      "figure8",
+      "ellipse",
+      "line",
+      "helix",
+      "lissajous"
+    ],
+    "seeds": [
+      10042,
+      10043,
+      10044,
+      10045,
+      10046,
+      10047,
+      10048
+    ]
+  },
+  "num_timesteps": 262144,
+  "wall_seconds": 1008.5905285389999,
+  "exported_from": "/home/robot/rl/FlapSim-ppo-v2/runs/tracking_candidate",
+  "export_runtime_versions": {
+    "mujoco": "3.8.0",
+    "numpy": "2.2.4",
+    "torch": "2.6.0",
+    "gymnasium": "1.1.1",
+    "stable_baselines3": "2.6.0"
+  },
+  "exported_policy_sha256": "b2f891b76dd2dcc4d93816cb69348ecda68f254bcebb112b772bb30ef768a043",
+  "exported_normalizer_sha256": "059a37f5db534d0b93383288049a9b9b9cf4838c16d8f7e3d0056ea37f82f691"
+}

@@ -1,0 +1,94 @@
+{
+  "seed": 2197,
+  "fitness": "independent random numbers; no physical reward or heldout cases",
+  "results": [
+    {
+      "threshold": 0.5,
+      "elitism": 1,
+      "generations": 36,
+      "species_quantiles": [
+        2.0,
+        21.0,
+        34.0
+      ],
+      "error": "Configuration conflict: population size 64 is less than num_species * min_species_size 68 (34 * 2). Cannot satisfy per-species minima."
+    },
+    {
+      "threshold": 0.5,
+      "elitism": 2,
+      "generations": 60,
+      "species_quantiles": [
+        2.0,
+        18.5,
+        22.0
+      ],
+      "error": null
+    },
+    {
+      "threshold": 0.7,
+      "elitism": 1,
+      "generations": 60,
+      "species_quantiles": [
+        1.0,
+        19.0,
+        27.0
+      ],
+      "error": null
+    },
+    {
+      "threshold": 0.7,
+      "elitism": 2,
+      "generations": 60,
+      "species_quantiles": [
+        1.0,
+        9.0,
+        16.0
+      ],
+      "error": null
+    },
+    {
+      "threshold": 1.0,
+      "elitism": 1,
+      "generations": 60,
+      "species_quantiles": [
+        1.0,
+        6.0,
+        28.0
+      ],
+      "error": null
+    },
+    {
+      "threshold": 1.0,
+      "elitism": 2,
+      "generations": 60,
+      "species_quantiles": [
+        1.0,
+        2.0,
+        4.0
+      ],
+      "error": null
+    },
+    {
+      "threshold": 1.5,
+      "elitism": 1,
+      "generations": 60,
+      "species_quantiles": [
+        1.0,
+        1.0,
+        2.0
+      ],
+      "error": null
+    },
+    {
+      "threshold": 1.5,
+      "elitism": 2,
+      "generations": 60,
+      "species_quantiles": [
+        1.0,
+        2.0,
+        2.0
+      ],
+      "error": null
+    }
+  ]
+}

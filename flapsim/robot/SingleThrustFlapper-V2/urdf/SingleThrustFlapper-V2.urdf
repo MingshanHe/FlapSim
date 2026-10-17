@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.6.0-4-g7f85cfe  Build Version: 1.6.7995.38578
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot
+  name="SingleThrustFlapper-V2">
+  <link
+    name="base_link">
+    <inertial>
+      <origin
+        xyz="-3.20729626000511E-06 1.30823101995563E-05 0.0298048281551491"
+        rpy="0 0 0" />
+      <mass
+        value="0.00375226526133994" />
+      <inertia
+        ixx="1.57236813440058E-07"
+        ixy="-1.41010308892605E-11"
+        ixz="-3.42780971906297E-12"
+        iyy="1.30149181128724E-07"
+        iyz="-9.50953773255945E-11"
+        izz="2.02159809533714E-07" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="../meshes/base_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.894117647058823 0.894117647058823 0.894117647058823 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="../meshes/base_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <link
+    name="left_gear">
+    <inertial>
+      <origin
+        xyz="0.00482114091468307 0.000386631569952528 3.56836616447788E-06"
+        rpy="0 0 0" />
+      <mass
+        value="0.000180370596145377" />
+      <inertia
+        ixx="9.82586810253989E-10"
+        ixy="3.10853394046688E-10"
+        ixz="-2.0145999314952E-12"
+        iyy="4.25828881994327E-09"
+        iyz="2.3007807932172E-13"
+        izz="3.70446693621275E-09" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="../meshes/left_gear.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.43921568627451 0.43921568627451 0.43921568627451 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="../meshes/left_gear.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="left_flapping"
+    type="revolute">
+    <origin
+      xyz="0 0.014 0.038"
+      rpy="1.5708 0 1.5708" />
+    <parent
+      link="base_link" />
+    <child
+      link="left_gear" />
+    <axis
+      xyz="0 -1 0" />
+    <limit
+      lower="-1.5"
+      upper="1.5"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="left_wing">
+    <inertial>
+      <origin
+        xyz="0.0012356672871606 -0.00665314057662089 -0.0020037835419876"
+        rpy="0 0 0" />
+      <mass
+        value="0.000746677777710921" />
+      <inertia
+        ixx="2.43204267237174E-07"
+        ixy="4.01792183837717E-10"
+        ixz="3.98518265683764E-13"
+        iyy="2.18904158731578E-07"
+        iyz="-3.51622125614154E-11"
+        izz="2.46225436439057E-08" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="../meshes/left_wing.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.894117647058823 0.894117647058823 0.894117647058823 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="../meshes/left_wing.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="left_feathering"
+    type="revolute">
+    <origin
+      xyz="0.008 -0.001 0"
+      rpy="0 1.5701 0" />
+    <parent
+      link="left_gear" />
+    <child
+      link="left_wing" />
+    <axis
+      xyz="0 0 -1" />
+    <limit
+      lower="-0.3"
+      upper="0.3"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="right_gear">
+    <inertial>
+      <origin
+        xyz="-0.00482076205208311 0.000386631569936222 6.0544939353542E-05"
+        rpy="0 0 0" />
+      <mass
+        value="0.000180370596145377" />
+      <inertia
+        ixx="9.83014583951041E-10"
+        ixy="-3.10828966079199E-10"
+        ixz="3.41792969681776E-11"
+        iyy="4.25828881994116E-09"
+        iyz="3.90376475868879E-12"
+        izz="3.7040391625178E-09" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="../meshes/right_gear.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.43921568627451 0.43921568627451 0.43921568627451 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="../meshes/right_gear.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="right_flapping"
+    type="revolute">
+    <origin
+      xyz="0 -0.014 0.038"
+      rpy="1.5708 0 1.5708" />
+    <parent
+      link="base_link" />
+    <child
+      link="right_gear" />
+    <axis
+      xyz="0 -1 0" />
+    <limit
+      lower="-1.5"
+      upper="1.5"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="right_wing">
+    <inertial>
+      <origin
+        xyz="-0.00123578322296596 -0.00665598063945375 0.0271830469085974"
+        rpy="0 0 0" />
+      <mass
+        value="0.000373354651397154" />
+      <inertia
+        ixx="1.21651051064403E-07"
+        ixy="-2.01575307513794E-10"
+        ixz="1.48532642414841E-10"
+        iyy="1.09484491426939E-07"
+        iyz="-5.455525285816E-09"
+        izz="1.23277529663244E-08" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="../meshes/right_wing.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.894117647058823 0.894117647058823 0.894117647058823 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="../meshes/right_wing.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="right_feathering"
+    type="revolute">
+    <origin
+      xyz="-0.0079994 -0.001 0.00010047"
+      rpy="0 -1.5582 0" />
+    <parent
+      link="right_gear" />
+    <child
+      link="right_wing" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-0.3"
+      upper="0.3"
+      effort="0"
+      velocity="0" />
+  </joint>
+</robot>

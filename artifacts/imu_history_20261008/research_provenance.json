@@ -1,0 +1,32 @@
+{
+  "date": "2026-10-08",
+  "mode": "targeted literature review and state-estimation feasibility diagnostic",
+  "scope": "IMU history for relative displacement; NEAT/PPO on flapping vehicles and drones; PID inner-loop architectures",
+  "not_a_systematic_review": true,
+  "queries": [
+    "NEAT neuroevolution augmenting topologies quadrotor control",
+    "flapping wing robot reinforcement learning PPO hovering control",
+    "quadrotor PPO PID inner loop outer loop reinforcement learning control paper",
+    "NEAT flapping wing controller",
+    "IMU history inertial odometry displacement"
+  ],
+  "included_sources": [
+    {"title":"Application of artificial neural networks and NEAT algorithm to control a quadcopter","authors":["Mateusz Przychodzki","Artur Niewiadomski"],"year":2023,"doi":"10.34739/si.2023.29.03","url":"https://czasopisma.uph.edu.pl/studiainformatica/article/download/3616/3407/8080","verification":"Publisher PDF downloaded locally and text extracted; sections 3.1, 3.2, 4.1-4.3 checked","evidence":"Simulation; NEAT, IMU acceleration/gyro, Betaflight PID","redistributed_pdf":false},
+    {"title":"Flappy Hummingbird: An Open Source Dynamic Simulation of Flapping Wing Robots and Animals","authors":["Fan Fei","Zhan Tu","Yilun Yang","Jian Zhang","Xinyan Deng"],"year":2019,"url":"https://arxiv.org/abs/1902.09628","verification":"Primary PDF sections III-IV read online","evidence":"ICRA; PID cascade and DDPG residual maneuvers with real robot; IMU/Vicon"},
+    {"title":"Hovering Flight of Soft-Actuated Insect-Scale Micro Aerial Vehicles using Deep Reinforcement Learning","authors":["Yi-Hsuan Hsiao","Wei-Tung Chen","Yun-Sheng Chang","Pulkit Agrawal","YuFeng Chen"],"year":2025,"url":"https://arxiv.org/html/2502.12355v1","verification":"Primary full text sections II-A, II-C, II-E, II-F and abstract checked","evidence":"RoboSoft accepted; behavior cloning then PPO; Vicon; real hovering"},
+    {"title":"Adaptive Outer-Loop Control of Quadrotors via Reinforcement Learning","authors":["Vishnu Saj","Sushil Vemuri","Dileep Kalathil","Moble Benedict"],"year":2026,"url":"https://arxiv.org/html/2605.16015v2","verification":"Primary full text sections 4.4-4.7 and 5.2 checked; version 2 retrieved","evidence":"Preprint; PPO outer loop, PID rate inner loop; IMU plus optical flow and ToF"},
+    {"title":"TLIO: Tight Learned Inertial Odometry","authors":["Wenxin Liu","David Caruso","Eddy Ilg","Jing Dong","Anastasios I. Mourikis","Kostas Daniilidis","Vijay Kumar","Jakob Engel"],"year":2020,"doi":"10.1109/LRA.2020.3007421","url":"https://arxiv.org/abs/2007.01867","verification":"Primary abstract and journal/DOI metadata checked; no architecture details inferred beyond abstract","evidence":"RA-L; learned displacement and uncertainty plus EKF; pedestrian headset data"},
+    {"title":"Learning to Fly in Seconds","authors":["Jonas Eschmann","Dario Albani","Giuseppe Loianno"],"year":2024,"url":"https://arxiv.org/html/2311.13081v2","verification":"Primary full text sections III-V read; original preprint 2023, version read 2024","evidence":"RA-L accepted; TD3, action history, actor includes position and velocity"},
+    {"title":"Reinforcement learning based recovery flight control for flapping-wing micro-aerial vehicles under extreme attitudes","authors":["Yang Yu","Qiang Lu","Botao Zhang"],"year":2025,"doi":"10.1177/17298806241303290","url":"https://journals.sagepub.com/doi/full/10.1177/17298806241303290","verification":"Publisher abstract, longitudinal dynamics and RL-based controller sections read","evidence":"Simulation; simplified longitudinal dynamics; PPO and PD"},
+    {"title":"An introduction to inertial navigation","authors":["Oliver J. Woodman"],"year":2007,"doi":"10.48456/tr-696","url":"https://www.cl.cam.ac.uk/techreports/UCAM-CL-TR-696.html","verification":"University technical-report page and abstract checked","evidence":"Foundational inertial error analysis; numerical hardware performance not extrapolated to modern sensors"}
+  ],
+  "search_limitations": [
+    "Search-engine coverage only; not exhaustive academic-database indexing",
+    "No verified exact NEAT + full flapping dynamics + IMU-only robust 3D hover example found",
+    "Future-looking proposals in the report are engineering recommendations, not achieved results",
+    "Publisher MDPI source for Sensors 26(3):1009 could not be fully retrieved; excluded from the detailed evidence table"
+  ],
+  "user_constraints": {"upper_mass_g":7,"lower_mass_g":8,"imu_location":"base_link","new_acceleration_channels_authorized":true,"raw_sensor_channels":9},
+  "completed": ["literature investigation and synthesis","8-case inertial integration diagnostic","first-case full-rate sampling audit","3 new tests; 22 combined tests passed","historical 85-file training-source hash check"],
+  "not_completed_or_claimed": ["9-input controller training","PID inner-loop implementation","new hovering policy","hardware IMU validation"]
+}

@@ -1,0 +1,127 @@
+{
+  "neat_seed941": {
+    "format": "flapsim-neat-residual-v1",
+    "nodes": 16,
+    "nonzero_links": 242,
+    "activation_counts": {
+      "tanh": 4,
+      "gauss": 6,
+      "sin": 2,
+      "bipolar_sigmoid": 2,
+      "clamped": 1,
+      "softsign": 1
+    },
+    "history_inputs_with_paths": [
+      "estimated_x",
+      "estimated_y",
+      "estimated_z",
+      "estimated_vx",
+      "estimated_vy",
+      "estimated_vz"
+    ],
+    "all_inputs_with_paths": [
+      "roll",
+      "pitch",
+      "yaw",
+      "gyro_x",
+      "gyro_y",
+      "gyro_z",
+      "accel_x",
+      "accel_y",
+      "accel_z",
+      "estimated_x",
+      "estimated_y",
+      "estimated_z",
+      "estimated_vx",
+      "estimated_vy",
+      "estimated_vz"
+    ],
+    "caveat": "A path indicates possible dependence, not beneficial behavior; see ablation"
+  },
+  "neat_seed942": {
+    "format": "flapsim-neat-residual-v1",
+    "nodes": 18,
+    "nonzero_links": 244,
+    "activation_counts": {
+      "clamped": 4,
+      "gauss": 5,
+      "softsign": 4,
+      "bipolar_sigmoid": 2,
+      "sin": 2,
+      "tanh": 1
+    },
+    "history_inputs_with_paths": [
+      "estimated_x",
+      "estimated_y",
+      "estimated_z",
+      "estimated_vx",
+      "estimated_vy",
+      "estimated_vz"
+    ],
+    "all_inputs_with_paths": [
+      "roll",
+      "pitch",
+      "yaw",
+      "gyro_x",
+      "gyro_y",
+      "gyro_z",
+      "accel_x",
+      "accel_y",
+      "accel_z",
+      "estimated_x",
+      "estimated_y",
+      "estimated_z",
+      "estimated_vx",
+      "estimated_vy",
+      "estimated_vz"
+    ],
+    "caveat": "A path indicates possible dependence, not beneficial behavior; see ablation"
+  },
+  "ppo_seed941": {
+    "format": "flapsim-ppo-history-v1",
+    "first_layer_column_norms": {
+      "roll": 1.5112578020512033,
+      "pitch": 1.5141216352184534,
+      "yaw": 1.5575661657135116,
+      "gyro_x": 1.6068694350285493,
+      "gyro_y": 1.5959527117550378,
+      "gyro_z": 1.6270321656341655,
+      "accel_x": 1.3110544993292288,
+      "accel_y": 1.595987506973072,
+      "accel_z": 1.4815223320539805,
+      "estimated_x": 1.61925364827141,
+      "estimated_y": 1.474967236181535,
+      "estimated_z": 1.571901347023355,
+      "estimated_vx": 1.7508497002606433,
+      "estimated_vy": 1.486754266570605,
+      "estimated_vz": 1.549928622234007
+    },
+    "caveat": "Nonzero weights do not establish helpful causal use; see held-out zero-history ablation"
+  },
+  "ppo_seed942": {
+    "format": "flapsim-ppo-history-v1",
+    "first_layer_column_norms": {
+      "roll": 1.387879286935345,
+      "pitch": 1.4515007483999987,
+      "yaw": 1.4622733783230133,
+      "gyro_x": 1.4709992616608547,
+      "gyro_y": 1.4458655916029175,
+      "gyro_z": 1.5175306324478373,
+      "accel_x": 1.4492751485898607,
+      "accel_y": 1.4242909985192047,
+      "accel_z": 1.438492886282802,
+      "estimated_x": 1.4245039185468709,
+      "estimated_y": 1.3953622295273274,
+      "estimated_z": 1.4935295913687407,
+      "estimated_vx": 1.5212647871133784,
+      "estimated_vy": 1.474162821114494,
+      "estimated_vz": 1.4194004799287134
+    },
+    "caveat": "Nonzero weights do not establish helpful causal use; see held-out zero-history ablation"
+  },
+  "shared_prior": {
+    "format": "zero_residual",
+    "nodes": 0,
+    "history_inputs_with_paths": []
+  }
+}

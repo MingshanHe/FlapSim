@@ -1,0 +1,32 @@
+{
+  "method": "neat",
+  "seed": 1205,
+  "sensor": "height",
+  "status": "completed",
+  "training_steps": 262144,
+  "validation_steps": 9600,
+  "budget": 262144,
+  "generation": 8,
+  "best_validation": {
+    "episodes": 4,
+    "success_rate": 0.5,
+    "mean_return": 27.510371278218265,
+    "mean_elapsed": 8.0,
+    "tilt_rms_deg": 7.680897419853023,
+    "height_rmse_m": 0.0638383462678837,
+    "steps": 3200,
+    "minimum_clearance_m": 0.5338847103594511
+  },
+  "wall_seconds": 952.0475076279981,
+  "inference": {
+    "nodes": 5,
+    "hidden": 2,
+    "connections": 27,
+    "effective_connections": 26,
+    "recurrent_edges": 4,
+    "parameters": 32,
+    "state_floats": 5,
+    "numpy_inference_us_median": 6.504363002022728,
+    "implementation": "CPU NumPy dense evaluation of the exported actor; not an MCU measurement"
+  }
+}

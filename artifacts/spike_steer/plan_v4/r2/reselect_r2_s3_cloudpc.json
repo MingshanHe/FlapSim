@@ -1,0 +1,187 @@
+{
+ "seed": 3,
+ "rule": "lowest composite on 16 validation cases among zero-crash centres",
+ "n_val_per_task": 8,
+ "centres": [
+  {
+   "generation": -1,
+   "composite16": 1.15160664098685,
+   "composite8": 1.3744210860546582,
+   "crashes": 0,
+   "dash_tilt_peak_max": 32.50730742376557,
+   "ratios": {
+    "nod": 1.3342895835643114,
+    "dash": 0.9689236984093887
+   },
+   "spec": "artifacts/spike_steer/plan_v4/r2/finetune_s3_cloudpc/spec_val_g-1.json"
+  },
+  {
+   "generation": 4,
+   "composite16": 0.8803664647065299,
+   "composite8": 0.8703785377968218,
+   "crashes": 0,
+   "dash_tilt_peak_max": 40.1584645394198,
+   "ratios": {
+    "nod": 0.8898443927922057,
+    "dash": 0.8708885366208542
+   },
+   "spec": "artifacts/spike_steer/plan_v4/r2/finetune_s3_cloudpc/spec_val_g4.json"
+  },
+  {
+   "generation": 9,
+   "composite16": 0.854054738702019,
+   "composite8": 0.830188748105394,
+   "crashes": 0,
+   "dash_tilt_peak_max": 38.4920249490442,
+   "ratios": {
+    "nod": 0.8451919526550603,
+    "dash": 0.8629175247489778
+   },
+   "spec": "artifacts/spike_steer/plan_v4/r2/finetune_s3_cloudpc/spec_val_g9.json"
+  },
+  {
+   "generation": 14,
+   "composite16": 1.710400969096947,
+   "composite8": 0.8744124496333263,
+   "crashes": 1,
+   "dash_tilt_peak_max": 39.55507280982909,
+   "ratios": {
+    "nod": 2.5132984081156793,
+    "dash": 0.9075035300782149
+   },
+   "spec": "artifacts/spike_steer/plan_v4/r2/finetune_s3_cloudpc/spec_val_g14.json"
+  },
+  {
+   "generation": 19,
+   "composite16": 0.9097018281927526,
+   "composite8": 0.9060743815170886,
+   "crashes": 0,
+   "dash_tilt_peak_max": 32.968655942745976,
+   "ratios": {
+    "nod": 0.8844125224269924,
+    "dash": 0.9349911339585127
+   },
+   "spec": "artifacts/spike_steer/plan_v4/r2/finetune_s3_cloudpc/spec_val_g19.json"
+  },
+  {
+   "generation": 24,
+   "composite16": 0.8795291184324634,
+   "composite8": 0.8729485327776264,
+   "crashes": 0,
+   "dash_tilt_peak_max": 34.35361255497205,
+   "ratios": {
+    "nod": 0.827148812863074,
+    "dash": 0.931909424001853
+   },
+   "spec": "artifacts/spike_steer/plan_v4/r2/finetune_s3_cloudpc/spec_val_g24.json"
+  },
+  {
+   "generation": 29,
+   "composite16": 0.8457438992334483,
+   "composite8": 0.8446796968098735,
+   "crashes": 0,
+   "dash_tilt_peak_max": 40.68972764121262,
+   "ratios": {
+    "nod": 0.8441727149609438,
+    "dash": 0.8473150835059529
+   },
+   "spec": "artifacts/spike_steer/plan_v4/r2/finetune_s3_cloudpc/spec_val_g29.json"
+  },
+  {
+   "generation": 34,
+   "composite16": 1.6357438709660408,
+   "composite8": 0.8245141539647641,
+   "crashes": 1,
+   "dash_tilt_peak_max": 44.8891772955733,
+   "ratios": {
+    "nod": 2.4335667707758546,
+    "dash": 0.8379209711562271
+   },
+   "spec": "artifacts/spike_steer/plan_v4/r2/finetune_s3_cloudpc/spec_val_g34.json"
+  },
+  {
+   "generation": 39,
+   "composite16": 0.824323879364441,
+   "composite8": 0.809315818375868,
+   "crashes": 0,
+   "dash_tilt_peak_max": 43.80342121445394,
+   "ratios": {
+    "nod": 0.8159856467945674,
+    "dash": 0.8326621119343144
+   },
+   "spec": "artifacts/spike_steer/plan_v4/r2/finetune_s3_cloudpc/spec_val_g39.json"
+  },
+  {
+   "generation": 44,
+   "composite16": 0.8092380518022813,
+   "composite8": 0.8080328112292032,
+   "crashes": 0,
+   "dash_tilt_peak_max": 37.55259981902164,
+   "ratios": {
+    "nod": 0.784410119653729,
+    "dash": 0.8340659839508336
+   },
+   "spec": "artifacts/spike_steer/plan_v4/r2/finetune_s3_cloudpc/spec_val_g44.json"
+  },
+  {
+   "generation": 49,
+   "composite16": 0.8215332694656204,
+   "composite8": 0.817371210372341,
+   "crashes": 0,
+   "dash_tilt_peak_max": 46.82430834364082,
+   "ratios": {
+    "nod": 0.7758634537469267,
+    "dash": 0.8672030851843142
+   },
+   "spec": "artifacts/spike_steer/plan_v4/r2/finetune_s3_cloudpc/spec_val_g49.json"
+  },
+  {
+   "generation": 54,
+   "composite16": 0.8052744817107161,
+   "composite8": 0.8053947416480531,
+   "crashes": 0,
+   "dash_tilt_peak_max": 39.2812029526694,
+   "ratios": {
+    "nod": 0.7692064931492925,
+    "dash": 0.8413424702721398
+   },
+   "spec": "artifacts/spike_steer/plan_v4/r2/finetune_s3_cloudpc/spec_val_g54.json"
+  },
+  {
+   "generation": 59,
+   "composite16": 0.79122508091765,
+   "composite8": 0.7783707881435874,
+   "crashes": 0,
+   "dash_tilt_peak_max": 32.9692914642595,
+   "ratios": {
+    "nod": 0.7300513864254278,
+    "dash": 0.8523987754098723
+   },
+   "spec": "artifacts/spike_steer/plan_v4/r2/finetune_s3_cloudpc/spec_val_g59.json"
+  }
+ ],
+ "selected": {
+  "generation": 59,
+  "composite16": 0.79122508091765,
+  "composite8": 0.7783707881435874,
+  "crashes": 0,
+  "dash_tilt_peak_max": 32.9692914642595,
+  "ratios": {
+   "nod": 0.7300513864254278,
+   "dash": 0.8523987754098723
+  },
+  "spec": "artifacts/spike_steer/plan_v4/r2/finetune_s3_cloudpc/spec_val_g59.json"
+ },
+ "selected_by_old_rule": {
+  "generation": 59,
+  "composite16": 0.79122508091765,
+  "composite8": 0.7783707881435874,
+  "crashes": 0,
+  "dash_tilt_peak_max": 32.9692914642595,
+  "ratios": {
+   "nod": 0.7300513864254278,
+   "dash": 0.8523987754098723
+  },
+  "spec": "artifacts/spike_steer/plan_v4/r2/finetune_s3_cloudpc/spec_val_g59.json"
+ }
+}

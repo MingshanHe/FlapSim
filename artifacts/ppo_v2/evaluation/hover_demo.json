@@ -1,0 +1,31 @@
+[
+  {
+    "trajectory": "hover",
+    "mean_rmse_m": 0.050525373991301095,
+    "success_rate": 1.0,
+    "mean_completion_fraction": 1.0,
+    "randomized_resets": true,
+    "seed": 3000,
+    "controller": "ppo",
+    "episode_seconds": 16.0,
+    "physics_engine": "split",
+    "policy_timesteps": 540848,
+    "policy_sha256": "6753b5e8201269235804e77167049c6d35c78187da285b12871d05379cbcd1f4",
+    "normalizer_sha256": "d2af637b6c98619bb46e9f8ceff29fa6bda8c9ace2c8c16921edf386989da417",
+    "episodes": [
+      {
+        "episode": 0,
+        "rmse_m": 0.050525373991301095,
+        "max_error_m": 0.08065016524408032,
+        "seconds": 16.0,
+        "completion_fraction": 1.0,
+        "success": true,
+        "termination_reason": "time_limit",
+        "reference_radius_m": 0.18624636888991325,
+        "reference_period_s": 7.747644352181437,
+        "reference_phase_rad": 2.7427073796131007,
+        "reward": 5383.504460911067
+      }
+    ]
+  }
+]

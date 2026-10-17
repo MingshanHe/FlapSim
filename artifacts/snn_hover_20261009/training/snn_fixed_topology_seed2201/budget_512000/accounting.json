@@ -1,0 +1,21 @@
+{
+  "method": "snn_fixed_topology",
+  "seed": 2201,
+  "status": "training",
+  "training_steps": 511751,
+  "allocated_steps": 512000,
+  "validation_steps": 70400,
+  "budget": 1024000,
+  "generation": 29,
+  "best_validation": {
+    "episodes": 8,
+    "success_rate": 1.0,
+    "mean_return": 28.59356541848184,
+    "mean_elapsed": 8.0,
+    "tilt_rms_deg": 5.537292669384609,
+    "height_rmse_m": 0.0644069528640044,
+    "steps": 6400,
+    "minimum_clearance_m": 0.5063483351103462
+  },
+  "wall_seconds": 1796.5377492980042
+}

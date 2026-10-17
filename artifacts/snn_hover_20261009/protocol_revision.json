@@ -1,0 +1,19 @@
+{
+  "date": "2026-10-09",
+  "reason": "Compatibility threshold0.25 fragmented a 64-member population into28 species after6 evaluated generations; elitism2 leaves few children. Development random-fitness screen also exposed a possible per-species-minimum conflict with threshold0.5.",
+  "outcome": "Preserve all v1 data, use threshold1.0/elitism2 selected for reproduction viability from 60-generation random-fitness checks; no heldout data accessed",
+  "recorded_training_actor_steps": 89600,
+  "recorded_validation_actor_steps": 12800,
+  "unrecorded_interrupted_work_upper_bound_actor_steps": 19200,
+  "aborted_run_not_in_formal_analysis": true,
+  "archive": "development/aborted_speciation_v1",
+  "version2": {
+    "reason": "At generation28 the population again fragmented; a reproduction-only continuation of the copied checkpoint reached33 species and failed its64 >= 33*2 allocation invariant.",
+    "recorded_training_actor_steps": 486400,
+    "recorded_validation_actor_steps": 64000,
+    "unrecorded_interrupted_work_upper_bound_actor_steps": 32000,
+    "archive": "development/aborted_speciation_v2",
+    "no_test_data_accessed": true
+  },
+  "version3_plan": "Apply the same deterministic capacity-limited speciation to all evolution arms: max16 species for64 individuals, at most32 retained elites, at least32 new offspring per normal generation. Merge genetically closest representatives if needed, without changing genomes; archive merges. No performance-based threshold tuning."
+}

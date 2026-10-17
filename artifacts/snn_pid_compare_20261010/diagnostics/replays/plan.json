@@ -1,0 +1,50 @@
+{
+  "purpose": "posthoc failure diagnosis, not performance estimation or training",
+  "cases": [
+    {
+      "seed": 1120020000,
+      "seconds": 20.0,
+      "condition": "nominal",
+      "phase": 0,
+      "degrees": 2.0,
+      "motor_uncertainty": 0.0,
+      "acceleration_bias": 0.0,
+      "attitude_bias_deg": 0.0,
+      "delay_steps": 0,
+      "attitude_noise_deg": 0.02,
+      "gyro_noise": 0.002,
+      "accel_noise": 0.02,
+      "height_noise": 0.002,
+      "height_delay": 0.02,
+      "lower_mass_scale": 1.0,
+      "pulse_force": 0.0,
+      "pulse_torque": 0.0
+    },
+    {
+      "seed": 1120020002,
+      "seconds": 20.0,
+      "condition": "nominal",
+      "phase": 2,
+      "degrees": 2.0,
+      "motor_uncertainty": 0.0,
+      "acceleration_bias": 0.0,
+      "attitude_bias_deg": 0.0,
+      "delay_steps": 0,
+      "attitude_noise_deg": 0.02,
+      "gyro_noise": 0.002,
+      "accel_noise": 0.02,
+      "height_noise": 0.002,
+      "height_delay": 0.02,
+      "lower_mass_scale": 1.0,
+      "pulse_force": 0.0,
+      "pulse_torque": 0.0
+    }
+  ],
+  "prefix_seconds": 3,
+  "models": [
+    "pid",
+    "snn_seed5101",
+    "ann_seed5101"
+  ],
+  "selection": "first nominal case and first nominal failed case of round2 snn_seed5101; common cases across all three controllers"
+}

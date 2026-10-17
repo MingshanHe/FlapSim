@@ -1,0 +1,21 @@
+{
+  "method": "snn_neat",
+  "seed": 2202,
+  "status": "training",
+  "training_steps": 512000,
+  "allocated_steps": 512000,
+  "validation_steps": 70400,
+  "budget": 1024000,
+  "generation": 29,
+  "best_validation": {
+    "episodes": 8,
+    "success_rate": 1.0,
+    "mean_return": 28.739880288085473,
+    "mean_elapsed": 8.0,
+    "tilt_rms_deg": 5.504976069386843,
+    "height_rmse_m": 0.06553258791180752,
+    "steps": 6400,
+    "minimum_clearance_m": 0.5115173105718286
+  },
+  "wall_seconds": 1802.4405079940043
+}

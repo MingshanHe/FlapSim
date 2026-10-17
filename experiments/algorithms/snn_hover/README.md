@@ -1,0 +1,142 @@
+# NEAT-SNN hovering study
+
+The accepted design for this residual-control campaign is archived in
+`artifacts/snn_hover_20261009/research_proposal_approved.md`; its immutable execution
+contract is `artifacts/snn_hover_20261009/protocol.json`. The repository-root
+`research_proposal.md` now describes a separate study comparing SNN/ANN with
+PPO/NEAT under PID-imitation-initialized direct control and matched PID-residual
+control. It does not revise or resume this paused campaign.
+Do not change frozen training code
+while the campaign runs. Historical `topology_hover` code and artifacts are reused
+without modification. All paths below are relative to the repository root.
+
+The user requested a pause after `snn_neat_seed2202`. See repository-root
+`report_stage_2201.md` for the one-seed validation-only interim analysis and
+`exec.md` for the tested CPU environment, immutable-asset path handling, migration
+manifest and explicit `campaign --resume` instructions. A pause marker blocks
+automatic continuation, full testing and final publication. Completed runs are
+retained and skipped; this is continuation at a complete-run boundary, not an
+arbitrary mid-rollout checkpoint restore. The new host must pass migration checks
+before resuming. The original Windows Git publisher is host-specific.
+
+The current experiment includes five evolution arms and two PPO arms, each with
+five training seeds. All actors receive the same 11 sensor values and issue the
+same three signed residual actions on the same fixed PID. The neural clock is
+1 kHz; sensor access and actuator decisions remain 100 Hz. Only temporal actors
+perform ten internal steps per decision. The CUBA-LIF hidden neurons are spiking;
+their inputs and readouts are continuous, so this is a hybrid SNN.
+
+Execution protocol v3 caps the64-member population at16 species for every
+evolution arm. After default NEAT speciation, closest representative pairs merge
+as necessary; genomes do not change. With two elites per species, at least32
+newborn individuals remain available per normal generation. Merge events are
+archived separately from mutations. Both abandoned uncapped protocol attempts
+and their interaction costs are retained under `development/`; they never enter
+formal test comparisons. This is a disclosed implementation modification, not
+the unmodified default NEAT species implementation or the main novelty claim.
+
+The final deliverable includes a standalone repository-root `report_final.md`
+with research results, supported contributions, controls and failure boundaries.
+It is generated only after all independent tests, analysis and media are complete;
+the artifact directory also retains `report.md` and `report_final.md`. Final Git
+commit/push follows an integrity check and review of the claims against raw data.
+
+Budgets are 256,000 and 1,024,000 allocated transitions, rounded down from the
+proposal by 2.34375% to avoid truncated evolution generations. Early failures use
+fewer actual transitions in evolution; both quantities are reported. PPO consumes
+actual transitions, including transitions after episode resets. Never describe
+unequal actual counts as equal. Initial policies are eligible for validation
+selection and all validation costs are separately counted.
+
+```bash
+python -m pytest -q tests/test_snn_hover.py tests/test_topology_hover.py
+python -m experiments.algorithms.snn_hover.development --root artifacts/snn_hover_20261009
+python -m experiments.algorithms.snn_hover.protocol --root artifacts/snn_hover_20261009
+OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python -u -m experiments.algorithms.snn_hover.campaign --root artifacts/snn_hover_20261009
+```
+
+In a separate local process, the finite completion queue waits for all training,
+then runs the frozen tests, statistics, complete population viewers, paired
+trajectory replay, physical video rendering, report and integrity audit:
+
+```bash
+OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MUJOCO_GL=egl python -u -m experiments.algorithms.snn_hover.finish --root artifacts/snn_hover_20261009
+```
+
+It has bounded execution times, stops on errors and never pushes Git. Individual
+postprocessing stages also accept `--root`; the test journal resumes completed
+keys without replacing earlier outcomes. Do not run two completion queues at
+once. `finish_status.json`, `campaign_status.json` and the current run's
+`status.json` distinguish training, waiting, evaluating and completed states.
+The optional `dashboard` module writes a read-only HTML index; serve the artifact
+directory locally to see live progress. Offline analysis is in `report.md`.
+
+For this user's authorized final push, a separate finite publisher may wait for
+the completion queue. It requires all35 training runs and11,888 tests, reruns the
+full integrity audit and controller tests, then commits only this study's paths
+and the two root reports to `research/neat-snn-hover`. It refuses a changed branch,
+an already staged index, unrelated tracked edits, incomplete results or failed
+checks. It uses an ordinary push, never a force push, and verifies the remote SHA.
+Its status receipt is outside the study directory so it cannot invalidate the
+sealed result manifest. No recurring automation is created.
+
+```bash
+python -m experiments.algorithms.snn_hover.publish --root artifacts/snn_hover_20261009 --preflight
+python -u -m experiments.algorithms.snn_hover.publish --root artifacts/snn_hover_20261009 --wait
+```
+
+The publisher's Git executable/remote are deliberately specific to this host and
+repository; `--preflight` is read-only. Final report generation also writes
+`research_result.json`, separating predefined mechanism evidence from descriptive
+flight performance and explicitly withholding confirmatory significance claims.
+
+`visualize` archives every individual, both parent links and mutation events.
+Ancestry heatmaps follow the smaller-ID parent, explicitly just one branch.
+Temporal traces contain every1ms internal state and are recomputed from recorded
+100Hz inputs before rendering. Video reconstructs the exact MuJoCo qpos; slow
+wing playback is labeled10x and never adds artificial animation.
+
+The primary endpoint is stress strict success. Two primary contrasts use97.5%
+seed-bootstrap intervals and Holm-adjusted exact paired sign-flip tests. With
+five training seeds, the minimum two-sided exact p-value is0.0625. Report this
+limitation rather than claiming a conventional p<0.05 discovery from bootstrap
+intervals alone. All21 method pairs are disclosed as exploratory secondary
+comparisons. Seed intervals are conditional on the common finite test set.
+
+The evaluation-only addendum freezes an additional identical-seed stress
+baseline for the four single-factor tests. It adds288 episodes (8 scenarios for
+35 final learned policies andPID), for11,888 total evaluation episodes. It was
+added during pre-test design review, without accessing held-out outcomes or
+changing any training/selection code. `design.read_protocol` combines the frozen
+training protocol and this separately hashed supplement. Saturation is measured
+on clipped controller requests before multiplying in plant motor-gain error.
+
+`protocol` refuses to replace a frozen protocol. `campaign` skips completed jobs
+but refuses to replace incomplete output. Every individual, parent pair, gene,
+mutation and episode is archived for every evolution generation. Checkpoints use
+Python pickle and should only be loaded from this trusted local campaign.
+
+Development-only PID envelope cases and smoke runs remain in `development/`.
+Their seeds are disjoint from training, validation and test namespaces. A timing
+or score obtained during a smoke run is not a formal performance claim.
+
+The large-angle adapter changes only reset conditions and external test torque.
+It records recovery, saturation and height-sensor angular availability. It does
+not replace the previous physical plant, PID, observation, or reward. The unit
+tests compare baseline qpos and reward against the frozen environment, verify
+exact tilt across eight directions and check no truth-state feedback is added.
+
+For a portable replay of a saved policy, including SNN state, use the new replay
+entry point. It relocates mesh paths in a temporary asset copy, leaves the
+archived physical model untouched and refuses to overwrite the output directory:
+
+```bash
+python -m experiments.algorithms.snn_hover.replay \
+  --policy artifacts/snn_hover_20261009/training/snn_neat_seed2201/best_policy.json \
+  --output /tmp/my-snn-replay --seconds 20 --condition stress
+```
+
+Omit `--policy` for the same PID baseline. `--tilt 30 --direction 90` sets a true
+30-degree rigid-root release angle. A replay is an additional demonstration, not
+a replacement for the complete held-out benchmark. Use the validation-selected
+representative paths in the final report, rather than choosing by video quality.

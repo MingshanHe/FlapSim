@@ -1,0 +1,126 @@
+{
+  "status": "passed",
+  "training_runs": 35,
+  "training_seeds": [
+    1201,
+    1202,
+    1203,
+    1204,
+    1205
+  ],
+  "evolution": {
+    "pilot/fixed_evo_seed1201": {
+      "generations": 9,
+      "individual_evaluations": 1152,
+      "unique_genomes": 1136,
+      "training_steps": 262144,
+      "checkpoint_load_verified": true
+    },
+    "pilot/fixed_evo_seed1202": {
+      "generations": 9,
+      "individual_evaluations": 1152,
+      "unique_genomes": 1136,
+      "training_steps": 262144,
+      "checkpoint_load_verified": true
+    },
+    "pilot/fixed_evo_seed1203": {
+      "generations": 9,
+      "individual_evaluations": 1152,
+      "unique_genomes": 1136,
+      "training_steps": 262144,
+      "checkpoint_load_verified": true
+    },
+    "pilot/fixed_evo_seed1204": {
+      "generations": 9,
+      "individual_evaluations": 1152,
+      "unique_genomes": 1136,
+      "training_steps": 262144,
+      "checkpoint_load_verified": true
+    },
+    "pilot/fixed_evo_seed1205": {
+      "generations": 9,
+      "individual_evaluations": 1152,
+      "unique_genomes": 1136,
+      "training_steps": 262144,
+      "checkpoint_load_verified": true
+    },
+    "pilot/neat_seed1201": {
+      "generations": 9,
+      "individual_evaluations": 1152,
+      "unique_genomes": 1136,
+      "training_steps": 262144,
+      "checkpoint_load_verified": true
+    },
+    "pilot/neat_seed1202": {
+      "generations": 9,
+      "individual_evaluations": 1152,
+      "unique_genomes": 1136,
+      "training_steps": 262144,
+      "checkpoint_load_verified": true
+    },
+    "pilot/neat_seed1203": {
+      "generations": 9,
+      "individual_evaluations": 1152,
+      "unique_genomes": 1136,
+      "training_steps": 262144,
+      "checkpoint_load_verified": true
+    },
+    "pilot/neat_seed1204": {
+      "generations": 9,
+      "individual_evaluations": 1152,
+      "unique_genomes": 1136,
+      "training_steps": 262144,
+      "checkpoint_load_verified": true
+    },
+    "pilot/neat_seed1205": {
+      "generations": 9,
+      "individual_evaluations": 1152,
+      "unique_genomes": 1136,
+      "training_steps": 262144,
+      "checkpoint_load_verified": true
+    }
+  },
+  "transfer_controls": {
+    "1201": {
+      "nodes": 7,
+      "enabled_connections": 32,
+      "selected_connectivity_preserved": true,
+      "random_control_input_and_recurrent_indegrees_matched": true,
+      "shared_connections_with_random_control": 12
+    },
+    "1202": {
+      "nodes": 5,
+      "enabled_connections": 50,
+      "selected_connectivity_preserved": true,
+      "random_control_input_and_recurrent_indegrees_matched": true,
+      "shared_connections_with_random_control": 41
+    },
+    "1203": {
+      "nodes": 7,
+      "enabled_connections": 47,
+      "selected_connectivity_preserved": true,
+      "random_control_input_and_recurrent_indegrees_matched": true,
+      "shared_connections_with_random_control": 30
+    },
+    "1204": {
+      "nodes": 5,
+      "enabled_connections": 28,
+      "selected_connectivity_preserved": true,
+      "random_control_input_and_recurrent_indegrees_matched": true,
+      "shared_connections_with_random_control": 16
+    },
+    "1205": {
+      "nodes": 5,
+      "enabled_connections": 27,
+      "selected_connectivity_preserved": true,
+      "random_control_input_and_recurrent_indegrees_matched": true,
+      "shared_connections_with_random_control": 18
+    }
+  },
+  "heldout_episodes": 864,
+  "training_core_unchanged": true,
+  "policy_hashes_verified": true,
+  "report_links_verified": true,
+  "media_records_present": true,
+  "scope": "Artifact integrity audit; complements controller tests and visual/video inspection, not evidence of real-world flight."
+}

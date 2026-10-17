@@ -1,0 +1,38 @@
+{
+  "method": "leaky_ann_neat",
+  "seed": 2201,
+  "status": "completed",
+  "training_steps": 1023076,
+  "allocated_steps": 1024000,
+  "validation_steps": 134400,
+  "budget": 1024000,
+  "generation": 39,
+  "best_validation": {
+    "episodes": 8,
+    "success_rate": 1.0,
+    "mean_return": 28.834547554857345,
+    "mean_elapsed": 8.0,
+    "tilt_rms_deg": 5.470267395368931,
+    "height_rmse_m": 0.06438426995213781,
+    "steps": 6400,
+    "minimum_clearance_m": 0.5032181321706181
+  },
+  "wall_seconds": 3515.8846207390015,
+  "validation_plateau": true,
+  "stop_reason": "predeclared_complete_generation_budget",
+  "inference": {
+    "nodes": 13,
+    "hidden": 10,
+    "connections": 23,
+    "effective_connections": 18,
+    "recurrent_edges": 14,
+    "parameters": 62,
+    "state_floats": 39,
+    "time_constants": 26,
+    "evolved_time_constants": 26,
+    "stored_scalar_parameters": 62,
+    "internal_updates_per_action": 10,
+    "numpy_inference_us_median": 71.82053600263316,
+    "implementation": "CPU NumPy; includes all neural substeps; no hardware energy inference"
+  }
+}

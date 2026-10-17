@@ -1,0 +1,14 @@
+{
+  "robot": "SingleThrustFlapper",
+  "scene": {"timestep": 0.00005},
+  "actuator": {"joints": ["left_flapping_joint", "right_wing_flapping"]},
+  "controller": {"speed": [0.0, 0.0]},
+  "fluid": {
+    "wings": [
+      {"body": "left_wing", "span": 0.07, "chord": 0.02,
+       "span_axis": [0, 0, -1], "chord_axis": [0, 1, 0], "chord_offset": 0.01},
+      {"body": "right_wing", "span": 0.07, "chord": 0.02,
+       "span_axis": [0, 0, -1], "chord_axis": [0, 1, 0], "chord_offset": 0.01}
+    ]
+  }
+}
