@@ -105,5 +105,11 @@
   3,
   4,
   5
- ]
+ ],
+ "amendment_1": {
+  "time": "2026-10-17 16:25:31 UTC",
+  "written_before": "any selection or blind-test result of seed 5 on any machine (claude-ea selection of seed 5 in progress, no centre reported)",
+  "what": "a SECONDARY selection + blind test of seed 5 (same rule, same centres plan_v4/r5/finetune_s5, same claude-ea baseline file) runs on HomePC (18 workers), archived as plan_v4/r5/homepc_secondary. The PRIMARY result stays the claude-ea one (r3 amendment 1); only it counts for H1/H1prime/H2/H5. The HomePC result is reported as a cross-machine check of selection and blind scoring.",
+  "why": "HomePC is idle and faster than the claude-ea share; a same-centres cross-machine selection measures how much the selection-machine rule matters."
+ }
 }
