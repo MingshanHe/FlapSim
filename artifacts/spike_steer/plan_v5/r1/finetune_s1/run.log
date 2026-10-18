@@ -1,0 +1,148 @@
+selftest ok (round-5 configuration, safety set disjoint from ES batches and selection cases, fresh blind set 2_096_800_000)
+[2026-10-18T15:08:32+00:00] copy plan-v5 round-1 directory from artifacts/spike_steer/plan_v5/r1
+[2026-10-18T15:08:32+00:00] v5 safe-ES seed 1 (40 generations, 30 workers)
+{"validation": {"generation": -1, "composite": 0.88309903543232, "scores": {"nod": 0.7961032784093863, "dash": 5.554576556134791}, "flown": 8, "episodes": 8}}
+{"generation": 0, "center": 0.925903631374533, "best_candidate": 0.9079486205262637, "mean": 2.7044091432042516, "flown_center": 12, "episodes_per_candidate": 12, "step_norm": 0.9022194675298965, "wall_s": 264}
+{"validation": {"generation": 0, "composite": 0.9049709840886037, "scores": {"nod": 0.8425218077341993, "dash": 5.364915458221271}, "flown": 8, "episodes": 8}}
+{"best": {"generation": -1, "composite": 0.88309903543232, "scores": {"nod": 0.7961032784093863, "dash": 5.554576556134791}, "flown": 8, "episodes": 8}}
+{"safety": {"crashes": 0, "over_hard": 0, "tilt_peak_max": 47.82107459080403, "ok": true, "generation": 0, "accepted": true, "wall_s": 397}}
+resumed at generation 1
+{"generation": 1, "center": 0.9519318625579225, "best_candidate": 0.9475735504230993, "mean": 2.304247830528123, "flown_center": 12, "episodes_per_candidate": 12, "step_norm": 0.6353164177548903, "wall_s": 265}
+{"validation": {"generation": 1, "composite": 0.9819276948915776, "scores": {"nod": 0.991349038692164, "dash": 4.875255339634809}, "flown": 8, "episodes": 8}}
+{"best": {"generation": -1, "composite": 0.88309903543232, "scores": {"nod": 0.7961032784093863, "dash": 5.554576556134791}, "flown": 8, "episodes": 8}}
+{"safety": {"crashes": 1, "over_hard": 1, "tilt_peak_max": 80.67144320062565, "ok": false, "generation": 1, "accepted": false, "wall_s": 785}}
+resumed at generation 2
+{"generation": 2, "center": 0.9440905407596378, "best_candidate": 0.9612796626501423, "mean": 3.100710812659409, "flown_center": 12, "episodes_per_candidate": 12, "step_norm": 0.5488768336251633, "wall_s": 268}
+{"validation": {"generation": 2, "composite": 0.9640010076379322, "scores": {"nod": 0.9186605802420886, "dash": 5.455266109649189}, "flown": 8, "episodes": 8}}
+{"best": {"generation": -1, "composite": 0.88309903543232, "scores": {"nod": 0.7961032784093863, "dash": 5.554576556134791}, "flown": 8, "episodes": 8}}
+{"safety": {"crashes": 0, "over_hard": 0, "tilt_peak_max": 49.745538896554564, "ok": true, "generation": 2, "accepted": true, "wall_s": 1171}}
+resumed at generation 3
+{"generation": 3, "center": 1.0084097654730737, "best_candidate": 0.9344071059709939, "mean": 2.3479732627906715, "flown_center": 12, "episodes_per_candidate": 12, "step_norm": 0.4795844142913717, "wall_s": 267}
+{"validation": {"generation": 3, "composite": 0.9620934203049046, "scores": {"nod": 0.9409257299876244, "dash": 5.149325415619797}, "flown": 8, "episodes": 8}}
+{"best": {"generation": -1, "composite": 0.88309903543232, "scores": {"nod": 0.7961032784093863, "dash": 5.554576556134791}, "flown": 8, "episodes": 8}}
+{"safety": {"crashes": 0, "over_hard": 0, "tilt_peak_max": 50.90521174005437, "ok": true, "generation": 3, "accepted": true, "wall_s": 1555}}
+resumed at generation 4
+{"generation": 4, "center": 1.0298238451262094, "best_candidate": 0.9821105524204687, "mean": 2.385189984121076, "flown_center": 12, "episodes_per_candidate": 12, "step_norm": 0.43380596633051216, "wall_s": 269, "validation": {"generation": 4, "composite": 0.9498284102205458, "scores": {"nod": 0.94620116939373, "dash": 4.872023362002646}, "flown": 8, "episodes": 8}}
+{"best": {"generation": -1, "composite": 0.88309903543232, "scores": {"nod": 0.7961032784093863, "dash": 5.554576556134791}, "flown": 8, "episodes": 8}}
+{"safety": {"crashes": 1, "over_hard": 1, "tilt_peak_max": 80.77078553064905, "ok": false, "generation": 4, "accepted": false, "wall_s": 1943}}
+resumed at generation 5
+{"generation": 5, "center": 1.0204321794703552, "best_candidate": 0.9853754933892731, "mean": 2.869821035001693, "flown_center": 12, "episodes_per_candidate": 12, "step_norm": 0.4131368243746658, "wall_s": 265}
+{"validation": {"generation": 5, "composite": 0.953911079711786, "scores": {"nod": 0.9545139127590063, "dash": 4.840932802219497}, "flown": 8, "episodes": 8}}
+{"best": {"generation": -1, "composite": 0.88309903543232, "scores": {"nod": 0.7961032784093863, "dash": 5.554576556134791}, "flown": 8, "episodes": 8}}
+{"safety": {"crashes": 1, "over_hard": 1, "tilt_peak_max": 81.22948463286393, "ok": false, "generation": 5, "accepted": false, "wall_s": 2326}}
+resumed at generation 6
+{"generation": 6, "center": 0.9919956904811975, "best_candidate": 0.9539520744444927, "mean": 2.6652092114104313, "flown_center": 12, "episodes_per_candidate": 12, "step_norm": 0.3979318452457721, "wall_s": 267}
+{"validation": {"generation": 6, "composite": 0.9444389219047682, "scores": {"nod": 0.9377800671367174, "dash": 4.881784381789795}, "flown": 8, "episodes": 8}}
+{"best": {"generation": -1, "composite": 0.88309903543232, "scores": {"nod": 0.7961032784093863, "dash": 5.554576556134791}, "flown": 8, "episodes": 8}}
+{"safety": {"crashes": 0, "over_hard": 1, "tilt_peak_max": 79.25770246576518, "ok": false, "generation": 6, "accepted": false, "wall_s": 2710}}
+resumed at generation 7
+{"generation": 7, "center": 1.0238877574321423, "best_candidate": 1.0252548681782006, "mean": 2.544934027769636, "flown_center": 12, "episodes_per_candidate": 12, "step_norm": 0.3853233497572228, "wall_s": 267}
+{"validation": {"generation": 7, "composite": 0.9481269884265053, "scores": {"nod": 0.9310984519664939, "dash": 5.02761327401356}, "flown": 8, "episodes": 8}}
+{"best": {"generation": -1, "composite": 0.88309903543232, "scores": {"nod": 0.7961032784093863, "dash": 5.554576556134791}, "flown": 8, "episodes": 8}}
+{"safety": {"crashes": 0, "over_hard": 0, "tilt_peak_max": 52.186363109794705, "ok": true, "generation": 7, "accepted": true, "wall_s": 3094}}
+resumed at generation 8
+{"generation": 8, "center": 0.9659310385039596, "best_candidate": 0.9551936373821552, "mean": 2.753664721497045, "flown_center": 12, "episodes_per_candidate": 12, "step_norm": 0.3682727215844191, "wall_s": 264}
+{"validation": {"generation": 8, "composite": 0.9642485420562485, "scores": {"nod": 0.933542906818789, "dash": 5.277169785751333}, "flown": 8, "episodes": 8}}
+{"best": {"generation": -1, "composite": 0.88309903543232, "scores": {"nod": 0.7961032784093863, "dash": 5.554576556134791}, "flown": 8, "episodes": 8}}
+{"safety": {"crashes": 0, "over_hard": 0, "tilt_peak_max": 48.38910976013729, "ok": true, "generation": 8, "accepted": true, "wall_s": 3475}}
+resumed at generation 9
+{"generation": 9, "center": 0.9997517823438843, "best_candidate": 0.9626812236034642, "mean": 1.9795484960632885, "flown_center": 12, "episodes_per_candidate": 12, "step_norm": 0.3497959560147872, "wall_s": 268, "validation": {"generation": 9, "composite": 0.9521416922121788, "scores": {"nod": 0.9266690426560023, "dash": 5.151503814755707}, "flown": 8, "episodes": 8}}
+{"best": {"generation": -1, "composite": 0.88309903543232, "scores": {"nod": 0.7961032784093863, "dash": 5.554576556134791}, "flown": 8, "episodes": 8}}
+{"safety": {"crashes": 0, "over_hard": 0, "tilt_peak_max": 47.007276882328426, "ok": true, "generation": 9, "accepted": true, "wall_s": 3861}}
+resumed at generation 10
+{"generation": 10, "center": 0.9884708143603129, "best_candidate": 0.9397100191447655, "mean": 1.6796160792926131, "flown_center": 12, "episodes_per_candidate": 12, "step_norm": 0.33014662665733885, "wall_s": 272}
+{"validation": {"generation": 10, "composite": 0.9333843785744846, "scores": {"nod": 0.921576953579042, "dash": 4.888696388435651}, "flown": 8, "episodes": 8}}
+{"best": {"generation": -1, "composite": 0.88309903543232, "scores": {"nod": 0.7961032784093863, "dash": 5.554576556134791}, "flown": 8, "episodes": 8}}
+{"safety": {"crashes": 0, "over_hard": 0, "tilt_peak_max": 46.88564400371173, "ok": true, "generation": 10, "accepted": true, "wall_s": 4254}}
+resumed at generation 11
+{"generation": 11, "center": 1.008486576689342, "best_candidate": 0.9945392611322922, "mean": 2.8877041408726134, "flown_center": 12, "episodes_per_candidate": 12, "step_norm": 0.31432081881912527, "wall_s": 267}
+{"validation": {"generation": 11, "composite": 0.921414422643107, "scores": {"nod": 0.9088383040399561, "dash": 4.837278844104634}, "flown": 8, "episodes": 8}}
+{"best": {"generation": -1, "composite": 0.88309903543232, "scores": {"nod": 0.7961032784093863, "dash": 5.554576556134791}, "flown": 8, "episodes": 8}}
+{"safety": {"crashes": 0, "over_hard": 0, "tilt_peak_max": 49.240447016827254, "ok": true, "generation": 11, "accepted": true, "wall_s": 4640}}
+resumed at generation 12
+{"generation": 12, "center": 1.0294851582566853, "best_candidate": 1.019751239641884, "mean": 4.096643729270923, "flown_center": 12, "episodes_per_candidate": 12, "step_norm": 0.30293224095533594, "wall_s": 264}
+{"validation": {"generation": 12, "composite": 0.9192193161730613, "scores": {"nod": 0.9079031933395337, "dash": 4.810680376193787}, "flown": 8, "episodes": 8}}
+{"best": {"generation": -1, "composite": 0.88309903543232, "scores": {"nod": 0.7961032784093863, "dash": 5.554576556134791}, "flown": 8, "episodes": 8}}
+{"safety": {"crashes": 4, "over_hard": 3, "tilt_peak_max": 81.75364359905251, "ok": false, "generation": 12, "accepted": false, "wall_s": 5022}}
+resumed at generation 13
+{"generation": 13, "center": 0.8992436381853622, "best_candidate": 0.8776066858963925, "mean": 2.866205336417311, "flown_center": 12, "episodes_per_candidate": 12, "step_norm": 0.3018882379345538, "wall_s": 264}
+{"validation": {"generation": 13, "composite": 0.9231590547309362, "scores": {"nod": 0.9112555770706962, "dash": 4.837902613253781}, "flown": 8, "episodes": 8}}
+{"best": {"generation": -1, "composite": 0.88309903543232, "scores": {"nod": 0.7961032784093863, "dash": 5.554576556134791}, "flown": 8, "episodes": 8}}
+{"safety": {"crashes": 0, "over_hard": 0, "tilt_peak_max": 51.808584444050545, "ok": true, "generation": 13, "accepted": true, "wall_s": 5405}}
+resumed at generation 14
+{"generation": 14, "center": 0.9449561426243286, "best_candidate": 0.925011519907509, "mean": 3.5485658060924994, "flown_center": 12, "episodes_per_candidate": 12, "step_norm": 0.29140968624249847, "wall_s": 265, "validation": {"generation": 14, "composite": 0.9187842976798664, "scores": {"nod": 0.9071575716812291, "dash": 4.812275912964795}, "flown": 8, "episodes": 8}}
+{"best": {"generation": -1, "composite": 0.88309903543232, "scores": {"nod": 0.7961032784093863, "dash": 5.554576556134791}, "flown": 8, "episodes": 8}}
+{"safety": {"crashes": 4, "over_hard": 4, "tilt_peak_max": 81.3104514425486, "ok": false, "generation": 14, "accepted": false, "wall_s": 5785}}
+resumed at generation 15
+{"generation": 15, "center": 0.9999265488116401, "best_candidate": 0.9629909690012854, "mean": 2.5722082166597455, "flown_center": 12, "episodes_per_candidate": 12, "step_norm": 0.29591699317148545, "wall_s": 265}
+{"validation": {"generation": 15, "composite": 0.9219841251665764, "scores": {"nod": 0.9122152161317522, "dash": 4.805771074266202}, "flown": 8, "episodes": 8}}
+{"best": {"generation": -1, "composite": 0.88309903543232, "scores": {"nod": 0.7961032784093863, "dash": 5.554576556134791}, "flown": 8, "episodes": 8}}
+{"safety": {"crashes": 1, "over_hard": 1, "tilt_peak_max": 80.2421246100135, "ok": false, "generation": 15, "accepted": false, "wall_s": 6168}}
+resumed at generation 16
+{"generation": 16, "center": 0.9533305342298046, "best_candidate": 0.938043640382894, "mean": 3.6452278346256533, "flown_center": 12, "episodes_per_candidate": 12, "step_norm": 0.2943162321208219, "wall_s": 269}
+{"validation": {"generation": 16, "composite": 0.9202883134815018, "scores": {"nod": 0.9079928390497565, "dash": 4.828115923108079}, "flown": 8, "episodes": 8}}
+{"best": {"generation": -1, "composite": 0.88309903543232, "scores": {"nod": 0.7961032784093863, "dash": 5.554576556134791}, "flown": 8, "episodes": 8}}
+{"safety": {"crashes": 0, "over_hard": 0, "tilt_peak_max": 52.1578259897313, "ok": true, "generation": 16, "accepted": true, "wall_s": 6556}}
+resumed at generation 17
+{"generation": 17, "center": 0.9465745237565029, "best_candidate": 0.8880193983683324, "mean": 2.2138699794485257, "flown_center": 12, "episodes_per_candidate": 12, "step_norm": 0.2862950651753461, "wall_s": 273}
+{"validation": {"generation": 17, "composite": 0.916048531846503, "scores": {"nod": 0.9036971487030374, "dash": 4.807252112775996}, "flown": 8, "episodes": 8}}
+{"best": {"generation": -1, "composite": 0.88309903543232, "scores": {"nod": 0.7961032784093863, "dash": 5.554576556134791}, "flown": 8, "episodes": 8}}
+{"safety": {"crashes": 1, "over_hard": 1, "tilt_peak_max": 81.23626302788342, "ok": false, "generation": 17, "accepted": false, "wall_s": 6947}}
+resumed at generation 18
+{"generation": 18, "center": 0.9856073871162538, "best_candidate": 0.9584495490086484, "mean": 2.9765363115698893, "flown_center": 12, "episodes_per_candidate": 12, "step_norm": 0.2870887101205838, "wall_s": 264}
+{"validation": {"generation": 18, "composite": 0.9193670267189052, "scores": {"nod": 0.9064580020048867, "dash": 4.830952688513837}, "flown": 8, "episodes": 8}}
+{"best": {"generation": -1, "composite": 0.88309903543232, "scores": {"nod": 0.7961032784093863, "dash": 5.554576556134791}, "flown": 8, "episodes": 8}}
+{"safety": {"crashes": 0, "over_hard": 0, "tilt_peak_max": 56.89956286949251, "ok": true, "generation": 18, "accepted": true, "wall_s": 7328}}
+resumed at generation 19
+{"generation": 19, "center": 0.9434589572997408, "best_candidate": 0.9151263076651384, "mean": 2.7143129626354536, "flown_center": 12, "episodes_per_candidate": 12, "step_norm": 0.2833184349594769, "wall_s": 262, "validation": {"generation": 19, "composite": 0.9163214989302161, "scores": {"nod": 0.9022436973888149, "dash": 4.829797341394597}, "flown": 8, "episodes": 8}}
+{"best": {"generation": -1, "composite": 0.88309903543232, "scores": {"nod": 0.7961032784093863, "dash": 5.554576556134791}, "flown": 8, "episodes": 8}}
+{"safety": {"crashes": 1, "over_hard": 1, "tilt_peak_max": 81.00150268800877, "ok": false, "generation": 19, "accepted": false, "wall_s": 7707}}
+resumed at generation 20
+{"generation": 20, "center": 0.9518921037135633, "best_candidate": 0.9468913979909862, "mean": 3.137543347833859, "flown_center": 12, "episodes_per_candidate": 12, "step_norm": 0.2872189109875822, "wall_s": 259}
+{"validation": {"generation": 20, "composite": 0.9181019712131371, "scores": {"nod": 0.9041167605767804, "dash": 4.837711984535334}, "flown": 8, "episodes": 8}}
+{"best": {"generation": -1, "composite": 0.88309903543232, "scores": {"nod": 0.7961032784093863, "dash": 5.554576556134791}, "flown": 8, "episodes": 8}}
+{"safety": {"crashes": 0, "over_hard": 0, "tilt_peak_max": 50.19321755169561, "ok": true, "generation": 20, "accepted": true, "wall_s": 8090}}
+resumed at generation 21
+{"generation": 21, "center": 0.9750407821571501, "best_candidate": 0.9622167710488648, "mean": 2.692670685272237, "flown_center": 12, "episodes_per_candidate": 12, "step_norm": 0.26952629299898795, "wall_s": 263}
+{"validation": {"generation": 21, "composite": 0.9237679629301585, "scores": {"nod": 0.9114944000946152, "dash": 4.845532954080948}, "flown": 8, "episodes": 8}}
+{"best": {"generation": -1, "composite": 0.88309903543232, "scores": {"nod": 0.7961032784093863, "dash": 5.554576556134791}, "flown": 8, "episodes": 8}}
+{"safety": {"crashes": 0, "over_hard": 0, "tilt_peak_max": 47.003527701316564, "ok": true, "generation": 21, "accepted": true, "wall_s": 8470}}
+resumed at generation 22
+{"generation": 22, "center": 0.980313826490319, "best_candidate": 1.0080556399018015, "mean": 2.343432099739121, "flown_center": 12, "episodes_per_candidate": 12, "step_norm": 0.2724158211627947, "wall_s": 263}
+{"validation": {"generation": 22, "composite": 0.9362957974425055, "scores": {"nod": 0.914336920936083, "dash": 5.027903427586803}, "flown": 8, "episodes": 8}}
+{"best": {"generation": -1, "composite": 0.88309903543232, "scores": {"nod": 0.7961032784093863, "dash": 5.554576556134791}, "flown": 8, "episodes": 8}}
+{"safety": {"crashes": 0, "over_hard": 0, "tilt_peak_max": 46.32281758461156, "ok": true, "generation": 22, "accepted": true, "wall_s": 8852}}
+resumed at generation 23
+{"generation": 23, "center": 1.0259404250306323, "best_candidate": 0.9957513426225013, "mean": 2.049870089491283, "flown_center": 12, "episodes_per_candidate": 12, "step_norm": 0.26724445564862803, "wall_s": 266}
+{"validation": {"generation": 23, "composite": 0.9658120012574866, "scores": {"nod": 0.9231823157955237, "dash": 5.431249534054914}, "flown": 8, "episodes": 8}}
+{"best": {"generation": -1, "composite": 0.88309903543232, "scores": {"nod": 0.7961032784093863, "dash": 5.554576556134791}, "flown": 8, "episodes": 8}}
+{"safety": {"crashes": 0, "over_hard": 0, "tilt_peak_max": 45.96958359323282, "ok": true, "generation": 23, "accepted": true, "wall_s": 9241}}
+resumed at generation 24
+{"generation": 24, "center": 1.0192191754836823, "best_candidate": 0.94004389565455, "mean": 1.9809248207537251, "flown_center": 12, "episodes_per_candidate": 12, "step_norm": 0.26922514956051985, "wall_s": 265, "validation": {"generation": 24, "composite": 0.9591749989740022, "scores": {"nod": 0.9127142766171987, "dash": 5.444467180154333}, "flown": 8, "episodes": 8}}
+{"best": {"generation": -1, "composite": 0.88309903543232, "scores": {"nod": 0.7961032784093863, "dash": 5.554576556134791}, "flown": 8, "episodes": 8}}
+{"safety": {"crashes": 0, "over_hard": 0, "tilt_peak_max": 46.02425256213559, "ok": true, "generation": 24, "accepted": true, "wall_s": 9628}}
+resumed at generation 25
+{"generation": 25, "center": 1.0203078481718943, "best_candidate": 0.9301323155335739, "mean": 1.4010978680440966, "flown_center": 12, "episodes_per_candidate": 12, "step_norm": 0.27015397413655295, "wall_s": 268}
+{"validation": {"generation": 25, "composite": 0.9547111448860662, "scores": {"nod": 0.9075298180139268, "dash": 5.430610582452662}, "flown": 8, "episodes": 8}}
+{"best": {"generation": -1, "composite": 0.88309903543232, "scores": {"nod": 0.7961032784093863, "dash": 5.554576556134791}, "flown": 8, "episodes": 8}}
+{"safety": {"crashes": 0, "over_hard": 0, "tilt_peak_max": 46.47966823491466, "ok": true, "generation": 25, "accepted": true, "wall_s": 10014}}
+resumed at generation 26
+{"generation": 26, "center": 0.9858182866375785, "best_candidate": 0.9315571451809296, "mean": 1.874453465984871, "flown_center": 12, "episodes_per_candidate": 12, "step_norm": 0.2683281844880586, "wall_s": 270}
+{"validation": {"generation": 26, "composite": 0.9391807357229961, "scores": {"nod": 0.8887006978144811, "dash": 5.3921030198740585}, "flown": 8, "episodes": 8}}
+{"best": {"generation": -1, "composite": 0.88309903543232, "scores": {"nod": 0.7961032784093863, "dash": 5.554576556134791}, "flown": 8, "episodes": 8}}
+{"safety": {"crashes": 0, "over_hard": 0, "tilt_peak_max": 49.937706071276956, "ok": true, "generation": 26, "accepted": true, "wall_s": 10402}}
+resumed at generation 27
+{"generation": 27, "center": 0.9608042729511312, "best_candidate": 0.9252437027639822, "mean": 2.3294586124394714, "flown_center": 12, "episodes_per_candidate": 12, "step_norm": 0.2562230257524021, "wall_s": 268}
+{"validation": {"generation": 27, "composite": 0.922826128969629, "scores": {"nod": 0.894768116706494, "dash": 5.034189898417203}, "flown": 8, "episodes": 8}}
+{"best": {"generation": -1, "composite": 0.88309903543232, "scores": {"nod": 0.7961032784093863, "dash": 5.554576556134791}, "flown": 8, "episodes": 8}}
+{"safety": {"crashes": 2, "over_hard": 3, "tilt_peak_max": 80.70382722640724, "ok": false, "generation": 27, "accepted": false, "wall_s": 10786}}
+resumed at generation 28
+{"generation": 28, "center": 0.9776533950054804, "best_candidate": 0.9290856432717243, "mean": 3.752263516731629, "flown_center": 12, "episodes_per_candidate": 12, "step_norm": 0.26122945648940016, "wall_s": 264}
+{"validation": {"generation": 28, "composite": 0.9308565417377905, "scores": {"nod": 0.8947920626701669, "dash": 5.173127058383573}, "flown": 8, "episodes": 8}}
+{"best": {"generation": -1, "composite": 0.88309903543232, "scores": {"nod": 0.7961032784093863, "dash": 5.554576556134791}, "flown": 8, "episodes": 8}}
+{"safety": {"crashes": 0, "over_hard": 0, "tilt_peak_max": 53.521261481108375, "ok": true, "generation": 28, "accepted": true, "wall_s": 11168}}
+resumed at generation 29
+{"generation": 29, "center": 0.973003007069439, "best_candidate": 0.9784172898193564, "mean": 4.001500676913137, "flown_center": 12, "episodes_per_candidate": 12, "step_norm": 0.2616050558181181, "wall_s": 261, "validation": {"generation": 29, "composite": 0.942986858379874, "scores": {"nod": 0.9009178727638056, "dash": 5.308367555880588}, "flown": 8, "episodes": 8}}
+{"best": {"generation": -1, "composite": 0.88309903543232, "scores": {"nod": 0.7961032784093863, "dash": 5.554576556134791}, "flown": 8, "episodes": 8}}
+{"safety": {"crashes": 1, "over_hard": 1, "tilt_peak_max": 81.01298992784092, "ok": false, "generation": 29, "accepted": false, "wall_s": 11547}}
+resumed at generation 30
