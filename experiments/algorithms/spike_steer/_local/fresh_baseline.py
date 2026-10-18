@@ -16,7 +16,7 @@ from .. import bench as B
 from .. import descend_r3 as R
 from .. import maneuver_v2 as M
 
-USED = (2_096_100_000, 2_096_400_000, 2_096_500_000, 2_096_600_000)
+USED = (2_096_100_000, 2_096_400_000, 2_096_500_000, 2_096_600_000, 2_096_700_000)
 
 
 def main():

@@ -1,0 +1,55 @@
+{
+ "version": "plan v5 round 1 -- safe ES (round-5 configuration of plan v4 + per-generation safety check with revert)",
+ "time": "2026-10-18 14:51:38 UTC",
+ "written_before": "any plan-v5 search, selection or blind test; no learned controller has been run on the plan-v5 nod/dash blind set",
+ "decided_by": "the user (2026-10-18 JST): a new plan after plan v4 round 6, seed 1 first on CloudPC-3, compared with plan-v4 rounds 5 and 6 seed 1",
+ "relation_to_plan_v4": "plan v4 ends with round 6 (pre-registered as final); its verdict is reported unchanged. Plan v5 is a separate, pre-registered study of one method change; the paper reports both plans and all rounds.",
+ "method": {
+  "base": "plan v4 round 5 exactly (RefractoryLearned, nod:dash 2:1 objective + tilt penalty from 60 deg x0.3, 8 nod + 4 dash cases per ES candidate, OpenAI-ES pop 32, sigma .03, Adam .02)",
+  "safety_check": "after every ES generation the new centre flies 64 nod + 64 dash training cases (offset 150_000, disjoint from ES batches, selection cases and blind sets); any crash or tilt >= 70 deg -> the update is reverted (theta and Adam moments restored), the generation counter advances and the next generation draws new perturbations",
+  "generations": 40,
+  "implementation": "descend_safe.py (one generation per descend.finetune resume; revert path tested with a forced failure on claude-ea)"
+ },
+ "selection": "as plan v4 round 5: 64 nod + 64 dash validation cases (offset 60_000 + 10_000), zero crashes and tilt < 70 deg, lowest 2:1 penalised composite; on claude-ea",
+ "seeds": {
+  "list": [
+   1,
+   2,
+   3
+  ],
+  "order": "seed 1 first on CloudPC-3 (30 workers); seeds 2 and 3 afterwards on any machine",
+  "verdict_counting": ">= 2 of 3 seeds"
+ },
+ "test_sets": {
+  "nod_dash": "fresh blind set, maneuver_v2 base 2_096_800_000 (never used)",
+  "hover_upset": "unchanged",
+  "normalisers": {
+   "hover": 5.77345354291285,
+   "nod": 0.9431485175346999,
+   "dash": 5.779305499630203,
+   "upset": 74.96499885854662
+  },
+  "normaliser_rule": "nod/dash opponent per-case median on the fresh blind set (learned side: mean incl. crashes); hover/upset opponent mean (unchanged sets, claude-ea rows)",
+  "opponent_mean_all": {
+   "hover": 5.77345354291285,
+   "nod": 2.2321119688318527,
+   "dash": 5.891248028049055,
+   "upset": 74.96499885854662
+  },
+  "opponent_median": {
+   "hover": 4.867453636965805,
+   "nod": 0.9431485175346999,
+   "dash": 5.779305499630203,
+   "upset": 86.39134971826567
+  },
+  "note": "the classical schedule crashes on 2 of 16 nod blind cases of this set; the per-case median normaliser (0.943) is unaffected, the learned side is scored by its mean incl. crashes"
+ },
+ "hypotheses": {
+  "H1": "blind composite (25/25/25/25) <= 0.95 (strict) AND T1 <= 1.05, in >= 2 of 3 seeds",
+  "H5": "0 crashes in the 32 nod+dash blind episodes, in >= 2 of 3 seeds",
+  "H3": "ablations raise the composite by >= 10 %",
+  "S1_mechanism": "on the 128 selection cases, the fraction of saved centres with zero crashes is higher than for plan-v4 round 5 (same configuration without the safety check), seed by seed; reported with round 6 as a second reference",
+  "secondary": "number of reverted generations, selected generation, paired wins, crash types"
+ },
+ "comparisons": "seed-1 centres of plan-v4 rounds 5 and 6 on the identical 128 selection cases (same validation generator and offset)"
+}

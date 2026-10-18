@@ -1,0 +1,34 @@
+nod    pid           flown 16/16 score 5.2423
+nod    law_tuned     flown 16/16 score 5.1090
+nod    schedule      flown 14/16 score 2.2321
+dash   pid           flown 16/16 score 8.5132
+dash   law_tuned     flown 16/16 score 8.5449
+dash   schedule      flown 16/16 score 5.8912
+round-1 normalisers {"hover": 5.77345354291285, "nod": 0.9431485175346999, "dash": 5.779305499630203, "upset": 74.96499885854662}
+{
+ "rule": "nod/dash opponent per-case median on the fresh blind set (learned side: mean incl. crashes); hover/upset opponent mean (unchanged sets, claude-ea rows)",
+ "machine": "claude-ea",
+ "test_base_nod_dash": 2096800000,
+ "opponent_mean_all": {
+  "hover": 5.77345354291285,
+  "nod": 2.2321119688318527,
+  "dash": 5.891248028049055,
+  "upset": 74.96499885854662
+ },
+ "opponent_flown": {
+  "hover": 16,
+  "nod": 14,
+  "dash": 16,
+  "upset": 25
+ },
+ "opponent_median": {
+  "hover": 4.867453636965805,
+  "nod": 0.9431485175346999,
+  "dash": 5.779305499630203,
+  "upset": 86.39134971826567
+ },
+ "opponent_misses": {
+  "nod": 0,
+  "dash": 0
+ }
+}
