@@ -1,0 +1,93 @@
+{
+ "version": "plan v4 round 6 -- FINAL confirmatory round (round 5 + 16 nod + 16 dash ES cases per candidate, 30 generations)",
+ "time": "2026-10-18 01:38:52 UTC",
+ "written_before": "any round-6 search, selection or blind test; no learned controller has been run on the round-6 nod/dash blind set",
+ "decided_by": "the user (2026-10-18 JST)",
+ "final_round": "this is the last round of plan v4: whatever the outcome, no further round, amendment of the verdict rule, or re-selection is made to reach a pass. The paper reports rounds 1-6 in full; the round-6 verdict is reported as one test after five earlier rounds (17 earlier seed-round blind tests, 3 of them <= 0.95).",
+ "weights_blind": {
+  "hover": 0.25,
+  "nod": 0.25,
+  "dash": 0.25,
+  "upset": 0.25
+ },
+ "architecture": "identical to rounds 4-5 (descend_r4.RefractoryLearned)",
+ "change_vs_round5": {
+  "es_cases": "16 nod + 16 dash training cases per ES candidate per generation (round 5: 8 + 4); ES offsets 100_000 + gen*100",
+  "generations": "30 (round 5: 60); hours cap 40 (wall-clock safety only)"
+ },
+ "unchanged_from_round5": "objective nod:dash 2:1 + tilt penalty from 60 deg x0.3; 128-case (64+64) selection, zero crashes and tilt < 70 deg, lowest 2:1 penalised composite; start specs; selection and blind test on claude-ea",
+ "evidence": {
+  "round5_verdict": "blind 0.948 / 0.983 / 0.994 / 0.944 / 0.990; H1 2/5, H5 5/5, H2 2/5",
+  "round5_selection": {
+   "1": {
+    "selected": 9,
+    "clean_centres": 4
+   },
+   "2": {
+    "selected": 4,
+    "clean_centres": 10
+   },
+   "3": {
+    "selected": 44,
+    "clean_centres": 2
+   },
+   "4": {
+    "selected": 19,
+    "clean_centres": 5
+   },
+   "5": {
+    "selected": 4,
+    "clean_centres": 3
+   }
+  },
+  "reasoning": "12 cases per candidate cannot see a 1-5 % crash rate; crash counts on 128 cases grow with the generation; the zero-crash rule then falls back to generations 4-9 in three seeds whose nod or dash is not yet trained"
+ },
+ "training": {
+  "seeds": [
+   1,
+   2,
+   3,
+   4,
+   5
+  ],
+  "machines": "claude-ea seeds 1-3 first (user: start on claude-ea); seeds 4-5 on claude-ea, HomePC or LabHPPC as available -- the search machine does not enter the verdict (evaluation is reproducible across machines to 2e-6, r5 amendment 1); every selection and blind test on claude-ea"
+ },
+ "test_sets": {
+  "nod_dash": "fresh blind set, maneuver_v2 base 2_096_700_000 (16 per task, never used)",
+  "hover_upset": "unchanged",
+  "normalisers": {
+   "hover": 5.77345354291285,
+   "nod": 0.9483882545514482,
+   "dash": 5.708361567226792,
+   "upset": 74.96499885854662
+  },
+  "normaliser_rule": "nod/dash opponent per-case median on the fresh blind set (learned side: mean incl. crashes); hover/upset opponent mean (unchanged sets, claude-ea rows)",
+  "opponent_mean_all": {
+   "hover": 5.77345354291285,
+   "nod": 0.9527805845115975,
+   "dash": 5.719455244695039,
+   "upset": 74.96499885854662
+  },
+  "opponent_median": {
+   "hover": 4.867453636965805,
+   "nod": 0.9483882545514482,
+   "dash": 5.708361567226792,
+   "upset": 86.39134971826567
+  }
+ },
+ "hypotheses": {
+  "H1": "blind composite (25/25/25/25) <= 0.95 (strict, unrounded) AND T1 ratio <= 1.05, in >= 3 of 5 seeds",
+  "H1_prime": "every task ratio <= 1.05 (strict; upset 1.0502 by construction fails it, reported both ways) AND one of T2/T3 <= 0.90 with paired sign-test p < 0.05, in >= 3 of 5 seeds",
+  "H2": ">= 2 of T2, T3, T4 <= 0.90 in >= 3 of 5 seeds",
+  "H3": "ablations raise the composite by >= 10 % or silence the pulses",
+  "H5": "0 crashes in the 32 nod+dash blind episodes, in >= 3 of 5 seeds",
+  "secondary": "per-case median ratio, paired wins, crash types, selected generation and number of zero-crash centres per seed"
+ },
+ "seeds": [
+  1,
+  2,
+  3,
+  4,
+  5
+ ]
+}
