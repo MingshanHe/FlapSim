@@ -190,7 +190,9 @@ class DirectManeuverEnv(gym.Env[np.ndarray, np.ndarray]):
         if self.task in ("nod", "dash") and self.pos0 is None and rel >= -1e-9:
             self.pos0, self.z0 = truth["position"].copy(), float(truth["position"][2])
             yaw = rotation_to_rpy(truth["rotation"])[2]
-            angle = yaw if self.dash_angle is None else self.dash_angle
+            if self.dash_angle is None:
+                self.dash_angle = float(yaw)              # bench 定义：沿 t0 时的航向（forward）
+            angle = self.dash_angle
             self.heading = np.array([math.cos(angle), math.sin(angle)])
             self.cmd_on = True
         self.cmd = self._command_vector(truth)

@@ -56,7 +56,7 @@ def main() -> None:
     axes[0].text(axes[0].get_xlim()[1], 505, "nod episode = 500 decisions", ha="right", va="bottom", fontsize=8, color="#666666")
     axes[2].set_ylim(-.02, 1.02)
     axes[0].legend(loc="lower right", fontsize=9)
-    steps = max(int(d[0][TAGS[0][0]][0][-1]) for d, _ in runs.values())
+    steps = max(int(d[TAGS[0][0]][0][-1]) for d, _ in runs.values())
     fig.suptitle(f"Full flapping-wing model, same budget for both: 18 parallel envs, {steps / 1e3:.0f}k PPO steps, MLP 64x64, identical hyper-parameters, "
                  "IMU + height inputs, nod / dash / hover tasks", fontsize=10)
     fig.tight_layout()
