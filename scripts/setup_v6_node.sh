@@ -40,6 +40,9 @@ mkdir -p runs/spike_steer/v6
 cp -n artifacts/spike_steer/plan_v6/baseline.json artifacts/spike_steer/plan_v6/imitate_spec_s*.json runs/spike_steer/v6/
 
 export OMP_NUM_THREADS=1
+command -v g++ >/dev/null || { echo "ERROR: g++ missing (needed to compile the native simulator backend); install it with: sudo apt-get install -y g++"; exit 4; }
+echo "== simulator source (runs/ is not in git)"
+python -W ignore -c "from experiments.algorithms.spike_steer import bench8 as E; from experiments.algorithms.snn_pid_compare.common import prepare_source; (E.SOURCE/'robot_upper7_lower8.xml').exists() or prepare_source(E.SOURCE); print('source ok:', E.SOURCE)"
 echo "== selftests"
 python -W ignore -m experiments.algorithms.spike_steer.descend8 selftest
 python -W ignore -m experiments.algorithms.spike_steer.cache8 | tail -n 3
