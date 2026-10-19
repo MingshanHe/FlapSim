@@ -1,6 +1,8 @@
 """Single-panel 3D videos of the learned controller (plan-v4 round 5, M1 controllers) for several nod angles and dash
 distances: fixed oblique top-down camera, light background, grid floor, bright light without shadows, translucent
-Kapton-amber wings, and a fading trail of the body path.
+Kapton-amber wings, and the full trail of the body path.
+By default each clip shows, among the first 16 test cases flown without a crash, the one with the least height
+variation after the manoeuvre (an illustrative pick, not a representative sample; the statistics are in the report).
 
 - The camera is fixed for the whole clip: placed above and to the side-front of the start point (relative to the body
   heading at the command onset), looking down obliquely at the middle of the motion.
@@ -57,6 +59,7 @@ def main():
     p.add_argument('--dash', default='0.10,0.15,0.25,0.35')
     p.add_argument('--seed', type=int, default=4)
     p.add_argument('--case', type=int, default=0)
+    p.add_argument('--pick', type=int, default=16, help='fly the first N test cases and keep the one with the least height variation after the manoeuvre (0 = use --case)')
     p.add_argument('--slow', type=float, default=2.)
     p.add_argument('--out', default='artifacts/spike_steer/videos_v4')
     a = p.parse_args()
@@ -91,8 +94,24 @@ def main():
     for task, target in jobs:
         B.math = _MathNod(target if task == 'nod' else 30.)
         B.DASH_M['value'] = target if task == 'dash' else TRAINED['dash']
-        c = B.cases(task, 'test', None)[a.case]
-        res, frames = record(env, task, c, 'learned', spec)
+        pool = B.cases(task, 'test', None)
+        settle = B.T0+(1. if task == 'nod' else 1.5)
+        best = None
+        for ci in (range(a.pick) if a.pick else [a.case]):
+            res_, frames_ = record(env, task, pool[ci], 'learned', spec)
+            if not res_['flown']:
+                continue
+            zs = []
+            for (tt, q) in frames_:
+                if tt >= settle:
+                    d.qpos[:] = q
+                    mujoco.mj_kinematics(m, d)
+                    zs.append(d.xpos[body][2])
+            z_var = float(np.ptp(zs)) if zs else 1e9
+            if best is None or z_var < best[0]:
+                best = (z_var, ci, res_, frames_)
+        z_var, ci, res, frames = best
+        c = pool[ci]
         tr = np.array(res.pop('trace'))
         B.math = math
         times = np.array([f[0] for f in frames])
@@ -106,12 +125,20 @@ def main():
         side = np.array([-fwd[1], fwd[0], 0.])
         rot = np.column_stack([fwd, side, [0., 0., 1.]])
         heading = math.degrees(math.atan2(fwd[1], fwd[0]))
-        reach = .09 if task == 'nod' else max(.15, target)
+        path_xyz = []
+        for (_, q) in frames:
+            d.qpos[:] = q
+            mujoco.mj_kinematics(m, d)
+            path_xyz.append(d.xpos[body].copy())
+        path_xyz = np.array(path_xyz)
+        lo, hi = path_xyz.min(0), path_xyz.max(0)
+        centre = (lo+hi)/2
+        span = float(np.linalg.norm(hi-lo))
         cam = mujoco.MjvCamera()
-        cam.lookat[:] = start+fwd*(.5*target if task == 'dash' else 0.)-np.array([0., 0., .03])
+        cam.lookat[:] = centre+np.array([0., 0., .02])
         cam.azimuth = heading+90.+38.                                    # side-front, oblique
         cam.elevation = -30.
-        cam.distance = .2+1.15*reach
+        cam.distance = max(.45, .3+1.05*span)                            # whole trajectory plus the body (~0.15 m) in frame, kept close
         az, el = math.radians(cam.azimuth), math.radians(cam.elevation)
         view = np.array([math.cos(el)*math.cos(az), math.cos(el)*math.sin(az), math.sin(el)])
         u = np.cross(view, [0., 0., 1.])
@@ -119,13 +146,6 @@ def main():
         v = np.cross(u, view)
         backdrop_rot = np.column_stack([u, v, view])
         backdrop_pos = np.asarray(cam.lookat)+view*3.
-        # body path for the trail
-        path_xyz = []
-        for (_, q) in frames:
-            d.qpos[:] = q
-            mujoco.mj_kinematics(m, d)
-            path_xyz.append(d.xpos[body].copy())
-        path_xyz = np.array(path_xyz)
         trained = target == TRAINED[task]
         title = f'Nod to {target:g} deg' if task == 'nod' else f'Dash {target:.2f} m forward and stop'
         sub = 'trained target' if trained else f'generalisation test (trained: {"30 deg" if task == "nod" else "0.15 m"})'
@@ -135,6 +155,8 @@ def main():
         horizon = float(times[-1])
         n_frames = int(round(horizon*FPS*a.slow))
         still_k = int(round((B.T0+.55)*FPS*a.slow)) if task == 'nod' else int(round((B.T0+1.2)*FPS*a.slow))
+        check_k = {int(round(tt*FPS*a.slow)) for tt in (B.T0, B.T0+.5, B.T0+1.5)} | {n_frames-1}
+        checks = []
         try:
             for k in range(n_frames):
                 t = (k+1)/(FPS*a.slow)
@@ -154,13 +176,8 @@ def main():
                         add_geom(scn, mujoco.mjtGeom.mjGEOM_BOX, [wdt, 1., .00004], np.r_[start[:2]+fwd[:2]*gx, .0003], col, rot)
                         add_geom(scn, mujoco.mjtGeom.mjGEOM_BOX, [1., wdt, .00004], np.r_[start[:2]+side[:2]*gx, .0003], col, rot)
                     add_geom(scn, mujoco.mjtGeom.mjGEOM_CYLINDER, [.012, .0004, 0], np.r_[start[:2], .0006], [.35, .4, .48, .9])  # start mark
-                    if task == 'dash':
-                        tp = start+fwd*target
-                        add_geom(scn, mujoco.mjtGeom.mjGEOM_BOX, [.0025, .1, .00008], np.r_[tp[:2], .0006], [.05, .6, .28, 1.], rot)       # target line
-                        add_geom(scn, mujoco.mjtGeom.mjGEOM_BOX, [.0006, .06, start[2]/2], np.r_[tp[:2], start[2]/2], [.05, .62, .30, .16], rot)  # faint target plane
-                    for j in range(max(0, i-600), i, 6):                     # trail of the last ~1.2 s, fading
-                        alpha = .15+.75*(j-(i-600))/600
-                        add_geom(scn, mujoco.mjtGeom.mjGEOM_SPHERE, [.0016, 0, 0], path_xyz[j], TRAIL[:3]+[max(.12, alpha)])
+                    for j in range(0, i, 8):                                  # full trail since take-off
+                        add_geom(scn, mujoco.mjtGeom.mjGEOM_SPHERE, [.0018, 0, 0], path_xyz[j], TRAIL)
                 rgb = rgb_r.render()
                 pic = Image.fromarray(rgb)
                 draw = ImageDraw.Draw(pic)
@@ -170,13 +187,20 @@ def main():
                 if t >= B.T0:
                     draw.text((W-150, 46), 'command on', font=f_small, fill=(12, 140, 70))
                 writer.append_data(np.asarray(pic))
+                if k in check_k:
+                    checks.append(pic.resize((W//2, H//2)))
                 if k == min(still_k, n_frames-1):
                     pic.save(out/f'r5s{a.seed}_{tag}_still.png')
             for _ in range(FPS):
                 writer.append_data(np.asarray(pic))
+            sheet = Image.new('RGB', (W, H), (255, 255, 255))
+            for n, im in enumerate(checks[:4]):
+                sheet.paste(im, ((n % 2)*(W//2), (n//2)*(H//2)))
+            sheet.save(out/f'r5s{a.seed}_{tag}_sheet.png')
         finally:
             writer.close()
-        entry = dict(task=task, target=target, trained_target=trained, video=str(vpath), case_seed=c['seed'],
+        entry = dict(task=task, target=target, trained_target=trained, video=str(vpath), case_index=ci, case_seed=c['seed'],
+                     z_range_after_settle_m=z_var, picked_from=a.pick or 1,
                      controller=f'round-5 seed {a.seed} gen {gen}', score=res['score'], flown=res['flown'], termination=res['termination'],
                      goal_t=res.get('goal_t'))
         manifest.append(entry)
