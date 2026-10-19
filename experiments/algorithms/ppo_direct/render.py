@@ -36,7 +36,7 @@ def main() -> None:
     p.add_argument("--width", type=int, default=800)
     p.add_argument("--height", type=int, default=600)
     p.add_argument("--output", type=Path, default=Path("runs/ppo_direct/media/ppo_direct.mp4"))
-    p.add_argument("--control", choices=["direct", "residual"], default="residual")
+    p.add_argument("--control", choices=["direct", "residual", "gated"], default="residual")
     a = p.parse_args()
     a.output.parent.mkdir(parents=True, exist_ok=True)
     prepare_source()
@@ -74,7 +74,7 @@ def main() -> None:
                 frame = Image.fromarray(renderer.render())
                 draw = ImageDraw.Draw(frame)
                 t = env.env.air.steps * DT
-                who = "classical PID (takeoff)" if t < 1.5 else ("PPO direct" if a.control == "direct" else "PID + PPO set-points/motor")
+                who = "classical PID (takeoff)" if t < 1.5 else ("PPO direct" if a.control == "direct" else ("PID+law / PPO in charge" if a.control == "gated" and env.in_charge else "PID + PPO set-points/motor" if a.control == "residual" else "classical PID + pulse law"))
                 if task in ("nod", "dash"):
                     state = "COMMAND ON" if env.cmd_on else ("goal reached -> hover" if env.goal_done else f"hover, command at {env.t0:.1f} s")
                     what = f"nod {'up' if env.nod_sign > 0 else 'down'}" if task == "nod" else "dash forward 0.15 m"

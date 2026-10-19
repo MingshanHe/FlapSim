@@ -12,7 +12,10 @@
     residual : 反射 PID 留在底层（与 SNN 各臂相同），PPO 输出 [roll 设定点, pitch 设定点, 电机修正]——
                设定点 ±REF_MAX = 0.7 rad 写进 ReferencePID.rpy_reference（maneuver_v2 的"设定点权限"接口），
                电机 = residual_command(a[2], PID 的高度回路输出)，a[2] = ±1 到达 ω 上/下限。
-               执行器上仍是 α、β、ω 三个量、同限幅；这是和 SNN 第五轮（PID + 学习层脉冲/设定点）对等的接法。
+               执行器上仍是 α、β、ω 三个量、同限幅。
+    gated    : 第二轮以后的门控架构，把 SNN 换成 PPO：底层 = 反射 PID + law_tuned 脉冲律（AHRS 倾角 > 25° 时切到
+               pulse_tuned，修正案 1 的扶正反射），PPO 只在指令期 + 1 s 尾巴接管（输出同 residual），其余时间全是 classical，
+               所以 hover / upset 按构造等于 classical（1.000 / 1.050）。观测多 1 维"学习层在岗"标志（18 维）。
 决策：每 10 ms 一次（5 拍），指令保持。
 观测（17 维，都缩放到 ~[-1, 1]）：
     reading[0:9] / [.35, .35, π, 10, 10, 10, 9.81, 9.81, 9.81]，z/0.2，vz/1.0，
@@ -40,6 +43,7 @@ from ..robust_control.environment import ReferencePID
 from ..snn_pid_compare.common import DT
 from ..snn_pid_compare.environment import CENTER, HALF, HIGH, LOW
 from ..spike_steer import bench as B
+from ..spike_steer import pilot_v3 as V
 from ..spike_steer import descend_r5 as R5
 from ..topology_hover.environment import case as make_case
 
@@ -81,12 +85,15 @@ class DirectManeuverEnv(gym.Env[np.ndarray, np.ndarray]):
         self.task_weights = w / w.sum()               # nod, dash, hover
         self.upset_fraction = float(upset_fraction)   # hover 回合里带 upset 扰动的比例
         self.seed_offset = int(seed_offset)
-        if control not in ("direct", "residual"):
+        if control not in ("direct", "residual", "gated"):
             raise ValueError(control)
         self.control = control
+        self.base_law = base["arms_full"]["hover"]["law_tuned"]["law"]
+        self.upset_law = base["arms_full"]["upset"]["pulse_tuned"]["law"]
+        self.tail_s, self.upset_tilt = 1.0, math.radians(25.)
         self.episode_counter = 0
         self.action_space = spaces.Box(-1., 1., shape=(3,), dtype=np.float32)
-        self.observation_space = spaces.Box(-np.inf, np.inf, shape=(17,), dtype=np.float32)
+        self.observation_space = spaces.Box(-np.inf, np.inf, shape=(18 if control == "gated" else 17,), dtype=np.float32)
         self.case = None
 
     # ---- 用例 ------------------------------------------------------------------
@@ -108,7 +115,10 @@ class DirectManeuverEnv(gym.Env[np.ndarray, np.ndarray]):
     def _observation(self) -> np.ndarray:
         reading = np.asarray(self.env.last_reading, float) / OBS_SCALE
         actuator = (np.asarray(self.env.air.action, float) - CENTER) / HALF
-        return np.clip(np.concatenate((reading, actuator, self.cmd)), -10., 10.).astype(np.float32)
+        parts = [reading, actuator, self.cmd]
+        if self.control == "gated":
+            parts.append(np.array([1. if self.in_charge else 0.]))
+        return np.clip(np.concatenate(parts), -10., 10.).astype(np.float32)
 
     def _command_vector(self, truth: dict[str, Any]) -> np.ndarray:
         if not self.cmd_on:
@@ -153,6 +163,12 @@ class DirectManeuverEnv(gym.Env[np.ndarray, np.ndarray]):
         self.cmd = np.zeros(3)
         self.terminated_reason = None
         self.ep = None
+        # 门控底层：脉冲律 + 扶正反射（与 descend_gated.GatedLearned 相同）
+        self.steer = V.SteerV3(None, self.base_law, False)
+        self.steer.reset()
+        self.steer_up = V.SteerV3(None, self.upset_law, False)
+        self.steer_up.reset()
+        self.upset, self.off_t, self.was_on, self.in_charge = False, None, False, False
         obs = self._observation()
         return obs, dict(task=self.task, seed=self.case["seed"], nod_sign=self.nod_sign, dash_angle=self.dash_angle)
 
@@ -160,9 +176,25 @@ class DirectManeuverEnv(gym.Env[np.ndarray, np.ndarray]):
         """一个 2 ms 拍：t < 1.5 s 用 PID，否则用 PPO 的指令。返回 (terminated, truncated, out)。"""
         env = self.env
         t = env.air.steps * DT
-        if action is None or t < gates.HANDOVER_T:
+        gate_pulse = False
+        if self.control == "gated":
+            now = float(env.sim.data.time)
+            law_pulse, _ = self.steer.step(env, now, t)
+            up_pulse, _ = self.steer_up.step(env, now, t)
+            on = bool(self.cmd_on)
+            if self.was_on and not on:
+                self.off_t = t
+            self.was_on = on
+            self.in_charge = on or (self.off_t is not None and t - self.off_t < self.tail_s)
+            tilt_ahrs = math.hypot(float(env.last_reading[0]), float(env.last_reading[1]))
+            if not self.upset and not self.in_charge and tilt_ahrs > self.upset_tilt:
+                self.upset = True
+            gate_pulse = bool(up_pulse if self.upset else law_pulse)
+        if action is None or t < gates.HANDOVER_T or (self.control == "gated" and not self.in_charge):
             env.teacher.rpy_reference = np.zeros(2)
             command = env.teacher_command()
+            if gate_pulse and t >= gates.HANDOVER_T:
+                command[2] = HIGH[2]                    # 底层脉冲律的电机脉冲
         elif self.control == "direct":
             command = CENTER + HALF * np.clip(action, -1., 1.)
         else:
@@ -177,7 +209,7 @@ class DirectManeuverEnv(gym.Env[np.ndarray, np.ndarray]):
         tnow = env.air.steps * DT
         pitch_true = float(self.oracle.queue[-1][1])
         fire = 0.
-        ref = float(env.teacher.rpy_reference[1]) if self.control == "residual" else 0.
+        ref = float(env.teacher.rpy_reference[1]) if self.control in ("residual", "gated") else 0.
         self.rows.append([tnow, pitch_true, *pos, *vel, math.acos(min(1., max(-1., float(r[2, 2])))), ref, fire, *self.cmd[:2]])
         return term, trunc, out
 

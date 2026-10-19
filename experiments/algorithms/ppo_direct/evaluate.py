@@ -122,7 +122,7 @@ def main() -> None:
     p.add_argument("--workers", type=int, default=18)
     p.add_argument("--n", type=int, default=None, help="每任务只跑前 n 例（冒烟）")
     p.add_argument("--compare", action="store_true")
-    p.add_argument("--control", choices=["direct", "residual"], default="residual")
+    p.add_argument("--control", choices=["direct", "residual", "gated"], default="residual")
     a = p.parse_args()
     report = evaluate(a.model, a.tag, a.workers, a.n, a.control)
     if a.compare:
