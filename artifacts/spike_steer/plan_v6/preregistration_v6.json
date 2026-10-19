@@ -120,5 +120,10 @@
   "bench8": "experiments/algorithms/spike_steer/bench8.py",
   "descend8": "experiments/algorithms/spike_steer/descend8.py",
   "cache8": "experiments/algorithms/spike_steer/cache8.py"
+ },
+ "amendment_1": {
+  "written": "2026-10-19, before any selection or blind-set run; ES of seed 4 at generation ~5 on CloudPC-2, no other seed started",
+  "machine_rule": "ES search may run on any machine; centre selection (reselect) and the blind-set evaluation of every seed run only on CloudPC-2 (the machine whose baseline/normalisers are in baseline.json). Same rule as plan v4 rounds 3-6.",
+  "reason": "GoogleCloud (Ubuntu 26.04, g++ 15.2, Zen 3) reproduces the self-tests but not the reference episode bit for bit (score 1.279100774155 / 43 pulses vs 1.288582208870 / 42 on CloudPC-2: Ubuntu 24.04, g++ 13.3, glibc 2.39, Zen 5); the dynamics amplify last-bit floating-point differences of the toolchain. Search on such a machine is a valid but differently-rounded simulator; selection and the test are therefore confined to one machine."
  }
 }
