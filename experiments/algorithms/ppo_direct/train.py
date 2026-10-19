@@ -36,13 +36,14 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--run-name", default="ppo_direct")
     p.add_argument("--init-model", type=Path, default=None, help="热启动模型")
     p.add_argument("--n-steps", type=int, default=256, help="每个环境每次更新采样的步数")
+    p.add_argument("--control", choices=["direct", "residual"], default="residual")
     p.add_argument("--checkpoint-every", type=int, default=100_000, help="按总步数计")
     return p.parse_args()
 
 
 def make_env(args, rank: int):
     def _make():
-        env = DirectManeuverEnv(task=args.task, task_weights=tuple(args.task_weights), seed_offset=rank)
+        env = DirectManeuverEnv(task=args.task, task_weights=tuple(args.task_weights), seed_offset=rank, control=args.control)
         env.reset(seed=args.seed * 1000 + rank)
         return Monitor(env, info_keywords=("is_success",))
     return _make

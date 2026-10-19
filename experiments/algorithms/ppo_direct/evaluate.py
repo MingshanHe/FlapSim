@@ -30,10 +30,10 @@ _ENV = None
 _POLICY = None
 
 
-def _init(model_path: str):
+def _init(model_path: str, control: str):
     global _ENV, _POLICY
     from stable_baselines3 import PPO
-    _ENV = DirectManeuverEnv(task="hover")
+    _ENV = DirectManeuverEnv(task="hover", control=control)
     _POLICY = PPO.load(model_path, device="cpu")
 
 
@@ -48,11 +48,12 @@ def _run(args):
         obs, _, terminated, truncated, info = env.step(action)
         done = terminated or truncated
     row = dict(info["metrics"], controller="ppo")
+    row["ref_abs_mean"] = float(np.mean(np.abs(np.array(env.rows)[:, 9]))) if env.rows else 0.
     row["task"] = task
     return row
 
 
-def evaluate(model: Path, tag: str, workers: int, n: int | None = None) -> dict:
+def evaluate(model: Path, tag: str, workers: int, n: int | None = None, control: str = "residual") -> dict:
     prepare_source()
     base = json.loads(BASELINE_R5.read_text())
     levels = json.loads(CALIBRATE.read_text())["levels"]
@@ -63,7 +64,7 @@ def evaluate(model: Path, tag: str, workers: int, n: int | None = None) -> dict:
     for t in tasks:
         for i, c in enumerate(B.cases(t, "test", levels, n=n)):
             jobs.append((t, c, int(c["seed"]) % (2 ** 31)))
-    with ProcessPoolExecutor(workers, mp_context=mp.get_context("fork"), initializer=_init, initargs=(str(model),)) as ex:
+    with ProcessPoolExecutor(workers, mp_context=mp.get_context("fork"), initializer=_init, initargs=(str(model), control)) as ex:
         rows = list(ex.map(_run, jobs, chunksize=1))
     scores, table, rows_all = {}, {}, {}
     for t in tasks:
@@ -121,8 +122,9 @@ def main() -> None:
     p.add_argument("--workers", type=int, default=18)
     p.add_argument("--n", type=int, default=None, help="每任务只跑前 n 例（冒烟）")
     p.add_argument("--compare", action="store_true")
+    p.add_argument("--control", choices=["direct", "residual"], default="residual")
     a = p.parse_args()
-    report = evaluate(a.model, a.tag, a.workers, a.n)
+    report = evaluate(a.model, a.tag, a.workers, a.n, a.control)
     if a.compare:
         compare(report)
 

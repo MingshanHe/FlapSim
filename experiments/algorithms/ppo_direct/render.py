@@ -35,13 +35,14 @@ def main() -> None:
     p.add_argument("--width", type=int, default=800)
     p.add_argument("--height", type=int, default=600)
     p.add_argument("--output", type=Path, default=Path("runs/ppo_direct/media/ppo_direct.mp4"))
+    p.add_argument("--control", choices=["direct", "residual"], default="residual")
     a = p.parse_args()
     a.output.parent.mkdir(parents=True, exist_ok=True)
     prepare_source()
     from stable_baselines3 import PPO
     from ..spike_steer import descend_r5 as R5
     policy = PPO.load(a.model, device="cpu")
-    env = DirectManeuverEnv(task="hover")
+    env = DirectManeuverEnv(task="hover", control=a.control)
     R5.install()
     levels = json.loads(CALIBRATE.read_text())["levels"]
     model, data = env.env.sim.model, env.env.sim.data
@@ -71,14 +72,15 @@ def main() -> None:
                 frame = Image.fromarray(renderer.render())
                 draw = ImageDraw.Draw(frame)
                 t = env.env.air.steps * DT
-                who = "classical PID (takeoff)" if t < 1.5 else "PPO direct"
+                who = "classical PID (takeoff)" if t < 1.5 else ("PPO direct" if a.control == "direct" else "PID + PPO set-points/motor")
                 if task in ("nod", "dash"):
                     state = "COMMAND ON" if env.cmd_on else ("goal reached -> hover" if env.goal_done else f"hover, command at {env.t0:.1f} s")
                     what = f"nod {'up' if env.nod_sign > 0 else 'down'}" if task == "nod" else "dash forward 0.15 m"
                 else:
                     what, state = ("upset recovery" if "upset" in case else "stress hover"), ""
                 cmd = env.env.command
-                lines = [f"{task}: {what}  {state}", f"t = {t:4.2f} s   {who}",
+                ref = env.env.teacher.rpy_reference
+                lines = [f"{task}: {what}  {state}", f"t = {t:4.2f} s   {who}   ref roll {math.degrees(ref[0]):+5.1f} pitch {math.degrees(ref[1]):+5.1f} deg",
                          f"height {env._truth()['z']:+.3f} m (rel. start)   tilt {math.degrees(env._truth()['tilt']):4.1f} deg   pitch {math.degrees(env._truth()['pitch']):+5.1f} deg",
                          f"alpha {cmd[0]:+.3f}  beta {cmd[1]:+.3f}  omega {cmd[2]:6.0f} rad/s"]
                 for i, text in enumerate(lines):

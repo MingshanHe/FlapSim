@@ -7,8 +7,12 @@
 接口（原接口）：
     传感：reading 11 维 [roll, pitch, yaw, gx, gy, gz, ax, ay, az, z, vz]，500 Hz，z 相对起飞高度；
     执行：云台 α、β ∈ ±0.3 rad，电机 ω ∈ [3115.22, 3807.50] rad/s，每 2 ms 一条指令，仿真器内部 8.2 ms 平滑。
-控制权：t < 1.5 s（gates.HANDOVER_T，起飞过渡）由经典 PID 飞，之后 PPO 直接给 α、β、ω——和 bench 里学习层
-    在 1.5 s 前不动作的约定一致；但 1.5 s 后 PPO 完全替代 PID + 脉冲律，不是残差。
+控制权（control 参数）：t < 1.5 s（gates.HANDOVER_T，起飞过渡）都由经典反射 PID 飞；之后
+    direct   : PPO 直接给 α、β、ω，完全替代 PID（实测学不起来：接管后 0.6 s 倾翻，40 万步曲线平线）；
+    residual : 反射 PID 留在底层（与 SNN 各臂相同），PPO 输出 [roll 设定点, pitch 设定点, 电机修正]——
+               设定点 ±REF_MAX = 0.7 rad 写进 ReferencePID.rpy_reference（maneuver_v2 的"设定点权限"接口），
+               电机 = residual_command(a[2], PID 的高度回路输出)，a[2] = ±1 到达 ω 上/下限。
+               执行器上仍是 α、β、ω 三个量、同限幅；这是和 SNN 第五轮（PID + 学习层脉冲/设定点）对等的接法。
 决策：每 10 ms 一次（5 拍），指令保持。
 观测（17 维，都缩放到 ~[-1, 1]）：
     reading[0:9] / [.35, .35, π, 10, 10, 10, 9.81, 9.81, 9.81]，z/0.2，vz/1.0，
@@ -63,7 +67,7 @@ class DirectManeuverEnv(gym.Env[np.ndarray, np.ndarray]):
     metadata = {"render_modes": []}
 
     def __init__(self, *, task: str = "mixed", task_weights=(0.4, 0.4, 0.2), upset_fraction: float = 0.5, dash_m: float | None = None,
-                 seed_offset: int = 0) -> None:
+                 seed_offset: int = 0, control: str = "residual") -> None:
         super().__init__()
         R5.install()                                   # 第五轮的盲测集、penalised objective（只影响 B.cases 的 test 分支）
         prepare_source()
@@ -77,6 +81,9 @@ class DirectManeuverEnv(gym.Env[np.ndarray, np.ndarray]):
         self.task_weights = w / w.sum()               # nod, dash, hover
         self.upset_fraction = float(upset_fraction)   # hover 回合里带 upset 扰动的比例
         self.seed_offset = int(seed_offset)
+        if control not in ("direct", "residual"):
+            raise ValueError(control)
+        self.control = control
         self.episode_counter = 0
         self.action_space = spaces.Box(-1., 1., shape=(3,), dtype=np.float32)
         self.observation_space = spaces.Box(-np.inf, np.inf, shape=(17,), dtype=np.float32)
@@ -156,15 +163,22 @@ class DirectManeuverEnv(gym.Env[np.ndarray, np.ndarray]):
         if action is None or t < gates.HANDOVER_T:
             env.teacher.rpy_reference = np.zeros(2)
             command = env.teacher_command()
-        else:
+        elif self.control == "direct":
             command = CENTER + HALF * np.clip(action, -1., 1.)
+        else:
+            env.teacher.rpy_reference = B.REF_MAX * np.clip(action[:2], -1., 1.)       # [roll, pitch] 设定点
+            base = env.teacher_command()
+            command = base.copy()
+            a2 = float(np.clip(action[2], -1., 1.))
+            command[2] = base[2] + a2 * ((HIGH[2] - base[2]) if a2 >= 0 else (base[2] - LOW[2]))
         _, _, term, trunc, out = env.step((np.clip(command, LOW, HIGH) - CENTER) / HALF)
         self.oracle.update()
         pos, vel, r = env.air.env._state()
         tnow = env.air.steps * DT
         pitch_true = float(self.oracle.queue[-1][1])
         fire = 0.
-        self.rows.append([tnow, pitch_true, *pos, *vel, math.acos(min(1., max(-1., float(r[2, 2])))), 0., fire, *self.cmd[:2]])
+        ref = float(env.teacher.rpy_reference[1]) if self.control == "residual" else 0.
+        self.rows.append([tnow, pitch_true, *pos, *vel, math.acos(min(1., max(-1., float(r[2, 2])))), ref, fire, *self.cmd[:2]])
         return term, trunc, out
 
     def step(self, action: np.ndarray):
