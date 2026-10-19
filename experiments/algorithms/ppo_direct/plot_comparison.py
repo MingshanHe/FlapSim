@@ -114,7 +114,10 @@ def main() -> None:
             if v is None:
                 continue
             txt = f"{v:.2f}" + ("" if c == "composite" else f"\n{cr.get(c)} crash" if cr.get(c) not in (None, 0, "0-0") else "")
-            ax.text(x, min(v, 6.) + .05, txt, ha="center", va="bottom", fontsize=7, rotation=90 if v > 2 else 0)
+            if v > 6.:      # 被截断的柱：标签写在柱内
+                ax.text(x, 5.9, txt.replace("\n", "  "), ha="center", va="top", fontsize=7, rotation=90, color="white")
+            else:
+                ax.text(x, v + .05, txt, ha="center", va="bottom", fontsize=7, rotation=90 if v > 2 else 0)
     ax.axhline(1., color="k", lw=.8, ls="--")
     ax.set_xticks(xs)
     ax.set_xticklabels([f"{c}\n({'16' if c in ('hover', 'nod', 'dash') else '48' if c == 'upset' else '25/25/25/25'} {'cases' if c != 'composite' else 'weights'})" for c in cats])
