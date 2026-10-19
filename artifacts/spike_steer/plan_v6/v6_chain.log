@@ -1,0 +1,25 @@
+== baseline Mon Oct 19 10:14:47 UTC 2026
+nod {"pitch": 2.170755905540865, "roll": 1.2334645890016365} crashes 3
+dash {"pitch": 5.921892367684142, "roll": 1.5485769235264053, "diag": 5.035073888626608} crashes 0
+== collect Mon Oct 19 10:17:22 UTC 2026
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/root/flapsim/experiments/algorithms/spike_steer/descend8.py", line 547, in <module>
+    main()
+  File "/root/flapsim/experiments/algorithms/spike_steer/descend8.py", line 542, in main
+    {'baseline': stage_baseline, 'collect': stage_collect, 'train': stage_train, 'finetune': stage_finetune,
+  File "/root/flapsim/experiments/algorithms/spike_steer/descend8.py", line 333, in stage_collect
+    X[i, :L[i]] = r['log']
+    ~^^^^^^^^^^
+ValueError: could not broadcast input array from shape (1500,29) into shape (1500,30)
+== collect Mon Oct 19 10:19:14 UTC 2026
+{"split": "train", "episodes": 64, "pulse_rate": 0.015214014798402786, "ref_abs": [0.045099999755620956, 0.06080000102519989], "flown": 63}
+{"split": "val", "episodes": 16, "pulse_rate": 0.016499999910593033, "ref_abs": [0.045499999076128006, 0.061900001019239426], "flown": 16}
+== train Mon Oct 19 10:21:10 UTC 2026
+{"epoch": 39, "loss": 0.12157523269067774, "val_loss": 0.12354886335282332, "precision": 0.4002828854314003, "recall": 0.5945378151260504, "ref_rmse": [0.1207034256462706, 0.12616033285345252], "wall_s": 543}
+{"epoch": 39, "loss": 0.1115293273998883, "val_loss": 0.11345813147084527, "precision": 0.42857142857142855, "recall": 0.542016806722689, "ref_rmse": [0.11066635689973987, 0.12040416380931686], "wall_s": 633}
+{"epoch": 39, "loss": 0.11485686741305101, "val_loss": 0.10929074219569643, "precision": 0.4034003091190108, "recall": 0.5483193277310925, "ref_rmse": [0.10353599828081561, 0.11900267740795932], "wall_s": 604}
+{"epoch": 39, "loss": 0.1187498649151195, "val_loss": 0.1172319582457377, "precision": 0.39655172413793105, "recall": 0.5798319327731093, "ref_rmse": [0.10739394923643061, 0.12644273048120552], "wall_s": 649}
+{"epoch": 39, "loss": 0.11586811544089955, "val_loss": 0.1175154164647617, "precision": 0.3838383838383838, "recall": 0.6386554621848739, "ref_rmse": [0.10171109584587808, 0.13272565963590224], "wall_s": 640}
+== done Mon Oct 19 10:32:01 UTC 2026
