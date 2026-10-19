@@ -67,17 +67,17 @@ def save(fig, name):
 # ---------------------------------------------------------------------------------------------------------------------
 def fig_architecture():
     fig, ax = canvas(13, 6.6)
-    ax.text(.01, .965, 'Bio-inspired hierarchical controller (one 2 ms tick)', fontsize=14, fontweight='bold', color=INK)
+    ax.text(.01, .965, 'Bio-inspired hierarchical controller, plan v6: nod in 4 / dash in 8 directions (one 2 ms tick)', fontsize=14, fontweight='bold', color=INK)
     # sensors / commands
     box(ax, .01, .62, .12, .14, 'IMU + ToF', fc='white', sub='11-D reading, 500 Hz')
-    box(ax, .01, .36, .12, .12, 'Task command', fc='white', sub='[nod, dash] ∈ {0,1}')
+    box(ax, .01, .36, .12, .12, 'Task command', fc='white', sub='nod / dash on,\ndirection φ')
     # descending layer
     ax.add_patch(FancyBboxPatch((.17, .53), .40, .36, boxstyle='round,pad=0,rounding_size=.02', fc=C_LEARN, ec=E_LEARN, lw=1.6))
     ax.text(.18, .865, 'Descending command layer (learned)', fontsize=11.5, fontweight='bold', color=E_LEARN)
-    box(ax, .19, .63, .10, .17, 'features', sub='20-D, rectified\n(ON/OFF halves)', fs=9.5)
+    box(ax, .19, .63, .10, .17, 'features', sub='25-D: IMU ON/OFF\n+ bias + 8 dir.\ncommand chans', fs=9.5)
     box(ax, .32, .63, .11, .17, 'delay lines', sub='11 taps\n0–20 ms', fs=9.5)
     box(ax, .455, .70, .10, .10, 'LIF SNN', sub='8 hidden', fs=9.5)
-    box(ax, .455, .565, .10, .095, 'outputs', sub='up/down · g', fs=9.5)
+    box(ax, .455, .565, .10, .095, 'outputs', sub='up/down · g_r, g_p', fs=9.5)
     arrow(ax, (.29, .715), (.32, .715))
     arrow(ax, (.43, .75), (.455, .75))
     arrow(ax, (.505, .70), (.505, .66))
@@ -96,22 +96,23 @@ def fig_architecture():
     box(ax, .19, .345, .14, .13, 'PLL', fc=C_CLASSIC, ec=E_CLASSIC, sub='wingbeat phase\nfrom pitch gyro', fs=9.5)
     arrow(ax, (.13, .66), (.19, .44), col=E_CLASSIC, rad=.15)
     arrow(ax, (.33, .41), (.37, .41), col=E_CLASSIC)
-    arrow(ax, (.57, .41), (.65, .58), 'fire_law, ref = 0', col=E_CLASSIC, toff=(.04, -.02))
+    arrow(ax, (.57, .41), (.65, .58), col=E_CLASSIC)
+    ax.text(.598, .503, 'fire_law, ref = (0, 0)', fontsize=8, color=E_CLASSIC, va='center', ha='right')
     # refractory
     box(ax, .80, .70, .18, .11, 'Refractory 37 ms', fc='#fff7e0', ec='#b58a12', fs=9.5, sub='≤ 1 learned pulse onset / wingbeat')
     arrow(ax, (.76, .755), (.80, .755), 'fire', toff=(0, .005))
     # reflex layer
     ax.add_patch(FancyBboxPatch((.62, .14), .15, .26, boxstyle='round,pad=0,rounding_size=.02', fc=C_REFLEX, ec=E_REFLEX, lw=1.6))
     ax.text(.695, .365, 'Reflex layer (PID)', fontsize=11, fontweight='bold', color=E_REFLEX, ha='center')
-    ax.text(.695, .24, 'attitude: α, β ← PID(e)\ne = [0, ref] − [roll, pitch]\naltitude: ω ← PID(z)',
+    ax.text(.695, .24, 'attitude: α, β ← PID(e)\ne = ref − [roll, pitch]\naltitude: ω ← PID(z)',
             fontsize=9, color=INK, ha='center', va='center')
-    arrow(ax, (.69, .58), (.69, .40), 'ref (pitch set-point)', col=E_REFLEX, toff=(.005, -.02), ha='left')
+    arrow(ax, (.69, .58), (.69, .40), 'ref (roll, pitch)', col=E_REFLEX, toff=(.005, -.02), ha='left')
     ax.plot([.13, .15, .15], [.64, .64, .27], color=E_REFLEX, lw=1.3)
     arrow(ax, (.15, .27), (.62, .27), 'IMU reading', col=E_REFLEX, toff=(-.15, .005))
     # muscle layer
     ax.add_patch(FancyBboxPatch((.82, .40), .16, .21, boxstyle='round,pad=0,rounding_size=.02', fc=C_MUSCLE, ec=E_MUSCLE, lw=1.6))
     ax.text(.90, .575, 'Steering-muscle layer', fontsize=10.5, fontweight='bold', color=E_MUSCLE, ha='center')
-    ax.text(.90, .47, 'fire → ω = 3807 rad/s\nfor 3 ticks (6 ms)\noverrides PID ω', fontsize=9, ha='center', va='center')
+    ax.text(.90, .47, 'fire → ω = 3807 rad/s\nfor 3 ticks (6 ms)\noverrides PID ω\n(pitch torque only)', fontsize=9, ha='center', va='center')
     arrow(ax, (.89, .70), (.89, .61), col=E_MUSCLE)
     # actuators
     box(ax, .82, .14, .16, .14, 'Actuators', fc='white', sub='α, β ±0.3 rad · ω 3115–3807\n8.2 ms smoothing', fs=10)
@@ -119,7 +120,8 @@ def fig_architecture():
     ax.text(.795, .225, 'α, β, ω', ha='center', va='bottom', fontsize=8.5, color=E_REFLEX)
     arrow(ax, (.90, .40), (.90, .28), 'ω pulse', col=E_MUSCLE, toff=(.005, -.01), ha='left')
     ax.text(.01, .04, 'Fixed interface: sensors, actuators, update rate and limits are those of the original environment. '
-            'Pulse direction (pitch up / down) is set only by its timing within the wingbeat (≈135° up, ≈315° down).',
+            'Pulse direction (pitch up / down) is set only by its timing within the wingbeat (≈135° up, ≈315° down);\n'
+            'the single motor gives no roll torque, so roll manoeuvres go through the roll set-point (g_r → PID → gimbal).',
             fontsize=9, color=MUTED)
     save(fig, 'fig1_architecture')
 
@@ -134,25 +136,27 @@ def fig_snn(spec):
 
     def circ(x, y, r, **kw):
         ax.add_patch(Ellipse((x, y), 2*r, 2*r*asp, **kw))
-    ax.text(.02, .955, 'Descending SNN: 20 inputs × 11 delays → 8 LIF → 2 spiking outputs + graded unit (2035 parameters)',
+    ax.text(.02, .955, 'Descending SNN (plan v6): 25 inputs × 11 delays → 8 LIF → 2 spiking outputs + 2 graded units (2564 parameters)',
             fontsize=12.5, fontweight='bold', color=INK)
     names = ['roll', 'pitch', 'gx', 'gy', 'gz', 'ax', 'ay', 'az']
-    labels = [f'{n}+' for n in names]+[f'{n}−' for n in names]+['bias', '0', 'nod', 'dash']
+    cmdn = ['nod·cosφ', 'nod·sinφ', 'dash·cosφ', 'dash·sinφ']
+    labels = [f'{n}+' for n in names]+[f'{n}−' for n in names]+['bias']+[f'{c}+' for c in cmdn]+[f'{c}−' for c in cmdn]
     W_in = np.asarray(spec['W_in'])
     wsum = W_in.sum(2)
-    ys = np.linspace(.88, .08, 20)
+    n_in = len(labels)
+    ys = np.linspace(.90, .07, n_in)
     hy = np.linspace(.80, .18, 8)
     xi, xd, xh, xo = .10, .25, .55, .82
     for i, (lab, y) in enumerate(zip(labels, ys)):
-        col = '#2f6db5' if i < 16 else ('#1f8a4c' if i >= 18 else MUTED)
-        circ(xi, y, .011, fc='white', ec=col, lw=1.4)
-        ax.text(xi-.02, y, lab, ha='right', va='center', fontsize=8, color=col)
+        col = '#2f6db5' if i < 16 else ('#1f8a4c' if i >= 17 else MUTED)
+        circ(xi, y, .009, fc='white', ec=col, lw=1.3)
+        ax.text(xi-.018, y, lab, ha='right', va='center', fontsize=7.2, color=col)
         for k in range(11):                                  # delay taps (schematic)
-            ax.plot([xi+.015+k*.011], [y], 's', ms=2.2, color=col, alpha=.55)
+            ax.plot([xi+.015+k*.011], [y], 's', ms=1.8, color=col, alpha=.55)
     ax.text(xd-.02, .925, 'delay taps 0,2,…,20 ms', fontsize=8.5, color=MUTED, ha='center')
     wmax = np.abs(wsum).max()
     for h in range(8):
-        for i in range(20):
+        for i in range(n_in):
             w = wsum[h, i]
             if abs(w) < .25*wmax:
                 continue
@@ -163,16 +167,17 @@ def fig_snn(spec):
     for (lab, y, col) in (('up', .66, '#c23b3b'), ('down', .50, '#c23b3b')):
         circ(xo, y, .03, fc='#fde8e6', ec=col, lw=1.5)
         ax.text(xo, y, lab, ha='center', va='center', fontsize=9)
-    ax.add_patch(Rectangle((xo-.03, .25), .06, .08, fc=C_REFLEX, ec=E_REFLEX, lw=1.5))
-    ax.text(xo, .29, 'g', ha='center', va='center', fontsize=11, fontweight='bold')
+    for (lab, y) in (('g_r', .33), ('g_p', .21)):
+        ax.add_patch(Rectangle((xo-.03, y-.04), .06, .08, fc=C_REFLEX, ec=E_REFLEX, lw=1.5))
+        ax.text(xo, y, lab, ha='center', va='center', fontsize=10, fontweight='bold')
     for h, y in enumerate(hy):
-        for yo in (.66, .50, .29):
+        for yo in (.66, .50, .33, .21):
             ax.plot([xh+.025, xo-.03], [y, yo], color=MUTED, lw=.5, alpha=.5)
     ax.text((xh+xo)/2, .88, 'hidden → output: 11 delays 0–20 ms, ×5', fontsize=8.5, color=MUTED, ha='center')
     ax.text(xo+.045, .58, 'either spike\n→ motor pulse\n(timing = direction)', fontsize=8.5, va='center')
-    ax.text(xo+.045, .29, 'τ_g = 20 ms\nref = 0.7·tanh(g)\n→ PID set-point', fontsize=8.5, va='center')
+    ax.text(xo+.045, .27, 'τ_g = 20 ms\nref = 0.7·tanh(g)\n→ roll / pitch\nPID set-points', fontsize=8.5, va='center')
     ax.text(.02, .02, 'Edges drawn: input→hidden weights summed over delays, |w| ≥ 25% of max (orange +, blue −), '
-            'round-5 seed 4.', fontsize=8.5, color=MUTED)
+            'plan v6 imitation start, seed 4.', fontsize=8.5, color=MUTED)
     # right: LIF equations + parameter table
     ax2 = fig.add_axes([.65, 0, .35, 1])
     ax2.axis('off')
@@ -185,10 +190,10 @@ def fig_snn(spec):
           '$v_h\\leftarrow a_m v_h+(1-a_m) c_h$\n'
           '$s_h=[v_h\\geq 1],\\;\\; v_h\\leftarrow v_h-s_h$\n'
           '$I_o=5\\sum_h\\sum_d W^{out}_{o,h,d}\\,s_h(t-d)+b_o$\n'
-          '$ref=0.7\\,\\tanh(g)$')
+          '$ref_{roll,pitch}=0.7\\,\\tanh(g_{r,p})$')
     ax2.text(.06, .82, eq, fontsize=10, va='top', linespacing=1.7)
-    rows = [('W_in', '8×20×11', '1760'), ('b_h', '8', '8'), ('W_out', '2×8×11', '176'), ('b_o', '2', '2'),
-            ('W_g', '8×11', '88'), ('b_g', '1', '1'), ('total', '', '2035')]
+    rows = [('W_in', '8×25×11', '2200'), ('b_h', '8', '8'), ('W_out', '2×8×11', '176'), ('b_o', '2', '2'),
+            ('W_g', '2×8×11', '176'), ('b_g', '2', '2'), ('total', '', '2564')]
     ax2.text(.06, .44, 'parameters (searched by ES)', fontsize=10.5, fontweight='bold')
     for r, (a, b, c) in enumerate(rows):
         y = .39-r*.045
@@ -231,15 +236,15 @@ def fig_gating():
 
 def fig_pipeline():
     fig, ax = canvas(14, 4.6)
-    ax.text(.01, .93, 'Training and evaluation pipeline (one seed; 5 seeds in parallel)', fontsize=14, fontweight='bold')
+    ax.text(.01, .93, 'Training and evaluation pipeline, plan v6 (one seed; 5 seeds in parallel)', fontsize=14, fontweight='bold')
     stages = [
-        ('1  Classical\nopponents', 'tune PID / pulse law /\nset-point schedule\nper task (8 cases)', C_CLASSIC, E_CLASSIC),
-        ('2  Imitation', 'surrogate-gradient BPTT\non opponent traces\n40 epochs, ~15 min', C_LEARN, E_LEARN),
+        ('1  Classical\nopponents', '2-D set-point schedule\ntuned per task and\ndirection class', C_CLASSIC, E_CLASSIC),
+        ('2  Imitation', 'BPTT on opponent traces\n32 nod + 32 dash\n40 epochs, ~10 min', C_LEARN, E_LEARN),
         ('3  Add gate', 'gate, 1 s tail, law_tuned,\npulse_tuned (25°),\nrefractory 37 ms', '#fff7e0', '#b58a12'),
-        ('4  OpenAI-ES', '2035-D, pop 32, σ 0.03\n8 nod + 4 dash / gen\n60 generations', C_MUSCLE, E_MUSCLE),
+        ('4  OpenAI-ES', '2564-D, pop 32, σ 0.03\n8 nod + 8 dash / gen\n60 gen, shared prefix', C_MUSCLE, E_MUSCLE),
         ('5  Select centre', '13 saved centres\n64 + 64 val. cases\n0 crash, tilt < 70°', C_REFLEX, E_REFLEX),
-        ('6  Blind test', 'fresh 16 + 16 cases\npaired vs strongest\nclassical + ablations', '#f3e8f7', '#7a52b3'),
-        ('7  M1 confirm', 'frozen controllers\nnew blind set, prereg.\n≥ 3 / 5 seeds pass', '#fde8e6', '#c23b3b'),
+        ('6  Blind test', 'fresh 32 + 32 cases\npaired, ratio per\ndirection class', '#f3e8f7', '#7a52b3'),
+        ('7  M2 verdict', 'manoeuvre mean ≤ 0.95\n0 crashes, prereg.\n≥ 3 / 5 seeds pass', '#fde8e6', '#c23b3b'),
     ]
     w, gap, y, h = .118, .022, .27, .55
     for k, (title, sub, fc, ec) in enumerate(stages):
@@ -251,9 +256,9 @@ def fig_pipeline():
             arrow(ax, (x+w, y+h/2), (x+w+gap, y+h/2), lw=1.6)
     ax.text(.01+1*(w+gap)+w/2, .15, 'labels: when / which pulse,\nset-point', ha='center', fontsize=8.3, color=MUTED)
     ax.text(.01+3*(w+gap)+w/2, .15, 'objective: score ratio vs\nclassical + tilt penalty', ha='center', fontsize=8.3, color=MUTED)
-    ax.text(.01+5*(w+gap)+w/2, .15, 'ratio = learned mean /\nopponent per-case median', ha='center', fontsize=8.3, color=MUTED)
-    ax.text(.01, .04, 'Stage-1 opponents are both the teacher in stage 2 and the yardstick (normalisers N_t) in stages 4–7.',
-            fontsize=9, color=E_CLASSIC)
+    ax.text(.01+5*(w+gap)+w/2, .15, 'case score / opponent\nmedian of its class', ha='center', fontsize=8.3, color=MUTED)
+    ax.text(.01, .04, 'Stage-1 opponents are both the teacher in stage 2 and the yardstick (normalisers N_t,class) in stages 4–7.  '
+            'Stages 4 may run on any machine; 5–7 only on the reference machine (amendment 1).', fontsize=9, color=E_CLASSIC)
     save(fig, 'fig4_pipeline')
 
 
@@ -262,11 +267,11 @@ def fig_imitation():
     ax.text(.01, .93, 'Step 1 — imitation: learn when to fire (and which way) from the strongest classical controller',
             fontsize=13, fontweight='bold')
     box(ax, .01, .30, .16, .45, 'Classical opponent\nflies training cases', fc=C_CLASSIC, ec=E_CLASSIC, fs=10,
-        sub='\n\nhover 24 · nod 16\ndash 16 · upset 16')
+        sub='\n\nnod 32 (8 / direction)\ndash 32 (4 / direction)')
     arrow(ax, (.17, .525), (.21, .525), 'log every tick (t ≥ 2 s)', toff=(0, .24))
     box(ax, .21, .30, .20, .45, '', fc='white')
     ax.text(.31, .69, 'dataset per tick', ha='center', fontsize=10.5, fontweight='bold')
-    ax.text(.225, .48, 'x(t): 20-D features\ny_up = fire ∧ u > 0\ny_down = fire ∧ u < 0\nr = ref / 0.7\n(fire rate ≈ 1–2 %)',
+    ax.text(.225, .48, 'x(t): 25-D features\ny_up = fire ∧ u > 0\ny_down = fire ∧ u < 0\nr = (ref_roll, ref_pitch) / 0.7\n(fire rate ≈ 1.5 %)',
             fontsize=9.3, va='center', linespacing=1.5)
     arrow(ax, (.41, .525), (.45, .525), 'windows of 200 ticks', toff=(0, .24))
     box(ax, .45, .30, .20, .45, '', fc=C_LEARN, ec=E_LEARN)
@@ -281,7 +286,7 @@ def fig_imitation():
     ax.text(.70, .39, 'Adam 3e-3 · grad-norm clip 1 · batch 32\n40 epochs · best validation epoch\n'
             'τ_m, τ_s learned (log-param., 0.3–10 ms)', fontsize=9, va='center', linespacing=1.5)
     ax.text(.01, .12, 'Why: from scratch, NEAT / RL never found phase-locked firing (wrong basin, flat objective). Imitation '
-            'gives a controller that already flies with correctly phased pulses (val. precision ≈ 0.45, recall ≈ 0.65–0.70);\n'
+            'gives a controller that already flies with correctly phased pulses (plan v6: val. precision 0.38–0.43, recall 0.54–0.64);\n'
             'it need not copy the teacher exactly — step 2 improves on it.', fontsize=9, color=MUTED, linespacing=1.5)
     save(fig, 'fig5_imitation')
 
@@ -289,7 +294,7 @@ def fig_imitation():
 def fig_es():
     fig, ax = canvas(13, 5.2)
     ax.text(.01, .94, 'Step 2 — OpenAI-ES: one generation', fontsize=13, fontweight='bold')
-    box(ax, .01, .45, .12, .30, 'centre θ', fc=C_MUSCLE, ec=E_MUSCLE, bold=True, fs=11, sub='\n2035-D')
+    box(ax, .01, .45, .12, .30, 'centre θ', fc=C_MUSCLE, ec=E_MUSCLE, bold=True, fs=11, sub='\n2564-D')
     arrow(ax, (.13, .60), (.17, .60))
     box(ax, .17, .40, .17, .40, '', fc='white')
     ax.text(.255, .74, 'antithetic population', ha='center', fontsize=10, fontweight='bold')
@@ -298,14 +303,14 @@ def fig_es():
     arrow(ax, (.34, .60), (.38, .60))
     box(ax, .38, .40, .20, .40, '', fc=C_LEARN, ec=E_LEARN)
     ax.text(.48, .74, 'closed-loop rollouts', ha='center', fontsize=10, fontweight='bold', color=E_LEARN)
-    ax.text(.48, .575, 'same fresh batch for all\n(common random numbers)\n8 nod + 4 dash stress cases\n'
-            'offset 100 000 + 100·gen', ha='center', va='center', fontsize=9.2, linespacing=1.5)
+    ax.text(.48, .575, 'same fresh batch for all\n(common random numbers)\n8 nod + 8 dash, all directions\n'
+            'prefix to T0 simulated once', ha='center', va='center', fontsize=9.2, linespacing=1.5)
     arrow(ax, (.58, .60), (.62, .60))
     box(ax, .62, .40, .20, .40, '', fc='#f7f8fa', ec=GRIDC)
     ax.text(.72, .74, 'objective (lower = better)', ha='center', fontsize=10, fontweight='bold')
-    ax.text(.63, .575, '$F=\\frac{1}{3}\\sum_t w_t\\left(\\frac{\\bar J_t}{N_t}+0.3\\,\\overline{[\\theta_{peak}-60°]_+}\\right)$',
+    ax.text(.625, .575, '$F=\\frac{1}{3}\\sum_t w_t\\left(\\overline{J/N_{t,c}}+0.3\\,\\overline{[\\theta_{peak}-60°]_+}\\right)$',
             fontsize=9.5, va='center')
-    ax.text(.72, .46, 'w_nod = 2, w_dash = 1\nN_t: classical normaliser', ha='center', fontsize=8.8, color=MUTED)
+    ax.text(.72, .46, 'w_nod = 2, w_dash = 1\nN_t,c: classical normaliser of the\ntask and direction class of each case', ha='center', fontsize=8.3, color=MUTED)
     arrow(ax, (.82, .60), (.86, .60))
     box(ax, .86, .40, .13, .40, '', fc='white')
     ax.text(.925, .74, 'update', ha='center', fontsize=10, fontweight='bold')
@@ -334,7 +339,7 @@ def fig_es_curves():
         ax.plot(g[k-1:], sm, color=SEED_COL[s], lw=1.8, label=f'seed {s}')
     ax.set_xlabel('ES generation')
     ax.set_ylabel('training objective F of the centre\n(12 fresh cases / gen; lower = better)')
-    ax.set_title('a  ES training (5-gen running median; faint = raw)', loc='left', fontweight='bold', fontsize=11)
+    ax.set_title('a  Round 5 (pitch-plane version): ES training, 5-gen median', loc='left', fontweight='bold', fontsize=11)
     ax.axhline(1., color=MUTED, lw=.8, ls='--')
     ax.text(59, 1.005, 'classical = 1', ha='right', va='bottom', fontsize=8.5, color=MUTED)
     ax.set_ylim(.6, 1.6)
@@ -356,7 +361,7 @@ def fig_es_curves():
     ax.axhline(1., color=MUTED, lw=.8, ls='--')
     ax.set_xlabel('ES generation of saved centre (0 = imitation start)')
     ax.set_ylabel('selection score on 64 + 64 val. cases\n(penalised; clipped at 1.6)')
-    ax.set_title('b  Centre selection: ● safe  ✕ crash or tilt ≥ 70°  ○ selected', loc='left', fontweight='bold', fontsize=11)
+    ax.set_title('b  Round 5 selection: ● safe  ✕ crash/tilt ≥ 70°  ○ selected', loc='left', fontweight='bold', fontsize=11)
     ax.set_ylim(.8, 1.65)
     fig.tight_layout()
     save(fig, 'fig7_es_curves')
@@ -368,16 +373,16 @@ def fig_evaluation():
     ax.set_xlim(0, 1)
     ax.set_ylim(0, 1)
     ax.axis('off')
-    ax.text(.02, .93, 'Evaluation: paired against the strongest re-tuned classical controller', fontsize=12, fontweight='bold')
+    ax.text(.02, .93, 'Evaluation: paired against the strongest re-tuned classical controller (plan v6)', fontsize=12, fontweight='bold')
     box(ax, .02, .55, .28, .28, 'Learned controller', fc=C_LEARN, ec=E_LEARN, bold=True, sub='\nfrozen after selection')
     box(ax, .02, .17, .28, .28, 'Strongest classical', fc=C_CLASSIC, ec=E_CLASSIC, bold=True,
-        sub='\n\nnod / dash: set-point schedule\nhover: law_tuned\nupset: pulse_tuned', fs=9.5)
-    box(ax, .38, .30, .22, .40, 'Fresh blind set', fc='white', bold=True, sub='\n\nnod 16 · dash 16\nhover 16 · upset 48\nsame cases\nfor both')
+        sub='\n\n2-D set-point schedule,\none per task and\ndirection class', fs=9.5)
+    box(ax, .38, .30, .22, .40, 'Fresh blind set', fc='white', bold=True, sub='\n\nnod 32 (8 / dir.)\ndash 32 (4 / dir.)\nsame cases\nfor both')
     arrow(ax, (.30, .69), (.38, .58))
     arrow(ax, (.30, .31), (.38, .42))
     box(ax, .68, .30, .30, .40, '', fc='#f7f8fa', ec=GRIDC)
     ax.text(.83, .63, 'ratio per task', ha='center', fontsize=10.5, fontweight='bold')
-    ax.text(.83, .50, '$\\frac{\\mathrm{mean}\\;J_{learned}}{\\mathrm{median}\\;J_{classical}}$', ha='center', fontsize=14)
+    ax.text(.83, .50, '$\\mathrm{mean}_{cases}\\frac{J_{learned}}{\\mathrm{median}_{class}\\,J_{classical}}$', ha='center', fontsize=12)
     ax.text(.83, .37, '< 1 = better than classical', ha='center', fontsize=9, color=MUTED)
     arrow(ax, (.60, .50), (.68, .50))
     ax.text(.02, .05, 'Also: 4 ablations (clamp_fast, nodelay_all, noref, nopulse) and a same-size ANN.', fontsize=9, color=MUTED)
@@ -395,10 +400,93 @@ def fig_evaluation():
     ax2.set_xticks(xs, [f'seed {s}\n{"PASS" if (m1[s][0]+m1[s][1])/2 <= .95 else "fail"}' for s in order])
     ax2.set_ylim(.8, 1.1)
     ax2.set_ylabel('ratio vs classical (lower = better)')
-    ax2.set_title('M1 confirmatory test: 3 / 5 seeds pass (hover 1.000, upset 1.050, 0 crashes)',
+    ax2.set_title('Reference: pitch-plane version (round 5), M1 test 3 / 5 pass\n(plan v6 verdict M2: pending, same threshold 0.95)',
                   fontsize=10.5, loc='left', fontweight='bold')
     ax2.legend(frameon=False, fontsize=8.5, loc='upper left', ncol=3)
     save(fig, 'fig8_evaluation')
+
+
+def fig_directions():
+    """Plan v6 task directions, attitude mapping, and the classical baseline per direction class."""
+    base = json.loads((ROOT/'artifacts/spike_steer/plan_v6/baseline.json').read_text())
+    fig = plt.figure(figsize=(13, 4.8))
+    fig.suptitle('Plan v6 tasks: nod in 4 directions, dash in 8 directions (heading frame at the command onset)',
+                 x=.01, ha='left', fontsize=13, fontweight='bold')
+    cls_col = dict(pitch=E_REFLEX, roll=E_LEARN, diag=E_MUSCLE)
+    klass = {0: 'pitch', 180: 'pitch', 90: 'roll', 270: 'roll', 45: 'diag', 135: 'diag', 225: 'diag', 315: 'diag'}
+    for k, (task, dirs, title) in enumerate((('nod', (0, 90, 180, 270), 'a  nod: tilt 30° toward φ, recover'),
+                                             ('dash', tuple(range(0, 360, 45)), 'b  dash: 0.15 m along φ and stop'))):
+        ax = fig.add_axes([.01+k*.30, .05, .28, .78])
+        ax.set_xlim(-1.45, 1.45)
+        ax.set_ylim(-1.6, 1.45)
+        ax.set_aspect('equal')
+        ax.axis('off')
+        ax.set_title(title, loc='left', fontsize=10.5, fontweight='bold')
+        ax.add_patch(plt.Circle((0, 0), .13, fc='#fff4e4', ec=INK, lw=1.2))
+        ax.annotate('', xy=(0, .32), xytext=(0, .13), arrowprops=dict(arrowstyle='-|>', color=INK, lw=1.2))
+        ax.text(.05, .24, 'heading', fontsize=7.5, color=MUTED)
+        for phi in dirs:
+            a = math.radians(phi)
+            dx, dy = -math.sin(a), math.cos(a)            # draw with forward = up, left = left
+            col = cls_col[klass[phi]]
+            ax.annotate('', xy=(dx*.95, dy*.95), xytext=(dx*.2, dy*.2),
+                        arrowprops=dict(arrowstyle='-|>', color=col, lw=2.2, mutation_scale=14))
+            ax.text(dx*1.2, dy*1.2, f'{phi}°', ha='center', va='center', fontsize=8.5, color=col)
+        ax.text(0, -1.55, 'forward = up, left = left', ha='center', fontsize=8, color=MUTED)
+    ax = fig.add_axes([.63, .55, .36, .3])
+    ax.axis('off')
+    ax.text(0, .95, 'attitude command for motion direction φ', fontsize=10, fontweight='bold', va='top')
+    ax.text(0, .62, '(roll, pitch)$_{ref}$ = A·(−sin φ, cos φ)', fontsize=10.5, va='top')
+    ax.text(0, .30, 'measured: pitch+ → forward 5.4 cm, roll+ → right 6.1 cm\n(0.2 rad for 0.4 s; signs.json). Pulses give pitch torque only.',
+            fontsize=8.5, color=MUTED, va='top')
+    for i, (lab, cl) in enumerate((('pitch class (0°, 180°)', 'pitch'), ('roll class (90°, 270°)', 'roll'), ('diagonal class', 'diag'))):
+        ax.add_patch(Rectangle((0+i*.36, -.12), .03, .1, color=cls_col[cl], transform=ax.transAxes, clip_on=False))
+        ax.text(.04+i*.36, -.07, lab, fontsize=8.3, va='center', transform=ax.transAxes)
+    ax = fig.add_axes([.67, .10, .31, .33])
+    N = base['normalisers']
+    labs, vals, cols = [], [], []
+    for t in ('nod', 'dash'):
+        for cl in ('pitch', 'roll', 'diag'):
+            if cl in N[t]:
+                labs.append(f'{t}\n{cl}')
+                vals.append(N[t][cl])
+                cols.append(cls_col[cl])
+    ax.bar(range(len(vals)), vals, color=cols, width=.6)
+    for i, v in enumerate(vals):
+        ax.text(i, v+.1, f'{v:.2f}', ha='center', fontsize=8.5)
+    ax.set_xticks(range(len(vals)), labs, fontsize=8.5)
+    ax.set_ylabel('classical score\n(normaliser, lower = better)', fontsize=8.5)
+    ax.set_title('classical opponent per direction class (64 + 64 cases)', fontsize=9.5, loc='left', fontweight='bold')
+    ax.set_ylim(0, 7)
+    save(fig, 'fig10_directions')
+
+
+def fig_cache():
+    """Shared pre-command prefix: one simulation to T0, every candidate continues from a copy."""
+    fig, ax = canvas(13, 4.4)
+    ax.text(.01, .93, 'Shared pre-command prefix (cache8.py): the first 2.4 s are simulated once per case',
+            fontsize=13, fontweight='bold')
+    ax.add_patch(FancyBboxPatch((.03, .48), .36, .22, boxstyle='round,pad=0,rounding_size=.015', fc=C_CLASSIC, ec=E_CLASSIC, lw=1.5))
+    ax.text(.21, .63, 'take-off + hover, 0 → T0 = 2.4 s', ha='center', fontsize=10.5, fontweight='bold')
+    ax.text(.21, .54, 'gate closed: PID + classical pulse law act;\nthe network only ticks → identical for every candidate',
+            ha='center', fontsize=8.6, color=INK, linespacing=1.4)
+    ax.add_patch(plt.Circle((.43, .59), .022, fc='#fff7e0', ec='#b58a12', lw=1.5))
+    ax.text(.43, .70, 'snapshot', ha='center', fontsize=9, color='#b58a12')
+    ax.plot([.39, .41], [.59, .59], color=INK, lw=1.3)
+    ys = [.86, .72, .58, .44, .30]
+    for i, y in enumerate(ys):
+        lab = f'candidate {i+1}' if i < 4 else 'candidate K'
+        ax.annotate('', xy=(.50, y), xytext=(.45, .59), arrowprops=dict(arrowstyle='-|>', color=E_MUSCLE, lw=1.2))
+        ax.add_patch(FancyBboxPatch((.50, y-.045), .30, .09, boxstyle='round,pad=0,rounding_size=.01', fc=C_MUSCLE, ec=E_MUSCLE, lw=1.1))
+        ax.text(.51, y, f'{lab}: copy state, replay recorded inputs\nthrough its network, fly T0 → end', fontsize=8, va='center')
+    ax.text(.82, .72, 'copy: deepcopy of env / oracle / policy\n(native Motor and SensorState by value;\nmodel, libraries, wing geometry shared;\nupset wrapper re-installed) ≈ 10 ms',
+            fontsize=8.4, va='center', color=INK, linespacing=1.4)
+    ax.text(.82, .42, 'verified: every result field, the full\ntrace and the pulse count equal\nbench8.run_episode8 (cache8.selftest)',
+            fontsize=8.4, va='center', color=E_LEARN, linespacing=1.4)
+    ax.text(.01, .08, 'ES: the 33 candidates of a case run in groups of 7 that share one prefix; selection: the 13 saved centres '
+            'share one prefix per case. Nod saves ≈ 2.4 / 5 s, dash ≈ 2.4 / 6.5 s of simulation per episode.',
+            fontsize=8.8, color=MUTED)
+    save(fig, 'fig11_prefix_cache')
 
 
 def fig_trace():
@@ -488,18 +576,17 @@ def main():
     p = argparse.ArgumentParser()
     p.add_argument('--sim', action='store_true')
     a = p.parse_args()
-    spec = json.loads((ROOT/'artifacts/spike_steer/plan_v4/r5/train/imitate_spec_s4.json').read_text())
-    sel = json.loads((R5/'claude_ea/reselect_r5_s4.json').read_text())['selected']
-    sel_spec = ROOT/sel['spec']
-    spec_final = json.loads(sel_spec.read_text()) if sel_spec.exists() else spec
+    spec = json.loads((ROOT/'artifacts/spike_steer/plan_v6/imitate_spec_s4.json').read_text())
     fig_architecture()
-    fig_snn(spec_final)
+    fig_snn(spec)
     fig_gating()
     fig_pipeline()
     fig_imitation()
     fig_es()
     fig_es_curves()
     fig_evaluation()
+    fig_directions()
+    fig_cache()
     if a.sim:
         fig_trace()
 
