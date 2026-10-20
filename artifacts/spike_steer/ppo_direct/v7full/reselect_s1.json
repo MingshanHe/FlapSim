@@ -1,0 +1,149 @@
+{
+ "seed": 1,
+ "machine": "HomePC",
+ "profile": "full",
+ "n_select": 32,
+ "centres": [
+  {
+   "generation": -1,
+   "budget_fraction": 0.0,
+   "objective": 1.0715959130097332,
+   "ratios": {
+    "evade": 1.1071108732174193,
+    "redirect": 1.0771699651559405,
+    "dash": 1.03050690065584
+   },
+   "crashes": 0,
+   "over_hard": 0,
+   "tilt_peak_max": 42.50905042076112,
+   "spec": "runs/ppo_direct/v7full/s1/ckpt_g-1.zip"
+  },
+  {
+   "generation": 0,
+   "budget_fraction": 0.125,
+   "objective": 1.0137816685490095,
+   "ratios": {
+    "evade": 1.0239940626120285,
+    "redirect": 1.0185959938596565,
+    "dash": 0.998754949175344
+   },
+   "crashes": 0,
+   "over_hard": 0,
+   "tilt_peak_max": 44.5529218162404,
+   "spec": "runs/ppo_direct/v7full/s1/ckpt_g0.zip"
+  },
+  {
+   "generation": 1,
+   "budget_fraction": 0.25,
+   "objective": 1.025905599445114,
+   "ratios": {
+    "evade": 1.0038153179334899,
+    "redirect": 0.9602618010681122,
+    "dash": 1.11363967933374
+   },
+   "crashes": 0,
+   "over_hard": 0,
+   "tilt_peak_max": 47.63439729550631,
+   "spec": "runs/ppo_direct/v7full/s1/ckpt_g1.zip"
+  },
+  {
+   "generation": 2,
+   "budget_fraction": 0.375,
+   "objective": 1.0490789499025133,
+   "ratios": {
+    "evade": 0.9704449286659323,
+    "redirect": 0.9731543300655977,
+    "dash": 1.2036375909760104
+   },
+   "crashes": 0,
+   "over_hard": 0,
+   "tilt_peak_max": 50.59163238859497,
+   "spec": "runs/ppo_direct/v7full/s1/ckpt_g2.zip"
+  },
+  {
+   "generation": 3,
+   "budget_fraction": 0.5,
+   "objective": 1.0068772974939888,
+   "ratios": {
+    "evade": 0.9657404628187704,
+    "redirect": 0.9523291587014221,
+    "dash": 1.102562270961774
+   },
+   "crashes": 0,
+   "over_hard": 0,
+   "tilt_peak_max": 46.25545826542016,
+   "spec": "runs/ppo_direct/v7full/s1/ckpt_g3.zip"
+  },
+  {
+   "generation": 4,
+   "budget_fraction": 0.625,
+   "objective": 1.0113864392192062,
+   "ratios": {
+    "evade": 0.9836921602819346,
+    "redirect": 0.9760927201962518,
+    "dash": 1.0743744371794328
+   },
+   "crashes": 0,
+   "over_hard": 0,
+   "tilt_peak_max": 53.64213777444987,
+   "spec": "runs/ppo_direct/v7full/s1/ckpt_g4.zip"
+  },
+  {
+   "generation": 5,
+   "budget_fraction": 0.75,
+   "objective": 1.0635461166930154,
+   "ratios": {
+    "evade": 1.0068460876686762,
+    "redirect": 1.0177248671733554,
+    "dash": 1.1660673952370146
+   },
+   "crashes": 0,
+   "over_hard": 0,
+   "tilt_peak_max": 46.13470111064709,
+   "spec": "runs/ppo_direct/v7full/s1/ckpt_g5.zip"
+  },
+  {
+   "generation": 6,
+   "budget_fraction": 0.875,
+   "objective": 1.0406520640635448,
+   "ratios": {
+    "evade": 1.0332925045615167,
+    "redirect": 0.9804591703939249,
+    "dash": 1.108204517235193
+   },
+   "crashes": 0,
+   "over_hard": 0,
+   "tilt_peak_max": 46.662961678675174,
+   "spec": "runs/ppo_direct/v7full/s1/ckpt_g6.zip"
+  },
+  {
+   "generation": 7,
+   "budget_fraction": 1.0,
+   "objective": 1.1206564422793177,
+   "ratios": {
+    "evade": 1.0527552930441693,
+    "redirect": 1.0509659662541253,
+    "dash": 1.2582480675396588
+   },
+   "crashes": 0,
+   "over_hard": 0,
+   "tilt_peak_max": 45.89697213334625,
+   "spec": "runs/ppo_direct/v7full/s1/ckpt_g7.zip"
+  }
+ ],
+ "selected": {
+  "generation": 3,
+  "budget_fraction": 0.5,
+  "objective": 1.0068772974939888,
+  "ratios": {
+   "evade": 0.9657404628187704,
+   "redirect": 0.9523291587014221,
+   "dash": 1.102562270961774
+  },
+  "crashes": 0,
+  "over_hard": 0,
+  "tilt_peak_max": 46.25545826542016,
+  "spec": "runs/ppo_direct/v7full/s1/ckpt_g3.zip"
+ },
+ "fallback": null
+}
