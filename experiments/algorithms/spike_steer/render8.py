@@ -34,7 +34,7 @@ ARROW = [.05, .62, .30, .9]
 
 
 def record(args):
-    task, c, law, sched = args
+    task, c, law, sched, spec = args
     env = B._ENV
     d = env.sim.data
     frames, orig = [], env.step
@@ -45,7 +45,12 @@ def record(args):
         return out
     env.step = step
     try:
-        res = E.run_episode8(env, task, c, E.Classical2(law, sched))
+        if spec is not None:
+            from .descend8 import Learned8
+            pol = Learned8(spec)
+        else:
+            pol = E.Classical2(law, sched)
+        res = E.run_episode8(env, task, c, pol)
     finally:
         del env.step
     return res, frames
@@ -59,6 +64,12 @@ def main():
     p.add_argument('--workers', type=int, default=12)
     p.add_argument('--out', default='artifacts/spike_steer/plan_v6/videos')
     p.add_argument('--single', action='store_true', help='one 1280x800 video per direction instead of a grid')
+    p.add_argument('--spec', default=None, help='learned controller spec (descend8); default: classical opponent')
+    p.add_argument('--label', default='classical opponent (2-D set-point schedule)')
+    p.add_argument('--prefix', default='classical')
+    p.add_argument('--blind', action='store_true', help='first blind-set case of each direction (descend8.TEST_BASE)')
+    p.add_argument('--compare', default=None, help='JSON rows of the other arm on the same cases (score shown on the frame)')
+    p.add_argument('--compare-label', default='classical')
     a = p.parse_args()
     E.load_signs()
     B.DASH_M['value'] = .15
@@ -66,12 +77,20 @@ def main():
     law = base['law']
     out = Path(a.out)
     out.mkdir(parents=True, exist_ok=True)
+    spec = json.loads(Path(a.spec).read_text()) if a.spec else None
+    a.cmp = {(r['task'], r['seed']): r['score'] for r in json.loads(Path(a.compare).read_text())} if a.compare else {}
     jobs = []
     for task in ('nod', 'dash'):
         dirs = E.TASK_DIRS[task]
+        if a.blind:
+            from .descend8 import TEST_BASE, N_TEST
+            pool_ = E.cases8(task, TEST_BASE, N_TEST)
         for k, phi in enumerate(dirs):
-            c = E.cases8(task, a.case_base, 1, offset=k*10, dirs=(phi,))[0]
-            jobs.append((task, c, law, base['opponent'][task][CLASS[phi]]))
+            if a.blind:
+                c = next(c_ for c_ in pool_ if int(c_['dir_deg']) == phi)
+            else:
+                c = E.cases8(task, a.case_base, 1, offset=k*10, dirs=(phi,))[0]
+            jobs.append((task, c, law, base['opponent'][task][CLASS[phi]], spec))
     with E.pool(a.workers) as ex:
         recs = list(ex.map(record, jobs, chunksize=1))
     B.worker_init(str(E.SOURCE), .15)
@@ -122,15 +141,17 @@ def main():
             panels.append(dict(res=res, frames=frames, times=times, path=path, start=start, fwd=fwd, left=left, dvec=dvec,
                                rot=np.column_stack([fwd, left, [0., 0., 1.]]), cam=cam, phi=phi,
                                bd=(np.asarray(cam.lookat)+view*3., np.column_stack([u, np.cross(u, view), view]))))
-            manifest.append(dict(task=task, dir_deg=phi, direction=NAME[int(phi)], case_seed=jobs[i][1]['seed'],
-                                 schedule=jobs[i][3], score=res['score'], flown=res['flown'], goal_t=res['goal_t'],
+            P_ = panels[-1]
+            P_['other'] = a.cmp.get((task, jobs[i][1]['seed']))
+            manifest.append(dict(task=task, dir_deg=phi, direction=NAME[int(phi)], case_seed=jobs[i][1]['seed'], arm=a.label,
+                                 compare_score=P_['other'], schedule=None if spec is not None else jobs[i][3], score=res['score'], flown=res['flown'], goal_t=res['goal_t'],
                                  **{k: res.get(k) for k in ('t30', 't_recover', 't_reach', 't_settle', 'overshoot_m', 'cross_m', 'drift_m')}))
         title0 = 'Nod 30° in 4 directions' if task == 'nod' else 'Dash 0.15 m and stop in 8 directions'
         groups = [[P] for P in panels] if a.single else [panels]
         for group in groups:
             render_group(a, task, group, title0, out, rr, m, d, opt, f_title, f_lab, f_small)
     rr.close()
-    (out/'manifest_classical.json').write_text(json.dumps(manifest, indent=1))
+    (out/f'manifest_{a.prefix}.json').write_text(json.dumps(manifest, indent=1))
     for e in manifest:
         print(json.dumps(e), flush=True)
 
@@ -145,10 +166,10 @@ def render_group(a, task, panels, title0, out, rr, m, d, opt, f_title, f_lab, f_
         n_frames = int(round(horizon*FPS*a.slow))
         if single:
             phi = int(panels[0]['phi'])
-            vpath = out/f'classical_{task}_{phi:03d}_{NAME[phi]}.mp4'
+            vpath = out/f'{a.prefix}_{task}_{phi:03d}_{NAME[phi]}.mp4'
             title = ('Nod 30° ' if task == 'nod' else 'Dash 0.15 m ')+f'{NAME[phi]} ({phi}°)'
         else:
-            vpath = out/f'classical_{task}_{len(panels)}dir.mp4'
+            vpath = out/f'{a.prefix}_{task}_{len(panels)}dir.mp4'
             title = title0
         writer = imageio.get_writer(str(vpath), fps=FPS, codec='libx264', quality=8, macro_block_size=None)
         try:
@@ -156,7 +177,7 @@ def render_group(a, task, panels, title0, out, rr, m, d, opt, f_title, f_lab, f_
                 t = (k+1)/(FPS*a.slow)
                 img = Image.new('RGB', (W, H), (255, 255, 255))
                 dr = ImageDraw.Draw(img)
-                dr.text((16, 12), f'{title}  ·  classical opponent (2-D set-point schedule)', font=f_title, fill=INK)
+                dr.text((16, 12), f'{title}  ·  {a.label}', font=f_title, fill=INK)
                 dr.text((16, 44), f'{1/a.slow:g}x speed  ·  t = {t:4.2f} s' + ('  ·  command on' if t >= B.T0 else ''), font=f_small,
                         fill=(12, 140, 70) if t >= B.T0 else INK2)
                 for n, P in enumerate(panels):
@@ -193,6 +214,9 @@ def render_group(a, task, panels, title0, out, rr, m, d, opt, f_title, f_lab, f_
                         dr.text((x0+12, y0+30), f"target reached at +{r['goal_t']:.2f} s", font=f_small, fill=(12, 140, 70))
                     if not r['flown'] and t >= r['elapsed']:
                         dr.text((x0+12, y0+50), f"crash ({r['termination']})", font=f_small, fill=(194, 59, 59))
+                    if P.get('other') is not None:
+                        dr.text((x0+12, y0+ph-28), f"episode score (lower = better): this {r['score']:.2f}  ·  {a.compare_label}, same case {P['other']:.2f}",
+                                font=f_small, fill=INK2)
                 writer.append_data(np.asarray(img))
             for _ in range(FPS):
                 writer.append_data(np.asarray(img))
