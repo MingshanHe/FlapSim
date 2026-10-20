@@ -1,0 +1,61 @@
+{
+ "plan": "v10",
+ "written": "2026-10-21 02:25 JST, before any v10 training episode and before any v9 blind result",
+ "authorisation": "one autonomous iteration authorised by the user (2026-10-21 ~02:00 JST): diagnose v9, design, preregister and run v10",
+ "diagnosis_from_existing_data": {
+  "source": "plan-v8 blind rows (v7-full controllers, bench9) and v9 training/selection logs; no v9 blind data used",
+  "findings": [
+   "dash: SNN + ES reaches the target ~30% sooner than the classical opponent (t_reach 0.54-0.67 s vs 0.86 s) but brakes worse: roll-class overshoot 0.10-0.17 m vs 0.04 m, longer settling; roll-class dash ratio 1.0-1.5 is where SNN loses",
+   "redirect: overrun 0.11-0.14 m vs 0.09 m (braking again)",
+   "pitch/diag dash: no controller meets the settle criterion (0/48 cases each) -> constant 4 s term compresses the dash ratio toward 1; NOT changed in v10 (scoring kept identical to v9)",
+   "v8 crashes: 5 tilt + 5 upward height escapes; the network has no height input",
+   "v9 selection, seed 1: validation objective 1.005 (gen 9) -> the selection-to-blind gap of v7/v8 (+0.05..0.10) makes 0.95 hard to reach without a real gain"
+  ],
+  "hypothesis": "the classical schedule brakes on a timer and the PID sees height; the learned layer has neither a notion of time since the command (LIF/delay memory spans tens of ms) nor height. Giving it phasic (adapting) command copies and height channels should reduce overshoot/overrun and height escapes."
+ },
+ "change": {
+  "module": "experiments/algorithms/spike_steer/bench11.py (inputs) + descend11.py (pipeline)",
+  "inputs": "25 -> 37: features8 (25) | 8 phasic command channels = rectified command x exp(-(t-t_on)/0.3 s), t_on = last onset or direction change | 4 height channels = rectified reading[9]/0.1 m and reading[10]/0.5 m/s, clipped +-5 (original-interface height sensor)",
+  "parameters": "W_in [8, 37, K]; everything else as v9",
+  "exactness": "bench11 selftest: zero-weight padding reproduces the 25-input net bit for bit; prefix cache == plain episode bit for bit"
+ },
+ "unchanged": [
+  "bench10 tasks and scoring (symmetric altitude term)",
+  "classical opponents, law and normalisers (runs/spike_steer/v9/baseline.json = artifacts/spike_steer/plan_v9/baseline.json)",
+  "imitation: descend8 loss/schedule, 40 epochs, N_COLLECT 16 / N_VAL_IMIT 4 per task (re-collected with the 37-D input)",
+  "careful ES: lr 0.01, sigma 0.02, pop 16, 4 cases per task per generation, 20 generations, every generation saved",
+  "selection: 32 validation cases per task, 0 crashes and 0 over-hard-tilt required, minimum objective"
+ ],
+ "blind": {
+  "base": 2098900000,
+  "cases_per_task": 64,
+  "note": "never used before; scored only after selection"
+ },
+ "seeds": {
+  "confirmatory": [
+   1,
+   2,
+   3,
+   4,
+   5
+  ],
+  "machines": "s1-s3 CloudPC-2, s4-s5 HomePC (bit-identical on bench9)",
+  "exploratory": "GoogleCloud seeds 6-10 if run (approximate machine, not counted)"
+ },
+ "primary": {
+  "name": "M5",
+  "per_seed": "average manoeuvre ratio <= 0.95 AND crashed episodes <= classical crashed episodes on the same 192 blind cases",
+  "holds_if": ">= 3 of seeds 1-5 pass"
+ },
+ "secondary": [
+  "S1 paired comparison on the v10 blind set: v10 selected centres vs the frozen v9 selected centres (descend11 frozen9), per task ratio and crashes",
+  "S2 braking: roll-class dash overshoot and redirect overrun, v10 vs v9-frozen vs classical",
+  "S3 crashes by type (tilt / height escape up / down / ground)",
+  "S4 imitation starts (snn_bc) v10 vs v9 ratio on the blind set; imitation ref_rmse vs v7/v9",
+  "S5 per-class dash ratios"
+ ],
+ "not_allowed": [
+  "changing the scoring, opponents, blind set or criterion after seeing v10 results",
+  "re-judging v9 with v10 data"
+ ]
+}
