@@ -61,6 +61,8 @@ from ..spike_steer import pilot_v3 as V
 PROFILES = dict(
     quick=dict(out="runs/ppo_direct/v7ppo", n_centres=4, n_select=D9.N_SELECT, test_base=T.BASES["test"], n_test=D9.N_TEST, opp_name="test_opponent.json"),
     full=dict(out="runs/ppo_direct/v7full", n_centres=8, n_select=32, test_base=2_098_300_000, n_test=32, opp_name="test_opponent_v7full.json"),
+    # v8（preregistration_v8.json）：只重测 v7 正式轮冻结的检查点（evaluate --from-dir runs/ppo_direct/v7full），全新盲测集 64 例/任务
+    v8=dict(out="runs/ppo_direct/v8", n_centres=8, n_select=32, test_base=2_098_500_000, n_test=64, opp_name="test_opponent_v8.json"),
 )
 PROFILE = os.environ.get("V7PPO_PROFILE", "quick")
 P = PROFILES[PROFILE]
@@ -385,14 +387,20 @@ def reselect(a):
 
 def evaluate(a):
     """盲测：选中的 PPO 中心（mlp_ppo）和 bc 起点（mlp_bc），各自与 classical 对手配对；报告 = descend9.report。"""
-    d = seed_dir(a.seed)
+    import hashlib
     base = load_plan()
-    sel = json.loads((OUT / f"reselect_s{a.seed}.json").read_text())["selected"]
+    src = Path(a.from_dir) if a.from_dir else OUT          # --from-dir：冻结重测，选中心和 bc 都来自另一轮的输出目录（v8）
+    d = src / f"s{a.seed}"
+    sel = json.loads((src / f"reselect_s{a.seed}.json").read_text())["selected"]
     cs = {t: T.cases9(t, P["test_base"], P["n_test"]) for t in T.TASKS}
-    arms = [("mlp_ppo", sel["spec"], f"selected PPO centre g{sel['generation']} (budget fraction {sel.get('budget_fraction')})"),
-            ("mlp_bc", str(d / "ckpt_g-1.zip"), "imitation start (g-1)")]
+    frozen = f"; frozen controller from {src}" if a.from_dir else ""
+    arms = [("mlp_ppo", sel["spec"], f"selected PPO centre g{sel['generation']} (budget fraction {sel.get('budget_fraction')}){frozen}"),
+            ("mlp_bc", str(d / "ckpt_g-1.zip"), f"imitation start (g-1){frozen}")]
+    sha = {arm: hashlib.sha256(Path(spec).read_bytes()).hexdigest()[:16] for arm, spec, _ in arms}
     with ProcessPoolExecutor(a.workers, mp_context=mp.get_context("fork"), initializer=_init, initargs=("intact",)) as ex:
         opp_file, source = PLAN / P["opp_name"], "descend9 (CloudPC-2)"
+        if a.opp_file:
+            opp_file, source = Path(a.opp_file), f"given: {a.opp_file}"
         if not opp_file.exists():
             opp_file, source = OUT / P["opp_name"], f"bench9 classical run on {MACHINE}"
             if not opp_file.exists():
@@ -408,10 +416,23 @@ def evaluate(a):
         rr = [dict(r, controller=arm) for r in by_spec[spec]]
         rep = D9.report(rr, opp_rows)
         doc = dict(arm=arm, seed=a.seed, machine=MACHINE, profile=PROFILE, blind_base=P["test_base"], n_per_task=P["n_test"], note=note, opponent_rows_source=source,
+                   controller_file=spec, controller_sha256=sha[arm], frozen_from=str(src) if a.from_dir else None,
                    selected=sel if arm == "mlp_ppo" else None, report=rep, rows=rr)
         (OUT / f"evaluate_{arm}_s{a.seed}.json").write_text(json.dumps(doc, indent=1, default=float))
         print(f"v7ppo_s{a.seed} {arm}:", json.dumps({t: round(rep[t]["ratio"], 3) for t in T.TASKS}), "mean", round(rep["manoeuvre_mean"], 3),
               "crashes", sum(rep[t]["crashes"] for t in T.TASKS), "wins", "/".join(str(rep[t]["wins"]) for t in T.TASKS), flush=True)
+
+
+def rereport(a):
+    """用另一份 classical 对手行（--opp-file，例如 CloudPC-2 的）重算已有 evaluate_*_s<seed>.json 的报告，不重跑仿真。"""
+    opp_rows = json.loads(Path(a.opp_file).read_text())
+    for arm in ("mlp_ppo", "mlp_bc"):
+        f = OUT / f"evaluate_{arm}_s{a.seed}.json"
+        doc = json.loads(f.read_text())
+        doc["report"], doc["opponent_rows_source"] = D9.report(doc["rows"], opp_rows), f"given: {a.opp_file}"
+        f.write_text(json.dumps(doc, indent=1, default=float))
+        rep = doc["report"]
+        print(f"v7ppo_s{a.seed} {arm} (rereport):", json.dumps({t: round(rep[t]["ratio"], 3) for t in T.TASKS}), "mean", round(rep["manoeuvre_mean"], 3), flush=True)
 
 
 # ----------------------------------------------------------------------------------------- selftest
@@ -449,7 +470,9 @@ def selftest():
 
 def main():
     p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    p.add_argument("stage", choices=["selftest", "bc", "finetune", "reselect", "evaluate"])
+    p.add_argument("stage", choices=["selftest", "bc", "finetune", "reselect", "evaluate", "rereport"])
+    p.add_argument("--from-dir", default=None, help="evaluate：冻结重测，选中心 / bc 所在的另一轮输出目录（如 runs/ppo_direct/v7full）")
+    p.add_argument("--opp-file", default=None, help="evaluate / rereport：指定 classical 对手行文件")
     p.add_argument("--seed", type=int, default=1)
     p.add_argument("--epochs", type=int, default=40)
     p.add_argument("--pulse-weight", type=float, default=3.)
@@ -461,7 +484,7 @@ def main():
     OUT.mkdir(parents=True, exist_ok=True)
     if a.stage == "selftest":
         return selftest()
-    dict(bc=bc, finetune=finetune, reselect=reselect, evaluate=evaluate)[a.stage](a)
+    dict(bc=bc, finetune=finetune, reselect=reselect, evaluate=evaluate, rereport=rereport)[a.stage](a)
 
 
 if __name__ == "__main__":
