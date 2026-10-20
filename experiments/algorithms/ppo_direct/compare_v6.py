@@ -24,8 +24,9 @@ def row_from(method, seed, path):
     r = dict(method=method, seed=seed, file=str(path), selected_generation=sel.get("generation"),
              selection_objective=sel.get("objective"), manoeuvre_mean=rep["manoeuvre_mean"])
     for t in ("nod", "dash"):
+        n = rep[t].get("n") or sum(b["n"] for b in rep[t]["by_class"].values())   # descend8 的 report 任务级没有 n
         r[f"{t}_ratio"] = rep[t]["ratio"]
-        r[f"{t}_wins"] = f'{rep[t]["wins"]}/{rep[t]["n"]}'
+        r[f"{t}_wins"] = f'{rep[t]["wins"]}/{n}'
         r[f"{t}_crashes"] = rep[t]["crashes"]
         r[f"{t}_opp_crashes"] = rep[t].get("opponent_crashes")
         for c in CLASSES[t]:
