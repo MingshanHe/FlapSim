@@ -1,0 +1,81 @@
+{
+ "cases": {
+  "evade": {
+   "seed": 2098100000,
+   "dir": 0.0,
+   "dir2": null
+  },
+  "redirect": {
+   "seed": 2098100000,
+   "dir": 0.0,
+   "dir2": 90.0
+  },
+  "dash": {
+   "seed": 2098100000,
+   "dir": 0.0,
+   "dir2": null
+  }
+ },
+ "episodes": {
+  "classical/evade": {
+   "score": 0.81556121732339,
+   "goal_t": 0.42144175417268626,
+   "flown": true
+  },
+  "classical/redirect": {
+   "score": 1.3041821019829518,
+   "goal_t": 0.9300000000000002,
+   "flown": true
+  },
+  "classical/dash": {
+   "score": 5.631044737163832,
+   "goal_t": 1.3040000000000003,
+   "flown": true
+  },
+  "snn_es/evade": {
+   "score": 0.8006708874142955,
+   "goal_t": 0.42944175417268626,
+   "flown": true
+  },
+  "snn_es/redirect": {
+   "score": 1.3046127631065398,
+   "goal_t": 0.9260000000000002,
+   "flown": true
+  },
+  "snn_es/dash": {
+   "score": 5.498772797003342,
+   "goal_t": 1.1960000000000002,
+   "flown": true
+  },
+  "snn_bc/evade": {
+   "score": 0.7754771702304006,
+   "goal_t": 0.4914417541726861,
+   "flown": true
+  },
+  "snn_bc/redirect": {
+   "score": 1.4143232331495812,
+   "goal_t": 1.096,
+   "flown": true
+  },
+  "snn_bc/dash": {
+   "score": 5.912511589928459,
+   "goal_t": 1.634,
+   "flown": true
+  },
+  "ppo/evade": {
+   "score": 0.7329599592622739,
+   "goal_t": 0.4194417541726865,
+   "flown": true
+  },
+  "ppo/redirect": {
+   "score": 1.3641160372672112,
+   "goal_t": 1.0580000000000003,
+   "flown": true
+  },
+  "ppo/dash": {
+   "score": 5.791364883988728,
+   "goal_t": 1.5140000000000002,
+   "flown": true
+  }
+ }
+}
