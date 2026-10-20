@@ -52,7 +52,7 @@ def fmt(x):
     return str(x)
 
 
-def write_md(rows, out):
+def write_md(rows, out, note):
     cols = ["arm", "seed", "machine", "manoeuvre_mean", "evade_ratio", "evade_pitch", "evade_roll", "evade_wins", "redirect_ratio", "redirect_pitch",
             "redirect_roll", "redirect_wins", "dash_ratio", "dash_pitch", "dash_roll", "dash_diag", "dash_wins", "crashes", "pass"]
     lines = ["| " + " | ".join(cols) + " |", "|" + "---|" * len(cols)]
@@ -67,12 +67,11 @@ def write_md(rows, out):
         lines.append(f"| {m} | {len(g)} | {mm.mean():.3f} ± {mm.std(ddof=1) if len(g) > 1 else 0:.3f} | "
                      + " | ".join(f"{np.mean([r[f'{t}_ratio'] for r in g]):.3f}" for t in TASKS) + f" | {sum(r['pass'] for r in g)}/{len(g)} |")
     lines += ["", "比值 = 该臂得分 / 该方向类 classical 对手中位数（越低越好，1.0 = 与 classical 相同）；manoeuvre mean = 三任务比值平均；"
-              f"pass：manoeuvre mean <= {M_RATIO} 且盲测零坠落（沿用 v6 的 M2 口径，v7 为快速验证，未预注册）。"
-              "盲测集 bench9 BASES['test'] = 2_098_100_000，每任务 16 例。snn_* 由 descend9 产出，mlp_* 由 v7ppo 产出。"]
+              f"pass：manoeuvre mean <= {M_RATIO} 且盲测零坠落（{note}）。snn_* 由 descend9 产出，mlp_* 由 v7ppo 产出。"]
     Path(out + ".md").write_text("\n".join(lines) + "\n")
 
 
-def plot(rows, out):
+def plot(rows, out, title):
     import matplotlib; matplotlib.use("Agg")
     import matplotlib.pyplot as plt
     arms = list(dict.fromkeys(r["arm"] for r in rows))
@@ -96,7 +95,7 @@ def plot(rows, out):
         ax.grid(axis="y", alpha=0.3)
     axes[0].set_ylabel("score ratio vs classical (lower is better)")
     axes[0].legend(fontsize=8)
-    fig.suptitle("plan v7 quick validation, blind set (16 per task): dashed = classical 1.0, dotted = 0.95; red = crashes")
+    fig.suptitle(f"plan v7 blind set, {title}: dashed = classical 1.0, dotted = 0.95; red = crashes")
     fig.tight_layout(); fig.savefig(out + ".png", dpi=150)
 
 
@@ -104,6 +103,8 @@ def main():
     p = argparse.ArgumentParser()
     p.add_argument("--dirs", nargs="+", default=["artifacts/spike_steer/plan_v7", "artifacts/spike_steer/ppo_direct/v7ppo"])
     p.add_argument("--out", default="artifacts/spike_steer/ppo_direct/v7ppo/comparison_v7")
+    p.add_argument("--note", default="v7 快速验证，未预注册；盲测集 bench9 BASES['test'] = 2_098_100_000，每任务 16 例")
+    p.add_argument("--title", default="quick validation (16 per task)")
     a = p.parse_args()
     rows = collect(a.dirs)
     if not rows:
@@ -112,8 +113,8 @@ def main():
     Path(a.out + ".json").write_text(json.dumps(rows, indent=1))
     with open(a.out + ".csv", "w", newline="") as f:
         w = csv.DictWriter(f, fieldnames=list(rows[0].keys())); w.writeheader(); w.writerows(rows)
-    write_md(rows, a.out)
-    plot(rows, a.out)
+    write_md(rows, a.out, a.note)
+    plot(rows, a.out, a.title)
     print(Path(a.out + ".md").read_text())
 
 

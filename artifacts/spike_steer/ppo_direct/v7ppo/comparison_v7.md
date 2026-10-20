@@ -16,4 +16,4 @@
 | mlp_ppo | 2 | 1.062 ± 0.064 | 1.027 | 1.115 | 1.043 | 0/2 |
 | mlp_bc | 2 | 1.107 ± 0.001 | 1.106 | 1.172 | 1.044 | 0/2 |
 
-比值 = 该臂得分 / 该方向类 classical 对手中位数（越低越好，1.0 = 与 classical 相同）；manoeuvre mean = 三任务比值平均；pass：manoeuvre mean <= 0.95 且盲测零坠落（沿用 v6 的 M2 口径，v7 为快速验证，未预注册）。盲测集 bench9 BASES['test'] = 2_098_100_000，每任务 16 例。snn_* 由 descend9 产出，mlp_* 由 v7ppo 产出。
+比值 = 该臂得分 / 该方向类 classical 对手中位数（越低越好，1.0 = 与 classical 相同）；manoeuvre mean = 三任务比值平均；pass：manoeuvre mean <= 0.95 且盲测零坠落（v7 快速验证，未预注册；盲测集 bench9 BASES['test'] = 2_098_100_000，每任务 16 例）。snn_* 由 descend9 产出，mlp_* 由 v7ppo 产出。
