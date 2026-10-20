@@ -119,9 +119,21 @@ def main():
     p.add_argument('--generations', type=int, default=20)
     p.add_argument('--workers', type=int, default=15)
     p.add_argument('--machine', default='CloudPC-2')
+    p.add_argument('--n-select', type=int, default=None, help='validation cases per task for selection (descend9 default 16)')
+    p.add_argument('--n-test', type=int, default=None, help='blind cases per task (descend9 default 16)')
+    p.add_argument('--test-base', type=int, default=None, help='blind-set base seed (bench9 default 2_098_100_000); use a fresh --output dir')
+    p.add_argument('--cases-per-task', type=int, default=None, help='ES training cases per task per generation (descend9 default 4)')
     a = p.parse_args()
     E.load_signs()
     B.DASH_M['value'] = .15
+    if a.n_select:
+        D9.N_SELECT = a.n_select
+    if a.n_test:
+        D9.N_TEST = a.n_test
+    if a.test_base:
+        T.BASES['test'] = a.test_base
+    if a.cases_per_task:
+        D9.ES['cases'] = a.cases_per_task
     if a.stage == 'finetune':
         stage_finetune(a)
     elif a.stage == 'reselect':

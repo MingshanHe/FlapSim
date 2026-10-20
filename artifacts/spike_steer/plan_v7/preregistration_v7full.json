@@ -1,0 +1,71 @@
+{
+ "status": "CONFIRMED by the user 2026-10-20 ~15:55 JST; pushed before any v7-full search, selection or blind run",
+ "plan": "v7 full (confirmatory) after the v7 quick validation; tasks evade / redirect / dash exactly as bench9",
+ "motivation": "v7 quick: all learned arms 1.02–1.15 on the blind set. The original ES (lr 0.02, sigma 0.03) was best at generations 2–3 and then degraded with crashes; the careful variant (lr 0.01, sigma 0.02, every generation saved) on GoogleCloud stayed crash-free with seed 2 at 0.86–0.97 over generations 2–9 (training objective, approximate simulator).",
+ "arms": {
+  "snn_es": {
+   "method": "descend9b careful ES from the descend9 imitation start",
+   "seeds": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "lr": 0.01,
+   "sigma": 0.02,
+   "pop": 16,
+   "cases_per_task_per_generation": 4,
+   "generations": 20,
+   "centres": "every generation (g-1..g19, 21 centres)"
+  },
+  "snn_bc": {
+   "method": "the same seeds’ imitation start (g-1), blind-tested as its own arm"
+  },
+  "mlp_ppo": {
+   "method": "HomePC v7ppo (bc warm start + SB3 PPO)",
+   "seeds": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "budget_episodes": 1020,
+   "budget_note": "1/4 of the SNN ES episodes, as in v6 and v7 quick",
+   "centres": "bc + a checkpoint every 1/8 of the budget (9 centres)",
+   "budget_choice": "option A confirmed by the user (1/4 of the SNN ES episodes)"
+  },
+  "mlp_bc": {
+   "method": "the PPO seeds’ bc start, blind-tested as its own arm"
+  },
+  "classical": {
+   "method": "bench9 2-D set-point schedules per task × direction class (artifacts/spike_steer/plan_v7/pilot9.json), the yardstick"
+  }
+ },
+ "imitation": "descend9 train, seeds 1–5 (seeds 1–2 reused from the quick run; 3–5 trained 2026-10-20 15:43 JST with identical settings)",
+ "selection": {
+  "cases_per_task": 32,
+  "offset": 60000,
+  "rule": "eligible: 0 crashes and true tilt peak < 70 deg on all 96 cases; lowest descend9 objective"
+ },
+ "blind": {
+  "base": 2098300000,
+  "cases_per_task": 32,
+  "note": "fresh set, never used by any controller before the evaluate stage; classical rows generated once on the reference machine"
+ },
+ "ratio": "per case: score / classical median of its task and direction class on the blind set; task ratio = mean over cases; manoeuvre mean = mean of the 3 task ratios",
+ "primary_M3": {
+  "arm": "snn_es",
+  "per_seed": "manoeuvre mean <= 0.95 and 0 crashes on the 96 blind episodes",
+  "overall": "pass if >= 3 of 5 seeds pass"
+ },
+ "secondary": [
+  "the same criterion reported for mlp_ppo, snn_bc and mlp_bc",
+  "per task and per direction-class ratios and paired wins",
+  "snn_es vs mlp_ppo paired per case (sign test)"
+ ],
+ "machine_rule": "search (ES / PPO) on any machine; selection and blind only on CloudPC-2 or HomePC (both bit-identical on bench9 selftest); GoogleCloud results only if its centres can be transferred to one of them; GoogleCloud joins later when idle (user, 2026-10-20)",
+ "hover_upset": "not re-run: gated learned layer never acts without a command (as M1/M2)",
+ "note_on_timing": "Started before the GoogleCloud careful-variant blind test of the quick round finished, to save time; its outcome will be reported, and any change of settings will be an amendment."
+}
