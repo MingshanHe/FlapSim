@@ -1,0 +1,18 @@
+== baseline Tue Oct 20 03:38:36 UTC 2026
+evade {"pitch": 0.7469715138650685, "roll": 0.5806546511288366} crashes 0
+redirect {"pitch": 2.086181275765165, "roll": 1.250568546315386} crashes 0
+dash {"pitch": 5.789468113582724, "roll": 1.5330993695397226, "diag": 4.958310776998851} crashes 0
+== collect Tue Oct 20 03:40:14 UTC 2026
+{"split": "train", "episodes": 48, "flown": 48}
+{"split": "val", "episodes": 12, "flown": 12}
+== train Tue Oct 20 03:41:36 UTC 2026
+{"epoch": 39, "loss": 0.13167252145533734, "val_loss": 0.16863095767533715, "precision": 0.41274238227146814, "recall": 0.43823529411764706, "ref_rmse": [0.1008824602288828, 0.19243815385361485], "wal
+{"epoch": 39, "loss": 0.12809257941885277, "val_loss": 0.16350338850745288, "precision": 0.40166204986149584, "recall": 0.4264705882352941, "ref_rmse": [0.09596658051381578, 0.190592356477646], "wall_
+== finetune Tue Oct 20 03:47:18 UTC 2026
+== reselect + evaluate Tue Oct 20 05:29:59 UTC 2026
+{"selected": {"generation": 4, "objective": 1.109362264636691, "ratios": {"evade": 1.1300021170758452, "redirect": 1.0478912647280607, "dash": 1.1257610528565203}, "crashes": 0, "over_hard": 0, "tilt_peak_max": 61.30305915998116, "spec": "runs/spike_steer/v7/finetune_s1/spec_val_g4.json"}}
+snn_es {"evade": 1.099, "redirect": 1.133, "dash": 1.214} mean 1.149 crashes 0
+snn_bc {"evade": 1.058, "redirect": 1.272, "dash": 1.049} mean 1.126 crashes 0
+{"selected": {"generation": -1, "objective": 1.1181383344051303, "ratios": {"evade": 1.1613674892706134, "redirect": 1.1503614345109663, "dash": 1.0426860794338113}, "crashes": 0, "over_hard": 0, "tilt_peak_max": 41.43780244974299, "spec": "runs/spike_steer/v7/finetune_s2/spec_val_g-1.json"}}
+snn_es {"evade": 1.067, "redirect": 1.291, "dash": 1.082} mean 1.147 crashes 0
+== done Tue Oct 20 05:40:20 UTC 2026
