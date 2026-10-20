@@ -1,0 +1,546 @@
+{
+ "validation_64_64_offset_60000": [
+  {
+   "centre": -1,
+   "objective": 1.0859,
+   "nod": 1.1243,
+   "dash": 1.0092,
+   "crashes": 0,
+   "over_hard": 0
+  },
+  {
+   "centre": 0,
+   "objective": 1.5601,
+   "nod": 1.7889,
+   "dash": 1.1027,
+   "crashes": 0,
+   "over_hard": 0
+  },
+  {
+   "centre": 1,
+   "objective": 1.8584,
+   "nod": 2.0296,
+   "dash": 1.1283,
+   "crashes": 2,
+   "over_hard": 2
+  },
+  {
+   "centre": 2,
+   "objective": 1.7184,
+   "nod": 1.8894,
+   "dash": 1.2669,
+   "crashes": 1,
+   "over_hard": 1
+  },
+  {
+   "centre": 3,
+   "objective": 1.9273,
+   "nod": 2.1136,
+   "dash": 1.3613,
+   "crashes": 2,
+   "over_hard": 2
+  },
+  {
+   "centre": 4,
+   "objective": 1.9433,
+   "nod": 1.9606,
+   "dash": 1.4147,
+   "crashes": 2,
+   "over_hard": 2
+  },
+  {
+   "centre": 5,
+   "objective": 2.0227,
+   "nod": 2.0289,
+   "dash": 1.4288,
+   "crashes": 4,
+   "over_hard": 4
+  },
+  {
+   "centre": 6,
+   "objective": 2.3737,
+   "nod": 2.3062,
+   "dash": 1.5456,
+   "crashes": 6,
+   "over_hard": 5
+  },
+  {
+   "centre": 7,
+   "objective": 2.1059,
+   "nod": 2.117,
+   "dash": 1.7597,
+   "crashes": 3,
+   "over_hard": 2
+  },
+  {
+   "centre": 8,
+   "objective": 2.4651,
+   "nod": 2.48,
+   "dash": 1.546,
+   "crashes": 7,
+   "over_hard": 5
+  },
+  {
+   "centre": 9,
+   "objective": 2.1805,
+   "nod": 2.0772,
+   "dash": 1.5854,
+   "crashes": 5,
+   "over_hard": 5
+  },
+  {
+   "centre": 10,
+   "objective": 1.8854,
+   "nod": 1.9844,
+   "dash": 1.3193,
+   "crashes": 2,
+   "over_hard": 2
+  },
+  {
+   "centre": 11,
+   "objective": 1.693,
+   "nod": 1.7939,
+   "dash": 1.2986,
+   "crashes": 0,
+   "over_hard": 1
+  }
+ ],
+ "blind_32_32_base_2097100000": {
+  "nod": {
+   "ratio": 1.402409181863109,
+   "wins": 10,
+   "crashes": 0,
+   "opponent_crashes": 0,
+   "by_class": {
+    "pitch": {
+     "ratio": 0.9154593475620826,
+     "opponent_median": 1.2560573464191713,
+     "wins": 9,
+     "n": 16,
+     "crashes": 0,
+     "opponent_crashes": 0
+    },
+    "roll": {
+     "ratio": 1.8893590161641354,
+     "opponent_median": 1.1767916400353071,
+     "wins": 1,
+     "n": 16,
+     "crashes": 0,
+     "opponent_crashes": 0
+    }
+   },
+   "goal_hits": 29,
+   "n": 32
+  },
+  "dash": {
+   "ratio": 1.0431381876447074,
+   "wins": 5,
+   "crashes": 0,
+   "opponent_crashes": 0,
+   "by_class": {
+    "pitch": {
+     "ratio": 1.0108692862423598,
+     "opponent_median": 5.770427891636695,
+     "wins": 0,
+     "n": 8,
+     "crashes": 0,
+     "opponent_crashes": 0
+    },
+    "roll": {
+     "ratio": 1.1133394652880462,
+     "opponent_median": 1.50083608254003,
+     "wins": 0,
+     "n": 8,
+     "crashes": 0,
+     "opponent_crashes": 0
+    },
+    "diag": {
+     "ratio": 1.0241719995242118,
+     "opponent_median": 4.931108137887924,
+     "wins": 5,
+     "n": 16,
+     "crashes": 0,
+     "opponent_crashes": 0
+    }
+   },
+   "goal_hits": 32,
+   "n": 32
+  },
+  "manoeuvre_mean": 1.2227736847539084
+ },
+ "train_curve": [
+  {
+   "timesteps": 9216,
+   "episodes_approx": 16,
+   "ep_rew_mean": -2.775,
+   "objective_equiv": 1.665
+  },
+  {
+   "timesteps": 82944,
+   "episodes_approx": 144,
+   "ep_rew_mean": -2.959,
+   "objective_equiv": 1.775
+  },
+  {
+   "timesteps": 156672,
+   "episodes_approx": 272,
+   "ep_rew_mean": -3.97,
+   "objective_equiv": 2.382
+  },
+  {
+   "timesteps": 230400,
+   "episodes_approx": 401,
+   "ep_rew_mean": -3.615,
+   "objective_equiv": 2.169
+  },
+  {
+   "timesteps": 304128,
+   "episodes_approx": 529,
+   "ep_rew_mean": -3.119,
+   "objective_equiv": 1.871
+  },
+  {
+   "timesteps": 377856,
+   "episodes_approx": 657,
+   "ep_rew_mean": -3.234,
+   "objective_equiv": 1.94
+  },
+  {
+   "timesteps": 451584,
+   "episodes_approx": 785,
+   "ep_rew_mean": -3.462,
+   "objective_equiv": 2.077
+  },
+  {
+   "timesteps": 525312,
+   "episodes_approx": 914,
+   "ep_rew_mean": -2.995,
+   "objective_equiv": 1.797
+  },
+  {
+   "timesteps": 599040,
+   "episodes_approx": 1042,
+   "ep_rew_mean": -3.449,
+   "objective_equiv": 2.069
+  },
+  {
+   "timesteps": 672768,
+   "episodes_approx": 1170,
+   "ep_rew_mean": -2.627,
+   "objective_equiv": 1.576
+  },
+  {
+   "timesteps": 746496,
+   "episodes_approx": 1298,
+   "ep_rew_mean": -3.533,
+   "objective_equiv": 2.12
+  },
+  {
+   "timesteps": 820224,
+   "episodes_approx": 1426,
+   "ep_rew_mean": -3.299,
+   "objective_equiv": 1.979
+  },
+  {
+   "timesteps": 893952,
+   "episodes_approx": 1555,
+   "ep_rew_mean": -3.24,
+   "objective_equiv": 1.944
+  },
+  {
+   "timesteps": 967680,
+   "episodes_approx": 1683,
+   "ep_rew_mean": -2.747,
+   "objective_equiv": 1.648
+  },
+  {
+   "timesteps": 1041408,
+   "episodes_approx": 1811,
+   "ep_rew_mean": -2.888,
+   "objective_equiv": 1.733
+  },
+  {
+   "timesteps": 1115136,
+   "episodes_approx": 1939,
+   "ep_rew_mean": -4.614,
+   "objective_equiv": 2.768
+  },
+  {
+   "timesteps": 1188864,
+   "episodes_approx": 2068,
+   "ep_rew_mean": -3.845,
+   "objective_equiv": 2.307
+  },
+  {
+   "timesteps": 1262592,
+   "episodes_approx": 2196,
+   "ep_rew_mean": -3.696,
+   "objective_equiv": 2.218
+  },
+  {
+   "timesteps": 1336320,
+   "episodes_approx": 2324,
+   "ep_rew_mean": -4.47,
+   "objective_equiv": 2.682
+  },
+  {
+   "timesteps": 1410048,
+   "episodes_approx": 2452,
+   "ep_rew_mean": -3.795,
+   "objective_equiv": 2.277
+  },
+  {
+   "timesteps": 1483776,
+   "episodes_approx": 2580,
+   "ep_rew_mean": -3.522,
+   "objective_equiv": 2.113
+  },
+  {
+   "timesteps": 1557504,
+   "episodes_approx": 2709,
+   "ep_rew_mean": -3.672,
+   "objective_equiv": 2.203
+  },
+  {
+   "timesteps": 1631232,
+   "episodes_approx": 2837,
+   "ep_rew_mean": -3.517,
+   "objective_equiv": 2.11
+  },
+  {
+   "timesteps": 1704960,
+   "episodes_approx": 2965,
+   "ep_rew_mean": -3.286,
+   "objective_equiv": 1.972
+  },
+  {
+   "timesteps": 1778688,
+   "episodes_approx": 3093,
+   "ep_rew_mean": -3.537,
+   "objective_equiv": 2.122
+  },
+  {
+   "timesteps": 1852416,
+   "episodes_approx": 3222,
+   "ep_rew_mean": -3.409,
+   "objective_equiv": 2.045
+  },
+  {
+   "timesteps": 1926144,
+   "episodes_approx": 3350,
+   "ep_rew_mean": -3.449,
+   "objective_equiv": 2.069
+  },
+  {
+   "timesteps": 1999872,
+   "episodes_approx": 3478,
+   "ep_rew_mean": -3.618,
+   "objective_equiv": 2.171
+  },
+  {
+   "timesteps": 2073600,
+   "episodes_approx": 3606,
+   "ep_rew_mean": -3.455,
+   "objective_equiv": 2.073
+  },
+  {
+   "timesteps": 2147328,
+   "episodes_approx": 3734,
+   "ep_rew_mean": -4.063,
+   "objective_equiv": 2.438
+  },
+  {
+   "timesteps": 2221056,
+   "episodes_approx": 3863,
+   "ep_rew_mean": -4.008,
+   "objective_equiv": 2.405
+  },
+  {
+   "timesteps": 2294784,
+   "episodes_approx": 3991,
+   "ep_rew_mean": -3.007,
+   "objective_equiv": 1.804
+  },
+  {
+   "timesteps": 2368512,
+   "episodes_approx": 4119,
+   "ep_rew_mean": -3.396,
+   "objective_equiv": 2.038
+  },
+  {
+   "timesteps": 2442240,
+   "episodes_approx": 4247,
+   "ep_rew_mean": -3.149,
+   "objective_equiv": 1.889
+  },
+  {
+   "timesteps": 2515968,
+   "episodes_approx": 4376,
+   "ep_rew_mean": -2.781,
+   "objective_equiv": 1.669
+  },
+  {
+   "timesteps": 2589696,
+   "episodes_approx": 4504,
+   "ep_rew_mean": -3.078,
+   "objective_equiv": 1.847
+  },
+  {
+   "timesteps": 2663424,
+   "episodes_approx": 4632,
+   "ep_rew_mean": -3.796,
+   "objective_equiv": 2.278
+  },
+  {
+   "timesteps": 2737152,
+   "episodes_approx": 4760,
+   "ep_rew_mean": -4.056,
+   "objective_equiv": 2.434
+  },
+  {
+   "timesteps": 2810880,
+   "episodes_approx": 4888,
+   "ep_rew_mean": -3.446,
+   "objective_equiv": 2.068
+  },
+  {
+   "timesteps": 2884608,
+   "episodes_approx": 5017,
+   "ep_rew_mean": -3.224,
+   "objective_equiv": 1.934
+  },
+  {
+   "timesteps": 2958336,
+   "episodes_approx": 5145,
+   "ep_rew_mean": -3.481,
+   "objective_equiv": 2.089
+  },
+  {
+   "timesteps": 3032064,
+   "episodes_approx": 5273,
+   "ep_rew_mean": -4.326,
+   "objective_equiv": 2.596
+  },
+  {
+   "timesteps": 3105792,
+   "episodes_approx": 5401,
+   "ep_rew_mean": -4.739,
+   "objective_equiv": 2.843
+  },
+  {
+   "timesteps": 3179520,
+   "episodes_approx": 5530,
+   "ep_rew_mean": -3.322,
+   "objective_equiv": 1.993
+  },
+  {
+   "timesteps": 3253248,
+   "episodes_approx": 5658,
+   "ep_rew_mean": -3.313,
+   "objective_equiv": 1.988
+  },
+  {
+   "timesteps": 3326976,
+   "episodes_approx": 5786,
+   "ep_rew_mean": -3.599,
+   "objective_equiv": 2.159
+  },
+  {
+   "timesteps": 3400704,
+   "episodes_approx": 5914,
+   "ep_rew_mean": -4.268,
+   "objective_equiv": 2.561
+  },
+  {
+   "timesteps": 3474432,
+   "episodes_approx": 6042,
+   "ep_rew_mean": -4.718,
+   "objective_equiv": 2.831
+  },
+  {
+   "timesteps": 3548160,
+   "episodes_approx": 6171,
+   "ep_rew_mean": -3.883,
+   "objective_equiv": 2.33
+  },
+  {
+   "timesteps": 3621888,
+   "episodes_approx": 6299,
+   "ep_rew_mean": -3.637,
+   "objective_equiv": 2.182
+  },
+  {
+   "timesteps": 3695616,
+   "episodes_approx": 6427,
+   "ep_rew_mean": -3.818,
+   "objective_equiv": 2.291
+  },
+  {
+   "timesteps": 3769344,
+   "episodes_approx": 6555,
+   "ep_rew_mean": -4.039,
+   "objective_equiv": 2.423
+  },
+  {
+   "timesteps": 3843072,
+   "episodes_approx": 6684,
+   "ep_rew_mean": -4.059,
+   "objective_equiv": 2.435
+  },
+  {
+   "timesteps": 3916800,
+   "episodes_approx": 6812,
+   "ep_rew_mean": -3.773,
+   "objective_equiv": 2.264
+  },
+  {
+   "timesteps": 3990528,
+   "episodes_approx": 6940,
+   "ep_rew_mean": -3.67,
+   "objective_equiv": 2.202
+  },
+  {
+   "timesteps": 4064256,
+   "episodes_approx": 7068,
+   "ep_rew_mean": -3.009,
+   "objective_equiv": 1.805
+  },
+  {
+   "timesteps": 4137984,
+   "episodes_approx": 7196,
+   "ep_rew_mean": -3.208,
+   "objective_equiv": 1.925
+  },
+  {
+   "timesteps": 4211712,
+   "episodes_approx": 7325,
+   "ep_rew_mean": -3.834,
+   "objective_equiv": 2.3
+  },
+  {
+   "timesteps": 4285440,
+   "episodes_approx": 7453,
+   "ep_rew_mean": -2.932,
+   "objective_equiv": 1.759
+  },
+  {
+   "timesteps": 4359168,
+   "episodes_approx": 7581,
+   "ep_rew_mean": -3.444,
+   "objective_equiv": 2.066
+  },
+  {
+   "timesteps": 4432896,
+   "episodes_approx": 7709,
+   "ep_rew_mean": -3.167,
+   "objective_equiv": 1.9
+  },
+  {
+   "timesteps": 4506624,
+   "episodes_approx": 7838,
+   "ep_rew_mean": -2.958,
+   "objective_equiv": 1.775
+  }
+ ],
+ "train_curve_note": "ep_rew_mean = SB3 rolling mean over the last 100 episodes of the terminal reward -3*W[task]*(score/norm[task][class]+penalty), W=(2/3,1/3), penalty = 0.3/deg of tilt peak above 60 deg (descend8 objective per case). Tasks are sampled with p=(2/3,1/3), so E[reward] = -(4/3*nod_obj + 1/3*dash_obj); objective_equiv = -ep_rew_mean*3/5 is exact only when nod_obj == dash_obj. Measured with the stochastic policy (Gaussian exploration noise, std 0.22 -> 0.08) on train cases cases8 offset 100000+gen*100 (gen = centre index 0..11, 660 episodes per centre); NOT the deterministic centre, so it is systematically worse than the reselect numbers."
+}
