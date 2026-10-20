@@ -50,7 +50,7 @@ def _init_ppo(source):
 
 def record(args):
     arm, task, c, arg = args
-    if arm == 'ppo':
+    if arm in PPO_ARMS:
         from ..ppo_direct import v7ppo as P
         from stable_baselines3 import PPO
         if 'env' not in _PPO:
@@ -61,6 +61,7 @@ def record(args):
     else:
         env = B._ENV
     d = env.sim.data
+    model = _PPO.get(arg) if arm in PPO_ARMS else None
     frames, orig = [], env.step
 
     def step(action):
@@ -69,7 +70,7 @@ def record(args):
         return out
     env.step = step
     try:
-        if arm == 'ppo':
+        if arm in PPO_ARMS:
             obs, _ = env9.reset(seed=0, options=dict(task=task, case=c))
             done, info = False, {}
             while not done:
@@ -88,25 +89,56 @@ def record(args):
     return arm, task, res, frames
 
 
+PPO_ARMS = ('ppo', 'mlp_ppo', 'mlp_bc')
+FULL_BLIND = 2_098_300_000
+
+
+def arms_for(a, base):
+    """[(arm id, row title, spec dict | checkpoint path | None)] for --plan quick (seed 1, the first comparison video) or
+    --plan full (any seed with results under artifacts/)."""
+    if a.plan == 'quick':
+        v7 = Path('runs/spike_steer/v7')
+        sel1 = json.loads((v7/'reselect_s1.json').read_text())['selected']
+        return [('classical', 'Classical (re-tuned)', None),
+                ('snn_es', f"SNN + ES (seed 1, gen {sel1['generation']})", json.loads(Path(sel1['spec']).read_text())),
+                ('snn_bc', 'SNN, imitation only (seed 1)', json.loads((v7/'finetune_s1/spec_val_g-1.json').read_text())),
+                ('ppo', 'MLP + PPO (seed 1, HomePC)', 'artifacts/spike_steer/ppo_direct/v7ppo/s1/centres/ckpt_g1.zip')]
+    S = a.seed
+    snn = Path(f'artifacts/spike_steer/plan_v7/full/snn/s{S}')
+    meta = json.loads((snn/'meta.json').read_text())
+    pdir = Path('artifacts/spike_steer/ppo_direct/v7full')
+    psel = json.loads((pdir/f'reselect_s{S}.json').read_text())['selected']['generation']
+    arms = [('classical', 'Classical (re-tuned)', None),
+            ('snn_es', f"SNN + ES (seed {S}, gen {meta['generation']})", json.loads((snn/'selected.json').read_text())),
+            ('snn_bc', f'SNN, imitation only (seed {S})', json.loads((snn/'bc.json').read_text())),
+            ('mlp_ppo', f'MLP + PPO (seed {S}, gen {psel})', str(pdir/f's{S}/centres/ckpt_g{psel}.zip')),
+            ('mlp_bc', f'MLP, imitation only (seed {S})', str(pdir/f's{S}/centres/ckpt_g-1.zip'))]
+    return arms
+
+
 def main():
     p = argparse.ArgumentParser()
     p.add_argument('--out', default='artifacts/spike_steer/plan_v7/videos')
     p.add_argument('--slow', type=float, default=2.)
     p.add_argument('--workers', type=int, default=12)
+    p.add_argument('--plan', choices=['quick', 'full'], default='quick')
+    p.add_argument('--seed', type=int, default=1)
+    p.add_argument('--case', type=int, default=0, help='index of the blind case within each task')
+    p.add_argument('--tasks', default='evade,redirect,dash')
+    p.add_argument('--machine', default='', help='shown in the title, e.g. "re-simulated on GoogleCloud"')
     a = p.parse_args()
     E.load_signs()
     B.DASH_M['value'] = .15
-    v7 = Path('runs/spike_steer/v7')
-    base = json.loads((v7/'baseline.json').read_text())
-    sel1 = json.loads((v7/'reselect_s1.json').read_text())['selected']
-    arms = [('classical', 'Classical (re-tuned)', None),
-            ('snn_es', f"SNN + ES (seed 1, gen {sel1['generation']})", json.loads(Path(sel1['spec']).read_text())),
-            ('snn_bc', 'SNN, imitation only (seed 1)', json.loads((v7/'finetune_s1/spec_val_g-1.json').read_text())),
-            ('ppo', 'MLP + PPO (seed 1, HomePC)', 'artifacts/spike_steer/ppo_direct/v7ppo/s1/centres/ckpt_g1.zip')]
-    cases = {t: T.cases9(t, T.BASES['test'], 1)[0] for t in T.TASKS}
+    base = json.loads(Path('artifacts/spike_steer/plan_v7/baseline.json').read_text())
+    arms = arms_for(a, base)
+    blind = T.BASES['test'] if a.plan == 'quick' else FULL_BLIND
+    n_all = 16 if a.plan == 'quick' else 32
+    a.task_list = [t for t in a.tasks.split(',') if t]
+    cases = {t: T.cases9(t, blind, n_all)[a.case] for t in a.task_list}
+    a.stem = 'v7_compare_blind_case0' if a.plan == 'quick' and a.case == 0 else f'v7{a.plan}_s{a.seed}_case{a.case}'
     jobs = []
     for arm, _, arg in arms:
-        for t in T.TASKS:
+        for t in a.task_list:
             c = cases[t]
             if arm == 'classical':
                 arg_ = dict(law=base['law'], schedule=base['opponent'][t][T.klass(c)])
@@ -115,7 +147,7 @@ def main():
             jobs.append((arm, t, c, arg_))
     if not (E.SOURCE/'robot_upper7_lower8.xml').exists():
         B.prepare_source(E.SOURCE)
-    store = Path(a.out)/'v7_compare_recordings.pkl'
+    store = Path(a.out)/f'{a.stem}_recordings.pkl'
     if not os.environ.get('RENDER9_RECORD'):
         import pickle
         import subprocess
@@ -124,13 +156,12 @@ def main():
             env_ = dict(os.environ, RENDER9_RECORD='1')
             env_.pop('MUJOCO_GL', None)
             env_.pop('PYOPENGL_PLATFORM', None)
-            subprocess.run([sys.executable, '-W', 'ignore', '-m', 'experiments.algorithms.spike_steer.render9', '--workers', str(a.workers),
-                            '--out', a.out], env=env_, check=True)
+            subprocess.run([sys.executable, '-W', 'ignore', '-m', 'experiments.algorithms.spike_steer.render9']+sys.argv[1:], env=env_, check=True)
         recs = pickle.loads(store.read_bytes())
         render(a, arms, cases, recs)
         return
-    jp = [j for j in jobs if j[0] == 'ppo']
-    jo = [j for j in jobs if j[0] != 'ppo']
+    jp = [j for j in jobs if j[0] in PPO_ARMS]
+    jo = [j for j in jobs if j[0] not in PPO_ARMS]
     with ProcessPoolExecutor(len(jp), initializer=_init_ppo, initargs=(str(E.SOURCE),)) as exp, \
             ProcessPoolExecutor(max(1, a.workers-len(jp)), initializer=_init, initargs=(str(E.SOURCE),)) as ex:
         fp = exp.map(record, jp, chunksize=1)
@@ -160,7 +191,7 @@ def render(a, arms, cases, recs):
 
     # one camera per column (task), framed on the union of all arms' paths, so the rows are comparable
     panels = {}
-    for t in T.TASKS:
+    for t in a.task_list:
         c = cases[t]
         paths = {}
         for arm, _, _ in arms:
@@ -195,29 +226,30 @@ def render(a, arms, cases, recs):
         panels[t] = dict(cam=cam, start=start, fwd=fwd, left=left, rot=np.column_stack([fwd, left, [0., 0., 1.]]), paths=paths,
                          bd=(np.asarray(cam.lookat)+view*3., np.column_stack([u, np.cross(u, view), view])), dirs=dirs)
 
-    W, H = ROWHEAD+3*PW, HEAD+len(arms)*PH
+    W, H = ROWHEAD+len(a.task_list)*PW, HEAD+len(arms)*PH
     horizon = max(float(rec[k][3][-1][0]) for k in rec)
     n_frames = int(round(horizon*FPS*a.slow))
     out = Path(a.out)
     out.mkdir(parents=True, exist_ok=True)
-    vpath = out/'v7_compare_blind_case0.mp4'
+    vpath = out/f'{a.stem}.mp4'
     writer = imageio.get_writer(str(vpath), fps=FPS, codec='libx264', quality=8, macro_block_size=None)
     try:
         for k in range(n_frames):
             t_ = (k+1)/(FPS*a.slow)
             img = Image.new('RGB', (W, H), (255, 255, 255))
             dr = ImageDraw.Draw(img)
-            dr.text((16, 10), 'Plan v7 quick validation  ·  blind case 0 of each task  ·  same case in every column', font=f_title, fill=INK)
+            dr.text((16, 10), f"Plan v7 {'quick validation' if a.plan == 'quick' else 'full (confirmatory)'}  ·  seed {a.seed}  ·  blind case {a.case} of each task  ·  same case in every column"
+                    + (f"  ·  {a.machine}" if a.machine else ''), font=f_title, fill=INK)
             dr.text((16, 46), f'{1/a.slow:g}x speed  ·  t = {t_:4.2f} s  ·  ratio = score ÷ classical score on the same case (lower is better)',
                     font=f_small, fill=INK2)
-            for j, tk in enumerate(T.TASKS):
+            for j, tk in enumerate(a.task_list):
                 c = cases[tk]
                 lab = f"{TASK_TITLE[tk]}  ·  {NAME[int(c['dir_deg'])]}" + (f" → {NAME[int(c['dir2_deg'])]}" if tk == 'redirect' else '')
                 dr.text((ROWHEAD+j*PW+10, HEAD-28), lab, font=f_col, fill=INK)
             for i, (arm, title, _) in enumerate(arms):
                 y0 = HEAD+i*PH
                 dr.multiline_text((10, y0+PH//2-30), title.replace(' (', '\n('), font=f_row, fill=INK, spacing=4)
-                for j, tk in enumerate(T.TASKS):
+                for j, tk in enumerate(a.task_list):
                     _, _, res, frames = rec[(arm, tk)]
                     P = panels[tk]
                     times = np.array([f[0] for f in frames])
@@ -266,9 +298,9 @@ def render(a, arms, cases, recs):
         writer.close()
     rr.close()
     summary = {f'{arm}/{tk}': dict(score=rec[(arm, tk)][2]['score'], goal_t=rec[(arm, tk)][2]['goal_t'], flown=rec[(arm, tk)][2]['flown'])
-               for arm, _, _ in arms for tk in T.TASKS}
-    (out/'v7_compare_blind_case0.json').write_text(json.dumps(dict(cases={t: dict(seed=cases[t]['seed'], dir=cases[t]['dir_deg'],
-                                                                                    dir2=cases[t].get('dir2_deg')) for t in T.TASKS},
+               for arm, _, _ in arms for tk in a.task_list}
+    (out/f'{a.stem}.json').write_text(json.dumps(dict(cases={t: dict(seed=cases[t]['seed'], dir=cases[t]['dir_deg'],
+                                                                                    dir2=cases[t].get('dir2_deg')) for t in a.task_list},
                                                                    episodes=summary), indent=1))
     print('wrote', vpath)
     for k, v in summary.items():

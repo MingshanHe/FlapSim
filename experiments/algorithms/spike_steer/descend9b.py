@@ -29,7 +29,8 @@ def stage_finetune(a):
     run = out/f'finetune_s{a.seed}{a.tag}'
     run.mkdir(parents=True, exist_ok=True)
     (run/'config.json').write_text(json.dumps(dict(lr=a.lr, sigma=a.sigma, pop=a.pop, save_every=a.save_every, generations=a.generations,
-                                                   cases_per_task=D9.ES['cases'], seed=a.seed), indent=1))
+                                                   cases_per_task=D9.ES['cases'], seed=a.seed, soft_tilt_deg=D9.SOFT_TILT_DEG,
+                                                   penalty_per_deg=D9.PENALTY_PER_DEG), indent=1))
     rng = np.random.default_rng(1000+a.seed)
     theta = D8.flatten(spec0)
     m_ad, v_ad = np.zeros_like(theta), np.zeros_like(theta)
@@ -123,6 +124,8 @@ def main():
     p.add_argument('--n-test', type=int, default=None, help='blind cases per task (descend9 default 16)')
     p.add_argument('--test-base', type=int, default=None, help='blind-set base seed (bench9 default 2_098_100_000); use a fresh --output dir')
     p.add_argument('--cases-per-task', type=int, default=None, help='ES training cases per task per generation (descend9 default 4)')
+    p.add_argument('--soft-tilt', type=float, default=None, help='tilt penalty starts at this true tilt peak, deg (descend9 default 60)')
+    p.add_argument('--penalty-per-deg', type=float, default=None, help='objective units per degree beyond --soft-tilt (descend9 default 0.3)')
     a = p.parse_args()
     E.load_signs()
     B.DASH_M['value'] = .15
@@ -134,6 +137,10 @@ def main():
         T.BASES['test'] = a.test_base
     if a.cases_per_task:
         D9.ES['cases'] = a.cases_per_task
+    if a.soft_tilt is not None:
+        D9.SOFT_TILT_DEG = a.soft_tilt
+    if a.penalty_per_deg is not None:
+        D9.PENALTY_PER_DEG = a.penalty_per_deg
     if a.stage == 'finetune':
         stage_finetune(a)
     elif a.stage == 'reselect':

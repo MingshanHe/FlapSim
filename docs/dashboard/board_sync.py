@@ -73,6 +73,65 @@ def build(status_file=None):
         e = json.loads(f.read_text())
         key = f.stem.replace('evaluate_', '')
         docs['blind'][f'v7_{key}'] = blind_doc('v7', e.get('arm', 'snn_es'), e.get('seed'), e.get('machine', 'CloudPC-2'), e['report'], note=e.get('note'))
+    for f in sorted(v7.glob('finetune_s*_*/history.jsonl')):      # tagged ES variants run on this machine
+        s_, tag = f.parent.name[len('finetune_s'):].split('_', 1)
+        h = jl(f)
+        doc = dict(plan='v7', arm='snn_es', seed=int(s_), label=f'SNN + ES ({tag}), seed {s_}', machine='CloudPC-2', status='running',
+                   train=dict(x=[r['generation'] for r in h], y=[r['center'] for r in h]), seedShade=.6)
+        rs = v7/f'reselect_s{s_}_{tag}.json'
+        if rs.exists():
+            doc['val'], doc['status'] = val_curve(json.loads(rs.read_text())), 'done'
+        docs['runs'][f'v7_snn_{tag}_s{s_}'] = doc
+    # ---- plan v7, HomePC PPO arm (pushed to ppo-full under artifacts/spike_steer/ppo_direct/v7ppo/s<S>/)
+    p7 = ROOT/'artifacts/spike_steer/ppo_direct/v7ppo'
+    for f in sorted(p7.glob('reselect_s*.json')):          # HomePC layout: files at the top of v7ppo/
+        s = int(f.stem.split('_s')[-1])
+        docs['runs'][f'v7_ppo_s{s}'] = dict(plan='v7', arm='mlp_ppo', seed=s, label=f'MLP + PPO, seed {s}', machine='HomePC', status='done',
+                                            val=val_curve(json.loads(f.read_text())))
+    for f in sorted(p7.glob('evaluate_*_s*.json')):
+        e = json.loads(f.read_text())
+        arm, s = e.get('arm'), int(f.stem.split('_s')[-1])
+        docs['blind'][f'v7_{arm}_s{s}'] = blind_doc('v7', arm, s, 'HomePC', e['report'], note=e.get('note'))
+    for d in sorted(p7.glob('s[0-9]*')):
+        if not d.is_dir():
+            continue
+        s = int(d.name[1:])
+        doc = dict(plan='v7', arm='mlp_ppo', seed=s, label=f'MLP + PPO, seed {s}', machine='HomePC', status='running')
+        if (d/'reselect.json').exists():
+            doc['val'], doc['status'] = val_curve(json.loads((d/'reselect.json').read_text())), 'done'
+            docs['runs'][f'v7_ppo_s{s}'] = doc
+        for f in d.glob('evaluate_*.json'):
+            e = json.loads(f.read_text())
+            arm = e.get('arm', 'mlp_ppo')
+            docs['blind'][f'v7_{arm}_s{s}'] = blind_doc('v7', arm, s, e.get('machine', 'HomePC'), e['report'], note=e.get('note'))
+    # ---- data relayed by message (GoogleCloud): ready-made documents in runs/board_inbox/<collection>/<id>.json
+    inbox = ROOT/'runs/board_inbox'
+    for f in sorted(inbox.glob('*/*.json')):
+        docs.setdefault(f.parent.name, {})[f.stem] = json.loads(f.read_text())
+    # ---- plan v7 full (confirmatory): CloudPC-2 SNN careful ES + HomePC PPO
+    vf = ROOT/'runs/spike_steer/v7full'
+    for f in sorted(vf.glob('finetune_s*_careful/history.jsonl')):
+        s_ = int(f.parent.name[len('finetune_s'):].split('_')[0])
+        h = jl(f)
+        doc = dict(plan='v7full', arm='snn_es', seed=s_, label=f'SNN + ES careful, seed {s_}', machine='CloudPC-2', status='running',
+                   train=dict(x=[r['generation'] for r in h], y=[r['center'] for r in h]))
+        rs = vf/f'reselect_s{s_}_careful.json'
+        if rs.exists():
+            doc['val'], doc['status'] = val_curve(json.loads(rs.read_text())), 'done'
+        docs['runs'][f'v7full_snn_s{s_}'] = doc
+    for f in sorted(vf.glob('evaluate_*_s*_careful.json')):
+        e = json.loads(f.read_text())
+        s_ = e.get('seed')
+        docs['blind'][f"v7full_{e.get('arm', 'snn_es')}_s{s_}"] = blind_doc('v7full', e.get('arm', 'snn_es'), s_, 'CloudPC-2', e['report'], note=e.get('note'))
+    pf = ROOT/'artifacts/spike_steer/ppo_direct/v7full'
+    for f in sorted(pf.glob('reselect_s*.json')):
+        s_ = int(f.stem.split('_s')[-1])
+        docs['runs'][f'v7full_ppo_s{s_}'] = dict(plan='v7full', arm='mlp_ppo', seed=s_, label=f'MLP + PPO, seed {s_}', machine='HomePC', status='done',
+                                                 val=val_curve(json.loads(f.read_text())))
+    for f in sorted(pf.glob('evaluate_*_s*.json')):
+        e = json.loads(f.read_text())
+        arm, s_ = e.get('arm'), int(f.stem.split('_s')[-1])
+        docs['blind'][f'v7full_{arm}_s{s_}'] = blind_doc('v7full', arm, s_, 'HomePC', e['report'], note=e.get('note'))
     if status_file:
         docs['status'] = {'now': json.loads(Path(status_file).read_text())}
     OUT.mkdir(parents=True, exist_ok=True)
