@@ -83,6 +83,9 @@ td.num { font-family: var(--mono); white-space: nowrap; }
   <header>
     <h1>FlapSim Run Board<small id="updated">Waiting for data from the run store…</small></h1>
     <div class="tabs" role="group" aria-label="Plan">
+      <button id="tab-v10" aria-pressed="false">v10</button>
+      <button id="tab-v9" aria-pressed="false">v9</button>
+      <button id="tab-v8" aria-pressed="false">v8</button>
       <button id="tab-v7full" aria-pressed="true">v7 full</button>
       <button id="tab-v7" aria-pressed="false">v7 quick</button>
       <button id="tab-v6" aria-pressed="false">Plan v6</button>
@@ -135,19 +138,19 @@ const ARM = {
   classical: { name: "Classical", color: "--classic" },
 };
 const css = (v) => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
-const state = { plan: "v7full", metric: "val", runs: [], blind: [], status: null, hidden: new Set() };
-try { const p = localStorage.getItem("flapsim.plan"); if (p === "v6" || p === "v7" || p === "v7full") state.plan = p; } catch (e) {}
+const state = { plan: "v10", metric: "val", runs: [], blind: [], status: null, hidden: new Set() };
+try { const p = localStorage.getItem("flapsim.plan"); if (["v6", "v7", "v7full", "v8", "v9", "v10"].includes(p)) state.plan = p; } catch (e) {}
 const $ = (id) => document.getElementById(id);
 const fmt = (x, d = 2) => (x == null || Number.isNaN(x)) ? "–" : Number(x).toFixed(d);
 
 function setPlan(p) {
   state.plan = p;
   try { localStorage.setItem("flapsim.plan", p); } catch (e) {}
-  for (const k of ["v7full", "v7", "v6"]) $("tab-" + k).setAttribute("aria-pressed", p === k);
+  for (const k of ["v10", "v9", "v8", "v7full", "v7", "v6"]) $("tab-" + k).setAttribute("aria-pressed", p === k);
   render();
 }
-$("tab-v7full").onclick = () => setPlan("v7full"); $("tab-v7").onclick = () => setPlan("v7"); $("tab-v6").onclick = () => setPlan("v6");
-for (const k of ["v7full", "v7", "v6"]) $("tab-" + k).setAttribute("aria-pressed", state.plan === k);
+$("tab-v10").onclick = () => setPlan("v10"); $("tab-v9").onclick = () => setPlan("v9"); $("tab-v8").onclick = () => setPlan("v8"); $("tab-v7full").onclick = () => setPlan("v7full"); $("tab-v7").onclick = () => setPlan("v7"); $("tab-v6").onclick = () => setPlan("v6");
+for (const k of ["v10", "v9", "v8", "v7full", "v7", "v6"]) $("tab-" + k).setAttribute("aria-pressed", state.plan === k);
 $("m-val").onclick = () => { state.metric = "val"; $("m-val").setAttribute("aria-pressed", true); $("m-train").setAttribute("aria-pressed", false); renderCurves(); };
 $("m-train").onclick = () => { state.metric = "train"; $("m-train").setAttribute("aria-pressed", true); $("m-val").setAttribute("aria-pressed", false); renderCurves(); };
 

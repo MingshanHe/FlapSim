@@ -132,6 +132,45 @@ def build(status_file=None):
         e = json.loads(f.read_text())
         arm, s_ = e.get('arm'), int(f.stem.split('_s')[-1])
         docs['blind'][f'v7full_{arm}_s{s_}'] = blind_doc('v7full', arm, s_, 'HomePC', e['report'], note=e.get('note'))
+    # ---- plan v8: frozen re-test (CloudPC-2 SNN + classical, HomePC PPO)
+    for d8, mach in ((ROOT/'runs/spike_steer/v8', 'CloudPC-2'), (ROOT/'artifacts/spike_steer/ppo_direct/v8', 'HomePC')):
+        for f in sorted(d8.glob('evaluate_*_s*.json')):
+            e = json.loads(f.read_text())
+            arm, s_ = e.get('arm'), int(f.stem.split('_s')[-1])
+            doc = blind_doc('v8', arm, s_, mach, e['report'], note=e.get('note'))
+            c8 = e.get('crashes', doc['crashes'])
+            doc.update(crashes=c8, note=f"{c8} crashed of 192 (classical: 5)")
+            if 'M4_pass' in e and e['M4_pass'] is not None:
+                doc['pass'] = e['M4_pass']
+            else:
+                doc['pass'] = bool(doc['mean'] <= .95 and c8 <= 5)
+            docs['blind'][f'v8_{arm}_s{s_}'] = doc
+    # ---- plans v9 (bench10 scoring) and v10 (37-input layer): CloudPC-2 seeds 1-3, HomePC seeds 4-5 (pushed under plan_v*/homepc)
+    for plan, rdir, adir, lab in (('v9', 'v9', 'plan_v9', 'v9'), ('v10', 'v10', 'plan_v10', 'v10')):
+        cloud = ROOT/f'runs/spike_steer/{rdir}'
+        opp_f = cloud/'test_opponent.json'
+        opp_crash = sum(not r['flown'] for r in json.loads(opp_f.read_text())) if opp_f.exists() else None
+        for root, mach in ((cloud, 'CloudPC-2'), (ROOT/f'artifacts/spike_steer/{adir}/homepc', 'HomePC')):
+            for f in sorted(root.glob('finetune_s*_careful/history.jsonl')):
+                s_ = int(f.parent.name[len('finetune_s'):].split('_')[0])
+                h = jl(f)
+                doc = dict(plan=plan, arm='snn_es', seed=s_, label=f'SNN + ES ({lab}), seed {s_}', machine=mach, status='running',
+                           train=dict(x=[r['generation'] for r in h], y=[r['center'] for r in h]))
+                rs = root/f'reselect_s{s_}_careful.json'
+                if rs.exists():
+                    doc['val'], doc['status'] = val_curve(json.loads(rs.read_text())), 'done'
+                docs['runs'][f'{plan}_snn_s{s_}'] = doc
+            for f in sorted(list(root.glob('evaluate_*_s*_careful.json'))+list(root.glob('evaluate_snn9_s*.json'))):
+                e = json.loads(f.read_text())
+                arm, s_ = e.get('arm', 'snn_es'), e.get('seed')
+                rows = e.get('rows', [])
+                cn = sum(not r['flown'] for r in rows)
+                doc = blind_doc(plan, arm, s_, mach, e['report'], note=e.get('note'))
+                doc.update(crashes=cn)
+                if opp_crash is not None:
+                    doc['pass'] = bool(doc['mean'] <= .95 and cn <= opp_crash)
+                    doc['note'] = f"{cn} crashed of {len(rows)} (classical: {opp_crash})"
+                docs['blind'][f'{plan}_{arm}_s{s_}'] = doc
     if status_file:
         docs['status'] = {'now': json.loads(Path(status_file).read_text())}
     OUT.mkdir(parents=True, exist_ok=True)
