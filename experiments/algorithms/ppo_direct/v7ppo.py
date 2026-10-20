@@ -392,9 +392,12 @@ def evaluate(a):
                                               for t in T.TASKS for c in cs[t]], chunksize=1))
                 opp_file.write_text(json.dumps(opp_rows))
         opp_rows = json.loads(opp_file.read_text())
-        rows = list(ex.map(_run, [("ppo", spec, t, c, int(c["seed"]) % (2 ** 31)) for _, spec, _ in arms for t in T.TASKS for c in cs[t]], chunksize=1))
+        specs = list(dict.fromkeys(spec for _, spec, _ in arms))          # 选中的就是 bc 时只回放一次
+        rows = list(ex.map(_run, [("ppo", spec, t, c, int(c["seed"]) % (2 ** 31)) for spec in specs for t in T.TASKS for c in cs[t]], chunksize=1))
+    n_cases = sum(len(cs[t]) for t in T.TASKS)
+    by_spec = {spec: rows[i * n_cases:(i + 1) * n_cases] for i, spec in enumerate(specs)}
     for arm, spec, note in arms:
-        rr = [r for r in rows if r["controller"] == Path(spec).stem]
+        rr = [dict(r, controller=arm) for r in by_spec[spec]]
         rep = D9.report(rr, opp_rows)
         doc = dict(arm=arm, seed=a.seed, machine=MACHINE, note=note, opponent_rows_source=source, selected=sel if arm == "mlp_ppo" else None, report=rep, rows=rr)
         (OUT / f"evaluate_{arm}_s{a.seed}.json").write_text(json.dumps(doc, indent=1, default=float))
