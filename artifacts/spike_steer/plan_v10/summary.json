@@ -1,0 +1,294 @@
+{
+ "plan": "v10",
+ "blind_base": 2098900000,
+ "cases_per_task": 64,
+ "criterion": "M5: average <= 0.95 and crashes <= classical crashes (3); >= 3/5",
+ "classical_crashes": 3,
+ "s1": {
+  "snn_es": {
+   "mean": 1.2147003633150686,
+   "evade": 1.2359245718988965,
+   "redirect": 1.0444938216571598,
+   "dash": 1.3636826963891497,
+   "dash_classes": {
+    "pitch": 1.5643706052089554,
+    "roll": 1.8728583175889029,
+    "diag": 1.0087509313793708
+   },
+   "crashes": 4,
+   "crash_cases": [
+    [
+     "dash",
+     "pitch",
+     180.0,
+     "tilt"
+    ],
+    [
+     "dash",
+     "pitch",
+     180.0,
+     "tilt"
+    ],
+    [
+     "dash",
+     "pitch",
+     180.0,
+     "tilt"
+    ],
+    [
+     "dash",
+     "pitch",
+     180.0,
+     "tilt"
+    ]
+   ]
+  },
+  "snn_bc": {
+   "mean": 1.1673679445306273,
+   "evade": 1.0736552916957052,
+   "redirect": 1.2980442888092736,
+   "dash": 1.1304042530869027,
+   "dash_classes": {
+    "pitch": 1.2710651795130927,
+    "roll": 1.2238903315533283,
+    "diag": 1.013330750640595
+   },
+   "crashes": 0,
+   "crash_cases": []
+  },
+  "snn9_frozen": {
+   "mean": 1.064947052955733,
+   "evade": 1.074531714856655,
+   "redirect": 1.060608918458028,
+   "dash": 1.059700525552516,
+   "dash_classes": {
+    "pitch": 0.8888517998215759,
+    "roll": 1.3319055484936035,
+    "diag": 1.0090223769474427
+   },
+   "crashes": 0,
+   "crash_cases": []
+  },
+  "selected_generation": 5,
+  "selection_objective": 1.1503506465039077,
+  "M5": false,
+  "machine": "CloudPC-2"
+ },
+ "s2": {
+  "snn_es": {
+   "mean": 1.0948153695698035,
+   "evade": 1.035961504852649,
+   "redirect": 1.1508107462567008,
+   "dash": 1.097673857600061,
+   "dash_classes": {
+    "pitch": 1.0838909475907441,
+    "roll": 1.302825234013996,
+    "diag": 1.0019896243977517
+   },
+   "crashes": 0,
+   "crash_cases": []
+  },
+  "snn_bc": {
+   "mean": 1.108996113354684,
+   "evade": 1.0488627583035974,
+   "redirect": 1.2448865737150707,
+   "dash": 1.033239008045384,
+   "dash_classes": {
+    "pitch": 1.1225205461788867,
+    "roll": 0.9783323742823019,
+    "diag": 1.0160515558601737
+   },
+   "crashes": 0,
+   "crash_cases": []
+  },
+  "snn9_frozen": {
+   "mean": 1.0467474947363054,
+   "evade": 0.9779014203504759,
+   "redirect": 1.1533192991958046,
+   "dash": 1.009021764662636,
+   "dash_classes": {
+    "pitch": 0.889485944702898,
+    "roll": 1.1480527630080255,
+    "diag": 0.9992741754698101
+   },
+   "crashes": 1,
+   "crash_cases": [
+    [
+     "redirect",
+     "roll",
+     0.0,
+     "tilt"
+    ]
+   ]
+  },
+  "selected_generation": 3,
+  "selection_objective": 1.019464717997427,
+  "M5": false,
+  "machine": "CloudPC-2"
+ },
+ "s3": {
+  "snn_es": {
+   "mean": 1.0998324025836135,
+   "evade": 1.0473855310468274,
+   "redirect": 1.2059536369577204,
+   "dash": 1.046158039746293,
+   "dash_classes": {
+    "pitch": 1.1490989096917785,
+    "roll": 1.0034911836760867,
+    "diag": 1.0160210328086536
+   },
+   "crashes": 0,
+   "crash_cases": []
+  },
+  "snn9_frozen": {
+   "mean": 1.0828180049592322,
+   "evade": 1.0843983092659455,
+   "redirect": 1.009889719804867,
+   "dash": 1.154165985806884,
+   "dash_classes": {
+    "pitch": 0.8899133325596794,
+    "roll": 1.6981747755612009,
+    "diag": 1.014287917553328
+   },
+   "crashes": 0,
+   "crash_cases": []
+  },
+  "selected_generation": -1,
+  "selection_objective": 1.0293425293210796,
+  "M5": false,
+  "machine": "CloudPC-2"
+ },
+ "s4": {
+  "snn_es": {
+   "mean": 1.2537045083345484,
+   "evade": 1.5428171245076685,
+   "redirect": 1.1124642098473778,
+   "dash": 1.1058321906485986,
+   "dash_classes": {
+    "pitch": 1.0885880057484523,
+    "roll": 1.33081069466461,
+    "diag": 1.001965031090666
+   },
+   "crashes": 2,
+   "crash_cases": [
+    [
+     "evade",
+     "pitch",
+     180.0,
+     "tilt"
+    ],
+    [
+     "evade",
+     "pitch",
+     180.0,
+     "tilt"
+    ]
+   ]
+  },
+  "snn_bc": {
+   "mean": 1.18381219823903,
+   "evade": 1.1233523235999376,
+   "redirect": 1.360437484906749,
+   "dash": 1.0676467862104033,
+   "dash_classes": {
+    "pitch": 1.1476288966197306,
+    "roll": 1.0884216698393654,
+    "diag": 1.0172682891912588
+   },
+   "crashes": 0,
+   "crash_cases": []
+  },
+  "snn9_frozen": {
+   "mean": 1.0450976233601346,
+   "evade": 1.0357700596615338,
+   "redirect": 1.0069221325116193,
+   "dash": 1.0926006779072508,
+   "dash_classes": {
+    "pitch": 0.8639155590042472,
+    "roll": 1.5109066627653513,
+    "diag": 0.9977902449297025
+   },
+   "crashes": 0,
+   "crash_cases": []
+  },
+  "selected_generation": 1,
+  "selection_objective": 1.0107076719850814,
+  "M5": false,
+  "machine": "HomePC"
+ },
+ "s5": {
+  "snn_es": {
+   "mean": 1.0202680427644466,
+   "evade": 1.026252736809572,
+   "redirect": 1.0127838549510872,
+   "dash": 1.0217675365326802,
+   "dash_classes": {
+    "pitch": 1.021766121328631,
+    "roll": 1.0611569054210905,
+    "diag": 1.0020735596904997
+   },
+   "crashes": 0,
+   "crash_cases": []
+  },
+  "snn_bc": {
+   "mean": 1.2529351772992243,
+   "evade": 1.3270992707170453,
+   "redirect": 1.3381921498581482,
+   "dash": 1.0935141113224796,
+   "dash_classes": {
+    "pitch": 1.164177483969896,
+    "roll": 1.159895289511933,
+    "diag": 1.0249918359040446
+   },
+   "crashes": 1,
+   "crash_cases": [
+    [
+     "evade",
+     "pitch",
+     0.0,
+     "tilt"
+    ]
+   ]
+  },
+  "snn9_frozen": {
+   "mean": 1.128014335909939,
+   "evade": 1.2526453112361808,
+   "redirect": 1.1517818179155594,
+   "dash": 0.9796158785780766,
+   "dash_classes": {
+    "pitch": 0.8748693755100194,
+    "roll": 1.0422821390402097,
+    "diag": 1.0006559998810387
+   },
+   "crashes": 2,
+   "crash_cases": [
+    [
+     "evade",
+     "pitch",
+     0.0,
+     "tilt"
+    ],
+    [
+     "redirect",
+     "roll",
+     180.0,
+     "tilt"
+    ]
+   ]
+  },
+  "selected_generation": 2,
+  "selection_objective": 0.9832934671630923,
+  "M5": false,
+  "machine": "HomePC"
+ },
+ "M5": {
+  "seeds_passing": 0,
+  "holds": false
+ },
+ "S1_paired": {
+  "v10_es_mean": 1.1366641373134962,
+  "v9_frozen_mean": 1.073524902384269,
+  "v10_es_crashes": 6,
+  "v9_frozen_crashes": 3
+ }
+}
