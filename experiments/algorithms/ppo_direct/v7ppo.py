@@ -25,6 +25,7 @@
     python -m experiments.algorithms.ppo_direct.v7ppo evaluate --seed 1 --workers 18
 输入：runs/spike_steer/v7/{baseline.json, collect_train.npz[, test_opponent.json]}（descend9 的输出目录，可用 PLAN_V7 环境变量改）。
 输出：runs/ppo_direct/v7ppo/{s<seed>/ckpt_g*.zip, reselect_s<seed>.json, evaluate_<arm>_s<seed>.json, test_opponent.json}。
+正式轮：V7PPO_PROFILE=full（输出 runs/ppo_direct/v7full/，9 个中心，选中心 32 例/任务，盲测 base 2_098_300_000 32 例/任务，对手行 test_opponent_v7full.json）。
 """
 
 from __future__ import annotations
@@ -56,7 +57,14 @@ from ..spike_steer import descend8 as D8
 from ..spike_steer import descend9 as D9
 from ..spike_steer import pilot_v3 as V
 
-OUT = Path("runs/ppo_direct/v7ppo")
+# 配置档：quick = v7 快速验证；full = v7 正式轮（preregistration_v7full.json：9 个中心、选中心 32 例/任务、全新盲测集 32 例/任务）。
+PROFILES = dict(
+    quick=dict(out="runs/ppo_direct/v7ppo", n_centres=4, n_select=D9.N_SELECT, test_base=T.BASES["test"], n_test=D9.N_TEST, opp_name="test_opponent.json"),
+    full=dict(out="runs/ppo_direct/v7full", n_centres=8, n_select=32, test_base=2_098_300_000, n_test=32, opp_name="test_opponent_v7full.json"),
+)
+PROFILE = os.environ.get("V7PPO_PROFILE", "quick")
+P = PROFILES[PROFILE]
+OUT = Path(P["out"])
 PLAN = Path(os.environ.get("PLAN_V7", "runs/spike_steer/v7"))
 TICKS = 5                                      # 10 ms 决策
 FRAMES = (0, 5, 10)                            # 三帧的滞后（拍）
@@ -65,7 +73,7 @@ N_OBS = N_IMU * len(FRAMES) + 1 + N_CMD        # 57
 N_GENS = 20                                    # descend9 默认代数（用例池大小）
 ES_EPISODES = N_GENS * (D9.ES["pop"] + 1) * D9.ES["cases"] * len(T.TASKS)    # 20 × 17 × 12 = 4 080
 MEAN_DECISIONS = sum(T.SECONDS[t] for t in T.TASKS) / len(T.TASKS) / DT / TICKS   # 600
-N_CENTRES = 4                                  # PPO 检查点数（+ bc = 5 个中心）
+N_CENTRES = P["n_centres"]                     # PPO 检查点数（+ bc：quick 5 个中心，full 9 个）
 MACHINE = os.environ.get("MACHINE", socket.gethostname())
 
 
@@ -350,7 +358,7 @@ def centre_paths(d: Path):
 def reselect(a):
     d = seed_dir(a.seed)
     norm = load_plan()["normalisers"]
-    cs = {t: T.cases9(t, T.BASES["train"], D9.N_SELECT, offset=D9.OFF["select"]) for t in T.TASKS}
+    cs = {t: T.cases9(t, T.BASES["train"], P["n_select"], offset=D9.OFF["select"]) for t in T.TASKS}
     paths = centre_paths(d)
     jobs = [("ppo", str(p), t, c, int(c["seed"]) % (2 ** 31)) for p in paths for t in T.TASKS for c in cs[t]]
     with ProcessPoolExecutor(a.workers, mp_context=mp.get_context("fork"), initializer=_init, initargs=("intact",)) as ex:
@@ -371,7 +379,7 @@ def reselect(a):
         nocrash = [e for e in res if e["crashes"] == 0]
         sel = min(nocrash or res, key=lambda e: e["objective"])
         fallback = "no eligible centre (descend9 rule would select none); fallback = " + ("zero-crash centres" if nocrash else "all centres")
-    (OUT / f"reselect_s{a.seed}.json").write_text(json.dumps(dict(seed=a.seed, machine=MACHINE, n_select=D9.N_SELECT, centres=res, selected=sel, fallback=fallback), indent=1))
+    (OUT / f"reselect_s{a.seed}.json").write_text(json.dumps(dict(seed=a.seed, machine=MACHINE, profile=PROFILE, n_select=P["n_select"], centres=res, selected=sel, fallback=fallback), indent=1))
     print(json.dumps(dict(selected=sel["generation"], objective=sel["objective"], fallback=fallback)), flush=True)
 
 
@@ -380,13 +388,13 @@ def evaluate(a):
     d = seed_dir(a.seed)
     base = load_plan()
     sel = json.loads((OUT / f"reselect_s{a.seed}.json").read_text())["selected"]
-    cs = {t: T.cases9(t, T.BASES["test"], D9.N_TEST) for t in T.TASKS}
+    cs = {t: T.cases9(t, P["test_base"], P["n_test"]) for t in T.TASKS}
     arms = [("mlp_ppo", sel["spec"], f"selected PPO centre g{sel['generation']} (budget fraction {sel.get('budget_fraction')})"),
             ("mlp_bc", str(d / "ckpt_g-1.zip"), "imitation start (g-1)")]
     with ProcessPoolExecutor(a.workers, mp_context=mp.get_context("fork"), initializer=_init, initargs=("intact",)) as ex:
-        opp_file, source = PLAN / "test_opponent.json", "descend9 (CloudPC-2)"
+        opp_file, source = PLAN / P["opp_name"], "descend9 (CloudPC-2)"
         if not opp_file.exists():
-            opp_file, source = OUT / "test_opponent.json", f"bench9 classical run on {MACHINE}"
+            opp_file, source = OUT / P["opp_name"], f"bench9 classical run on {MACHINE}"
             if not opp_file.exists():
                 opp_rows = list(ex.map(_run, [("classical", dict(law=base["law"], schedule=base["opponent"][t][T.klass(c)]), t, c, 0)
                                               for t in T.TASKS for c in cs[t]], chunksize=1))
@@ -399,7 +407,8 @@ def evaluate(a):
     for arm, spec, note in arms:
         rr = [dict(r, controller=arm) for r in by_spec[spec]]
         rep = D9.report(rr, opp_rows)
-        doc = dict(arm=arm, seed=a.seed, machine=MACHINE, note=note, opponent_rows_source=source, selected=sel if arm == "mlp_ppo" else None, report=rep, rows=rr)
+        doc = dict(arm=arm, seed=a.seed, machine=MACHINE, profile=PROFILE, blind_base=P["test_base"], n_per_task=P["n_test"], note=note, opponent_rows_source=source,
+                   selected=sel if arm == "mlp_ppo" else None, report=rep, rows=rr)
         (OUT / f"evaluate_{arm}_s{a.seed}.json").write_text(json.dumps(doc, indent=1, default=float))
         print(f"v7ppo_s{a.seed} {arm}:", json.dumps({t: round(rep[t]["ratio"], 3) for t in T.TASKS}), "mean", round(rep["manoeuvre_mean"], 3),
               "crashes", sum(rep[t]["crashes"] for t in T.TASKS), "wins", "/".join(str(rep[t]["wins"]) for t in T.TASKS), flush=True)
