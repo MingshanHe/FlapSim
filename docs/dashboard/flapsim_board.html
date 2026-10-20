@@ -1,0 +1,310 @@
+<title>FlapSim Run Board</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: an instrument panel. Status strip, then blind-test verdicts (the summary), then training curves (the detail). */
+:root {
+  --bg: #f4f6f8; --panel: #ffffff; --ink: #18202a; --ink2: #556170; --mute: #8a95a3; --rule: #dde2e8;
+  --accent: #c97b12;             /* Kapton amber: the learned SNN */
+  --ppo: #2f6db5; --bc: #8a6fb8; --classic: #6b7684;
+  --good: #1f8a4c; --warn: #b7791f; --bad: #c23b3b; --goodbg: #e3f3e9; --badbg: #fbe7e7; --warnbg: #fbf1de;
+  --display: "Barlow Condensed", "Arial Narrow", sans-serif;
+  --body: "Barlow", "Segoe UI", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #11161c; --panel: #19212a; --ink: #e6ebf0; --ink2: #a8b3bf; --mute: #76828f; --rule: #2a3440;
+  --accent: #e8a13d; --ppo: #6aa2e8; --bc: #b29ae0; --classic: #9aa5b1;
+  --good: #4cc27c; --warn: #e2a64b; --bad: #ef6b6b; --goodbg: #16301f; --badbg: #3a1d1d; --warnbg: #362a16; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #11161c; --panel: #19212a; --ink: #e6ebf0; --ink2: #a8b3bf; --mute: #76828f; --rule: #2a3440;
+  --accent: #e8a13d; --ppo: #6aa2e8; --bc: #b29ae0; --classic: #9aa5b1;
+  --good: #4cc27c; --warn: #e2a64b; --bad: #ef6b6b; --goodbg: #16301f; --badbg: #3a1d1d; --warnbg: #362a16; color-scheme: dark }
+body { background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 15px; line-height: 1.45; }
+.wrap { max-width: 1180px; margin: 0 auto; padding-block: 20px 48px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); display: grid; gap: 22px; }
+header { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 12px 24px; }
+h1 { font-family: var(--display); font-weight: 700; font-size: 2.1rem; letter-spacing: .01em; margin: 0; line-height: 1; }
+h1 small { display: block; font-family: var(--body); font-weight: 500; font-size: .85rem; color: var(--ink2); letter-spacing: 0; margin-top: 6px; }
+h2 { font-family: var(--display); font-weight: 600; font-size: 1.35rem; margin: 0; letter-spacing: .02em; text-wrap: balance; }
+.eyebrow { font-size: .72rem; text-transform: uppercase; letter-spacing: .09em; color: var(--mute); font-weight: 600; }
+.tabs { display: flex; gap: 4px; background: var(--panel); border: 1px solid var(--rule); border-radius: 8px; padding: 3px; }
+.tabs button { font: 600 .9rem var(--body); border: 0; background: transparent; color: var(--ink2); padding: 6px 14px; border-radius: 6px; cursor: pointer; }
+.tabs button[aria-pressed="true"] { background: var(--ink); color: var(--panel); }
+.tabs button:focus-visible, .chip:focus-visible, .seg button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.machines { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 10px; }
+.machine { background: var(--panel); border: 1px solid var(--rule); border-radius: 8px; padding: 10px 12px; display: grid; gap: 4px; min-width: 0; }
+.machine .top { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+.machine b { font-family: var(--display); font-size: 1.1rem; font-weight: 600; }
+.machine p { margin: 0; color: var(--ink2); font-size: .88rem; overflow-wrap: anywhere; }
+.pill { font: 600 .72rem var(--body); letter-spacing: .05em; text-transform: uppercase; padding: 2px 8px; border-radius: 999px; white-space: nowrap; }
+.pill.busy { background: var(--warnbg); color: var(--warn); }
+.pill.idle { background: var(--goodbg); color: var(--good); }
+.pill.offline { background: var(--rule); color: var(--mute); }
+.pill.pass { background: var(--goodbg); color: var(--good); }
+.pill.fail { background: var(--badbg); color: var(--bad); }
+.pill.pending { background: var(--rule); color: var(--ink2); }
+section.card { background: var(--panel); border: 1px solid var(--rule); border-radius: 10px; padding: 16px; display: grid; gap: 12px; min-width: 0; }
+.sechead { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 6px 16px; }
+.sechead p { margin: 0; color: var(--ink2); font-size: .88rem; max-width: 70ch; }
+.tablebox { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: .9rem; font-variant-numeric: tabular-nums; }
+th { text-align: left; font-weight: 600; font-size: .72rem; text-transform: uppercase; letter-spacing: .07em; color: var(--mute); padding: 6px 8px; border-bottom: 1px solid var(--rule); white-space: nowrap; }
+td { padding: 8px; border-bottom: 1px solid var(--rule); vertical-align: top; }
+td.num { font-family: var(--mono); white-space: nowrap; }
+.arm { display: flex; align-items: center; gap: 8px; white-space: nowrap; }
+.sw { width: 10px; height: 10px; border-radius: 2px; flex: none; }
+.ratio { display: grid; gap: 3px; min-width: 120px; }
+.bar { position: relative; height: 8px; background: var(--rule); border-radius: 2px; }
+.bar i { position: absolute; top: 0; bottom: 0; left: 0; border-radius: 2px; }
+.bar u { position: absolute; top: -3px; bottom: -3px; width: 1px; background: var(--ink2); }
+.bar s { position: absolute; top: -3px; bottom: -3px; width: 1px; border-left: 1px dashed var(--bad); }
+.cls { display: flex; flex-wrap: wrap; gap: 4px 8px; font-size: .74rem; color: var(--ink2); font-family: var(--mono); }
+.better { color: var(--good); } .worse { color: var(--bad); }
+.empty { color: var(--ink2); font-size: .92rem; padding: 18px 4px; }
+.controls { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; }
+.seg { display: flex; border: 1px solid var(--rule); border-radius: 7px; overflow: hidden; }
+.seg button { font: 500 .85rem var(--body); border: 0; background: var(--panel); color: var(--ink2); padding: 5px 10px; cursor: pointer; }
+.seg button + button { border-left: 1px solid var(--rule); }
+.seg button[aria-pressed="true"] { background: var(--ink); color: var(--panel); }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 14px; }
+.chip { display: inline-flex; align-items: center; gap: 6px; font: 500 .84rem var(--body); color: var(--ink); background: transparent; border: 1px solid var(--rule); border-radius: 999px; padding: 3px 10px 3px 8px; cursor: pointer; }
+.chip[aria-pressed="false"] { opacity: .45; }
+.chart { position: relative; }
+.chart svg { display: block; width: 100%; height: auto; overflow: visible; }
+.chart text { fill: var(--ink2); font: 11px var(--mono); }
+.tip { position: absolute; pointer-events: none; background: var(--ink); color: var(--panel); font: 12px var(--mono); padding: 6px 8px; border-radius: 6px; white-space: nowrap; transform: translate(-50%, -100%); }
+.notes { margin: 0; padding-left: 18px; color: var(--ink2); display: grid; gap: 4px; font-size: .9rem; max-width: 90ch; }
+.foot { color: var(--mute); font-size: .8rem; }
+@media (prefers-reduced-motion: no-preference) { .bar i { transition: width .4s ease; } }
+</style>
+
+<div class="wrap">
+  <header>
+    <h1>FlapSim Run Board<small id="updated">Waiting for data from the run store…</small></h1>
+    <div class="tabs" role="group" aria-label="Plan">
+      <button id="tab-v7" aria-pressed="true">Plan v7</button>
+      <button id="tab-v6" aria-pressed="false">Plan v6</button>
+    </div>
+  </header>
+
+  <div class="machines" id="machines" aria-live="polite">
+    <div class="machine"><div class="top"><b>Machines</b><span class="pill pending">loading</span></div><p>Machine status appears here once Claude posts it.</p></div>
+  </div>
+
+  <section class="card">
+    <div class="sechead">
+      <h2>Blind test vs. the re-tuned classical controller</h2>
+      <p id="blind-help">Ratio = learned score ÷ classical median of the same direction class, per case, averaged. Lower is better; 1.00 is a tie. A seed passes when the task average is ≤ <span id="thr">0.95</span> with no crash.</p>
+    </div>
+    <div class="tablebox"><table id="blind"><thead></thead><tbody></tbody></table></div>
+    <div class="empty" id="blind-empty">No blind results for this plan yet. Each seed appears here when its blind test finishes.</div>
+  </section>
+
+  <section class="card">
+    <div class="sechead">
+      <h2>Training curves</h2>
+      <p id="curve-help"></p>
+    </div>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="Curve">
+        <button id="m-val" aria-pressed="true">Saved centres, validation</button>
+        <button id="m-train" aria-pressed="false">Every generation, training batch</button>
+      </div>
+      <div class="legend" id="legend"></div>
+    </div>
+    <div class="chart" id="chart"><svg id="svg" viewBox="0 0 900 340" role="img" aria-label="Training objective by generation"></svg><div class="tip" id="tip" hidden></div></div>
+    <div class="empty" id="curve-empty" hidden>No curves for this plan yet.</div>
+  </section>
+
+  <section class="card">
+    <h2>Notes</h2>
+    <ul class="notes" id="notes"><li>Notes from Claude appear here.</li></ul>
+  </section>
+  <p class="foot">Data lives in this page's store and is written by Claude from CloudPC-2 at every report; the page updates live.</p>
+</div>
+
+<script>
+const ARM = {
+  snn_es: { name: "SNN + ES", color: "--accent" },
+  snn_bc: { name: "SNN, imitation only", color: "--bc" },
+  ppo: { name: "MLP + PPO", color: "--ppo" },
+  mlp_bc: { name: "MLP, imitation only", color: "--bc" },
+  classical: { name: "Classical", color: "--classic" },
+};
+const css = (v) => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+const state = { plan: "v7", metric: "val", runs: [], blind: [], status: null, hidden: new Set() };
+try { const p = localStorage.getItem("flapsim.plan"); if (p === "v6" || p === "v7") state.plan = p; } catch (e) {}
+const $ = (id) => document.getElementById(id);
+const fmt = (x, d = 2) => (x == null || Number.isNaN(x)) ? "–" : Number(x).toFixed(d);
+
+function setPlan(p) {
+  state.plan = p;
+  try { localStorage.setItem("flapsim.plan", p); } catch (e) {}
+  $("tab-v7").setAttribute("aria-pressed", p === "v7"); $("tab-v6").setAttribute("aria-pressed", p === "v6");
+  render();
+}
+$("tab-v7").onclick = () => setPlan("v7"); $("tab-v6").onclick = () => setPlan("v6");
+$("m-val").onclick = () => { state.metric = "val"; $("m-val").setAttribute("aria-pressed", true); $("m-train").setAttribute("aria-pressed", false); renderCurves(); };
+$("m-train").onclick = () => { state.metric = "train"; $("m-train").setAttribute("aria-pressed", true); $("m-val").setAttribute("aria-pressed", false); renderCurves(); };
+
+function renderStatus() {
+  const s = state.status;
+  if (!s) return;
+  $("updated").textContent = s.updated ? "Updated " + s.updated : "";
+  const box = $("machines"); box.textContent = "";
+  for (const m of (s.machines || [])) {
+    const d = document.createElement("div"); d.className = "machine";
+    const top = document.createElement("div"); top.className = "top";
+    const b = document.createElement("b"); b.textContent = m.name;
+    const pill = document.createElement("span"); pill.className = "pill " + (m.state || "pending"); pill.textContent = m.state || "unknown";
+    top.append(b, pill);
+    const p = document.createElement("p"); p.textContent = m.doing || "";
+    d.append(top, p);
+    if (m.eta) { const e = document.createElement("p"); e.textContent = "Done about " + m.eta; d.append(e); }
+    box.append(d);
+  }
+  const notes = $("notes"); notes.textContent = "";
+  for (const n of (s.notes || [])) { const li = document.createElement("li"); li.textContent = n; notes.append(li); }
+  if (!(s.notes || []).length) { const li = document.createElement("li"); li.textContent = "No notes."; notes.append(li); }
+}
+
+function ratioCell(r, max) {
+  const wrap = document.createElement("div"); wrap.className = "ratio";
+  const v = document.createElement("span"); v.className = "num " + (r.ratio <= 1 ? "better" : "worse");
+  v.textContent = fmt(r.ratio) + (r.wins != null ? `  ·  ${r.wins}/${r.n} won` : "") + (r.crashes ? `  ·  ${r.crashes} crash` : "");
+  const bar = document.createElement("div"); bar.className = "bar";
+  const fill = document.createElement("i");
+  fill.style.width = Math.min(100, 100 * r.ratio / max) + "%";
+  fill.style.background = r.ratio <= 1 ? css("--good") : css("--bad");
+  const one = document.createElement("u"); one.style.left = (100 / max) + "%";
+  bar.append(fill, one);
+  wrap.append(v, bar);
+  if (r.classes) {
+    const c = document.createElement("div"); c.className = "cls";
+    for (const [k, x] of Object.entries(r.classes)) { const s = document.createElement("span"); s.className = x <= 1 ? "better" : "worse"; s.textContent = `${k} ${fmt(x)}`; c.append(s); }
+    wrap.append(c);
+  }
+  return wrap;
+}
+
+function renderBlind() {
+  const rows = state.blind.filter((b) => b.plan === state.plan).sort((a, b) => (a.mean ?? 9) - (b.mean ?? 9));
+  const thead = $("blind").tHead, tbody = $("blind").tBodies[0];
+  thead.textContent = ""; tbody.textContent = "";
+  $("blind-empty").hidden = rows.length > 0; $("blind").hidden = rows.length === 0;
+  if (!rows.length) return;
+  const tasks = [...new Set(rows.flatMap((r) => Object.keys(r.tasks || {})))];
+  const max = Math.max(2, ...rows.flatMap((r) => Object.values(r.tasks || {}).map((t) => t.ratio || 0)));
+  const hr = document.createElement("tr");
+  for (const h of ["Arm", "Seed", "Average", ...tasks, "Verdict"]) { const th = document.createElement("th"); th.textContent = h; hr.append(th); }
+  thead.append(hr);
+  for (const r of rows) {
+    const tr = document.createElement("tr");
+    const a = document.createElement("td"); const arm = document.createElement("div"); arm.className = "arm";
+    const sw = document.createElement("span"); sw.className = "sw"; sw.style.background = css((ARM[r.arm] || ARM.classical).color);
+    const nm = document.createElement("span"); nm.textContent = (ARM[r.arm] || { name: r.arm }).name; arm.append(sw, nm); a.append(arm);
+    if (r.machine) { const m = document.createElement("div"); m.className = "eyebrow"; m.textContent = r.machine; a.append(m); }
+    const s = document.createElement("td"); s.className = "num"; s.textContent = r.seed ?? "–";
+    const mean = document.createElement("td"); mean.className = "num " + ((r.mean ?? 9) <= 1 ? "better" : "worse"); mean.textContent = fmt(r.mean, 3);
+    tr.append(a, s, mean);
+    for (const t of tasks) { const td = document.createElement("td"); if (r.tasks && r.tasks[t]) td.append(ratioCell(r.tasks[t], max)); else td.textContent = "–"; tr.append(td); }
+    const v = document.createElement("td"); const pill = document.createElement("span");
+    pill.className = "pill " + (r.pass == null ? "pending" : r.pass ? "pass" : "fail"); pill.textContent = r.pass == null ? "pending" : r.pass ? "pass" : "fail";
+    v.append(pill);
+    if (r.note) { const n = document.createElement("div"); n.className = "eyebrow"; n.style.textTransform = "none"; n.style.letterSpacing = "0"; n.textContent = r.note; v.append(n); }
+    tr.append(v);
+    tbody.append(tr);
+  }
+}
+
+function seriesFor(run) {
+  const c = state.metric === "val" ? run.val : run.train;
+  if (!c || !c.x || !c.x.length) return null;
+  return c;
+}
+
+function renderCurves() {
+  const runs = state.runs.filter((r) => r.plan === state.plan);
+  $("curve-help").textContent = state.metric === "val"
+    ? "Objective of each saved centre on the fixed validation set (the selection score; comparable across arms). Open circle: selected centre. Cross: excluded (crash or tilt ≥ 70°)."
+    : "Objective of the ES centre on each generation's fresh training batch (noisy; 5-generation running median drawn, raw points faint).";
+  const legend = $("legend"); legend.textContent = "";
+  const shown = runs.filter((r) => seriesFor(r));
+  for (const r of shown) {
+    const b = document.createElement("button"); b.className = "chip"; b.setAttribute("aria-pressed", !state.hidden.has(r.id));
+    const sw = document.createElement("span"); sw.className = "sw"; sw.style.background = css((ARM[r.arm] || ARM.classical).color); sw.style.opacity = r.seedShade ?? 1;
+    b.append(sw, document.createTextNode(r.label || r.id));
+    b.onclick = () => { state.hidden.has(r.id) ? state.hidden.delete(r.id) : state.hidden.add(r.id); renderCurves(); };
+    legend.append(b);
+  }
+  const svg = $("svg"); svg.textContent = "";
+  const vis = shown.filter((r) => !state.hidden.has(r.id));
+  $("curve-empty").hidden = shown.length > 0; $("chart").hidden = shown.length === 0;
+  if (!vis.length) return;
+  const W = 900, H = 340, L = 52, R = 16, T = 14, B = 40;
+  let xs = [], ys = [];
+  for (const r of vis) { const c = seriesFor(r); xs.push(...c.x); ys.push(...c.y.filter((v) => v != null)); }
+  const x0 = Math.min(...xs), x1 = Math.max(...xs);
+  let y0 = Math.min(0.8, ...ys), y1 = Math.min(3, Math.max(1.2, ...ys));
+  y0 = Math.floor(y0 * 10) / 10; y1 = Math.ceil(y1 * 10) / 10;
+  const sx = (x) => L + (x - x0) / Math.max(1e-9, x1 - x0) * (W - L - R);
+  const sy = (y) => T + (1 - (Math.min(y, y1) - y0) / (y1 - y0)) * (H - T - B);
+  const NS = "http://www.w3.org/2000/svg";
+  const el = (n, a) => { const e = document.createElementNS(NS, n); for (const k in a) e.setAttribute(k, a[k]); svg.append(e); return e; };
+  const step = (y1 - y0) > 1.2 ? 0.5 : 0.2;
+  for (let y = Math.ceil(y0 / step) * step; y <= y1 + 1e-9; y += step) {
+    el("line", { x1: L, x2: W - R, y1: sy(y), y2: sy(y), stroke: css("--rule"), "stroke-width": 1 });
+    el("text", { x: L - 8, y: sy(y) + 4, "text-anchor": "end" }).textContent = y.toFixed(1);
+  }
+  if (1 >= y0 && 1 <= y1) {
+    el("line", { x1: L, x2: W - R, y1: sy(1), y2: sy(1), stroke: css("--classic"), "stroke-width": 1.5, "stroke-dasharray": "5 4" });
+    el("text", { x: W - R, y: sy(1) - 5, "text-anchor": "end" }).textContent = "classical = 1.0";
+  }
+  const xt = Math.max(1, Math.round((x1 - x0) / 10 / 5) * 5) || 1;
+  for (let x = Math.ceil(x0 / xt) * xt; x <= x1; x += xt) el("text", { x: sx(x), y: H - B + 18, "text-anchor": "middle" }).textContent = x;
+  el("text", { x: (L + W - R) / 2, y: H - 6, "text-anchor": "middle" }).textContent = state.metric === "val" ? "generation of the saved centre (−1 = imitation start)" : "ES generation";
+  const pts = [];
+  for (const r of vis) {
+    const c = seriesFor(r); const col = css((ARM[r.arm] || ARM.classical).color); const op = r.seedShade ?? 1;
+    let y = c.y.slice();
+    if (state.metric === "train") {
+      const raw = c.x.map((x, i) => `${sx(x)},${sy(c.y[i])}`).join(" ");
+      el("polyline", { points: raw, fill: "none", stroke: col, "stroke-width": 1, opacity: 0.2 * op });
+      y = c.y.map((_, i) => { const w = c.y.slice(Math.max(0, i - 4), i + 1).slice().sort((a, b) => a - b); return w[Math.floor(w.length / 2)]; });
+    }
+    el("polyline", { points: c.x.map((x, i) => `${sx(x)},${sy(y[i])}`).join(" "), fill: "none", stroke: col, "stroke-width": 2, opacity: op, "stroke-linejoin": "round" });
+    c.x.forEach((x, i) => {
+      const bad = c.excluded && c.excluded[i];
+      if (state.metric === "val") {
+        if (bad) { const X = sx(x), Y = sy(y[i]); el("path", { d: `M${X - 4},${Y - 4}L${X + 4},${Y + 4}M${X - 4},${Y + 4}L${X + 4},${Y - 4}`, stroke: col, "stroke-width": 2, fill: "none", opacity: op }); }
+        else el("circle", { cx: sx(x), cy: sy(y[i]), r: 4, fill: col, stroke: css("--panel"), "stroke-width": 2, opacity: op });
+        if (c.selected === x) el("circle", { cx: sx(x), cy: sy(y[i]), r: 9, fill: "none", stroke: col, "stroke-width": 2, opacity: op });
+      }
+      pts.push({ x: sx(x), y: sy(y[i]), label: `${r.label || r.id} · gen ${x} · ${fmt(c.y[i], 3)}${bad ? " · excluded" : ""}` });
+    });
+  }
+  const tip = $("tip"), chart = $("chart");
+  svg.onpointermove = (ev) => {
+    const box = svg.getBoundingClientRect(); const k = W / box.width;
+    const mx = (ev.clientX - box.left) * k, my = (ev.clientY - box.top) * k;
+    let best = null, bd = 1e9;
+    for (const p of pts) { const d = Math.hypot(p.x - mx, p.y - my); if (d < bd) { bd = d; best = p; } }
+    if (!best || bd > 40) { tip.hidden = true; return; }
+    tip.hidden = false; tip.textContent = best.label;
+    tip.style.left = (best.x / k) + "px"; tip.style.top = (best.y / k - 10) + "px";
+  };
+  svg.onpointerleave = () => { tip.hidden = true; };
+}
+
+function render() { renderStatus(); renderBlind(); renderCurves(); $("thr").textContent = state.plan === "v7" ? "0.95" : "0.95"; }
+render();
+
+(async () => {
+  const db = await (window.claude ? window.claude.use("db") : null);
+  if (!db) { $("updated").textContent = "The run store is not available in this view."; return; }
+  db.collection("runs").onSnapshot((s) => { state.runs = s.docs.map((d) => ({ id: d.id, ...d.data() })); renderCurves(); }, () => {});
+  db.collection("blind").onSnapshot((s) => { state.blind = s.docs.map((d) => ({ id: d.id, ...d.data() })); renderBlind(); }, () => {});
+  db.doc("status/now").onSnapshot((d) => { state.status = d.exists ? d.data() : null; renderStatus(); }, () => {});
+})();
+</script>
