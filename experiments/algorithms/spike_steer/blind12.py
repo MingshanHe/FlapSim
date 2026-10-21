@@ -37,7 +37,8 @@ TESTS = dict(kick=dict(base=2_099_300_000, condition='stress', kick=True, mag=3e
              kick2=dict(base=2_099_700_000, condition='stress', kick=True, mag=2e-3),      # amendment 3: dose-response
              kick45=dict(base=2_099_900_000, condition='stress', kick=True, mag=4.5e-3),
              kick_early=dict(base=2_100_100_000, condition='stress', kick=True, mag=3e-3, kick_t=(.0, .15)),   # v13 test 2: hit timing
-             kick_late=dict(base=2_100_300_000, condition='stress', kick=True, mag=3e-3, kick_t=(.5, 1.)))
+             kick_late=dict(base=2_100_300_000, condition='stress', kick=True, mag=3e-3, kick_t=(.5, 1.)),
+             kick_rep=dict(base=2_102_500_000, condition='stress', kick=True, mag=3e-3))      # plan v14 d5: replication of the primary scenario
 KICK_MAG, KICK_T = 3e-3, (.15, .45)
 DASH_MISS = B.WINDOW['dash']                      # the settle miss constant (s)
 A9, A11 = Path('artifacts/spike_steer/plan_v9'), Path('artifacts/spike_steer/plan_v11')

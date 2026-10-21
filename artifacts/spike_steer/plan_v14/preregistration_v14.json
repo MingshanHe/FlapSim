@@ -1,0 +1,26 @@
+{
+ "plan": "v14",
+ "written": "2026-10-22 ~08:50 JST, before any v14 episode; requested by the round-2 reviewer of the paper draft (docs/paper/reviews/review_full_round2.md), run under the user's instruction that missing data be produced on CloudPC-2",
+ "kind": "frozen controllers, no training; analysis + four cheap experiments",
+ "d1": {
+  "what": "paired delta of each v11 SNN centre relative to the classical + ES centre (seed 1) on the v11 nominal blind set and on every v12/v13 scenario; 0 new episodes",
+  "reading": "parity with the same-budget classical if the CI covers 0"
+ },
+ "d2": {
+  "what": "the opponent with its base-law pulses not suppressed during schedule segments, on the v11 nominal set, the primary kick set and the x1.5 turbulence set (576 episodes)",
+  "reading": "if this arm crashes about as rarely as the SNN under the hit, the SNN advantage is \"pulses on vs off\", not closed loop; if it crashes like the opponent, the deficit is the open-loop schedule"
+ },
+ "d3": {
+  "what": "channel ablation of the five frozen v11 centres under the primary hit: pulses suppressed while in charge (nopulse), set-points zeroed while in charge (noref); 1920 episodes",
+  "reading": "if nopulse crashes like the opponent and noref like the full centre, the robustness travels with the pulse channel"
+ },
+ "d4": {
+  "what": "the imitation starts of seeds 2-5 under the primary hit and the x1.5 turbulence (1536 episodes)",
+  "reading": "is the robustness of the imitation start a property of one seed or of the architecture"
+ },
+ "d5": {
+  "what": "replication of the primary 3 mN m mid-manoeuvre hit on a fresh base 2_102_500_000 with the 14 arms (blind12 test kick_rep)",
+  "reading": "does H1 (>= 3 of 5 v11 seeds) replicate"
+ },
+ "expectations": "d2: the un-suppressed opponent will fire a few extra pulses but still crash often (the schedule is still open loop); d3: nopulse will lose most of the advantage, noref less; d4: the other imitation starts will be about as robust as seed 1; d5: H1 replicates (4-5 of 5) given the 2 and 4.5 mN m levels"
+}
