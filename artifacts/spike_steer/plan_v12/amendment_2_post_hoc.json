@@ -1,0 +1,9 @@
+{
+ "plan": "v12",
+ "amendment": 2,
+ "written": "2026-10-21 ~19:40 JST, AFTER the kick and ood results of seeds 1-3 were seen (post hoc; recorded as such)",
+ "decision": "user's decision: the ood scenario (lower-body mass +12.5 %) does not occur in deployment (the airframe mass is fixed), so it is not a headline robustness claim. H1 is reported for kick as preregistered; the ood result is kept and reported as a secondary robustness check, not as part of the primary claim.",
+ "unchanged": "H1 for kick (>= 3 of 5 v11 seeds with the paired-delta CI below 0 and crashes <= classical) as preregistered; nothing is removed from the archive or the dashboard",
+ "ood_result_as_seen": "no crashes in any arm; classical self-ratio 1.006; v11 SNN seeds 1-3 delta +0.047 / +0.070 / +0.021; classical+ES -0.008 / -0.013; i.e. no learned-layer advantage under plant mismatch",
+ "note": "this amendment changes the weight given to a result after seeing it; it is recorded here so that the paper can state it openly"
+}
