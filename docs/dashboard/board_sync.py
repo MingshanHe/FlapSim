@@ -180,6 +180,25 @@ def build(status_file=None):
                     doc['pass'] = bool(doc['mean'] <= .95 and cn <= opp_crash)
                     doc['note'] = f"{cn} crashed of {len(rows)} (classical: {opp_crash})"
                 docs['blind'][f'{plan}_{arm}_s{s_}'] = doc
+    # ---- plan v12: blind-only robustness tests (kick / ood) of frozen controllers
+    for test in ('kick', 'ood'):
+        d = ROOT/f'runs/spike_steer/v12/{test}'
+        sf = d/'summary.json'
+        if not sf.exists():
+            continue
+        S = json.loads(sf.read_text())
+        for f in sorted(d.glob('evaluate_*.json')):
+            e = json.loads(f.read_text())
+            name = f.stem[len('evaluate_'):]
+            p = e['paired']
+            doc = blind_doc('v12', e['arm'], e.get('seed'), e.get('machine', 'CloudPC-2'), e['report'], note=e.get('note'))
+            doc.update(test=test, crashes=p['crashes'], delta=p['delta'], delta_ci=p['delta_ci95'], wins=p['wins'], classical_self=p['classical_self'])
+            doc['pass'] = e.get('H1_pass')
+            docs['blind'][f'v12_{test}_{name}'] = doc
+        any_p = next((S[k] for k in S if isinstance(S.get(k), dict) and 'classical_self' in S[k]), None)
+        docs['blind'][f'v12_{test}_classical'] = dict(plan='v12', arm='classical', seed=None, machine='CloudPC-2', test=test,
+                                                     mean=any_p['classical_self'] if any_p else None, tasks={}, crashes=S['classical']['crashes'],
+                                                     **{'pass': None}, note=f"classical opponent's own ratio (reference); {S['classical']['crashes']} crashed of {S['classical']['n']}")
     if status_file:
         docs['status'] = {'now': json.loads(Path(status_file).read_text())}
     OUT.mkdir(parents=True, exist_ok=True)
