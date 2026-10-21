@@ -1,0 +1,21 @@
+{
+ "plan": "v11",
+ "amendment": 1,
+ "written": "2026-10-21 ~10:20 JST, after v11 generation 0 training lines only (no selection, no blind result seen); approved by the user (\"同意\")",
+ "reason": "Independent audit (scratchpad/audit/audit_report.md, Fable 5.1): ratio = mean_i score_i / class-median is > 1 for the classical opponent itself (self-ratio 1.086 on the v9 blind set, 1.273 on v10, 1.415 on v8, because score distributions are right-skewed); \"<= 0.95\" therefore demands 12-25 % better than the classical mean, while the best-of-all-controllers-per-case bound is 0.87-0.89 and the dash floor is ~0.94 (settle constant). The paired comparison is what the criterion was meant to make.",
+ "kept": "M6 stays the preregistered primary criterion and is reported as written.",
+ "added": {
+  "P1_paired": {
+   "name": "paired comparison (reported alongside M6, not replacing it)",
+   "definition": "on the same 192 blind cases: delta = learned ratio - classical self-ratio (same class medians), paired bootstrap 95 % CI over cases within task; median-of-ratios; paired win count; crashes vs classical crashes. Tool: experiments/algorithms/spike_steer/paired_report.py",
+   "reading": "SNN + ES better than the re-tuned classical if the delta CI is below 0 and crashes <= classical; equal if the CI covers 0"
+  },
+  "classical_upper_bound_arm": {
+   "name": "cls_es",
+   "definition": "the classical schedule's 28 knobs (7 classes x go_ref, go_beats, brake_beats, brake_ref) optimised with exactly the v11 ES budget (pop 16, 16 generations, 8 cases/task/generation with full coverage, crash-aware ranking, lr decay 0.85), selection on 64 cases/task (0 crashes), blind 2_099_100_000 x 64/task vs the untouched opponent; module descend_cls.py; sigma 0.05 / lr 0.02 in knob-normalised units (refs/0.5 rad, beats/20)",
+   "purpose": "if the classical controller with the same optimisation budget cannot reach 0.95 either, the criterion and not the learned layer is what fails; it also gives the honest ceiling for the paired delta",
+   "seeds": "1 on CloudPC-2 (bit-identical, after the v11 chain); 1-2 on GoogleCloud (approximate, early signal)"
+  }
+ },
+ "exploratory_note": "the same paired analysis applied to v9/v10 is exploratory (those plans were judged by M4/M5 as preregistered)"
+}
