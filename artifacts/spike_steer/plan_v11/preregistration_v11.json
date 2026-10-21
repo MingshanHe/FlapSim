@@ -1,0 +1,60 @@
+{
+ "plan": "v11",
+ "written": "2026-10-21 ~09:45 JST, before any v11 training episode; approved by the user (\"开跑！\")",
+ "motivation": [
+  "v10 (more inputs) was worse than frozen v9 on identical blind cases (1.137 vs 1.074): the bottleneck is ES training, not missing inputs",
+  "defect: with 4 cases per task per generation, bench9.cases9 gives ES the same direction slots every generation (dash 0/45/90/135 only; redirect one turn handedness only) and only stress strata 0-3; selection/blind cover all",
+  "ES objective of 12 episodes is noisy (training gains do not transfer to selection), and late ES is unstable (all 15 v9/v10 seeds crash on selection after gen 2-10)"
+ ],
+ "change": {
+  "module": "experiments/algorithms/spike_steer/descend12.py",
+  "es": {
+   "cases_per_task": 8,
+   "episodes_per_candidate": 24,
+   "coverage": "every generation: all 8 dash directions, all 8 redirect pairs, all 4 evade directions x2, all 8 strata (descend12 selftest)",
+   "ranking": "crash-aware: any crashed episode ranks the candidate below all crash-free ones",
+   "lr": 0.01,
+   "lr_decay": "lr*0.85^gen",
+   "sigma": 0.02,
+   "pop": 16,
+   "generations": 16,
+   "saved_centres": "imitation start + odd generations (9 centres)"
+  },
+  "selection": "64 validation cases per task (all directions, both turns), 0 crashes and 0 over-hard-tilt required, minimum objective"
+ },
+ "unchanged": [
+  "25-input network (v9)",
+  "imitation starts = plan v9 imitate_spec_s1-5",
+  "bench10 scoring, classical opponents, normalisers (plan v9 baseline.json)"
+ ],
+ "blind": {
+  "base": 2099100000,
+  "cases_per_task": 64,
+  "note": "never used before"
+ },
+ "seeds": {
+  "confirmatory": [
+   1,
+   2,
+   3,
+   4,
+   5
+  ],
+  "machines": "s1-s3 CloudPC-2, s4-s5 HomePC",
+  "exploratory": "GoogleCloud seeds 6-10 if run (approximate machine)"
+ },
+ "primary": {
+  "name": "M6",
+  "per_seed": "average manoeuvre ratio <= 0.95 AND crashed episodes <= classical crashed episodes on the same 192 blind cases",
+  "holds_if": ">= 3 of seeds 1-5 pass"
+ },
+ "secondary": [
+  "S1 paired: v11 selected centres vs frozen v9 centres on the v11 blind set",
+  "S2 per-direction and per-class ratios (trained-vs-previously-untrained directions)",
+  "S3 crashes by type",
+  "S4 selection-to-blind gap vs v9/v10"
+ ],
+ "not_allowed": [
+  "changing scoring, opponents, blind set or criterion after seeing v11 results"
+ ]
+}
