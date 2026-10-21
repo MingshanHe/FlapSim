@@ -56,14 +56,14 @@ def fig_crashes():
     ax.bar(x+.5*w, m, w, color=C_SNN, label='SNN + ES (v11, 5 seeds, mean; bar = min–max)', yerr=[lo, hi], capsize=2, ecolor='#0b3d6b', error_kw=dict(lw=.8))
     ax.bar(x+1.5*w, np.array(bc)/1.92, w, color=C_BC, label='SNN, imitation only (seed 1)')
     for i, h in enumerate(h1):
-        ax.text(x[i], max(cls[i], max(snn[i]))/1.92+2.5, f"{h['seeds_passing']}/{h['seeds']}", ha='center', fontsize=7, color='#0b3d6b')
+        ax.text(x[i], max(cls[i], max(snn[i]))/1.92+2.5, f"H1 {h['seeds_passing']}/{h['seeds']}", ha='center', fontsize=6.5, color='#0b3d6b')
     ax.set_xticks(x)
     ax.set_xticklabels(labels, rotation=35, ha='right')
     ax.set_ylabel('crashed episodes (% of 192)')
     ax.set_ylim(0, 60)
     ax.grid(axis='y', alpha=.3)
     ax.legend(loc='upper right', ncol=2)
-    ax.set_title('Crashes of the frozen controllers on 14 blind robustness sets (64 cases per task); numbers = v11 seeds passing H1')
+    ax.set_title('Crashed episodes of the frozen controllers on 14 blind robustness sets (192 cases each)')
     fig.tight_layout()
     fig.savefig(OUT/'fig_r2_crashes.png')
     plt.close(fig)
@@ -102,10 +102,14 @@ def fig_delta():
     ax.set_yticks(y)
     ax.set_yticklabels(labels)
     ax.invert_yaxis()
-    ax.set_xlabel('paired Δ = arm ratio − classical opponent\'s own ratio on the same cases\n(negative = better than the re-tuned classical schedule)')
+    ax.set_xlabel('paired Δ = arm ratio − classical opponent\'s own ratio on the same cases\n(negative = better than the hand-tuned classical opponent)')
     ax.grid(axis='x', alpha=.3)
-    ax.legend(loc='upper right')
-    ax.set_title('Paired difference to the re-tuned classical schedule on every blind set')
+    ax.legend(loc='lower left', framealpha=.95)
+    for i in range(n):
+        for v in snn[i]:
+            if v > .6:
+                ax.annotate('v11 seed 1 (17 crashes)', (v, y[i]), xytext=(v-.02, y[i]-.55), fontsize=7, ha='right', color=C_SNN, arrowprops=dict(arrowstyle='-', color=C_SNN, lw=.6))
+    ax.set_title('Paired difference to the hand-tuned classical schedule on every blind set')
     fig.tight_layout()
     fig.savefig(OUT/'fig_r3_paired_delta.png')
     plt.close(fig)
@@ -175,14 +179,17 @@ def fig_nominal():
     S11 = json.loads((A/'plan_v11/summary.json').read_text())
     opp11 = json.loads((R/'v11/test_opponent.json').read_text())
     rows.append(('v11\n(fixed ES)', [S11[f's{s}']['snn_es']['mean'] for s in range(1, 6)], paired(opp11, opp11)['mean'],
-                 [S11[f'cls_es_s{s}']['mean'] for s in (1, 2)]+[0.999, 1.018]))
+                 [S11[f'cls_es_s{s}']['mean'] for s in (1, 2)]))
+    crashes = ['SNN 2 / opp. 1', 'SNN 10 / opp. 5', 'SNN 3 / opp. 0', 'SNN 6 / opp. 3', 'SNN 0 / opp. 0']
     fig, ax = plt.subplots(figsize=(7.4, 3.5), dpi=170)
     x = np.arange(len(rows))
     for i, (lab, snn, self_, cles) in enumerate(rows):
         ax.scatter([i]*len(snn), snn, color=C_SNN, s=26, zorder=3, label='SNN + ES, one point per seed' if i == 0 else None)
         ax.plot([i-.22, i+.22], [self_, self_], color=C_CLS, lw=2.2, zorder=2, label='classical opponent\'s own ratio' if i == 0 else None)
         if cles:
-            ax.scatter([i+.28]*len(cles), cles, marker='s', color=C_CLSES, s=24, zorder=3, label='Classical + ES (4 seeds)' if i == 4 else None)
+            ax.scatter([i+.28]*len(cles), cles, marker='s', color=C_CLSES, s=24, zorder=3, label='Classical + ES (2 seeds, same machines)' if i == 4 else None)
+            ax.scatter([i+.28]*2, [0.999, 1.018], marker='s', facecolors='none', edgecolors=C_CLSES, s=24, zorder=3, label='Classical + ES (2 seeds, approximate machine)' if i == 4 else None)
+        ax.text(i, .815, 'crashes: '+crashes[i], ha='center', fontsize=6.5, color=C_CLS)
     ax.axhline(.95, color='#c23b3b', ls=':', lw=1, label='preregistered threshold 0.95')
     ax.set_xticks(x)
     ax.set_xticklabels([r[0] for r in rows])
@@ -190,7 +197,7 @@ def fig_nominal():
     ax.set_ylim(.8, 1.5)
     ax.grid(axis='y', alpha=.3)
     ax.legend(loc='upper right', fontsize=7)
-    ax.set_title('Nominal manoeuvres: the ratio criterion is not reached by any controller, the classical included')
+    ax.set_title('Nominal manoeuvres: mean ratio per plan and the opponent\'s own ratio on the same blind set')
     fig.tight_layout()
     fig.savefig(OUT/'fig_r0_nominal.png')
     plt.close(fig)
@@ -207,13 +214,14 @@ def fig_mechanism():
     for j, (k, lab, col) in enumerate(arms):
         r = M[k]['crash_rate_by_tilt_at_hit']
         vals = [100*r[b][0]/r[b][1] if b in r else np.nan for b in bins]
-        ax.bar(np.arange(2)+(j-2.5)*w, vals, w, color=col, alpha=.95 if 'snn11' not in k else .55+.15*j/5, label=lab)
+        err = [[100*(r[b][0]/r[b][1]-r[b][2][0]) if b in r else 0 for b in bins], [100*(r[b][2][1]-r[b][0]/r[b][1]) if b in r else 0 for b in bins]]
+        ax.bar(np.arange(2)+(j-2.5)*w, vals, w, color=col, alpha=.95 if 'snn11' not in k else .55+.15*j/5, label=lab, yerr=err, capsize=1.5, error_kw=dict(lw=.6, ecolor='#333'))
     ax.set_xticks(np.arange(2))
     ax.set_xticklabels(['tilt at hit < 20°', '20–35°'])
     ax.set_ylabel('crash rate (%)')
     ax.set_title('(a) Crash rate at matched tilt-at-hit')
     ax.legend(fontsize=6.5, loc='upper left', ncol=2, framealpha=.9)
-    ax.set_ylim(0, 45)
+    ax.set_ylim(0, 60)
     ax.grid(axis='y', alpha=.3)
     ax = axes[1]
     for j, (k, lab, col) in enumerate(arms):
@@ -239,7 +247,28 @@ def fig_mechanism():
     plt.close(fig)
 
 
+def fig_skew():
+    import sys
+    sys.path.insert(0, str(ROOT))
+    opp = json.loads((R/'v11/test_opponent.json').read_text())
+    from experiments.algorithms.spike_steer import bench9 as T
+    fig, ax = plt.subplots(figsize=(5.2, 3.), dpi=170)
+    for t, col in (('evade', '#2f6db5'), ('redirect', '#1f8a4c'), ('dash', '#d4781f')):
+        med = {cl: np.median([r['score'] for r in opp if r['task'] == t and r['cls'] == cl]) for cl in T.CLASSES[t]}
+        ratios = [r['score']/med[r['cls']] for r in opp if r['task'] == t]
+        ax.hist(ratios, bins=np.arange(0, 3.05, .1), alpha=.55, color=col, label=f'{t}: mean {np.mean(ratios):.2f}')
+    ax.axvline(1., color='#444', lw=1)
+    ax.set_xlabel('opponent score ÷ its own class median (v11 blind set, 192 cases)')
+    ax.set_ylabel('cases')
+    ax.legend(fontsize=7.5)
+    ax.set_title('Why the ratio exceeds 1 for the opponent itself: right-skewed per-case ratios', fontsize=8.5)
+    fig.tight_layout()
+    fig.savefig(OUT/'fig_r0b_skew.png')
+    plt.close(fig)
+
+
 if __name__ == '__main__':
+    fig_skew()
     fig_nominal()
     fig_training()
     fig_crashes()
