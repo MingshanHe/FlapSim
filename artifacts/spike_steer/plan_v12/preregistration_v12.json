@@ -1,0 +1,51 @@
+{
+ "plan": "v12",
+ "written": "2026-10-21 ~19:00 JST, before any v12 episode; approved by the user (\"可以\")",
+ "kind": "blind-only robustness tests of frozen controllers; no training",
+ "motivation": "v7-v11 and the classical upper-bound arm show that on the undisturbed bench10 tasks every controller, the classical opponent included, lands at a mean ratio of ~1.0-1.1 and the 0.95 threshold is unreachable; the open-loop classical schedule is timer-based and cannot react during a manoeuvre, the learned layer sees the IMU. v12 tests both, frozen, in two scenarios neither was tuned for.",
+ "tests": {
+  "kick": {
+   "base": 2099300000,
+   "cases_per_task": 64,
+   "condition": "stress (as bench9)",
+   "change": "one 20 ms torque hit of 3e-3 N m about a random horizontal axis (upset.install mechanism) at t0 + U(0.15, 0.45) s, i.e. during the manoeuvre"
+  },
+  "ood": {
+   "base": 2099500000,
+   "cases_per_task": 64,
+   "condition": "environment 'ood': lower bodies +12.5 % mass, stress disturbances on",
+   "change": "plant mismatch; nothing else"
+  }
+ },
+ "scoring": "bench10 (primary, unchanged); secondary variant settle_free: dash score minus its settle term (t_settle, or the 4 s miss constant that no controller avoids in the pitch/diag classes); evade/redirect unchanged",
+ "arms": {
+  "classical": "plan v9 baseline opponent (frozen)",
+  "cls_es": "plan v11 classical upper-bound centres, seeds 1 (CloudPC-2, gen 15) and 2 (HomePC, gen 3)",
+  "snn11": "PRIMARY: plan v11 selected SNN+ES centres, seeds 1-5 (seed 2 = its selected imitation start; seeds 4-5 added when HomePC finishes, same cases)",
+  "snn9": "secondary: plan v9 selected centres, seeds 1-5",
+  "snn_bc": "v11 imitation start, seed 1"
+ },
+ "analysis": "paired difference vs the classical opponent on identical cases with a paired bootstrap 95 % CI (paired_report), paired wins, crashes with exact 95 % intervals, crashes by type; pooled crash rate over both tests per arm",
+ "primary": {
+  "name": "H1",
+  "per_test_per_seed": "snn11 seed passes if the paired-delta 95 % CI lies below 0 AND its crashes <= the classical crashes on the same 192 cases",
+  "holds_if": ">= 3 of 5 snn11 seeds pass, evaluated separately for kick and for ood"
+ },
+ "stated_risk": "the ES-tuned SNN runs with a heavier tilt tail (p99 ~55 deg vs 40 deg); a hit on top of that may crash it more often than the classical. Either outcome is reported.",
+ "machines": "CloudPC-2 (kick, then ood); HomePC may take ood after its v11 chain; both bit-identical",
+ "not_allowed": [
+  "changing kick magnitude/timing, scoring, bases or H1 after seeing results",
+  "reporting the settle-free variant alone"
+ ],
+ "kick_calibration": {
+  "rule": "magnitude fixed BEFORE any learned-arm episode as the largest calibrated level at which the frozen classical opponent crashes on <= 20 % of 24 calibration cases (8 per task, base 2_099_200_000, not a blind base)",
+  "table": {
+   "2e-3": "1/24 crashes, tilt p90 49 deg",
+   "3e-3": "4/24 crashes (17 %), tilt p90 55 deg",
+   "4.5e-3": "9/24 crashes",
+   "6e-3": "16/24 crashes"
+  },
+  "chosen": "3e-3 N m",
+  "note": "the first draft said 6e-3 (the hover calibration of upset.py); during a manoeuvre that level crashes the classical in 2/3 of cases, which would make the test a pure crash count"
+ }
+}
