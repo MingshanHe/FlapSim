@@ -146,21 +146,30 @@ def build(status_file=None):
                 doc['pass'] = bool(doc['mean'] <= .95 and c8 <= 5)
             docs['blind'][f'v8_{arm}_s{s_}'] = doc
     # ---- plans v9 (bench10 scoring) and v10 (37-input layer): CloudPC-2 seeds 1-3, HomePC seeds 4-5 (pushed under plan_v*/homepc)
-    for plan, rdir, adir, lab in (('v9', 'v9', 'plan_v9', 'v9'), ('v10', 'v10', 'plan_v10', 'v10')):
+    for plan, rdir, adir, lab, tg in (('v9', 'v9', 'plan_v9', 'v9', '_careful'), ('v10', 'v10', 'plan_v10', 'v10', '_careful'), ('v11', 'v11', 'plan_v11', 'v11', '_v11')):
         cloud = ROOT/f'runs/spike_steer/{rdir}'
         opp_f = cloud/'test_opponent.json'
         opp_crash = sum(not r['flown'] for r in json.loads(opp_f.read_text())) if opp_f.exists() else None
         for root, mach in ((cloud, 'CloudPC-2'), (ROOT/f'artifacts/spike_steer/{adir}/homepc', 'HomePC')):
-            for f in sorted(root.glob('finetune_s*_careful/history.jsonl')):
+            for f in sorted(root.glob(f'finetune_s*{tg}/history.jsonl')):
                 s_ = int(f.parent.name[len('finetune_s'):].split('_')[0])
                 h = jl(f)
                 doc = dict(plan=plan, arm='snn_es', seed=s_, label=f'SNN + ES ({lab}), seed {s_}', machine=mach, status='running',
                            train=dict(x=[r['generation'] for r in h], y=[r['center'] for r in h]))
-                rs = root/f'reselect_s{s_}_careful.json'
+                rs = root/f'reselect_s{s_}{tg}.json'
                 if rs.exists():
                     doc['val'], doc['status'] = val_curve(json.loads(rs.read_text())), 'done'
                 docs['runs'][f'{plan}_snn_s{s_}'] = doc
-            for f in sorted(list(root.glob('evaluate_*_s*_careful.json'))+list(root.glob('evaluate_snn9_s*.json'))):
+            for f in sorted(root.glob('cls_es_s*/history.jsonl')):
+                s_ = int(f.parent.name[len('cls_es_s'):])
+                h = jl(f)
+                doc = dict(plan=plan, arm='cls_es', seed=s_, label=f'Classical + ES upper bound ({lab}), seed {s_}', machine=mach, status='running',
+                           train=dict(x=[r['generation'] for r in h], y=[r['center'] for r in h]))
+                rs = root/f'reselect_cls_es_s{s_}.json'
+                if rs.exists():
+                    doc['val'], doc['status'] = val_curve(json.loads(rs.read_text())), 'done'
+                docs['runs'][f'{plan}_cls_s{s_}'] = doc
+            for f in sorted(list(root.glob(f'evaluate_*_s*{tg}.json'))+list(root.glob('evaluate_snn9_s*.json'))):
                 e = json.loads(f.read_text())
                 arm, s_ = e.get('arm', 'snn_es'), e.get('seed')
                 rows = e.get('rows', [])
