@@ -34,6 +34,8 @@ MAG = 3e-3
 TESTS = dict(
     turb2=dict(base=2_100_500_000, scale=dict(pulse_force=2., pulse_torque=2.)),
     turb3=dict(base=2_100_700_000, scale=dict(pulse_force=3., pulse_torque=3.)),
+    turb125=dict(base=2_102_100_000, scale=dict(pulse_force=1.25, pulse_torque=1.25)),   # amendment 3: calibrated levels
+    turb15=dict(base=2_102_300_000, scale=dict(pulse_force=1.5, pulse_torque=1.5)),
     noise5=dict(base=2_100_900_000, set=dict(attitude_noise_deg=.1, gyro_noise=.01)),
     delay3=dict(base=2_101_100_000, set=dict(delay_steps=3)),
     kick_pre=dict(base=2_101_300_000, kick_t=(-.6, -.3)),
