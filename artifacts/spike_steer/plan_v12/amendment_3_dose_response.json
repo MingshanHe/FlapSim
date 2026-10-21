@@ -1,0 +1,21 @@
+{
+ "plan": "v12",
+ "amendment": 3,
+ "written": "2026-10-21 ~20:40 JST, before any 2 / 4.5 mN m episode; approved by the user (\"可以，跑一下\")",
+ "purpose": "dose-response of the kick test: the same frozen arms (classical, cls_es s1-2, v11 SNN s1-5, v9 SNN s1-5, v11 imitation start) on two more kick levels, so that crash rate and paired delta can be plotted against hit magnitude (2 / 3 / 4.5 mN m)",
+ "tests": {
+  "kick2": {
+   "base": 2099700000,
+   "mag": "2e-3 N m",
+   "cases_per_task": 64
+  },
+  "kick45": {
+   "base": 2099900000,
+   "mag": "4.5e-3 N m",
+   "cases_per_task": 64
+  }
+ },
+ "unchanged": "hit timing t0 + U(0.15, 0.45) s, random horizontal axis, stress condition, bench10 scoring, 64 cases per task, fresh never-used bases",
+ "analysis": "descriptive: crash rate with exact 95 % intervals and paired delta with bootstrap CI per arm and level; H1 reported per level with the same rule as kick (>= 3 of 5 v11 seeds) but the preregistered primary H1 remains the 3 mN m level",
+ "expectation": "stated before running: at 2 mN m fewer crashes everywhere and a smaller SNN advantage; at 4.5 mN m the classical crashes in about half of the cases (calibration 9/24) and the SNN advantage may shrink if its own tilt margin is exhausted"
+}

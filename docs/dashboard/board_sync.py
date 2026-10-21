@@ -190,7 +190,7 @@ def build(status_file=None):
                     doc['test'] = 'nominal'
                 docs['blind'][f'{plan}_{arm}_s{s_}'] = doc
     # ---- plan v12: blind-only robustness tests (kick / ood) of frozen controllers
-    for test in ('kick', 'ood'):
+    for test in ('kick2', 'kick', 'kick45', 'ood'):
         d = ROOT/f'runs/spike_steer/v12/{test}'
         sf = d/'summary.json'
         if not sf.exists():

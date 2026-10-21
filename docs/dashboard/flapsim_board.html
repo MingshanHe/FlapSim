@@ -101,7 +101,7 @@ td.num { font-family: var(--mono); white-space: nowrap; }
     <div class="sechead">
       <h2>Blind test vs. the re-tuned classical controller</h2>
       <p id="blind-help">Ratio = learned score ÷ classical median of the same direction class, per case, averaged. Lower is better; 1.00 is a tie. A seed passes when the task average is ≤ <span id="thr">0.95</span> with no crash.</p>
-      <p id="blind-help-rob" hidden>Robustness rows (plan v12, same frozen v11 controllers): "nominal" is the v11 blind set; kick and ood are new blind sets with a disturbance (kick: a 3 mN·m torque hit during the manoeuvre; ood: +12.5 % body mass). Δ = learned ratio − the classical opponent's own ratio on the identical cases, with a paired bootstrap 95 % CI. A v11 seed passes when the CI lies below 0 and its crashes are ≤ the classical's.</p>
+      <p id="blind-help-rob" hidden>Robustness rows (plan v12, same frozen v11 controllers): "nominal" is the v11 blind set; kick and ood are new blind sets with a disturbance (kick2 / kick / kick45: a 2 / 3 / 4.5 mN·m torque hit during the manoeuvre; ood: +12.5 % body mass). Δ = learned ratio − the classical opponent's own ratio on the identical cases, with a paired bootstrap 95 % CI. A v11 seed passes when the CI lies below 0 and its crashes are ≤ the classical's.</p>
     </div>
     <div class="tablebox"><table id="blind"><thead></thead><tbody></tbody></table></div>
     <div class="empty" id="blind-empty">No blind results for this plan yet. Each seed appears here when its blind test finishes.</div>
@@ -143,7 +143,7 @@ const ARM = {
   mlp_bc: { name: "MLP, imitation only", color: "--bc" },
   classical: { name: "Classical", color: "--classic" },
 };
-const TEST_ORDER = { nominal: 0, kick: 1, ood: 2 };
+const TEST_ORDER = { nominal: 0, kick2: 1, kick: 2, kick45: 3, ood: 4 };
 const css = (v) => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
 const state = { plan: "v11", metric: "val", runs: [], blind: [], status: null, hidden: new Set() };
 try { const p = localStorage.getItem("flapsim.plan"); if (["v6", "v7", "v7full", "v8", "v9", "v10", "v11"].includes(p)) state.plan = p; } catch (e) {}
