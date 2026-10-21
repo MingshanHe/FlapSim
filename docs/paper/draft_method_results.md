@@ -91,4 +91,70 @@ The preregistered criterion per scenario (H1) is: a v11 seed passes when its pai
 
 ## 3. Results
 
-*(written after the last exploratory seeds finish; figures `fig_r0`–`fig_r6` are final)*
+### 3.1 Nominal manoeuvres: parity with the re-tuned classical schedule, and why the ratio criterion cannot be met
+
+**Preregistered criterion.** Plans v7–v11 each asked, per seed, for a manoeuvre ratio ≤ 0.95 with no more crashes than the opponent, in at least 3 of 5 seeds. No plan met it (Fig. R0, `fig_r0_nominal.png`). Plan v11, the final protocol, gives 1.046 / 1.146 / 1.033 / 1.054 / 1.063 for seeds 1–5 (Table R0), with **0 crashes in 960 blind episodes**; the earlier plans gave 0.97–1.07 (v8, the v7 controllers re-tested on 64 cases per task), 1.02–1.13 with 3 crashes (v9) and 1.02–1.25 with 6 crashes (v10). The v7 "full" values of 0.89–1.00 were obtained on 32 cases per task on a blind set where the opponent itself crashed once; re-tested on 64 fresh cases the same five controllers scored 0.97–1.07.
+
+**The criterion is structural, not a controller failure.** Because the ratio normalises each case by the opponent's class *median* and then averages, right-skewed score distributions push it above 1 for any controller, the opponent included: the opponent's own ratio is 1.089 on the v11 blind set (1.086 on v9, 1.273 on v10 where it crashed 3 times, 1.415 on v8 with 5 crashes). The classical upper-bound arm — the same 28-knob schedule optimised with the full ES budget — reaches 1.019 / 1.032 (CloudPC-2 / HomePC, bit-identical machines) and 0.999 / 1.018 (GoogleCloud, approximate) with 0 crashes, i.e. it does not reach 0.95 either although it is significantly better than the hand-tuned opponent (paired Δ −0.070 [−0.118, −0.029] and −0.056 [−0.100, −0.017]). An independent audit of the per-case rows put the ceiling of the metric at 0.87–0.89 even when the best of all ten-plus controllers is taken per case; in the dash task no controller ever meets the settle condition in the pitch and diagonal classes, so a constant 4 s term dominates both numerator and denominator there.
+
+**Table R0 — plan v11 blind set (base 2 099 100 000, 64 cases per task; opponent 0 crashes).**
+
+| arm | seed | machine | mean ratio | paired Δ [95 % CI] | wins /192 | crashes |
+|---|---|---|---|---|---|---|
+| classical opponent (own ratio) | – | CloudPC-2 | 1.089 | 0 | – | 0 |
+| classical + ES (upper bound) | 1 / 2 | CloudPC-2 / HomePC | 1.019 / 1.032 | −0.070 [−0.118, −0.029] / −0.056 [−0.100, −0.017] | 111 / 115 | 0 / 0 |
+| SNN + ES | 1 | CloudPC-2 | 1.046 | −0.043 [−0.091, +0.001] | 100 | 0 |
+| SNN + ES | 2 | CloudPC-2 | 1.146 | +0.057 [+0.015, +0.096] | 70 | 0 |
+| SNN + ES | 3 | CloudPC-2 | 1.033 | −0.056 [−0.108, −0.008] | 110 | 0 |
+| SNN + ES | 4 | HomePC | 1.054 | −0.035 [−0.092, +0.018] | 116 | 0 |
+| SNN + ES | 5 | HomePC | 1.063 | −0.026 [−0.079, +0.024] | 116 | 0 |
+| SNN, imitation only | 1 / 3 / 4 / 5 | – | 1.166 / 1.137 / 1.238 / 1.257 | +0.077 … | 46–63 | 0 |
+| SNN + ES, exploratory | 6–10 | GoogleCloud | 0.997 / 1.093 / 1.058 / 1.013 / 1.016 | (approx.; opponent's own ratio 1.097 there) | – | 0 |
+
+Four of the five confirmatory seeds are at or slightly below the opponent (Δ −0.03 … −0.06; one significant), one is worse (seed 2, whose selection returned the imitation start because every ES centre crashed on the validation set); the five exploratory seeds behave the same way (mean 1.035, best 0.997, 0 crashes). ES improves every seed over its imitation start by 0.06–0.20. Within tasks the SNN is at or ahead of the opponent on evade and redirect and behind on dash, where the roll-direction class (90°/270°) remains at a ratio of 1.4–1.6 in every plan: the learned layer reaches the target 20–30 % sooner than the opponent but brakes later (overshoot 0.10–0.17 m vs 0.04 m).
+
+**Training and selection behaviour (Fig. R1, `fig_r1_training.png`).** With full coverage and crash-aware ranking (plan v11) the ES centres stay crash-free on their 24-case batches, reach an objective of 0.90–0.97 by generation 7–9, and the selection objective decreases monotonically for seeds 3–5; in the earlier plans every seed began to crash on the validation set after 2–10 generations and only early centres were admissible. The classical + ES arm follows the same trajectory (0.96–0.98 on its batches, 0.975 on the validation set), which locates the plateau in the task and score rather than in the learned layer. A reference MLP + PPO arm trained on the same tasks (plan v8, 5 seeds) scored 1.109 ± 0.024 with 1 crash in 960 episodes.
+
+### 3.2 Robustness: a closed-loop learned layer survives disturbances that an open-loop schedule does not
+
+All controllers below are frozen; the opponent flies the same cases. Table R1 gives the crash counts (out of 192) on every blind set and the number of v11 seeds that pass H1; Fig. R2 (`fig_r2_crashes.png`) shows the same as rates, Fig. R3 (`fig_r3_paired_delta.png`) the paired Δ of every seed.
+
+**Table R1 — crashes /192 on the blind robustness sets (14 arms; the five v9 centres and the opponent's own ratio are in `plan_v13/crash_table.md` and the summaries).**
+
+| scenario | classical | classical + ES s1 / s2 | SNN + ES v11, seeds 1–5 | SNN imitation s1 | H1 (v11) |
+|---|---|---|---|---|---|
+| hit 2 mN·m, +0.15–0.45 s | 17 | 16 / 16 | 9 / 4 / 8 / 2 / 6 | 2 | **5/5** |
+| **hit 3 mN·m, +0.15–0.45 s (primary)** | 60 | 56 / 58 | 40 / 32 / 34 / 22 / 40 | 27 | **4/5** |
+| hit 4.5 mN·m | 86 | 87 / 89 | 95 / 71 / 67 / 46 / 76 | 68 | 1/5 |
+| hit 3 mN·m, +0–0.15 s | 56 | 53 / 56 | 42 / 30 / 31 / 22 / 45 | 25 | **4/5** |
+| hit 3 mN·m, +0.5–1.0 s | 40 | 39 / 33 | 12 / 5 / 14 / 9 / 16 | 5 | **5/5** |
+| hit 3 mN·m, 0.3–0.6 s before the command | 7 | 3 / 6 | 4 / 2 / 1 / 1 / 2 | 0 | **3/5** |
+| double hit 3 + 3 mN·m | 84 | 86 / 80 | 73 / 69 / 60 / 44 / 68 | 56 | 2/5 |
+| hit about the roll axis only | 0 | 2 / 0 | 17 / 0 / 0 / 0 / 0 | 0 | **4/5** |
+| hit about the pitch axis only | 74 | 71 / 71 | 46 / 48 / 47 / 36 / 51 | 43 | **3/5** |
+| disturbance pulses ×1.25 | 10 | 5 / 8 | 2 / 0 / 1 / 2 / 0 | 0 | **5/5** |
+| disturbance pulses ×1.5 | 40 | 36 / 38 | 7 / 5 / 9 / 8 / 9 | 8 | **5/5** |
+| disturbance pulses ×2 / ×3 | 192 / 192 | 192 / 192 | 174–175 / 192 | 174 / 192 | outside envelope |
+| IMU noise ×5 | 3 | 1 / 1 | 3 / 0 / 1 / 1 / 1 | 0 | 1/5 |
+| sensor delay 3 steps | 9 | 11 / 12 | 2 / 0 / 4 / 4 / 4 | 0 | **4/5** |
+| mass +12.5 % (secondary) | 0 | 0 / 0 | 0 / 0 / 0 / 0 / 0 | 0 | 0/5 |
+
+**Primary scenario.** With a 3 mN·m hit landing 0.15–0.45 s into the manoeuvre, the opponent crashes in 60 of 192 cases (31 %), the classical + ES centres in 56–58, the v11 SNN centres in 22–40 and the imitation start in 27. The paired Δ of the five v11 seeds is −0.125 [−0.426, +0.209], −0.282 [−0.448, −0.121], −0.355 [−0.540, −0.186], −0.584 [−0.815, −0.377] and −0.263 [−0.473, −0.024]; **H1 holds (4 of 5)**. The advantage sits in dash (Δ −0.36 … −0.72; 3–9 crashes vs 20) and redirect (12–22 vs 24), not in evade.
+
+**Dose–response (Fig. R4, `fig_r4_dose_response.png`).** At 2 mN·m the SNN crashes 2–9 times against 17 (all five seeds pass, Δ −0.57 … −0.89); at 4.5 mN·m the opponent crashes in 45 % of the cases, the SNN in 24–49 %, and only seed 4 remains significantly better (Δ −0.65 [−0.94, −0.40]; seed 1 is worse, +0.40). As stated in the amendment before the run, the advantage shrinks once the hit exhausts the learned layer's own tilt margin. The classical + ES centres track the opponent at every level (16 / 56–58 / 87–89), so re-optimising the open-loop schedule buys no robustness.
+
+**Timing, axis, repetition.** The advantage is largest for late hits (0.5–1.0 s after the command, during braking and settling, while the learned layer is still in charge through its 1 s tail): 5–16 crashes against 40, all seeds pass. Early hits (0–0.15 s, during the initial lean) are the hardest for both: 56 vs 22–45. A hit before the command (−0.6 … −0.3 s), when every arm flies the same base law, produces bit-identical trajectories up to `t0` for all arms (192/192 cases) and the learned layer then handles the command-during-recovery better (1–4 crashes vs 7). Hits about the roll axis crash nobody (opponent 0; one SNN seed 17) whereas hits about the pitch axis crash the opponent in 74 cases and the SNN in 36–51: the learned layer's advantage lies on the axis its pulses can actuate. A second hit 80–200 ms after the first reduces the margin again (84 vs 44–73, 2 of 5 seeds pass).
+
+**Sustained disturbance.** With the periodic disturbance pulses of the stress condition scaled ×1.5 the opponent crashes 40 times and the classical + ES centres 36–38, the v11 SNN centres 5–9 and the imitation start 8 (Δ −0.87 … −1.03; 5 of 5); at ×1.25, 10 vs 0–2. At ×2 and ×3 every controller is outside its envelope (174–192 of 192 crashes).
+
+**Sensor degradation and plant mismatch.** Five-fold IMU noise does not harm either side (0–3 crashes; Δ −0.12 … −0.24, one seed significant). Tripling the sensor delay harms the opponent more than the learned layer (9 and 11–12 vs 0–4; Δ −0.33 … −0.45, 4 of 5), against the expectation stated before the run. With +12.5 % body mass nothing crashes and the SNN is slightly worse (Δ +0.02 … +0.07, two seeds significantly); this scenario was demoted to a secondary claim after its result was seen (Section 2.6) and is reported as a negative result: the learned layer has no advantage under plant mismatch.
+
+**Older centres and the imitation start.** The plan-v9 centres (trained without full coverage and crash-aware ranking) span the whole range in the primary scenario (26–52 crashes; Δ −0.53 … +0.50), whereas the five v11 centres all lie below the opponent; the imitation-only network is, in most scenarios, as robust as the best ES centre (27 crashes in the primary scenario; 2 at 2 mN·m). Robustness therefore comes with the closed-loop layer itself, and ES fine-tuning trades some of it for speed unless crashes are ranked explicitly.
+
+### 3.3 Mechanism: reaction through the pulse channel, not a smaller tilt margin
+
+Re-flying the 192 primary-scenario cases with traces (Fig. R5, `fig_r5_mechanism.png`; `plan_v13/mechanism_summary.json`) separates two explanations. *Conservatism* would mean the learned layer flies at a smaller tilt when the hit lands; it does not: the mean tilt at the hit is 14.6° for the opponent and 13.9–16.9° for the SNN seeds (seed 4, the most robust, +2.4° [+1.7, +3.0]). At matched tilt-at-hit the SNN crashes far less — 11–17 % against 31 % below 20°, 12–27 % against 31 % at 20–35° — so the difference arises after the hit. *Reaction* is visible in the pulse channel: in the 150 ms after the hit the SNN seeds fire 1.1–3.6 more motor pulses than in the 150 ms before (seed 4: +3.58 [+3.0, +4.2]), the opponent +0.43 (its base-law pulses are suppressed while a schedule segment is active); the tilt peak within 0.5 s after the hit is 2–6° lower for three of the four learned arms. The set-point channel changes more than the opponent's (|Δref| 0.20–0.39 rad vs 0.25 rad over 150 ms) but not consistently against the induced tilt (32–51 % of cases), so the set-points are not the main route. Together with the axis experiment (Section 3.2) this gives a consistent picture: the learned layer reacts to the IMU within one or two wingbeats through pitch-torque pulses, which is exactly the authority it has, and that is where its robustness comes from. Fig. R6 (`fig_r6_kick_frame.png`) shows one case per task in which the opponent crashes and the v11 seed-4 centre completes the manoeuvre.
+
+### 3.4 Limitations
+
+All results are from one simulated vehicle; the aerodynamic model is bench-calibrated but the disturbance and sensor models are idealised. The learned pulses give pitch torque only; roll manoeuvres go through set-points and the PID, and the dash roll class remains the weakest cell. The ratio criterion of the preregistrations turned out to be unreachable for any controller and the comparison had to move to a paired statistic defined in an amendment (before the v11 results, after the v7–v10 ones). The plant-mismatch scenario was demoted after its result was seen. Five of the ten SNN seeds and two of the four upper-bound seeds come from a machine that does not reproduce the reference bit for bit and are reported separately. The robustness scenarios were run on frozen controllers that never saw a hit or scaled disturbance during training; this is deliberate, but it means the scenarios test generalisation rather than a trained capability.
