@@ -190,8 +190,8 @@ def build(status_file=None):
                     doc['test'] = 'nominal'
                 docs['blind'][f'{plan}_{arm}_s{s_}'] = doc
     # ---- plan v12: blind-only robustness tests (kick / ood) of frozen controllers
-    for test in ('kick2', 'kick', 'kick45', 'kick_early', 'kick_late', 'ood'):
-        d = ROOT/f'runs/spike_steer/v12/{test}'
+    for pdir, test in [('v12', t_) for t_ in ('kick2', 'kick', 'kick45', 'kick_early', 'kick_late', 'ood')]+[('v13', t_) for t_ in ('turb2', 'turb3', 'noise5', 'delay3', 'kick_pre', 'kick_double', 'kick_rollaxis', 'kick_pitchaxis')]:
+        d = ROOT/f'runs/spike_steer/{pdir}/{test}'
         sf = d/'summary.json'
         if not sf.exists():
             continue

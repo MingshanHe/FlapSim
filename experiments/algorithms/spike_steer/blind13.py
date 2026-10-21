@@ -110,7 +110,7 @@ def _save(d, name, rows, trace):
     if trace:                                       # keep only the pre-t0 fingerprint, not the full traces
         for r in rows:
             a = np.array(r.pop('trace'))
-            pre = a[a[:, 0] < r['t0']-1e-9] if 't0' in r else a[:0]
+            pre = a[a[:, 0] < r.get('t0', B.T0)-1e-9]
             r['pre_t0_fingerprint'] = [len(pre), float(pre[:, 1:10].sum()) if len(pre) else 0., float(np.abs(pre[:, 1:10]).sum()) if len(pre) else 0.]
     (d/f'rows_{name}.json').write_text(json.dumps(rows))
     print(name, 'crashes', sum(not r['flown'] for r in rows), flush=True)
