@@ -1,0 +1,24 @@
+{
+ "plan": "v13",
+ "amendment": 1,
+ "test": 2,
+ "written": "2026-10-21 ~22:40 JST, before any test-2 episode; the user asked to run the follow-up tests in order",
+ "name": "hit timing",
+ "question": "is the learned layer's kick advantage specific to the launch phase or also present during braking / settling?",
+ "tests": {
+  "kick_early": {
+   "base": 2100100000,
+   "mag": "3e-3 N m",
+   "window": "t0 + U(0, 0.15) s"
+  },
+  "kick_late": {
+   "base": 2100300000,
+   "mag": "3e-3 N m",
+   "window": "t0 + U(0.5, 1.0) s"
+  }
+ },
+ "reference": "the existing kick test (t0 + U(0.15, 0.45) s) is the middle window",
+ "arms": "the 14 frozen arms of v12",
+ "analysis": "crash counts with exact intervals and paired delta per arm and window; H1 rule reported per window (>= 3 of 5 v11 seeds with CI < 0 and crashes <= classical) but descriptive",
+ "expectation": "stated before running: early hits (during the acceleration lean) are the hardest for the open-loop schedule, so the SNN advantage should be largest there (the strata of test 1 already point that way); late hits land near hover, where both arms share the PID and base law, so the advantage should shrink"
+}

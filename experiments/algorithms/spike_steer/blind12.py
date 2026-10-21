@@ -35,13 +35,15 @@ N = 64
 TESTS = dict(kick=dict(base=2_099_300_000, condition='stress', kick=True, mag=3e-3),
              ood=dict(base=2_099_500_000, condition='ood', kick=False),
              kick2=dict(base=2_099_700_000, condition='stress', kick=True, mag=2e-3),      # amendment 3: dose-response
-             kick45=dict(base=2_099_900_000, condition='stress', kick=True, mag=4.5e-3))
+             kick45=dict(base=2_099_900_000, condition='stress', kick=True, mag=4.5e-3),
+             kick_early=dict(base=2_100_100_000, condition='stress', kick=True, mag=3e-3, kick_t=(.0, .15)),   # v13 test 2: hit timing
+             kick_late=dict(base=2_100_300_000, condition='stress', kick=True, mag=3e-3, kick_t=(.5, 1.)))
 KICK_MAG, KICK_T = 3e-3, (.15, .45)
 DASH_MISS = B.WINDOW['dash']                      # the settle miss constant (s)
 A9, A11 = Path('artifacts/spike_steer/plan_v9'), Path('artifacts/spike_steer/plan_v11')
 
 
-def cases12(task, base, n, condition, kick, mag=None):
+def cases12(task, base, n, condition, kick, mag=None, kick_t=None):
     """bench9.cases9 with a selectable condition and an optional mid-manoeuvre kick."""
     out = []
     for i in range(n):
@@ -60,7 +62,8 @@ def cases12(task, base, n, condition, kick, mag=None):
             c['t0'] = B.T0
         if kick:
             r = np.random.default_rng(np.random.SeedSequence([c['seed'], 1201]))
-            t_hit = c['t0']+KICK_T[0]+(KICK_T[1]-KICK_T[0])*float(r.random())
+            kt = kick_t if kick_t is not None else KICK_T
+            t_hit = c['t0']+kt[0]+(kt[1]-kt[0])*float(r.random())
             c['upset'] = dict(t0=c['t0'], hits=[(float(t_hit), float(360.*r.random()), float(mag if mag is not None else KICK_MAG))])
         out.append(c)
     return out
@@ -97,7 +100,7 @@ def stage_run(a):
         want = set(a.arms.split(','))
         arms = [x for x in arms if x[0] in want]
     arms = [x for x in arms if not (d/f'rows_{x[0]}.json').exists()]
-    cs = {task: cases12(task, t['base'], N, t['condition'], t['kick'], t.get('mag')) for task in D9.TASKS}
+    cs = {task: cases12(task, t['base'], N, t['condition'], t['kick'], t.get('mag'), t.get('kick_t')) for task in D9.TASKS}
     (d/'cases.json').write_text(json.dumps(cs))
     print(a.test, 'arms', [x[0] for x in arms], flush=True)
     with E.pool(a.workers) as ex:
@@ -166,10 +169,11 @@ def stage_report(a):
 def selftest():
     for test, t in TESTS.items():
         for task in D9.TASKS:
-            cs = cases12(task, t['base'], N, t['condition'], t['kick'], t.get('mag'))
+            cs = cases12(task, t['base'], N, t['condition'], t['kick'], t.get('mag'), t.get('kick_t'))
             assert len({c['seed'] for c in cs}) == N and (('upset' in cs[0]) == t['kick'])
             if t['kick']:
-                assert all(c['t0']+KICK_T[0] <= c['upset']['hits'][0][0] <= c['t0']+KICK_T[1] and c['upset']['hits'][0][2] == t['mag'] for c in cs)
+                kt = t.get('kick_t', KICK_T)
+                assert all(c['t0']+kt[0] <= c['upset']['hits'][0][0] <= c['t0']+kt[1] and c['upset']['hits'][0][2] == t['mag'] for c in cs)
             if t['condition'] == 'ood':
                 assert cs[0]['lower_mass_scale'] == 1.125
         print(test, 'cases ok')
