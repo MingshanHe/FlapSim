@@ -78,11 +78,13 @@ def record(args):
                 obs, _, te, tr, info = env9.step(act)
                 done = te or tr
             res = info['metrics']
-        elif arm == 'classical':
-            res = T.run_episode9(env, task, c, T.Classical9(arg['law'], arg['schedule']))
+        elif arm in ('classical', 'cls_es'):
+            from . import bench10 as T10
+            res = T10.run_episode10(env, task, c, T.Classical9(arg['law'], arg['schedule']))
         else:
+            from . import bench10 as T10
             from .descend8 import Learned8
-            res = T.run_episode9(env, task, c, Learned8(arg))
+            res = T10.run_episode10(env, task, c, Learned8(arg))
     finally:
         del env.step
     res.pop('trace', None)
@@ -103,6 +105,12 @@ def arms_for(a, base):
                 ('snn_es', f"SNN + ES (seed 1, gen {sel1['generation']})", json.loads(Path(sel1['spec']).read_text())),
                 ('snn_bc', 'SNN, imitation only (seed 1)', json.loads((v7/'finetune_s1/spec_val_g-1.json').read_text())),
                 ('ppo', 'MLP + PPO (seed 1, HomePC)', 'artifacts/spike_steer/ppo_direct/v7ppo/s1/centres/ckpt_g1.zip')]
+    if a.plan == 'v12':
+        A11 = Path('artifacts/spike_steer/plan_v11')
+        return [('classical', 'Classical (re-tuned)', None),
+                ('cls_es', 'Classical + ES (upper bound, seed 1)', dict(opponent=json.loads((A11/'cls_es/s1/opp_g15.json').read_text())['opponent'])),
+                ('snn_es', f'SNN + ES (v11 seed {a.seed})', json.loads((A11/(f'snn/s{a.seed}' if a.seed <= 3 else f'homepc_snn/s{a.seed}')/'selected.json').read_text())),
+                ('snn_bc', 'SNN, imitation only (seed 1)', json.loads((A11/'snn/s1/bc.json').read_text()))]
     S = a.seed
     snn = Path(f'artifacts/spike_steer/plan_v7/full/snn/s{S}')
     meta = json.loads((snn/'meta.json').read_text())
@@ -121,7 +129,8 @@ def main():
     p.add_argument('--out', default='artifacts/spike_steer/plan_v7/videos')
     p.add_argument('--slow', type=float, default=2.)
     p.add_argument('--workers', type=int, default=12)
-    p.add_argument('--plan', choices=['quick', 'full'], default='quick')
+    p.add_argument('--plan', choices=['quick', 'full', 'v12'], default='quick')
+    p.add_argument('--pick', default='', help="v12: 'crashdiff' = per task the first kick case where the classical crashed and the SNN flew")
     p.add_argument('--seed', type=int, default=1)
     p.add_argument('--case', type=int, default=0, help='index of the blind case within each task')
     p.add_argument('--tasks', default='evade,redirect,dash')
@@ -129,19 +138,36 @@ def main():
     a = p.parse_args()
     E.load_signs()
     B.DASH_M['value'] = .15
-    base = json.loads(Path('artifacts/spike_steer/plan_v7/baseline.json').read_text())
+    base = json.loads(Path('artifacts/spike_steer/plan_v9/baseline.json' if a.plan == 'v12' else 'artifacts/spike_steer/plan_v7/baseline.json').read_text())
     arms = arms_for(a, base)
     blind = T.BASES['test'] if a.plan == 'quick' else FULL_BLIND
     n_all = 16 if a.plan == 'quick' else 32
     a.task_list = [t for t in a.tasks.split(',') if t]
-    cases = {t: T.cases9(t, blind, n_all)[a.case] for t in a.task_list}
-    a.stem = 'v7_compare_blind_case0' if a.plan == 'quick' and a.case == 0 else f'v7{a.plan}_s{a.seed}_case{a.case}'
+    if a.plan == 'v12':
+        from .blind12 import cases12, TESTS
+        K = TESTS['kick']
+        allc = {t: cases12(t, K['base'], 64, K['condition'], True, K['mag']) for t in a.task_list}
+        idx = {t: a.case for t in a.task_list}
+        if a.pick == 'crashdiff':
+            kd = Path('runs/spike_steer/v12/kick')
+            rc = {(r['task'], r['seed']): r['flown'] for r in json.loads((kd/'rows_classical.json').read_text())}
+            rs = {(r['task'], r['seed']): r['flown'] for r in json.loads((kd/f'rows_snn11_s{a.seed}.json').read_text())}
+            for t in a.task_list:
+                idx[t] = next((i for i, c in enumerate(allc[t]) if not rc[(t, c['seed'])] and rs[(t, c['seed'])]), a.case)
+        cases = {t: allc[t][idx[t]] for t in a.task_list}
+        a.case_idx = idx
+        a.stem = f'v12_kick_s{a.seed}_' + ('crashdiff' if a.pick == 'crashdiff' else f'case{a.case}')
+    else:
+        cases = {t: T.cases9(t, blind, n_all)[a.case] for t in a.task_list}
+        a.stem = 'v7_compare_blind_case0' if a.plan == 'quick' and a.case == 0 else f'v7{a.plan}_s{a.seed}_case{a.case}'
     jobs = []
     for arm, _, arg in arms:
         for t in a.task_list:
             c = cases[t]
             if arm == 'classical':
                 arg_ = dict(law=base['law'], schedule=base['opponent'][t][T.klass(c)])
+            elif arm == 'cls_es':
+                arg_ = dict(law=base['law'], schedule=arg['opponent'][t][T.klass(c)])
             else:
                 arg_ = arg
             jobs.append((arm, t, c, arg_))
@@ -162,10 +188,14 @@ def main():
         return
     jp = [j for j in jobs if j[0] in PPO_ARMS]
     jo = [j for j in jobs if j[0] not in PPO_ARMS]
-    with ProcessPoolExecutor(len(jp), initializer=_init_ppo, initargs=(str(E.SOURCE),)) as exp, \
-            ProcessPoolExecutor(max(1, a.workers-len(jp)), initializer=_init, initargs=(str(E.SOURCE),)) as ex:
-        fp = exp.map(record, jp, chunksize=1)
-        recs = list(ex.map(record, jo, chunksize=1))+list(fp)
+    if jp:
+        with ProcessPoolExecutor(len(jp), initializer=_init_ppo, initargs=(str(E.SOURCE),)) as exp, \
+                ProcessPoolExecutor(max(1, a.workers-len(jp)), initializer=_init, initargs=(str(E.SOURCE),)) as ex:
+            fp = exp.map(record, jp, chunksize=1)
+            recs = list(ex.map(record, jo, chunksize=1))+list(fp)
+    else:
+        with ProcessPoolExecutor(max(1, min(a.workers, len(jo))), initializer=_init, initargs=(str(E.SOURCE),)) as ex:
+            recs = list(ex.map(record, jo, chunksize=1))
     import pickle
     store.parent.mkdir(parents=True, exist_ok=True)
     store.write_bytes(pickle.dumps(recs))
@@ -238,8 +268,11 @@ def render(a, arms, cases, recs):
             t_ = (k+1)/(FPS*a.slow)
             img = Image.new('RGB', (W, H), (255, 255, 255))
             dr = ImageDraw.Draw(img)
-            dr.text((16, 10), f"Plan v7 {'quick validation' if a.plan == 'quick' else 'full (confirmatory)'}  ·  seed {a.seed}  ·  blind case {a.case} of each task  ·  same case in every column"
-                    + (f"  ·  {a.machine}" if a.machine else ''), font=f_title, fill=INK)
+            if a.plan == 'v12':
+                title = f"Plan v12 kick  ·  a 3 mN·m torque hit during the manoeuvre  ·  frozen controllers  ·  case " + ', '.join(f"{tk} #{a.case_idx[tk]}" for tk in a.task_list) + ("  ·  cases picked where the classical crashed and the SNN flew" if a.pick == 'crashdiff' else '')
+            else:
+                title = f"Plan v7 {'quick validation' if a.plan == 'quick' else 'full (confirmatory)'}  ·  seed {a.seed}  ·  blind case {a.case} of each task  ·  same case in every column"
+            dr.text((16, 10), title + (f"  ·  {a.machine}" if a.machine else ''), font=f_title, fill=INK)
             dr.text((16, 46), f'{1/a.slow:g}x speed  ·  t = {t_:4.2f} s  ·  ratio = score ÷ classical score on the same case (lower is better)',
                     font=f_small, fill=INK2)
             for j, tk in enumerate(a.task_list):
@@ -286,6 +319,12 @@ def render(a, arms, cases, recs):
                         dr.text((x0+10, y0+8), f"goal at +{res['goal_t']:.2f} s", font=f_small, fill=GOOD)
                     if not res['flown'] and t_ >= res['elapsed']:
                         dr.text((x0+10, y0+28), 'crash', font=f_small, fill=BAD)
+                    if c.get('upset'):
+                        th = c['upset']['hits'][0][0]
+                        if th <= t_ < th+.4:
+                            dr.text((x0+PW-70, y0+8), 'HIT', font=f_col, fill=BAD)
+                        elif t_ >= th+.4:
+                            dr.text((x0+PW-130, y0+8), f'hit at +{th-c["t0"]:.2f} s', font=f_small, fill=INK2)
                     ref = rec[('classical', tk)][2]['score']
                     s = res['score']
                     dr.text((x0+10, y0+PH-24), f"score {s:.2f}" + ('' if arm == 'classical' else f"  ·  ratio {s/ref:.2f}"), font=f_small,
