@@ -5,9 +5,12 @@ Writes JSON documents under runs/board_docs/<collection>/<id>.json; Claude uploa
 """
 import argparse
 import json
+import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(ROOT))
+from experiments.algorithms.spike_steer.paired_report import paired  # noqa: E402
 OUT = ROOT/'runs/board_docs'
 
 
@@ -149,7 +152,8 @@ def build(status_file=None):
     for plan, rdir, adir, lab, tg in (('v9', 'v9', 'plan_v9', 'v9', '_careful'), ('v10', 'v10', 'plan_v10', 'v10', '_careful'), ('v11', 'v11', 'plan_v11', 'v11', '_v11')):
         cloud = ROOT/f'runs/spike_steer/{rdir}'
         opp_f = cloud/'test_opponent.json'
-        opp_crash = sum(not r['flown'] for r in json.loads(opp_f.read_text())) if opp_f.exists() else None
+        opp_rows = json.loads(opp_f.read_text()) if opp_f.exists() else None
+        opp_crash = sum(not r['flown'] for r in opp_rows) if opp_rows else None
         for root, mach in ((cloud, 'CloudPC-2'), (ROOT/f'artifacts/spike_steer/{adir}/homepc', 'HomePC')):
             for f in sorted(root.glob(f'finetune_s*{tg}/history.jsonl')):
                 s_ = int(f.parent.name[len('finetune_s'):].split('_')[0])
@@ -179,6 +183,11 @@ def build(status_file=None):
                 if opp_crash is not None:
                     doc['pass'] = bool(doc['mean'] <= .95 and cn <= opp_crash)
                     doc['note'] = f"{cn} crashed of {len(rows)} (classical: {opp_crash})"
+                if opp_rows and rows and len(rows) == len(opp_rows):
+                    pr = paired(opp_rows, rows)
+                    doc.update(delta=pr['delta'], delta_ci=pr['delta_ci95'], wins=pr['wins'], classical_self=pr['classical_self'])
+                if plan == 'v11':
+                    doc['test'] = 'nominal'
                 docs['blind'][f'{plan}_{arm}_s{s_}'] = doc
     # ---- plan v12: blind-only robustness tests (kick / ood) of frozen controllers
     for test in ('kick', 'ood'):
@@ -191,12 +200,12 @@ def build(status_file=None):
             e = json.loads(f.read_text())
             name = f.stem[len('evaluate_'):]
             p = e['paired']
-            doc = blind_doc('v12', e['arm'], e.get('seed'), e.get('machine', 'CloudPC-2'), e['report'], note=e.get('note'))
+            doc = blind_doc('v11', e['arm'], e.get('seed'), e.get('machine', 'CloudPC-2'), e['report'], note=e.get('note'))
             doc.update(test=test, crashes=p['crashes'], delta=p['delta'], delta_ci=p['delta_ci95'], wins=p['wins'], classical_self=p['classical_self'])
             doc['pass'] = e.get('H1_pass')
             docs['blind'][f'v12_{test}_{name}'] = doc
         any_p = next((S[k] for k in S if isinstance(S.get(k), dict) and 'classical_self' in S[k]), None)
-        docs['blind'][f'v12_{test}_classical'] = dict(plan='v12', arm='classical', seed=None, machine='CloudPC-2', test=test,
+        docs['blind'][f'v12_{test}_classical'] = dict(plan='v11', arm='classical', seed=None, machine='CloudPC-2', test=test,
                                                      mean=any_p['classical_self'] if any_p else None, tasks={}, crashes=S['classical']['crashes'],
                                                      **{'pass': None}, note=f"classical opponent's own ratio (reference); {S['classical']['crashes']} crashed of {S['classical']['n']}")
     if status_file:
