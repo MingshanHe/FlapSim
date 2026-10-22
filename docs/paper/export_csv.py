@@ -194,4 +194,17 @@ rows = [[k, v['set'], v['arm'], v['crashes'], *[round(x, 4) for x in v['ci95']],
 w('ablation_v14.csv', ['key', 'set', 'arm', 'crashes', 'crash_rate_ci_lo', 'crash_rate_ci_hi', 'opponent_crashes', 'paired_delta', 'delta_ci_lo', 'delta_ci_hi', 'wins'], rows)
 rows = [[t, k, round(v['delta'], 4), *[round(x, 4) for x in v['ci']], v['crashes'], v['ref_crashes']] for t, d in V['d1_snn_vs_cls_es_s1'].items() for k, v in d.items()]
 w('snn_vs_cls_es.csv', ['scenario', 'snn_seed', 'paired_delta_vs_cls_es_s1', 'ci_lo', 'ci_hi', 'snn_crashes', 'cls_es_crashes'], rows)
+# ---------------- MLP + PPO reference (plan v14 amendment 2), when present
+rows = []
+for setname, oppf in (('nominal', R/'v11/test_opponent.json'), ('kick', R/'v12/kick/rows_classical.json')):
+    opp = rows_of(oppf)
+    for s in range(1, 6):
+        f = R/'v14'/f'{setname}__mlp_ppo_s{s}.json'
+        if f.exists():
+            rr = rows_of(f)
+            write_episodes('nominal_v11' if setname == 'nominal' else 'kick', f'mlp_ppo_s{s}', rr)
+            p = paired(opp, rr)
+            rows.append([setname, s, round(p['mean'], 4), round(p['delta'], 4), *[round(x, 4) for x in p['delta_ci95']], p['wins'], p['crashes'], p['classical_crashes']])
+if rows:
+    w('mlp_ppo_reference.csv', ['set', 'seed', 'mean_ratio', 'paired_delta', 'delta_ci_lo', 'delta_ci_hi', 'wins_of_192', 'crashes', 'opponent_crashes'], rows)
 print('done ->', OUT)

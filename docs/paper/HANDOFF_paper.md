@@ -11,7 +11,7 @@ CloudPC-2 即将长期关机。所有代码、数据归档、文稿和图都在 
 | 编译好的 PDF | `draft_method_results.pdf` |
 | 图（PNG + 可编辑 SVG） | `figs/fig_m1–m5`（方法图）、`figs/fig_r0–r6`（结果图，含 r0b、r5b）；生成脚本 `make_method_figs.py`、`make_results_figs.py` |
 | 可编辑 PPT（架构 / 流程 / 任务三张原生图形页 + 每张图一页） | `flapsim_paper_figures.pptx`；生成脚本 `make_pptx.py` |
-| 全部数据 CSV | `data/*.csv`（汇总表）和 `data/episodes/*.csv`（每一局盲测）；生成脚本 `export_csv.py` |
+| 全部数据 CSV | `data/*.csv`（汇总表，含 `mlp_ppo_reference.csv`）和 `data/episodes/*.csv`（每一局盲测）；生成脚本 `export_csv.py` |
 | 三轮审稿记录 | `reviews/review_method_round1.md`、`review_full_round2.md`、`review_round3.md` |
 | kick 对比视频 | `artifacts/spike_steer/plan_v12/videos/v12_kick_s4_crashdiff.mp4` |
 
@@ -31,7 +31,7 @@ CloudPC-2 即将长期关机。所有代码、数据归档、文稿和图都在 
 - 机理：`plan_v13/mechanism_summary.json`；消融、探针、模仿起点 2–5、SNN 对 classical+ES：`plan_v14/summary_d1_d4.json`、`plan_v14/summary_unsuppressed.json`、`plan_v14/rows/`。
 - 预注册与修订：`plan_v11/preregistration_v11.json`（+ amendment_1）、`plan_v12/preregistration_v12.json`（+ amendment_2_post_hoc、amendment_3）、`plan_v13/preregistration_v13.json`（+ amendment_1/2/3）、`plan_v14/preregistration_v14.json`（+ amendment_1）。
 - 早期轮次：`plan_v7/`、`plan_v8/summary.json`、`plan_v9/summary.json`、`plan_v10/summary.json`、`report_v10.md`、`plan_v11/report_v11_v12.md`。
-- GoogleCloud 探索性种子 6–10 和上限臂种子 3–4：只有消息里的汇总数，逐局 rows 不在本地（GoogleCloud 无推送凭据）。
+- GoogleCloud 探索性种子 6–10、上限臂种子 3–4、v9 种子 6–10 等全部原始结果：`artifacts/spike_steer/googlecloud/`（GoogleCloud 自己推送的 results/googlecloud 分支已并入；近似机器）。
 
 ## 4. 如何在 HomePC 上重新生成
 
