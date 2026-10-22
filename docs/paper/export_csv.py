@@ -76,8 +76,12 @@ for s in range(1, 6):
         p = paired(opp11, rr)
         rows.append([arm, s, 'CloudPC-2' if s <= 3 else 'HomePC', round(p['mean'], 4), round(p['delta'], 4), *[round(x, 4) for x in p['delta_ci95']], p['wins'], p['crashes']])
         write_episodes('nominal_v11', f'{arm}_s{s}', rr)
-for s, m in ((6, .997), (7, 1.093), (8, 1.058), (9, 1.013), (10, 1.016)):
-    rows.append(['snn_es_exploratory', s, 'GoogleCloud (approximate; rows not archived)', m, '', '', '', '', 0])
+for s in range(6, 11):
+    f = A/f'googlecloud/v11/evaluate_snn_es_s{s}_v11.json'
+    if f.exists():
+        e = json.loads(f.read_text())
+        rows.append(['snn_es_exploratory', s, 'GoogleCloud (approximate machine)', round(e['report']['manoeuvre_mean'], 4), '', '', '', '', sum(not r['flown'] for r in e['rows'])])
+        write_episodes('nominal_v11_googlecloud', f'snn_es_s{s}', e['rows'])
 un = rows_of(R/'v14/nominal__cls_unsup.json')
 p = paired(opp11, un)
 rows.append(['classical_pulses_on_probe', '', 'CloudPC-2', round(p['mean'], 4), round(p['delta'], 4), *[round(x, 4) for x in p['delta_ci95']], p['wins'], p['crashes']])

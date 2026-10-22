@@ -261,6 +261,14 @@ def fig_nominal():
             ax.scatter([i+.28]*len(cles), cles, marker='s', color=C_CLSES, s=24, zorder=3, label='Classical + ES (2 seeds, same machines)' if i == 4 else None)
             ax.scatter([i+.28]*2, [0.999, 1.018], marker='s', facecolors='none', edgecolors=C_CLSES, s=24, zorder=3, label='Classical + ES (2 seeds, approximate machine)' if i == 4 else None)
         ax.text(i, .815, 'crashes: '+crashes[i], ha='center', fontsize=6.5, color=C_CLS)
+        if lab.startswith('v11'):
+            gc = []
+            for s_ in range(6, 11):
+                f = A/f'googlecloud/v11/evaluate_snn_es_s{s_}_v11.json'
+                if f.exists():
+                    gc.append(json.loads(f.read_text())['report']['manoeuvre_mean'])
+            if gc:
+                ax.scatter([i+.12]*len(gc), gc, facecolors='none', edgecolors=C_SNN, s=28, zorder=3, label='SNN + ES exploratory seeds 6–10 (approximate machine)')
         pts = ppo.get(lab, [])
         if lab.startswith('v11') and pn:
             pts = [self_+d for d in pn]
@@ -272,8 +280,9 @@ def fig_nominal():
     ax.set_ylabel('mean manoeuvre ratio (lower is better)')
     ax.set_ylim(.8, 1.5)
     ax.grid(axis='y', alpha=.3)
-    ax.legend(loc='upper right', fontsize=7)
+    ax.legend(loc='upper center', fontsize=6.8, ncol=3, bbox_to_anchor=(.5, -.22), frameon=False)
     ax.set_title('Nominal manoeuvres: mean ratio per plan and the opponent\'s own ratio on the same blind set')
+    fig.set_size_inches(7.4, 4.3)
     fig.tight_layout()
     fig.savefig(OUT/'fig_r0_nominal.png')
     fig.savefig(OUT/'fig_r0_nominal.svg')
