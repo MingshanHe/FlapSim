@@ -67,16 +67,15 @@ def fig_crashes():
         h1.append(S['H1'])
     n = len(labels)
     x = np.arange(n)
-    w = .17
+    w = .2
     fig, ax = plt.subplots(figsize=(9.6, 3.7), dpi=170)
-    ax.bar(x-2*w, np.array(cls)/1.92, w, color=C_CLS, label='Classical opponent (preregistered; pulses off in segments)')
-    ax.bar(x-w, np.array(uns)/1.92, w, color='#9a9a9a', hatch='//', edgecolor='#444', lw=.4, label='Classical, pulses kept on (plan v14)')
-    ax.bar(x, [np.mean(v)/1.92 for v in cles], w, color=C_CLSES, label='Classical + ES (2 seeds, mean)')
+    ax.bar(x-1.5*w, np.array(cls)/1.92, w, color=C_CLS, label='Classical opponent (PID + schedule)')
+    ax.bar(x-.5*w, [np.mean(v)/1.92 for v in cles], w, color=C_CLSES, label='Classical + ES (2 seeds, mean)')
     m = [np.mean(v)/1.92 for v in snn]
     lo = [np.mean(v)/1.92-min(v)/1.92 for v in snn]
     hi = [max(v)/1.92-np.mean(v)/1.92 for v in snn]
-    ax.bar(x+w, m, w, color=C_SNN, label='SNN + ES (v11, 5 seeds, mean; whisker = min–max)', yerr=[lo, hi], capsize=2, ecolor='#0b3d6b', error_kw=dict(lw=.8))
-    ax.bar(x+2*w, np.array(bc)/1.92, w, color=C_BC, label='SNN, imitation only (seed 1)')
+    ax.bar(x+.5*w, m, w, color=C_SNN, label='SNN + ES (v11, 5 seeds, mean; whisker = min–max)', yerr=[lo, hi], capsize=2, ecolor='#0b3d6b', error_kw=dict(lw=.8))
+    ax.bar(x+1.5*w, np.array(bc)/1.92, w, color=C_BC, label='SNN, imitation only (seed 1)')
     for i, h in enumerate(h1):
         ax.text(x[i], max(cls[i], max(snn[i]))/1.92+2.5, f"H1 {h['seeds_passing']}/{h['seeds']}", ha='center', fontsize=6.5, color='#0b3d6b')
     ax.set_xticks(x)
@@ -120,9 +119,6 @@ def fig_delta():
         ax.plot([min(snn[i]), max(snn[i])], [y[i], y[i]], color=C_SNN, lw=1.2, zorder=2)
         if not np.isnan(bc[i]):
             ax.scatter([bc[i]], [y[i]-.18], marker='^', s=26, color=C_BC, zorder=3)
-        if not np.isnan(uns[i]):
-            ax.scatter([uns[i]], [y[i]+.32], marker='D', s=22, color='#9a9a9a', edgecolors='#444', lw=.5, zorder=3)
-    ax.scatter([], [], marker='D', color='#9a9a9a', edgecolors='#444', label='Classical, pulses kept on (v14)')
     ax.scatter([], [], marker='o', color=C_SNN, label='SNN + ES (v11), one point per seed')
     ax.scatter([], [], marker='s', color=C_CLSES, label='Classical + ES, one point per seed')
     ax.scatter([], [], marker='^', color=C_BC, label='SNN, imitation only')
@@ -136,7 +132,7 @@ def fig_delta():
         for v in snn[i]:
             if v > .6:
                 ax.annotate('v11 seed 1 (17 crashes)', (v, y[i]), xytext=(v-.02, y[i]-.55), fontsize=7, ha='right', color=C_SNN, arrowprops=dict(arrowstyle='-', color=C_SNN, lw=.6))
-    ax.set_title('Paired difference to the hand-tuned classical schedule on every blind set')
+    ax.set_title('Paired difference to the classical opponent on every blind set')
     fig.tight_layout()
     fig.savefig(OUT/'fig_r3_paired_delta.png')
     plt.close(fig)
@@ -217,9 +213,6 @@ def fig_nominal():
             ax.scatter([i+.28]*len(cles), cles, marker='s', color=C_CLSES, s=24, zorder=3, label='Classical + ES (2 seeds, same machines)' if i == 4 else None)
             ax.scatter([i+.28]*2, [0.999, 1.018], marker='s', facecolors='none', edgecolors=C_CLSES, s=24, zorder=3, label='Classical + ES (2 seeds, approximate machine)' if i == 4 else None)
         ax.text(i, .815, 'crashes: '+crashes[i], ha='center', fontsize=6.5, color=C_CLS)
-        if i == 4:
-            u = self_+unsup_delta('nominal', opp11)
-            ax.scatter([i-.28], [u], marker='D', s=30, color='#9a9a9a', edgecolors='#444', lw=.6, zorder=4, label='Classical, pulses kept on (v14)')
     ax.axhline(.95, color='#c23b3b', ls=':', lw=1, label='preregistered threshold 0.95')
     ax.set_xticks(x)
     ax.set_xticklabels([r[0] for r in rows])
@@ -297,7 +290,43 @@ def fig_skew():
     plt.close(fig)
 
 
+def fig_ablation():
+    import sys
+    sys.path.insert(0, str(ROOT))
+    from experiments.algorithms.spike_steer.evaluate_v8 import clopper_pearson as cp
+    S = summ('v12', 'kick')
+    V = json.loads((A/'plan_v14/summary_d1_d4.json').read_text())['d2_d3_d4']
+    full = [S[f'snn11_s{s}']['crashes'] for s in range(1, 6)]
+    nop = [V[f'kick__snn11_s{s}_nopulse']['crashes'] for s in range(1, 6)]
+    nor = [V[f'kick__snn11_s{s}_noref']['crashes'] for s in range(1, 6)]
+    bc = [S['snn_bc_s1']['crashes']]+[V[f'kick__snn_bc_s{s}']['crashes'] for s in (2, 3, 4, 5)]
+    uns = V['kick__cls_unsup']['crashes']
+    groups = [('opponent\n(PID + schedule,\nno pulses in\nthe manoeuvre)', [S['classical']['crashes']], C_CLS),
+              ('SNN + ES\n(5 seeds)', full, C_SNN), ('SNN + ES,\npulses\nsuppressed', nop, '#8fb3d9'), ('SNN + ES,\nset-points\nzeroed', nor, '#c7d9ec'),
+              ('SNN,\nimitation only\n(5 seeds)', bc, C_BC), ('opponent +\nphase-locked\npulses kept on\n(probe)', [uns], '#9a9a9a')]
+    fig, ax = plt.subplots(figsize=(7.2, 3.4), dpi=170)
+    for i, (lab, vals, col) in enumerate(groups):
+        m = np.mean(vals)/1.92
+        ax.bar(i, m, .6, color=col, edgecolor='#333', lw=.5, hatch='//' if 'probe' in lab else None)
+        if len(vals) > 1:
+            ax.errorbar(i, m, yerr=[[m-min(vals)/1.92], [max(vals)/1.92-m]], fmt='none', ecolor='#0b3d6b', capsize=3, lw=.9)
+        else:
+            lo_, hi_ = cp(vals[0], 192)
+            ax.errorbar(i, m, yerr=[[m-100*lo_], [100*hi_-m]], fmt='none', ecolor='#333', capsize=3, lw=.9)
+        ax.text(i, max(vals)/1.92+2.5, '/'.join(str(v) for v in vals), ha='center', fontsize=6.5, color='#222')
+    ax.set_xticks(range(len(groups)))
+    ax.set_xticklabels([g[0] for g in groups], fontsize=7)
+    ax.set_ylabel('crashed episodes (% of 192), 3 mN·m hit')
+    ax.set_ylim(0, 60)
+    ax.grid(axis='y', alpha=.3)
+    ax.set_title('Channel ablation under the primary hit (whiskers: range over seeds; probe: exact 95 % interval)', fontsize=8.5)
+    fig.tight_layout()
+    fig.savefig(OUT/'fig_r5b_ablation.png')
+    plt.close(fig)
+
+
 if __name__ == '__main__':
+    fig_ablation()
     fig_skew()
     fig_nominal()
     fig_training()
