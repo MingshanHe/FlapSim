@@ -4,6 +4,8 @@
 \usepackage{lmodern}
 \usepackage{amsmath,amssymb}
 \usepackage{booktabs}
+\usepackage{tabularx}
+\renewcommand{\tabularxcolumn}[1]{>{\raggedright\arraybackslash}p{#1}}
 \usepackage{graphicx}
 \usepackage[margin=2.2cm]{geometry}
 \usepackage{microtype}
@@ -32,15 +34,15 @@
 
 \subsection{Manoeuvre tasks and scoring}
 
-Three manoeuvres are commanded during hover (Fig. M5, \texttt{fig\_m5\_tasks.png}). Directions are given in the heading frame fixed at the command onset \texttt{t0} (yaw at \texttt{t0}; 0$^\circ$ = forward, 90$^\circ$ = left); the measured attitude-to-motion sign map is (roll, pitch)\_ref ∝ ($-$sin $\varphi$, +cos $\varphi$). The command is a unit vector (cos $\varphi$, sin $\varphi$) on one of two channels (evade; dash/redirect) and is presented to the learned layer as eight rectified inputs ($\pm$ of each component on each channel). The command switches off when the goal is detected on the ground-truth position.
+Three manoeuvres are commanded during hover (Fig. M5, \texttt{fig\_m5\_tasks.png}). Directions are given in the heading frame fixed at the command onset \texttt{t0} (yaw at \texttt{t0}; 0$^\circ$ = forward, 90$^\circ$ = left); the measured attitude-to-motion sign map is (roll, pitch)\_ref $\propto$ ($-$sin $\varphi$, +cos $\varphi$). The command is a unit vector (cos $\varphi$, sin $\varphi$) on one of two channels (evade; dash/redirect) and is presented to the learned layer as eight rectified inputs ($\pm$ of each component on each channel). The command switches off when the goal is detected on the ground-truth position.
 
 \begin{table}[htbp]\centering\scriptsize
-\resizebox{\textwidth}{!}{\begin{tabular}{lllll}\toprule
+\begin{tabularx}{\textwidth}{lXXlX}\toprule
 task & command & goal & window & classes \\ \midrule
 \textbf{evade} & displace 0.10 m along $\varphi$ $\in$ \{0, 90, 180, 270\}$^\circ$; \texttt{t0 \textasciitilde{} U(2.2, 2.8) s} & reach 0.10 m as fast as possible & 1.5 s & pitch (0/180$^\circ$), roll (90/270$^\circ$) \\
 \textbf{redirect} & go along $\varphi_1$ $\in$ \{0, 90, 180, 270\}$^\circ$; when 0.08 m or 1.0 s is reached the command switches to $\varphi_2$ = $\varphi_1$ $\pm$ 90$^\circ$; \texttt{t0 = 2.4 s} & reach 0.10 m along $\varphi_2$ after the switch with little overrun along $\varphi_1$ & 4 s & by $\varphi_2$: pitch, roll \\
 \textbf{dash} & displace 0.15 m along $\varphi$ $\in$ \{0, 45, \ldots{}, 315\}$^\circ$ and stop; \texttt{t0 = 2.4 s} & reach, then settle (speed along $\varphi$ < 0.1 m/s for 0.3 s), little overshoot & 4 s & pitch, roll, diagonal \\
-\bottomrule\end{tabular}}\end{table}
+\bottomrule\end{tabularx}\end{table}
 
 \textbf{Score (lower is better).} With \texttt{W} the window, \texttt{short} the shortfall to the goal distance (m), \texttt{cross} the lateral position error at the reach time (evade) or at the end of the window (dash), \texttt{max|$\Delta$z|} the largest altitude deviation (cm) from the altitude at \texttt{t0} over the rest of the flight (symmetric; plan v9 onwards), and \texttt{crash = 10 + 5$\cdot$(unflown fraction of the window)} if the episode terminated early (else 0):
 
@@ -58,7 +60,7 @@ A \textbf{crash} is any early termination: true tilt > 80.2$^\circ$, |z $-$ z\_s
 
 The controller has three layers (Fig. M1, \texttt{fig\_m1\_architecture.png}; one 2 ms tick in Fig. M3, \texttt{fig\_m3\_gating.png}).
 
-\textbf{Reflex layer --- PID.} A PID attitude loop drives the gimbal: \texttt{e = ref $-$ [roll, pitch]}, derivative on the measurement through a 4.5 ms low-pass, integral clipped to $\pm$0.3 with anti-windup, \texttt{[$\alpha$, $\beta$] = trim + [effort\_pitch, effort\_roll]}; a PID altitude loop sets the motor speed (gains 900, 500, 80 on z error, vz and ∫z). The attitude gains were re-tuned on stress hover (kp $\times$ 1.5, kd $\times$ 0.85, ki $\times$ 1.5 relative to the original baseline); a full-state-feedback upper bound improves the hover tilt RMS by only 1.1$^\circ$, so no learned component touches hovering.
+\textbf{Reflex layer --- PID.} A PID attitude loop drives the gimbal: \texttt{e = ref $-$ [roll, pitch]}, derivative on the measurement through a 4.5 ms low-pass, integral clipped to $\pm$0.3 with anti-windup, \texttt{[$\alpha$, $\beta$] = trim + [effort\_pitch, effort\_roll]}; a PID altitude loop sets the motor speed (gains 900, 500, 80 on z error, vz and $\int$z). The attitude gains were re-tuned on stress hover (kp $\times$ 1.5, kd $\times$ 0.85, ki $\times$ 1.5 relative to the original baseline); a full-state-feedback upper bound improves the hover tilt RMS by only 1.1$^\circ$, so no learned component touches hovering.
 
 \textbf{Steering-muscle layer --- phase-locked motor pulses.} A motor pulse drives the motor command to its maximum (3807 rad/s) for a few milliseconds; after the 8.2 ms actuator lag it raises the speed by $\approx$690 rad/s during part of a wingbeat, and the resulting lift asymmetry within the stroke produces a \textbf{pitch torque} whose sign depends on the wingbeat phase of the pulse. The classical pulse law (the base law of every arm, active outside manoeuvre commands) is \texttt{u = $-$(k\_$\theta\cdot$pitch + k\_q$\cdot$q\_slow)} with k\_$\theta$ = 8.0, k\_q = 0.4, \texttt{q\_slow} the pitch rate with the wingbeat harmonics notched out, and a PLL estimate of the crank phase; it holds the maximum command while \texttt{|u| > 0.5} and the phase is within $\pm$22.5$^\circ$ of 135$^\circ$ (u > 0) or 315$^\circ$ (u < 0), i.e. $\approx$4.6 ms per wingbeat at most. The learned layer's pulses are 3-tick (6 ms) twitches triggered by output spikes (next paragraph).
 
@@ -81,7 +83,7 @@ The pipeline (Fig. M4, \texttt{fig\_m4\_pipeline.png}) has three stages; the con
 
 \textbf{Stage 1 --- imitation of the classical schedule.} The classical opponent (Section 2.5) flies 16 training and 4 validation cases per task. From \texttt{t = 2 s} on, every tick records the 25-D input, whether the opponent fired a pulse (its base-law pulses are suppressed while a schedule segment is active, so the teacher fires only outside active segments), the sign of its law variable \texttt{u} (the nose-up / nose-down label), and its set-points. A torch twin of the network with identical tick arithmetic is trained by back-propagation through time with a sigmoid surrogate gradient (slope 1/0.25) on windows of 200 ticks (stride 100, batches of 32 windows). The loss is \texttt{mean[(1 + 2y)$\cdot$BCE(p, y)] + 5$\cdot$mean[(ref/0.7 $-$ r)$^{2}$]}, where \texttt{y} is the recorded pulse label, \texttt{p = max over the two sub-steps of $\sigma$((v\_o $-$ 1)/0.25)} is the surrogate firing probability of the output neuron of the labelled sign, and \texttt{r} the recorded set-points; Adam 3$\cdot$10$^{-3}$, gradient norm clipped to 1, 40 epochs, best epoch by validation loss. Five seeds give five imitation starts, shared by all plans from v7 on.
 
-\textbf{Stage 2 --- OpenAI-ES on the manoeuvre score.} Starting from the imitation weights $\theta_{0}$ (the six weight/bias tensors; the time constants are frozen), each generation draws 8 antithetic pairs (population 16) of perturbations $\varepsilon$ \textasciitilde{} N(0, I), evaluates $\theta$ + $\sigma\varepsilon$ and the centre $\theta$ on the generation's batch, and updates $\theta$ with rank-based utilities (\texttt{u\_i ∝ max(0, log(9) $-$ log(rank\_i + 1))}, centred), the gradient estimate \texttt{$\sum$ u\_i $\varepsilon$\_i / $\sigma$} normalised by Adam moments (0.9, 0.999, bias-corrected), $\sigma$ = 0.02, learning rate 0.01 $\cdot$ 0.85\^{}g, 16 generations (random seed 1000 + seed). The objective of a candidate is the mean over tasks of the mean over its cases of \texttt{score / N\_\{task,class\}}, where \texttt{N} is the opponent's class mean on 24 fixed normalisation cases per task, plus a soft tilt penalty of 0.3 per degree of the tilt peak above 60$^\circ$. Two features distinguish the final protocol (plan v11) from the earlier runs (plans v7--v10):
+\textbf{Stage 2 --- OpenAI-ES on the manoeuvre score.} Starting from the imitation weights $\theta_{0}$ (the six weight/bias tensors; the time constants are frozen), each generation draws 8 antithetic pairs (population 16) of perturbations $\varepsilon$ \textasciitilde{} N(0, I), evaluates $\theta$ + $\sigma\varepsilon$ and the centre $\theta$ on the generation's batch, and updates $\theta$ with rank-based utilities (\texttt{u\_i $\propto$ max(0, log(9) $-$ log(rank\_i + 1))}, centred), the gradient estimate \texttt{$\sum$ u\_i $\varepsilon$\_i / $\sigma$} normalised by Adam moments (0.9, 0.999, bias-corrected), $\sigma$ = 0.02, learning rate 0.01 $\cdot$ 0.85\^{}g, 16 generations (random seed 1000 + seed). The objective of a candidate is the mean over tasks of the mean over its cases of \texttt{score / N\_\{task,class\}}, where \texttt{N} is the opponent's class mean on 24 fixed normalisation cases per task, plus a soft tilt penalty of 0.3 per degree of the tilt peak above 60$^\circ$. Two features distinguish the final protocol (plan v11) from the earlier runs (plans v7--v10):
 
 \begin{itemize}\setlength\itemsep{2pt}
 \item \emph{full coverage}: 8 cases per task per generation, which covers all 8 dash directions, all 8 redirect pairs (both turn directions), all 4 evade directions and all 8 release strata every generation (the earlier 4-case batches used fixed direction slots --- dash 0/45/90/135$^\circ$ and one turn direction only --- and only strata 0--3, a defect found in plan v10);
@@ -129,7 +131,7 @@ The ratio is above 1 for the opponent itself --- 1.089 on the v11 blind set, 1.0
 
 \begin{table}[htbp]\centering\scriptsize
 \caption{Table R0 --- plan v11 blind set (base 2 099 100 000, 64 cases per task; opponent 0 crashes).}
-\resizebox{\textwidth}{!}{\begin{tabular}{lllllll}\toprule
+\begin{tabularx}{\textwidth}{XXlXXll}\toprule
 arm & seed & machine & mean ratio & paired $\Delta$ to the opponent [95 \% CI] & wins /192 & crashes \\ \midrule
 classical opponent (own ratio) & -- & CloudPC-2 & 1.089 & 0 & -- & 0 \\
 classical + ES & 1 / 2 & CloudPC-2 / HomePC & 1.019 / 1.032 & $-$0.070 [$-$0.118, $-$0.029] / $-$0.056 [$-$0.100, $-$0.017] & 111 / 115 & 0 / 0 \\
@@ -139,7 +141,7 @@ SNN + ES & 3 & CloudPC-2 & 1.033 & $-$0.056 [$-$0.108, $-$0.008] & 110 & 0 \\
 SNN + ES & 4 & HomePC & 1.054 & $-$0.035 [$-$0.092, +0.018] & 116 & 0 \\
 SNN + ES & 5 & HomePC & 1.063 & $-$0.026 [$-$0.079, +0.024] & 116 & 0 \\
 SNN, imitation only & 1 / 3 / 4 / 5 & -- & 1.166 / 1.137 / 1.238 / 1.257 & +0.077 / +0.049 / +0.149 / +0.168 & 46 / 63 / 55 / 42 & 0 \\
-\bottomrule\end{tabular}}\end{table}
+\bottomrule\end{tabularx}\end{table}
 
 \textbf{Parity with the classical opponent; 0.02--0.05 behind classical + ES.} Four of the five v11 seeds are at or slightly below the opponent ($\Delta$ $-$0.03 \ldots{} $-$0.06, one interval excluding 0); seed 2 is worse because its selection returned the imitation start (every ES centre of that seed crashed on the validation set). Paired directly against classical + ES (seed 1) the SNN seeds are +0.029 [+0.00, +0.05], +0.130, +0.017 [$-$0.02, +0.05], +0.039 [$-$0.00, +0.08] and +0.048 [+0.01, +0.08], i.e. 0.02--0.05 behind, two intervals including 0. ES improves four of the five seeds over their imitation starts by 0.10--0.19. Five exploratory seeds trained on the approximate machine behaved the same way (0.997--1.093, 0 crashes, every seed better than its start; rows not archived locally). Within tasks the four ES seeds are at or ahead of the opponent on evade and redirect (per-task $\Delta$ $-$0.02 \ldots{} 0.00 and $-$0.12 \ldots{} $-$0.19) and behind on dash (+0.02 \ldots{} +0.10); the dash roll class (90$^\circ$/270$^\circ$) is the weakest cell in every plan (v11: 1.17 / 1.00 / 1.40 / 1.56 / 1.52 by seed) and dash pitch the best (0.88--0.91 for the four ES seeds). In the roll class the learned layer reaches the target 13--29 \% sooner (0.44--0.54 s vs 0.617 s) but overshoots more (mean displacement beyond the 0.25 m penalty threshold 0.10--0.20 m vs 0.04 m) and, for seeds 3--5, settles later (0.99--1.36 s vs 0.58 s; seeds 1--2 0.46--0.58 s).
 
@@ -152,7 +154,7 @@ All controllers are frozen and every arm flies the same cases. Table R1 gives th
 
 \begin{table}[htbp]\centering\scriptsize
 \caption{Table R1 --- crashes /192 on the blind robustness sets. The v9 centres, the opponent's own ratio and the per-seed $\Delta$ with intervals are in the per-scenario \texttt{summary\_*.json} files of plans v12--v13 and in \texttt{plan\_v14/crash\_table\_with\_unsuppressed.md}. Seed 2 of SNN + ES is its imitation start (its count equals the seed-2 entry of the imitation column where both were flown: 32 = 32, a determinism check). $\star$: rows in which the imitation starts of seeds 2--5 were also flown.}
-\resizebox{\textwidth}{!}{\begin{tabular}{llllll}\toprule
+\begin{tabularx}{\textwidth}{XlXXXX}\toprule
 scenario & opponent & classical + ES s1 / s2 & SNN + ES v11, seeds 1--5 & SNN imitation s1 (s2--s5) & v11 seeds passing H1 (of 5) \\ \midrule
 hit 2 mN$\cdot$m, +0.15--0.45 s & 17 & 16 / 16 & 9 / 4 / 8 / 2 / 6 & 2 & 5 \\
 \textbf{hit 3 mN$\cdot$m, +0.15--0.45 s (primary)} $\star$ & 60 & 56 / 58 & 40 / 32 / 34 / 22 / 40 & 27 (32 / 29 / 23 / 27) & \textbf{4} \\
@@ -170,7 +172,7 @@ disturbance pulses $\times$2 / $\times$3 & 192 / 192 & 192 / 192 & 174--175 / 19
 IMU noise $\times$5 & 3 & 1 / 1 & 3 / 0 / 1 / 1 / 1 & 0 & 1 \\
 sensor delay 3 steps & 9 & 11 / 12 & 2 / 0 / 4 / 4 / 4 & 0 & 4 \\
 mass +12.5 \% (secondary) & 0 & 0 / 0 & 0 / 0 / 0 / 0 / 0 & 0 & 0 (degenerate) \\
-\bottomrule\end{tabular}}\end{table}
+\bottomrule\end{tabularx}\end{table}
 
 \textbf{Primary scenario and its replication.} With a 3 mN$\cdot$m hit landing 0.15--0.45 s into the manoeuvre the opponent crashes in 60 of 192 cases, classical + ES in 56--58, the v11 SNN centres in 22--40 and the imitation starts in 23--32. The paired $\Delta$ of the five seeds is $-$0.125 [$-$0.426, +0.209], $-$0.282 [$-$0.448, $-$0.121], $-$0.355 [$-$0.540, $-$0.186], $-$0.584 [$-$0.815, $-$0.377] and $-$0.263 [$-$0.473, $-$0.024]: \textbf{H1 holds (4 of 5)}. On a fresh seed base the result replicates (42 vs 16--39 crashes; $\Delta$ $-$0.09 \ldots{} $-$1.05; 4 of 5, seed 1 failing both times). Per task, the gain is in dash (2--10 crashes vs 19) and redirect (12--22 vs 24); evade crashes less too (6--13 vs 17) but its $\Delta$ has no consistent sign.
 

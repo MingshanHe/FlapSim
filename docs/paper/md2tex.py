@@ -18,7 +18,7 @@ UNI = {'≤': r'$\le$', '≥': r'$\ge$', '×': r'$\times$', '−': r'$-$', '≈'
        '‖': r'$\|$', '—': '---', '–': '--', '…': r'\ldots{}', '≠': r'$\ne$', 'ℝ': r'$\mathbb{R}$', '₁': r'$_1$', '₂': r'$_2$',
        '⁵': r'$^5$', '⁶': r'$^6$', '⁻': r'$^-$', '⁰': r'$^0$', '✓': r'$\checkmark$', '✗': r'$\times$', 'μ': r'$\mu$', '′': "'",
        '“': '``', '”': "''", '‘': '`', '’': "'", '\u2009': r'\,', '\u00a0': '~', 'ρ': r'$\rho$', '∞': r'$\infty$', '≃': r'$\simeq$',
-       '≡': r'$\equiv$', '∂': r'$\partial$', '√': r'$\surd$'}
+       '≡': r'$\equiv$', '∂': r'$\partial$', '√': r'$\surd$', '∫': r'$\int$', '∝': r'$\propto$', '≪': r'$\ll$', '≫': r'$\gg$'}
 
 
 def esc(t):
@@ -53,16 +53,21 @@ def inline(t):
 def table(lines, caption):
     rows = [[c.strip() for c in l.strip().strip('|').split('|')] for l in lines if not re.match(r'^\s*\|?\s*-{3,}', l)]
     ncol = max(len(r) for r in rows)
+    rows = [r+['']*(ncol-len(r)) for r in rows]
     head, body = rows[0], rows[1:]
-    spec = 'l'*ncol
-    s = ['\\begin{table}[htbp]\\centering\\scriptsize']
+    maxlen = [max(len(r[j]) for r in rows) for j in range(ncol)]
+    wide = sum(maxlen) > 70
+    spec = ''.join(('X' if maxlen[j] > 18 else 'l') for j in range(ncol)) if wide else 'l'*ncol
+    size = '\\scriptsize' if wide else '\\footnotesize'
+    s = ['\\begin{table}[htbp]\\centering'+size]
     if caption:
         s.append('\\caption{'+inline(caption)+'}')
-    s.append('\\resizebox{\\textwidth}{!}{\\begin{tabular}{'+spec+'}\\toprule')
-    s.append(' & '.join(inline(c) for c in head+['']*(ncol-len(head)))+' \\\\ \\midrule')
+    env = 'tabularx' if wide else 'tabular'
+    s.append(('\\begin{tabularx}{\\textwidth}{'+spec+'}' if wide else '\\begin{tabular}{'+spec+'}')+'\\toprule')
+    s.append(' & '.join(inline(c) for c in head)+' \\\\ \\midrule')
     for r in body:
-        s.append(' & '.join(inline(c) for c in r+['']*(ncol-len(r)))+' \\\\')
-    s.append('\\bottomrule\\end{tabular}}\\end{table}')
+        s.append(' & '.join(inline(c) for c in r)+' \\\\')
+    s.append('\\bottomrule\\end{'+env+'}\\end{table}')
     return '\n'.join(s)
 
 
@@ -146,6 +151,8 @@ def convert():
 \usepackage{lmodern}
 \usepackage{amsmath,amssymb}
 \usepackage{booktabs}
+\usepackage{tabularx}
+\renewcommand{\tabularxcolumn}[1]{>{\raggedright\arraybackslash}p{#1}}
 \usepackage{graphicx}
 \usepackage[margin=2.2cm]{geometry}
 \usepackage{microtype}
