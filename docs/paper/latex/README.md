@@ -1,0 +1,1 @@
+Compile: `pdflatex main.tex` (twice) or `tectonic main.tex`. Needs booktabs, graphicx, amsmath, amssymb, geometry, microtype, hyperref, float, lmodern. Figures are in figs/. The source is generated from ../draft_method_results.md by ../md2tex.py.
