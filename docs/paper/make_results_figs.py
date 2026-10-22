@@ -140,7 +140,7 @@ def fig_delta():
         bc.append(S['snn_bc_s1']['delta'] if 'snn_bc_s1' in S else np.nan)
     n = len(labels)
     y = np.arange(n)
-    fig, ax = plt.subplots(figsize=(7.2, 5.2), dpi=170)
+    fig, ax = plt.subplots(figsize=(7.2, 5.8), dpi=170)
     ax.axvline(0, color=C_CLS, lw=1.2)
     for i in range(n):
         ax.scatter(cles[i], [y[i]+.18]*len(cles[i]), marker='s', s=22, color=C_CLSES, zorder=3)
@@ -163,7 +163,7 @@ def fig_delta():
     ax.invert_yaxis()
     ax.set_xlabel('paired Δ = arm ratio − classical opponent\'s own ratio on the same cases\n(negative = better than the hand-tuned classical opponent)')
     ax.grid(axis='x', alpha=.3)
-    ax.legend(loc='lower left', framealpha=.95)
+    ax.legend(loc='upper center', bbox_to_anchor=(.5, -.12), ncol=2, frameon=False, fontsize=7.5)
     for i in range(n):
         for v in snn[i]:
             if v > .6:
