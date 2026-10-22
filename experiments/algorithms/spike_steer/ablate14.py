@@ -166,14 +166,43 @@ def stage_report(a):
     (ART/'summary.json').write_text(json.dumps(out, indent=1))
 
 
+def stage_unsup_all(a):
+    """Amendment 1: the un-suppressed opponent on every remaining v12 / v13 scenario (rows saved as <test>__cls_unsup.json)."""
+    OUT.mkdir(parents=True, exist_ok=True)
+    arms, law = load_arms()
+    opp = arms[0][2]
+    sets = {}
+    for t, cfg in T12.items():
+        if t in ('kick', 'ood') or (OUT/f'{t}__cls_unsup.json').exists():
+            if t == 'ood' and not (OUT/f'{t}__cls_unsup.json').exists():
+                sets[t] = {task: cases12(task, cfg['base'], 64, cfg['condition'], cfg['kick'], cfg.get('mag'), cfg.get('kick_t')) for task in D9.TASKS}
+            continue
+        sets[t] = {task: cases12(task, cfg['base'], 64, cfg['condition'], cfg['kick'], cfg.get('mag'), cfg.get('kick_t')) for task in D9.TASKS}
+    for t, cfg in T13.items():
+        if t in ('turb15', 'turb2', 'turb3') or (OUT/f'{t}__cls_unsup.json').exists():
+            continue
+        sets[t] = {task: cases13(task, cfg) for task in D9.TASKS}
+    jobs = [(f'{t}/cls_unsup', task, c, 'classical_unsup', dict(law=law, schedule=opp[task][T.klass(c)])) for t, cs in sets.items() for task in D9.TASKS for c in cs[task]]
+    print('unsup_all sets', list(sets), 'episodes', len(jobs), flush=True)
+    with E.pool(a.workers) as ex:
+        rows = list(ex.map(job, jobs, chunksize=1))
+    for t in sets:
+        rr = [r for r in rows if r['controller'] == f'{t}/cls_unsup']
+        (OUT/f'{t}__cls_unsup.json').write_text(json.dumps(rr))
+        src = Path('runs/spike_steer/v12')/t if t in T12 else Path('runs/spike_steer/v13')/t
+        opp_rows = json.loads((src/'rows_classical.json').read_text())
+        p = paired(opp_rows, rr)
+        print('%-16s cls_unsup crashes %3d (classical %3d)  Δ %+.3f [%+.3f, %+.3f]  wins %d' % (t, p['crashes'], p['classical_crashes'], p['delta'], *p['delta_ci95'], p['wins']), flush=True)
+
+
 def main():
     p = argparse.ArgumentParser()
-    p.add_argument('stage', choices=['run', 'report'])
+    p.add_argument('stage', choices=['run', 'report', 'unsup_all'])
     p.add_argument('--workers', type=int, default=30)
     a = p.parse_args()
     E.load_signs()
     B.DASH_M['value'] = .15
-    {'run': stage_run, 'report': stage_report}[a.stage](a)
+    {'run': stage_run, 'report': stage_report, 'unsup_all': stage_unsup_all}[a.stage](a)
 
 
 if __name__ == '__main__':
