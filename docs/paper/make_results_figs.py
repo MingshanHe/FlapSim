@@ -17,6 +17,26 @@ C_CLS, C_CLSES, C_SNN, C_BC, C_SNN9 = '#444444', '#c9a227', '#1f6fb2', '#2a9d5c'
 plt.rcParams.update({'font.size': 9, 'axes.titlesize': 9.5, 'axes.labelsize': 9, 'legend.fontsize': 8})
 
 
+V14 = R/'v14'
+
+
+def unsup_crashes(test):
+    f = V14/f'{test}__cls_unsup.json'
+    if not f.exists():
+        return np.nan
+    return sum(not r['flown'] for r in json.loads(f.read_text()))
+
+
+def unsup_delta(test, opp_rows):
+    import sys
+    sys.path.insert(0, str(ROOT))
+    from experiments.algorithms.spike_steer.paired_report import paired
+    f = V14/f'{test}__cls_unsup.json'
+    if not f.exists():
+        return np.nan
+    return paired(opp_rows, json.loads(f.read_text()))['delta']
+
+
 def summ(plan, test):
     for base in (A/f'plan_{plan}', R/plan):
         f = base/test/'summary.json'
@@ -33,28 +53,30 @@ TESTS = [('v12', 'kick2', '2 mN·m hit'), ('v12', 'kick', '3 mN·m hit'), ('v12'
 
 
 def fig_crashes():
-    labels, cls, cles, snn, bc, h1 = [], [], [], [], [], []
+    labels, cls, cles, snn, bc, h1, uns = [], [], [], [], [], [], []
     for plan, t, lab in TESTS:
         S = summ(plan, t)
         if S is None:
             continue
         labels.append(lab)
         cls.append(S['classical']['crashes'])
+        uns.append(unsup_crashes(t))
         cles.append([S[f'cls_es_s{s}']['crashes'] for s in (1, 2) if f'cls_es_s{s}' in S])
         snn.append([S[f'snn11_s{s}']['crashes'] for s in range(1, 6) if f'snn11_s{s}' in S])
         bc.append(S['snn_bc_s1']['crashes'] if 'snn_bc_s1' in S else np.nan)
         h1.append(S['H1'])
     n = len(labels)
     x = np.arange(n)
-    w = .2
-    fig, ax = plt.subplots(figsize=(9.2, 3.6), dpi=170)
-    ax.bar(x-1.5*w, np.array(cls)/1.92, w, color=C_CLS, label='Classical (re-tuned)')
-    ax.bar(x-.5*w, [np.mean(v)/1.92 for v in cles], w, color=C_CLSES, label='Classical + ES (2 seeds, mean)')
+    w = .17
+    fig, ax = plt.subplots(figsize=(9.6, 3.7), dpi=170)
+    ax.bar(x-2*w, np.array(cls)/1.92, w, color=C_CLS, label='Classical opponent (preregistered; pulses off in segments)')
+    ax.bar(x-w, np.array(uns)/1.92, w, color='#9a9a9a', hatch='//', edgecolor='#444', lw=.4, label='Classical, pulses kept on (plan v14)')
+    ax.bar(x, [np.mean(v)/1.92 for v in cles], w, color=C_CLSES, label='Classical + ES (2 seeds, mean)')
     m = [np.mean(v)/1.92 for v in snn]
     lo = [np.mean(v)/1.92-min(v)/1.92 for v in snn]
     hi = [max(v)/1.92-np.mean(v)/1.92 for v in snn]
-    ax.bar(x+.5*w, m, w, color=C_SNN, label='SNN + ES (v11, 5 seeds, mean; bar = min–max)', yerr=[lo, hi], capsize=2, ecolor='#0b3d6b', error_kw=dict(lw=.8))
-    ax.bar(x+1.5*w, np.array(bc)/1.92, w, color=C_BC, label='SNN, imitation only (seed 1)')
+    ax.bar(x+w, m, w, color=C_SNN, label='SNN + ES (v11, 5 seeds, mean; whisker = min–max)', yerr=[lo, hi], capsize=2, ecolor='#0b3d6b', error_kw=dict(lw=.8))
+    ax.bar(x+2*w, np.array(bc)/1.92, w, color=C_BC, label='SNN, imitation only (seed 1)')
     for i, h in enumerate(h1):
         ax.text(x[i], max(cls[i], max(snn[i]))/1.92+2.5, f"H1 {h['seeds_passing']}/{h['seeds']}", ha='center', fontsize=6.5, color='#0b3d6b')
     ax.set_xticks(x)
@@ -62,7 +84,7 @@ def fig_crashes():
     ax.set_ylabel('crashed episodes (% of 192)')
     ax.set_ylim(0, 60)
     ax.grid(axis='y', alpha=.3)
-    ax.legend(loc='upper right', ncol=2)
+    ax.legend(loc='upper right', ncol=2, fontsize=7)
     ax.set_title('Crashed episodes of the frozen controllers on 14 blind robustness sets (192 cases each)')
     fig.tight_layout()
     fig.savefig(OUT/'fig_r2_crashes.png')
@@ -70,7 +92,7 @@ def fig_crashes():
 
 
 def fig_delta():
-    labels, snn, cles, bc = [], [], [], []
+    labels, snn, cles, bc, uns = [], [], [], [], []
     for plan, t, lab in [('v11', 'nominal', 'nominal (v11 blind)')]+TESTS:
         if t == 'nominal':
             S = json.loads((A/'plan_v11/summary.json').read_text())
@@ -78,11 +100,13 @@ def fig_delta():
             snn.append([S[f's{s}']['snn_es']['delta'] for s in range(1, 6)])
             cles.append([S[f'cls_es_s{s}']['delta'] for s in (1, 2)])
             bc.append(np.nan)
+            uns.append(unsup_delta('nominal', json.loads((R/'v11/test_opponent.json').read_text())))
             continue
         S = summ(plan, t)
         if S is None:
             continue
         labels.append(lab)
+        uns.append(unsup_delta(t, json.loads((R/plan/t/'rows_classical.json').read_text())))
         snn.append([S[f'snn11_s{s}']['delta'] for s in range(1, 6) if f'snn11_s{s}' in S])
         cles.append([S[f'cls_es_s{s}']['delta'] for s in (1, 2) if f'cls_es_s{s}' in S])
         bc.append(S['snn_bc_s1']['delta'] if 'snn_bc_s1' in S else np.nan)
@@ -96,6 +120,9 @@ def fig_delta():
         ax.plot([min(snn[i]), max(snn[i])], [y[i], y[i]], color=C_SNN, lw=1.2, zorder=2)
         if not np.isnan(bc[i]):
             ax.scatter([bc[i]], [y[i]-.18], marker='^', s=26, color=C_BC, zorder=3)
+        if not np.isnan(uns[i]):
+            ax.scatter([uns[i]], [y[i]+.32], marker='D', s=22, color='#9a9a9a', edgecolors='#444', lw=.5, zorder=3)
+    ax.scatter([], [], marker='D', color='#9a9a9a', edgecolors='#444', label='Classical, pulses kept on (v14)')
     ax.scatter([], [], marker='o', color=C_SNN, label='SNN + ES (v11), one point per seed')
     ax.scatter([], [], marker='s', color=C_CLSES, label='Classical + ES, one point per seed')
     ax.scatter([], [], marker='^', color=C_BC, label='SNN, imitation only')
@@ -190,6 +217,9 @@ def fig_nominal():
             ax.scatter([i+.28]*len(cles), cles, marker='s', color=C_CLSES, s=24, zorder=3, label='Classical + ES (2 seeds, same machines)' if i == 4 else None)
             ax.scatter([i+.28]*2, [0.999, 1.018], marker='s', facecolors='none', edgecolors=C_CLSES, s=24, zorder=3, label='Classical + ES (2 seeds, approximate machine)' if i == 4 else None)
         ax.text(i, .815, 'crashes: '+crashes[i], ha='center', fontsize=6.5, color=C_CLS)
+        if i == 4:
+            u = self_+unsup_delta('nominal', opp11)
+            ax.scatter([i-.28], [u], marker='D', s=30, color='#9a9a9a', edgecolors='#444', lw=.6, zorder=4, label='Classical, pulses kept on (v14)')
     ax.axhline(.95, color='#c23b3b', ls=':', lw=1, label='preregistered threshold 0.95')
     ax.set_xticks(x)
     ax.set_xticklabels([r[0] for r in rows])
