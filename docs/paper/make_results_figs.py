@@ -87,6 +87,7 @@ def fig_crashes():
     ax.set_title('Crashed episodes of the frozen controllers on 14 blind robustness sets (192 cases each)')
     fig.tight_layout()
     fig.savefig(OUT/'fig_r2_crashes.png')
+    fig.savefig(OUT/'fig_r2_crashes.svg')
     plt.close(fig)
 
 
@@ -135,6 +136,7 @@ def fig_delta():
     ax.set_title('Paired difference to the classical opponent on every blind set')
     fig.tight_layout()
     fig.savefig(OUT/'fig_r3_paired_delta.png')
+    fig.savefig(OUT/'fig_r3_paired_delta.svg')
     plt.close(fig)
 
 
@@ -178,6 +180,7 @@ def fig_training():
     ax.legend(fontsize=7)
     fig.tight_layout()
     fig.savefig(OUT/'fig_r1_training.png')
+    fig.savefig(OUT/'fig_r1_training.svg')
     plt.close(fig)
 
 
@@ -223,6 +226,7 @@ def fig_nominal():
     ax.set_title('Nominal manoeuvres: mean ratio per plan and the opponent\'s own ratio on the same blind set')
     fig.tight_layout()
     fig.savefig(OUT/'fig_r0_nominal.png')
+    fig.savefig(OUT/'fig_r0_nominal.svg')
     plt.close(fig)
 
 
@@ -267,6 +271,7 @@ def fig_mechanism():
     ax.grid(axis='y', alpha=.3)
     fig.tight_layout()
     fig.savefig(OUT/'fig_r5_mechanism.png')
+    fig.savefig(OUT/'fig_r5_mechanism.svg')
     plt.close(fig)
 
 
@@ -287,6 +292,7 @@ def fig_skew():
     ax.set_title('Why the ratio exceeds 1 for the opponent itself: right-skewed per-case ratios', fontsize=8.5)
     fig.tight_layout()
     fig.savefig(OUT/'fig_r0b_skew.png')
+    fig.savefig(OUT/'fig_r0b_skew.svg')
     plt.close(fig)
 
 
@@ -322,6 +328,7 @@ def fig_ablation():
     ax.set_title('Channel ablation under the primary hit (whiskers: range over seeds; probe: exact 95 % interval)', fontsize=8.5)
     fig.tight_layout()
     fig.savefig(OUT/'fig_r5b_ablation.png')
+    fig.savefig(OUT/'fig_r5b_ablation.svg')
     plt.close(fig)
 
 

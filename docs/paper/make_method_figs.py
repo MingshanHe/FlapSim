@@ -71,6 +71,7 @@ def canvas(w, h):
 def save(fig, name):
     OUT.mkdir(parents=True, exist_ok=True)
     fig.savefig(OUT/f'{name}.png', dpi=DPI)
+    fig.savefig(OUT/f'{name}.svg')
     plt.close(fig)
     print('wrote', OUT/f'{name}.png')
 
