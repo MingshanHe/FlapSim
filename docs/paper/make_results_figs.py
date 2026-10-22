@@ -252,7 +252,7 @@ def fig_nominal():
     rows.append(('v11\n(fixed ES)', [S11[f's{s}']['snn_es']['mean'] for s in range(1, 6)], paired(opp11, opp11)['mean'],
                  [S11[f'cls_es_s{s}']['mean'] for s in (1, 2)]))
     crashes = ['SNN 2 / opp. 1', 'SNN 10 / opp. 5', 'SNN 3 / opp. 0', 'SNN 6 / opp. 3', 'SNN 0 / opp. 0']
-    fig, ax = plt.subplots(figsize=(7.4, 3.5), dpi=170)
+    fig, ax = plt.subplots(figsize=(9.6, 4.8), dpi=170)
     x = np.arange(len(rows))
     for i, (lab, snn, self_, cles) in enumerate(rows):
         ax.scatter([i]*len(snn), snn, color=C_SNN, s=26, zorder=3, label='SNN + ES, one point per seed' if i == 0 else None)
@@ -280,9 +280,9 @@ def fig_nominal():
     ax.set_ylabel('mean manoeuvre ratio (lower is better)')
     ax.set_ylim(.8, 1.5)
     ax.grid(axis='y', alpha=.3)
-    ax.legend(loc='upper center', fontsize=6.8, ncol=3, bbox_to_anchor=(.5, -.22), frameon=False)
+    ax.legend(loc='upper center', fontsize=7, ncol=3, bbox_to_anchor=(.5, -.2), frameon=False)
     ax.set_title('Nominal manoeuvres: mean ratio per plan and the opponent\'s own ratio on the same blind set')
-    fig.set_size_inches(7.4, 4.3)
+    fig.set_size_inches(9.6, 4.8)
     fig.tight_layout()
     fig.savefig(OUT/'fig_r0_nominal.png')
     fig.savefig(OUT/'fig_r0_nominal.svg')
