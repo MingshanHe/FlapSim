@@ -107,8 +107,8 @@ def arms_for(a, base):
                 ('ppo', 'MLP + PPO (seed 1, HomePC)', 'artifacts/spike_steer/ppo_direct/v7ppo/s1/centres/ckpt_g1.zip')]
     if a.plan == 'v12':
         A11 = Path('artifacts/spike_steer/plan_v11')
-        return [('classical', 'Classical (re-tuned)', None),
-                ('cls_es', 'Classical + ES (upper bound, seed 1)', dict(opponent=json.loads((A11/'cls_es/s1/opp_g15.json').read_text())['opponent'])),
+        return [('classical', 'Preregistered opponent', None),
+                ('cls_es', 'Classical + ES (seed 1)', dict(opponent=json.loads((A11/'cls_es/s1/opp_g15.json').read_text())['opponent'])),
                 ('snn_es', f'SNN + ES (v11 seed {a.seed})', json.loads((A11/(f'snn/s{a.seed}' if a.seed <= 3 else f'homepc_snn/s{a.seed}')/'selected.json').read_text())),
                 ('snn_bc', 'SNN, imitation only (seed 1)', json.loads((A11/'snn/s1/bc.json').read_text()))]
     S = a.seed
@@ -269,7 +269,7 @@ def render(a, arms, cases, recs):
             img = Image.new('RGB', (W, H), (255, 255, 255))
             dr = ImageDraw.Draw(img)
             if a.plan == 'v12':
-                title = f"Plan v12 kick  ·  a 3 mN·m torque hit during the manoeuvre  ·  frozen controllers  ·  case " + ', '.join(f"{tk} #{a.case_idx[tk]}" for tk in a.task_list) + ("  ·  cases picked where the classical crashed and the SNN flew" if a.pick == 'crashdiff' else '')
+                title = f"3 mN·m torque hit during the manoeuvre  ·  frozen controllers  ·  cases " + ', '.join(f"{tk} #{a.case_idx[tk]}" for tk in a.task_list) + ("  ·  picked where the opponent crashed and the SNN flew" if a.pick == 'crashdiff' else '')
             else:
                 title = f"Plan v7 {'quick validation' if a.plan == 'quick' else 'full (confirmatory)'}  ·  seed {a.seed}  ·  blind case {a.case} of each task  ·  same case in every column"
             dr.text((16, 10), title + (f"  ·  {a.machine}" if a.machine else ''), font=f_title, fill=INK)
