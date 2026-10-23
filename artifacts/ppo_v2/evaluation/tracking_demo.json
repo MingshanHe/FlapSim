@@ -1,0 +1,32 @@
+[
+  {
+    "trajectory": "figure8",
+    "mean_rmse_m": 0.05405351629041086,
+    "success_rate": 1.0,
+    "mean_completion_fraction": 1.0,
+    "randomized_resets": true,
+    "seed": 3003,
+    "controller": "ppo",
+    "episode_seconds": 16.0,
+    "nominal_period_s": 8.0,
+    "physics_engine": "split",
+    "policy_timesteps": 262144,
+    "policy_sha256": "b2f891b76dd2dcc4d93816cb69348ecda68f254bcebb112b772bb30ef768a043",
+    "normalizer_sha256": "059a37f5db534d0b93383288049a9b9b9cf4838c16d8f7e3d0056ea37f82f691",
+    "episodes": [
+      {
+        "episode": 0,
+        "rmse_m": 0.05405351629041086,
+        "max_error_m": 0.08055920358341867,
+        "seconds": 16.0,
+        "completion_fraction": 1.0,
+        "success": true,
+        "termination_reason": "time_limit",
+        "reference_radius_m": 0.2060303340228407,
+        "reference_period_s": 8.60773820232544,
+        "reference_phase_rad": 5.56989952404288,
+        "reward": 5350.651631234664
+      }
+    ]
+  }
+]

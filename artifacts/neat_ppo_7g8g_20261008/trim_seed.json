@@ -1,0 +1,105 @@
+{
+  "format": "flapsim-neat-residual-v1",
+  "recurrent": true,
+  "inputs": [
+    -1,
+    -2,
+    -3,
+    -4,
+    -5,
+    -6
+  ],
+  "outputs": [
+    0,
+    1,
+    2
+  ],
+  "nodes": [
+    {
+      "key": 0,
+      "activation": "clamped",
+      "aggregation": "sum",
+      "bias": 0.04553879321708531,
+      "response": 1.0,
+      "links": [
+        [
+          -2,
+          -0.0
+        ],
+        [
+          -5,
+          -0.0
+        ]
+      ]
+    },
+    {
+      "key": 1,
+      "activation": "clamped",
+      "aggregation": "sum",
+      "bias": 0.002939676462669885,
+      "response": 1.0,
+      "links": [
+        [
+          -1,
+          0.0
+        ],
+        [
+          -4,
+          0.0
+        ]
+      ]
+    },
+    {
+      "key": 2,
+      "activation": "clamped",
+      "aggregation": "sum",
+      "bias": 0.0,
+      "response": 1.0,
+      "links": [
+        [
+          -3,
+          0.0
+        ]
+      ]
+    }
+  ],
+  "action_map": {
+    "center": [
+      0.0,
+      0.0,
+      3461.360088271976
+    ],
+    "span": [
+      0.3,
+      0.3,
+      346.13600882719766
+    ],
+    "units": [
+      "rad",
+      "rad",
+      "rad/s"
+    ],
+    "smoothing_tau_s": 0.02,
+    "observation_offset_rad": [
+      0.0,
+      0.0,
+      0.0
+    ]
+  },
+  "input_names": [
+    "roll",
+    "pitch",
+    "yaw",
+    "gyro_x",
+    "gyro_y",
+    "gyro_z"
+  ],
+  "input_scale_rad": 0.35,
+  "gyro_scale_rad_s": 10.0,
+  "output_names": [
+    "alpha",
+    "beta",
+    "motor_speed"
+  ],
+  "priming_steps": 100
+}

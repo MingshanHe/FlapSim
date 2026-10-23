@@ -1,0 +1,21 @@
+{
+ "plan": "v13",
+ "written": "2026-10-21 ~22:20 JST, before any v13 episode; approved by the user (\"按顺序跑，先跑第一个\")",
+ "kind": "follow-up blind analyses of the frozen v11/v12 controllers; no training; v11 and v12 results are kept as they are",
+ "test1": {
+  "name": "mechanism of the kick robustness",
+  "question": "does the learned layer crash less under mid-manoeuvre kicks because it flies more conservatively (smaller tilt when the hit lands) or because it reacts (set-point / pulse change against the induced tilt within 150 ms)?",
+  "data": [
+   "offline strata of the v12 kick rows (2/3/4.5 mN m): crash rate per arm by hit axis relative to the manoeuvre direction (4 x 90 deg bins) and by hit time tertile",
+   "the 3 mN m kick cases (base 2_099_300_000, 64/task) re-flown with traces for classical, cls_es s1, v11 SNN s2/s3/s4, imitation start s1 (deterministic: identical episodes to v12)"
+  ],
+  "measures": "tilt at the hit; tilt peak within 0.5 s; induced tilt vector over 60 ms; set-point change over 150 ms and its projection on the induced tilt (negative = corrective); pulses 150 ms before/after; recovery time below 25 deg; crash rate at matched tilt-at-hit bins (<20, 20-35, >35 deg)",
+  "reading": {
+   "conservatism": "SNN tilt-at-hit lower than the classical on the same cases (paired CI below 0) AND crash rates at matched tilt-at-hit bins similar",
+   "reaction": "corrective set-point change in most cases (projection CI below 0) AND lower crash rate than the classical within the same tilt-at-hit bin",
+   "both_or_neither": "reported as such; no criterion to pass, this test is explanatory"
+  },
+  "module": "experiments/algorithms/spike_steer/mech13.py"
+ },
+ "later_tests": "hit timing phases, sustained turbulence, hover-hit control, sensor degradation, double hit — each added by amendment before it runs, in the order the user chooses"
+}

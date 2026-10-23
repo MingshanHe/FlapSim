@@ -1,0 +1,16 @@
+{
+ "only": "snn_v4 (calibrated, validation-selected)",
+ "pass_rule": [
+  "flies 16/16 on the old 16-case test",
+  "J_snn <= 1.05 x J_law_tuned (v2 108-point law), both re-run here",
+  ">= 20 onsets for need-up and need-down; >= 70 % within +-67.5 deg of 135 / 315 deg"
+ ],
+ "robust_pass": "the same on the fresh 16-case test (v3 test3 stream)",
+ "changes_from_v3": [
+  "tau_m, tau_s evolvable (0.3-10 ms)",
+  "calibration grid g_theta<=2.5, twitch>=1",
+  "D1 choice and law_ext reused from v3"
+ ],
+ "registered_before_test": true,
+ "time": "2026-10-13 13:32:11"
+}

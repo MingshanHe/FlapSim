@@ -1,0 +1,971 @@
+{
+ "plan": "v12",
+ "test": "kick2",
+ "base": 2099700000,
+ "condition": "stress",
+ "kick": true,
+ "mag": 0.002,
+ "cases_per_task": 64,
+ "classical": {
+  "crashes": 17,
+  "n": 192,
+  "ci95": [
+   0.052426661207611164,
+   0.13797840160913794
+  ]
+ },
+ "cls_es_s1": {
+  "mean": 1.6326778881299593,
+  "classical_self": 2.033828714610527,
+  "delta": -0.40115082648056716,
+  "delta_ci95": [
+   -0.7496839439852876,
+   -0.09594855753900845
+  ],
+  "median_of_ratios": 0.9888872969785937,
+  "wins": 121,
+  "crashes": 16,
+  "ci95": [
+   0.04838266649515745,
+   0.13180108185606948
+  ],
+  "settle_free": {
+   "mean": 1.9400070186712062,
+   "classical_self": 2.205766899292318,
+   "delta": -0.2657598806211116,
+   "delta_ci95": [
+    -0.6293144790576137,
+    0.07818065845228524
+   ]
+  },
+  "per_task": {
+   "evade": -1.0845360602718086,
+   "redirect": -0.17356006922845912,
+   "dash": 0.054643650058566307
+  },
+  "H1": null,
+  "crash_cases": [
+   [
+    "evade",
+    "pitch",
+    "tilt"
+   ],
+   [
+    "evade",
+    "pitch",
+    "tilt"
+   ],
+   [
+    "redirect",
+    "roll",
+    "tilt"
+   ],
+   [
+    "redirect",
+    "roll",
+    "tilt"
+   ],
+   [
+    "redirect",
+    "roll",
+    "tilt"
+   ],
+   [
+    "redirect",
+    "roll",
+    "tilt"
+   ],
+   [
+    "redirect",
+    "pitch",
+    "tilt"
+   ],
+   [
+    "redirect",
+    "roll",
+    "tilt"
+   ],
+   [
+    "redirect",
+    "roll",
+    "tilt"
+   ],
+   [
+    "dash",
+    "diag",
+    "tilt"
+   ],
+   [
+    "dash",
+    "pitch",
+    "tilt"
+   ],
+   [
+    "dash",
+    "diag",
+    "tilt"
+   ],
+   [
+    "dash",
+    "pitch",
+    "tilt"
+   ],
+   [
+    "dash",
+    "diag",
+    "tilt"
+   ],
+   [
+    "dash",
+    "pitch",
+    "tilt"
+   ],
+   [
+    "dash",
+    "pitch",
+    "tilt"
+   ]
+  ]
+ },
+ "cls_es_s2": {
+  "mean": 1.7726460261732235,
+  "classical_self": 2.033828714610527,
+  "delta": -0.26118268843730313,
+  "delta_ci95": [
+   -0.5337927539235555,
+   -0.03059860208634813
+  ],
+  "median_of_ratios": 0.9973365387425455,
+  "wins": 97,
+  "crashes": 16,
+  "ci95": [
+   0.04838266649515745,
+   0.13180108185606948
+  ],
+  "settle_free": {
+   "mean": 2.02526710722104,
+   "classical_self": 2.205766899292318,
+   "delta": -0.18049979207127795,
+   "delta_ci95": [
+    -0.4719899652757094,
+    0.07715396676765668
+   ]
+  },
+  "per_task": {
+   "evade": -0.6489073307724675,
+   "redirect": -0.18860214489684823,
+   "dash": 0.053961410357406425
+  },
+  "H1": null,
+  "crash_cases": [
+   [
+    "evade",
+    "pitch",
+    "tilt"
+   ],
+   [
+    "evade",
+    "pitch",
+    "tilt"
+   ],
+   [
+    "evade",
+    "pitch",
+    "tilt"
+   ],
+   [
+    "evade",
+    "pitch",
+    "tilt"
+   ],
+   [
+    "redirect",
+    "roll",
+    "tilt"
+   ],
+   [
+    "redirect",
+    "roll",
+    "tilt"
+   ],
+   [
+    "redirect",
+    "roll",
+    "tilt"
+   ],
+   [
+    "redirect",
+    "roll",
+    "tilt"
+   ],
+   [
+    "redirect",
+    "roll",
+    "tilt"
+   ],
+   [
+    "redirect",
+    "roll",
+    "tilt"
+   ],
+   [
+    "dash",
+    "pitch",
+    "tilt"
+   ],
+   [
+    "dash",
+    "diag",
+    "tilt"
+   ],
+   [
+    "dash",
+    "pitch",
+    "tilt"
+   ],
+   [
+    "dash",
+    "diag",
+    "tilt"
+   ],
+   [
+    "dash",
+    "pitch",
+    "tilt"
+   ],
+   [
+    "dash",
+    "pitch",
+    "tilt"
+   ]
+  ]
+ },
+ "snn11_s1": {
+  "mean": 1.4630237958642542,
+  "classical_self": 2.033828714610527,
+  "delta": -0.5708049187462725,
+  "delta_ci95": [
+   -0.9731286856968939,
+   -0.1965785977865602
+  ],
+  "median_of_ratios": 1.0032157553881078,
+  "wins": 104,
+  "crashes": 9,
+  "ci95": [
+   0.021655280676178175,
+   0.08711581879534575
+  ],
+  "settle_free": {
+   "mean": 1.5441026430789033,
+   "classical_self": 2.205766899292318,
+   "delta": -0.6616642562134146,
+   "delta_ci95": [
+    -1.09001281256162,
+    -0.26663606858034017
+   ]
+  },
+  "per_task": {
+   "evade": -1.0313998546905325,
+   "redirect": -0.5482310958418548,
+   "dash": -0.1327838057064301
+  },
+  "H1": true,
+  "crash_cases": [
+   [
+    "evade",
+    "pitch",
+    "tilt"
+   ],
+   [
+    "evade",
+    "pitch",
+    "tilt"
+   ],
+   [
+    "redirect",
+    "pitch",
+    "tilt"
+   ],
+   [
+    "redirect",
+    "roll",
+    "tilt"
+   ],
+   [
+    "redirect",
+    "roll",
+    "tilt"
+   ],
+   [
+    "redirect",
+    "roll",
+    "tilt"
+   ],
+   [
+    "redirect",
+    "pitch",
+    "tilt"
+   ],
+   [
+    "dash",
+    "diag",
+    "tilt"
+   ],
+   [
+    "dash",
+    "pitch",
+    "tilt"
+   ]
+  ]
+ },
+ "snn11_s2": {
+  "mean": 1.3059345037502197,
+  "classical_self": 2.033828714610527,
+  "delta": -0.7278942108603067,
+  "delta_ci95": [
+   -1.1338391398227785,
+   -0.36166216006808627
+  ],
+  "median_of_ratios": 1.0437747853758272,
+  "wins": 81,
+  "crashes": 4,
+  "ci95": [
+   0.005704863201195754,
+   0.05247991145823011
+  ],
+  "settle_free": {
+   "mean": 1.3616750563133027,
+   "classical_self": 2.205766899292318,
+   "delta": -0.8440918429790149,
+   "delta_ci95": [
+    -1.2885443716736626,
+    -0.42697327891873815
+   ]
+  },
+  "per_task": {
+   "evade": -1.0603185311826728,
+   "redirect": -0.9704175329657909,
+   "dash": -0.1529465684324569
+  },
+  "H1": true,
+  "crash_cases": [
+   [
+    "evade",
+    "pitch",
+    "tilt"
+   ],
+   [
+    "evade",
+    "pitch",
+    "tilt"
+   ],
+   [
+    "redirect",
+    "roll",
+    "tilt"
+   ],
+   [
+    "dash",
+    "pitch",
+    "tilt"
+   ]
+  ]
+ },
+ "snn11_s3": {
+  "mean": 1.3717651230938532,
+  "classical_self": 2.033828714610527,
+  "delta": -0.6620635915166736,
+  "delta_ci95": [
+   -1.0763331466914847,
+   -0.2981339091241943
+  ],
+  "median_of_ratios": 0.9908426435736333,
+  "wins": 109,
+  "crashes": 8,
+  "ci95": [
+   0.018157716122409975,
+   0.08044657265574989
+  ],
+  "settle_free": {
+   "mean": 1.4703402873675493,
+   "classical_self": 2.205766899292318,
+   "delta": -0.7354266119247684,
+   "delta_ci95": [
+    -1.1859058575643837,
+    -0.3240251887643985
+   ]
+  },
+  "per_task": {
+   "evade": -1.275595980652783,
+   "redirect": -0.6693511505738958,
+   "dash": -0.04124364332334185
+  },
+  "H1": true,
+  "crash_cases": [
+   [
+    "evade",
+    "pitch",
+    "tilt"
+   ],
+   [
+    "redirect",
+    "roll",
+    "tilt"
+   ],
+   [
+    "redirect",
+    "roll",
+    "tilt"
+   ],
+   [
+    "redirect",
+    "roll",
+    "tilt"
+   ],
+   [
+    "redirect",
+    "roll",
+    "tilt"
+   ],
+   [
+    "dash",
+    "diag",
+    "tilt"
+   ],
+   [
+    "dash",
+    "diag",
+    "tilt"
+   ],
+   [
+    "dash",
+    "pitch",
+    "tilt"
+   ]
+  ]
+ },
+ "snn11_s4": {
+  "mean": 1.1433857690922433,
+  "classical_self": 2.033828714610527,
+  "delta": -0.8904429455182831,
+  "delta_ci95": [
+   -1.3206957974869913,
+   -0.4918690353996732
+  ],
+  "median_of_ratios": 0.975812321353327,
+  "wins": 115,
+  "crashes": 2,
+  "ci95": [
+   0.0012640055405937893,
+   0.03712007148411506
+  ],
+  "settle_free": {
+   "mean": 1.1059289934769216,
+   "classical_self": 2.205766899292318,
+   "delta": -1.099837905815396,
+   "delta_ci95": [
+    -1.5670437077500723,
+    -0.660828320155876
+   ]
+  },
+  "per_task": {
+   "evade": -1.2745321050817795,
+   "redirect": -1.3367348007106428,
+   "dash": -0.060061930762427274
+  },
+  "H1": true,
+  "crash_cases": [
+   [
+    "evade",
+    "pitch",
+    "tilt"
+   ],
+   [
+    "dash",
+    "pitch",
+    "tilt"
+   ]
+  ]
+ },
+ "snn11_s5": {
+  "mean": 1.3742115155974863,
+  "classical_self": 2.033828714610527,
+  "delta": -0.6596171990130403,
+  "delta_ci95": [
+   -1.0435462948843406,
+   -0.310745167544776
+  ],
+  "median_of_ratios": 0.9969838632668914,
+  "wins": 114,
+  "crashes": 6,
+  "ci95": [
+   0.01155286232041483,
+   0.06677405097239736
+  ],
+  "settle_free": {
+   "mean": 1.3751462211946042,
+   "classical_self": 2.205766899292318,
+   "delta": -0.8306206780977137,
+   "delta_ci95": [
+    -1.229233919838222,
+    -0.45272393017334633
+   ]
+  },
+  "per_task": {
+   "evade": -1.0555078759295493,
+   "redirect": -0.8270542622253725,
+   "dash": -0.09628945888419915
+  },
+  "H1": true,
+  "crash_cases": [
+   [
+    "evade",
+    "pitch",
+    "tilt"
+   ],
+   [
+    "evade",
+    "pitch",
+    "tilt"
+   ],
+   [
+    "redirect",
+    "roll",
+    "tilt"
+   ],
+   [
+    "redirect",
+    "roll",
+    "tilt"
+   ],
+   [
+    "redirect",
+    "roll",
+    "tilt"
+   ],
+   [
+    "dash",
+    "diag",
+    "tilt"
+   ]
+  ]
+ },
+ "snn9_s1": {
+  "mean": 1.477036338892322,
+  "classical_self": 2.033828714610527,
+  "delta": -0.5567923757182047,
+  "delta_ci95": [
+   -0.9391541891026106,
+   -0.20025955319641345
+  ],
+  "median_of_ratios": 1.0081942598266418,
+  "wins": 111,
+  "crashes": 8,
+  "ci95": [
+   0.018157716122409975,
+   0.08044657265574989
+  ],
+  "settle_free": {
+   "mean": 1.5326312302874696,
+   "classical_self": 2.205766899292318,
+   "delta": -0.6731356690048482,
+   "delta_ci95": [
+    -1.08206942146914,
+    -0.29880711956888156
+   ]
+  },
+  "per_task": {
+   "evade": -0.7980331513167962,
+   "redirect": -0.8209218054792642,
+   "dash": -0.05142217035855379
+  },
+  "H1": null,
+  "crash_cases": [
+   [
+    "evade",
+    "pitch",
+    "tilt"
+   ],
+   [
+    "evade",
+    "pitch",
+    "tilt"
+   ],
+   [
+    "evade",
+    "pitch",
+    "tilt"
+   ],
+   [
+    "redirect",
+    "roll",
+    "tilt"
+   ],
+   [
+    "redirect",
+    "roll",
+    "tilt"
+   ],
+   [
+    "redirect",
+    "pitch",
+    "tilt"
+   ],
+   [
+    "dash",
+    "diag",
+    "tilt"
+   ],
+   [
+    "dash",
+    "pitch",
+    "tilt"
+   ]
+  ]
+ },
+ "snn9_s2": {
+  "mean": 1.6492856075628906,
+  "classical_self": 2.033828714610527,
+  "delta": -0.3845431070476361,
+  "delta_ci95": [
+   -0.7735617713260193,
+   -0.013525706748822575
+  ],
+  "median_of_ratios": 0.9789812167844643,
+  "wins": 109,
+  "crashes": 12,
+  "ci95": [
+   0.03270858347901531,
+   0.10662931656603275
+  ],
+  "settle_free": {
+   "mean": 1.701149677280213,
+   "classical_self": 2.205766899292318,
+   "delta": -0.5046172220121048,
+   "delta_ci95": [
+    -0.9125901803024888,
+    -0.10814319912111113
+   ]
+  },
+  "per_task": {
+   "evade": -0.4458150083430028,
+   "redirect": -0.6103494058687668,
+   "dash": -0.09746490693113863
+  },
+  "H1": null,
+  "crash_cases": [
+   [
+    "evade",
+    "pitch",
+    "tilt"
+   ],
+   [
+    "evade",
+    "pitch",
+    "tilt"
+   ],
+   [
+    "evade",
+    "pitch",
+    "tilt"
+   ],
+   [
+    "evade",
+    "pitch",
+    "tilt"
+   ],
+   [
+    "evade",
+    "pitch",
+    "tilt"
+   ],
+   [
+    "redirect",
+    "pitch",
+    "tilt"
+   ],
+   [
+    "redirect",
+    "roll",
+    "tilt"
+   ],
+   [
+    "redirect",
+    "roll",
+    "tilt"
+   ],
+   [
+    "redirect",
+    "roll",
+    "tilt"
+   ],
+   [
+    "redirect",
+    "roll",
+    "tilt"
+   ],
+   [
+    "dash",
+    "diag",
+    "tilt"
+   ],
+   [
+    "dash",
+    "pitch",
+    "tilt"
+   ]
+  ]
+ },
+ "snn9_s3": {
+  "mean": 1.5511549585382072,
+  "classical_self": 2.033828714610527,
+  "delta": -0.48267375607231955,
+  "delta_ci95": [
+   -0.9289383569352521,
+   -0.037159044714467494
+  ],
+  "median_of_ratios": 1.0198065378722727,
+  "wins": 94,
+  "crashes": 11,
+  "ci95": [
+   0.028943491650076182,
+   0.10019679417572908
+  ],
+  "settle_free": {
+   "mean": 1.6575535821247935,
+   "classical_self": 2.205766899292318,
+   "delta": -0.5482133171675244,
+   "delta_ci95": [
+    -1.0250636186457647,
+    -0.05256350210329613
+   ]
+  },
+  "per_task": {
+   "evade": -0.8017439502318973,
+   "redirect": -0.720193977911558,
+   "dash": 0.07391665992649665
+  },
+  "H1": null,
+  "crash_cases": [
+   [
+    "evade",
+    "pitch",
+    "tilt"
+   ],
+   [
+    "evade",
+    "pitch",
+    "tilt"
+   ],
+   [
+    "evade",
+    "pitch",
+    "tilt"
+   ],
+   [
+    "redirect",
+    "roll",
+    "tilt"
+   ],
+   [
+    "redirect",
+    "pitch",
+    "tilt"
+   ],
+   [
+    "redirect",
+    "roll",
+    "tilt"
+   ],
+   [
+    "redirect",
+    "roll",
+    "tilt"
+   ],
+   [
+    "dash",
+    "pitch",
+    "tilt"
+   ],
+   [
+    "dash",
+    "diag",
+    "tilt"
+   ],
+   [
+    "dash",
+    "diag",
+    "tilt"
+   ],
+   [
+    "dash",
+    "pitch",
+    "tilt"
+   ]
+  ]
+ },
+ "snn9_s4": {
+  "mean": 1.197572561124442,
+  "classical_self": 2.033828714610527,
+  "delta": -0.8362561534860845,
+  "delta_ci95": [
+   -1.2702275450695866,
+   -0.43499814739723003
+  ],
+  "median_of_ratios": 0.9980429440432381,
+  "wins": 117,
+  "crashes": 3,
+  "ci95": [
+   0.003233914833358937,
+   0.04498154432354523
+  ],
+  "settle_free": {
+   "mean": 1.2017629809098536,
+   "classical_self": 2.205766899292318,
+   "delta": -1.0040039183824643,
+   "delta_ci95": [
+    -1.4685536138569875,
+    -0.5784141781786254
+   ]
+  },
+  "per_task": {
+   "evade": -1.259524231643688,
+   "redirect": -1.288142176876994,
+   "dash": 0.038897948062428744
+  },
+  "H1": null,
+  "crash_cases": [
+   [
+    "evade",
+    "pitch",
+    "tilt"
+   ],
+   [
+    "dash",
+    "diag",
+    "tilt"
+   ],
+   [
+    "dash",
+    "pitch",
+    "tilt"
+   ]
+  ]
+ },
+ "snn9_s5": {
+  "mean": 1.435165968219726,
+  "classical_self": 2.033828714610527,
+  "delta": -0.5986627463908006,
+  "delta_ci95": [
+   -0.9907992003573332,
+   -0.2422095787894818
+  ],
+  "median_of_ratios": 1.0035733332744974,
+  "wins": 115,
+  "crashes": 7,
+  "ci95": [
+   0.014781600487806943,
+   0.07367263592618672
+  ],
+  "settle_free": {
+   "mean": 1.4107983328449507,
+   "classical_self": 2.205766899292318,
+   "delta": -0.7949685664473668,
+   "delta_ci95": [
+    -1.2227500986417945,
+    -0.3929302936530037
+   ]
+  },
+  "per_task": {
+   "evade": -1.0723009228245703,
+   "redirect": -0.5371847893429966,
+   "dash": -0.18650252700483505
+  },
+  "H1": null,
+  "crash_cases": [
+   [
+    "evade",
+    "pitch",
+    "tilt"
+   ],
+   [
+    "evade",
+    "pitch",
+    "tilt"
+   ],
+   [
+    "redirect",
+    "roll",
+    "tilt"
+   ],
+   [
+    "redirect",
+    "roll",
+    "tilt"
+   ],
+   [
+    "redirect",
+    "roll",
+    "tilt"
+   ],
+   [
+    "redirect",
+    "roll",
+    "tilt"
+   ],
+   [
+    "redirect",
+    "roll",
+    "tilt"
+   ]
+  ]
+ },
+ "snn_bc_s1": {
+  "mean": 1.2825599989205163,
+  "classical_self": 2.033828714610527,
+  "delta": -0.7512687156900103,
+  "delta_ci95": [
+   -1.1689367288015455,
+   -0.3586215845415457
+  ],
+  "median_of_ratios": 1.08199025010767,
+  "wins": 63,
+  "crashes": 2,
+  "ci95": [
+   0.0012640055405937893,
+   0.03712007148411506
+  ],
+  "settle_free": {
+   "mean": 1.3302080006309056,
+   "classical_self": 2.205766899292318,
+   "delta": -0.8755588986614119,
+   "delta_ci95": [
+    -1.3305522431976708,
+    -0.4408348543447477
+   ]
+  },
+  "per_task": {
+   "evade": -1.1286146909466659,
+   "redirect": -0.9688688537014258,
+   "dash": -0.1563226024219393
+  },
+  "H1": null,
+  "crash_cases": [
+   [
+    "evade",
+    "pitch",
+    "tilt"
+   ],
+   [
+    "redirect",
+    "roll",
+    "tilt"
+   ]
+  ]
+ },
+ "H1": {
+  "seeds_passing": 5,
+  "seeds": 5,
+  "holds": true
+ }
+}

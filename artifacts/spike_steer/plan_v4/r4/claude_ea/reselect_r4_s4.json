@@ -1,0 +1,235 @@
+{
+ "seed": 4,
+ "envelope_deg": null,
+ "soft_tilt_deg": 60.0,
+ "hard_tilt_deg": 70.0,
+ "n_val_per_task": 8,
+ "rule": "lowest penalised composite (soft tilt 60.0 deg) on 16 validation cases among centres with zero crashes and true tilt peak < 70.0 deg",
+ "fallback": null,
+ "centres": [
+  {
+   "generation": -1,
+   "penalised16": 0.9009561056917461,
+   "composite16": 0.9009561056917461,
+   "composite8": 0.8859185283378807,
+   "crashes": 0,
+   "over_hard": 0,
+   "tilt_peak_max": 46.40883936853085,
+   "ratios": {
+    "nod": 0.8391339762047787,
+    "dash": 0.9627782351787136
+   },
+   "spec": "runs/spike_steer/bench_r4/train/sel_s4/spec_val_g-1.json"
+  },
+  {
+   "generation": 4,
+   "penalised16": 0.8487513065499062,
+   "composite16": 0.8487513065499062,
+   "composite8": 0.8530836880616015,
+   "crashes": 0,
+   "over_hard": 0,
+   "tilt_peak_max": 47.06032597753076,
+   "ratios": {
+    "nod": 0.8673377076457313,
+    "dash": 0.830164905454081
+   },
+   "spec": "runs/spike_steer/bench_r4/train/sel_s4/spec_val_g4.json"
+  },
+  {
+   "generation": 9,
+   "penalised16": 0.8585747903167196,
+   "composite16": 0.8585747903167196,
+   "composite8": 0.8682028379813592,
+   "crashes": 0,
+   "over_hard": 0,
+   "tilt_peak_max": 48.58999412828837,
+   "ratios": {
+    "nod": 0.8833549303840363,
+    "dash": 0.8337946502494029
+   },
+   "spec": "runs/spike_steer/bench_r4/train/sel_s4/spec_val_g9.json"
+  },
+  {
+   "generation": 14,
+   "penalised16": 0.8806517575697497,
+   "composite16": 0.8806517575697497,
+   "composite8": 0.8798534587046094,
+   "crashes": 0,
+   "over_hard": 0,
+   "tilt_peak_max": 46.86607718886056,
+   "ratios": {
+    "nod": 0.9432962937613559,
+    "dash": 0.8180072213781433
+   },
+   "spec": "runs/spike_steer/bench_r4/train/sel_s4/spec_val_g14.json"
+  },
+  {
+   "generation": 19,
+   "penalised16": 0.8693944017553041,
+   "composite16": 0.8693944017553041,
+   "composite8": 0.8969109066226285,
+   "crashes": 0,
+   "over_hard": 0,
+   "tilt_peak_max": 45.74037415508832,
+   "ratios": {
+    "nod": 0.9113189095128851,
+    "dash": 0.8274698939977233
+   },
+   "spec": "runs/spike_steer/bench_r4/train/sel_s4/spec_val_g19.json"
+  },
+  {
+   "generation": 24,
+   "penalised16": 2.0182077047801323,
+   "composite16": 1.622235030565087,
+   "composite8": 0.8560048451989095,
+   "crashes": 1,
+   "over_hard": 1,
+   "tilt_peak_max": 81.1185426248024,
+   "ratios": {
+    "nod": 2.418068434551011,
+    "dash": 0.826401626579163
+   },
+   "spec": "runs/spike_steer/bench_r4/train/sel_s4/spec_val_g24.json"
+  },
+  {
+   "generation": 29,
+   "penalised16": 0.8565240630517403,
+   "composite16": 0.8565240630517403,
+   "composite8": 0.8583260093010621,
+   "crashes": 0,
+   "over_hard": 0,
+   "tilt_peak_max": 47.2644355990217,
+   "ratios": {
+    "nod": 0.8874753941576535,
+    "dash": 0.8255727319458273
+   },
+   "spec": "runs/spike_steer/bench_r4/train/sel_s4/spec_val_g29.json"
+  },
+  {
+   "generation": 34,
+   "penalised16": 0.9629950854915063,
+   "composite16": 0.9629950854915063,
+   "composite8": 1.0949826256148183,
+   "crashes": 0,
+   "over_hard": 0,
+   "tilt_peak_max": 47.10997305386573,
+   "ratios": {
+    "nod": 1.1005304889376044,
+    "dash": 0.8254596820454081
+   },
+   "spec": "runs/spike_steer/bench_r4/train/sel_s4/spec_val_g34.json"
+  },
+  {
+   "generation": 39,
+   "penalised16": 3.242719677677676,
+   "composite16": 2.4489879753112627,
+   "composite8": 1.0457538146854486,
+   "crashes": 2,
+   "over_hard": 2,
+   "tilt_peak_max": 81.56338599173915,
+   "ratios": {
+    "nod": 4.074897270099845,
+    "dash": 0.8230786805226811
+   },
+   "spec": "runs/spike_steer/bench_r4/train/sel_s4/spec_val_g39.json"
+  },
+  {
+   "generation": 44,
+   "penalised16": 2.923141544523979,
+   "composite16": 2.3231231736979012,
+   "composite8": 0.8284835844688022,
+   "crashes": 2,
+   "over_hard": 2,
+   "tilt_peak_max": 80.41568930391759,
+   "ratios": {
+    "nod": 3.8106677224864134,
+    "dash": 0.8355786249093892
+   },
+   "spec": "runs/spike_steer/bench_r4/train/sel_s4/spec_val_g44.json"
+  },
+  {
+   "generation": 49,
+   "penalised16": 0.8299148753188301,
+   "composite16": 0.8299148753188301,
+   "composite8": 0.8285202299518966,
+   "crashes": 0,
+   "over_hard": 0,
+   "tilt_peak_max": 53.10551584935838,
+   "ratios": {
+    "nod": 0.8364381764683453,
+    "dash": 0.8233915741693151
+   },
+   "spec": "runs/spike_steer/bench_r4/train/sel_s4/spec_val_g49.json"
+  },
+  {
+   "generation": 54,
+   "penalised16": 0.8310960942524981,
+   "composite16": 0.8310960942524981,
+   "composite8": 0.8303335069121153,
+   "crashes": 0,
+   "over_hard": 0,
+   "tilt_peak_max": 51.29861870490258,
+   "ratios": {
+    "nod": 0.8418519451395035,
+    "dash": 0.8203402433654928
+   },
+   "spec": "runs/spike_steer/bench_r4/train/sel_s4/spec_val_g54.json"
+  },
+  {
+   "generation": 59,
+   "penalised16": 0.8279697187379469,
+   "composite16": 0.8279697187379469,
+   "composite8": 0.8320650230980418,
+   "crashes": 0,
+   "over_hard": 0,
+   "tilt_peak_max": 47.38273186997614,
+   "ratios": {
+    "nod": 0.8385553468733319,
+    "dash": 0.817384090602562
+   },
+   "spec": "runs/spike_steer/bench_r4/train/sel_s4/spec_val_g59.json"
+  }
+ ],
+ "selected": {
+  "generation": 59,
+  "penalised16": 0.8279697187379469,
+  "composite16": 0.8279697187379469,
+  "composite8": 0.8320650230980418,
+  "crashes": 0,
+  "over_hard": 0,
+  "tilt_peak_max": 47.38273186997614,
+  "ratios": {
+   "nod": 0.8385553468733319,
+   "dash": 0.817384090602562
+  },
+  "spec": "runs/spike_steer/bench_r4/train/sel_s4/spec_val_g59.json"
+ },
+ "selected_by_r2_rule_16": {
+  "generation": 59,
+  "penalised16": 0.8279697187379469,
+  "composite16": 0.8279697187379469,
+  "composite8": 0.8320650230980418,
+  "crashes": 0,
+  "over_hard": 0,
+  "tilt_peak_max": 47.38273186997614,
+  "ratios": {
+   "nod": 0.8385553468733319,
+   "dash": 0.817384090602562
+  },
+  "spec": "runs/spike_steer/bench_r4/train/sel_s4/spec_val_g59.json"
+ },
+ "selected_by_r2_rule_8": {
+  "generation": 44,
+  "penalised16": 2.923141544523979,
+  "composite16": 2.3231231736979012,
+  "composite8": 0.8284835844688022,
+  "crashes": 2,
+  "over_hard": 2,
+  "tilt_peak_max": 80.41568930391759,
+  "ratios": {
+   "nod": 3.8106677224864134,
+   "dash": 0.8355786249093892
+  },
+  "spec": "runs/spike_steer/bench_r4/train/sel_s4/spec_val_g44.json"
+ }
+}

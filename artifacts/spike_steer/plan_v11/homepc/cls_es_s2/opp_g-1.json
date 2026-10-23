@@ -1,0 +1,60 @@
+{
+ "opponent": {
+  "dash": {
+   "pitch": {
+    "go_ref": 0.35,
+    "go_beats": 45,
+    "brake_beats": 6,
+    "brake_ref": -0.5,
+    "gated": true
+   },
+   "roll": {
+    "go_ref": 0.35,
+    "go_beats": 18,
+    "brake_beats": 3,
+    "brake_ref": -0.35,
+    "gated": true
+   },
+   "diag": {
+    "go_ref": 0.5,
+    "go_beats": 18,
+    "brake_beats": 12,
+    "brake_ref": -0.35,
+    "gated": true
+   }
+  },
+  "evade": {
+   "pitch": {
+    "go_ref": 0.6,
+    "go_beats": 18,
+    "brake_beats": 3,
+    "brake_ref": -0.35,
+    "gated": true
+   },
+   "roll": {
+    "go_ref": 0.5,
+    "go_beats": 12,
+    "brake_beats": 0,
+    "brake_ref": 0.0,
+    "gated": true
+   }
+  },
+  "redirect": {
+   "pitch": {
+    "go_ref": 0.5,
+    "go_beats": 18,
+    "brake_beats": 3,
+    "brake_ref": -0.5,
+    "gated": true
+   },
+   "roll": {
+    "go_ref": 0.5,
+    "go_beats": 12,
+    "brake_beats": 3,
+    "brake_ref": -0.35,
+    "gated": true
+   }
+  }
+ },
+ "generation": -1
+}

@@ -1,0 +1,16 @@
+{
+ "lr": 0.02,
+ "lr_decay": 0.85,
+ "sigma": 0.05,
+ "pop": 16,
+ "generations": 16,
+ "cases_per_task": 8,
+ "crash_aware": true,
+ "seed": 4,
+ "scale": {
+  "go_ref": 0.5,
+  "go_beats": 20.0,
+  "brake_beats": 20.0,
+  "brake_ref": 0.5
+ }
+}

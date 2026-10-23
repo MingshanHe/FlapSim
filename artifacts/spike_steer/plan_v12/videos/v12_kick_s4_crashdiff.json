@@ -1,0 +1,81 @@
+{
+ "cases": {
+  "evade": {
+   "seed": 2099300013,
+   "dir": 180.0,
+   "dir2": null
+  },
+  "redirect": {
+   "seed": 2099300003,
+   "dir": 270.0,
+   "dir2": 0.0
+  },
+  "dash": {
+   "seed": 2099300001,
+   "dir": 45.0,
+   "dir2": null
+  }
+ },
+ "episodes": {
+  "classical/evade": {
+   "score": 10.881715150621723,
+   "goal_t": 0.4549966341483813,
+   "flown": false
+  },
+  "classical/redirect": {
+   "score": 18.606884327078838,
+   "goal_t": null,
+   "flown": false
+  },
+  "classical/dash": {
+   "score": 18.739573676340452,
+   "goal_t": 0.5,
+   "flown": false
+  },
+  "cls_es/evade": {
+   "score": 0.5599634088419712,
+   "goal_t": 0.4629966341483813,
+   "flown": true
+  },
+  "cls_es/redirect": {
+   "score": 18.505128021329128,
+   "goal_t": null,
+   "flown": false
+  },
+  "cls_es/dash": {
+   "score": 18.683037696288608,
+   "goal_t": 0.508,
+   "flown": false
+  },
+  "snn_es/evade": {
+   "score": 0.8690220840464746,
+   "goal_t": 0.4449966341483811,
+   "flown": true
+  },
+  "snn_es/redirect": {
+   "score": 2.919813641199016,
+   "goal_t": 1.682,
+   "flown": true
+  },
+  "snn_es/dash": {
+   "score": 5.058288949101203,
+   "goal_t": 0.5740000000000003,
+   "flown": true
+  },
+  "snn_bc/evade": {
+   "score": 1.1103401239707957,
+   "goal_t": 0.5169966341483812,
+   "flown": true
+  },
+  "snn_bc/redirect": {
+   "score": 18.97014855011588,
+   "goal_t": null,
+   "flown": false
+  },
+  "snn_bc/dash": {
+   "score": 5.197899217965927,
+   "goal_t": 0.5380000000000003,
+   "flown": true
+  }
+ }
+}

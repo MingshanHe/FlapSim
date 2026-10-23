@@ -1,0 +1,38 @@
+{
+  "method": "snn_neat",
+  "seed": 2201,
+  "status": "completed",
+  "training_steps": 1023957,
+  "allocated_steps": 1024000,
+  "validation_steps": 134400,
+  "budget": 1024000,
+  "generation": 39,
+  "best_validation": {
+    "episodes": 8,
+    "success_rate": 1.0,
+    "mean_return": 28.20291719125697,
+    "mean_elapsed": 8.0,
+    "tilt_rms_deg": 6.252081851693009,
+    "height_rmse_m": 0.06348233901746583,
+    "steps": 6400,
+    "minimum_clearance_m": 0.5051628764552029
+  },
+  "wall_seconds": 3579.559570604004,
+  "validation_plateau": true,
+  "stop_reason": "predeclared_complete_generation_budget",
+  "inference": {
+    "nodes": 7,
+    "hidden": 4,
+    "connections": 59,
+    "effective_connections": 59,
+    "recurrent_edges": 16,
+    "parameters": 80,
+    "state_floats": 21,
+    "time_constants": 14,
+    "evolved_time_constants": 14,
+    "stored_scalar_parameters": 80,
+    "internal_updates_per_action": 10,
+    "numpy_inference_us_median": 78.31529300892726,
+    "implementation": "CPU NumPy; includes all neural substeps; no hardware energy inference"
+  }
+}

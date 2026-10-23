@@ -1,0 +1,69 @@
+{
+  "base_revision": "855b816b95828f9eeffd7238adf1f451f0f52c99",
+  "recommended_policy": "tracking",
+  "validated_tasks": [
+    "hover",
+    "circle",
+    "figure8",
+    "ellipse",
+    "line"
+  ],
+  "nominal_period_s": 8,
+  "nominal_radius_m": 0.2,
+  "evaluation_durations_s": [
+    8,
+    16
+  ],
+  "success_criterion": "time limit reached and whole-episode 3D position RMSE < 0.10 m",
+  "limitations": "Fast helix and lissajous remain experimental; no takeoff, landing, hardware or large-disturbance validation.",
+  "files": {
+    "hover/policy.zip": {
+      "bytes": 750108,
+      "sha256": "6753b5e8201269235804e77167049c6d35c78187da285b12871d05379cbcd1f4"
+    },
+    "hover/run.json": {
+      "bytes": 2570,
+      "sha256": "bb159a8d0cf80e167ac831bd467f49108b055e8d7d1df9aaeea560af549dbff1"
+    },
+    "hover/simulation.json": {
+      "bytes": 26037,
+      "sha256": "edf844779a459a70eff9d12683427055792e2083ff1ca6024a13fb7f68da7f2f"
+    },
+    "hover/vecnormalize.pkl": {
+      "bytes": 10315,
+      "sha256": "d2af637b6c98619bb46e9f8ceff29fa6bda8c9ace2c8c16921edf386989da417"
+    },
+    "tracking/policy.zip": {
+      "bytes": 751940,
+      "sha256": "b2f891b76dd2dcc4d93816cb69348ecda68f254bcebb112b772bb30ef768a043"
+    },
+    "tracking/run.json": {
+      "bytes": 2972,
+      "sha256": "264b9a38a408f55d2adf521360f1d6b22f9827c7e44241185465117c8f8282e2"
+    },
+    "tracking/simulation.json": {
+      "bytes": 26037,
+      "sha256": "edf844779a459a70eff9d12683427055792e2083ff1ca6024a13fb7f68da7f2f"
+    },
+    "tracking/vecnormalize.pkl": {
+      "bytes": 10349,
+      "sha256": "059a37f5db534d0b93383288049a9b9b9cf4838c16d8f7e3d0056ea37f82f691"
+    },
+    "experimental_spatial/policy.zip": {
+      "bytes": 752557,
+      "sha256": "5278c383536ae4abdb15f79fd6c040e7ad9afedaf2755399d0224beeb6c89af0"
+    },
+    "experimental_spatial/run.json": {
+      "bytes": 3113,
+      "sha256": "51458eecb433fb645511ea23bb9781c6a14063208b8ca16391a7b0f3a0a6719a"
+    },
+    "experimental_spatial/simulation.json": {
+      "bytes": 26037,
+      "sha256": "edf844779a459a70eff9d12683427055792e2083ff1ca6024a13fb7f68da7f2f"
+    },
+    "experimental_spatial/vecnormalize.pkl": {
+      "bytes": 10349,
+      "sha256": "564765987901f3c2371646f0689a9354d7874514b41170305b9f3593d8afa6df"
+    }
+  }
+}

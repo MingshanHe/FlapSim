@@ -1,0 +1,48 @@
+{
+  "seed": 310900000,
+  "source_root": "artifacts/pid_airborne_20261008",
+  "segment_seconds": [
+    5,
+    6
+  ],
+  "columns": [
+    "time",
+    "carrier_2_joint",
+    "left_flapping_joint",
+    "right_flapping_joint",
+    "left_feathering_joint",
+    "right_feathering_joint",
+    "motor_joint",
+    "motor_velocity_rad_s"
+  ],
+  "carrier_cycles_hz": 25.008678942750013,
+  "wings": [
+    {
+      "wing": "left",
+      "flap_peak_frequency_hz": 25.0,
+      "peak_count": 25,
+      "min_deg": -79.33082000405935,
+      "max_deg": 79.32758866742506,
+      "peak_to_peak_deg": 158.6584086714844
+    },
+    {
+      "wing": "right",
+      "flap_peak_frequency_hz": 25.0,
+      "peak_count": 25,
+      "min_deg": -79.32758866618393,
+      "max_deg": 79.33082000269923,
+      "peak_to_peak_deg": 158.65840866888314
+    }
+  ],
+  "original_video_fps": 25,
+  "old_sample_phase_advance_deg": 0.12497677560017628,
+  "apparent_alias_hz": 0.008678942750012908,
+  "high_sample_hz": 250,
+  "playback_fps": 25,
+  "slowdown": 10,
+  "flight_frames": 250,
+  "hold_frames": 25,
+  "trace_verified_atol": 1e-12,
+  "policy_sha256": "ec162473f29b8fd6fbef5bff7aa5373276227be74214fd11bd6d2ecdbe8cb32b",
+  "scope": "Same frozen trajectory; original 25 Hz snapshots held between updates for a paired slow-motion sampling comparison."
+}

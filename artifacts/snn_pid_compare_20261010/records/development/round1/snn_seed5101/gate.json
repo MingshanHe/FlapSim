@@ -1,0 +1,44 @@
+{
+  "passed": false,
+  "checks": {
+    "nominal_success": false,
+    "tilt": false,
+    "height": false,
+    "long_success": false
+  },
+  "offline_diagnostic_pass": false,
+  "offline_rmse": [
+    0.05879658458841385,
+    0.03275522842740259,
+    0.04127840981826192
+  ],
+  "nominal": {
+    "episodes": 16,
+    "successes": 4,
+    "completed": 4,
+    "steps": 56591,
+    "tilt_rms_deg": 28.06805954395835,
+    "height_rmse_m": 0.0967933931305679,
+    "mean_return": 21.717439549567132
+  },
+  "long": {
+    "episodes": 4,
+    "successes": 1,
+    "completed": 1,
+    "steps": 34474,
+    "tilt_rms_deg": 26.499447254558014,
+    "height_rmse_m": 0.09213203173883996,
+    "mean_return": 56.60573438599671
+  },
+  "selected_checkpoint": "policy_epoch030.json",
+  "policy_sha256": "f7ad6e43c714805216c8659c35c285c122cda9e49571a340496886d1c4e8250d",
+  "stress": {
+    "episodes": 16,
+    "successes": 0,
+    "completed": 0,
+    "steps": 28462,
+    "tilt_rms_deg": 33.95876609744525,
+    "height_rmse_m": 0.12471358617755421,
+    "mean_return": 8.959081504203354
+  }
+}

@@ -1,0 +1,631 @@
+{
+  "snapshot_jst": "2026-10-11T17:00:37.672731+09:00",
+  "completed": 11,
+  "total": 65,
+  "active": [
+    {
+      "name": "hover_residual_ann_ppo_seed6203",
+      "update": 722,
+      "loss": 0.004435949351488443,
+      "training_steps": 2888000,
+      "budget": 3584000,
+      "completed": false
+    },
+    {
+      "name": "hover_residual_snn_neat_seed6204",
+      "generation": 10,
+      "training_steps": 2531486,
+      "budget": 3584000,
+      "completed": false
+    }
+  ],
+  "final_tests_accessed": false,
+  "completed_validation": [
+    {
+      "name": "hover_residual_snn_neat_seed6201",
+      "kind": "snn",
+      "method": "neat",
+      "seed": 6201,
+      "stage": 12,
+      "summary": {
+        "episodes": 16,
+        "successes": 16,
+        "completed": 16,
+        "steps": 96000,
+        "tilt_rms_deg": 6.105810249458941,
+        "height_rmse_m": 0.05671972871275989,
+        "mean_return": 42.801501162218045,
+        "minimum_clearance_m": 0.5088192568282613
+      },
+      "baseline": {
+        "episodes": 16,
+        "successes": 13,
+        "completed": 16,
+        "steps": 96000,
+        "tilt_rms_deg": 6.78097057168324,
+        "height_rmse_m": 0.053270456062243704,
+        "mean_return": 42.401558707028094,
+        "minimum_clearance_m": 0.5074244308510542
+      },
+      "conditions": {
+        "nominal": {
+          "successes": 8,
+          "episodes": 8
+        },
+        "stress": {
+          "successes": 8,
+          "episodes": 8
+        }
+      },
+      "failures": [],
+      "training_wall_seconds": 8392.394510436
+    },
+    {
+      "name": "hover_residual_snn_ppo_seed6201",
+      "kind": "snn",
+      "method": "ppo",
+      "seed": 6201,
+      "stage": 128,
+      "summary": {
+        "episodes": 16,
+        "successes": 13,
+        "completed": 16,
+        "steps": 96000,
+        "tilt_rms_deg": 6.753354195087594,
+        "height_rmse_m": 0.05327699736095015,
+        "mean_return": 42.44556940773274,
+        "minimum_clearance_m": 0.5053548062485701
+      },
+      "baseline": {
+        "episodes": 16,
+        "successes": 13,
+        "completed": 16,
+        "steps": 96000,
+        "tilt_rms_deg": 6.78097057168324,
+        "height_rmse_m": 0.053270456062243704,
+        "mean_return": 42.401558707028094,
+        "minimum_clearance_m": 0.5074244308510542
+      },
+      "conditions": {
+        "nominal": {
+          "successes": 8,
+          "episodes": 8
+        },
+        "stress": {
+          "successes": 5,
+          "episodes": 8
+        }
+      },
+      "failures": [
+        {
+          "condition": "stress",
+          "phase": 0,
+          "termination": "time_limit",
+          "unmet_criteria": [
+            "tilt"
+          ]
+        },
+        {
+          "condition": "stress",
+          "phase": 2,
+          "termination": "time_limit",
+          "unmet_criteria": [
+            "tilt"
+          ]
+        },
+        {
+          "condition": "stress",
+          "phase": 4,
+          "termination": "time_limit",
+          "unmet_criteria": [
+            "tilt"
+          ]
+        }
+      ],
+      "training_wall_seconds": 15858.890962552
+    },
+    {
+      "name": "hover_residual_ann_neat_seed6201",
+      "kind": "ann",
+      "method": "neat",
+      "seed": 6201,
+      "stage": 8,
+      "summary": {
+        "episodes": 16,
+        "successes": 15,
+        "completed": 16,
+        "steps": 96000,
+        "tilt_rms_deg": 6.357596767301834,
+        "height_rmse_m": 0.05466176361875831,
+        "mean_return": 42.79529127619213,
+        "minimum_clearance_m": 0.5054831868948362
+      },
+      "baseline": {
+        "episodes": 16,
+        "successes": 13,
+        "completed": 16,
+        "steps": 96000,
+        "tilt_rms_deg": 6.78097057168324,
+        "height_rmse_m": 0.053270456062243704,
+        "mean_return": 42.401558707028094,
+        "minimum_clearance_m": 0.5074244308510542
+      },
+      "conditions": {
+        "nominal": {
+          "successes": 8,
+          "episodes": 8
+        },
+        "stress": {
+          "successes": 7,
+          "episodes": 8
+        }
+      },
+      "failures": [
+        {
+          "condition": "stress",
+          "phase": 4,
+          "termination": "time_limit",
+          "unmet_criteria": [
+            "tilt"
+          ]
+        }
+      ],
+      "training_wall_seconds": 8370.029196024003
+    },
+    {
+      "name": "hover_residual_ann_ppo_seed6201",
+      "kind": "ann",
+      "method": "ppo",
+      "seed": 6201,
+      "stage": 896,
+      "summary": {
+        "episodes": 16,
+        "successes": 13,
+        "completed": 16,
+        "steps": 96000,
+        "tilt_rms_deg": 6.808580146285358,
+        "height_rmse_m": 0.053383334041037386,
+        "mean_return": 42.4022662988069,
+        "minimum_clearance_m": 0.5049050222102223
+      },
+      "baseline": {
+        "episodes": 16,
+        "successes": 13,
+        "completed": 16,
+        "steps": 96000,
+        "tilt_rms_deg": 6.78097057168324,
+        "height_rmse_m": 0.053270456062243704,
+        "mean_return": 42.401558707028094,
+        "minimum_clearance_m": 0.5074244308510542
+      },
+      "conditions": {
+        "nominal": {
+          "successes": 8,
+          "episodes": 8
+        },
+        "stress": {
+          "successes": 5,
+          "episodes": 8
+        }
+      },
+      "failures": [
+        {
+          "condition": "stress",
+          "phase": 0,
+          "termination": "time_limit",
+          "unmet_criteria": [
+            "tilt"
+          ]
+        },
+        {
+          "condition": "stress",
+          "phase": 2,
+          "termination": "time_limit",
+          "unmet_criteria": [
+            "tilt"
+          ]
+        },
+        {
+          "condition": "stress",
+          "phase": 4,
+          "termination": "time_limit",
+          "unmet_criteria": [
+            "tilt"
+          ]
+        }
+      ],
+      "training_wall_seconds": 13765.507590265996
+    },
+    {
+      "name": "hover_residual_snn_neat_seed6202",
+      "kind": "snn",
+      "method": "neat",
+      "seed": 6202,
+      "stage": 12,
+      "summary": {
+        "episodes": 16,
+        "successes": 14,
+        "completed": 16,
+        "steps": 96000,
+        "tilt_rms_deg": 6.527728545351054,
+        "height_rmse_m": 0.053848322619323714,
+        "mean_return": 42.53700768973117,
+        "minimum_clearance_m": 0.5072352432583057
+      },
+      "baseline": {
+        "episodes": 16,
+        "successes": 13,
+        "completed": 16,
+        "steps": 96000,
+        "tilt_rms_deg": 6.78097057168324,
+        "height_rmse_m": 0.053270456062243704,
+        "mean_return": 42.401558707028094,
+        "minimum_clearance_m": 0.5074244308510542
+      },
+      "conditions": {
+        "nominal": {
+          "successes": 8,
+          "episodes": 8
+        },
+        "stress": {
+          "successes": 6,
+          "episodes": 8
+        }
+      },
+      "failures": [
+        {
+          "condition": "stress",
+          "phase": 0,
+          "termination": "time_limit",
+          "unmet_criteria": [
+            "tilt"
+          ]
+        },
+        {
+          "condition": "stress",
+          "phase": 4,
+          "termination": "time_limit",
+          "unmet_criteria": [
+            "tilt"
+          ]
+        }
+      ],
+      "training_wall_seconds": 8375.933011510002
+    },
+    {
+      "name": "hover_residual_snn_ppo_seed6202",
+      "kind": "snn",
+      "method": "ppo",
+      "seed": 6202,
+      "stage": 896,
+      "summary": {
+        "episodes": 16,
+        "successes": 13,
+        "completed": 16,
+        "steps": 96000,
+        "tilt_rms_deg": 6.7453822290004775,
+        "height_rmse_m": 0.05326617639073351,
+        "mean_return": 42.45107273123756,
+        "minimum_clearance_m": 0.5061934327242138
+      },
+      "baseline": {
+        "episodes": 16,
+        "successes": 13,
+        "completed": 16,
+        "steps": 96000,
+        "tilt_rms_deg": 6.78097057168324,
+        "height_rmse_m": 0.053270456062243704,
+        "mean_return": 42.401558707028094,
+        "minimum_clearance_m": 0.5074244308510542
+      },
+      "conditions": {
+        "nominal": {
+          "successes": 8,
+          "episodes": 8
+        },
+        "stress": {
+          "successes": 5,
+          "episodes": 8
+        }
+      },
+      "failures": [
+        {
+          "condition": "stress",
+          "phase": 0,
+          "termination": "time_limit",
+          "unmet_criteria": [
+            "tilt"
+          ]
+        },
+        {
+          "condition": "stress",
+          "phase": 2,
+          "termination": "time_limit",
+          "unmet_criteria": [
+            "tilt"
+          ]
+        },
+        {
+          "condition": "stress",
+          "phase": 4,
+          "termination": "time_limit",
+          "unmet_criteria": [
+            "tilt"
+          ]
+        }
+      ],
+      "training_wall_seconds": 15649.579270964
+    },
+    {
+      "name": "hover_residual_ann_neat_seed6202",
+      "kind": "ann",
+      "method": "neat",
+      "seed": 6202,
+      "stage": 8,
+      "summary": {
+        "episodes": 16,
+        "successes": 15,
+        "completed": 16,
+        "steps": 96000,
+        "tilt_rms_deg": 5.888625068801261,
+        "height_rmse_m": 0.06091393239433645,
+        "mean_return": 42.8606090422728,
+        "minimum_clearance_m": 0.5039858290875405
+      },
+      "baseline": {
+        "episodes": 16,
+        "successes": 13,
+        "completed": 16,
+        "steps": 96000,
+        "tilt_rms_deg": 6.78097057168324,
+        "height_rmse_m": 0.053270456062243704,
+        "mean_return": 42.401558707028094,
+        "minimum_clearance_m": 0.5074244308510542
+      },
+      "conditions": {
+        "nominal": {
+          "successes": 8,
+          "episodes": 8
+        },
+        "stress": {
+          "successes": 7,
+          "episodes": 8
+        }
+      },
+      "failures": [
+        {
+          "condition": "stress",
+          "phase": 2,
+          "termination": "time_limit",
+          "unmet_criteria": [
+            "tilt"
+          ]
+        }
+      ],
+      "training_wall_seconds": 8351.457870355996
+    },
+    {
+      "name": "hover_residual_ann_ppo_seed6202",
+      "kind": "ann",
+      "method": "ppo",
+      "seed": 6202,
+      "stage": 384,
+      "summary": {
+        "episodes": 16,
+        "successes": 13,
+        "completed": 16,
+        "steps": 96000,
+        "tilt_rms_deg": 6.682632799837858,
+        "height_rmse_m": 0.053715942811989464,
+        "mean_return": 42.46517481658293,
+        "minimum_clearance_m": 0.5061930126828851
+      },
+      "baseline": {
+        "episodes": 16,
+        "successes": 13,
+        "completed": 16,
+        "steps": 96000,
+        "tilt_rms_deg": 6.78097057168324,
+        "height_rmse_m": 0.053270456062243704,
+        "mean_return": 42.401558707028094,
+        "minimum_clearance_m": 0.5074244308510542
+      },
+      "conditions": {
+        "nominal": {
+          "successes": 8,
+          "episodes": 8
+        },
+        "stress": {
+          "successes": 5,
+          "episodes": 8
+        }
+      },
+      "failures": [
+        {
+          "condition": "stress",
+          "phase": 0,
+          "termination": "time_limit",
+          "unmet_criteria": [
+            "tilt"
+          ]
+        },
+        {
+          "condition": "stress",
+          "phase": 2,
+          "termination": "time_limit",
+          "unmet_criteria": [
+            "tilt"
+          ]
+        },
+        {
+          "condition": "stress",
+          "phase": 4,
+          "termination": "time_limit",
+          "unmet_criteria": [
+            "tilt"
+          ]
+        }
+      ],
+      "training_wall_seconds": 13764.901557451005
+    },
+    {
+      "name": "hover_residual_snn_neat_seed6203",
+      "kind": "snn",
+      "method": "neat",
+      "seed": 6203,
+      "stage": 12,
+      "summary": {
+        "episodes": 16,
+        "successes": 16,
+        "completed": 16,
+        "steps": 96000,
+        "tilt_rms_deg": 6.0791848358308,
+        "height_rmse_m": 0.054937416820352386,
+        "mean_return": 42.97590141536559,
+        "minimum_clearance_m": 0.4996452830076717
+      },
+      "baseline": {
+        "episodes": 16,
+        "successes": 13,
+        "completed": 16,
+        "steps": 96000,
+        "tilt_rms_deg": 6.78097057168324,
+        "height_rmse_m": 0.053270456062243704,
+        "mean_return": 42.401558707028094,
+        "minimum_clearance_m": 0.5074244308510542
+      },
+      "conditions": {
+        "nominal": {
+          "successes": 8,
+          "episodes": 8
+        },
+        "stress": {
+          "successes": 8,
+          "episodes": 8
+        }
+      },
+      "failures": [],
+      "training_wall_seconds": 8233.294852583
+    },
+    {
+      "name": "hover_residual_snn_ppo_seed6203",
+      "kind": "snn",
+      "method": "ppo",
+      "seed": 6203,
+      "stage": 384,
+      "summary": {
+        "episodes": 16,
+        "successes": 13,
+        "completed": 16,
+        "steps": 96000,
+        "tilt_rms_deg": 6.779726957057494,
+        "height_rmse_m": 0.05323483706906103,
+        "mean_return": 42.405808099611725,
+        "minimum_clearance_m": 0.5070935668185916
+      },
+      "baseline": {
+        "episodes": 16,
+        "successes": 13,
+        "completed": 16,
+        "steps": 96000,
+        "tilt_rms_deg": 6.78097057168324,
+        "height_rmse_m": 0.053270456062243704,
+        "mean_return": 42.401558707028094,
+        "minimum_clearance_m": 0.5074244308510542
+      },
+      "conditions": {
+        "nominal": {
+          "successes": 8,
+          "episodes": 8
+        },
+        "stress": {
+          "successes": 5,
+          "episodes": 8
+        }
+      },
+      "failures": [
+        {
+          "condition": "stress",
+          "phase": 0,
+          "termination": "time_limit",
+          "unmet_criteria": [
+            "tilt"
+          ]
+        },
+        {
+          "condition": "stress",
+          "phase": 2,
+          "termination": "time_limit",
+          "unmet_criteria": [
+            "tilt"
+          ]
+        },
+        {
+          "condition": "stress",
+          "phase": 4,
+          "termination": "time_limit",
+          "unmet_criteria": [
+            "tilt"
+          ]
+        }
+      ],
+      "training_wall_seconds": 15618.00568683799
+    },
+    {
+      "name": "hover_residual_ann_neat_seed6203",
+      "kind": "ann",
+      "method": "neat",
+      "seed": 6203,
+      "stage": 8,
+      "summary": {
+        "episodes": 16,
+        "successes": 14,
+        "completed": 16,
+        "steps": 96000,
+        "tilt_rms_deg": 6.2548522559146145,
+        "height_rmse_m": 0.0525049811288613,
+        "mean_return": 42.93514587868701,
+        "minimum_clearance_m": 0.5062517669964198
+      },
+      "baseline": {
+        "episodes": 16,
+        "successes": 13,
+        "completed": 16,
+        "steps": 96000,
+        "tilt_rms_deg": 6.78097057168324,
+        "height_rmse_m": 0.053270456062243704,
+        "mean_return": 42.401558707028094,
+        "minimum_clearance_m": 0.5074244308510542
+      },
+      "conditions": {
+        "nominal": {
+          "successes": 8,
+          "episodes": 8
+        },
+        "stress": {
+          "successes": 6,
+          "episodes": 8
+        }
+      },
+      "failures": [
+        {
+          "condition": "stress",
+          "phase": 2,
+          "termination": "time_limit",
+          "unmet_criteria": [
+            "tilt"
+          ]
+        },
+        {
+          "condition": "stress",
+          "phase": 7,
+          "termination": "time_limit",
+          "unmet_criteria": [
+            "tilt"
+          ]
+        }
+      ],
+      "training_wall_seconds": 8360.723693919004
+    }
+  ]
+}

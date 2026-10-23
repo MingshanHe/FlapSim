@@ -1,0 +1,182 @@
+{
+ "plan": "v9",
+ "blind_base": 2098700000,
+ "cases_per_task": 64,
+ "criterion": "M4: average <= 0.95 and crashes <= classical crashes; >= 3/5",
+ "classical_crashes": 0,
+ "snn_es_s1": {
+  "mean": 1.023734641295407,
+  "evade": 0.9907954043228591,
+  "redirect": 1.0186244308552412,
+  "dash": 1.0617840887081202,
+  "dash_classes": {
+   "pitch": 0.9256332956221389,
+   "roll": 1.289692092005391,
+   "diag": 1.0159054836024755
+  },
+  "crashes": 0,
+  "crash_cases": [],
+  "M4": false,
+  "machine": "CloudPC-2"
+ },
+ "snn_bc_s1": {
+  "mean": 1.1547341009697074,
+  "evade": 1.1642193731192374,
+  "redirect": 1.2521879371505547,
+  "dash": 1.0477949926393304,
+  "dash_classes": {
+   "pitch": 1.0693181419445597,
+   "roll": 1.0432054308898757,
+   "diag": 1.039328198861443
+  },
+  "crashes": 0,
+  "crash_cases": [],
+  "M4": null,
+  "machine": "CloudPC-2"
+ },
+ "snn_es_s2": {
+  "mean": 1.066158754768979,
+  "evade": 0.992695396631617,
+  "redirect": 1.1754028981996667,
+  "dash": 1.0303779694756536,
+  "dash_classes": {
+   "pitch": 0.927995093557084,
+   "roll": 1.1891727659054596,
+   "diag": 1.002172009220035
+  },
+  "crashes": 1,
+  "crash_cases": [
+   [
+    "redirect",
+    2098700020,
+    180.0,
+    "tilt"
+   ]
+  ],
+  "M4": false,
+  "machine": "CloudPC-2"
+ },
+ "snn_bc_s2": {
+  "mean": 1.139616771735854,
+  "evade": 1.1297949687240063,
+  "redirect": 1.246368198486778,
+  "dash": 1.0426871479967779,
+  "dash_classes": {
+   "pitch": 1.0799506756442596,
+   "roll": 1.0405682976494457,
+   "diag": 1.0251148093467026
+  },
+  "crashes": 0,
+  "crash_cases": [],
+  "M4": null,
+  "machine": "CloudPC-2"
+ },
+ "snn_es_s3": {
+  "mean": 1.1315531942440984,
+  "evade": 1.2433878342712377,
+  "redirect": 1.0003388716562327,
+  "dash": 1.1509328768048246,
+  "dash_classes": {
+   "pitch": 0.9192469325451803,
+   "roll": 1.6407135924795624,
+   "diag": 1.021885491097278
+  },
+  "crashes": 1,
+  "crash_cases": [
+   [
+    "evade",
+    2098700020,
+    180.0,
+    "tilt"
+   ]
+  ],
+  "M4": false,
+  "machine": "CloudPC-2"
+ },
+ "snn_bc_s3": {
+  "mean": 1.1382883674570448,
+  "evade": 1.1157041524356615,
+  "redirect": 1.2763536302348237,
+  "dash": 1.0228073197006489,
+  "dash_classes": {
+   "pitch": 1.052749061767543,
+   "roll": 0.9890719483071618,
+   "diag": 1.0247041343639456
+  },
+  "crashes": 0,
+  "crash_cases": [],
+  "M4": null,
+  "machine": "CloudPC-2"
+ },
+ "snn_es_s4": {
+  "mean": 1.0619115308232938,
+  "evade": 1.0255048921047742,
+  "redirect": 1.0273465857322828,
+  "dash": 1.1328831146328247,
+  "dash_classes": {
+   "pitch": 0.9037877588284989,
+   "roll": 1.617473557770573,
+   "diag": 1.0051355709661138
+  },
+  "crashes": 0,
+  "crash_cases": [],
+  "M4": false,
+  "machine": "HomePC"
+ },
+ "snn_bc_s4": {
+  "mean": 1.2307837351796016,
+  "evade": 1.1828492258110357,
+  "redirect": 1.4337924018941035,
+  "dash": 1.0757095778336658,
+  "dash_classes": {
+   "pitch": 1.1657654572034954,
+   "roll": 1.0663794688684194,
+   "diag": 1.0353466926313741
+  },
+  "crashes": 0,
+  "crash_cases": [],
+  "M4": null,
+  "machine": "HomePC"
+ },
+ "snn_es_s5": {
+  "mean": 1.054747208806823,
+  "evade": 1.0315773414181038,
+  "redirect": 1.1371911458207973,
+  "dash": 0.9954731391815681,
+  "dash_classes": {
+   "pitch": 0.9197905911627611,
+   "roll": 1.058629140777424,
+   "diag": 1.0017364123930435
+  },
+  "crashes": 1,
+  "crash_cases": [
+   [
+    "redirect",
+    2098700038,
+    180.0,
+    "tilt"
+   ]
+  ],
+  "M4": false,
+  "machine": "HomePC"
+ },
+ "snn_bc_s5": {
+  "mean": 1.2391955009487423,
+  "evade": 1.1666567134963544,
+  "redirect": 1.4407994449955392,
+  "dash": 1.1101303443543333,
+  "dash_classes": {
+   "pitch": 1.1844602775876445,
+   "roll": 1.2031571335456837,
+   "diag": 1.0264519831420027
+  },
+  "crashes": 0,
+  "crash_cases": [],
+  "M4": null,
+  "machine": "HomePC"
+ },
+ "M4": {
+  "seeds_passing": 0,
+  "holds": false
+ }
+}

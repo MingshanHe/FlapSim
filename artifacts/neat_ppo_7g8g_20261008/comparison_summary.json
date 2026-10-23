@@ -1,0 +1,146 @@
+{
+  "status": "completed",
+  "verdict": "两种方法都没有达到预注册的可用悬停门槛。",
+  "validation_selected_video_policies": {
+    "neat": "neat_seed836",
+    "ppo": "ppo_seed836"
+  },
+  "comparisons": [
+    {
+      "label": "neat_seed835",
+      "nominal": {
+        "episodes": 32,
+        "successes": 0,
+        "mean_elapsed": 1.286875,
+        "p10_elapsed": 0.72,
+        "mean_tracking_rmse_m": 0.2454978416942258,
+        "mean_tilt_rmse_deg": 33.59442050702063,
+        "mean_discounted_return": 2.4728986653242466,
+        "mean_saturation_fraction": 0.999218736394097,
+        "control_steps": 4118,
+        "termination_counts": {
+          "ground": 18,
+          "tilt": 14
+        }
+      },
+      "stress": {
+        "episodes": 32,
+        "successes": 0,
+        "mean_elapsed": 1.0431249999999999,
+        "p10_elapsed": 0.44,
+        "mean_tracking_rmse_m": 0.19598304705374978,
+        "mean_tilt_rmse_deg": 38.87486822196901,
+        "mean_discounted_return": 1.8259595072847477,
+        "mean_saturation_fraction": 0.9976491386342345,
+        "control_steps": 3338,
+        "termination_counts": {
+          "ground": 13,
+          "tilt": 19
+        }
+      },
+      "usable": false
+    },
+    {
+      "label": "neat_seed836",
+      "nominal": {
+        "episodes": 32,
+        "successes": 0,
+        "mean_elapsed": 1.3865625000000001,
+        "p10_elapsed": 0.7010000000000001,
+        "mean_tracking_rmse_m": 0.2825811530613341,
+        "mean_tilt_rmse_deg": 33.95403020291953,
+        "mean_discounted_return": 2.467235599808756,
+        "mean_saturation_fraction": 0.9655453806407077,
+        "control_steps": 4437,
+        "termination_counts": {
+          "ground": 17,
+          "tilt": 15
+        }
+      },
+      "stress": {
+        "episodes": 32,
+        "successes": 0,
+        "mean_elapsed": 1.1078125,
+        "p10_elapsed": 0.403,
+        "mean_tracking_rmse_m": 0.2116008585643216,
+        "mean_tilt_rmse_deg": 40.59373231252549,
+        "mean_discounted_return": 1.722391380490611,
+        "mean_saturation_fraction": 0.9727876800044105,
+        "control_steps": 3545,
+        "termination_counts": {
+          "ground": 9,
+          "tilt": 23
+        }
+      },
+      "usable": false
+    },
+    {
+      "label": "ppo_seed835",
+      "nominal": {
+        "episodes": 32,
+        "successes": 0,
+        "mean_elapsed": 0.568125,
+        "p10_elapsed": 0.42,
+        "mean_tracking_rmse_m": 0.1732426926759939,
+        "mean_tilt_rmse_deg": 35.55388122107815,
+        "mean_discounted_return": 0.8490304860103656,
+        "mean_saturation_fraction": 0.0,
+        "control_steps": 1818,
+        "termination_counts": {
+          "tilt": 32
+        }
+      },
+      "stress": {
+        "episodes": 32,
+        "successes": 0,
+        "mean_elapsed": 0.544375,
+        "p10_elapsed": 0.42,
+        "mean_tracking_rmse_m": 0.16556119817849368,
+        "mean_tilt_rmse_deg": 35.503401137270465,
+        "mean_discounted_return": 0.7811634594097225,
+        "mean_saturation_fraction": 0.0,
+        "control_steps": 1742,
+        "termination_counts": {
+          "tilt": 32
+        }
+      },
+      "usable": false
+    },
+    {
+      "label": "ppo_seed836",
+      "nominal": {
+        "episodes": 32,
+        "successes": 0,
+        "mean_elapsed": 0.5665625,
+        "p10_elapsed": 0.42,
+        "mean_tracking_rmse_m": 0.17460734305538594,
+        "mean_tilt_rmse_deg": 35.74075856620962,
+        "mean_discounted_return": 0.8391947864350064,
+        "mean_saturation_fraction": 0.0,
+        "control_steps": 1813,
+        "termination_counts": {
+          "tilt": 32
+        }
+      },
+      "stress": {
+        "episodes": 32,
+        "successes": 0,
+        "mean_elapsed": 0.525,
+        "p10_elapsed": 0.42,
+        "mean_tracking_rmse_m": 0.15939038587119078,
+        "mean_tilt_rmse_deg": 35.08635738131612,
+        "mean_discounted_return": 0.7484082632098025,
+        "mean_saturation_fraction": 0.0,
+        "control_steps": 1680,
+        "termination_counts": {
+          "tilt": 32
+        }
+      },
+      "usable": false
+    }
+  ],
+  "training_control_steps": 2157238,
+  "validation_control_steps": 39047,
+  "final_test_control_steps": 25989,
+  "source_hash_check": "passed"
+}

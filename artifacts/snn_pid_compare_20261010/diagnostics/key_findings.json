@@ -1,0 +1,51 @@
+{
+  "round2/snn_seed5101": {
+    "alpha_first_second_rmse_deg": 2.2193304940755167,
+    "alpha_after_two_seconds_rmse_deg": 0.8765042469509935,
+    "first_second_fraction_of_total_squared_error": 0.32848379668802474,
+    "beta_r2": -1.6541072292391066
+  },
+  "round2/snn_seed5102": {
+    "alpha_first_second_rmse_deg": 1.9170918339289822,
+    "alpha_after_two_seconds_rmse_deg": 0.8020096702378707,
+    "first_second_fraction_of_total_squared_error": 0.31244742145045007,
+    "beta_r2": -0.6814205320919084
+  },
+  "round2/snn_seed5103": {
+    "alpha_first_second_rmse_deg": 2.4362528159609087,
+    "alpha_after_two_seconds_rmse_deg": 0.9108709803552193,
+    "first_second_fraction_of_total_squared_error": 0.2700335990368193,
+    "beta_r2": -0.4151352110575004
+  },
+  "round2/ann_seed5101": {
+    "alpha_first_second_rmse_deg": 5.8684293678575585,
+    "alpha_after_two_seconds_rmse_deg": 0.9718304256553645,
+    "first_second_fraction_of_total_squared_error": 0.5342423266906031,
+    "beta_r2": -0.9306599446900372
+  },
+  "round2/ann_seed5102": {
+    "alpha_first_second_rmse_deg": 5.883370898265751,
+    "alpha_after_two_seconds_rmse_deg": 0.9415421470899276,
+    "first_second_fraction_of_total_squared_error": 0.5155570378893691,
+    "beta_r2": -1.524328044938172
+  },
+  "round2/ann_seed5103": {
+    "alpha_first_second_rmse_deg": 6.112391944286795,
+    "alpha_after_two_seconds_rmse_deg": 0.7170049513572672,
+    "first_second_fraction_of_total_squared_error": 0.6254636090759772,
+    "beta_r2": -0.08163647792257223
+  },
+  "previous_teacher_action_oracle_diagnostic": {
+    "scope": "uses previous true teacher labels; diagnostic only, not a deployable student",
+    "first_second_rmse": [
+      0.06490593660554775,
+      0.0411384064794638,
+      0.02745703868562977
+    ],
+    "full_rmse": [
+      0.06457077781545849,
+      0.040981066837867265,
+      0.006844044647520635
+    ]
+  }
+}

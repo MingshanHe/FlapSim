@@ -1,0 +1,48 @@
+{
+  "version": "v2.1-development-1",
+  "status": "development",
+  "development_seeds": [
+    5101,
+    5102,
+    5103
+  ],
+  "formal_seeds": [
+    5201,
+    5202,
+    5203,
+    5204,
+    5205
+  ],
+  "control_hz": 500,
+  "hidden": 16,
+  "tau_m": 0.02,
+  "tau_s": 0.01,
+  "substeps": 2,
+  "teacher_episodes": 32,
+  "offline_episodes": 8,
+  "demonstration_seconds": 20,
+  "bc_epochs": 30,
+  "bc_window": 500,
+  "bc_batch": 8,
+  "bc_lr": 0.002,
+  "bc_validation_every": 5,
+  "closed_loop_candidate_epochs": [
+    0,
+    10,
+    20,
+    30
+  ],
+  "dagger_max_rounds": 2,
+  "dagger_episodes_per_round": 12,
+  "dagger_seconds": 20,
+  "gate_nominal_successes": 15,
+  "gate_nominal_episodes": 16,
+  "gate_long_successes": 4,
+  "gate_long_seconds": 60,
+  "gate_tilt_excess_deg": 1,
+  "gate_height_excess_m": 0.02,
+  "gate_offline_rmse": 0.05,
+  "final_tests_accessed": false,
+  "formal_budget_status": "freeze_after_development_throughput_and_gate",
+  "proposal_sha256": "c28b4ae2cb93bf8a01772c0ff460f22eb1cc289e2dd32ae9fc1283814858abf0"
+}

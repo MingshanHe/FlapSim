@@ -1,0 +1,448 @@
+<?xml version='1.0' encoding='utf-8'?>
+<robot name="IST_robot_rectangular">
+  <!-- Rectangular STL wing: PET frame/root + existing 10 um Kapton layer. See ../rectangular_inertials.json. -->
+  <link name="base_link">
+    <inertial>
+      <origin xyz="1.26761268613762E-05 -2.20973017296773E-08 -0.0237424608367809" rpy="0 0 0" />
+      <mass value="0.0109129405676043" />
+      <inertia ixx="1.38805289177657E-06" ixy="1.77724958502214E-11" ixz="7.64109214566619E-10" iyy="1.39517042830575E-06" iyz="-6.40435229464194E-11" izz="4.56358479374671E-07" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="../meshes/base_link.stl" />
+      </geometry>
+      <material name="base_link_material">
+        <color rgba=".55 .58 .62 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="../meshes/base_link.stl" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="motor_sun">
+    <inertial>
+      <origin xyz="3.32832973596192e-11 -1.8625597785044e-11 -0.00118097219061684" rpy="0 0 0" />
+      <mass value="9.24465720612881e-06" />
+      <inertia ixx="7.20829775690553e-12" ixy="-6.07288991302019e-20" ixz="1.46223535684454e-19" iyy="7.20829801532346e-12" iyz="6.03434160158238e-20" izz="9.97439347469208e-12" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="../meshes/motor_sun.stl" />
+      </geometry>
+      <material name="motor_sun_material">
+        <color rgba=".95 .65 .12 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="../meshes/motor_sun.stl" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="carrier_1">
+    <inertial>
+      <origin xyz="-1.73310121737e-10 -3.24918557588e-10 -0.00215355804873" rpy="0 0 0" />
+      <mass value="6.20212756891e-05" />
+      <inertia ixx="2.949469618459e-10" ixy="3.506696363482e-18" ixz="-6.260708655656e-18" iyy="2.949469662022e-10" iyz="-1.582547427162e-17" izz="3.126416935213e-10" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="../meshes/carrier_1.stl" />
+      </geometry>
+      <material name="carrier_1_material">
+        <color rgba=".25 .55 .8 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="../meshes/carrier_1.stl" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="planet_1_1">
+    <inertial>
+      <origin xyz="5.67578651505e-12 2.26856838893e-11 0.000499999991572" rpy="0 0 0" />
+      <mass value="5.737680733473e-06" />
+      <inertia ixx="3.71652274435e-12" ixy="-9.779239622893e-20" ixz="1.610314610294e-20" iyy="3.71652263983e-12" iyz="4.562423784243e-20" izz="6.476767060959e-12" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="../meshes/planet_1_1.stl" />
+      </geometry>
+      <material name="planet_1_1_material">
+        <color rgba=".65 .8 .95 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="../meshes/planet_1_1.stl" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="planet_1_2">
+    <inertial>
+      <origin xyz="5.67578651505e-12 2.26856839435e-11 0.000499999991572" rpy="0 0 0" />
+      <mass value="5.737680733473e-06" />
+      <inertia ixx="3.71652274435e-12" ixy="-9.779239622893e-20" ixz="1.610314610294e-20" iyy="3.71652263983e-12" iyz="4.562423784243e-20" izz="6.476767060959e-12" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="../meshes/planet_1_2.stl" />
+      </geometry>
+      <material name="planet_1_2_material">
+        <color rgba=".65 .8 .95 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="../meshes/planet_1_2.stl" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="planet_1_3">
+    <inertial>
+      <origin xyz="5.67578651505e-12 2.26856838893e-11 0.000499999991572" rpy="0 0 0" />
+      <mass value="5.737680733473e-06" />
+      <inertia ixx="3.71652274435e-12" ixy="-9.779239622893e-20" ixz="1.610314610294e-20" iyy="3.71652263983e-12" iyz="4.562423784243e-20" izz="6.476767060959e-12" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="../meshes/planet_1_3.stl" />
+      </geometry>
+      <material name="planet_1_3_material">
+        <color rgba=".65 .8 .95 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="../meshes/planet_1_3.stl" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="carrier_2">
+    <inertial>
+      <origin xyz="-3.17866043324e-05 -0.000182285856424 -0.00467809526695" rpy="0 0 0" />
+      <mass value="5.391299719195e-05" />
+      <inertia ixx="2.781872030769e-10" ixy="-3.875580938268e-12" ixz="-6.423102939877e-13" iyy="2.566378198202e-10" iyz="-3.683441012056e-12" izz="4.121221917891e-10" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="../meshes/carrier_2.stl" />
+      </geometry>
+      <material name="carrier_2_material">
+        <color rgba=".8 .35 .2 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="../meshes/carrier_2.stl" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="planet_2_1">
+    <inertial>
+      <origin xyz="5.67578646084e-12 2.26856838893e-11 0.000499999991572" rpy="0 0 0" />
+      <mass value="5.737680733473e-06" />
+      <inertia ixx="3.71652274435e-12" ixy="-9.779239622893e-20" ixz="1.610314610294e-20" iyy="3.71652263983e-12" iyz="4.562423784243e-20" izz="6.476767060959e-12" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="../meshes/planet_2_1.stl" />
+      </geometry>
+      <material name="planet_2_1_material">
+        <color rgba=".65 .8 .95 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="../meshes/planet_2_1.stl" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="planet_2_2">
+    <inertial>
+      <origin xyz="-6.8031245921e-12 2.23734731527e-11 0.000499999991572" rpy="0 0 0" />
+      <mass value="5.737680733473e-06" />
+      <inertia ixx="3.716522802967e-12" ixy="7.738299952786e-23" ixz="-9.661717019851e-21" iyy="3.716522581213e-12" iyz="4.740815972126e-20" izz="6.476767060959e-12" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="../meshes/planet_2_2.stl" />
+      </geometry>
+      <material name="planet_2_2_material">
+        <color rgba=".65 .8 .95 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="../meshes/planet_2_2.stl" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="planet_2_3">
+    <inertial>
+      <origin xyz="5.67578694873e-12 2.26856836725e-11 0.000499999991572" rpy="0 0 0" />
+      <mass value="5.737680733473e-06" />
+      <inertia ixx="3.71652274435e-12" ixy="-9.779239622893e-20" ixz="1.610314610294e-20" iyy="3.71652263983e-12" iyz="4.562423784243e-20" izz="6.476767060959e-12" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="../meshes/planet_2_3.stl" />
+      </geometry>
+      <material name="planet_2_3_material">
+        <color rgba=".65 .8 .95 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="../meshes/planet_2_3.stl" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="slider">
+    <inertial>
+      <origin xyz="-0.000471238301986213 -0.00724999999999904 0.000500000000000007" rpy="0 0 0" />
+      <mass value="9.13433299099911e-05" />
+      <inertia ixx="5.27794068806615e-10" ixy="-3.80698997352266e-23" ixz="1.32114430487267e-25" iyy="4.19977143860114e-09" iyz="5.59698022342879e-27" izz="4.71234161908943e-09" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="../meshes/slider.stl" />
+      </geometry>
+      <material name="slider_material">
+        <color rgba=".3 .75 .55 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="../meshes/slider.stl" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="left_flapping">
+    <inertial>
+      <origin xyz="0.00548903429774845 -6.56871542558514e-11 -0.000675091274318626" rpy="0 0 0" />
+      <mass value="7.69478363348058e-05" />
+      <inertia ixx="2.42874984735233e-10" ixy="1.33480878154164e-21" ixz="4.89509341337448e-12" iyy="1.07694212715597e-09" iyz="1.82482987991067e-23" izz="1.29980109009275e-09" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="../meshes/left_flapping.stl" />
+      </geometry>
+      <material name="left_flapping_material">
+        <color rgba=".8 .45 .25 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="../meshes/left_flapping.stl" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="left_wing">
+    <inertial>
+      <origin xyz="3.99951255148096e-05 0.0273767486067117 0.00606898664100923" rpy="0 0 0" />
+      <mass value="0.000357795949126271" />
+      <inertia ixx="2.67749631478792e-07" ixy="-9.63580056333119e-11" ixz="1.91984368626912e-10" iyy="1.25192262996215e-08" iyz="-1.60605977898874e-08" izz="2.55381008520089e-07" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="../meshes/left_rectangular_wing.stl" />
+      </geometry>
+      <material name="left_wing_material">
+        <color rgba=".85 .9 .95 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="../meshes/left_rectangular_wing.stl" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="right_flapping">
+    <inertial>
+      <origin xyz="0.00548903429774801 6.56934543304989e-11 -0.000675091274318626" rpy="0 0 0" />
+      <mass value="7.69478363348058e-05" />
+      <inertia ixx="2.42874984735233e-10" ixy="1.33413383513526e-21" ixz="4.89509341337441e-12" iyy="1.07694212715597e-09" iyz="1.82560258559346e-23" izz="1.29980109009275e-09" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="../meshes/right_flapping.stl" />
+      </geometry>
+      <material name="right_flapping_material">
+        <color rgba=".8 .45 .25 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="../meshes/right_flapping.stl" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="right_wing">
+    <inertial>
+      <origin xyz="-3.99951255148096e-05 0.0273767486067117 0.00606898664100923" rpy="0 0 0" />
+      <mass value="0.000357795949126271" />
+      <inertia ixx="2.67749631478792e-07" ixy="9.63580056333119e-11" ixz="-1.91984368626912e-10" iyy="1.25192262996215e-08" iyz="-1.60605977898874e-08" izz="2.55381008520089e-07" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="../meshes/right_rectangular_wing.stl" />
+      </geometry>
+      <material name="right_wing_material">
+        <color rgba=".85 .9 .95 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="../meshes/right_rectangular_wing.stl" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="motor_joint" type="continuous">
+    <origin xyz="0 -3.1473754338e-18 -0.0514022391601" rpy="0 0 -2.96895077434" />
+    <parent link="base_link" />
+    <child link="motor_sun" />
+    <axis xyz="0 0 1" />
+    <limit effort="0.002" velocity="20000" />
+    <dynamics damping="1e-10" friction="0" />
+  </joint>
+  <joint name="carrier_1_joint" type="continuous">
+    <origin xyz="0 -3.1473754338e-18 -0.0514022391601" rpy="0 0 -2.96895077434" />
+    <parent link="base_link" />
+    <child link="carrier_1" />
+    <axis xyz="0 0 1" />
+    <limit effort="0.002" velocity="20000" />
+    <mimic joint="motor_joint" multiplier="0.25" offset="0" />
+  </joint>
+  <joint name="planet_1_1_joint" type="continuous">
+    <origin xyz="0.000936278737523 0.00253246562184 -0.002" rpy="0 0 9.53601373288e-18" />
+    <parent link="carrier_1" />
+    <child link="planet_1_1" />
+    <axis xyz="0 0 1" />
+    <limit effort="0.002" velocity="20000" />
+    <mimic joint="motor_joint" multiplier="-0.75" offset="0" />
+  </joint>
+  <joint name="planet_1_2_joint" type="continuous">
+    <origin xyz="-0.00266131893086 -0.000455391639881 -0.002" rpy="0 0 9.53601373288e-18" />
+    <parent link="carrier_1" />
+    <child link="planet_1_2" />
+    <axis xyz="0 0 1" />
+    <limit effort="0.002" velocity="20000" />
+    <mimic joint="motor_joint" multiplier="-0.75" offset="0" />
+  </joint>
+  <joint name="planet_1_3_joint" type="continuous">
+    <origin xyz="0.00172504019486 -0.00207707398244 -0.002" rpy="0 0 9.53601373288e-18" />
+    <parent link="carrier_1" />
+    <child link="planet_1_3" />
+    <axis xyz="0 0 1" />
+    <limit effort="0.002" velocity="20000" />
+    <mimic joint="motor_joint" multiplier="-0.75" offset="0" />
+  </joint>
+  <joint name="carrier_2_joint" type="continuous">
+    <origin xyz="0 -3.1473754338e-18 -0.0514022391601" rpy="0 0 -2.96895077434" />
+    <parent link="base_link" />
+    <child link="carrier_2" />
+    <axis xyz="0 0 1" />
+    <limit effort="0.002" velocity="20000" />
+    <mimic joint="motor_joint" multiplier="0.0625" offset="0" />
+  </joint>
+  <joint name="planet_2_1_joint" type="continuous">
+    <origin xyz="0.000463820989763 0.00265986279516 -0.005" rpy="0 0 9.53601373288e-18" />
+    <parent link="carrier_2" />
+    <child link="planet_2_1" />
+    <axis xyz="0 0 1" />
+    <limit effort="0.002" velocity="20000" />
+    <mimic joint="motor_joint" multiplier="-0.1875" offset="0" />
+  </joint>
+  <joint name="planet_2_2_joint" type="continuous">
+    <origin xyz="-0.00253541924544 -0.000928250638032 -0.005" rpy="0 0 9.53601373288e-18" />
+    <parent link="carrier_2" />
+    <child link="planet_2_2" />
+    <axis xyz="0 0 1" />
+    <limit effort="0.002" velocity="20000" />
+    <mimic joint="motor_joint" multiplier="-0.1875" offset="0" />
+  </joint>
+  <joint name="planet_2_3_joint" type="continuous">
+    <origin xyz="0.00207159825721 -0.00173161215732 -0.005" rpy="0 0 9.53601373288e-18" />
+    <parent link="carrier_2" />
+    <child link="planet_2_3" />
+    <axis xyz="0 0 1" />
+    <limit effort="0.002" velocity="20000" />
+    <mimic joint="motor_joint" multiplier="-0.1875" offset="0" />
+  </joint>
+  <joint name="slider_joint" type="prismatic">
+    <origin xyz="0.000471238301987 0.00724999990958 -0.0584022391601" rpy="-6.12303176911e-17 0 0" />
+    <parent link="base_link" />
+    <child link="slider" />
+    <axis xyz="1 0 0" />
+    <limit effort="1" velocity="2" lower="-0.0027" upper="0.0027" />
+    <dynamics damping="1e-05" friction="0" />
+  </joint>
+  <joint name="left_flapping_joint" type="revolute">
+    <origin xyz="0 -0.00660000009075 -0.0588022391601" rpy="3.14159265359 0 -1.57079632679" />
+    <parent link="base_link" />
+    <child link="left_flapping" />
+    <axis xyz="0 0 -1" />
+    <limit effort="0.002" velocity="20000" lower="-1.38461538462" upper="1.38461538462" />
+    <dynamics damping="1e-09" friction="0" />
+    <mimic joint="slider_joint" multiplier="-512.820512821" offset="0" />
+  </joint>
+  <joint name="left_feathering_joint" type="revolute">
+    <origin xyz="0.00699999999933 6.07153216534e-19 -0.00065" rpy="3.14159265359 0 1.57079632679" />
+    <parent link="left_flapping" />
+    <child link="left_wing" />
+    <axis xyz="0 1 0" />
+    <limit effort="0.002" velocity="20000" lower="-0.455530934771" upper="0.455530934771" />
+    <dynamics damping="1e-08" friction="0" />
+  </joint>
+  <joint name="right_flapping_joint" type="revolute">
+    <origin xyz="0 0.00659999990992 -0.0588022391601" rpy="3.14159265359 0 1.57079632679" />
+    <parent link="base_link" />
+    <child link="right_flapping" />
+    <axis xyz="0 0 -1" />
+    <limit effort="0.002" velocity="20000" lower="-1.38461538462" upper="1.38461538462" />
+    <dynamics damping="1e-09" friction="0" />
+    <mimic joint="slider_joint" multiplier="512.820512821" offset="0" />
+  </joint>
+  <joint name="right_feathering_joint" type="revolute">
+    <origin xyz="0.00699999999933 -6.07153216534e-19 -0.00065" rpy="3.14159265359 0 1.57079632679" />
+    <parent link="right_flapping" />
+    <child link="right_wing" />
+    <axis xyz="0 1 0" />
+    <limit effort="0.002" velocity="20000" lower="-0.455530934771" upper="0.455530934771" />
+    <dynamics damping="1e-08" friction="0" />
+  </joint>
+</robot>

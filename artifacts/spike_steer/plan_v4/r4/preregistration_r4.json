@@ -1,0 +1,78 @@
+{
+ "version": "plan v4 round 4 (command-gated descending layer + wingbeat refractory period)",
+ "time": "2026-10-16 07:26:18 UTC",
+ "written_before": "any round-4 search, selection or blind test; no learned controller has been run on the round-4 nod/dash blind set",
+ "decided_by": "the user (2026-10-16 JST): refractory in the loop; tilt penalty only near the termination line; no height inputs",
+ "weights": {
+  "hover": 0.25,
+  "nod": 0.25,
+  "dash": 0.25,
+  "upset": 0.25
+ },
+ "architecture": {
+  "gate": "command",
+  "tail_s": 1.0,
+  "base_law": "law_tuned",
+  "upset_tilt_deg": 25.0,
+  "cmd_envelope_deg": null,
+  "refractory_s": 0.037,
+  "note": "round-2/3 gated layer (same network, 20 inputs, no height inputs) plus a refractory period: while the learned layer is in charge, a learned pulse onset within 37 ms (one wingbeat) of the previous accepted onset is suppressed. Reflex/classical pulses are untouched, so hover and upset are identical to rounds 2-3 by construction. Implementation descend_r4.RefractoryLearned; checked on 12 training episodes to equal GatedLearned at refractory 0 and the HomePC diagnostic variant b at 37 ms."
+ },
+ "evidence": {
+  "height_escape": "artifacts/spike_steer/plan_v4/r3/diag/height_escape.md: upward escapes driven by 10-24 learned pulses/s in the hand-back tail while the height PID is clamped at the motor floor; one-onset-per-wingbeat removed them on r3 s1 g59 (training cases)",
+  "precheck": "artifacts/spike_steer/plan_v4/r4/precheck/: the cap bolted on 7 selected r2/r3 specs without re-tuning: height escapes 4 -> 0, tilt crashes 5 -> 19 over 896 training episodes -> the cap must be in the search loop",
+  "tilt_penalty": "round-2 specs s1 g44 / s2 g29 on the round-3 blind set (claude-ea, after r3 amendment 2): 0.943 / 0.952, nod 0.847 / 0.865, vs round-3 specs 0.97-1.00, nod 0.88-0.94: the 45-deg penalty made the nod conservative"
+ },
+ "training": {
+  "method": "descend.py finetune via descend_r4 (OpenAI-ES, pop 32, sigma .03, Adam .02), 4 cases per task per candidate, 60 generations; --hours 14 is a wall-clock cap only",
+  "objective": "per task: mean score ratio + mean over cases of max(0, true tilt_peak_deg - 60) * 0.3; nod and dash weighted equally (simulator tilt is a training signal only; the controller sees only IMU/AHRS)",
+  "start": "round-2 gated imitation start spec of the same seed (artifacts/spike_steer/plan_v4/r3/train/imitate_spec_s*.json, identical bytes) with refractory_s = 0.037 added, seeds 1-5",
+  "selection": "reselect_r3.py through descend_r4 on claude-ea: lowest penalised composite on 16 validation cases (8 per task) among centres with zero crashes and true tilt peak < 70 deg on all 16; fallbacks reported as such; round-2 rules also reported",
+  "machines": "searches: claude-ea seeds 1, 2, 3 (in parallel, 10 workers each), HomePC seeds 4, 5; every selection and blind test on claude-ea"
+ },
+ "test_sets": {
+  "nod_dash": "fresh blind set, maneuver_v2 base 2_096_500_000 (16 cases per task; never used before)",
+  "hover_upset": "unchanged from rounds 1-3 (learned layer identical to the classical controller there by construction)",
+  "normalisers": {
+   "hover": 5.77345354291285,
+   "nod": 0.9494788179605721,
+   "dash": 5.969900984594858,
+   "upset": 74.96499885854662
+  },
+  "normaliser_rule": "round-3 rule: nod/dash opponent per-case median on the fresh blind set (learned side: mean incl. crashes); hover/upset opponent mean (unchanged sets, claude-ea rows)",
+  "opponent_mean_all": {
+   "hover": 5.77345354291285,
+   "nod": 0.9328340731738224,
+   "dash": 5.92625673746875,
+   "upset": 74.96499885854662
+  },
+  "opponent_median": {
+   "hover": 4.867453636965805,
+   "nod": 0.9494788179605721,
+   "dash": 5.969900984594858,
+   "upset": 86.39134971826567
+  },
+  "secondary_normalisation": "opponent mean (round-2 rule) on the same claude-ea rows, reported next to the primary numbers"
+ },
+ "hypotheses": {
+  "H1": "composite (25/25/25/25) <= 0.95 AND T1 ratio <= 1.05, in >= 3 of 5 seeds",
+  "H1_prime": "every task ratio <= 1.05 AND at least one of T2/T3 <= 0.90 with paired sign-test p < 0.05, in >= 3 of 5 seeds",
+  "H2": ">= 2 of T2, T3, T4 <= 0.90 in >= 3 of 5 seeds",
+  "H3": "ablations (clamp_fast, nodelay_all, noref, nopulse) raise the composite by >= 10 % or silence the pulses",
+  "H5": "0 crashes in the 32 nod+dash blind episodes, in >= 3 of 5 seeds",
+  "secondary": "per-case median ratio, paired wins, crash type (tilt / height_escape), learned onsets and cancelled onsets per episode, for every task and seed"
+ },
+ "seeds": [
+  1,
+  2,
+  3,
+  4,
+  5
+ ],
+ "amendment_1": {
+  "time": "2026-10-16 10:38:42 UTC",
+  "written_before": "any round-4 selection or blind test (no seed has finished its search; claude-ea seeds 1-3 at generation ~15, HomePC seed 4 running, seed 5 queued on HomePC)",
+  "what": "a SECONDARY replicate of the seed-5 search runs on LabHPPC (AMD Ryzen 7 8700G, 14 workers, WSL2, conda-forge env: Python 3.11, mujoco 3.8.0, torch 2.6.0+cpu, numpy 2.2.4, native backend compiled with conda-forge gcc 16), same script and settings (run_r4_seed.sh 5, 60 generations), started 2026-10-16 19:27 JST. The PRIMARY seed-5 search stays on HomePC as pre-registered and is the only seed-5 result counted for H1/H1prime/H2/H5. The LabHPPC replicate is archived as plan_v4/r4/finetune_s5_labhppc, selected and blind-tested on claude-ea with the same rule, and reported only as a cross-machine search-reproducibility measurement (same seed, same start spec, different machine).",
+  "why": "LabHPPC became available on 2026-10-16; its ETA (05:20 JST) is only ~1 h ahead of HomePC (06:30), not worth moving the primary search to an untested machine, but a same-seed replicate measures how much the search outcome depends on the machine (round 2 observed this only indirectly, amendment 3)."
+ }
+}

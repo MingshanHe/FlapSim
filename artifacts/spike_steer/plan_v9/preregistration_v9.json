@@ -1,0 +1,32 @@
+{
+ "plan": "v9: v7-full pipeline with a symmetric altitude term in the score (bench10)",
+ "written": "2026-10-20 ~23:20 JST, before any v9 episode; v7 full (M3 2/5) and v8 (M4 0/5) verdicts stand unchanged",
+ "motivation_disclosed": "Proposed after the v8 analysis: 5 of the 10 SNN + ES crashes in v8 were upward height escapes after the manoeuvre. Re-flying them showed the learned layer handing back at about +41 cm and climbing at about +40 cm/s (classical: about -5 cm, -6 cm/s); learned motor pulses add lift, the learned layer does not observe height, and bench9 scored altitude LOSS only (0.03 per cm below the start), so climbing was free. v9 closes that gap in the score for every arm.",
+ "score": "bench10.score10 = bench9 score − 0.03·(altitude loss cm) + 0.03·(max |z − z(t0)| cm from the command onset to the end of the episode). Same weight as the old loss term; tasks, windows, crash definition and all other terms unchanged.",
+ "crash": "unchanged: tilt > 80.2°, |z − z_start| > 1 m (height escape, up or down), z < 0.12 m, numerical",
+ "controllers": {
+  "snn_es": "descend9 imitation starts s1–s5 (identical files to v7 full) + careful ES (lr 0.01, sigma 0.02, pop 16, 4 cases per task per generation, 20 generations, every generation saved) with the descend9 objective on bench10 scores",
+  "opponents": "bench9 classical schedules (plan_v7 pilot9.json), normalisers recomputed with bench10 scoring on 24 training cases per task"
+ },
+ "selection": {
+  "cases_per_task": 32,
+  "offset": 60000,
+  "rule": "0 crashes and tilt < 70 deg on all 96; lowest objective"
+ },
+ "blind": {
+  "base": 2098700000,
+  "cases_per_task": 64,
+  "note": "fresh, never used"
+ },
+ "primary_M4": {
+  "arm": "snn_es",
+  "per_seed": "average ratio <= 0.95 AND crashed episodes <= classical crashed episodes on the same 192 cases",
+  "overall": ">= 3 of 5 seeds"
+ },
+ "secondary": [
+  "snn_bc (imitation starts) on the same blind set",
+  "crash breakdown by type",
+  "GoogleCloud seeds 6–10 (exploratory, approximate, never part of M4)"
+ ],
+ "machines": "seeds 1–3 on CloudPC-2, seeds 4–5 on HomePC (bit-identical on bench9: 0/192 classical differences in v8); selection and blind of each seed on the machine that searched it; classical blind rows from CloudPC-2 and cross-checked on HomePC"
+}

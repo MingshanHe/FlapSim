@@ -1,0 +1,64 @@
+{
+ "plan": "v13",
+ "amendment": 2,
+ "scope": "tests 3-9 (overnight)",
+ "written": "2026-10-21 ~23:10 JST, before any of these episodes (the chain waits for test 2 to finish); the user is away for ~8 h and asked for suitable tests to be run in order",
+ "arms": "the 14 frozen arms of v12 (classical, cls_es s1-2, v11 SNN s1-5, v9 SNN s1-5, imitation start s1)",
+ "module": "experiments/algorithms/spike_steer/blind13.py",
+ "cases_per_task": 64,
+ "scoring": "bench10 unchanged",
+ "order": [
+  "turb2",
+  "turb3",
+  "noise5",
+  "delay3",
+  "kick_pre",
+  "kick_double",
+  "kick_rollaxis",
+  "kick_pitchaxis"
+ ],
+ "tests": {
+  "turb2": {
+   "base": 2100500000,
+   "change": "stress disturbance pulses (pulse_force, pulse_torque) x2, no hit",
+   "expectation": "sustained turbulence: both arms degrade; the SNN reacts to the IMU so it may crash less, but its ES-tuned aggressiveness may also hurt — no prior"
+  },
+  "turb3": {
+   "base": 2100700000,
+   "change": "pulses x3",
+   "expectation": "as turb2, stronger"
+  },
+  "noise5": {
+   "base": 2100900000,
+   "change": "attitude noise 0.02 -> 0.10 deg, gyro noise 0.002 -> 0.010",
+   "expectation": "the SNN consumes the IMU directly (rectified channels); expected to be MORE sensitive than the open-loop schedule — an honest stress test the SNN may lose"
+  },
+  "delay3": {
+   "base": 2101100000,
+   "change": "sensor delay 1 -> 3 steps (6 ms)",
+   "expectation": "as noise5; delay hurts closed-loop reaction"
+  },
+  "kick_pre": {
+   "base": 2101300000,
+   "change": "3 mN m hit at t0 - U(0.3, 0.6) s, i.e. before the command",
+   "expectation": "pre-t0 flight is identical between arms except where the learned stack's righting reflex (25 deg, gated off while the learned layer is in charge) fires — the pre-t0 fingerprint counts those cases; after t0 the command arrives during recovery; descriptive"
+  },
+  "kick_double": {
+   "base": 2101500000,
+   "change": "3 mN m hit at t0 + U(0.15, 0.45) s plus a second 3 mN m hit 80-200 ms later about a random axis",
+   "expectation": "harder than kick; SNN advantage expected to persist but shrink (as at 4.5 mN m)"
+  },
+  "kick_rollaxis": {
+   "base": 2101700000,
+   "change": "3 mN m hit about the heading-frame roll axis only (phi in {0, 180})",
+   "expectation": "the learned pulses give pitch torque only; if the advantage survives roll-axis hits it is not a direct pitch counter-torque"
+  },
+  "kick_pitchaxis": {
+   "base": 2101900000,
+   "change": "3 mN m hit about the pitch axis only (phi in {90, 270})",
+   "expectation": "pulses can act directly; advantage expected at least as large as in kick"
+  }
+ },
+ "analysis": "per test: crashes with exact intervals, paired delta with bootstrap CI, H1 rule reported per test (descriptive; the preregistered primary stays v12 kick at 3 mN m); a crash table over all tests (blind13 table)",
+ "not_allowed": "dropping a test after seeing it; all eight are reported"
+}

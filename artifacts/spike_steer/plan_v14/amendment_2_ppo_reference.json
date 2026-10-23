@@ -1,0 +1,8 @@
+{
+ "plan": "v14",
+ "amendment": 2,
+ "written": "2026-10-22 ~12:25 JST, before any episode; requested by the user (PPO reference missing from the figures)",
+ "what": "the five frozen MLP + PPO policies of plan v7 full (HomePC; selected generations as in artifacts/spike_steer/ppo_direct/v7full/reselect_s*.json) on the plan-v11 nominal blind set and on the primary 3 mN m kick set, bench10 scoring, paired with the same opponent rows as the SNN arms",
+ "purpose": "reference arm in Table R0 / Fig. R0 and in the primary robustness row; PPO was never a research contribution here",
+ "module": "experiments/algorithms/spike_steer/ppo_blind14.py"
+}

@@ -1,0 +1,10 @@
+{
+ "only": "snn_v3 (calibrated, validation-selected)",
+ "pass_rule": [
+  "flies 16/16 on the old 16-case test",
+  "J_snn <= 1.05 x J_law_tuned (v2 108-point law)",
+  ">= 20 onsets for need-up and need-down; >= 70 % within +-67.5 deg of 135 / 315 deg"
+ ],
+ "robust_pass": "the same on the fresh 16-case test",
+ "registered_before_test": true
+}

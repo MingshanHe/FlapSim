@@ -1,0 +1,28 @@
+{
+ "plan": "v13",
+ "amendment": 3,
+ "written": "2026-10-22 00:00 JST, after turb2/turb3 were seen (all arms crash on nearly every case: classical 192/192 at x2, SNN 174-175/192; everything 192/192 at x3) and before any episode at the new levels",
+ "reason": "x2 and x3 are outside every controller's envelope, so they carry almost no information (reported as such); two calibrated levels are added",
+ "calibration": {
+  "rule": "classical only, 24 cases (8 per task, base 2_102_000_000, not a blind base); levels chosen as the largest with <= 30 % classical crashes plus one milder level",
+  "table": {
+   "x1.0": "1/24",
+   "x1.25": "2/24",
+   "x1.5": "6/24 (25 %)",
+   "x1.75": "21/24"
+  }
+ },
+ "tests": {
+  "turb125": {
+   "base": 2102100000,
+   "change": "stress pulses x1.25"
+  },
+  "turb15": {
+   "base": 2102300000,
+   "change": "stress pulses x1.5"
+  }
+ },
+ "expectation": "as for turb2 before it was run: no prior on the sign; the SNN may react to the IMU, or its aggressiveness may hurt",
+ "arms": "the 14 frozen arms",
+ "analysis": "as amendment 2"
+}

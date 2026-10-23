@@ -1,0 +1,4 @@
+Command: python -m pytest --import-mode=importlib tests/test_neat_residual.py tests/test_neat_activation.py tests/test_neat_hover_initial.py tests/test_neat_mass_model.py tests/test_neat_ppo_compare.py tests/test_imu_history_probe.py experiments/algorithms/hover9/test_history.py -q
+Environment: OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1
+.........................                                                [100%]
+25 passed in 10.35s

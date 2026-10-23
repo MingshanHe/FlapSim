@@ -1,0 +1,71 @@
+{
+ "opponent": {
+  "nod": {
+   "pitch": {
+    "go_ref": -0.6,
+    "go_beats": 9,
+    "brake_beats": 6,
+    "brake_ref": 0.2,
+    "gated": true
+   },
+   "roll": {
+    "go_ref": -0.6,
+    "go_beats": 9,
+    "brake_beats": 0,
+    "brake_ref": 0.0,
+    "gated": true
+   }
+  },
+  "dash": {
+   "pitch": {
+    "go_ref": 0.35,
+    "go_beats": 45,
+    "brake_beats": 6,
+    "brake_ref": -0.5,
+    "gated": true
+   },
+   "roll": {
+    "go_ref": 0.35,
+    "go_beats": 18,
+    "brake_beats": 3,
+    "brake_ref": -0.35,
+    "gated": true
+   },
+   "diag": {
+    "go_ref": 0.5,
+    "go_beats": 18,
+    "brake_beats": 12,
+    "brake_ref": -0.35,
+    "gated": true
+   }
+  }
+ },
+ "law": {
+  "k_theta": 8.0,
+  "k_q": 0.4,
+  "threshold": 0.5,
+  "width": 0.7853981633974483
+ },
+ "normalisers": {
+  "nod": {
+   "pitch": 2.170755905540865,
+   "roll": 1.2334645890016365
+  },
+  "dash": {
+   "pitch": 5.921892367684142,
+   "roll": 1.5485769235264053,
+   "diag": 5.035073888626608
+  }
+ },
+ "signs": {
+  "SP": 1.0,
+  "SR": -1.0
+ },
+ "dash_m": 0.15,
+ "upset_law": {
+  "k_theta": 3.0,
+  "k_q": 0.4,
+  "threshold": 0.5,
+  "width": 1.5707963267948966
+ }
+}

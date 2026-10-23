@@ -1,0 +1,64 @@
+{
+  "status": "registered_before_held_out_testing",
+  "mass_g": [
+    7,
+    8
+  ],
+  "gravity_m_s2": 9.81,
+  "physics_dt_s": 5e-06,
+  "control_dt_s": 0.002,
+  "yaw_control": false,
+  "xy_control": false,
+  "initial_state": "Motionless whole mechanism at 0.8 m, powered-phase joint positions retained except aligned gimbals; 100 ms motor ramp. This is an airborne release, not ground takeoff.",
+  "nominal_seeds": [
+    310900000,
+    310900001,
+    310900002,
+    310900003,
+    310900004,
+    310900005,
+    310900006,
+    310900007,
+    310900008,
+    310900009,
+    310900010,
+    310900011,
+    310900012,
+    310900013,
+    310900014,
+    310900015
+  ],
+  "stress_seeds": [
+    310910000,
+    310910001,
+    310910002,
+    310910003,
+    310910004,
+    310910005,
+    310910006,
+    310910007
+  ],
+  "validation_seeds": [
+    310300000,
+    310300001,
+    310300002,
+    310300003,
+    310300004,
+    310300005,
+    310300006,
+    310300007
+  ],
+  "seconds": 20.0,
+  "nominal_initial_angle_deg": 2.0,
+  "stress_initial_angle_deg": 5.0,
+  "stress": {
+    "acceleration_bias_range": 0.01,
+    "motor_uncertainty": 0.01,
+    "attitude_noise_deg": 0.02
+  },
+  "stable_criteria": "Complete horizon; minimum conservative geometric clearance > 0.03 m; tilt RMS after 2 s < 10 deg; last 5 s height span < 0.2 m and linear height trend magnitude < 0.03 m/s.",
+  "strict_height_criteria": "Stable criteria and entire-episode height RMSE relative to release height < 0.15 m.",
+  "ground_check": "Rotated local AABB lower bound over all robot geoms at 500 Hz. Mesh collisions disabled in source model, so this is geometric clearance, not a contact-physics validation.",
+  "sensors": "Same optimistic high-rate virtual IMU front end as prior round; no true position/velocity in IMU policy. Truth-height mode is a separately labeled diagnostic.",
+  "video_selection": "First fixed nominal seed 310900000, regardless of outcome; same seed for truth-height diagnostic if rendered."
+}

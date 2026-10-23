@@ -1,0 +1,31 @@
+{
+  "population": 64,
+  "generations": 24,
+  "seed": 18041,
+  "development_seeds": [
+    301010000,
+    301010001
+  ],
+  "validation_seeds": [
+    301020000,
+    301020001,
+    301020002,
+    301020003,
+    301020004,
+    301020005,
+    301020006,
+    301020007
+  ],
+  "fitness": "integrated attitude quality; fixed hover motor; 2 s then 4 s development",
+  "parameters": [
+    "kp_roll",
+    "kp_pitch",
+    "kd_roll",
+    "kd_pitch",
+    "ki_roll",
+    "ki_pitch",
+    "alpha_trim",
+    "beta_trim",
+    "filter_tau"
+  ]
+}

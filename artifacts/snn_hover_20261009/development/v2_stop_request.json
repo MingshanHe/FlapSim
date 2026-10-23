@@ -1,0 +1,27 @@
+{
+  "pid": 111866,
+  "command": "/home/robot/miniconda3/envs/mujoco/bin/python -u -m experiments.algorithms.snn_hover.train --output artifacts/snn_hover_20261009/training/snn_neat_seed2201 --method snn_neat --seed 2201 --steps 1024000 --workers 16 --population 64 ",
+  "recorded": {
+    "method": "snn_neat",
+    "seed": 2201,
+    "status": "training",
+    "training_steps": 486400,
+    "allocated_steps": 486400,
+    "validation_steps": 64000,
+    "budget": 1024000,
+    "generation": 28,
+    "best_validation": {
+      "episodes": 8,
+      "success_rate": 1.0,
+      "mean_return": 28.20291719125697,
+      "mean_elapsed": 8.0,
+      "tilt_rms_deg": 6.252081851693009,
+      "height_rmse_m": 0.06348233901746583,
+      "steps": 6400,
+      "minimum_clearance_m": 0.5051628764552029
+    },
+    "wall_seconds": 1729.2552214030002
+  },
+  "reason": "Reproduction-only continuation showed per-species minimum conflict at33 species; no held-out tests accessed",
+  "time": 1791508874.2249515
+}

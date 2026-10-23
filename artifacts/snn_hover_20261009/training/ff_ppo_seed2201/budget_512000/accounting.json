@@ -1,0 +1,24 @@
+{
+  "method": "ff_ppo",
+  "seed": 2201,
+  "sensor": "height",
+  "status": "training",
+  "training_steps": 512000,
+  "validation_steps": 70400,
+  "demonstration_steps": 0,
+  "budget": 1024000,
+  "update": 250,
+  "loss": 0.00325326015202639,
+  "approx_kl": 0.0033291949997267998,
+  "wall_seconds": 2087.7862139759964,
+  "best_validation": {
+    "episodes": 8,
+    "success_rate": 0.625,
+    "mean_return": 27.668122704959448,
+    "mean_elapsed": 8.0,
+    "tilt_rms_deg": 7.462650356200079,
+    "height_rmse_m": 0.063034362207152,
+    "steps": 6400,
+    "minimum_clearance_m": 0.5084626304535609
+  }
+}

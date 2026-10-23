@@ -1,0 +1,24 @@
+{
+  "status": "completed",
+  "allocated_steps": 3584000,
+  "training_steps": 3584000,
+  "validation_steps": 384000,
+  "mode": "residual",
+  "kind": "ann",
+  "seed": 6202,
+  "budget": 3584000,
+  "update": 896,
+  "loss": 0.005109159829296652,
+  "approx_kl": 0.00032931852851636955,
+  "wall_seconds": 13764.901557451005,
+  "best_validation": {
+    "episodes": 16,
+    "successes": 13,
+    "completed": 16,
+    "steps": 96000,
+    "tilt_rms_deg": 6.682632799837858,
+    "height_rmse_m": 0.053715942811989464,
+    "mean_return": 42.46517481658293,
+    "minimum_clearance_m": 0.5061930126828851
+  }
+}

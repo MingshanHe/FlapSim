@@ -1,0 +1,69 @@
+{
+  "passed": true,
+  "results": [
+    {
+      "kind": "snn",
+      "mode": "direct",
+      "method": "ppo",
+      "returncode": 0,
+      "seconds": 8.74434288800012,
+      "log": "runs/snn_pid_compare/20261010_v21/smoke/direct_snn_ppo.log"
+    },
+    {
+      "kind": "snn",
+      "mode": "direct",
+      "method": "neat",
+      "returncode": 0,
+      "seconds": 4.1272137249998195,
+      "log": "runs/snn_pid_compare/20261010_v21/smoke/direct_snn_neat.log"
+    },
+    {
+      "kind": "snn",
+      "mode": "residual",
+      "method": "ppo",
+      "returncode": 0,
+      "seconds": 8.708715278,
+      "log": "runs/snn_pid_compare/20261010_v21/smoke/residual_snn_ppo.log"
+    },
+    {
+      "kind": "snn",
+      "mode": "residual",
+      "method": "neat",
+      "returncode": 0,
+      "seconds": 4.117752418999771,
+      "log": "runs/snn_pid_compare/20261010_v21/smoke/residual_snn_neat.log"
+    },
+    {
+      "kind": "ann",
+      "mode": "direct",
+      "method": "ppo",
+      "returncode": 0,
+      "seconds": 8.608970789999603,
+      "log": "runs/snn_pid_compare/20261010_v21/smoke/direct_ann_ppo.log"
+    },
+    {
+      "kind": "ann",
+      "mode": "direct",
+      "method": "neat",
+      "returncode": 0,
+      "seconds": 4.003669132000141,
+      "log": "runs/snn_pid_compare/20261010_v21/smoke/direct_ann_neat.log"
+    },
+    {
+      "kind": "ann",
+      "mode": "residual",
+      "method": "ppo",
+      "returncode": 0,
+      "seconds": 7.908162236999942,
+      "log": "runs/snn_pid_compare/20261010_v21/smoke/residual_ann_ppo.log"
+    },
+    {
+      "kind": "ann",
+      "mode": "residual",
+      "method": "neat",
+      "returncode": 0,
+      "seconds": 3.022057530999973,
+      "log": "runs/snn_pid_compare/20261010_v21/smoke/residual_ann_neat.log"
+    }
+  ]
+}

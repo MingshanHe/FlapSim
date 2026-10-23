@@ -1,0 +1,1263 @@
+{
+  "status": "registered_before_training",
+  "date": "2026-10-08",
+  "upper_mass_g": 7.0,
+  "lower_mass_g": 8.0,
+  "total_mass_g": 15.0,
+  "properties": {
+    "upper": {
+      "mass_g": 7.0,
+      "com_base_mm": [
+        0.009093950537486947,
+        0.0003645868953372824,
+        28.32539410541135
+      ],
+      "inertia_com_kg_m2": [
+        [
+          2.4727054704478714e-06,
+          -8.685428481558828e-12,
+          4.660100099714354e-10
+        ],
+        [
+          -8.68542848155888e-12,
+          1.5965045089358115e-06,
+          -6.617684132926421e-11
+        ],
+        [
+          4.66010009971435e-10,
+          -6.617684132926421e-11,
+          1.1385410648710066e-06
+        ]
+      ],
+      "bodies": [
+        {
+          "name": "thrust_unit",
+          "mass_g": 5.927613191035233,
+          "com_base_mm": [
+            0.012676126861376195,
+            2.209730172967729e-05,
+            23.742460836780886
+          ]
+        },
+        {
+          "name": "motor_sun",
+          "mass_g": 0.00924465720612881,
+          "com_base_mm": [
+            -3.598812871946147e-08,
+            -1.2631123699576714e-08,
+            52.583211350716866
+          ]
+        },
+        {
+          "name": "carrier_1",
+          "mass_g": 0.0620212756891,
+          "com_base_mm": [
+            1.1491744372322554e-07,
+            -3.4986060966494455e-07,
+            53.55579720882997
+          ]
+        },
+        {
+          "name": "planet_1_1",
+          "mass_g": 0.0057376807334729996,
+          "com_base_mm": [
+            -0.48731936095711126,
+            2.6556581041438956,
+            52.902239168527984
+          ]
+        },
+        {
+          "name": "planet_1_2",
+          "mass_g": 0.0057376807334729996,
+          "com_base_mm": [
+            2.5435270389599043,
+            -0.9057980727707892,
+            52.902239168527984
+          ]
+        },
+        {
+          "name": "planet_1_3",
+          "mass_g": 0.0057376807334729996,
+          "com_base_mm": [
+            -2.0562076846688,
+            -1.7498599616149224,
+            52.902239168527984
+          ]
+        },
+        {
+          "name": "carrier_2",
+          "mass_g": 0.05391299719195,
+          "com_base_mm": [
+            -1.9657263013519994e-13,
+            -0.18503654143766954,
+            56.08033442704996
+          ]
+        },
+        {
+          "name": "planet_2_1",
+          "mass_g": 0.0057376807334729996,
+          "com_base_mm": [
+            -2.221925270951932e-09,
+            2.700000023253301,
+            55.90223916852799
+          ]
+        },
+        {
+          "name": "planet_2_2",
+          "mass_g": 0.0057376807334729996,
+          "com_base_mm": [
+            2.3382686002767894,
+            -1.3499999789167147,
+            55.90223916852799
+          ]
+        },
+        {
+          "name": "planet_2_3",
+          "mass_g": 0.0057376807334729996,
+          "com_base_mm": [
+            -2.338268592441306,
+            -1.3499999767432451,
+            55.90223916852799
+          ]
+        },
+        {
+          "name": "slider",
+          "mass_g": 0.0913433299099911,
+          "com_base_mm": [
+            7.869681468986034e-13,
+            9.041904031059644e-08,
+            57.90223916009995
+          ]
+        },
+        {
+          "name": "yoke_follower",
+          "mass_g": 1.0000000000000002e-06,
+          "com_base_mm": [
+            0.0,
+            -2.6999999999999984,
+            58.60223916009999
+          ]
+        },
+        {
+          "name": "left_flapping",
+          "mass_g": 0.0769478363348058,
+          "com_base_mm": [
+            6.568715425585137e-08,
+            12.089034388498446,
+            58.127147885781326
+          ]
+        },
+        {
+          "name": "left_wing",
+          "mass_g": 0.33384950213041803,
+          "com_base_mm": [
+            -0.017217418215747397,
+            33.82670804217928,
+            51.83740111099144
+          ]
+        },
+        {
+          "name": "right_flapping",
+          "mass_g": 0.0769478363348058,
+          "com_base_mm": [
+            6.569345433049887e-08,
+            -12.089034207668005,
+            58.127147885781326
+          ]
+        },
+        {
+          "name": "right_wing",
+          "mass_g": 0.33369228976673,
+          "com_base_mm": [
+            -0.017182037484699795,
+            -33.805485733804275,
+            51.83565396762191
+          ]
+        }
+      ]
+    },
+    "lower": {
+      "mass_g": 8.0,
+      "com_base_mm": [
+        -0.29219124567501387,
+        -2.3182844532917964e-11,
+        -22.9990391320512
+      ],
+      "inertia_com_kg_m2": [
+        [
+          9.698282398278962e-07,
+          -7.834198382281667e-21,
+          -2.8428064974220976e-09
+        ],
+        [
+          -7.834198382281667e-21,
+          6.824710553707851e-07,
+          -5.617041035358328e-19
+        ],
+        [
+          -2.842806497422096e-09,
+          -5.617041035358328e-19,
+          4.0355645690590905e-07
+        ]
+      ],
+      "bodies": [
+        {
+          "name": "base_link",
+          "mass_g": 7.0,
+          "com_base_mm": [
+            -0.3339328522,
+            -2.65343302885e-11,
+            -25.99187011859999
+          ]
+        },
+        {
+          "name": "pitch_link",
+          "mass_g": 1.0,
+          "com_base_mm": [
+            -1.1102230246251597e-13,
+            2.7755575615628893e-13,
+            -2.049222226209846
+          ]
+        }
+      ]
+    },
+    "total": {
+      "mass_g": 15.000000000000002,
+      "com_base_mm": [
+        -0.1515914874425135,
+        0.00017014053879320202,
+        0.952363045431448
+      ],
+      "inertia_com_kg_m2": [
+        [
+          1.3276870846786538e-05,
+          -9.095515150182371e-12,
+          -6.010641972430935e-08
+        ],
+        [
+          -9.095515150182371e-12,
+          1.211365158532709e-05,
+          -1.360357852037408e-10
+        ],
+        [
+          -6.010641972430935e-08,
+          -1.360357852037408e-10,
+          1.5424364072791362e-06
+        ]
+      ],
+      "bodies": [
+        {
+          "name": "base_link",
+          "mass_g": 7.0,
+          "com_base_mm": [
+            -0.3339328522,
+            -2.65343302885e-11,
+            -25.99187011859999
+          ]
+        },
+        {
+          "name": "pitch_link",
+          "mass_g": 1.0,
+          "com_base_mm": [
+            -1.1102230246251597e-13,
+            2.7755575615628893e-13,
+            -2.049222226209846
+          ]
+        },
+        {
+          "name": "thrust_unit",
+          "mass_g": 5.927613191035233,
+          "com_base_mm": [
+            0.012676126861376195,
+            2.209730172967729e-05,
+            23.742460836780886
+          ]
+        },
+        {
+          "name": "motor_sun",
+          "mass_g": 0.00924465720612881,
+          "com_base_mm": [
+            -3.598812871946147e-08,
+            -1.2631123699576714e-08,
+            52.583211350716866
+          ]
+        },
+        {
+          "name": "carrier_1",
+          "mass_g": 0.0620212756891,
+          "com_base_mm": [
+            1.1491744372322554e-07,
+            -3.4986060966494455e-07,
+            53.55579720882997
+          ]
+        },
+        {
+          "name": "planet_1_1",
+          "mass_g": 0.0057376807334729996,
+          "com_base_mm": [
+            -0.48731936095711126,
+            2.6556581041438956,
+            52.902239168527984
+          ]
+        },
+        {
+          "name": "planet_1_2",
+          "mass_g": 0.0057376807334729996,
+          "com_base_mm": [
+            2.5435270389599043,
+            -0.9057980727707892,
+            52.902239168527984
+          ]
+        },
+        {
+          "name": "planet_1_3",
+          "mass_g": 0.0057376807334729996,
+          "com_base_mm": [
+            -2.0562076846688,
+            -1.7498599616149224,
+            52.902239168527984
+          ]
+        },
+        {
+          "name": "carrier_2",
+          "mass_g": 0.05391299719195,
+          "com_base_mm": [
+            -1.9657263013519994e-13,
+            -0.18503654143766954,
+            56.08033442704996
+          ]
+        },
+        {
+          "name": "planet_2_1",
+          "mass_g": 0.0057376807334729996,
+          "com_base_mm": [
+            -2.221925270951932e-09,
+            2.700000023253301,
+            55.90223916852799
+          ]
+        },
+        {
+          "name": "planet_2_2",
+          "mass_g": 0.0057376807334729996,
+          "com_base_mm": [
+            2.3382686002767894,
+            -1.3499999789167147,
+            55.90223916852799
+          ]
+        },
+        {
+          "name": "planet_2_3",
+          "mass_g": 0.0057376807334729996,
+          "com_base_mm": [
+            -2.338268592441306,
+            -1.3499999767432451,
+            55.90223916852799
+          ]
+        },
+        {
+          "name": "slider",
+          "mass_g": 0.0913433299099911,
+          "com_base_mm": [
+            7.869681468986034e-13,
+            9.041904031059644e-08,
+            57.90223916009995
+          ]
+        },
+        {
+          "name": "yoke_follower",
+          "mass_g": 1.0000000000000002e-06,
+          "com_base_mm": [
+            0.0,
+            -2.6999999999999984,
+            58.60223916009999
+          ]
+        },
+        {
+          "name": "left_flapping",
+          "mass_g": 0.0769478363348058,
+          "com_base_mm": [
+            6.568715425585137e-08,
+            12.089034388498446,
+            58.127147885781326
+          ]
+        },
+        {
+          "name": "left_wing",
+          "mass_g": 0.33384950213041803,
+          "com_base_mm": [
+            -0.017217418215747397,
+            33.82670804217928,
+            51.83740111099144
+          ]
+        },
+        {
+          "name": "right_flapping",
+          "mass_g": 0.0769478363348058,
+          "com_base_mm": [
+            6.569345433049887e-08,
+            -12.089034207668005,
+            58.127147885781326
+          ]
+        },
+        {
+          "name": "right_wing",
+          "mass_g": 0.33369228976673,
+          "com_base_mm": [
+            -0.017182037484699795,
+            -33.805485733804275,
+            51.83565396762191
+          ]
+        }
+      ]
+    },
+    "pivots_base_mm": {
+      "pitch_joint": [
+        0.0,
+        0.0,
+        -3.249999999999975
+      ],
+      "roll_joint": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    }
+  },
+  "inputs": [
+    "base_link roll",
+    "base_link pitch",
+    "base_link yaw",
+    "base_link gyro_x",
+    "base_link gyro_y",
+    "base_link gyro_z"
+  ],
+  "outputs": [
+    "alpha",
+    "beta",
+    "motor_speed"
+  ],
+  "angle_range_rad": [
+    -0.3,
+    0.3
+  ],
+  "motor_center_rad_s": 3461.360088271976,
+  "motor_fraction": [
+    -0.1,
+    0.1
+  ],
+  "action_smoothing_s": 0.02,
+  "physics_dt_s": 5e-06,
+  "control_dt_s": 0.01,
+  "initial_state": "Eight fixed-base powered phases, 0.8 s plus k/8 periods; free-body momentum correction only at reset",
+  "actor_observation": "Six current IMU values only. NEAT has evolved recurrent memory; PPO baseline is a feed-forward 64x64 MLP. Architecture is an explicit method difference, not an optimizer-only comparison.",
+  "seeds": [
+    835,
+    836
+  ],
+  "neat_population": 128,
+  "neat_initial_hidden": 8,
+  "neat_scenarios": 2,
+  "target_training_steps_per_seed": 524288,
+  "neat_generation_cap": 100,
+  "budget_matching": "NEAT completes a full generation crossing the target. PPO matches that seed total, rounded up to a 2048-step rollout; actual counts and validation costs reported.",
+  "reward": "0.01*(1+2*exp(-(tilt/.35)^2)+2*exp(-(position_error/.2)^2)+exp(-(speed/.5)^2)-.1*min(sum((omega/10)^2),10)-.05*action_delta_squared-.005*action_squared), terminal -1, numerical -2",
+  "discount": 0.995,
+  "neat_fitness": "Mean discounted shared reward across two shared cases; no teacher or old-model parent",
+  "curriculum": "Training fraction <.3: 2 s, +/-2 deg; <.6: 4 s; then 8 s. Nominal/disturbed episodes alternate. Same schedule and disturbance generator for both.",
+  "neat_activations": [
+    "tanh",
+    "sigmoid",
+    "softsign",
+    "clamped",
+    "sin",
+    "gauss"
+  ],
+  "neat_output_activations": [
+    "tanh",
+    "clamped",
+    "bipolar_sigmoid",
+    "softsign"
+  ],
+  "activation_note": "bipolar_sigmoid=2*sigmoid(5*x)-1 is mathematically equivalent to the library tanh(2.5*x); not an independent expressiveness gain",
+  "validation_cases": [
+    {
+      "seed": 905810000,
+      "seconds": 8.0,
+      "degrees": 5.0,
+      "angular_rate": 0.0,
+      "noise_degrees": 0.0,
+      "motor_uncertainty": 0.0,
+      "delay_steps": 0,
+      "noise_gyro_rad_s": 0.0
+    },
+    {
+      "seed": 905810001,
+      "seconds": 8.0,
+      "degrees": 5.0,
+      "angular_rate": 0.0,
+      "noise_degrees": 0.0,
+      "motor_uncertainty": 0.0,
+      "delay_steps": 0,
+      "noise_gyro_rad_s": 0.0
+    },
+    {
+      "seed": 905810002,
+      "seconds": 8.0,
+      "degrees": 5.0,
+      "angular_rate": 0.0,
+      "noise_degrees": 0.0,
+      "motor_uncertainty": 0.0,
+      "delay_steps": 0,
+      "noise_gyro_rad_s": 0.0
+    },
+    {
+      "seed": 905810003,
+      "seconds": 8.0,
+      "degrees": 5.0,
+      "angular_rate": 0.0,
+      "noise_degrees": 0.0,
+      "motor_uncertainty": 0.0,
+      "delay_steps": 0,
+      "noise_gyro_rad_s": 0.0
+    },
+    {
+      "seed": 905810004,
+      "seconds": 8.0,
+      "degrees": 5.0,
+      "angular_rate": 0.0,
+      "noise_degrees": 0.0,
+      "motor_uncertainty": 0.0,
+      "delay_steps": 0,
+      "noise_gyro_rad_s": 0.0
+    },
+    {
+      "seed": 905810005,
+      "seconds": 8.0,
+      "degrees": 5.0,
+      "angular_rate": 0.0,
+      "noise_degrees": 0.0,
+      "motor_uncertainty": 0.0,
+      "delay_steps": 0,
+      "noise_gyro_rad_s": 0.0
+    },
+    {
+      "seed": 905820000,
+      "seconds": 8.0,
+      "degrees": 10.0,
+      "angular_rate": 0.25,
+      "noise_degrees": 0.25,
+      "motor_uncertainty": 0.03,
+      "delay_steps": 1,
+      "noise_gyro_rad_s": 0.03
+    },
+    {
+      "seed": 905820001,
+      "seconds": 8.0,
+      "degrees": 10.0,
+      "angular_rate": 0.25,
+      "noise_degrees": 0.25,
+      "motor_uncertainty": 0.03,
+      "delay_steps": 1,
+      "noise_gyro_rad_s": 0.03
+    },
+    {
+      "seed": 905820002,
+      "seconds": 8.0,
+      "degrees": 10.0,
+      "angular_rate": 0.25,
+      "noise_degrees": 0.25,
+      "motor_uncertainty": 0.03,
+      "delay_steps": 1,
+      "noise_gyro_rad_s": 0.03
+    },
+    {
+      "seed": 905820003,
+      "seconds": 8.0,
+      "degrees": 10.0,
+      "angular_rate": 0.25,
+      "noise_degrees": 0.25,
+      "motor_uncertainty": 0.03,
+      "delay_steps": 1,
+      "noise_gyro_rad_s": 0.03
+    },
+    {
+      "seed": 905820004,
+      "seconds": 8.0,
+      "degrees": 10.0,
+      "angular_rate": 0.25,
+      "noise_degrees": 0.25,
+      "motor_uncertainty": 0.03,
+      "delay_steps": 1,
+      "noise_gyro_rad_s": 0.03
+    },
+    {
+      "seed": 905820005,
+      "seconds": 8.0,
+      "degrees": 10.0,
+      "angular_rate": 0.25,
+      "noise_degrees": 0.25,
+      "motor_uncertainty": 0.03,
+      "delay_steps": 1,
+      "noise_gyro_rad_s": 0.03
+    }
+  ],
+  "test_nominal": [
+    {
+      "seed": 1053810000,
+      "seconds": 8.0,
+      "degrees": 5.0,
+      "angular_rate": 0.0,
+      "noise_degrees": 0.0,
+      "motor_uncertainty": 0.0,
+      "delay_steps": 0,
+      "noise_gyro_rad_s": 0.0
+    },
+    {
+      "seed": 1053810001,
+      "seconds": 8.0,
+      "degrees": 5.0,
+      "angular_rate": 0.0,
+      "noise_degrees": 0.0,
+      "motor_uncertainty": 0.0,
+      "delay_steps": 0,
+      "noise_gyro_rad_s": 0.0
+    },
+    {
+      "seed": 1053810002,
+      "seconds": 8.0,
+      "degrees": 5.0,
+      "angular_rate": 0.0,
+      "noise_degrees": 0.0,
+      "motor_uncertainty": 0.0,
+      "delay_steps": 0,
+      "noise_gyro_rad_s": 0.0
+    },
+    {
+      "seed": 1053810003,
+      "seconds": 8.0,
+      "degrees": 5.0,
+      "angular_rate": 0.0,
+      "noise_degrees": 0.0,
+      "motor_uncertainty": 0.0,
+      "delay_steps": 0,
+      "noise_gyro_rad_s": 0.0
+    },
+    {
+      "seed": 1053810004,
+      "seconds": 8.0,
+      "degrees": 5.0,
+      "angular_rate": 0.0,
+      "noise_degrees": 0.0,
+      "motor_uncertainty": 0.0,
+      "delay_steps": 0,
+      "noise_gyro_rad_s": 0.0
+    },
+    {
+      "seed": 1053810005,
+      "seconds": 8.0,
+      "degrees": 5.0,
+      "angular_rate": 0.0,
+      "noise_degrees": 0.0,
+      "motor_uncertainty": 0.0,
+      "delay_steps": 0,
+      "noise_gyro_rad_s": 0.0
+    },
+    {
+      "seed": 1053810006,
+      "seconds": 8.0,
+      "degrees": 5.0,
+      "angular_rate": 0.0,
+      "noise_degrees": 0.0,
+      "motor_uncertainty": 0.0,
+      "delay_steps": 0,
+      "noise_gyro_rad_s": 0.0
+    },
+    {
+      "seed": 1053810007,
+      "seconds": 8.0,
+      "degrees": 5.0,
+      "angular_rate": 0.0,
+      "noise_degrees": 0.0,
+      "motor_uncertainty": 0.0,
+      "delay_steps": 0,
+      "noise_gyro_rad_s": 0.0
+    },
+    {
+      "seed": 1053810008,
+      "seconds": 8.0,
+      "degrees": 5.0,
+      "angular_rate": 0.0,
+      "noise_degrees": 0.0,
+      "motor_uncertainty": 0.0,
+      "delay_steps": 0,
+      "noise_gyro_rad_s": 0.0
+    },
+    {
+      "seed": 1053810009,
+      "seconds": 8.0,
+      "degrees": 5.0,
+      "angular_rate": 0.0,
+      "noise_degrees": 0.0,
+      "motor_uncertainty": 0.0,
+      "delay_steps": 0,
+      "noise_gyro_rad_s": 0.0
+    },
+    {
+      "seed": 1053810010,
+      "seconds": 8.0,
+      "degrees": 5.0,
+      "angular_rate": 0.0,
+      "noise_degrees": 0.0,
+      "motor_uncertainty": 0.0,
+      "delay_steps": 0,
+      "noise_gyro_rad_s": 0.0
+    },
+    {
+      "seed": 1053810011,
+      "seconds": 8.0,
+      "degrees": 5.0,
+      "angular_rate": 0.0,
+      "noise_degrees": 0.0,
+      "motor_uncertainty": 0.0,
+      "delay_steps": 0,
+      "noise_gyro_rad_s": 0.0
+    },
+    {
+      "seed": 1053810012,
+      "seconds": 8.0,
+      "degrees": 5.0,
+      "angular_rate": 0.0,
+      "noise_degrees": 0.0,
+      "motor_uncertainty": 0.0,
+      "delay_steps": 0,
+      "noise_gyro_rad_s": 0.0
+    },
+    {
+      "seed": 1053810013,
+      "seconds": 8.0,
+      "degrees": 5.0,
+      "angular_rate": 0.0,
+      "noise_degrees": 0.0,
+      "motor_uncertainty": 0.0,
+      "delay_steps": 0,
+      "noise_gyro_rad_s": 0.0
+    },
+    {
+      "seed": 1053810014,
+      "seconds": 8.0,
+      "degrees": 5.0,
+      "angular_rate": 0.0,
+      "noise_degrees": 0.0,
+      "motor_uncertainty": 0.0,
+      "delay_steps": 0,
+      "noise_gyro_rad_s": 0.0
+    },
+    {
+      "seed": 1053810015,
+      "seconds": 8.0,
+      "degrees": 5.0,
+      "angular_rate": 0.0,
+      "noise_degrees": 0.0,
+      "motor_uncertainty": 0.0,
+      "delay_steps": 0,
+      "noise_gyro_rad_s": 0.0
+    },
+    {
+      "seed": 1053810016,
+      "seconds": 8.0,
+      "degrees": 5.0,
+      "angular_rate": 0.0,
+      "noise_degrees": 0.0,
+      "motor_uncertainty": 0.0,
+      "delay_steps": 0,
+      "noise_gyro_rad_s": 0.0
+    },
+    {
+      "seed": 1053810017,
+      "seconds": 8.0,
+      "degrees": 5.0,
+      "angular_rate": 0.0,
+      "noise_degrees": 0.0,
+      "motor_uncertainty": 0.0,
+      "delay_steps": 0,
+      "noise_gyro_rad_s": 0.0
+    },
+    {
+      "seed": 1053810018,
+      "seconds": 8.0,
+      "degrees": 5.0,
+      "angular_rate": 0.0,
+      "noise_degrees": 0.0,
+      "motor_uncertainty": 0.0,
+      "delay_steps": 0,
+      "noise_gyro_rad_s": 0.0
+    },
+    {
+      "seed": 1053810019,
+      "seconds": 8.0,
+      "degrees": 5.0,
+      "angular_rate": 0.0,
+      "noise_degrees": 0.0,
+      "motor_uncertainty": 0.0,
+      "delay_steps": 0,
+      "noise_gyro_rad_s": 0.0
+    },
+    {
+      "seed": 1053810020,
+      "seconds": 8.0,
+      "degrees": 5.0,
+      "angular_rate": 0.0,
+      "noise_degrees": 0.0,
+      "motor_uncertainty": 0.0,
+      "delay_steps": 0,
+      "noise_gyro_rad_s": 0.0
+    },
+    {
+      "seed": 1053810021,
+      "seconds": 8.0,
+      "degrees": 5.0,
+      "angular_rate": 0.0,
+      "noise_degrees": 0.0,
+      "motor_uncertainty": 0.0,
+      "delay_steps": 0,
+      "noise_gyro_rad_s": 0.0
+    },
+    {
+      "seed": 1053810022,
+      "seconds": 8.0,
+      "degrees": 5.0,
+      "angular_rate": 0.0,
+      "noise_degrees": 0.0,
+      "motor_uncertainty": 0.0,
+      "delay_steps": 0,
+      "noise_gyro_rad_s": 0.0
+    },
+    {
+      "seed": 1053810023,
+      "seconds": 8.0,
+      "degrees": 5.0,
+      "angular_rate": 0.0,
+      "noise_degrees": 0.0,
+      "motor_uncertainty": 0.0,
+      "delay_steps": 0,
+      "noise_gyro_rad_s": 0.0
+    },
+    {
+      "seed": 1053810024,
+      "seconds": 8.0,
+      "degrees": 5.0,
+      "angular_rate": 0.0,
+      "noise_degrees": 0.0,
+      "motor_uncertainty": 0.0,
+      "delay_steps": 0,
+      "noise_gyro_rad_s": 0.0
+    },
+    {
+      "seed": 1053810025,
+      "seconds": 8.0,
+      "degrees": 5.0,
+      "angular_rate": 0.0,
+      "noise_degrees": 0.0,
+      "motor_uncertainty": 0.0,
+      "delay_steps": 0,
+      "noise_gyro_rad_s": 0.0
+    },
+    {
+      "seed": 1053810026,
+      "seconds": 8.0,
+      "degrees": 5.0,
+      "angular_rate": 0.0,
+      "noise_degrees": 0.0,
+      "motor_uncertainty": 0.0,
+      "delay_steps": 0,
+      "noise_gyro_rad_s": 0.0
+    },
+    {
+      "seed": 1053810027,
+      "seconds": 8.0,
+      "degrees": 5.0,
+      "angular_rate": 0.0,
+      "noise_degrees": 0.0,
+      "motor_uncertainty": 0.0,
+      "delay_steps": 0,
+      "noise_gyro_rad_s": 0.0
+    },
+    {
+      "seed": 1053810028,
+      "seconds": 8.0,
+      "degrees": 5.0,
+      "angular_rate": 0.0,
+      "noise_degrees": 0.0,
+      "motor_uncertainty": 0.0,
+      "delay_steps": 0,
+      "noise_gyro_rad_s": 0.0
+    },
+    {
+      "seed": 1053810029,
+      "seconds": 8.0,
+      "degrees": 5.0,
+      "angular_rate": 0.0,
+      "noise_degrees": 0.0,
+      "motor_uncertainty": 0.0,
+      "delay_steps": 0,
+      "noise_gyro_rad_s": 0.0
+    },
+    {
+      "seed": 1053810030,
+      "seconds": 8.0,
+      "degrees": 5.0,
+      "angular_rate": 0.0,
+      "noise_degrees": 0.0,
+      "motor_uncertainty": 0.0,
+      "delay_steps": 0,
+      "noise_gyro_rad_s": 0.0
+    },
+    {
+      "seed": 1053810031,
+      "seconds": 8.0,
+      "degrees": 5.0,
+      "angular_rate": 0.0,
+      "noise_degrees": 0.0,
+      "motor_uncertainty": 0.0,
+      "delay_steps": 0,
+      "noise_gyro_rad_s": 0.0
+    }
+  ],
+  "test_stress": [
+    {
+      "seed": 1053820000,
+      "seconds": 8.0,
+      "degrees": 10.0,
+      "angular_rate": 0.25,
+      "noise_degrees": 0.25,
+      "motor_uncertainty": 0.03,
+      "delay_steps": 1,
+      "noise_gyro_rad_s": 0.03
+    },
+    {
+      "seed": 1053820001,
+      "seconds": 8.0,
+      "degrees": 10.0,
+      "angular_rate": 0.25,
+      "noise_degrees": 0.25,
+      "motor_uncertainty": 0.03,
+      "delay_steps": 1,
+      "noise_gyro_rad_s": 0.03
+    },
+    {
+      "seed": 1053820002,
+      "seconds": 8.0,
+      "degrees": 10.0,
+      "angular_rate": 0.25,
+      "noise_degrees": 0.25,
+      "motor_uncertainty": 0.03,
+      "delay_steps": 1,
+      "noise_gyro_rad_s": 0.03
+    },
+    {
+      "seed": 1053820003,
+      "seconds": 8.0,
+      "degrees": 10.0,
+      "angular_rate": 0.25,
+      "noise_degrees": 0.25,
+      "motor_uncertainty": 0.03,
+      "delay_steps": 1,
+      "noise_gyro_rad_s": 0.03
+    },
+    {
+      "seed": 1053820004,
+      "seconds": 8.0,
+      "degrees": 10.0,
+      "angular_rate": 0.25,
+      "noise_degrees": 0.25,
+      "motor_uncertainty": 0.03,
+      "delay_steps": 1,
+      "noise_gyro_rad_s": 0.03
+    },
+    {
+      "seed": 1053820005,
+      "seconds": 8.0,
+      "degrees": 10.0,
+      "angular_rate": 0.25,
+      "noise_degrees": 0.25,
+      "motor_uncertainty": 0.03,
+      "delay_steps": 1,
+      "noise_gyro_rad_s": 0.03
+    },
+    {
+      "seed": 1053820006,
+      "seconds": 8.0,
+      "degrees": 10.0,
+      "angular_rate": 0.25,
+      "noise_degrees": 0.25,
+      "motor_uncertainty": 0.03,
+      "delay_steps": 1,
+      "noise_gyro_rad_s": 0.03
+    },
+    {
+      "seed": 1053820007,
+      "seconds": 8.0,
+      "degrees": 10.0,
+      "angular_rate": 0.25,
+      "noise_degrees": 0.25,
+      "motor_uncertainty": 0.03,
+      "delay_steps": 1,
+      "noise_gyro_rad_s": 0.03
+    },
+    {
+      "seed": 1053820008,
+      "seconds": 8.0,
+      "degrees": 10.0,
+      "angular_rate": 0.25,
+      "noise_degrees": 0.25,
+      "motor_uncertainty": 0.03,
+      "delay_steps": 1,
+      "noise_gyro_rad_s": 0.03
+    },
+    {
+      "seed": 1053820009,
+      "seconds": 8.0,
+      "degrees": 10.0,
+      "angular_rate": 0.25,
+      "noise_degrees": 0.25,
+      "motor_uncertainty": 0.03,
+      "delay_steps": 1,
+      "noise_gyro_rad_s": 0.03
+    },
+    {
+      "seed": 1053820010,
+      "seconds": 8.0,
+      "degrees": 10.0,
+      "angular_rate": 0.25,
+      "noise_degrees": 0.25,
+      "motor_uncertainty": 0.03,
+      "delay_steps": 1,
+      "noise_gyro_rad_s": 0.03
+    },
+    {
+      "seed": 1053820011,
+      "seconds": 8.0,
+      "degrees": 10.0,
+      "angular_rate": 0.25,
+      "noise_degrees": 0.25,
+      "motor_uncertainty": 0.03,
+      "delay_steps": 1,
+      "noise_gyro_rad_s": 0.03
+    },
+    {
+      "seed": 1053820012,
+      "seconds": 8.0,
+      "degrees": 10.0,
+      "angular_rate": 0.25,
+      "noise_degrees": 0.25,
+      "motor_uncertainty": 0.03,
+      "delay_steps": 1,
+      "noise_gyro_rad_s": 0.03
+    },
+    {
+      "seed": 1053820013,
+      "seconds": 8.0,
+      "degrees": 10.0,
+      "angular_rate": 0.25,
+      "noise_degrees": 0.25,
+      "motor_uncertainty": 0.03,
+      "delay_steps": 1,
+      "noise_gyro_rad_s": 0.03
+    },
+    {
+      "seed": 1053820014,
+      "seconds": 8.0,
+      "degrees": 10.0,
+      "angular_rate": 0.25,
+      "noise_degrees": 0.25,
+      "motor_uncertainty": 0.03,
+      "delay_steps": 1,
+      "noise_gyro_rad_s": 0.03
+    },
+    {
+      "seed": 1053820015,
+      "seconds": 8.0,
+      "degrees": 10.0,
+      "angular_rate": 0.25,
+      "noise_degrees": 0.25,
+      "motor_uncertainty": 0.03,
+      "delay_steps": 1,
+      "noise_gyro_rad_s": 0.03
+    },
+    {
+      "seed": 1053820016,
+      "seconds": 8.0,
+      "degrees": 10.0,
+      "angular_rate": 0.25,
+      "noise_degrees": 0.25,
+      "motor_uncertainty": 0.03,
+      "delay_steps": 1,
+      "noise_gyro_rad_s": 0.03
+    },
+    {
+      "seed": 1053820017,
+      "seconds": 8.0,
+      "degrees": 10.0,
+      "angular_rate": 0.25,
+      "noise_degrees": 0.25,
+      "motor_uncertainty": 0.03,
+      "delay_steps": 1,
+      "noise_gyro_rad_s": 0.03
+    },
+    {
+      "seed": 1053820018,
+      "seconds": 8.0,
+      "degrees": 10.0,
+      "angular_rate": 0.25,
+      "noise_degrees": 0.25,
+      "motor_uncertainty": 0.03,
+      "delay_steps": 1,
+      "noise_gyro_rad_s": 0.03
+    },
+    {
+      "seed": 1053820019,
+      "seconds": 8.0,
+      "degrees": 10.0,
+      "angular_rate": 0.25,
+      "noise_degrees": 0.25,
+      "motor_uncertainty": 0.03,
+      "delay_steps": 1,
+      "noise_gyro_rad_s": 0.03
+    },
+    {
+      "seed": 1053820020,
+      "seconds": 8.0,
+      "degrees": 10.0,
+      "angular_rate": 0.25,
+      "noise_degrees": 0.25,
+      "motor_uncertainty": 0.03,
+      "delay_steps": 1,
+      "noise_gyro_rad_s": 0.03
+    },
+    {
+      "seed": 1053820021,
+      "seconds": 8.0,
+      "degrees": 10.0,
+      "angular_rate": 0.25,
+      "noise_degrees": 0.25,
+      "motor_uncertainty": 0.03,
+      "delay_steps": 1,
+      "noise_gyro_rad_s": 0.03
+    },
+    {
+      "seed": 1053820022,
+      "seconds": 8.0,
+      "degrees": 10.0,
+      "angular_rate": 0.25,
+      "noise_degrees": 0.25,
+      "motor_uncertainty": 0.03,
+      "delay_steps": 1,
+      "noise_gyro_rad_s": 0.03
+    },
+    {
+      "seed": 1053820023,
+      "seconds": 8.0,
+      "degrees": 10.0,
+      "angular_rate": 0.25,
+      "noise_degrees": 0.25,
+      "motor_uncertainty": 0.03,
+      "delay_steps": 1,
+      "noise_gyro_rad_s": 0.03
+    },
+    {
+      "seed": 1053820024,
+      "seconds": 8.0,
+      "degrees": 10.0,
+      "angular_rate": 0.25,
+      "noise_degrees": 0.25,
+      "motor_uncertainty": 0.03,
+      "delay_steps": 1,
+      "noise_gyro_rad_s": 0.03
+    },
+    {
+      "seed": 1053820025,
+      "seconds": 8.0,
+      "degrees": 10.0,
+      "angular_rate": 0.25,
+      "noise_degrees": 0.25,
+      "motor_uncertainty": 0.03,
+      "delay_steps": 1,
+      "noise_gyro_rad_s": 0.03
+    },
+    {
+      "seed": 1053820026,
+      "seconds": 8.0,
+      "degrees": 10.0,
+      "angular_rate": 0.25,
+      "noise_degrees": 0.25,
+      "motor_uncertainty": 0.03,
+      "delay_steps": 1,
+      "noise_gyro_rad_s": 0.03
+    },
+    {
+      "seed": 1053820027,
+      "seconds": 8.0,
+      "degrees": 10.0,
+      "angular_rate": 0.25,
+      "noise_degrees": 0.25,
+      "motor_uncertainty": 0.03,
+      "delay_steps": 1,
+      "noise_gyro_rad_s": 0.03
+    },
+    {
+      "seed": 1053820028,
+      "seconds": 8.0,
+      "degrees": 10.0,
+      "angular_rate": 0.25,
+      "noise_degrees": 0.25,
+      "motor_uncertainty": 0.03,
+      "delay_steps": 1,
+      "noise_gyro_rad_s": 0.03
+    },
+    {
+      "seed": 1053820029,
+      "seconds": 8.0,
+      "degrees": 10.0,
+      "angular_rate": 0.25,
+      "noise_degrees": 0.25,
+      "motor_uncertainty": 0.03,
+      "delay_steps": 1,
+      "noise_gyro_rad_s": 0.03
+    },
+    {
+      "seed": 1053820030,
+      "seconds": 8.0,
+      "degrees": 10.0,
+      "angular_rate": 0.25,
+      "noise_degrees": 0.25,
+      "motor_uncertainty": 0.03,
+      "delay_steps": 1,
+      "noise_gyro_rad_s": 0.03
+    },
+    {
+      "seed": 1053820031,
+      "seconds": 8.0,
+      "degrees": 10.0,
+      "angular_rate": 0.25,
+      "noise_degrees": 0.25,
+      "motor_uncertainty": 0.03,
+      "delay_steps": 1,
+      "noise_gyro_rad_s": 0.03
+    }
+  ],
+  "test_policy_selection": "Use validation only; freeze all four selected policies before any final test.",
+  "success": "Complete 8 s, position RMSE < .1 m, tilt RMS < 10 degrees",
+  "usable_simulation_target": "At least 30/32 nominal and 28/32 disturbed successes; no hardware claim",
+  "limitations": [
+    "Six IMU values do not directly observe altitude or translational velocity",
+    "Rigid COM locations and inertia scaling remain CAD-based assumptions",
+    "Two training seeds provide descriptive evidence only, not a general NEAT-versus-PPO superiority claim"
+  ],
+  "versions": {
+    "neat-python": "2.0.0",
+    "stable-baselines3": "2.6.0",
+    "gymnasium": "1.1.1",
+    "mujoco": "3.8.0",
+    "torch": "2.6.0"
+  }
+}

@@ -1,0 +1,187 @@
+{
+ "seed": 1,
+ "rule": "lowest composite on 16 validation cases among zero-crash centres",
+ "n_val_per_task": 8,
+ "centres": [
+  {
+   "generation": -1,
+   "composite16": 0.9203058781451026,
+   "composite8": 0.9089336841935891,
+   "crashes": 0,
+   "dash_tilt_peak_max": 33.436115576274204,
+   "ratios": {
+    "nod": 0.8658687933368996,
+    "dash": 0.9747429629533056
+   },
+   "spec": "artifacts/spike_steer/plan_v4/r2/finetune_s1/spec_val_g-1.json"
+  },
+  {
+   "generation": 4,
+   "composite16": 0.8714843500569431,
+   "composite8": 0.875742372569411,
+   "crashes": 0,
+   "dash_tilt_peak_max": 46.84662982604908,
+   "ratios": {
+    "nod": 0.9092382369882023,
+    "dash": 0.8337304631256841
+   },
+   "spec": "artifacts/spike_steer/plan_v4/r2/finetune_s1/spec_val_g4.json"
+  },
+  {
+   "generation": 9,
+   "composite16": 1.111540243384367,
+   "composite8": 0.8714017995865203,
+   "crashes": 1,
+   "dash_tilt_peak_max": 44.843458952538924,
+   "ratios": {
+    "nod": 1.148483237618443,
+    "dash": 1.0745972491502909
+   },
+   "spec": "artifacts/spike_steer/plan_v4/r2/finetune_s1/spec_val_g9.json"
+  },
+  {
+   "generation": 14,
+   "composite16": 2.3518045090105657,
+   "composite8": 0.8706095827694821,
+   "crashes": 2,
+   "dash_tilt_peak_max": 48.04837285593873,
+   "ratios": {
+    "nod": 3.8833660658512845,
+    "dash": 0.8202429521698464
+   },
+   "spec": "artifacts/spike_steer/plan_v4/r2/finetune_s1/spec_val_g14.json"
+  },
+  {
+   "generation": 19,
+   "composite16": 0.8546392815461525,
+   "composite8": 0.8539347045133641,
+   "crashes": 0,
+   "dash_tilt_peak_max": 40.82118866718322,
+   "ratios": {
+    "nod": 0.8971225375040891,
+    "dash": 0.8121560255882161
+   },
+   "spec": "artifacts/spike_steer/plan_v4/r2/finetune_s1/spec_val_g19.json"
+  },
+  {
+   "generation": 24,
+   "composite16": 0.9667006090599304,
+   "composite8": 0.8401655601006773,
+   "crashes": 1,
+   "dash_tilt_peak_max": 38.55689497152067,
+   "ratios": {
+    "nod": 0.8807071058610523,
+    "dash": 1.0526941122588085
+   },
+   "spec": "artifacts/spike_steer/plan_v4/r2/finetune_s1/spec_val_g24.json"
+  },
+  {
+   "generation": 29,
+   "composite16": 0.9551376929368511,
+   "composite8": 0.8302472489975525,
+   "crashes": 1,
+   "dash_tilt_peak_max": 39.18067482805255,
+   "ratios": {
+    "nod": 0.8515894044129677,
+    "dash": 1.0586859814607346
+   },
+   "spec": "artifacts/spike_steer/plan_v4/r2/finetune_s1/spec_val_g29.json"
+  },
+  {
+   "generation": 34,
+   "composite16": 1.660934866270095,
+   "composite8": 0.8452398368073883,
+   "crashes": 1,
+   "dash_tilt_peak_max": 37.62785404968191,
+   "ratios": {
+    "nod": 2.508167892797662,
+    "dash": 0.813701839742528
+   },
+   "spec": "artifacts/spike_steer/plan_v4/r2/finetune_s1/spec_val_g34.json"
+  },
+  {
+   "generation": 39,
+   "composite16": 0.8298216085012391,
+   "composite8": 0.8253069206936148,
+   "crashes": 0,
+   "dash_tilt_peak_max": 39.43650034746039,
+   "ratios": {
+    "nod": 0.8510701025504601,
+    "dash": 0.8085731144520181
+   },
+   "spec": "artifacts/spike_steer/plan_v4/r2/finetune_s1/spec_val_g39.json"
+  },
+  {
+   "generation": 44,
+   "composite16": 0.8188570579391881,
+   "composite8": 0.8119657518252239,
+   "crashes": 0,
+   "dash_tilt_peak_max": 43.14442070231612,
+   "ratios": {
+    "nod": 0.8215531151071657,
+    "dash": 0.8161610007712105
+   },
+   "spec": "artifacts/spike_steer/plan_v4/r2/finetune_s1/spec_val_g44.json"
+  },
+  {
+   "generation": 49,
+   "composite16": 1.581686004778744,
+   "composite8": 0.8117013688209517,
+   "crashes": 1,
+   "dash_tilt_peak_max": 42.22252750129194,
+   "ratios": {
+    "nod": 2.3398611882900653,
+    "dash": 0.8235108212674227
+   },
+   "spec": "artifacts/spike_steer/plan_v4/r2/finetune_s1/spec_val_g49.json"
+  },
+  {
+   "generation": 54,
+   "composite16": 1.5247764391878853,
+   "composite8": 0.7952353849539213,
+   "crashes": 1,
+   "dash_tilt_peak_max": 43.724189658107626,
+   "ratios": {
+    "nod": 2.235669913204569,
+    "dash": 0.8138829651712016
+   },
+   "spec": "artifacts/spike_steer/plan_v4/r2/finetune_s1/spec_val_g54.json"
+  },
+  {
+   "generation": 59,
+   "composite16": 1.6930605350569201,
+   "composite8": 0.7974109051537358,
+   "crashes": 2,
+   "dash_tilt_peak_max": 36.51934138112548,
+   "ratios": {
+    "nod": 2.3249770170500614,
+    "dash": 1.0611440530637786
+   },
+   "spec": "artifacts/spike_steer/plan_v4/r2/finetune_s1/spec_val_g59.json"
+  }
+ ],
+ "selected": {
+  "generation": 44,
+  "composite16": 0.8188570579391881,
+  "composite8": 0.8119657518252239,
+  "crashes": 0,
+  "dash_tilt_peak_max": 43.14442070231612,
+  "ratios": {
+   "nod": 0.8215531151071657,
+   "dash": 0.8161610007712105
+  },
+  "spec": "artifacts/spike_steer/plan_v4/r2/finetune_s1/spec_val_g44.json"
+ },
+ "selected_by_old_rule": {
+  "generation": 54,
+  "composite16": 1.5247764391878853,
+  "composite8": 0.7952353849539213,
+  "crashes": 1,
+  "dash_tilt_peak_max": 43.724189658107626,
+  "ratios": {
+   "nod": 2.235669913204569,
+   "dash": 0.8138829651712016
+  },
+  "spec": "artifacts/spike_steer/plan_v4/r2/finetune_s1/spec_val_g54.json"
+ }
+}

@@ -1,0 +1,12 @@
+{
+  "historical_source_files_unchanged": 85,
+  "first_case_original_model_replay": {
+    "seed": 2060810000,
+    "elapsed": 0.74,
+    "termination": "tilt",
+    "max_observation_difference": 0.0,
+    "max_position_difference_m": 0.0
+  },
+  "sensor_checks": "pytest tests/test_imu_history_probe.py: 3 passed",
+  "note": "The IMU copy and split acquisition preserve the first diagnostic trajectory within numerical tolerance."
+}

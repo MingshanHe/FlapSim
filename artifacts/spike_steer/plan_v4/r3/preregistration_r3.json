@@ -1,0 +1,153 @@
+{
+ "version": "plan v4 round 3 (command-gated descending layer + reflex envelope)",
+ "time": "2026-10-15 12:36:16",
+ "written_before": "any round-3 fine-tune or blind test",
+ "weights": {
+  "hover": 0.25,
+  "nod": 0.25,
+  "dash": 0.25,
+  "upset": 0.25
+ },
+ "architecture": {
+  "gate": "command",
+  "tail_s": 1.0,
+  "base_law": "law_tuned",
+  "upset_tilt_deg": 25.0,
+  "cmd_envelope_deg": null,
+  "note": "identical to round 2 (no reflex envelope): the diagnostic showed that an AHRS-tilt envelope fires too late to rescue the divergent pitch oscillation that causes the crashes; round 3 changes the objective and the selection only, so the controller architecture is exactly the round-2 one"
+ },
+ "envelope_choice": "Diagnostic (artifacts/spike_steer/plan_v4/r3/diag, 64 fresh training-split cases per task, round-2 centres s1 g44 / s2 g29 / s3_cloudpc g59): an AHRS-tilt reflex envelope at 35, 40, 45, 50 or 60 deg changed no score and prevented no crash (s2 g29: 1 nod crash in 64 with and without it; s3_cloudpc g59: 1 dash crash in 64 with and without it; s1 g44: 0 crashes). Trace of the s2 g29 crash (trace_crash_s2_g29.py): divergent 3-4 Hz pitch oscillation, true tilt 72 deg while the AHRS reads 33 deg; the envelope fired at 4.19 s (AHRS 50.7 deg) and the episode still terminated 0.2 s later. Decision: no envelope in round 3; the objective penalises the true tilt peak beyond 45 deg (s1 g44 max 47 deg over 64 cases; s3_cloudpc g59 exceeds 45 deg in 28/64 nod cases and 60 deg in 2) and selection requires < 60 deg on all 16 validation cases.",
+ "training": {
+  "method": "descend.py finetune (OpenAI-ES, pop 32, sigma .03, Adam .02), 4 cases per task per candidate, 60 generations",
+  "objective": "per task: mean score ratio + mean over cases of max(0, true tilt_peak_deg - 45.0) * 0.1; nod and dash weighted equally (hover/upset are classical by construction). The penalty uses the simulator tilt (training signal only); the controller still sees only the IMU/AHRS inputs",
+  "start": "round-2 gated start spec of the same seed (imitation + base_law + upset law) with cmd_envelope_deg added",
+  "selection": "reselect_r3.py: lowest penalised composite on 16 validation cases (8 per task) among centres with zero crashes and true tilt peak below 60.0 deg on all 16 cases; the round-2 rules are also reported",
+  "machines": "every search on CloudPC when possible; a HomePC search is a candidate source only (its centres are re-validated and selected on CloudPC, because the same spec scores differently across machines - measured in round 2)"
+ },
+ "test_sets": {
+  "nod_dash": "fresh blind set, maneuver_v2 base 2096400000 (16 cases per task; round 2 used 2_096_100_000)",
+  "hover_upset": "unchanged from rounds 1-2",
+  "normalisers": {
+   "hover": 5.751475424159841,
+   "nod": 0.9542258775167782,
+   "dash": 5.565834461018171,
+   "upset": 75.02540087007979
+  },
+  "normaliser_rule": {
+   "rule": "nod/dash: opponent per-case median on the fresh blind set (learned side: mean incl. crashes); hover/upset: opponent mean (unchanged sets)",
+   "opponent_mean_all": {
+    "hover": 5.751475424159841,
+    "nod": 1.8821816462737173,
+    "dash": 5.729855867907659,
+    "upset": 75.02540087007979
+   },
+   "opponent_mean_flown": {
+    "hover": 5.751475424159841,
+    "nod": 1.2240454680075847,
+    "dash": 5.729855867907659,
+    "upset": 59.387526260842904
+   },
+   "opponent_flown": {
+    "hover": 16,
+    "nod": 15,
+    "dash": 16,
+    "upset": 25
+   },
+   "opponent_median": {
+    "hover": 4.743093294983945,
+    "nod": 0.9542258775167782,
+    "dash": 5.565834461018171,
+    "upset": 88.19304249964715
+   },
+   "round2_normalisers": {
+    "hover": 5.751475424159841,
+    "nod": 0.908775536350238,
+    "dash": 5.871310535682486,
+    "upset": 75.02540087007979
+   }
+  },
+  "secondary_normalisation": "the round-2 rule (opponent mean incl. its crashes) is reported as a secondary number",
+  "note": "the classical opponents (same arms, same tuning) are re-run on the fresh set; the learned layer never sees it before the blind test"
+ },
+ "hypotheses": {
+  "H1": "composite (25/25/25/25) <= 0.95 in >= 3 of 5 seeds AND T1 ratio <= 1.05",
+  "H1_prime": "non-inferiority + superiority: every task ratio <= 1.05 AND at least one of T2/T3 <= 0.90 with paired sign-test p < 0.05, in >= 3 of 5 seeds",
+  "H2": ">= 2 of T2, T3, T4 <= 0.90 in >= 3 of 5 seeds",
+  "H3": "ablations (clamp_fast, nodelay_all, noref, nopulse) raise the composite by >= 10 % or silence the pulses",
+  "H5": "crash rate: 0 crashes in the 32 nod+dash blind episodes in >= 3 of 5 seeds (round 2: 1 crash per 16 in 4 of 5 selected centres)",
+  "secondary": "per-case median ratio, paired win fraction and envelope-trigger count are reported next to the mean ratio for every task"
+ },
+ "seeds": [
+  1,
+  2,
+  3,
+  4,
+  5
+ ],
+ "source": "runs/spike_steer/bench_r2",
+ "amendment_1": {
+  "time": "2026-10-16 02:59:40 UTC",
+  "written_before": "any round-3 centre selection or blind test (no round-3 centre has been re-validated or blind-tested on any machine; CloudPC never pushed a round-3 result)",
+  "what": "CloudPC (the selection and blind-test machine) was lost on 2026-10-16 and cannot be recovered. A new Linux machine, claude-ea (32 cores, Python 3.11, mujoco 3.8.0, torch 2.6.0, numpy 2.2.4, neat-python), replaces it in every CloudPC role: (1) the round-3 searches of seeds 1, 3, 4 (CloudPC seed 1 started 2026-10-15 12:47 UTC, nothing pushed) are run from scratch on claude-ea with the unchanged settings (run_r3_seed.sh, 60 generations, 30 workers; --hours raised 9 -> 12 as a wall-clock safety cap only, generation count unchanged); (2) every round-3 centre selection (reselect_r3.py, 16 validation cases, unchanged rule) and blind test, for all five seeds incl. the HomePC searches of seeds 2 and 5, runs on claude-ea; (3) the PRIMARY normalisers and opponent test rows are re-computed on claude-ea: every classical arm of every task re-run on the unchanged blind sets, normalisers by the pre-registered rule (nod/dash: opponent per-case median; hover/upset: opponent mean). The pre-registered CloudPC normalisers are reported as the SECONDARY normalisation. H1/H1prime/H2/H5 counting rules unchanged (>= 3/5 seeds).",
+  "normalisers_primary_claude_ea": {
+   "hover": 5.77345354291285,
+   "nod": 0.9390283255160454,
+   "dash": 5.56288034121123,
+   "upset": 74.96499885854662
+  },
+  "normalisers_secondary_cloudpc": {
+   "hover": 5.751475424159841,
+   "nod": 0.9542258775167782,
+   "dash": 5.565834461018171,
+   "upset": 75.02540087007979
+  },
+  "cross_machine_check": {
+   "per_task": {
+    "hover": {
+     "matched": 32,
+     "same_outcome": 32,
+     "mean_rel": 0.011710116944559975,
+     "max_rel": 0.057420082091431505
+    },
+    "nod": {
+     "matched": 48,
+     "same_outcome": 48,
+     "mean_rel": 0.00403066231996549,
+     "max_rel": 0.07068856673666063
+    },
+    "dash": {
+     "matched": 48,
+     "same_outcome": 48,
+     "mean_rel": 0.0009410089019085208,
+     "max_rel": 0.0043172559252976465
+    },
+    "upset": {
+     "matched": 144,
+     "same_outcome": 143,
+     "mean_rel": 0.008826512723149235,
+     "max_rel": 0.1939680591223467
+    }
+   },
+   "summary": "371/372 classical episodes have the same outcome (flown/crashed) on claude-ea and CloudPC; mean relative score difference 0.1-1.2% per task; the one differing outcome is an upset case. Nod normaliser 0.9390 vs 0.9542 (-1.6%), so the primary normalisation is slightly STRICTER for the learned layer."
+  },
+  "why": "the prereg requires selection and blind test on one machine because the same spec scores differently across machines (round 2). With CloudPC gone, comparing learned specs run on claude-ea against CloudPC opponent rows would be a cross-machine comparison; running both sides on claude-ea keeps the comparison same-machine. Decided by the user (2026-10-16) before any round-3 selection or blind test.",
+  "files": [
+   "artifacts/spike_steer/plan_v4/r3/claude_ea/baseline.json",
+   "artifacts/spike_steer/plan_v4/r3/claude_ea/train/baseline.json",
+   "experiments/algorithms/spike_steer/_local/amend5_baseline.py"
+  ],
+  "commands": [
+   "python -m experiments.algorithms.spike_steer._local.amend5_baseline --workers 2  (-> runs/spike_steer/bench_r3_local)",
+   "python -m experiments.algorithms.spike_steer.reselect_r3 --seed S --output runs/spike_steer/bench_r3_local --centres <finetune_sS> --tag r3_sS --workers W",
+   "python -m experiments.algorithms.spike_steer.descend_r3 evaluate --output runs/spike_steer/bench_r3_local --seed S --spec <selected spec> --tag r3_sS"
+  ]
+ },
+ "amendment_2": {
+  "time": "2026-10-16 06:24:25 UTC",
+  "written_before": "any selection or blind-test result of seed 5 (HomePC search finished and pushed 9885aaa; its claude-ea re-selection had not started) and before any result of the seed-3/4 searches (stopped at generation 3, never validated beyond gen -1)",
+  "written_after": "the claude-ea blind tests of seed 2 (0.973, 0/32 nod+dash crashes) and seed 1 (0.999, 1 dash height_escape crash)",
+  "what": "round 3 stops at three seeds (1, 2, 5). The seed-3 and seed-4 searches (claude-ea, started 2026-10-16 05:45 UTC) are stopped and not reported as results. The round-3 verdict is given on seeds 1, 2, 5 with the counting rule unchanged in absolute terms: H1/H1prime/H2/H5 pass only if >= 3 seeds pass, i.e. all three. Seeds 1 and 2 already fail H1, so round 3 FAILS H1, H1prime and H2 whatever seed 5 gives. Seed 5 is still selected and blind-tested (selection rule, normalisers, machine per amendment 1) and reported in full, with ablations (H3).",
+  "why": "the user decided (2026-10-16 15:2x JST) to move the compute to round 4. With seeds 1 and 2 failing H1, round 3 can pass only if seeds 3, 4 and 5 all pass; the remaining searches would occupy 30 cores until about 22:30 JST. The round-4 design waits for the height_escape diagnostic (HomePC, training-split cases only). Precedent: round-2 amendment 5 (seed 4 not searched in round 2). This amendment is written after two failing seeds were seen, which is disclosed; it cannot turn a failure into a pass (it removes two chances to pass).",
+  "disclosure": "the searches of seeds 3 and 4 had produced only in-run ES centres up to generation 3 (validation at gen -1 only); these logs are not archived as results."
+ }
+}

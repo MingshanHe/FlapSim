@@ -1,0 +1,333 @@
+{
+  "summaries": {
+    "imu_nominal_60s": {
+      "episodes": 1,
+      "completed": 0,
+      "stable": 0,
+      "strict_hover": 0,
+      "mean_duration": 48.164,
+      "mean_settled_tilt_rms_deg": 3.214777167122535,
+      "mean_height_rmse_m": 0.3223609982590623,
+      "minimum_clearance_m": 0.0777731899581938,
+      "maximum_xy_offset_m": 1.0370370603524521,
+      "mean_final_height_estimate_error_m": 0.6906083766820228,
+      "termination_counts": {
+        "low_height": 1
+      }
+    },
+    "truth_nominal_60s": {
+      "episodes": 1,
+      "completed": 1,
+      "stable": 1,
+      "strict_hover": 1,
+      "mean_duration": 60.0,
+      "mean_settled_tilt_rms_deg": 3.3069567514709215,
+      "mean_height_rmse_m": 0.01942379344986247,
+      "minimum_clearance_m": 0.6049723052790597,
+      "maximum_xy_offset_m": 1.443229335160244,
+      "mean_final_height_estimate_error_m": 1.1804965890994188,
+      "termination_counts": {
+        "time_limit": 1
+      }
+    },
+    "imu_stress_60s": {
+      "episodes": 1,
+      "completed": 0,
+      "stable": 0,
+      "strict_hover": 0,
+      "mean_duration": 18.18,
+      "mean_settled_tilt_rms_deg": 3.3072079016526024,
+      "mean_height_rmse_m": 0.4440209885730982,
+      "minimum_clearance_m": 0.5758137021101185,
+      "maximum_xy_offset_m": 0.2817988799769932,
+      "mean_final_height_estimate_error_m": -1.0042017076489005,
+      "termination_counts": {
+        "height_escape": 1
+      }
+    },
+    "truth_stress_60s": {
+      "episodes": 1,
+      "completed": 1,
+      "stable": 1,
+      "strict_hover": 1,
+      "mean_duration": 60.0,
+      "mean_settled_tilt_rms_deg": 3.2542270488057565,
+      "mean_height_rmse_m": 0.019647073277502376,
+      "minimum_clearance_m": 0.5756026332342415,
+      "maximum_xy_offset_m": 1.2098471879894397,
+      "mean_final_height_estimate_error_m": -11.062538522880438,
+      "termination_counts": {
+        "time_limit": 1
+      }
+    }
+  },
+  "episodes": [
+    {
+      "policy": "imu_nominal_60s",
+      "parameters": {
+        "kp": [
+          0.18614519582463507,
+          0.14732954292611267
+        ],
+        "kd": [
+          0.11521863335342444,
+          0.12737236761918022
+        ],
+        "sensor_tau": 0.13045658515789563,
+        "ki": [
+          0.05321777874733716,
+          -0.010427299646852857
+        ],
+        "trim": [
+          0.009403938176356088,
+          -0.0038897827014125488
+        ],
+        "derivative_tau": 0.004482330374373422,
+        "action_tau": 0.008214071849913296,
+        "servo_kp": 1.0452581209739018,
+        "servo_kd": 0.0022354534127223885,
+        "motor": 3190.0,
+        "height_gains": [
+          900.0,
+          500.0,
+          80.0
+        ],
+        "release": "rest",
+        "motor_start_s": 0.1,
+        "height_source": "imu"
+      },
+      "seed": 310920000,
+      "phase": 3,
+      "elapsed": 48.164,
+      "score": 72.23744087253868,
+      "termination": "low_height",
+      "tilt_rms_deg": 3.6948328428430686,
+      "max_tilt_deg": 29.491406146963826,
+      "height_rmse_m": 0.3223609982590623,
+      "min_base_height_m": 0.11999040356714515,
+      "final_position": [
+        -0.5766015057561992,
+        0.8620094650794939,
+        0.11999040356714515
+      ],
+      "final_velocity": [
+        0.07014645693767003,
+        0.07067159290413721,
+        -0.01633603275139403
+      ],
+      "saturation": 0.002117764305290258,
+      "minimum_clearance_m": 0.0777731899581938,
+      "settled_tilt_rms_deg": 3.214777167122535,
+      "late_height_span_m": 0.12146876692338582,
+      "late_height_slope_m_s": -0.024271645477497848,
+      "observer_final_height_error_m": 0.6906083766820228,
+      "airborne_stable": false,
+      "strict_height_hover": false,
+      "actual_final_xy_offset_m": 1.0370370603524521,
+      "trace_npz": "duration_traces/imu_nominal_60s.npz",
+      "trace_rows": 24082
+    },
+    {
+      "policy": "truth_nominal_60s",
+      "parameters": {
+        "kp": [
+          0.18614519582463507,
+          0.14732954292611267
+        ],
+        "kd": [
+          0.11521863335342444,
+          0.12737236761918022
+        ],
+        "sensor_tau": 0.13045658515789563,
+        "ki": [
+          0.05321777874733716,
+          -0.010427299646852857
+        ],
+        "trim": [
+          0.009403938176356088,
+          -0.0038897827014125488
+        ],
+        "derivative_tau": 0.004482330374373422,
+        "action_tau": 0.008214071849913296,
+        "servo_kp": 1.0452581209739018,
+        "servo_kd": 0.0022354534127223885,
+        "motor": 3190.0,
+        "height_gains": [
+          900.0,
+          500.0,
+          80.0
+        ],
+        "release": "rest",
+        "motor_start_s": 0.1,
+        "height_source": "truth"
+      },
+      "seed": 310920000,
+      "phase": 3,
+      "elapsed": 60.0,
+      "score": 105.86926048787872,
+      "termination": "time_limit",
+      "tilt_rms_deg": 3.742430377700772,
+      "max_tilt_deg": 29.56443097892311,
+      "height_rmse_m": 0.01942379344986247,
+      "min_base_height_m": 0.6472094450972754,
+      "final_position": [
+        -0.8608678922507372,
+        1.1583779986745029,
+        0.8095835061968375
+      ],
+      "final_velocity": [
+        -0.19613285689506546,
+        -0.09045087767208328,
+        0.01646469696615641
+      ],
+      "saturation": 0.0017333333333333333,
+      "minimum_clearance_m": 0.6049723052790597,
+      "settled_tilt_rms_deg": 3.3069567514709215,
+      "late_height_span_m": 0.0028535919509447005,
+      "late_height_slope_m_s": -0.00032658863550811076,
+      "observer_final_height_error_m": 1.1804965890994188,
+      "airborne_stable": true,
+      "strict_height_hover": true,
+      "actual_final_xy_offset_m": 1.443229335160244,
+      "trace_npz": "duration_traces/truth_nominal_60s.npz",
+      "trace_rows": 30000
+    },
+    {
+      "policy": "imu_stress_60s",
+      "parameters": {
+        "kp": [
+          0.18614519582463507,
+          0.14732954292611267
+        ],
+        "kd": [
+          0.11521863335342444,
+          0.12737236761918022
+        ],
+        "sensor_tau": 0.13045658515789563,
+        "ki": [
+          0.05321777874733716,
+          -0.010427299646852857
+        ],
+        "trim": [
+          0.009403938176356088,
+          -0.0038897827014125488
+        ],
+        "derivative_tau": 0.004482330374373422,
+        "action_tau": 0.008214071849913296,
+        "servo_kp": 1.0452581209739018,
+        "servo_kd": 0.0022354534127223885,
+        "motor": 3190.0,
+        "height_gains": [
+          900.0,
+          500.0,
+          80.0
+        ],
+        "release": "rest",
+        "motor_start_s": 0.1,
+        "height_source": "imu",
+        "acceleration_bias_range": 0.01,
+        "motor_uncertainty": 0.01,
+        "attitude_noise_deg": 0.02
+      },
+      "seed": 310920001,
+      "phase": 6,
+      "elapsed": 18.18,
+      "score": 26.500954525662397,
+      "termination": "height_escape",
+      "tilt_rms_deg": 4.163394440329622,
+      "max_tilt_deg": 25.22029653420829,
+      "height_rmse_m": 0.4440209885730982,
+      "min_base_height_m": 0.618216612597092,
+      "final_position": [
+        -0.11078500438325407,
+        0.2661752437105385,
+        1.7874423050779824
+      ],
+      "final_velocity": [
+        -0.1527197273291278,
+        -0.01919931786946508,
+        0.12711885076477475
+      ],
+      "saturation": 0.0036303630363036304,
+      "minimum_clearance_m": 0.5758137021101185,
+      "settled_tilt_rms_deg": 3.3072079016526024,
+      "late_height_span_m": 0.48344759386286906,
+      "late_height_slope_m_s": 0.09670356241044459,
+      "observer_final_height_error_m": -1.0042017076489005,
+      "airborne_stable": false,
+      "strict_height_hover": false,
+      "actual_final_xy_offset_m": 0.2817988799769932,
+      "trace_npz": "duration_traces/imu_stress_60s.npz",
+      "trace_rows": 9090
+    },
+    {
+      "policy": "truth_stress_60s",
+      "parameters": {
+        "kp": [
+          0.18614519582463507,
+          0.14732954292611267
+        ],
+        "kd": [
+          0.11521863335342444,
+          0.12737236761918022
+        ],
+        "sensor_tau": 0.13045658515789563,
+        "ki": [
+          0.05321777874733716,
+          -0.010427299646852857
+        ],
+        "trim": [
+          0.009403938176356088,
+          -0.0038897827014125488
+        ],
+        "derivative_tau": 0.004482330374373422,
+        "action_tau": 0.008214071849913296,
+        "servo_kp": 1.0452581209739018,
+        "servo_kd": 0.0022354534127223885,
+        "motor": 3190.0,
+        "height_gains": [
+          900.0,
+          500.0,
+          80.0
+        ],
+        "release": "rest",
+        "motor_start_s": 0.1,
+        "height_source": "truth",
+        "acceleration_bias_range": 0.01,
+        "motor_uncertainty": 0.01,
+        "attitude_noise_deg": 0.02
+      },
+      "seed": 310920001,
+      "phase": 6,
+      "elapsed": 60.0,
+      "score": 105.99975209328765,
+      "termination": "time_limit",
+      "tilt_rms_deg": 3.5709786227494744,
+      "max_tilt_deg": 25.173344751138423,
+      "height_rmse_m": 0.019647073277502376,
+      "min_base_height_m": 0.6180059182982558,
+      "final_position": [
+        -0.8036128881202976,
+        0.9165624390627145,
+        0.7855761461581495
+      ],
+      "final_velocity": [
+        -0.04943762446077261,
+        -0.004944157393963046,
+        -0.012344345706706743
+      ],
+      "saturation": 0.0010666666666666667,
+      "minimum_clearance_m": 0.5756026332342415,
+      "settled_tilt_rms_deg": 3.2542270488057565,
+      "late_height_span_m": 0.00328364385126223,
+      "late_height_slope_m_s": -0.00020303918992458918,
+      "observer_final_height_error_m": -11.062538522880438,
+      "airborne_stable": true,
+      "strict_height_hover": true,
+      "actual_final_xy_offset_m": 1.2098471879894397,
+      "trace_npz": "duration_traces/truth_stress_60s.npz",
+      "trace_rows": 30000
+    }
+  ],
+  "telemetry_storage": "Lossless float64 compressed NPZ; trace columns match nominal_first_trace.csv, audit columns are time, clearance, tilt_rad, height_delta, estimated-minus-true height."
+}

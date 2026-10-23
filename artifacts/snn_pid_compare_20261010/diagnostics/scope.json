@@ -1,0 +1,9 @@
+{
+  "type": "posthoc_diagnostic",
+  "training_performed": false,
+  "final_test_accessed": false,
+  "policy_parameters_modified": false,
+  "teacher_training_episodes": "first four",
+  "offline_validation_episodes": "all eight",
+  "student_state_episodes": "all recorded dagger1 and dagger2; these are training data, not independent tests"
+}

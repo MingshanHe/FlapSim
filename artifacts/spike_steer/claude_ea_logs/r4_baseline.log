@@ -1,0 +1,40 @@
+nod    pid           flown 16/16 score 5.1569
+nod    law_tuned     flown 16/16 score 5.1693
+nod    schedule      flown 16/16 score 0.9328
+dash   pid           flown 16/16 score 8.4442
+dash   law_tuned     flown 16/16 score 8.5087
+dash   schedule      flown 16/16 score 5.9263
+round-4 normalisers {"hover": 5.77345354291285, "nod": 0.9494788179605721, "dash": 5.969900984594858, "upset": 74.96499885854662} | round-3 claude-ea {"hover": 5.77345354291285, "nod": 0.9390283255160454, "dash": 5.56288034121123, "upset": 74.96499885854662}
+{
+ "rule": "round-3 rule: nod/dash opponent per-case median on the fresh blind set (learned side: mean incl. crashes); hover/upset opponent mean (unchanged sets, claude-ea rows)",
+ "machine": "claude-ea",
+ "test_base_nod_dash": 2096500000,
+ "opponent_mean_all": {
+  "hover": 5.77345354291285,
+  "nod": 0.9328340731738224,
+  "dash": 5.92625673746875,
+  "upset": 74.96499885854662
+ },
+ "opponent_flown": {
+  "hover": 16,
+  "nod": 16,
+  "dash": 16,
+  "upset": 25
+ },
+ "opponent_median": {
+  "hover": 4.867453636965805,
+  "nod": 0.9494788179605721,
+  "dash": 5.969900984594858,
+  "upset": 86.39134971826567
+ },
+ "opponent_misses": {
+  "nod": 0,
+  "dash": 0
+ },
+ "round3_normalisers_claude_ea": {
+  "hover": 5.77345354291285,
+  "nod": 0.9390283255160454,
+  "dash": 5.56288034121123,
+  "upset": 74.96499885854662
+ }
+}

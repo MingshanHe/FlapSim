@@ -1,0 +1,26 @@
+{
+  "method": "ppo",
+  "seed": 942,
+  "status": "completed",
+  "training_steps": 277504,
+  "validation_steps": 6525,
+  "matched_neat_steps": 277096,
+  "target_steps": 277504,
+  "best_validation": {
+    "episodes": 8,
+    "successes": 0,
+    "mean_elapsed": 0.845,
+    "p10_elapsed": 0.5960000000000001,
+    "mean_tracking_rmse_m": 0.20275963902711092,
+    "mean_tilt_rmse_deg": 37.78086578501671,
+    "mean_discounted_return": 1.4430241572372142,
+    "mean_saturation_fraction": 0.722675630671041,
+    "control_steps": 676,
+    "termination_counts": {
+      "tilt": 8
+    },
+    "mean_observer_rmse_m": 0.01281435580731501,
+    "mean_observer_final_error_m": 0.023966970225333787
+  },
+  "wall_seconds": 1732.9855780450016
+}

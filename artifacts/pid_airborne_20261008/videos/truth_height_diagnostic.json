@@ -1,0 +1,43 @@
+{
+  "label": "truth_height_diagnostic",
+  "seed": 310900000,
+  "elapsed": 20.0,
+  "trace_verified_atol": 1e-12,
+  "portable_mesh_relocation": true,
+  "model_sha256": "790f1caad42153cb7ffbcd6c3327734cdff96cef73af789080503875b0cdaa19",
+  "fps": 25,
+  "slowdown": 1,
+  "hold_seconds": 1,
+  "flight_frames": 500,
+  "flapping_motion_note": "25 fps undersamples the wing beat; flight state and timing are accurate.",
+  "summary": {
+    "seed": 310900000,
+    "phase": 1,
+    "elapsed": 20.0,
+    "score": 35.23938444656255,
+    "termination": "time_limit",
+    "tilt_rms_deg": 3.321887343453541,
+    "max_tilt_deg": 14.368296423536842,
+    "height_rmse_m": 0.033351947545422984,
+    "min_base_height_m": 0.6136777067557749,
+    "final_position": [
+      -0.1497491498568179,
+      0.3196698332127163,
+      0.779111899191264
+    ],
+    "final_velocity": [
+      -0.1636012778876288,
+      -0.015958037095430828,
+      -0.010281202644838266
+    ],
+    "saturation": 0.0,
+    "minimum_clearance_m": 0.5714352556072565,
+    "settled_tilt_rms_deg": 3.174412286910929,
+    "late_height_span_m": 0.003323099416902564,
+    "late_height_slope_m_s": -5.769892685826143e-05,
+    "observer_final_height_error_m": 0.11397087398251482,
+    "airborne_stable": true,
+    "strict_height_hover": true,
+    "actual_final_xy_offset_m": 0.3420079010428424
+  }
+}

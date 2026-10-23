@@ -1,0 +1,636 @@
+{
+  "parameters": [
+    0.15602857814386295,
+    1.728344037501199,
+    0.04351593335267353,
+    0.1637716919701069,
+    -0.040225812786422045,
+    0.014120636707730408,
+    0.016754611558656513,
+    0.016270310321373865,
+    0.007338644866233399
+  ],
+  "validation": {
+    "score": 0.4040066842478058,
+    "episodes": [
+      {
+        "seed": 301060000,
+        "score": 0.14754961163952518,
+        "elapsed": 0.42,
+        "termination": "tilt",
+        "tilt_rmse_deg": 42.84993165321355,
+        "tracking_rmse_m": 0.11751362450988054
+      },
+      {
+        "seed": 301060001,
+        "score": 1.0064725945771569,
+        "elapsed": 1.29,
+        "termination": "tracking_error",
+        "tilt_rmse_deg": 14.484576896131337,
+        "tracking_rmse_m": 0.468312593013881
+      },
+      {
+        "seed": 301060002,
+        "score": 0.16420042192845394,
+        "elapsed": 0.45,
+        "termination": "tilt",
+        "tilt_rmse_deg": 44.4995081006652,
+        "tracking_rmse_m": 0.11367709844356852
+      },
+      {
+        "seed": 301060003,
+        "score": 0.3036092462644432,
+        "elapsed": 0.76,
+        "termination": "tilt",
+        "tilt_rmse_deg": 36.048095758528575,
+        "tracking_rmse_m": 0.15191496038964164
+      },
+      {
+        "seed": 301060004,
+        "score": 0.1726745122544936,
+        "elapsed": 0.45,
+        "termination": "tilt",
+        "tilt_rmse_deg": 42.5571640816696,
+        "tracking_rmse_m": 0.1161442721976977
+      },
+      {
+        "seed": 301060005,
+        "score": 0.7657251749133707,
+        "elapsed": 1.32,
+        "termination": "tracking_error",
+        "tilt_rmse_deg": 20.239461817244237,
+        "tracking_rmse_m": 0.4703087783499181
+      },
+      {
+        "seed": 301060006,
+        "score": 0.5051460285733396,
+        "elapsed": 1.19,
+        "termination": "tilt",
+        "tilt_rmse_deg": 31.658870160971606,
+        "tracking_rmse_m": 0.364379552315489
+      },
+      {
+        "seed": 301060007,
+        "score": 0.16667588383166304,
+        "elapsed": 0.45,
+        "termination": "tilt",
+        "tilt_rmse_deg": 43.72630269583334,
+        "tracking_rmse_m": 0.11937724803725638
+      }
+    ]
+  },
+  "all_validation": [
+    {
+      "score": 0.3570801004788817,
+      "episodes": [
+        {
+          "seed": 301060000,
+          "score": 0.14742998174834537,
+          "elapsed": 0.42,
+          "termination": "tilt",
+          "tilt_rmse_deg": 43.12842993235243,
+          "tracking_rmse_m": 0.11845100894662318
+        },
+        {
+          "seed": 301060001,
+          "score": 0.7689067293587525,
+          "elapsed": 1.28,
+          "termination": "tracking_error",
+          "tilt_rmse_deg": 20.039940805199166,
+          "tracking_rmse_m": 0.4720275356680946
+        },
+        {
+          "seed": 301060002,
+          "score": 0.15886906161204334,
+          "elapsed": 0.45,
+          "termination": "tilt",
+          "tilt_rmse_deg": 44.646475083328085,
+          "tracking_rmse_m": 0.11274327065646453
+        },
+        {
+          "seed": 301060003,
+          "score": 0.28607759413167755,
+          "elapsed": 0.75,
+          "termination": "tilt",
+          "tilt_rmse_deg": 37.915770758993,
+          "tracking_rmse_m": 0.14793843898939926
+        },
+        {
+          "seed": 301060004,
+          "score": 0.17216682493195282,
+          "elapsed": 0.45,
+          "termination": "tilt",
+          "tilt_rmse_deg": 42.42343613909234,
+          "tracking_rmse_m": 0.11489692054032548
+        },
+        {
+          "seed": 301060005,
+          "score": 0.7455534275514037,
+          "elapsed": 1.31,
+          "termination": "tracking_error",
+          "tilt_rmse_deg": 20.27247172772067,
+          "tracking_rmse_m": 0.46686425664649517
+        },
+        {
+          "seed": 301060006,
+          "score": 0.41710214588561645,
+          "elapsed": 1.07,
+          "termination": "tilt",
+          "tilt_rmse_deg": 34.05343783751866,
+          "tracking_rmse_m": 0.296998495587043
+        },
+        {
+          "seed": 301060007,
+          "score": 0.16053503861126214,
+          "elapsed": 0.45,
+          "termination": "tilt",
+          "tilt_rmse_deg": 44.801419406868135,
+          "tracking_rmse_m": 0.11722389755478753
+        }
+      ]
+    },
+    {
+      "score": 0.36645880286724825,
+      "episodes": [
+        {
+          "seed": 301060000,
+          "score": 0.1473773768072611,
+          "elapsed": 0.42,
+          "termination": "tilt",
+          "tilt_rmse_deg": 42.905084750585,
+          "tracking_rmse_m": 0.11701520384357544
+        },
+        {
+          "seed": 301060001,
+          "score": 0.7756704132417683,
+          "elapsed": 1.3,
+          "termination": "tracking_error",
+          "tilt_rmse_deg": 21.761291833621414,
+          "tracking_rmse_m": 0.4809221938909323
+        },
+        {
+          "seed": 301060002,
+          "score": 0.16462805579290432,
+          "elapsed": 0.45,
+          "termination": "tilt",
+          "tilt_rmse_deg": 44.550121880955466,
+          "tracking_rmse_m": 0.11440668926139608
+        },
+        {
+          "seed": 301060003,
+          "score": 0.2926247678176124,
+          "elapsed": 0.76,
+          "termination": "tilt",
+          "tilt_rmse_deg": 38.575768695888854,
+          "tracking_rmse_m": 0.1489072020515653
+        },
+        {
+          "seed": 301060004,
+          "score": 0.17277120533883156,
+          "elapsed": 0.45,
+          "termination": "tilt",
+          "tilt_rmse_deg": 42.47644960717413,
+          "tracking_rmse_m": 0.11571608400119363
+        },
+        {
+          "seed": 301060005,
+          "score": 0.7910560428885258,
+          "elapsed": 1.31,
+          "termination": "tracking_error",
+          "tilt_rmse_deg": 20.187946106722983,
+          "tracking_rmse_m": 0.4688917032374655
+        },
+        {
+          "seed": 301060006,
+          "score": 0.42293174884558254,
+          "elapsed": 1.07,
+          "termination": "tilt",
+          "tilt_rmse_deg": 34.120586886703606,
+          "tracking_rmse_m": 0.2953201155288613
+        },
+        {
+          "seed": 301060007,
+          "score": 0.1646108122055,
+          "elapsed": 0.45,
+          "termination": "tilt",
+          "tilt_rmse_deg": 44.47641134474783,
+          "tracking_rmse_m": 0.11827329163502337
+        }
+      ]
+    },
+    {
+      "score": 0.3537410668633197,
+      "episodes": [
+        {
+          "seed": 301060000,
+          "score": 0.14565632700233694,
+          "elapsed": 0.42,
+          "termination": "tilt",
+          "tilt_rmse_deg": 42.67807106451654,
+          "tracking_rmse_m": 0.11446204130359434
+        },
+        {
+          "seed": 301060001,
+          "score": 0.9431905224695214,
+          "elapsed": 1.29,
+          "termination": "tracking_error",
+          "tilt_rmse_deg": 15.64335130218486,
+          "tracking_rmse_m": 0.46880935113565353
+        },
+        {
+          "seed": 301060002,
+          "score": 0.15627391189912726,
+          "elapsed": 0.42,
+          "termination": "tilt",
+          "tilt_rmse_deg": 41.340661208650694,
+          "tracking_rmse_m": 0.10773836483000448
+        },
+        {
+          "seed": 301060003,
+          "score": 0.27721222919479105,
+          "elapsed": 0.72,
+          "termination": "tilt",
+          "tilt_rmse_deg": 37.60356447107513,
+          "tracking_rmse_m": 0.13638013260443366
+        },
+        {
+          "seed": 301060004,
+          "score": 0.1661260482073754,
+          "elapsed": 0.42,
+          "termination": "tilt",
+          "tilt_rmse_deg": 40.681404567757745,
+          "tracking_rmse_m": 0.10857162778977489
+        },
+        {
+          "seed": 301060005,
+          "score": 0.5832103207727963,
+          "elapsed": 1.4000000000000001,
+          "termination": "tilt",
+          "tilt_rmse_deg": 35.6003124600865,
+          "tracking_rmse_m": 0.4847214502544318
+        },
+        {
+          "seed": 301060006,
+          "score": 0.3959077648975225,
+          "elapsed": 1.03,
+          "termination": "tilt",
+          "tilt_rmse_deg": 37.192007573283966,
+          "tracking_rmse_m": 0.26455746625612686
+        },
+        {
+          "seed": 301060007,
+          "score": 0.1623514104630865,
+          "elapsed": 0.45,
+          "termination": "tilt",
+          "tilt_rmse_deg": 44.780372750464196,
+          "tracking_rmse_m": 0.11702330754506385
+        }
+      ]
+    },
+    {
+      "score": 0.40099798011546767,
+      "episodes": [
+        {
+          "seed": 301060000,
+          "score": 0.14787637888250435,
+          "elapsed": 0.42,
+          "termination": "tilt",
+          "tilt_rmse_deg": 42.91542951742708,
+          "tracking_rmse_m": 0.11864109575162164
+        },
+        {
+          "seed": 301060001,
+          "score": 1.025975872463806,
+          "elapsed": 1.29,
+          "termination": "tracking_error",
+          "tilt_rmse_deg": 14.12620413908624,
+          "tracking_rmse_m": 0.46971793739608725
+        },
+        {
+          "seed": 301060002,
+          "score": 0.16254167007621342,
+          "elapsed": 0.45,
+          "termination": "tilt",
+          "tilt_rmse_deg": 44.233041311599536,
+          "tracking_rmse_m": 0.11296831963686836
+        },
+        {
+          "seed": 301060003,
+          "score": 0.30209902229903934,
+          "elapsed": 0.76,
+          "termination": "tilt",
+          "tilt_rmse_deg": 36.2960785743161,
+          "tracking_rmse_m": 0.15186903376296895
+        },
+        {
+          "seed": 301060004,
+          "score": 0.1722770090189861,
+          "elapsed": 0.45,
+          "termination": "tilt",
+          "tilt_rmse_deg": 42.034809770752,
+          "tracking_rmse_m": 0.11450354594060412
+        },
+        {
+          "seed": 301060005,
+          "score": 0.7384046476861098,
+          "elapsed": 1.32,
+          "termination": "tracking_error",
+          "tilt_rmse_deg": 20.694816537671056,
+          "tracking_rmse_m": 0.4701579921264493
+        },
+        {
+          "seed": 301060006,
+          "score": 0.4935726803086874,
+          "elapsed": 1.1500000000000001,
+          "termination": "tilt",
+          "tilt_rmse_deg": 31.917233905823327,
+          "tracking_rmse_m": 0.34299758545086767
+        },
+        {
+          "seed": 301060007,
+          "score": 0.16523656018839494,
+          "elapsed": 0.45,
+          "termination": "tilt",
+          "tilt_rmse_deg": 43.893242380249575,
+          "tracking_rmse_m": 0.11948548526282021
+        }
+      ]
+    },
+    {
+      "score": 0.3363140164091504,
+      "episodes": [
+        {
+          "seed": 301060000,
+          "score": 0.14567068448434076,
+          "elapsed": 0.41000000000000003,
+          "termination": "tilt",
+          "tilt_rmse_deg": 41.92641624308635,
+          "tracking_rmse_m": 0.11712901991806011
+        },
+        {
+          "seed": 301060001,
+          "score": 0.7113049382465647,
+          "elapsed": 1.22,
+          "termination": "tilt",
+          "tilt_rmse_deg": 28.209325009759482,
+          "tracking_rmse_m": 0.42609191813141795
+        },
+        {
+          "seed": 301060002,
+          "score": 0.16476441001149392,
+          "elapsed": 0.45,
+          "termination": "tilt",
+          "tilt_rmse_deg": 44.561410900708864,
+          "tracking_rmse_m": 0.11463941143622021
+        },
+        {
+          "seed": 301060003,
+          "score": 0.2820589467093751,
+          "elapsed": 0.72,
+          "termination": "tilt",
+          "tilt_rmse_deg": 35.90751019232989,
+          "tracking_rmse_m": 0.13680920671448532
+        },
+        {
+          "seed": 301060004,
+          "score": 0.1678085836728604,
+          "elapsed": 0.45,
+          "termination": "tilt",
+          "tilt_rmse_deg": 42.64640964607159,
+          "tracking_rmse_m": 0.1130027081929823
+        },
+        {
+          "seed": 301060005,
+          "score": 0.6315616814519277,
+          "elapsed": 1.33,
+          "termination": "tracking_error",
+          "tilt_rmse_deg": 24.108864255609873,
+          "tracking_rmse_m": 0.4721272546896291
+        },
+        {
+          "seed": 301060006,
+          "score": 0.4304229470324816,
+          "elapsed": 1.07,
+          "termination": "tilt",
+          "tilt_rmse_deg": 34.96457618099885,
+          "tracking_rmse_m": 0.29212193409585896
+        },
+        {
+          "seed": 301060007,
+          "score": 0.15691993966415918,
+          "elapsed": 0.41000000000000003,
+          "termination": "tilt",
+          "tilt_rmse_deg": 40.838485046812536,
+          "tracking_rmse_m": 0.11591341574417796
+        }
+      ]
+    },
+    {
+      "score": 0.4040066842478058,
+      "episodes": [
+        {
+          "seed": 301060000,
+          "score": 0.14754961163952518,
+          "elapsed": 0.42,
+          "termination": "tilt",
+          "tilt_rmse_deg": 42.84993165321355,
+          "tracking_rmse_m": 0.11751362450988054
+        },
+        {
+          "seed": 301060001,
+          "score": 1.0064725945771569,
+          "elapsed": 1.29,
+          "termination": "tracking_error",
+          "tilt_rmse_deg": 14.484576896131337,
+          "tracking_rmse_m": 0.468312593013881
+        },
+        {
+          "seed": 301060002,
+          "score": 0.16420042192845394,
+          "elapsed": 0.45,
+          "termination": "tilt",
+          "tilt_rmse_deg": 44.4995081006652,
+          "tracking_rmse_m": 0.11367709844356852
+        },
+        {
+          "seed": 301060003,
+          "score": 0.3036092462644432,
+          "elapsed": 0.76,
+          "termination": "tilt",
+          "tilt_rmse_deg": 36.048095758528575,
+          "tracking_rmse_m": 0.15191496038964164
+        },
+        {
+          "seed": 301060004,
+          "score": 0.1726745122544936,
+          "elapsed": 0.45,
+          "termination": "tilt",
+          "tilt_rmse_deg": 42.5571640816696,
+          "tracking_rmse_m": 0.1161442721976977
+        },
+        {
+          "seed": 301060005,
+          "score": 0.7657251749133707,
+          "elapsed": 1.32,
+          "termination": "tracking_error",
+          "tilt_rmse_deg": 20.239461817244237,
+          "tracking_rmse_m": 0.4703087783499181
+        },
+        {
+          "seed": 301060006,
+          "score": 0.5051460285733396,
+          "elapsed": 1.19,
+          "termination": "tilt",
+          "tilt_rmse_deg": 31.658870160971606,
+          "tracking_rmse_m": 0.364379552315489
+        },
+        {
+          "seed": 301060007,
+          "score": 0.16667588383166304,
+          "elapsed": 0.45,
+          "termination": "tilt",
+          "tilt_rmse_deg": 43.72630269583334,
+          "tracking_rmse_m": 0.11937724803725638
+        }
+      ]
+    },
+    {
+      "score": 0.3482060339246383,
+      "episodes": [
+        {
+          "seed": 301060000,
+          "score": 0.14595358867135882,
+          "elapsed": 0.42,
+          "termination": "tilt",
+          "tilt_rmse_deg": 42.85002214151428,
+          "tracking_rmse_m": 0.115067903179233
+        },
+        {
+          "seed": 301060001,
+          "score": 0.8836659990666695,
+          "elapsed": 1.3,
+          "termination": "tracking_error",
+          "tilt_rmse_deg": 18.849160869603214,
+          "tracking_rmse_m": 0.4768727307049995
+        },
+        {
+          "seed": 301060002,
+          "score": 0.15781676203975367,
+          "elapsed": 0.42,
+          "termination": "tilt",
+          "tilt_rmse_deg": 41.14805602730105,
+          "tracking_rmse_m": 0.10852781008596803
+        },
+        {
+          "seed": 301060003,
+          "score": 0.27818918158008077,
+          "elapsed": 0.72,
+          "termination": "tilt",
+          "tilt_rmse_deg": 37.06649642801158,
+          "tracking_rmse_m": 0.13653188195917024
+        },
+        {
+          "seed": 301060004,
+          "score": 0.17287078707507608,
+          "elapsed": 0.45,
+          "termination": "tilt",
+          "tilt_rmse_deg": 43.0747290245106,
+          "tracking_rmse_m": 0.11468505772593154
+        },
+        {
+          "seed": 301060005,
+          "score": 0.6168914424392741,
+          "elapsed": 1.34,
+          "termination": "tracking_error",
+          "tilt_rmse_deg": 25.219800210778125,
+          "tracking_rmse_m": 0.47440466897217914
+        },
+        {
+          "seed": 301060006,
+          "score": 0.3668032895364457,
+          "elapsed": 1.04,
+          "termination": "tilt",
+          "tilt_rmse_deg": 38.31998536002032,
+          "tracking_rmse_m": 0.2637219026352852
+        },
+        {
+          "seed": 301060007,
+          "score": 0.16345722098844753,
+          "elapsed": 0.45,
+          "termination": "tilt",
+          "tilt_rmse_deg": 44.79262503348081,
+          "tracking_rmse_m": 0.11760827229890547
+        }
+      ]
+    },
+    {
+      "score": 0.38113270214560396,
+      "episodes": [
+        {
+          "seed": 301060000,
+          "score": 0.1464899464311102,
+          "elapsed": 0.42,
+          "termination": "tilt",
+          "tilt_rmse_deg": 42.65407867820201,
+          "tracking_rmse_m": 0.11594186275600253
+        },
+        {
+          "seed": 301060001,
+          "score": 0.9772406491537093,
+          "elapsed": 1.29,
+          "termination": "tracking_error",
+          "tilt_rmse_deg": 15.10137626979371,
+          "tracking_rmse_m": 0.46844417965002927
+        },
+        {
+          "seed": 301060002,
+          "score": 0.1588004264421039,
+          "elapsed": 0.45,
+          "termination": "tilt",
+          "tilt_rmse_deg": 44.52838902102189,
+          "tracking_rmse_m": 0.11235957892591876
+        },
+        {
+          "seed": 301060003,
+          "score": 0.2968346986103377,
+          "elapsed": 0.76,
+          "termination": "tilt",
+          "tilt_rmse_deg": 37.529711054897646,
+          "tracking_rmse_m": 0.15134103913651997
+        },
+        {
+          "seed": 301060004,
+          "score": 0.17205827353050399,
+          "elapsed": 0.45,
+          "termination": "tilt",
+          "tilt_rmse_deg": 42.2679174675867,
+          "tracking_rmse_m": 0.11438125318855082
+        },
+        {
+          "seed": 301060005,
+          "score": 0.6844907294881879,
+          "elapsed": 1.33,
+          "termination": "tracking_error",
+          "tilt_rmse_deg": 22.811166189050553,
+          "tracking_rmse_m": 0.4734020695717155
+        },
+        {
+          "seed": 301060006,
+          "score": 0.45068991196144376,
+          "elapsed": 1.08,
+          "termination": "tilt",
+          "tilt_rmse_deg": 32.11846831877284,
+          "tracking_rmse_m": 0.30744328654191183
+        },
+        {
+          "seed": 301060007,
+          "score": 0.16245698154743493,
+          "elapsed": 0.45,
+          "termination": "tilt",
+          "tilt_rmse_deg": 44.00234909928281,
+          "tracking_rmse_m": 0.11818035807619595
+        }
+      ]
+    }
+  ]
+}

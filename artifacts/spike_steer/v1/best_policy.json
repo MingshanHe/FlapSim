@@ -1,0 +1,621 @@
+{
+ "kind": "snn",
+ "inputs": 12,
+ "outputs": [
+  0
+ ],
+ "genome_id": 370,
+ "tau_m": 0.005,
+ "tau_s": 0.0025,
+ "spike_scale": 5.0,
+ "nodes": [
+  {
+   "id": 0,
+   "bias": 0.0
+  },
+  {
+   "id": 1,
+   "bias": 0.6654729695985602
+  },
+  {
+   "id": 2,
+   "bias": 0.21978646286926376
+  },
+  {
+   "id": 3,
+   "bias": 1.016299036040331
+  },
+  {
+   "id": 4,
+   "bias": 0.3097864927145959
+  },
+  {
+   "id": 5,
+   "bias": 0.6035319313345816
+  },
+  {
+   "id": 6,
+   "bias": 0.7106806505080909
+  },
+  {
+   "id": 31,
+   "bias": 0.16671838807216283
+  }
+ ],
+ "edges": [
+  {
+   "source": -12,
+   "target": 1,
+   "weight": -0.17430656009795495,
+   "delay": 5.0,
+   "enabled": true
+  },
+  {
+   "source": -12,
+   "target": 2,
+   "weight": -0.2029282624599811,
+   "delay": 5.0,
+   "enabled": true
+  },
+  {
+   "source": -12,
+   "target": 3,
+   "weight": 0.9773133481350644,
+   "delay": 5.0,
+   "enabled": true
+  },
+  {
+   "source": -12,
+   "target": 4,
+   "weight": -1.0041640151389881,
+   "delay": 0.0,
+   "enabled": false
+  },
+  {
+   "source": -12,
+   "target": 5,
+   "weight": -0.1736118881151441,
+   "delay": 0.0,
+   "enabled": true
+  },
+  {
+   "source": -12,
+   "target": 6,
+   "weight": 0.29535706168225456,
+   "delay": 0.0,
+   "enabled": true
+  },
+  {
+   "source": -11,
+   "target": 1,
+   "weight": -1.5520975210784298,
+   "delay": 0.0,
+   "enabled": true
+  },
+  {
+   "source": -11,
+   "target": 2,
+   "weight": -0.5008869316020153,
+   "delay": 0.0,
+   "enabled": true
+  },
+  {
+   "source": -11,
+   "target": 3,
+   "weight": -1.0393566923246733,
+   "delay": 0.0,
+   "enabled": true
+  },
+  {
+   "source": -11,
+   "target": 4,
+   "weight": 0.022447797988186188,
+   "delay": 3.0,
+   "enabled": false
+  },
+  {
+   "source": -11,
+   "target": 5,
+   "weight": 0.5993175297162133,
+   "delay": 5.0,
+   "enabled": false
+  },
+  {
+   "source": -11,
+   "target": 6,
+   "weight": -0.3460143747965317,
+   "delay": 8.0,
+   "enabled": true
+  },
+  {
+   "source": -10,
+   "target": 1,
+   "weight": -0.38861547060925883,
+   "delay": 0.0,
+   "enabled": true
+  },
+  {
+   "source": -10,
+   "target": 2,
+   "weight": -0.44256504400752805,
+   "delay": 2.0,
+   "enabled": true
+  },
+  {
+   "source": -10,
+   "target": 3,
+   "weight": -1.4794760356809173,
+   "delay": 11.0,
+   "enabled": true
+  },
+  {
+   "source": -10,
+   "target": 4,
+   "weight": 0.3895531939934461,
+   "delay": 8.0,
+   "enabled": true
+  },
+  {
+   "source": -10,
+   "target": 5,
+   "weight": -1.025278006466305,
+   "delay": 1.0,
+   "enabled": true
+  },
+  {
+   "source": -10,
+   "target": 6,
+   "weight": 0.5778382300764735,
+   "delay": 0.0,
+   "enabled": true
+  },
+  {
+   "source": -9,
+   "target": 1,
+   "weight": -1.262895678614169,
+   "delay": 10.0,
+   "enabled": true
+  },
+  {
+   "source": -9,
+   "target": 2,
+   "weight": 0.3431456573822429,
+   "delay": 0.0,
+   "enabled": true
+  },
+  {
+   "source": -9,
+   "target": 3,
+   "weight": 0.1107729013130698,
+   "delay": 10.0,
+   "enabled": true
+  },
+  {
+   "source": -9,
+   "target": 4,
+   "weight": 1.2414342411465977,
+   "delay": 0.0,
+   "enabled": false
+  },
+  {
+   "source": -9,
+   "target": 5,
+   "weight": 0.7895775343160296,
+   "delay": 6.0,
+   "enabled": true
+  },
+  {
+   "source": -9,
+   "target": 6,
+   "weight": 0.5175689943742282,
+   "delay": 0.0,
+   "enabled": true
+  },
+  {
+   "source": -8,
+   "target": 1,
+   "weight": 0.04256055181821633,
+   "delay": 4.0,
+   "enabled": true
+  },
+  {
+   "source": -8,
+   "target": 2,
+   "weight": 0.27325824965103757,
+   "delay": 0.0,
+   "enabled": true
+  },
+  {
+   "source": -8,
+   "target": 3,
+   "weight": 1.0579683028009088,
+   "delay": 3.0,
+   "enabled": true
+  },
+  {
+   "source": -8,
+   "target": 4,
+   "weight": 0.3351186717982114,
+   "delay": 5.0,
+   "enabled": false
+  },
+  {
+   "source": -8,
+   "target": 5,
+   "weight": -0.22282423303927024,
+   "delay": 0.0,
+   "enabled": false
+  },
+  {
+   "source": -8,
+   "target": 6,
+   "weight": 0.6881280037505286,
+   "delay": 5.0,
+   "enabled": true
+  },
+  {
+   "source": -7,
+   "target": 1,
+   "weight": 0.4120175616961457,
+   "delay": 1.0,
+   "enabled": true
+  },
+  {
+   "source": -7,
+   "target": 2,
+   "weight": -0.3939440645218574,
+   "delay": 8.0,
+   "enabled": true
+  },
+  {
+   "source": -7,
+   "target": 3,
+   "weight": -0.1579941900512352,
+   "delay": 11.0,
+   "enabled": true
+  },
+  {
+   "source": -7,
+   "target": 4,
+   "weight": -0.6094124639112799,
+   "delay": 11.0,
+   "enabled": true
+  },
+  {
+   "source": -7,
+   "target": 5,
+   "weight": 2.1217504208585707,
+   "delay": 0.0,
+   "enabled": true
+  },
+  {
+   "source": -7,
+   "target": 6,
+   "weight": -0.7202907929735335,
+   "delay": 0.0,
+   "enabled": true
+  },
+  {
+   "source": -6,
+   "target": 1,
+   "weight": 0.8866632291402945,
+   "delay": 2.0,
+   "enabled": true
+  },
+  {
+   "source": -6,
+   "target": 2,
+   "weight": -0.9169091027924963,
+   "delay": 0.0,
+   "enabled": false
+  },
+  {
+   "source": -6,
+   "target": 3,
+   "weight": 0.5540127151759617,
+   "delay": 1.0,
+   "enabled": true
+  },
+  {
+   "source": -6,
+   "target": 4,
+   "weight": -0.9844746461792072,
+   "delay": 7.0,
+   "enabled": true
+  },
+  {
+   "source": -6,
+   "target": 5,
+   "weight": -0.9904370238387857,
+   "delay": 7.0,
+   "enabled": true
+  },
+  {
+   "source": -6,
+   "target": 6,
+   "weight": 1.130401451120641,
+   "delay": 10.0,
+   "enabled": true
+  },
+  {
+   "source": -5,
+   "target": 1,
+   "weight": -0.5148690162757884,
+   "delay": 16.0,
+   "enabled": true
+  },
+  {
+   "source": -5,
+   "target": 2,
+   "weight": -0.5403827107011383,
+   "delay": 6.0,
+   "enabled": true
+  },
+  {
+   "source": -5,
+   "target": 3,
+   "weight": 0.4509941422040841,
+   "delay": 11.0,
+   "enabled": false
+  },
+  {
+   "source": -5,
+   "target": 4,
+   "weight": -0.2942512968558534,
+   "delay": 0.0,
+   "enabled": true
+  },
+  {
+   "source": -5,
+   "target": 5,
+   "weight": 0.35782516661405017,
+   "delay": 6.0,
+   "enabled": true
+  },
+  {
+   "source": -5,
+   "target": 6,
+   "weight": -0.762776072520896,
+   "delay": 12.0,
+   "enabled": true
+  },
+  {
+   "source": -4,
+   "target": 1,
+   "weight": -1.2627785047258038,
+   "delay": 11.0,
+   "enabled": true
+  },
+  {
+   "source": -4,
+   "target": 2,
+   "weight": 0.11387147708158347,
+   "delay": 4.0,
+   "enabled": false
+  },
+  {
+   "source": -4,
+   "target": 3,
+   "weight": -0.5649029931836238,
+   "delay": 2.0,
+   "enabled": false
+  },
+  {
+   "source": -4,
+   "target": 4,
+   "weight": -1.004329953080921,
+   "delay": 7.0,
+   "enabled": true
+  },
+  {
+   "source": -4,
+   "target": 5,
+   "weight": 1.7263874914663861,
+   "delay": 6.0,
+   "enabled": true
+  },
+  {
+   "source": -4,
+   "target": 6,
+   "weight": 0.42305643621136624,
+   "delay": 12.0,
+   "enabled": true
+  },
+  {
+   "source": -3,
+   "target": 1,
+   "weight": 0.8497276715729594,
+   "delay": 0.0,
+   "enabled": true
+  },
+  {
+   "source": -3,
+   "target": 2,
+   "weight": -0.5706792214426978,
+   "delay": 11.0,
+   "enabled": true
+  },
+  {
+   "source": -3,
+   "target": 3,
+   "weight": 0.7731879929181357,
+   "delay": 0.0,
+   "enabled": true
+  },
+  {
+   "source": -3,
+   "target": 4,
+   "weight": -0.8381390865403773,
+   "delay": 9.0,
+   "enabled": true
+  },
+  {
+   "source": -3,
+   "target": 5,
+   "weight": 0.8950374283961021,
+   "delay": 0.0,
+   "enabled": false
+  },
+  {
+   "source": -3,
+   "target": 6,
+   "weight": -0.1606881409026008,
+   "delay": 0.0,
+   "enabled": true
+  },
+  {
+   "source": -3,
+   "target": 31,
+   "weight": 0.7246019750784033,
+   "delay": 10.0,
+   "enabled": true
+  },
+  {
+   "source": -2,
+   "target": 1,
+   "weight": 0.7336574547835857,
+   "delay": 1.0,
+   "enabled": true
+  },
+  {
+   "source": -2,
+   "target": 2,
+   "weight": -0.9625929675474861,
+   "delay": 11.0,
+   "enabled": true
+  },
+  {
+   "source": -2,
+   "target": 3,
+   "weight": 0.47678636833137966,
+   "delay": 7.0,
+   "enabled": false
+  },
+  {
+   "source": -2,
+   "target": 4,
+   "weight": 0.3946640103435706,
+   "delay": 4.0,
+   "enabled": true
+  },
+  {
+   "source": -2,
+   "target": 5,
+   "weight": -0.34749964177756587,
+   "delay": 1.0,
+   "enabled": true
+  },
+  {
+   "source": -2,
+   "target": 6,
+   "weight": -0.36376102154342577,
+   "delay": 5.0,
+   "enabled": true
+  },
+  {
+   "source": -1,
+   "target": 1,
+   "weight": 1.5709407291651911,
+   "delay": 4.0,
+   "enabled": true
+  },
+  {
+   "source": -1,
+   "target": 2,
+   "weight": -0.3369215025753148,
+   "delay": 0.0,
+   "enabled": true
+  },
+  {
+   "source": -1,
+   "target": 3,
+   "weight": -0.09834458121962178,
+   "delay": 3.0,
+   "enabled": true
+  },
+  {
+   "source": -1,
+   "target": 4,
+   "weight": -1.2087148606690021,
+   "delay": 0.0,
+   "enabled": true
+  },
+  {
+   "source": -1,
+   "target": 5,
+   "weight": -1.653573158301072,
+   "delay": 0.0,
+   "enabled": true
+  },
+  {
+   "source": -1,
+   "target": 6,
+   "weight": 0.7751804176897696,
+   "delay": 6.0,
+   "enabled": false
+  },
+  {
+   "source": 1,
+   "target": 0,
+   "weight": -0.4372346202260554,
+   "delay": 1.0,
+   "enabled": true
+  },
+  {
+   "source": 2,
+   "target": 0,
+   "weight": 0.2648821041659686,
+   "delay": 3.0,
+   "enabled": true
+  },
+  {
+   "source": 2,
+   "target": 3,
+   "weight": 0.23367945917532718,
+   "delay": 5.0,
+   "enabled": true
+  },
+  {
+   "source": 3,
+   "target": 0,
+   "weight": -0.5277057871384961,
+   "delay": 0.0,
+   "enabled": true
+  },
+  {
+   "source": 4,
+   "target": 0,
+   "weight": 0.6224193019393625,
+   "delay": 4.0,
+   "enabled": false
+  },
+  {
+   "source": 5,
+   "target": 0,
+   "weight": 0.9357936214863775,
+   "delay": 5.0,
+   "enabled": true
+  },
+  {
+   "source": 5,
+   "target": 1,
+   "weight": 0.5660984427459708,
+   "delay": 3.0,
+   "enabled": true
+  },
+  {
+   "source": 6,
+   "target": 0,
+   "weight": 0.39347199216811574,
+   "delay": 0.0,
+   "enabled": true
+  },
+  {
+   "source": 31,
+   "target": 5,
+   "weight": 1.2163728367870505,
+   "delay": 3.0,
+   "enabled": true
+  }
+ ]
+}

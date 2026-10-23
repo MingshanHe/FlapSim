@@ -1,0 +1,8 @@
+{
+ "plan": "v14",
+ "amendment": 1,
+ "written": "2026-10-22 ~09:55 JST, after the d2 result on three sets (un-suppressed opponent: 5 crashes under the primary hit vs 60, nominal delta -0.134, x1.5 turbulence 24 vs 40) and before any episode on the other sets",
+ "what": "the un-suppressed opponent (base-law pulses kept during schedule segments) on every remaining v12/v13 scenario (kick2, kick45, kick_early, kick_late, kick_pre, kick_double, kick_rollaxis, kick_pitchaxis, kick_rep, turb125, noise5, delay3, ood), 64 cases per task each, paired with the preregistered opponent rows of each set",
+ "why": "d2 shows that the preregistered opponent's deficit under hits is largely its pulse suppression; the un-suppressed variant is a legitimate classical design that was not considered when the opponent was fixed, so it must be reported on every scenario as the classical reference",
+ "expectation": "the un-suppressed opponent will crash less than the preregistered opponent on every hit and turbulence scenario and likely less than the SNN centres on most of them; its nominal advantage (-0.134) will persist"
+}

@@ -1,0 +1,129 @@
+{
+ "plan": "v6: nod in 4 directions, dash in 8 directions (user decision 2026-10-19)",
+ "written_before": "ES of any seed, and before any controller touches the blind set",
+ "tasks": {
+  "nod": {
+   "directions": [
+    0,
+    90,
+    180,
+    270
+   ],
+   "goal": "tilt toward phi >= 30 deg (projection of derocked roll/pitch) held 0.1 s, then total tilt < 5 deg"
+  },
+  "dash": {
+   "directions": [
+    0,
+    45,
+    90,
+    135,
+    180,
+    225,
+    270,
+    315
+   ],
+   "goal": "travel 0.15 m along phi and stop (|v_along| < 0.1 m/s for 0.3 s)"
+  }
+ },
+ "direction_convention": "phi in the heading frame at T0: 0 forward, 90 left; attitude (roll, pitch) = A*(-sin phi, cos phi) (signs.json)",
+ "controller": "round-5 architecture; inputs 25 (8 direction-command channels); outputs up/down pulses + 2 graded units (roll, pitch set-points); 2564 parameters; gate + 1 s tail, righting reflex 25 deg, refractory 37 ms",
+ "opponent": {
+  "description": "2-D set-point schedule on reflex PID + law_tuned pulse law, tuned per task and direction class on the pilot grid (16 tune cases, 2 per direction)",
+  "configs": {
+   "nod": {
+    "pitch": {
+     "go_ref": -0.6,
+     "go_beats": 9,
+     "brake_beats": 6,
+     "brake_ref": 0.2,
+     "gated": true
+    },
+    "roll": {
+     "go_ref": -0.6,
+     "go_beats": 9,
+     "brake_beats": 0,
+     "brake_ref": 0.0,
+     "gated": true
+    }
+   },
+   "dash": {
+    "pitch": {
+     "go_ref": 0.35,
+     "go_beats": 45,
+     "brake_beats": 6,
+     "brake_ref": -0.5,
+     "gated": true
+    },
+    "roll": {
+     "go_ref": 0.35,
+     "go_beats": 18,
+     "brake_beats": 3,
+     "brake_ref": -0.35,
+     "gated": true
+    },
+    "diag": {
+     "go_ref": 0.5,
+     "go_beats": 18,
+     "brake_beats": 12,
+     "brake_ref": -0.35,
+     "gated": true
+    }
+   }
+  }
+ },
+ "normalisers": {
+  "nod": {
+   "pitch": 2.170755905540865,
+   "roll": 1.2334645890016365
+  },
+  "dash": {
+   "pitch": 5.921892367684142,
+   "roll": 1.5485769235264053,
+   "diag": 5.035073888626608
+  }
+ },
+ "training": {
+  "imitation": "40 epochs, BCE(pos weight 3) + 5 ref MSE on both set-points, best val epoch",
+  "es": "OpenAI-ES pop 32, sigma 0.03, Adam 0.02, 60 generations, 8 nod + 8 dash fresh cases per generation, objective = (2/3, 1/3) weighted mean over tasks of (case score / normaliser of its class) + 0.3 per deg of true tilt peak above 60",
+  "prefix_cache": "shared pre-command prefix (cache8.py), verified bit-identical to the full simulation"
+ },
+ "selection": "every 5th-generation centre (13) on 64 nod + 64 dash validation cases (offset 60_000); eligible: 0 crashes and true tilt peak < 70 deg on all; lowest objective",
+ "blind_set": {
+  "base": 2097100000,
+  "n_per_task": 32,
+  "nod_per_direction": 8,
+  "dash_per_direction": 4
+ },
+ "ratio": "task ratio = mean over cases of learned score / opponent median score of the case direction class on the blind set; manoeuvre mean = (nod + dash)/2",
+ "primary_M2": {
+  "per_seed": "manoeuvre mean <= 0.95 AND 0 learned crashes on the 64 blind manoeuvre episodes",
+  "overall": "pass if >= 3 of 5 seeds pass",
+  "hover_upset": "not re-run: the learned layer never takes charge without a command (gate), so hover = 1.000 and upset = 1.050 by construction, as in M1"
+ },
+ "secondary": [
+  "per direction class ratios and paired wins (nod: pitch, roll; dash: pitch, roll, diag)",
+  "crashes of the opponent on the blind set"
+ ],
+ "predictions_written_before_results": [
+  "dash pitch and diag classes: learned ratio < 1 (classical never settles there; pulses act on pitch)",
+  "dash roll class: learned ~ classical (classical already settles quickly; pulses give no roll torque)",
+  "nod roll class: no pulse advantage expected; any gain comes from the set-point unit only"
+ ],
+ "seeds": [
+  1,
+  2,
+  3,
+  4,
+  5
+ ],
+ "code": {
+  "bench8": "experiments/algorithms/spike_steer/bench8.py",
+  "descend8": "experiments/algorithms/spike_steer/descend8.py",
+  "cache8": "experiments/algorithms/spike_steer/cache8.py"
+ },
+ "amendment_1": {
+  "written": "2026-10-19, before any selection or blind-set run; ES of seed 4 at generation ~5 on CloudPC-2, no other seed started",
+  "machine_rule": "ES search may run on any machine; centre selection (reselect) and the blind-set evaluation of every seed run only on CloudPC-2 (the machine whose baseline/normalisers are in baseline.json). Same rule as plan v4 rounds 3-6.",
+  "reason": "GoogleCloud (Ubuntu 26.04, g++ 15.2, Zen 3) reproduces the self-tests but not the reference episode bit for bit (score 1.279100774155 / 43 pulses vs 1.288582208870 / 42 on CloudPC-2: Ubuntu 24.04, g++ 13.3, glibc 2.39, Zen 5); the dynamics amplify last-bit floating-point differences of the toolchain. Search on such a machine is a valid but differently-rounded simulator; selection and the test are therefore confined to one machine."
+ }
+}

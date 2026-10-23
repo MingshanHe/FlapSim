@@ -1,6 +1,4 @@
-"""Reinforcement-learning tools for FlapSim."""
+"""Optional Gymnasium / Stable-Baselines3 trajectory tracking tools.
 
-from .hover_env import HoverEnv
-from .trajectory_env import TrajectoryTrackingEnv
-
-__all__ = ["HoverEnv", "TrajectoryTrackingEnv"]
+Importing flapsim itself does not require the RL dependencies.
+"""

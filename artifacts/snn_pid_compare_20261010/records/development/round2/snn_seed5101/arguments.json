@@ -1,0 +1,17 @@
+{
+  "kind": "snn",
+  "seed": 5101,
+  "hidden": 16,
+  "epochs": 30,
+  "window_steps": 500,
+  "batch": 8,
+  "lr": 0.002,
+  "data": [
+    "/home/hemingshan/FlapSim/runs/snn_pid_compare/20261010_v21/data/demo",
+    "/home/hemingshan/FlapSim/runs/snn_pid_compare/20261010_v21/data/dagger1",
+    "/home/hemingshan/FlapSim/runs/snn_pid_compare/20261010_v21/data/dagger2"
+  ],
+  "validation": "/home/hemingshan/FlapSim/runs/snn_pid_compare/20261010_v21/data/offline",
+  "initial": "/home/hemingshan/FlapSim/runs/snn_pid_compare/20261010_v21/development/round1/snn_seed5101/best_policy.json",
+  "demonstration_samples": 367732
+}

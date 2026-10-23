@@ -1,0 +1,4157 @@
+{
+ "stage": "law_grid",
+ "rows": [
+  {
+   "seed": 2010100000,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": null,
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 8.633335480167936,
+   "height_rmse_m": 0.06092264638601809,
+   "pitch_peak_deg": 16.340182768538472,
+   "pitch_rms_deg": 6.884514411279315,
+   "pulse_duty": 0.0
+  },
+  {
+   "seed": 2010100001,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": null,
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 9.015677193646402,
+   "height_rmse_m": 0.061054501480719066,
+   "pitch_peak_deg": 17.523136508649984,
+   "pitch_rms_deg": 7.4160900014227815,
+   "pulse_duty": 0.0
+  },
+  {
+   "seed": 2010100002,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": null,
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 8.464328010163596,
+   "height_rmse_m": 0.07417170655972681,
+   "pitch_peak_deg": 15.393477668353738,
+   "pitch_rms_deg": 6.603625013310102,
+   "pulse_duty": 0.0
+  },
+  {
+   "seed": 2010100003,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": null,
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 8.354426294754333,
+   "height_rmse_m": 0.0696179285788458,
+   "pitch_peak_deg": 15.465175851140065,
+   "pitch_rms_deg": 6.526339251651763,
+   "pulse_duty": 0.0
+  },
+  {
+   "seed": 2010100004,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": null,
+   "termination": "time_limit",
+   "success": false,
+   "tilt_rms_deg": 8.716054322324279,
+   "height_rmse_m": 0.12846528238471047,
+   "pitch_peak_deg": 18.464097248731633,
+   "pitch_rms_deg": 7.0660809667927,
+   "pulse_duty": 0.0
+  },
+  {
+   "seed": 2010100005,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": null,
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 9.651980487564192,
+   "height_rmse_m": 0.05599568688636467,
+   "pitch_peak_deg": 18.63002901594371,
+   "pitch_rms_deg": 8.35500033419166,
+   "pulse_duty": 0.0
+  },
+  {
+   "seed": 2010100006,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": null,
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 8.42568818558252,
+   "height_rmse_m": 0.09201120178053146,
+   "pitch_peak_deg": 15.151634477439202,
+   "pitch_rms_deg": 6.562514928726696,
+   "pulse_duty": 0.0
+  },
+  {
+   "seed": 2010100007,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": null,
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 8.996256131369245,
+   "height_rmse_m": 0.060278392630064896,
+   "pitch_peak_deg": 17.350925457389682,
+   "pitch_rms_deg": 7.353593187442638,
+   "pulse_duty": 0.0
+  },
+  {
+   "seed": 2010100000,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 5.0,
+    "k_q": 0.4,
+    "threshold": 0.5,
+    "width": 1.0471975511965976,
+    "dip": false
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 5.5836852231853555,
+   "height_rmse_m": 0.06345954418240528,
+   "pitch_peak_deg": 7.0671469277805405,
+   "pitch_rms_deg": 2.3448070880614242,
+   "pulse_duty": 0.01525
+  },
+  {
+   "seed": 2010100001,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 5.0,
+    "k_q": 0.4,
+    "threshold": 0.5,
+    "width": 1.0471975511965976,
+    "dip": false
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 5.542633661671967,
+   "height_rmse_m": 0.07904530477328091,
+   "pitch_peak_deg": 6.61740032063189,
+   "pitch_rms_deg": 2.368397183339662,
+   "pulse_duty": 0.0145
+  },
+  {
+   "seed": 2010100002,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 5.0,
+    "k_q": 0.4,
+    "threshold": 0.5,
+    "width": 1.0471975511965976,
+    "dip": false
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 5.626631015182311,
+   "height_rmse_m": 0.07161667902845541,
+   "pitch_peak_deg": 5.880565246870257,
+   "pitch_rms_deg": 2.190118572604635,
+   "pulse_duty": 0.0195
+  },
+  {
+   "seed": 2010100003,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 5.0,
+    "k_q": 0.4,
+    "threshold": 0.5,
+    "width": 1.0471975511965976,
+    "dip": false
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 5.715324904485851,
+   "height_rmse_m": 0.069520771272325,
+   "pitch_peak_deg": 7.659253193112064,
+   "pitch_rms_deg": 2.549501632380972,
+   "pulse_duty": 0.01975
+  },
+  {
+   "seed": 2010100004,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 5.0,
+    "k_q": 0.4,
+    "threshold": 0.5,
+    "width": 1.0471975511965976,
+    "dip": false
+   },
+   "termination": "time_limit",
+   "success": false,
+   "tilt_rms_deg": 5.576849380561667,
+   "height_rmse_m": 0.4325672861433419,
+   "pitch_peak_deg": 6.149455140573086,
+   "pitch_rms_deg": 2.332727429296163,
+   "pulse_duty": 0.021
+  },
+  {
+   "seed": 2010100005,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 5.0,
+    "k_q": 0.4,
+    "threshold": 0.5,
+    "width": 1.0471975511965976,
+    "dip": false
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 5.321851601007383,
+   "height_rmse_m": 0.059762574247397976,
+   "pitch_peak_deg": 8.256709175013858,
+   "pitch_rms_deg": 2.355542664802675,
+   "pulse_duty": 0.02125
+  },
+  {
+   "seed": 2010100006,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 5.0,
+    "k_q": 0.4,
+    "threshold": 0.5,
+    "width": 1.0471975511965976,
+    "dip": false
+   },
+   "termination": "time_limit",
+   "success": false,
+   "tilt_rms_deg": 5.645012235738174,
+   "height_rmse_m": 0.21229692990256588,
+   "pitch_peak_deg": 7.452979840411482,
+   "pitch_rms_deg": 2.244198088483311,
+   "pulse_duty": 0.01725
+  },
+  {
+   "seed": 2010100007,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 5.0,
+    "k_q": 0.4,
+    "threshold": 0.5,
+    "width": 1.0471975511965976,
+    "dip": false
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 5.716276749594973,
+   "height_rmse_m": 0.06777327994845184,
+   "pitch_peak_deg": 6.800904705897332,
+   "pitch_rms_deg": 2.5098448785797465,
+   "pulse_duty": 0.02275
+  },
+  {
+   "seed": 2010100000,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 5.0,
+    "k_q": 0.4,
+    "threshold": 0.5,
+    "width": 1.0471975511965976,
+    "dip": true
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 5.529037978395133,
+   "height_rmse_m": 0.06325027148621923,
+   "pitch_peak_deg": 7.263909319559841,
+   "pitch_rms_deg": 2.1640620599856364,
+   "pulse_duty": 0.01575
+  },
+  {
+   "seed": 2010100001,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 5.0,
+    "k_q": 0.4,
+    "threshold": 0.5,
+    "width": 1.0471975511965976,
+    "dip": true
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 5.637236777979807,
+   "height_rmse_m": 0.08166565502757006,
+   "pitch_peak_deg": 7.084311050238026,
+   "pitch_rms_deg": 2.5460844597450807,
+   "pulse_duty": 0.01625
+  },
+  {
+   "seed": 2010100002,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 5.0,
+    "k_q": 0.4,
+    "threshold": 0.5,
+    "width": 1.0471975511965976,
+    "dip": true
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 5.657614937786843,
+   "height_rmse_m": 0.07186874839426945,
+   "pitch_peak_deg": 6.261640945296106,
+   "pitch_rms_deg": 2.165318507937064,
+   "pulse_duty": 0.01575
+  },
+  {
+   "seed": 2010100003,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 5.0,
+    "k_q": 0.4,
+    "threshold": 0.5,
+    "width": 1.0471975511965976,
+    "dip": true
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 5.55991477442386,
+   "height_rmse_m": 0.06878255609799074,
+   "pitch_peak_deg": 6.718958083421371,
+   "pitch_rms_deg": 2.145818753840109,
+   "pulse_duty": 0.018
+  },
+  {
+   "seed": 2010100004,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 5.0,
+    "k_q": 0.4,
+    "threshold": 0.5,
+    "width": 1.0471975511965976,
+    "dip": true
+   },
+   "termination": "time_limit",
+   "success": false,
+   "tilt_rms_deg": 5.576849380561667,
+   "height_rmse_m": 0.4325672861433419,
+   "pitch_peak_deg": 6.149455140573086,
+   "pitch_rms_deg": 2.332727429296163,
+   "pulse_duty": 0.021
+  },
+  {
+   "seed": 2010100005,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 5.0,
+    "k_q": 0.4,
+    "threshold": 0.5,
+    "width": 1.0471975511965976,
+    "dip": true
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 5.301137029805273,
+   "height_rmse_m": 0.05894292102702858,
+   "pitch_peak_deg": 6.28986548522299,
+   "pitch_rms_deg": 2.3094345322101515,
+   "pulse_duty": 0.02175
+  },
+  {
+   "seed": 2010100006,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 5.0,
+    "k_q": 0.4,
+    "threshold": 0.5,
+    "width": 1.0471975511965976,
+    "dip": true
+   },
+   "termination": "time_limit",
+   "success": false,
+   "tilt_rms_deg": 5.689263476293629,
+   "height_rmse_m": 0.21205651382020857,
+   "pitch_peak_deg": 7.452979840411482,
+   "pitch_rms_deg": 2.3369690573278925,
+   "pulse_duty": 0.01575
+  },
+  {
+   "seed": 2010100007,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 5.0,
+    "k_q": 0.4,
+    "threshold": 0.5,
+    "width": 1.0471975511965976,
+    "dip": true
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 5.6277961713635865,
+   "height_rmse_m": 0.06687429804147046,
+   "pitch_peak_deg": 5.498404289157931,
+   "pitch_rms_deg": 2.296975617938845,
+   "pulse_duty": 0.0225
+  },
+  {
+   "seed": 2010100000,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 5.0,
+    "k_q": 0.4,
+    "threshold": 0.5,
+    "width": 1.5707963267948966,
+    "dip": false
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 5.550267609969383,
+   "height_rmse_m": 0.06380718500638972,
+   "pitch_peak_deg": 7.25842398777491,
+   "pitch_rms_deg": 2.1746429376867003,
+   "pulse_duty": 0.019
+  },
+  {
+   "seed": 2010100001,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 5.0,
+    "k_q": 0.4,
+    "threshold": 0.5,
+    "width": 1.5707963267948966,
+    "dip": false
+   },
+   "termination": "time_limit",
+   "success": false,
+   "tilt_rms_deg": 5.364495018516256,
+   "height_rmse_m": 0.24237371365461888,
+   "pitch_peak_deg": 5.441826548809361,
+   "pitch_rms_deg": 1.8816208312550586,
+   "pulse_duty": 0.03375
+  },
+  {
+   "seed": 2010100002,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 5.0,
+    "k_q": 0.4,
+    "threshold": 0.5,
+    "width": 1.5707963267948966,
+    "dip": false
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 5.599110596177812,
+   "height_rmse_m": 0.07171566471316673,
+   "pitch_peak_deg": 6.312907190303752,
+   "pitch_rms_deg": 2.0759427792459957,
+   "pulse_duty": 0.0185
+  },
+  {
+   "seed": 2010100003,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 5.0,
+    "k_q": 0.4,
+    "threshold": 0.5,
+    "width": 1.5707963267948966,
+    "dip": false
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 5.543486695270194,
+   "height_rmse_m": 0.07111690437420763,
+   "pitch_peak_deg": 6.492542366927142,
+   "pitch_rms_deg": 2.1803699858249552,
+   "pulse_duty": 0.039
+  },
+  {
+   "seed": 2010100004,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 5.0,
+    "k_q": 0.4,
+    "threshold": 0.5,
+    "width": 1.5707963267948966,
+    "dip": false
+   },
+   "termination": "height_escape",
+   "success": false,
+   "tilt_rms_deg": 5.850587952870718,
+   "height_rmse_m": 0.5959946382270158,
+   "pitch_peak_deg": 6.01649938630986,
+   "pitch_rms_deg": 2.5791708404854914,
+   "pulse_duty": 0.03807829181494662
+  },
+  {
+   "seed": 2010100005,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 5.0,
+    "k_q": 0.4,
+    "threshold": 0.5,
+    "width": 1.5707963267948966,
+    "dip": false
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 5.284725586262779,
+   "height_rmse_m": 0.06419267891909843,
+   "pitch_peak_deg": 6.553250014475926,
+   "pitch_rms_deg": 2.248027956676523,
+   "pulse_duty": 0.03975
+  },
+  {
+   "seed": 2010100006,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 5.0,
+    "k_q": 0.4,
+    "threshold": 0.5,
+    "width": 1.5707963267948966,
+    "dip": false
+   },
+   "termination": "time_limit",
+   "success": false,
+   "tilt_rms_deg": 5.523752260127137,
+   "height_rmse_m": 0.3479430919607117,
+   "pitch_peak_deg": 6.495068420810046,
+   "pitch_rms_deg": 1.932231880641685,
+   "pulse_duty": 0.0245
+  },
+  {
+   "seed": 2010100007,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 5.0,
+    "k_q": 0.4,
+    "threshold": 0.5,
+    "width": 1.5707963267948966,
+    "dip": false
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 5.5539407541354295,
+   "height_rmse_m": 0.07996822675213572,
+   "pitch_peak_deg": 6.079271467744452,
+   "pitch_rms_deg": 2.2278851401330346,
+   "pulse_duty": 0.0335
+  },
+  {
+   "seed": 2010100000,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 5.0,
+    "k_q": 0.4,
+    "threshold": 0.5,
+    "width": 1.5707963267948966,
+    "dip": true
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 5.4988324461888,
+   "height_rmse_m": 0.06483409055248529,
+   "pitch_peak_deg": 7.456824466257155,
+   "pitch_rms_deg": 2.0085764852587578,
+   "pulse_duty": 0.02175
+  },
+  {
+   "seed": 2010100001,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 5.0,
+    "k_q": 0.4,
+    "threshold": 0.5,
+    "width": 1.5707963267948966,
+    "dip": true
+   },
+   "termination": "time_limit",
+   "success": false,
+   "tilt_rms_deg": 5.34565108943765,
+   "height_rmse_m": 0.2430308236453621,
+   "pitch_peak_deg": 5.4317913015091746,
+   "pitch_rms_deg": 1.8380258812655605,
+   "pulse_duty": 0.0395
+  },
+  {
+   "seed": 2010100002,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 5.0,
+    "k_q": 0.4,
+    "threshold": 0.5,
+    "width": 1.5707963267948966,
+    "dip": true
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 5.5447857570854335,
+   "height_rmse_m": 0.07247776098767258,
+   "pitch_peak_deg": 5.354708897735238,
+   "pitch_rms_deg": 1.9256706055579207,
+   "pulse_duty": 0.029
+  },
+  {
+   "seed": 2010100003,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 5.0,
+    "k_q": 0.4,
+    "threshold": 0.5,
+    "width": 1.5707963267948966,
+    "dip": true
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 5.440945590473698,
+   "height_rmse_m": 0.0692192662634813,
+   "pitch_peak_deg": 5.877905838722574,
+   "pitch_rms_deg": 1.8948653564967413,
+   "pulse_duty": 0.03075
+  },
+  {
+   "seed": 2010100004,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 5.0,
+    "k_q": 0.4,
+    "threshold": 0.5,
+    "width": 1.5707963267948966,
+    "dip": true
+   },
+   "termination": "height_escape",
+   "success": false,
+   "tilt_rms_deg": 5.850587952870718,
+   "height_rmse_m": 0.5959946382270158,
+   "pitch_peak_deg": 6.01649938630986,
+   "pitch_rms_deg": 2.5791708404854914,
+   "pulse_duty": 0.03807829181494662
+  },
+  {
+   "seed": 2010100005,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 5.0,
+    "k_q": 0.4,
+    "threshold": 0.5,
+    "width": 1.5707963267948966,
+    "dip": true
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 5.180638713877795,
+   "height_rmse_m": 0.07504730132332632,
+   "pitch_peak_deg": 6.886455681871147,
+   "pitch_rms_deg": 1.9029116665965418,
+   "pulse_duty": 0.04075
+  },
+  {
+   "seed": 2010100006,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 5.0,
+    "k_q": 0.4,
+    "threshold": 0.5,
+    "width": 1.5707963267948966,
+    "dip": true
+   },
+   "termination": "time_limit",
+   "success": false,
+   "tilt_rms_deg": 5.523752260127137,
+   "height_rmse_m": 0.3479430919607117,
+   "pitch_peak_deg": 6.495068420810046,
+   "pitch_rms_deg": 1.932231880641685,
+   "pulse_duty": 0.0245
+  },
+  {
+   "seed": 2010100007,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 5.0,
+    "k_q": 0.4,
+    "threshold": 0.5,
+    "width": 1.5707963267948966,
+    "dip": true
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 5.482438922780478,
+   "height_rmse_m": 0.06991751210726822,
+   "pitch_peak_deg": 5.26670485094654,
+   "pitch_rms_deg": 1.9273584610043413,
+   "pulse_duty": 0.02275
+  },
+  {
+   "seed": 2010100000,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 5.0,
+    "k_q": 0.4,
+    "threshold": 0.8,
+    "width": 1.0471975511965976,
+    "dip": false
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 6.366141192167274,
+   "height_rmse_m": 0.061457272595634015,
+   "pitch_peak_deg": 9.906589383812683,
+   "pitch_rms_deg": 3.818762955793232,
+   "pulse_duty": 0.00675
+  },
+  {
+   "seed": 2010100001,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 5.0,
+    "k_q": 0.4,
+    "threshold": 0.8,
+    "width": 1.0471975511965976,
+    "dip": false
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 6.2554905008211765,
+   "height_rmse_m": 0.07378850998213118,
+   "pitch_peak_deg": 8.476689227398339,
+   "pitch_rms_deg": 3.7066365106210464,
+   "pulse_duty": 0.0105
+  },
+  {
+   "seed": 2010100002,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 5.0,
+    "k_q": 0.4,
+    "threshold": 0.8,
+    "width": 1.0471975511965976,
+    "dip": false
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 6.158638959400379,
+   "height_rmse_m": 0.07242894183313826,
+   "pitch_peak_deg": 8.79358227998392,
+   "pitch_rms_deg": 3.3616456532309535,
+   "pulse_duty": 0.00625
+  },
+  {
+   "seed": 2010100003,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 5.0,
+    "k_q": 0.4,
+    "threshold": 0.8,
+    "width": 1.0471975511965976,
+    "dip": false
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 6.2508567148951375,
+   "height_rmse_m": 0.06863539076853152,
+   "pitch_peak_deg": 9.053701142173729,
+   "pitch_rms_deg": 3.652767786962834,
+   "pulse_duty": 0.00525
+  },
+  {
+   "seed": 2010100004,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 5.0,
+    "k_q": 0.4,
+    "threshold": 0.8,
+    "width": 1.0471975511965976,
+    "dip": false
+   },
+   "termination": "time_limit",
+   "success": false,
+   "tilt_rms_deg": 6.345067238178073,
+   "height_rmse_m": 0.28229780619859574,
+   "pitch_peak_deg": 8.884816718510281,
+   "pitch_rms_deg": 3.9311310334032363,
+   "pulse_duty": 0.01125
+  },
+  {
+   "seed": 2010100005,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 5.0,
+    "k_q": 0.4,
+    "threshold": 0.8,
+    "width": 1.0471975511965976,
+    "dip": false
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 6.506570676642452,
+   "height_rmse_m": 0.057160870917065704,
+   "pitch_peak_deg": 10.06209126779749,
+   "pitch_rms_deg": 4.45831105045586,
+   "pulse_duty": 0.0125
+  },
+  {
+   "seed": 2010100006,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 5.0,
+    "k_q": 0.4,
+    "threshold": 0.8,
+    "width": 1.0471975511965976,
+    "dip": false
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 6.15059092020265,
+   "height_rmse_m": 0.10704948187731025,
+   "pitch_peak_deg": 9.955310282379822,
+   "pitch_rms_deg": 3.325234969207377,
+   "pulse_duty": 0.00775
+  },
+  {
+   "seed": 2010100007,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 5.0,
+    "k_q": 0.4,
+    "threshold": 0.8,
+    "width": 1.0471975511965976,
+    "dip": false
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 6.3345909153177615,
+   "height_rmse_m": 0.06327147475448183,
+   "pitch_peak_deg": 9.50775832593054,
+   "pitch_rms_deg": 3.777567595414478,
+   "pulse_duty": 0.01075
+  },
+  {
+   "seed": 2010100000,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 5.0,
+    "k_q": 0.4,
+    "threshold": 0.8,
+    "width": 1.0471975511965976,
+    "dip": true
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 6.200266557567785,
+   "height_rmse_m": 0.061491060421810365,
+   "pitch_peak_deg": 9.312983648747153,
+   "pitch_rms_deg": 3.5174190367879583,
+   "pulse_duty": 0.007
+  },
+  {
+   "seed": 2010100001,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 5.0,
+    "k_q": 0.4,
+    "threshold": 0.8,
+    "width": 1.0471975511965976,
+    "dip": true
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 6.272009359610852,
+   "height_rmse_m": 0.07379555861848812,
+   "pitch_peak_deg": 9.185304183243064,
+   "pitch_rms_deg": 3.734137996316287,
+   "pulse_duty": 0.01075
+  },
+  {
+   "seed": 2010100002,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 5.0,
+    "k_q": 0.4,
+    "threshold": 0.8,
+    "width": 1.0471975511965976,
+    "dip": true
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 6.2262222503499105,
+   "height_rmse_m": 0.07262401069450662,
+   "pitch_peak_deg": 8.161348908121948,
+   "pitch_rms_deg": 3.450168321967743,
+   "pulse_duty": 0.005
+  },
+  {
+   "seed": 2010100003,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 5.0,
+    "k_q": 0.4,
+    "threshold": 0.8,
+    "width": 1.0471975511965976,
+    "dip": true
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 6.137952077691217,
+   "height_rmse_m": 0.06865146149076438,
+   "pitch_peak_deg": 9.04460499692014,
+   "pitch_rms_deg": 3.4239633887285925,
+   "pulse_duty": 0.00525
+  },
+  {
+   "seed": 2010100004,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 5.0,
+    "k_q": 0.4,
+    "threshold": 0.8,
+    "width": 1.0471975511965976,
+    "dip": true
+   },
+   "termination": "time_limit",
+   "success": false,
+   "tilt_rms_deg": 6.345067238178073,
+   "height_rmse_m": 0.28229780619859574,
+   "pitch_peak_deg": 8.884816718510281,
+   "pitch_rms_deg": 3.9311310334032363,
+   "pulse_duty": 0.01125
+  },
+  {
+   "seed": 2010100005,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 5.0,
+    "k_q": 0.4,
+    "threshold": 0.8,
+    "width": 1.0471975511965976,
+    "dip": true
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 6.307460594016205,
+   "height_rmse_m": 0.056954212382088205,
+   "pitch_peak_deg": 9.581136373883318,
+   "pitch_rms_deg": 4.130137554749694,
+   "pulse_duty": 0.0135
+  },
+  {
+   "seed": 2010100006,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 5.0,
+    "k_q": 0.4,
+    "threshold": 0.8,
+    "width": 1.0471975511965976,
+    "dip": true
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 6.193453264808678,
+   "height_rmse_m": 0.10698371851915746,
+   "pitch_peak_deg": 9.955310282379822,
+   "pitch_rms_deg": 3.3943497418519533,
+   "pulse_duty": 0.0075
+  },
+  {
+   "seed": 2010100007,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 5.0,
+    "k_q": 0.4,
+    "threshold": 0.8,
+    "width": 1.0471975511965976,
+    "dip": true
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 6.346965287417037,
+   "height_rmse_m": 0.06335204152879959,
+   "pitch_peak_deg": 11.679581293167116,
+   "pitch_rms_deg": 3.7381254371946864,
+   "pulse_duty": 0.01225
+  },
+  {
+   "seed": 2010100000,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 5.0,
+    "k_q": 0.4,
+    "threshold": 0.8,
+    "width": 1.5707963267948966,
+    "dip": false
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 5.843949264546748,
+   "height_rmse_m": 0.06219827327018837,
+   "pitch_peak_deg": 8.745257045860315,
+   "pitch_rms_deg": 2.9070605145369766,
+   "pulse_duty": 0.0105
+  },
+  {
+   "seed": 2010100001,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 5.0,
+    "k_q": 0.4,
+    "threshold": 0.8,
+    "width": 1.5707963267948966,
+    "dip": false
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 6.001338381323489,
+   "height_rmse_m": 0.07996515909243165,
+   "pitch_peak_deg": 8.607405174641286,
+   "pitch_rms_deg": 3.2572684522908895,
+   "pulse_duty": 0.01375
+  },
+  {
+   "seed": 2010100002,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 5.0,
+    "k_q": 0.4,
+    "threshold": 0.8,
+    "width": 1.5707963267948966,
+    "dip": false
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 6.315736369322484,
+   "height_rmse_m": 0.07228812039376459,
+   "pitch_peak_deg": 8.987691023282755,
+   "pitch_rms_deg": 3.60706035348298,
+   "pulse_duty": 0.009
+  },
+  {
+   "seed": 2010100003,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 5.0,
+    "k_q": 0.4,
+    "threshold": 0.8,
+    "width": 1.5707963267948966,
+    "dip": false
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 6.021876734333587,
+   "height_rmse_m": 0.06865891964301986,
+   "pitch_peak_deg": 8.119472826094608,
+   "pitch_rms_deg": 3.188371310138133,
+   "pulse_duty": 0.01025
+  },
+  {
+   "seed": 2010100004,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 5.0,
+    "k_q": 0.4,
+    "threshold": 0.8,
+    "width": 1.5707963267948966,
+    "dip": false
+   },
+   "termination": "time_limit",
+   "success": false,
+   "tilt_rms_deg": 6.116638385603624,
+   "height_rmse_m": 0.29860246566511583,
+   "pitch_peak_deg": 7.80416412384492,
+   "pitch_rms_deg": 3.5541756759919005,
+   "pulse_duty": 0.01225
+  },
+  {
+   "seed": 2010100005,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 5.0,
+    "k_q": 0.4,
+    "threshold": 0.8,
+    "width": 1.5707963267948966,
+    "dip": false
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 6.1108251968318035,
+   "height_rmse_m": 0.05820008917575521,
+   "pitch_peak_deg": 9.048045727098156,
+   "pitch_rms_deg": 3.8510350938226456,
+   "pulse_duty": 0.01875
+  },
+  {
+   "seed": 2010100006,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 5.0,
+    "k_q": 0.4,
+    "threshold": 0.8,
+    "width": 1.5707963267948966,
+    "dip": false
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 6.063200567546008,
+   "height_rmse_m": 0.10360149238746028,
+   "pitch_peak_deg": 8.73914791955165,
+   "pitch_rms_deg": 3.1911337241158564,
+   "pulse_duty": 0.00775
+  },
+  {
+   "seed": 2010100007,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 5.0,
+    "k_q": 0.4,
+    "threshold": 0.8,
+    "width": 1.5707963267948966,
+    "dip": false
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 5.917574692038333,
+   "height_rmse_m": 0.06507616963773916,
+   "pitch_peak_deg": 9.067494826217958,
+   "pitch_rms_deg": 2.9595334854243953,
+   "pulse_duty": 0.015
+  },
+  {
+   "seed": 2010100000,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 5.0,
+    "k_q": 0.4,
+    "threshold": 0.8,
+    "width": 1.5707963267948966,
+    "dip": true
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 5.747524493003341,
+   "height_rmse_m": 0.0622187454921434,
+   "pitch_peak_deg": 8.614943339747494,
+   "pitch_rms_deg": 2.617506092986548,
+   "pulse_duty": 0.01125
+  },
+  {
+   "seed": 2010100001,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 5.0,
+    "k_q": 0.4,
+    "threshold": 0.8,
+    "width": 1.5707963267948966,
+    "dip": true
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 6.123393878520007,
+   "height_rmse_m": 0.07969991384886016,
+   "pitch_peak_deg": 9.195998425665302,
+   "pitch_rms_deg": 3.4468134225199774,
+   "pulse_duty": 0.01325
+  },
+  {
+   "seed": 2010100002,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 5.0,
+    "k_q": 0.4,
+    "threshold": 0.8,
+    "width": 1.5707963267948966,
+    "dip": true
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 5.942961231349833,
+   "height_rmse_m": 0.07231419181732388,
+   "pitch_peak_deg": 8.273885113892746,
+   "pitch_rms_deg": 2.850202384888612,
+   "pulse_duty": 0.00875
+  },
+  {
+   "seed": 2010100003,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 5.0,
+    "k_q": 0.4,
+    "threshold": 0.8,
+    "width": 1.5707963267948966,
+    "dip": true
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 6.064972735644224,
+   "height_rmse_m": 0.0686241661113647,
+   "pitch_peak_deg": 8.752949337617569,
+   "pitch_rms_deg": 3.2291065637712544,
+   "pulse_duty": 0.0095
+  },
+  {
+   "seed": 2010100004,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 5.0,
+    "k_q": 0.4,
+    "threshold": 0.8,
+    "width": 1.5707963267948966,
+    "dip": true
+   },
+   "termination": "time_limit",
+   "success": false,
+   "tilt_rms_deg": 6.116638385603624,
+   "height_rmse_m": 0.29860246566511583,
+   "pitch_peak_deg": 7.80416412384492,
+   "pitch_rms_deg": 3.5541756759919005,
+   "pulse_duty": 0.01225
+  },
+  {
+   "seed": 2010100005,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 5.0,
+    "k_q": 0.4,
+    "threshold": 0.8,
+    "width": 1.5707963267948966,
+    "dip": true
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 6.14853905825962,
+   "height_rmse_m": 0.057113846283709524,
+   "pitch_peak_deg": 10.17419114223267,
+   "pitch_rms_deg": 3.9133444721713793,
+   "pulse_duty": 0.0155
+  },
+  {
+   "seed": 2010100006,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 5.0,
+    "k_q": 0.4,
+    "threshold": 0.8,
+    "width": 1.5707963267948966,
+    "dip": true
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 6.1095195395072475,
+   "height_rmse_m": 0.1035375998559004,
+   "pitch_peak_deg": 8.891895461242122,
+   "pitch_rms_deg": 3.2660830412413735,
+   "pulse_duty": 0.00775
+  },
+  {
+   "seed": 2010100007,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 5.0,
+    "k_q": 0.4,
+    "threshold": 0.8,
+    "width": 1.5707963267948966,
+    "dip": true
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 5.974532220644732,
+   "height_rmse_m": 0.0640563467045944,
+   "pitch_peak_deg": 8.623550875463796,
+   "pitch_rms_deg": 3.1121976999973793,
+   "pulse_duty": 0.0135
+  },
+  {
+   "seed": 2010100000,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 5.0,
+    "k_q": 0.4,
+    "threshold": 1.2,
+    "width": 1.0471975511965976,
+    "dip": false
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 7.191127426001662,
+   "height_rmse_m": 0.06108127158862009,
+   "pitch_peak_deg": 11.834085940011947,
+   "pitch_rms_deg": 5.0672194753626965,
+   "pulse_duty": 0.00525
+  },
+  {
+   "seed": 2010100001,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 5.0,
+    "k_q": 0.4,
+    "threshold": 1.2,
+    "width": 1.0471975511965976,
+    "dip": false
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 7.672285285560466,
+   "height_rmse_m": 0.0628050406491594,
+   "pitch_peak_deg": 11.110733254335337,
+   "pitch_rms_deg": 5.808122831411949,
+   "pulse_duty": 0.005
+  },
+  {
+   "seed": 2010100002,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 5.0,
+    "k_q": 0.4,
+    "threshold": 1.2,
+    "width": 1.0471975511965976,
+    "dip": false
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 7.056100378871442,
+   "height_rmse_m": 0.07289345870890565,
+   "pitch_peak_deg": 10.145934058514888,
+   "pitch_rms_deg": 4.766844766047775,
+   "pulse_duty": 0.00375
+  },
+  {
+   "seed": 2010100003,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 5.0,
+    "k_q": 0.4,
+    "threshold": 1.2,
+    "width": 1.0471975511965976,
+    "dip": false
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 6.79715108137975,
+   "height_rmse_m": 0.06873285231662551,
+   "pitch_peak_deg": 10.177001583570584,
+   "pitch_rms_deg": 4.502148691429019,
+   "pulse_duty": 0.0045
+  },
+  {
+   "seed": 2010100004,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 5.0,
+    "k_q": 0.4,
+    "threshold": 1.2,
+    "width": 1.0471975511965976,
+    "dip": false
+   },
+   "termination": "time_limit",
+   "success": false,
+   "tilt_rms_deg": 7.585729478827495,
+   "height_rmse_m": 0.1765549824428618,
+   "pitch_peak_deg": 10.721626849381632,
+   "pitch_rms_deg": 5.693868289296139,
+   "pulse_duty": 0.00675
+  },
+  {
+   "seed": 2010100005,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 5.0,
+    "k_q": 0.4,
+    "threshold": 1.2,
+    "width": 1.0471975511965976,
+    "dip": false
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 7.985457036006847,
+   "height_rmse_m": 0.056039027661781066,
+   "pitch_peak_deg": 12.68185215375985,
+   "pitch_rms_deg": 6.431423219807933,
+   "pulse_duty": 0.008
+  },
+  {
+   "seed": 2010100006,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 5.0,
+    "k_q": 0.4,
+    "threshold": 1.2,
+    "width": 1.0471975511965976,
+    "dip": false
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 7.073845939703805,
+   "height_rmse_m": 0.09371216465015626,
+   "pitch_peak_deg": 10.346714944185624,
+   "pitch_rms_deg": 4.7995308989222,
+   "pulse_duty": 0.00275
+  },
+  {
+   "seed": 2010100007,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 5.0,
+    "k_q": 0.4,
+    "threshold": 1.2,
+    "width": 1.0471975511965976,
+    "dip": false
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 7.146349205810967,
+   "height_rmse_m": 0.06166451780385542,
+   "pitch_peak_deg": 12.414476828526452,
+   "pitch_rms_deg": 5.014782120667769,
+   "pulse_duty": 0.0055
+  },
+  {
+   "seed": 2010100000,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 5.0,
+    "k_q": 0.4,
+    "threshold": 1.2,
+    "width": 1.0471975511965976,
+    "dip": true
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 6.944297532047466,
+   "height_rmse_m": 0.06101199849823693,
+   "pitch_peak_deg": 10.945648554779657,
+   "pitch_rms_deg": 4.695833507787298,
+   "pulse_duty": 0.00375
+  },
+  {
+   "seed": 2010100001,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 5.0,
+    "k_q": 0.4,
+    "threshold": 1.2,
+    "width": 1.0471975511965976,
+    "dip": true
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 7.7991194044271825,
+   "height_rmse_m": 0.06248022160225301,
+   "pitch_peak_deg": 11.18447152085171,
+   "pitch_rms_deg": 5.966604124096759,
+   "pulse_duty": 0.00475
+  },
+  {
+   "seed": 2010100002,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 5.0,
+    "k_q": 0.4,
+    "threshold": 1.2,
+    "width": 1.0471975511965976,
+    "dip": true
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 6.878186811521682,
+   "height_rmse_m": 0.07298023679518846,
+   "pitch_peak_deg": 9.766883783666989,
+   "pitch_rms_deg": 4.4927316505281265,
+   "pulse_duty": 0.003
+  },
+  {
+   "seed": 2010100003,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 5.0,
+    "k_q": 0.4,
+    "threshold": 1.2,
+    "width": 1.0471975511965976,
+    "dip": true
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 6.763915729022902,
+   "height_rmse_m": 0.0688014535222053,
+   "pitch_peak_deg": 9.913159216263042,
+   "pitch_rms_deg": 4.430321665648402,
+   "pulse_duty": 0.0035
+  },
+  {
+   "seed": 2010100004,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 5.0,
+    "k_q": 0.4,
+    "threshold": 1.2,
+    "width": 1.0471975511965976,
+    "dip": true
+   },
+   "termination": "time_limit",
+   "success": false,
+   "tilt_rms_deg": 7.5687118760796555,
+   "height_rmse_m": 0.17649731578056937,
+   "pitch_peak_deg": 10.721626849381632,
+   "pitch_rms_deg": 5.671161232746833,
+   "pulse_duty": 0.006
+  },
+  {
+   "seed": 2010100005,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 5.0,
+    "k_q": 0.4,
+    "threshold": 1.2,
+    "width": 1.0471975511965976,
+    "dip": true
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 7.199054840468545,
+   "height_rmse_m": 0.05611514125360689,
+   "pitch_peak_deg": 12.033998962981672,
+   "pitch_rms_deg": 5.425004344776547,
+   "pulse_duty": 0.0075
+  },
+  {
+   "seed": 2010100006,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 5.0,
+    "k_q": 0.4,
+    "threshold": 1.2,
+    "width": 1.0471975511965976,
+    "dip": true
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 7.033424239465707,
+   "height_rmse_m": 0.0936950359322128,
+   "pitch_peak_deg": 10.173520854906208,
+   "pitch_rms_deg": 4.739904517591287,
+   "pulse_duty": 0.00275
+  },
+  {
+   "seed": 2010100007,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 5.0,
+    "k_q": 0.4,
+    "threshold": 1.2,
+    "width": 1.0471975511965976,
+    "dip": true
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 7.074350495074479,
+   "height_rmse_m": 0.061569907264490166,
+   "pitch_peak_deg": 11.979018330312654,
+   "pitch_rms_deg": 4.895096325520768,
+   "pulse_duty": 0.00525
+  },
+  {
+   "seed": 2010100000,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 5.0,
+    "k_q": 0.4,
+    "threshold": 1.2,
+    "width": 1.5707963267948966,
+    "dip": false
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 7.221952837332141,
+   "height_rmse_m": 0.061093494297853275,
+   "pitch_peak_deg": 11.075740753225972,
+   "pitch_rms_deg": 5.100552172646516,
+   "pulse_duty": 0.00575
+  },
+  {
+   "seed": 2010100001,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 5.0,
+    "k_q": 0.4,
+    "threshold": 1.2,
+    "width": 1.5707963267948966,
+    "dip": false
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 7.4845354675677065,
+   "height_rmse_m": 0.06308240202370595,
+   "pitch_peak_deg": 11.042271534579942,
+   "pitch_rms_deg": 5.555429595206076,
+   "pulse_duty": 0.0055
+  },
+  {
+   "seed": 2010100002,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 5.0,
+    "k_q": 0.4,
+    "threshold": 1.2,
+    "width": 1.5707963267948966,
+    "dip": false
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 7.214932429272616,
+   "height_rmse_m": 0.07289205276491915,
+   "pitch_peak_deg": 10.252057209923414,
+   "pitch_rms_deg": 4.9941541304272725,
+   "pulse_duty": 0.00425
+  },
+  {
+   "seed": 2010100003,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 5.0,
+    "k_q": 0.4,
+    "threshold": 1.2,
+    "width": 1.5707963267948966,
+    "dip": false
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 7.103957852415027,
+   "height_rmse_m": 0.06878352577887416,
+   "pitch_peak_deg": 10.179242692893508,
+   "pitch_rms_deg": 4.921790167502578,
+   "pulse_duty": 0.00475
+  },
+  {
+   "seed": 2010100004,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 5.0,
+    "k_q": 0.4,
+    "threshold": 1.2,
+    "width": 1.5707963267948966,
+    "dip": false
+   },
+   "termination": "time_limit",
+   "success": false,
+   "tilt_rms_deg": 7.651204141573305,
+   "height_rmse_m": 0.18602620781307752,
+   "pitch_peak_deg": 11.503567124618547,
+   "pitch_rms_deg": 5.785625989281976,
+   "pulse_duty": 0.00825
+  },
+  {
+   "seed": 2010100005,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 5.0,
+    "k_q": 0.4,
+    "threshold": 1.2,
+    "width": 1.5707963267948966,
+    "dip": false
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 7.315844169259442,
+   "height_rmse_m": 0.056706963103465055,
+   "pitch_peak_deg": 11.54794479826589,
+   "pitch_rms_deg": 5.573007253496427,
+   "pulse_duty": 0.01275
+  },
+  {
+   "seed": 2010100006,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 5.0,
+    "k_q": 0.4,
+    "threshold": 1.2,
+    "width": 1.5707963267948966,
+    "dip": false
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 6.861626932868906,
+   "height_rmse_m": 0.09415216172541584,
+   "pitch_peak_deg": 9.392919363380562,
+   "pitch_rms_deg": 4.502435409959051,
+   "pulse_duty": 0.00375
+  },
+  {
+   "seed": 2010100007,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 5.0,
+    "k_q": 0.4,
+    "threshold": 1.2,
+    "width": 1.5707963267948966,
+    "dip": false
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 7.266815581073894,
+   "height_rmse_m": 0.061582439801447425,
+   "pitch_peak_deg": 11.40329354858664,
+   "pitch_rms_deg": 5.1945677540016355,
+   "pulse_duty": 0.007
+  },
+  {
+   "seed": 2010100000,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 5.0,
+    "k_q": 0.4,
+    "threshold": 1.2,
+    "width": 1.5707963267948966,
+    "dip": true
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 7.098287146419575,
+   "height_rmse_m": 0.06095066787231645,
+   "pitch_peak_deg": 10.720667724053738,
+   "pitch_rms_deg": 4.896051930170287,
+   "pulse_duty": 0.0035
+  },
+  {
+   "seed": 2010100001,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 5.0,
+    "k_q": 0.4,
+    "threshold": 1.2,
+    "width": 1.5707963267948966,
+    "dip": true
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 7.265440673250863,
+   "height_rmse_m": 0.06276059257086185,
+   "pitch_peak_deg": 10.741408714552877,
+   "pitch_rms_deg": 5.252361012722015,
+   "pulse_duty": 0.00475
+  },
+  {
+   "seed": 2010100002,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 5.0,
+    "k_q": 0.4,
+    "threshold": 1.2,
+    "width": 1.5707963267948966,
+    "dip": true
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 7.031836142593636,
+   "height_rmse_m": 0.07293789208916131,
+   "pitch_peak_deg": 9.2671808946049,
+   "pitch_rms_deg": 4.710275341293527,
+   "pulse_duty": 0.00425
+  },
+  {
+   "seed": 2010100003,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 5.0,
+    "k_q": 0.4,
+    "threshold": 1.2,
+    "width": 1.5707963267948966,
+    "dip": true
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 7.0086877452396,
+   "height_rmse_m": 0.06887018131314175,
+   "pitch_peak_deg": 9.82979568730767,
+   "pitch_rms_deg": 4.768056357539111,
+   "pulse_duty": 0.00375
+  },
+  {
+   "seed": 2010100004,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 5.0,
+    "k_q": 0.4,
+    "threshold": 1.2,
+    "width": 1.5707963267948966,
+    "dip": true
+   },
+   "termination": "time_limit",
+   "success": false,
+   "tilt_rms_deg": 7.605847796779785,
+   "height_rmse_m": 0.1859618607322758,
+   "pitch_peak_deg": 11.503567124618547,
+   "pitch_rms_deg": 5.725600898116215,
+   "pulse_duty": 0.0075
+  },
+  {
+   "seed": 2010100005,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 5.0,
+    "k_q": 0.4,
+    "threshold": 1.2,
+    "width": 1.5707963267948966,
+    "dip": true
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 7.314636563890367,
+   "height_rmse_m": 0.05615335146000376,
+   "pitch_peak_deg": 11.956428257154737,
+   "pitch_rms_deg": 5.556796478821265,
+   "pulse_duty": 0.0085
+  },
+  {
+   "seed": 2010100006,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 5.0,
+    "k_q": 0.4,
+    "threshold": 1.2,
+    "width": 1.5707963267948966,
+    "dip": true
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 6.852180458270316,
+   "height_rmse_m": 0.09412355718444146,
+   "pitch_peak_deg": 9.325331956497076,
+   "pitch_rms_deg": 4.4849808009768,
+   "pulse_duty": 0.00375
+  },
+  {
+   "seed": 2010100007,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 5.0,
+    "k_q": 0.4,
+    "threshold": 1.2,
+    "width": 1.5707963267948966,
+    "dip": true
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 7.404751786038006,
+   "height_rmse_m": 0.06121433361692381,
+   "pitch_peak_deg": 11.362238184248913,
+   "pitch_rms_deg": 5.376981290460197,
+   "pulse_duty": 0.00675
+  },
+  {
+   "seed": 2010100000,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 3.0,
+    "k_q": 0.3,
+    "threshold": 0.5,
+    "width": 1.0471975511965976,
+    "dip": false
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 6.14367040644076,
+   "height_rmse_m": 0.06171413539106202,
+   "pitch_peak_deg": 9.659179983472988,
+   "pitch_rms_deg": 3.418871809696359,
+   "pulse_duty": 0.008
+  },
+  {
+   "seed": 2010100001,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 3.0,
+    "k_q": 0.3,
+    "threshold": 0.5,
+    "width": 1.0471975511965976,
+    "dip": false
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 6.168539937447613,
+   "height_rmse_m": 0.07464877513487343,
+   "pitch_peak_deg": 8.476689227398339,
+   "pitch_rms_deg": 3.5520863694224105,
+   "pulse_duty": 0.0135
+  },
+  {
+   "seed": 2010100002,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 3.0,
+    "k_q": 0.3,
+    "threshold": 0.5,
+    "width": 1.0471975511965976,
+    "dip": false
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 6.184285829920998,
+   "height_rmse_m": 0.07234461191991332,
+   "pitch_peak_deg": 7.989780215763379,
+   "pitch_rms_deg": 3.374826569005478,
+   "pulse_duty": 0.0075
+  },
+  {
+   "seed": 2010100003,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 3.0,
+    "k_q": 0.3,
+    "threshold": 0.5,
+    "width": 1.0471975511965976,
+    "dip": false
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 6.280275767355317,
+   "height_rmse_m": 0.0688169513317853,
+   "pitch_peak_deg": 9.068015453728414,
+   "pitch_rms_deg": 3.676809363258491,
+   "pulse_duty": 0.0105
+  },
+  {
+   "seed": 2010100004,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 3.0,
+    "k_q": 0.3,
+    "threshold": 0.5,
+    "width": 1.0471975511965976,
+    "dip": false
+   },
+   "termination": "time_limit",
+   "success": false,
+   "tilt_rms_deg": 6.393306791026395,
+   "height_rmse_m": 0.31179810872757585,
+   "pitch_peak_deg": 10.182974304605306,
+   "pitch_rms_deg": 3.956048932808666,
+   "pulse_duty": 0.0125
+  },
+  {
+   "seed": 2010100005,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 3.0,
+    "k_q": 0.3,
+    "threshold": 0.5,
+    "width": 1.0471975511965976,
+    "dip": false
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 6.408625842083294,
+   "height_rmse_m": 0.05833727189965951,
+   "pitch_peak_deg": 9.358723851767824,
+   "pitch_rms_deg": 4.290422562358492,
+   "pulse_duty": 0.01825
+  },
+  {
+   "seed": 2010100006,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 3.0,
+    "k_q": 0.3,
+    "threshold": 0.5,
+    "width": 1.0471975511965976,
+    "dip": false
+   },
+   "termination": "time_limit",
+   "success": false,
+   "tilt_rms_deg": 6.221548115796929,
+   "height_rmse_m": 0.11354296828504509,
+   "pitch_peak_deg": 9.876780250234422,
+   "pitch_rms_deg": 3.4638793993877717,
+   "pulse_duty": 0.00825
+  },
+  {
+   "seed": 2010100007,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 3.0,
+    "k_q": 0.3,
+    "threshold": 0.5,
+    "width": 1.0471975511965976,
+    "dip": false
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 6.3688326227734295,
+   "height_rmse_m": 0.06437731831341512,
+   "pitch_peak_deg": 9.50775832593054,
+   "pitch_rms_deg": 3.821143501346015,
+   "pulse_duty": 0.01525
+  },
+  {
+   "seed": 2010100000,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 3.0,
+    "k_q": 0.3,
+    "threshold": 0.5,
+    "width": 1.0471975511965976,
+    "dip": true
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 6.114876514552288,
+   "height_rmse_m": 0.06204228150099304,
+   "pitch_peak_deg": 8.914898494561063,
+   "pitch_rms_deg": 3.3807829544243617,
+   "pulse_duty": 0.0105
+  },
+  {
+   "seed": 2010100001,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 3.0,
+    "k_q": 0.3,
+    "threshold": 0.5,
+    "width": 1.0471975511965976,
+    "dip": true
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 6.289658986904733,
+   "height_rmse_m": 0.07408475155058022,
+   "pitch_peak_deg": 8.476689227398339,
+   "pitch_rms_deg": 3.770332119611633,
+   "pulse_duty": 0.01175
+  },
+  {
+   "seed": 2010100002,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 3.0,
+    "k_q": 0.3,
+    "threshold": 0.5,
+    "width": 1.0471975511965976,
+    "dip": true
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 6.187179217889578,
+   "height_rmse_m": 0.07247951130955214,
+   "pitch_peak_deg": 7.819697874990505,
+   "pitch_rms_deg": 3.3458806202670717,
+   "pulse_duty": 0.0065
+  },
+  {
+   "seed": 2010100003,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 3.0,
+    "k_q": 0.3,
+    "threshold": 0.5,
+    "width": 1.0471975511965976,
+    "dip": true
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 6.1881952048544635,
+   "height_rmse_m": 0.06866681664684626,
+   "pitch_peak_deg": 9.599456634591112,
+   "pitch_rms_deg": 3.4870827399516227,
+   "pulse_duty": 0.008
+  },
+  {
+   "seed": 2010100004,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 3.0,
+    "k_q": 0.3,
+    "threshold": 0.5,
+    "width": 1.0471975511965976,
+    "dip": true
+   },
+   "termination": "time_limit",
+   "success": false,
+   "tilt_rms_deg": 6.393306791026395,
+   "height_rmse_m": 0.31179810872757585,
+   "pitch_peak_deg": 10.182974304605306,
+   "pitch_rms_deg": 3.956048932808666,
+   "pulse_duty": 0.0125
+  },
+  {
+   "seed": 2010100005,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 3.0,
+    "k_q": 0.3,
+    "threshold": 0.5,
+    "width": 1.0471975511965976,
+    "dip": true
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 6.530486489741709,
+   "height_rmse_m": 0.05692425731066209,
+   "pitch_peak_deg": 9.76625238128884,
+   "pitch_rms_deg": 4.459398511359972,
+   "pulse_duty": 0.01225
+  },
+  {
+   "seed": 2010100006,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 3.0,
+    "k_q": 0.3,
+    "threshold": 0.5,
+    "width": 1.0471975511965976,
+    "dip": true
+   },
+   "termination": "time_limit",
+   "success": false,
+   "tilt_rms_deg": 6.225587048851441,
+   "height_rmse_m": 0.11360364099031786,
+   "pitch_peak_deg": 9.876780250234422,
+   "pitch_rms_deg": 3.4571321815302642,
+   "pulse_duty": 0.00875
+  },
+  {
+   "seed": 2010100007,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 3.0,
+    "k_q": 0.3,
+    "threshold": 0.5,
+    "width": 1.0471975511965976,
+    "dip": true
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 6.331435845176254,
+   "height_rmse_m": 0.06349624557900987,
+   "pitch_peak_deg": 10.478563255141903,
+   "pitch_rms_deg": 3.7353963275507227,
+   "pulse_duty": 0.01225
+  },
+  {
+   "seed": 2010100000,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 3.0,
+    "k_q": 0.3,
+    "threshold": 0.5,
+    "width": 1.5707963267948966,
+    "dip": false
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 5.854326136753338,
+   "height_rmse_m": 0.06236165546715881,
+   "pitch_peak_deg": 9.253538687482294,
+   "pitch_rms_deg": 2.872078974684299,
+   "pulse_duty": 0.0115
+  },
+  {
+   "seed": 2010100001,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 3.0,
+    "k_q": 0.3,
+    "threshold": 0.5,
+    "width": 1.5707963267948966,
+    "dip": false
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 6.063217130909407,
+   "height_rmse_m": 0.07419471176772888,
+   "pitch_peak_deg": 9.346255478887725,
+   "pitch_rms_deg": 3.38679445890676,
+   "pulse_duty": 0.01125
+  },
+  {
+   "seed": 2010100002,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 3.0,
+    "k_q": 0.3,
+    "threshold": 0.5,
+    "width": 1.5707963267948966,
+    "dip": false
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 6.330764155108872,
+   "height_rmse_m": 0.07231096449367347,
+   "pitch_peak_deg": 8.420461179613461,
+   "pitch_rms_deg": 3.6553356034506193,
+   "pulse_duty": 0.00825
+  },
+  {
+   "seed": 2010100003,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 3.0,
+    "k_q": 0.3,
+    "threshold": 0.5,
+    "width": 1.5707963267948966,
+    "dip": false
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 6.109238875003249,
+   "height_rmse_m": 0.06873395547008367,
+   "pitch_peak_deg": 8.799419878138886,
+   "pitch_rms_deg": 3.3649704208007805,
+   "pulse_duty": 0.011
+  },
+  {
+   "seed": 2010100004,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 3.0,
+    "k_q": 0.3,
+    "threshold": 0.5,
+    "width": 1.5707963267948966,
+    "dip": false
+   },
+   "termination": "time_limit",
+   "success": false,
+   "tilt_rms_deg": 5.844165530265511,
+   "height_rmse_m": 0.34445888883539616,
+   "pitch_peak_deg": 7.255933350947059,
+   "pitch_rms_deg": 3.0127416432170975,
+   "pulse_duty": 0.01425
+  },
+  {
+   "seed": 2010100005,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 3.0,
+    "k_q": 0.3,
+    "threshold": 0.5,
+    "width": 1.5707963267948966,
+    "dip": false
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 5.826802810157169,
+   "height_rmse_m": 0.058544334779819414,
+   "pitch_peak_deg": 8.368914048764301,
+   "pitch_rms_deg": 3.343443695994648,
+   "pulse_duty": 0.018
+  },
+  {
+   "seed": 2010100006,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 3.0,
+    "k_q": 0.3,
+    "threshold": 0.5,
+    "width": 1.5707963267948966,
+    "dip": false
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 6.05380625611423,
+   "height_rmse_m": 0.10450239435624399,
+   "pitch_peak_deg": 9.224933083592218,
+   "pitch_rms_deg": 3.169039595912135,
+   "pulse_duty": 0.00825
+  },
+  {
+   "seed": 2010100007,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 3.0,
+    "k_q": 0.3,
+    "threshold": 0.5,
+    "width": 1.5707963267948966,
+    "dip": false
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 5.985629988199881,
+   "height_rmse_m": 0.06617836842784541,
+   "pitch_peak_deg": 8.613927561332067,
+   "pitch_rms_deg": 3.0907810499370525,
+   "pulse_duty": 0.019
+  },
+  {
+   "seed": 2010100000,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 3.0,
+    "k_q": 0.3,
+    "threshold": 0.5,
+    "width": 1.5707963267948966,
+    "dip": true
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 5.738160943365552,
+   "height_rmse_m": 0.062209687505614765,
+   "pitch_peak_deg": 8.471198975953666,
+   "pitch_rms_deg": 2.5843266534105784,
+   "pulse_duty": 0.0115
+  },
+  {
+   "seed": 2010100001,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 3.0,
+    "k_q": 0.3,
+    "threshold": 0.5,
+    "width": 1.5707963267948966,
+    "dip": true
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 6.016739019945,
+   "height_rmse_m": 0.07413324598782459,
+   "pitch_peak_deg": 8.920713043281154,
+   "pitch_rms_deg": 3.2971914007349246,
+   "pulse_duty": 0.01125
+  },
+  {
+   "seed": 2010100002,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 3.0,
+    "k_q": 0.3,
+    "threshold": 0.5,
+    "width": 1.5707963267948966,
+    "dip": true
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 6.104118539336684,
+   "height_rmse_m": 0.07238499708372638,
+   "pitch_peak_deg": 8.635925041484663,
+   "pitch_rms_deg": 3.1640830297456493,
+   "pulse_duty": 0.00875
+  },
+  {
+   "seed": 2010100003,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 3.0,
+    "k_q": 0.3,
+    "threshold": 0.5,
+    "width": 1.5707963267948966,
+    "dip": true
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 6.059172158523376,
+   "height_rmse_m": 0.06862370362414469,
+   "pitch_peak_deg": 8.262481415673346,
+   "pitch_rms_deg": 3.2375365685487116,
+   "pulse_duty": 0.00925
+  },
+  {
+   "seed": 2010100004,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 3.0,
+    "k_q": 0.3,
+    "threshold": 0.5,
+    "width": 1.5707963267948966,
+    "dip": true
+   },
+   "termination": "time_limit",
+   "success": false,
+   "tilt_rms_deg": 5.844165530265511,
+   "height_rmse_m": 0.34445888883539616,
+   "pitch_peak_deg": 7.255933350947059,
+   "pitch_rms_deg": 3.0127416432170975,
+   "pulse_duty": 0.01425
+  },
+  {
+   "seed": 2010100005,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 3.0,
+    "k_q": 0.3,
+    "threshold": 0.5,
+    "width": 1.5707963267948966,
+    "dip": true
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 5.823174121355324,
+   "height_rmse_m": 0.05806550189876101,
+   "pitch_peak_deg": 9.92469992723049,
+   "pitch_rms_deg": 3.321784492017488,
+   "pulse_duty": 0.01625
+  },
+  {
+   "seed": 2010100006,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 3.0,
+    "k_q": 0.3,
+    "threshold": 0.5,
+    "width": 1.5707963267948966,
+    "dip": true
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 6.0737081019315795,
+   "height_rmse_m": 0.10436793912093889,
+   "pitch_peak_deg": 8.527003662314089,
+   "pitch_rms_deg": 3.19046600081922,
+   "pulse_duty": 0.008
+  },
+  {
+   "seed": 2010100007,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 3.0,
+    "k_q": 0.3,
+    "threshold": 0.5,
+    "width": 1.5707963267948966,
+    "dip": true
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 5.955896978547147,
+   "height_rmse_m": 0.06465611572641303,
+   "pitch_peak_deg": 8.53550231820033,
+   "pitch_rms_deg": 2.9916242008900347,
+   "pulse_duty": 0.01475
+  },
+  {
+   "seed": 2010100000,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 3.0,
+    "k_q": 0.3,
+    "threshold": 0.8,
+    "width": 1.0471975511965976,
+    "dip": false
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 7.203683924749185,
+   "height_rmse_m": 0.061083325813079146,
+   "pitch_peak_deg": 11.906504994940219,
+   "pitch_rms_deg": 5.089770064046515,
+   "pulse_duty": 0.0055
+  },
+  {
+   "seed": 2010100001,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 3.0,
+    "k_q": 0.3,
+    "threshold": 0.8,
+    "width": 1.0471975511965976,
+    "dip": false
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 7.739374383065613,
+   "height_rmse_m": 0.06286584431042365,
+   "pitch_peak_deg": 11.110733254335337,
+   "pitch_rms_deg": 5.902601028768404,
+   "pulse_duty": 0.00525
+  },
+  {
+   "seed": 2010100002,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 3.0,
+    "k_q": 0.3,
+    "threshold": 0.8,
+    "width": 1.0471975511965976,
+    "dip": false
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 7.405350172763509,
+   "height_rmse_m": 0.07282289435725468,
+   "pitch_peak_deg": 10.944783275379383,
+   "pitch_rms_deg": 5.270728541343662,
+   "pulse_duty": 0.005
+  },
+  {
+   "seed": 2010100003,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 3.0,
+    "k_q": 0.3,
+    "threshold": 0.8,
+    "width": 1.0471975511965976,
+    "dip": false
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 7.163058155499612,
+   "height_rmse_m": 0.06878028006740199,
+   "pitch_peak_deg": 10.68079653394493,
+   "pitch_rms_deg": 5.021242337940525,
+   "pulse_duty": 0.0045
+  },
+  {
+   "seed": 2010100004,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 3.0,
+    "k_q": 0.3,
+    "threshold": 0.8,
+    "width": 1.0471975511965976,
+    "dip": false
+   },
+   "termination": "time_limit",
+   "success": false,
+   "tilt_rms_deg": 7.765831256319312,
+   "height_rmse_m": 0.1432650240535627,
+   "pitch_peak_deg": 11.389901992697752,
+   "pitch_rms_deg": 5.95541816393703,
+   "pulse_duty": 0.0045
+  },
+  {
+   "seed": 2010100005,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 3.0,
+    "k_q": 0.3,
+    "threshold": 0.8,
+    "width": 1.0471975511965976,
+    "dip": false
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 7.563322585403539,
+   "height_rmse_m": 0.05621419678122896,
+   "pitch_peak_deg": 12.313479416352546,
+   "pitch_rms_deg": 5.9115194339424955,
+   "pulse_duty": 0.00825
+  },
+  {
+   "seed": 2010100006,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 3.0,
+    "k_q": 0.3,
+    "threshold": 0.8,
+    "width": 1.0471975511965976,
+    "dip": false
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 7.073845939703805,
+   "height_rmse_m": 0.09371216465015626,
+   "pitch_peak_deg": 10.346714944185624,
+   "pitch_rms_deg": 4.7995308989222,
+   "pulse_duty": 0.00275
+  },
+  {
+   "seed": 2010100007,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 3.0,
+    "k_q": 0.3,
+    "threshold": 0.8,
+    "width": 1.0471975511965976,
+    "dip": false
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 7.2767846523727115,
+   "height_rmse_m": 0.06162253217742192,
+   "pitch_peak_deg": 11.228587222389592,
+   "pitch_rms_deg": 5.197434634736572,
+   "pulse_duty": 0.00575
+  },
+  {
+   "seed": 2010100000,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 3.0,
+    "k_q": 0.3,
+    "threshold": 0.8,
+    "width": 1.0471975511965976,
+    "dip": true
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 7.054323261974208,
+   "height_rmse_m": 0.06106176136424503,
+   "pitch_peak_deg": 11.335106643156069,
+   "pitch_rms_deg": 4.867939407824765,
+   "pulse_duty": 0.005
+  },
+  {
+   "seed": 2010100001,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 3.0,
+    "k_q": 0.3,
+    "threshold": 0.8,
+    "width": 1.0471975511965976,
+    "dip": true
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 7.8012640440688745,
+   "height_rmse_m": 0.06247695509486639,
+   "pitch_peak_deg": 11.18447152085171,
+   "pitch_rms_deg": 5.970384021564952,
+   "pulse_duty": 0.00475
+  },
+  {
+   "seed": 2010100002,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 3.0,
+    "k_q": 0.3,
+    "threshold": 0.8,
+    "width": 1.0471975511965976,
+    "dip": true
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 7.227871249125972,
+   "height_rmse_m": 0.07295592551012053,
+   "pitch_peak_deg": 10.106641846388461,
+   "pitch_rms_deg": 5.005724577086163,
+   "pulse_duty": 0.004
+  },
+  {
+   "seed": 2010100003,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 3.0,
+    "k_q": 0.3,
+    "threshold": 0.8,
+    "width": 1.0471975511965976,
+    "dip": true
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 7.360975571979153,
+   "height_rmse_m": 0.06886463672690686,
+   "pitch_peak_deg": 11.1378256370253,
+   "pitch_rms_deg": 5.273626992566099,
+   "pulse_duty": 0.00475
+  },
+  {
+   "seed": 2010100004,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 3.0,
+    "k_q": 0.3,
+    "threshold": 0.8,
+    "width": 1.0471975511965976,
+    "dip": true
+   },
+   "termination": "time_limit",
+   "success": false,
+   "tilt_rms_deg": 7.732971973669352,
+   "height_rmse_m": 0.14324547047203873,
+   "pitch_peak_deg": 11.330172663515706,
+   "pitch_rms_deg": 5.913809708480797,
+   "pulse_duty": 0.0045
+  },
+  {
+   "seed": 2010100005,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 3.0,
+    "k_q": 0.3,
+    "threshold": 0.8,
+    "width": 1.0471975511965976,
+    "dip": true
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 7.775605262017446,
+   "height_rmse_m": 0.05591884784077031,
+   "pitch_peak_deg": 12.296115188541565,
+   "pitch_rms_deg": 6.163556920400457,
+   "pulse_duty": 0.00625
+  },
+  {
+   "seed": 2010100006,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 3.0,
+    "k_q": 0.3,
+    "threshold": 0.8,
+    "width": 1.0471975511965976,
+    "dip": true
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 7.046349869997807,
+   "height_rmse_m": 0.09368751867645411,
+   "pitch_peak_deg": 10.173520854906208,
+   "pitch_rms_deg": 4.758609835833785,
+   "pulse_duty": 0.00275
+  },
+  {
+   "seed": 2010100007,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 3.0,
+    "k_q": 0.3,
+    "threshold": 0.8,
+    "width": 1.0471975511965976,
+    "dip": true
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 7.319357506035866,
+   "height_rmse_m": 0.061439592882831295,
+   "pitch_peak_deg": 10.806781148621164,
+   "pitch_rms_deg": 5.2598526678173565,
+   "pulse_duty": 0.0055
+  },
+  {
+   "seed": 2010100000,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 3.0,
+    "k_q": 0.3,
+    "threshold": 0.8,
+    "width": 1.5707963267948966,
+    "dip": false
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 7.553973749179052,
+   "height_rmse_m": 0.06113755609672983,
+   "pitch_peak_deg": 11.694717858909552,
+   "pitch_rms_deg": 5.560999240431879,
+   "pulse_duty": 0.00725
+  },
+  {
+   "seed": 2010100001,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 3.0,
+    "k_q": 0.3,
+    "threshold": 0.8,
+    "width": 1.5707963267948966,
+    "dip": false
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 7.206523475650647,
+   "height_rmse_m": 0.0636886106517625,
+   "pitch_peak_deg": 11.042271534579942,
+   "pitch_rms_deg": 5.172987496877263,
+   "pulse_duty": 0.00625
+  },
+  {
+   "seed": 2010100002,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 3.0,
+    "k_q": 0.3,
+    "threshold": 0.8,
+    "width": 1.5707963267948966,
+    "dip": false
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 6.9667658117050655,
+   "height_rmse_m": 0.07290541801189294,
+   "pitch_peak_deg": 9.87908936753513,
+   "pitch_rms_deg": 4.625355823126535,
+   "pulse_duty": 0.0035
+  },
+  {
+   "seed": 2010100003,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 3.0,
+    "k_q": 0.3,
+    "threshold": 0.8,
+    "width": 1.5707963267948966,
+    "dip": false
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 7.121261069522153,
+   "height_rmse_m": 0.06872466846618455,
+   "pitch_peak_deg": 10.408340270004594,
+   "pitch_rms_deg": 4.949981804496757,
+   "pulse_duty": 0.00625
+  },
+  {
+   "seed": 2010100004,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 3.0,
+    "k_q": 0.3,
+    "threshold": 0.8,
+    "width": 1.5707963267948966,
+    "dip": false
+   },
+   "termination": "time_limit",
+   "success": false,
+   "tilt_rms_deg": 7.11998232250909,
+   "height_rmse_m": 0.17916498087066543,
+   "pitch_peak_deg": 11.19731030799491,
+   "pitch_rms_deg": 5.107286249669691,
+   "pulse_duty": 0.009
+  },
+  {
+   "seed": 2010100005,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 3.0,
+    "k_q": 0.3,
+    "threshold": 0.8,
+    "width": 1.5707963267948966,
+    "dip": false
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 7.5998269234201015,
+   "height_rmse_m": 0.05670459493133714,
+   "pitch_peak_deg": 12.929706616983117,
+   "pitch_rms_deg": 5.941288868649626,
+   "pulse_duty": 0.013
+  },
+  {
+   "seed": 2010100006,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 3.0,
+    "k_q": 0.3,
+    "threshold": 0.8,
+    "width": 1.5707963267948966,
+    "dip": false
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 6.861626932868906,
+   "height_rmse_m": 0.09415216172541584,
+   "pitch_peak_deg": 9.392919363380562,
+   "pitch_rms_deg": 4.502435409959051,
+   "pulse_duty": 0.00375
+  },
+  {
+   "seed": 2010100007,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 3.0,
+    "k_q": 0.3,
+    "threshold": 0.8,
+    "width": 1.5707963267948966,
+    "dip": false
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 6.986530129700363,
+   "height_rmse_m": 0.06200014410929711,
+   "pitch_peak_deg": 11.998311302814393,
+   "pitch_rms_deg": 4.800630266758206,
+   "pulse_duty": 0.007
+  },
+  {
+   "seed": 2010100000,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 3.0,
+    "k_q": 0.3,
+    "threshold": 0.8,
+    "width": 1.5707963267948966,
+    "dip": true
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 7.1916013854797995,
+   "height_rmse_m": 0.06100358207849775,
+   "pitch_peak_deg": 10.538972611374312,
+   "pitch_rms_deg": 5.038982640361736,
+   "pulse_duty": 0.0045
+  },
+  {
+   "seed": 2010100001,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 3.0,
+    "k_q": 0.3,
+    "threshold": 0.8,
+    "width": 1.5707963267948966,
+    "dip": true
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 7.257919152603613,
+   "height_rmse_m": 0.06276687329572396,
+   "pitch_peak_deg": 10.741408714552877,
+   "pitch_rms_deg": 5.2422848528366295,
+   "pulse_duty": 0.00475
+  },
+  {
+   "seed": 2010100002,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 3.0,
+    "k_q": 0.3,
+    "threshold": 0.8,
+    "width": 1.5707963267948966,
+    "dip": true
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 6.877353806854595,
+   "height_rmse_m": 0.07293667058408584,
+   "pitch_peak_deg": 9.200607301117966,
+   "pitch_rms_deg": 4.483882548838577,
+   "pulse_duty": 0.0035
+  },
+  {
+   "seed": 2010100003,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 3.0,
+    "k_q": 0.3,
+    "threshold": 0.8,
+    "width": 1.5707963267948966,
+    "dip": true
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 6.866271570421951,
+   "height_rmse_m": 0.06883896116309891,
+   "pitch_peak_deg": 9.258677764378383,
+   "pitch_rms_deg": 4.552984295072603,
+   "pulse_duty": 0.00375
+  },
+  {
+   "seed": 2010100004,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 3.0,
+    "k_q": 0.3,
+    "threshold": 0.8,
+    "width": 1.5707963267948966,
+    "dip": true
+   },
+   "termination": "time_limit",
+   "success": false,
+   "tilt_rms_deg": 7.098118791680777,
+   "height_rmse_m": 0.17911674927720717,
+   "pitch_peak_deg": 11.19731030799491,
+   "pitch_rms_deg": 5.072924494621277,
+   "pulse_duty": 0.0085
+  },
+  {
+   "seed": 2010100005,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 3.0,
+    "k_q": 0.3,
+    "threshold": 0.8,
+    "width": 1.5707963267948966,
+    "dip": true
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 7.314178586740765,
+   "height_rmse_m": 0.056276443862260536,
+   "pitch_peak_deg": 11.64176086927745,
+   "pitch_rms_deg": 5.554097630101002,
+   "pulse_duty": 0.01025
+  },
+  {
+   "seed": 2010100006,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 3.0,
+    "k_q": 0.3,
+    "threshold": 0.8,
+    "width": 1.5707963267948966,
+    "dip": true
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 6.867793819353436,
+   "height_rmse_m": 0.09413428519207674,
+   "pitch_peak_deg": 9.325331956497076,
+   "pitch_rms_deg": 4.5090840090541855,
+   "pulse_duty": 0.00375
+  },
+  {
+   "seed": 2010100007,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 3.0,
+    "k_q": 0.3,
+    "threshold": 0.8,
+    "width": 1.5707963267948966,
+    "dip": true
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 7.2923803235392874,
+   "height_rmse_m": 0.06174038884043261,
+   "pitch_peak_deg": 11.999548214150487,
+   "pitch_rms_deg": 5.2216579066207895,
+   "pulse_duty": 0.0075
+  },
+  {
+   "seed": 2010100000,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 3.0,
+    "k_q": 0.3,
+    "threshold": 1.2,
+    "width": 1.0471975511965976,
+    "dip": false
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 8.43423058597964,
+   "height_rmse_m": 0.06084006047047234,
+   "pitch_peak_deg": 16.424097903188585,
+   "pitch_rms_deg": 6.675107916426855,
+   "pulse_duty": 0.0025
+  },
+  {
+   "seed": 2010100001,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 3.0,
+    "k_q": 0.3,
+    "threshold": 1.2,
+    "width": 1.0471975511965976,
+    "dip": false
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 9.300893817713085,
+   "height_rmse_m": 0.061638925109982895,
+   "pitch_peak_deg": 16.019150134884686,
+   "pitch_rms_deg": 7.7885957668471715,
+   "pulse_duty": 0.00325
+  },
+  {
+   "seed": 2010100002,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 3.0,
+    "k_q": 0.3,
+    "threshold": 1.2,
+    "width": 1.0471975511965976,
+    "dip": false
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 8.537136635847048,
+   "height_rmse_m": 0.07365361648458392,
+   "pitch_peak_deg": 15.443812731498364,
+   "pitch_rms_deg": 6.722542310200639,
+   "pulse_duty": 0.00275
+  },
+  {
+   "seed": 2010100003,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 3.0,
+    "k_q": 0.3,
+    "threshold": 1.2,
+    "width": 1.0471975511965976,
+    "dip": false
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 8.216857274520947,
+   "height_rmse_m": 0.06924438722627194,
+   "pitch_peak_deg": 15.312685873693495,
+   "pitch_rms_deg": 6.392339887593715,
+   "pulse_duty": 0.00225
+  },
+  {
+   "seed": 2010100004,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 3.0,
+    "k_q": 0.3,
+    "threshold": 1.2,
+    "width": 1.0471975511965976,
+    "dip": false
+   },
+   "termination": "time_limit",
+   "success": false,
+   "tilt_rms_deg": 8.812127147758927,
+   "height_rmse_m": 0.13429378300660624,
+   "pitch_peak_deg": 15.266078297167406,
+   "pitch_rms_deg": 7.212351141305748,
+   "pulse_duty": 0.0025
+  },
+  {
+   "seed": 2010100005,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 3.0,
+    "k_q": 0.3,
+    "threshold": 1.2,
+    "width": 1.0471975511965976,
+    "dip": false
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 9.109034303187107,
+   "height_rmse_m": 0.05571005415935422,
+   "pitch_peak_deg": 16.56306315062055,
+   "pitch_rms_deg": 7.757921456634572,
+   "pulse_duty": 0.00275
+  },
+  {
+   "seed": 2010100006,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 3.0,
+    "k_q": 0.3,
+    "threshold": 1.2,
+    "width": 1.0471975511965976,
+    "dip": false
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 8.47001451537489,
+   "height_rmse_m": 0.09266410445469274,
+   "pitch_peak_deg": 15.657540560462497,
+   "pitch_rms_deg": 6.649756180214223,
+   "pulse_duty": 0.003
+  },
+  {
+   "seed": 2010100007,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 3.0,
+    "k_q": 0.3,
+    "threshold": 1.2,
+    "width": 1.0471975511965976,
+    "dip": false
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 9.300538097562436,
+   "height_rmse_m": 0.0602970519430797,
+   "pitch_peak_deg": 16.56783702885033,
+   "pitch_rms_deg": 7.754273443659572,
+   "pulse_duty": 0.003
+  },
+  {
+   "seed": 2010100000,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 3.0,
+    "k_q": 0.3,
+    "threshold": 1.2,
+    "width": 1.0471975511965976,
+    "dip": true
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 8.423641567948835,
+   "height_rmse_m": 0.06084182813116819,
+   "pitch_peak_deg": 16.131736387251323,
+   "pitch_rms_deg": 6.662994277256717,
+   "pulse_duty": 0.0025
+  },
+  {
+   "seed": 2010100001,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 3.0,
+    "k_q": 0.3,
+    "threshold": 1.2,
+    "width": 1.0471975511965976,
+    "dip": true
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 9.32355035536637,
+   "height_rmse_m": 0.061476494495313165,
+   "pitch_peak_deg": 16.019150134884686,
+   "pitch_rms_deg": 7.816721203057681,
+   "pulse_duty": 0.00325
+  },
+  {
+   "seed": 2010100002,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 3.0,
+    "k_q": 0.3,
+    "threshold": 1.2,
+    "width": 1.0471975511965976,
+    "dip": true
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 8.547456225559328,
+   "height_rmse_m": 0.07369921011914513,
+   "pitch_peak_deg": 15.701860319301929,
+   "pitch_rms_deg": 6.736030394836921,
+   "pulse_duty": 0.003
+  },
+  {
+   "seed": 2010100003,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 3.0,
+    "k_q": 0.3,
+    "threshold": 1.2,
+    "width": 1.0471975511965976,
+    "dip": true
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 8.284711195575237,
+   "height_rmse_m": 0.0693209200262751,
+   "pitch_peak_deg": 15.617369593618944,
+   "pitch_rms_deg": 6.479570759455296,
+   "pulse_duty": 0.00225
+  },
+  {
+   "seed": 2010100004,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 3.0,
+    "k_q": 0.3,
+    "threshold": 1.2,
+    "width": 1.0471975511965976,
+    "dip": true
+   },
+   "termination": "time_limit",
+   "success": false,
+   "tilt_rms_deg": 8.819953289128799,
+   "height_rmse_m": 0.13423854672168,
+   "pitch_peak_deg": 15.076496785495292,
+   "pitch_rms_deg": 7.224133840982026,
+   "pulse_duty": 0.0025
+  },
+  {
+   "seed": 2010100005,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 3.0,
+    "k_q": 0.3,
+    "threshold": 1.2,
+    "width": 1.0471975511965976,
+    "dip": true
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 9.058765284820328,
+   "height_rmse_m": 0.05571562405276841,
+   "pitch_peak_deg": 16.230668602526208,
+   "pitch_rms_deg": 7.697731550329845,
+   "pulse_duty": 0.00275
+  },
+  {
+   "seed": 2010100006,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 3.0,
+    "k_q": 0.3,
+    "threshold": 1.2,
+    "width": 1.0471975511965976,
+    "dip": true
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 8.458598127560247,
+   "height_rmse_m": 0.09265184566911551,
+   "pitch_peak_deg": 15.849138147484663,
+   "pitch_rms_deg": 6.634454573727562,
+   "pulse_duty": 0.003
+  },
+  {
+   "seed": 2010100007,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 3.0,
+    "k_q": 0.3,
+    "threshold": 1.2,
+    "width": 1.0471975511965976,
+    "dip": true
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 9.258872774935746,
+   "height_rmse_m": 0.06022811322314099,
+   "pitch_peak_deg": 16.56783702885033,
+   "pitch_rms_deg": 7.698547886300443,
+   "pulse_duty": 0.0025
+  },
+  {
+   "seed": 2010100000,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 3.0,
+    "k_q": 0.3,
+    "threshold": 1.2,
+    "width": 1.5707963267948966,
+    "dip": false
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 8.304118497267844,
+   "height_rmse_m": 0.0608695725285571,
+   "pitch_peak_deg": 15.995905958972507,
+   "pitch_rms_deg": 6.534858511131052,
+   "pulse_duty": 0.004
+  },
+  {
+   "seed": 2010100001,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 3.0,
+    "k_q": 0.3,
+    "threshold": 1.2,
+    "width": 1.5707963267948966,
+    "dip": false
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 9.149330567523101,
+   "height_rmse_m": 0.06195993632974709,
+   "pitch_peak_deg": 15.45453602186368,
+   "pitch_rms_deg": 7.616604075483393,
+   "pulse_duty": 0.00425
+  },
+  {
+   "seed": 2010100002,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 3.0,
+    "k_q": 0.3,
+    "threshold": 1.2,
+    "width": 1.5707963267948966,
+    "dip": false
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 8.562365703430032,
+   "height_rmse_m": 0.07353477581963015,
+   "pitch_peak_deg": 15.855651427047292,
+   "pitch_rms_deg": 6.759189332065735,
+   "pulse_duty": 0.00375
+  },
+  {
+   "seed": 2010100003,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 3.0,
+    "k_q": 0.3,
+    "threshold": 1.2,
+    "width": 1.5707963267948966,
+    "dip": false
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 8.406665662030312,
+   "height_rmse_m": 0.06915688998804724,
+   "pitch_peak_deg": 15.65479875822085,
+   "pitch_rms_deg": 6.638238178675125,
+   "pulse_duty": 0.004
+  },
+  {
+   "seed": 2010100004,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 3.0,
+    "k_q": 0.3,
+    "threshold": 1.2,
+    "width": 1.5707963267948966,
+    "dip": false
+   },
+   "termination": "time_limit",
+   "success": false,
+   "tilt_rms_deg": 8.826132923010617,
+   "height_rmse_m": 0.13585674992193303,
+   "pitch_peak_deg": 15.164608156763128,
+   "pitch_rms_deg": 7.240132004046203,
+   "pulse_duty": 0.00375
+  },
+  {
+   "seed": 2010100005,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 3.0,
+    "k_q": 0.3,
+    "threshold": 1.2,
+    "width": 1.5707963267948966,
+    "dip": false
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 7.922751158320238,
+   "height_rmse_m": 0.0557910262451917,
+   "pitch_peak_deg": 15.219798040669216,
+   "pitch_rms_deg": 6.364713755791238,
+   "pulse_duty": 0.0035
+  },
+  {
+   "seed": 2010100006,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 3.0,
+    "k_q": 0.3,
+    "threshold": 1.2,
+    "width": 1.5707963267948966,
+    "dip": false
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 8.516724931164982,
+   "height_rmse_m": 0.09289754882681366,
+   "pitch_peak_deg": 15.954203984759921,
+   "pitch_rms_deg": 6.711021156557685,
+   "pulse_duty": 0.00375
+  },
+  {
+   "seed": 2010100007,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 3.0,
+    "k_q": 0.3,
+    "threshold": 1.2,
+    "width": 1.5707963267948966,
+    "dip": false
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 9.359574056023469,
+   "height_rmse_m": 0.060314679346554885,
+   "pitch_peak_deg": 16.56783702885033,
+   "pitch_rms_deg": 7.825196162182822,
+   "pulse_duty": 0.0035
+  },
+  {
+   "seed": 2010100000,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 3.0,
+    "k_q": 0.3,
+    "threshold": 1.2,
+    "width": 1.5707963267948966,
+    "dip": true
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 8.084391805801243,
+   "height_rmse_m": 0.06088950087765104,
+   "pitch_peak_deg": 15.046726194409692,
+   "pitch_rms_deg": 6.2434920162497285,
+   "pulse_duty": 0.00275
+  },
+  {
+   "seed": 2010100001,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 3.0,
+    "k_q": 0.3,
+    "threshold": 1.2,
+    "width": 1.5707963267948966,
+    "dip": true
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 9.169346244970248,
+   "height_rmse_m": 0.061663713696360915,
+   "pitch_peak_deg": 15.20523912973457,
+   "pitch_rms_deg": 7.641489790986426,
+   "pulse_duty": 0.00375
+  },
+  {
+   "seed": 2010100002,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 3.0,
+    "k_q": 0.3,
+    "threshold": 1.2,
+    "width": 1.5707963267948966,
+    "dip": true
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 8.67138559461572,
+   "height_rmse_m": 0.07371214451573205,
+   "pitch_peak_deg": 16.068415082262813,
+   "pitch_rms_deg": 6.894945574664637,
+   "pulse_duty": 0.00375
+  },
+  {
+   "seed": 2010100003,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 3.0,
+    "k_q": 0.3,
+    "threshold": 1.2,
+    "width": 1.5707963267948966,
+    "dip": true
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 8.15295597922493,
+   "height_rmse_m": 0.06914552939191683,
+   "pitch_peak_deg": 15.857290170726046,
+   "pitch_rms_deg": 6.326304799282724,
+   "pulse_duty": 0.0035
+  },
+  {
+   "seed": 2010100004,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 3.0,
+    "k_q": 0.3,
+    "threshold": 1.2,
+    "width": 1.5707963267948966,
+    "dip": true
+   },
+   "termination": "time_limit",
+   "success": false,
+   "tilt_rms_deg": 8.917064320029427,
+   "height_rmse_m": 0.13579493996755287,
+   "pitch_peak_deg": 15.673780209552381,
+   "pitch_rms_deg": 7.348973964959597,
+   "pulse_duty": 0.00375
+  },
+  {
+   "seed": 2010100005,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 3.0,
+    "k_q": 0.3,
+    "threshold": 1.2,
+    "width": 1.5707963267948966,
+    "dip": true
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 8.572062036984564,
+   "height_rmse_m": 0.05572882673225826,
+   "pitch_peak_deg": 16.289357114827148,
+   "pitch_rms_deg": 7.140256099309845,
+   "pulse_duty": 0.00375
+  },
+  {
+   "seed": 2010100006,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 3.0,
+    "k_q": 0.3,
+    "threshold": 1.2,
+    "width": 1.5707963267948966,
+    "dip": true
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 8.532572444100461,
+   "height_rmse_m": 0.09291051599654362,
+   "pitch_peak_deg": 15.93311065997915,
+   "pitch_rms_deg": 6.730256242584319,
+   "pulse_duty": 0.00375
+  },
+  {
+   "seed": 2010100007,
+   "gains": [
+    1.5,
+    1.0
+   ],
+   "law": {
+    "k_theta": 3.0,
+    "k_q": 0.3,
+    "threshold": 1.2,
+    "width": 1.5707963267948966,
+    "dip": true
+   },
+   "termination": "time_limit",
+   "success": true,
+   "tilt_rms_deg": 9.449593580469575,
+   "height_rmse_m": 0.06020344079495762,
+   "pitch_peak_deg": 16.56783702885033,
+   "pitch_rms_deg": 7.934717486625238,
+   "pulse_duty": 0.0035
+  }
+ ]
+}

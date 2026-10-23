@@ -1,0 +1,292 @@
+{
+  "status": "frozen_before_formal_training",
+  "created_unix": 1791506675.1779833,
+  "base_commit": "3711664acf1e9660e304a6c8a473bb55e0eb102f",
+  "methods": [
+    "snn_neat",
+    "snn_fixed_tau",
+    "snn_fixed_topology",
+    "leaky_ann_neat",
+    "ann_neat",
+    "rnn_ppo",
+    "ff_ppo"
+  ],
+  "seeds": [
+    2201,
+    2202,
+    2203,
+    2204,
+    2205
+  ],
+  "population": 64,
+  "workers": 16,
+  "bridge_budget": 256000,
+  "final_budget": 1024000,
+  "validation_interval": 51200,
+  "validation_episodes": 8,
+  "validation_seconds": 8.0,
+  "curriculum": [
+    {
+      "until": 256000,
+      "seconds": 2.0
+    },
+    {
+      "until": 512000,
+      "seconds": 4.0
+    },
+    {
+      "until": 1024000,
+      "seconds": 8.0
+    }
+  ],
+  "allocation": "Evolution charges complete requested episodes to its budget; early-termination actual steps are separately reported. PPO counts actual transitions. Never claim exact actual-interaction equality if these differ.",
+  "reward": "Unchanged topology_hover reward; evolution fitness = return/requested duration - 0.00002*enabled edges for every evolution arm",
+  "selection": "lexicographic validation strict-success rate, mean return, negative tilt RMS; initial policy eligible; no test selection",
+  "stop": "Common fixed allocated budget; plateau diagnostic only, no data-dependent training extension",
+  "development_seed_range": [
+    409900000,
+    409999999
+  ],
+  "training_seed_range": [
+    360000000,
+    399999999
+  ],
+  "validation_seed_formula": "410000000 + training_seed*10 + index(0..7)",
+  "test": {
+    "seeds": [
+      420000000,
+      420000001,
+      420000002,
+      420000003,
+      420000004,
+      420000005,
+      420000006,
+      420000007,
+      420000008,
+      420000009,
+      420000010,
+      420000011,
+      420000012,
+      420000013,
+      420000014,
+      420000015
+    ],
+    "seconds": 20.0,
+    "conditions": [
+      "nominal",
+      "stress",
+      "ood"
+    ]
+  },
+  "long_test": {
+    "seeds": [
+      420100000,
+      420100001,
+      420100002,
+      420100003,
+      420100004,
+      420100005,
+      420100006,
+      420100007
+    ],
+    "seconds": 60.0,
+    "conditions": [
+      "nominal",
+      "stress"
+    ],
+    "all_training_seeds": true
+  },
+  "recovery": {
+    "angle_seeds": [
+      420200000,
+      420200001,
+      420200002,
+      420200003,
+      420200004,
+      420200005,
+      420200006,
+      420200007,
+      420200008,
+      420200009,
+      420200010,
+      420200011,
+      420200012,
+      420200013,
+      420200014,
+      420200015
+    ],
+    "angles": [
+      5,
+      10,
+      15,
+      20,
+      30,
+      45
+    ],
+    "directions": [
+      0,
+      45,
+      90,
+      135,
+      180,
+      225,
+      270,
+      315
+    ],
+    "pulse_seeds": [
+      420300000,
+      420300001,
+      420300002,
+      420300003,
+      420300004,
+      420300005,
+      420300006,
+      420300007,
+      420300008,
+      420300009,
+      420300010,
+      420300011,
+      420300012,
+      420300013,
+      420300014,
+      420300015
+    ],
+    "pulse_torques": [
+      1.6e-05,
+      3.2e-05,
+      6.4e-05
+    ],
+    "pulse_start": 5.0,
+    "pulse_duration": 0.1,
+    "seconds": 20.0,
+    "criterion": "500ms tilt RMS below 10deg by 5s after release/pulse end, continuously for another 1s; full horizon and original clearance + height criteria"
+  },
+  "factors": {
+    "seeds": [
+      420400000,
+      420400001,
+      420400002,
+      420400003,
+      420400004,
+      420400005,
+      420400006,
+      420400007
+    ],
+    "seconds": 20.0,
+    "names": [
+      "delay_10ms",
+      "motor_3pct",
+      "lower9g",
+      "pulse_1p5x"
+    ]
+  },
+  "interventions": {
+    "seeds": [
+      420500000,
+      420500001,
+      420500002,
+      420500003,
+      420500004,
+      420500005,
+      420500006,
+      420500007
+    ],
+    "seconds": 20.0,
+    "condition": "stress",
+    "variants": [
+      "original",
+      "tau_initial",
+      "tau_shuffle",
+      "reset_each_tick",
+      "remove_recurrent",
+      "random_remove_0",
+      "random_remove_1",
+      "random_remove_2"
+    ]
+  },
+  "inference": "CPU latency measured after training; all ten SNN internal updates counted; no energy claims",
+  "interpretation": "H1/H2 primary; simultaneous bootstrap intervals and paired sign-flip tests with Holm adjustment; five training seeds exploratory",
+  "proposal_adjustments": [
+    "Common budgets rounded down by 2.34375% from 262144/1048576 to 256000/1024000 to align full evolution generations and PPO rollouts; previous policies retain their 262144 budget label.",
+    "Initial compatibility distances checked on development seed2198 (median0.14256, max0.20128); threshold0.25 selected before formal reward evaluation; no guarantee of multiple species.",
+    "PPO curriculum set at each rollout boundary; an already active episode completes under its previous horizon.",
+    "Analog temporal control has zero background; SNN background1.2 prevents quiescence. It tests the combined threshold/reset/background mechanism, not threshold alone."
+  ],
+  "source_hashes": {
+    "experiments/algorithms/snn_hover/__init__.py": "0a2bdbc4680c3ac7734c9876f6f81d85eb4450ce29d2abe9b2255f692f3a97c6",
+    "experiments/algorithms/snn_hover/networks.py": "1fce751d31a644b28d9f399c418c0d0710ec6f7cd0ea12094a490e71207ce9fc",
+    "experiments/algorithms/snn_hover/environment.py": "2f3850c46f085a433179d37b2e11b0e1800afcaa2f8bebf1203dcac4d44289d3",
+    "experiments/algorithms/snn_hover/common.py": "27a820e458fdf444b52c56c6b26d7c099c8f1179d171741f875bde92edb5f32e",
+    "experiments/algorithms/snn_hover/evolution.py": "6fbf446fcde41ab9ca40969fd657838dd647d6b311abbaee5617b5b3812d19c6",
+    "experiments/algorithms/snn_hover/train.py": "92a17931bd5ce5d7b9c75125c5937b32cbcd118ff2698fb7c3db92e5ed32a4a1",
+    "experiments/algorithms/snn_hover/ppo.py": "e861cd3c2fbdc9e5be120e43c96556bbd96dd8d8fdc4c119d7e243e579cc1dc0",
+    "experiments/algorithms/topology_hover/verify.py": "f50e9bf1689f594628edad4f4e7fb34ac597a8b30e03d597fd6ad1ac01f4e88a",
+    "experiments/algorithms/topology_hover/evaluate.py": "a91a546a376ff9cee67616eaeecaeca16414c6b7bcbb28d730529f702993bf14",
+    "experiments/algorithms/topology_hover/finish.py": "b7685be6c42673b0153c3baf4b0cb5e9079288e730308ee070ffe3f33ee74c07",
+    "experiments/algorithms/topology_hover/flight_browser.py": "9120bf471d96fae08162d6dc065daee7a4a939f3c0973b691c174defdec4432f",
+    "experiments/algorithms/topology_hover/campaign.py": "4f8b6f4dac98454492b5315de387f6b583aa83aa160409256f589b2963484a1f",
+    "experiments/algorithms/topology_hover/early_transfer.py": "793a618e27c7f4e7213f36c3fc641fcda1209502d2303d066a986cc2a50f6077",
+    "experiments/algorithms/topology_hover/networks.py": "c5cfee40bef48b85bf6eb5db64fee27d90d8947e4e15b109250d43ed12e5f642",
+    "experiments/algorithms/topology_hover/analyze.py": "176806d164c1aac16e9b2ee571b0e947d9f24643779eef1621f1aa4fdccd3735",
+    "experiments/algorithms/topology_hover/preflight.py": "8269fac5cfec6d0566bfe919f1dc82ae5df8462a1d5b2dad6ea45e444275f976",
+    "experiments/algorithms/topology_hover/__init__.py": "23d086341951b90e3da43daba94111c14392e5581442042710d4648503b39249",
+    "experiments/algorithms/topology_hover/checkpoint.py": "438d59c772ef86c6edb399aa8ae25d6d8fa4a704b44e1c79d792cb21a853c11a",
+    "experiments/algorithms/topology_hover/environment.py": "dbcaf03fee613015a6f68d4d5bc105879eba8ebba47b597772b5a4075ae79ac7",
+    "experiments/algorithms/topology_hover/dashboard.py": "6123780915ef9df7103035de6fabc3fed0d72558d061c0c1228ae02571804d4d",
+    "experiments/algorithms/topology_hover/render.py": "32b2277d2f2c2c2e5288da0980abfd16cde5b4d6b1ad3f3693e6f4f6790d806f",
+    "experiments/algorithms/topology_hover/replay.py": "ef6d7b342d575bab60f9ed2e631a4268450d1cffcf6d1baa5cfd94373152d48c",
+    "experiments/algorithms/topology_hover/sensors.py": "09b3c6a6750efd5f152d582971a63a8d0a34159c2c8950c0546d49833534ae82",
+    "experiments/algorithms/topology_hover/common.py": "d2134bea8cfea288d84eacfe3dcac2c8a6fd88d2f85adf0380a804d081431dae",
+    "experiments/algorithms/topology_hover/report.py": "a10803220c5296f2597c065a5d79fa928cde4e34a79f9bbc2f76aed9720b925f",
+    "experiments/algorithms/topology_hover/ppo.py": "727c67cf4f29c7aa885b36e43db88e195661da272c943a19cd2e95406e2a6a64",
+    "experiments/algorithms/topology_hover/visualize.py": "a6cf3f8fb5cd2dd544af56f41cadfdcd7d94ed70fe240842f5128124d5a341da",
+    "experiments/algorithms/topology_hover/smoke_media.py": "1231aef470c3306c1de10ecc63fe3220c3d859d3512216de82c0dc7c968eabc2",
+    "experiments/algorithms/topology_hover/evolve.py": "a8619df4141c2df0872027bec2bd4ef740409de488062cd4b46d8509df6eca5a",
+    "experiments/algorithms/topology_hover/sensor_step.cpp": "7a8c8da2b05f2399d3794955621a4d1ca940882769e82fa0e292e99691b5e3d8",
+    "experiments/algorithms/pid_airborne/advanced.py": "e252bdeb4f15de7a38d995999e2e2611d94df9414f59c3f7c89775c21211fc24",
+    "experiments/algorithms/pid_airborne/lift_probe.py": "66bdd954c677d4066896586a83003d4ea9bbe55325939dbf92d386743c0cd82f",
+    "experiments/algorithms/pid_airborne/startup_probe.py": "c215dac9eaa68085f167325f9a83095982f3dfcb7b4bfe0ddb6599e5f8477077",
+    "experiments/algorithms/pid_airborne/results.py": "70b694878cd5de08537ad969c0470731c39b31b52220cb07cc2f37f17762e2d8",
+    "experiments/algorithms/pid_airborne/initialization.py": "715037c804ec512af5a83f703bda6ba5940aa43abafb5f30e2d744c22ff5e9f5",
+    "experiments/algorithms/pid_airborne/duration_probe.py": "6c839634244fd4c462e0f242a77055d49be81e277788cea0313befc0b835c82c",
+    "experiments/algorithms/pid_airborne/long_probe.py": "8bb50b44b18cc131e3e9550741f3e44e220ef3f82cdf77b73a07ad915c7678dc",
+    "experiments/algorithms/pid_airborne/__init__.py": "a6803a9f6c3bf381ba76d9f56bae8e11725aa3291128c7c27733bf20d51ee27f",
+    "experiments/algorithms/pid_airborne/search.py": "173a1106178efd04ffcfe6f512fdc9b1529f0b50d23be60f3de36d3c648be0cb",
+    "experiments/algorithms/pid_airborne/finalize.py": "05631240758e1b5e778ada991b484b560153e25a7544ec893bac1a4b7d24f6c3",
+    "experiments/algorithms/pid_airborne/height_search.py": "90ee27767d3166dcca73261498ac2a0b418ba6e2fac16a0fad9692364d2d7640",
+    "experiments/algorithms/pid_airborne/wing_motion.py": "105fe0e9913a5e00b7f1d2cd408c3361069721c5a1a17138303cf2012bd03c66",
+    "experiments/algorithms/pid_airborne/notch_search.py": "ea015fd8efe8050e00acf18d08d857888ff912e94f521035628fc8f16c032d02",
+    "experiments/algorithms/pid_airborne/core.py": "71b348ae6c544ae2cf71eb7fe32f8cb94665588090fd12995938d6f0e86a361d",
+    "experiments/algorithms/pid_airborne/velocity_pid.py": "2ec11d809d8b6f8fb269f0b4b9e744300d7590429cf052ce246e5431263c9686",
+    "experiments/algorithms/pid_airborne/audit.py": "ca38377b0704fc097ea92f6757d6b6f9df5a57504a8c118be780594c3674871b",
+    "experiments/algorithms/hover9/pid_search.py": "80528aa56ebe92a21975c208235a2f181d84ea47c11f1f973d43c4021227de42",
+    "experiments/algorithms/hover9/results.py": "a19e414327ea510350643f3273b9990d1fc3b92e517aecb610d3410401744c4b",
+    "experiments/algorithms/hover9/setup.py": "3e6e869cbfbcd1812a981d23d26491396b4b79b8ec5c224894c94714d57d7a3a",
+    "experiments/algorithms/hover9/campaign.py": "ad49fecf25be75a9f70e53c572b22285ebdb7e9a7355aef4d9ec085db55ba08d",
+    "experiments/algorithms/hover9/protocol.py": "efa393ea318fbe80793bf8ed78c0d38c9879ad1925e53ea937265c2c65e000c3",
+    "experiments/algorithms/hover9/test_history.py": "4a539da38dbb42dc52623bce47333f42c2388a55a053d49c55787707cea94d84",
+    "experiments/algorithms/hover9/preflight.py": "8532d7313b6410f12003a82f9b7cd87f71285bdf722eb54ba249ce60da1c4fdc",
+    "experiments/algorithms/hover9/__init__.py": "a2d0f5abac82647cce01b2c49614c0dce3eb8949c5eee7e85b4112732d8a5f64",
+    "experiments/algorithms/hover9/environment.py": "391a4d32ae1a4e0b1e99b3196495dc425702a30357588e34fbc5fda3f5b9837d",
+    "experiments/algorithms/hover9/plant.py": "517a9e440c7949cdc8c367f0ab92c4f084c6901f26c007b35bbd0d05de673250",
+    "experiments/algorithms/hover9/replay.py": "e2b19c0dcf6355c896cbdd5bf311676eaa97ff2351f27ea0826c96d5f56377e9",
+    "experiments/algorithms/hover9/common.py": "2abf7251480f7baf6102598ada09da2eec6e51960529f42b69b7f81688422cc6",
+    "experiments/algorithms/hover9/report.py": "6acbea7173b75be0f45adac3e3b0781e7f6a4f727cc2b24d903d922a612a361d",
+    "experiments/algorithms/hover9/filtered_search.py": "50cd95f8a8d0a06c82a4607e574d045a8e3dd34206c3c03db96c92c10cdaaa08",
+    "experiments/algorithms/hover9/imu.py": "6dde93e859889adb0287045bc573fc2a14d9d481bb5149a5073bd3c9526c172e",
+    "experiments/algorithms/hover9/compensated_pid.py": "6e982a829ddbd4d2e52b63fffc46d4d124f0f0a07a1d962305e72faf2140d26e",
+    "experiments/algorithms/hover9/train.py": "2638d82b0f18181f35ef223ff6f1a9c805180fb1f5d8fc6d86779b0c30a9585e",
+    "experiments/algorithms/hover9/audit.py": "0e7b57af9b6dd7b83b0d81c4fd990628bf39090e9c7ed12efb344f4db23a6953",
+    "experiments/algorithms/hover9/filtered_plant.py": "ea5161e846d29e1a27ea50447943542701b50c2f6d471f2f2f9a226938a238a7",
+    "experiments/algorithms/hover9/compensated_search.py": "7695022ce6f0b0e1a2a8954b5962128fa7d8c294a1e8c08547f2b43ca195c59a",
+    "experiments/algorithms/hover9/pid_grid.py": "7b2efb0711f531bfbf13144315eeb80b27ca60440850dd25d54bc171613bd56b"
+  },
+  "packages": {
+    "neat-python": "2.0.0",
+    "mujoco": "3.8.0",
+    "numpy": "2.2.4",
+    "torch": "2.6.0",
+    "stable_baselines3": "2.6.0"
+  },
+  "python": "3.11.11"
+}

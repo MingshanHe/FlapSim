@@ -1,0 +1,65 @@
+== reselect s4 Tue Oct 20 02:24:34 UTC 2026
+{"generation": 54, "objective": 1.7044863837213002, "ratios": {"nod": 1.5193778387666839, "dash": 1.1332812418051228}, "crashes": 4, "over_hard": 5, "tilt_peak_max": 81.11598121808528, "spec": "runs/spike_steer/v6/finetune_s4/spec_val_g54.json"}
+{"generation": 59, "objective": 1.6184133913704546, "ratios": {"nod": 1.4058487106456554, "dash": 1.2188443786004717}, "crashes": 5, "over_hard": 5, "tilt_peak_max": 82.11962142194369, "spec": "runs/spike_steer/v6/finetune_s4/spec_val_g59.json"}
+{"selected": {"generation": 44, "objective": 1.2741627570752003, "ratios": {"nod": 1.3236745824865632, "dash": 1.175139106252475}, "crashes": 0, "over_hard": 0, "tilt_peak_max": 56.50809713812834, "spec": "runs/spike_steer/v6/finetune_s4/spec_val_g44.json"}}
+== evaluate s4 Tue Oct 20 02:44:37 UTC 2026
+{
+ "nod": {
+  "ratio": 1.9210246453761104,
+  "wins": 4,
+  "crashes": 0,
+  "opponent_crashes": 0,
+  "by_class": {
+   "pitch": {
+    "ratio": 2.495297127337536,
+    "opponent_median": 1.2560573464191713,
+    "wins": 2,
+    "n": 16,
+    "crashes": 0,
+    "opponent_crashes": 0
+   },
+   "roll": {
+    "ratio": 1.346752163414685,
+    "opponent_median": 1.1767916400353071,
+    "wins": 2,
+    "n": 16,
+    "crashes": 0,
+    "opponent_crashes": 0
+   }
+  }
+ },
+ "dash": {
+  "ratio": 1.331426325596629,
+  "wins": 10,
+  "crashes": 1,
+  "opponent_crashes": 0,
+  "by_class": {
+   "pitch": {
+    "ratio": 1.2183405154254938,
+    "opponent_median": 5.770427891636695,
+    "wins": 6,
+    "n": 8,
+    "crashes": 1,
+    "opponent_crashes": 0
+   },
+   "roll": {
+    "ratio": 2.0644432150712064,
+    "opponent_median": 1.50083608254003,
+    "wins": 0,
+    "n": 8,
+    "crashes": 0,
+    "opponent_crashes": 0
+   },
+   "diag": {
+    "ratio": 1.0214607859449079,
+    "opponent_median": 4.931108137887924,
+    "wins": 4,
+    "n": 16,
+    "crashes": 0,
+    "opponent_crashes": 0
+   }
+  }
+ },
+ "manoeuvre_mean": 1.6262254854863696
+}
+== done Tue Oct 20 02:47:24 UTC 2026

@@ -1,0 +1,7 @@
+# Versions used for the published CPU PPO runs, Python 3.11.11 on Ubuntu/WSL.
+# The local torch wheel is 2.6.0+cu124; PPO inference/training uses device=cpu.
+mujoco==3.8.0
+numpy==2.2.4
+torch==2.6.0
+gymnasium==1.1.1
+stable-baselines3==2.6.0

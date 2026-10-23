@@ -1,0 +1,27 @@
+{
+ "version": "confirmatory re-test M1: frozen plan-v4 round-5 selected controllers, fresh blind set, manoeuvre-focused rule",
+ "written_before": "the fresh blind set is generated and before any learned controller is run on it",
+ "decided_by": "the user (2026-10-19 JST): evaluate the learned layer on the manoeuvres it controls; hover/upset as non-inferiority; use the round-5 controllers",
+ "rationale": "the gated learned layer acts only during nod/dash commands; hover and upset are flown by the classical layer (1.000 and 1.050 by construction), so the plan-v4 four-task composite mixes two constants into the learned layer score. This rule was formulated after six rounds; the paper reports it as a post-hoc reformulation tested once on fresh data, alongside every plan-v4 pre-registered verdict.",
+ "controllers": {
+  "1": "plan_v4/r5/finetune_s1/spec_val_g9.json",
+  "2": "plan_v4/r5/finetune_s2/spec_val_g4.json",
+  "3": "plan_v4/r5/finetune_s3/spec_val_g44.json",
+  "4": "plan_v4/r5/finetune_s4/spec_val_g19.json",
+  "5": "plan_v4/r5/finetune_s5/spec_val_g4.json"
+ },
+ "frozen": "no retraining, no re-selection; the five round-5 selections (128-case rule) as archived in plan_v4/r5/claude_ea/reselect_r5_s*.json",
+ "test_set": {
+  "nod_dash": "fresh maneuver_v2 base 2_096_900_000 (never used: earlier bases 2_096_100/400/500/600/700/800_000; training < 2_096_310_000)",
+  "hover_upset": "unchanged blind sets",
+  "normalisers": "nod/dash: classical schedule per-case median on the fresh set (claude-ea); hover/upset: opponent mean (unchanged)"
+ },
+ "rule": {
+  "per_seed": "(nod + dash)/2 <= 0.95 AND hover <= 1.06 AND upset <= 1.06 AND 0 crashes in the 32 nod+dash blind episodes (all strict, unrounded)",
+  "verdict": "PASS if >= 3 of 5 seeds pass",
+  "run_once": true,
+  "secondary": "per-task ratios, paired wins vs the classical opponent, the plan-v4 four-task composite for each seed"
+ },
+ "machine": "claude-ea",
+ "code": "experiments/algorithms/spike_steer/confirm_m1.py"
+}

@@ -1,0 +1,340 @@
+{
+  "columns": [
+    "time",
+    "true_roll",
+    "true_pitch",
+    "true_yaw",
+    "height_error",
+    "observation_0",
+    "observation_1",
+    "observation_2",
+    "observation_3",
+    "observation_4",
+    "observation_5",
+    "observation_6",
+    "observation_7",
+    "observation_8",
+    "observation_9",
+    "observation_10",
+    "teacher_alpha",
+    "teacher_beta",
+    "teacher_motor",
+    "action_alpha",
+    "action_beta",
+    "action_motor",
+    "applied_alpha",
+    "applied_beta",
+    "applied_motor"
+  ],
+  "results": [
+    {
+      "model": "pid",
+      "case": {
+        "seed": 1120020000,
+        "seconds": 20.0,
+        "condition": "nominal",
+        "phase": 0,
+        "degrees": 2.0,
+        "motor_uncertainty": 0.0,
+        "acceleration_bias": 0.0,
+        "attitude_bias_deg": 0.0,
+        "delay_steps": 0,
+        "attitude_noise_deg": 0.02,
+        "gyro_noise": 0.002,
+        "accel_noise": 0.02,
+        "height_noise": 0.002,
+        "height_delay": 0.02,
+        "lower_mass_scale": 1.0,
+        "pulse_force": 0.0,
+        "pulse_torque": 0.0
+      },
+      "file": "pid_case0.npz",
+      "sha256": "b243f0666fed8ead2a81cee5f7839faf79e8600759e27e34d17c2e2bf995b653",
+      "steps": 1500,
+      "termination": "diagnostic_prefix_limit",
+      "last_true_rpy_deg": [
+        0.05064769873028587,
+        1.9135542639972916,
+        1.5356636593856905
+      ],
+      "max_true_rpy_abs_deg": [
+        1.9603136990429098,
+        25.648992596791924,
+        1.5356636593856905
+      ],
+      "shadow_teacher_action_rmse": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "early_divergence": {
+        "roll_first_exceed_10_deg_seconds": null,
+        "pitch_first_exceed_35_deg_seconds": null,
+        "first_half_second_rmse_normalized": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    },
+    {
+      "model": "pid",
+      "case": {
+        "seed": 1120020002,
+        "seconds": 20.0,
+        "condition": "nominal",
+        "phase": 2,
+        "degrees": 2.0,
+        "motor_uncertainty": 0.0,
+        "acceleration_bias": 0.0,
+        "attitude_bias_deg": 0.0,
+        "delay_steps": 0,
+        "attitude_noise_deg": 0.02,
+        "gyro_noise": 0.002,
+        "accel_noise": 0.02,
+        "height_noise": 0.002,
+        "height_delay": 0.02,
+        "lower_mass_scale": 1.0,
+        "pulse_force": 0.0,
+        "pulse_torque": 0.0
+      },
+      "file": "pid_case2.npz",
+      "sha256": "63946066be81ea49df7c81e5d8a2b4a4d62c9d0ccd50be8ff36e6550ff9c3e9b",
+      "steps": 1500,
+      "termination": "diagnostic_prefix_limit",
+      "last_true_rpy_deg": [
+        0.07947923189699964,
+        -0.33736747610001916,
+        1.4769585286219067
+      ],
+      "max_true_rpy_abs_deg": [
+        0.6492315508997584,
+        29.22528292939763,
+        1.503199323718079
+      ],
+      "shadow_teacher_action_rmse": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "early_divergence": {
+        "roll_first_exceed_10_deg_seconds": null,
+        "pitch_first_exceed_35_deg_seconds": null,
+        "first_half_second_rmse_normalized": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    },
+    {
+      "model": "snn_seed5101",
+      "case": {
+        "seed": 1120020000,
+        "seconds": 20.0,
+        "condition": "nominal",
+        "phase": 0,
+        "degrees": 2.0,
+        "motor_uncertainty": 0.0,
+        "acceleration_bias": 0.0,
+        "attitude_bias_deg": 0.0,
+        "delay_steps": 0,
+        "attitude_noise_deg": 0.02,
+        "gyro_noise": 0.002,
+        "accel_noise": 0.02,
+        "height_noise": 0.002,
+        "height_delay": 0.02,
+        "lower_mass_scale": 1.0,
+        "pulse_force": 0.0,
+        "pulse_torque": 0.0
+      },
+      "file": "snn_seed5101_case0.npz",
+      "sha256": "925942311495dec2c3e516c920ced10144e9ff8f30adcd5cbe00d2b9936b5e5e",
+      "steps": 1500,
+      "termination": "diagnostic_prefix_limit",
+      "last_true_rpy_deg": [
+        4.332315851652575,
+        15.749993482062779,
+        4.9393673335125445
+      ],
+      "max_true_rpy_abs_deg": [
+        18.452678918391133,
+        25.110902775170295,
+        6.71336146585123
+      ],
+      "shadow_teacher_action_rmse": [
+        0.13257731216284366,
+        0.14043633204516928,
+        0.14163665459980787
+      ],
+      "early_divergence": {
+        "roll_first_exceed_10_deg_seconds": 1.206,
+        "pitch_first_exceed_35_deg_seconds": null,
+        "first_half_second_rmse_normalized": [
+          0.13274554626752644,
+          0.053769423385681456,
+          0.25008103144088933
+        ]
+      }
+    },
+    {
+      "model": "snn_seed5101",
+      "case": {
+        "seed": 1120020002,
+        "seconds": 20.0,
+        "condition": "nominal",
+        "phase": 2,
+        "degrees": 2.0,
+        "motor_uncertainty": 0.0,
+        "acceleration_bias": 0.0,
+        "attitude_bias_deg": 0.0,
+        "delay_steps": 0,
+        "attitude_noise_deg": 0.02,
+        "gyro_noise": 0.002,
+        "accel_noise": 0.02,
+        "height_noise": 0.002,
+        "height_delay": 0.02,
+        "lower_mass_scale": 1.0,
+        "pulse_force": 0.0,
+        "pulse_torque": 0.0
+      },
+      "file": "snn_seed5101_case2.npz",
+      "sha256": "959baee2570b94ef2eb50cbfb4ce339ff48b8d6b3762bfb707a3740332b04b82",
+      "steps": 1148,
+      "termination": "tilt",
+      "last_true_rpy_deg": [
+        -67.24176519871746,
+        -65.73880336751824,
+        60.850114684372315
+      ],
+      "max_true_rpy_abs_deg": [
+        67.24176519871746,
+        65.73880336751824,
+        60.850114684372315
+      ],
+      "shadow_teacher_action_rmse": [
+        0.1996764987674898,
+        0.2702319818201402,
+        0.2247575890495743
+      ],
+      "matches_original_termination": true,
+      "original_termination": "tilt",
+      "original_elapsed": 2.2960000000000003,
+      "early_divergence": {
+        "roll_first_exceed_10_deg_seconds": 0.426,
+        "pitch_first_exceed_35_deg_seconds": 1.55,
+        "first_half_second_rmse_normalized": [
+          0.1759358132041886,
+          0.14512982175386555,
+          0.23172131297492754
+        ]
+      }
+    },
+    {
+      "model": "ann_seed5101",
+      "case": {
+        "seed": 1120020000,
+        "seconds": 20.0,
+        "condition": "nominal",
+        "phase": 0,
+        "degrees": 2.0,
+        "motor_uncertainty": 0.0,
+        "acceleration_bias": 0.0,
+        "attitude_bias_deg": 0.0,
+        "delay_steps": 0,
+        "attitude_noise_deg": 0.02,
+        "gyro_noise": 0.002,
+        "accel_noise": 0.02,
+        "height_noise": 0.002,
+        "height_delay": 0.02,
+        "lower_mass_scale": 1.0,
+        "pulse_force": 0.0,
+        "pulse_torque": 0.0
+      },
+      "file": "ann_seed5101_case0.npz",
+      "sha256": "b4c9af40e18ed24e0a66eddd71b7a3bec53096f36d00fca1cf25bd28d727e859",
+      "steps": 533,
+      "termination": "tilt",
+      "last_true_rpy_deg": [
+        56.442935722103854,
+        -72.20692788612725,
+        -54.36083534688704
+      ],
+      "max_true_rpy_abs_deg": [
+        56.442935722103854,
+        72.20692788612725,
+        54.36083534688704
+      ],
+      "shadow_teacher_action_rmse": [
+        0.5313745350318271,
+        0.5745262384431277,
+        0.20081962161115627
+      ],
+      "matches_original_termination": true,
+      "original_termination": "tilt",
+      "original_elapsed": 1.066,
+      "early_divergence": {
+        "roll_first_exceed_10_deg_seconds": 0.662,
+        "pitch_first_exceed_35_deg_seconds": 0.674,
+        "first_half_second_rmse_normalized": [
+          0.4773535386226986,
+          0.5036847583822499,
+          0.17487313395745926
+        ]
+      }
+    },
+    {
+      "model": "ann_seed5101",
+      "case": {
+        "seed": 1120020002,
+        "seconds": 20.0,
+        "condition": "nominal",
+        "phase": 2,
+        "degrees": 2.0,
+        "motor_uncertainty": 0.0,
+        "acceleration_bias": 0.0,
+        "attitude_bias_deg": 0.0,
+        "delay_steps": 0,
+        "attitude_noise_deg": 0.02,
+        "gyro_noise": 0.002,
+        "accel_noise": 0.02,
+        "height_noise": 0.002,
+        "height_delay": 0.02,
+        "lower_mass_scale": 1.0,
+        "pulse_force": 0.0,
+        "pulse_torque": 0.0
+      },
+      "file": "ann_seed5101_case2.npz",
+      "sha256": "44796b18d17568458a289c9c4e6775df2e3a639f8a99a8a3761bed2b103b6065",
+      "steps": 522,
+      "termination": "tilt",
+      "last_true_rpy_deg": [
+        -55.865886350967415,
+        74.69720091897359,
+        -59.421786665796894
+      ],
+      "max_true_rpy_abs_deg": [
+        55.865886350967415,
+        74.69720091897359,
+        59.421786665796894
+      ],
+      "shadow_teacher_action_rmse": [
+        0.5312581266204801,
+        0.5712465424021139,
+        0.20176933616009596
+      ],
+      "matches_original_termination": true,
+      "original_termination": "tilt",
+      "original_elapsed": 1.044,
+      "early_divergence": {
+        "roll_first_exceed_10_deg_seconds": 0.42,
+        "pitch_first_exceed_35_deg_seconds": 0.676,
+        "first_half_second_rmse_normalized": [
+          0.466197753075876,
+          0.5569514050833121,
+          0.17834291928005075
+        ]
+      }
+    }
+  ]
+}

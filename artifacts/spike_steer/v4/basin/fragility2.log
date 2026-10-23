@@ -1,0 +1,5 @@
+bounds weight 5.0 bias 3.0 -> G = 2.40, P_gate = 1.1666666666666667
+hand (G=2.4, tau .5 ms): unmutated J 5.76
+   k=1: n 16 median J 5.78  p25 5.77 p75 5.87  within +0.5 of ref 0.88  better 0.19  crashed(J>20) 0.00
+   k=2: n 32 median J 5.80  p25 5.76 p75 6.11  within +0.5 of ref 0.75  better 0.25  crashed(J>20) 0.03
+   k=4: n 16 median J 6.03  p25 5.80 p75 6.99  within +0.5 of ref 0.56  better 0.25  crashed(J>20) 0.12

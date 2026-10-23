@@ -1,0 +1,28 @@
+{
+  "unix": 1791621173.1597488,
+  "sequence_backend": "original_torch_eager_float64",
+  "custom_kernel_used_in_training": false,
+  "reason": "User explicitly requested original per-step Python and autograd computation",
+  "development_parallel_models": 6,
+  "evaluation_workers": 16,
+  "formal_parallel_runs": 2,
+  "ppo_envs_per_run": 8,
+  "neat_workers_per_run": 8,
+  "simulation_benchmark": {
+    "8": {
+      "wall_seconds": 64.22162333000051,
+      "steps": 32000,
+      "steps_per_second": 498.2745427590509
+    },
+    "16": {
+      "wall_seconds": 40.78221544799999,
+      "steps": 32000,
+      "steps_per_second": 784.6557537022996
+    }
+  },
+  "resume_epochs": {
+    "snn_seed5103": 11,
+    "snn_seed5102": 11,
+    "snn_seed5101": 11
+  }
+}

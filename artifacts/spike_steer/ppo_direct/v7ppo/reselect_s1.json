@@ -1,0 +1,92 @@
+{
+ "seed": 1,
+ "machine": "HomePC",
+ "n_select": 16,
+ "centres": [
+  {
+   "generation": -1,
+   "budget_fraction": 0.0,
+   "objective": 1.1082016402338828,
+   "ratios": {
+    "evade": 1.1772497858987958,
+    "redirect": 1.1056793136411533,
+    "dash": 1.0416758211616992
+   },
+   "crashes": 0,
+   "over_hard": 0,
+   "tilt_peak_max": 42.50905042076112,
+   "spec": "runs/ppo_direct/v7ppo/s1/ckpt_g-1.zip"
+  },
+  {
+   "generation": 0,
+   "budget_fraction": 0.25,
+   "objective": 1.0528160855613806,
+   "ratios": {
+    "evade": 1.0434182251167283,
+    "redirect": 1.0025976386502156,
+    "dash": 1.1124323929171978
+   },
+   "crashes": 0,
+   "over_hard": 0,
+   "tilt_peak_max": 47.63439729550631,
+   "spec": "runs/ppo_direct/v7ppo/s1/ckpt_g0.zip"
+  },
+  {
+   "generation": 1,
+   "budget_fraction": 0.5,
+   "objective": 1.0130390393125177,
+   "ratios": {
+    "evade": 0.9832646204883563,
+    "redirect": 1.0038393862869053,
+    "dash": 1.0520131111622915
+   },
+   "crashes": 0,
+   "over_hard": 0,
+   "tilt_peak_max": 42.02685446200002,
+   "spec": "runs/ppo_direct/v7ppo/s1/ckpt_g1.zip"
+  },
+  {
+   "generation": 2,
+   "budget_fraction": 0.75,
+   "objective": 1.117058026648242,
+   "ratios": {
+    "evade": 1.0272743368871318,
+    "redirect": 1.0688265807399537,
+    "dash": 1.255073162317641
+   },
+   "crashes": 0,
+   "over_hard": 0,
+   "tilt_peak_max": 46.13470111064709,
+   "spec": "runs/ppo_direct/v7ppo/s1/ckpt_g2.zip"
+  },
+  {
+   "generation": 3,
+   "budget_fraction": 1.0,
+   "objective": 1.1448819746972516,
+   "ratios": {
+    "evade": 1.0913874102390757,
+    "redirect": 1.0904275790057718,
+    "dash": 1.2528309348469073
+   },
+   "crashes": 0,
+   "over_hard": 0,
+   "tilt_peak_max": 43.97733065713648,
+   "spec": "runs/ppo_direct/v7ppo/s1/ckpt_g3.zip"
+  }
+ ],
+ "selected": {
+  "generation": 1,
+  "budget_fraction": 0.5,
+  "objective": 1.0130390393125177,
+  "ratios": {
+   "evade": 0.9832646204883563,
+   "redirect": 1.0038393862869053,
+   "dash": 1.0520131111622915
+  },
+  "crashes": 0,
+  "over_hard": 0,
+  "tilt_peak_max": 42.02685446200002,
+  "spec": "runs/ppo_direct/v7ppo/s1/ckpt_g1.zip"
+ },
+ "fallback": null
+}

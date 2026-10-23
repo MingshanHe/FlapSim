@@ -1,0 +1,452 @@
+<title>FlapSim 六轮复盘</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&family=Noto+Serif+SC:wght@600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one reading column (~68ch) with full-width figure rows; lab-notebook tone, cool neutrals, one blue accent */
+:root{
+  --bg:#f6f7f8; --surface:#fcfcfb; --surface-2:#eef0f2; --ink:#14171a; --ink-2:#4a5058; --ink-3:#7b828b;
+  --rule:#d9dde2; --accent:#2a78d6;
+  --s1:#2a78d6; --s2:#eb6834; --s3:#1baf7a;
+  --good:#0ca30c; --critical:#d03b3b; --warn:#fab219;
+  --q0:#eef0f2; --q1:#cde2fb; --q2:#9ec5f4; --q3:#5598e7; --q4:#256abf; --q5:#0d366b;
+  --display:"Noto Serif SC","Songti SC","SimSun",serif;
+  --body:"Noto Sans SC","PingFang SC","Microsoft YaHei",system-ui,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#141619; --surface:#1a1a19; --surface-2:#24272b; --ink:#eef0f2; --ink-2:#b9bec5; --ink-3:#8a9099;
+  --rule:#33373d; --accent:#3987e5; --s1:#3987e5; --s2:#d95926; --s3:#199e70;
+  --q0:#24272b; --q1:#184f95; --q2:#1c5cab; --q3:#2a78d6; --q4:#5598e7; --q5:#9ec5f4; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#141619; --surface:#1a1a19; --surface-2:#24272b; --ink:#eef0f2; --ink-2:#b9bec5; --ink-3:#8a9099;
+  --rule:#33373d; --accent:#3987e5; --s1:#3987e5; --s2:#d95926; --s3:#199e70;
+  --q0:#24272b; --q1:#184f95; --q2:#1c5cab; --q3:#2a78d6; --q4:#5598e7; --q5:#9ec5f4; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.7;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:32px 64px}
+main{max-width:980px;margin:0 auto;display:flex;flex-direction:column;gap:44px}
+header{display:flex;flex-direction:column;gap:10px;border-bottom:1px solid var(--rule);padding-bottom:22px}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.06em;color:var(--ink-3);text-transform:uppercase}
+h1{font-family:var(--display);font-size:clamp(26px,4vw,36px);line-height:1.25;margin:0;text-wrap:balance}
+h2{font-family:var(--display);font-size:22px;margin:0;text-wrap:balance}
+h3{font-size:15px;margin:0;font-weight:700}
+p{margin:0;max-width:68ch}
+.lede{font-size:17px;color:var(--ink);max-width:70ch}
+section{display:flex;flex-direction:column;gap:14px}
+.muted{color:var(--ink-2)}
+.small{font-size:13px;color:var(--ink-3)}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.fact{background:var(--surface);border:1px solid var(--rule);border-radius:8px;padding:14px 16px;display:flex;flex-direction:column;gap:4px;min-width:0}
+.fact .k{font-size:12px;color:var(--ink-3)}
+.fact .v{font-family:var(--mono);font-size:22px;font-weight:500;font-variant-numeric:tabular-nums}
+.pill{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:500;padding:1px 8px;border-radius:999px;border:1px solid var(--rule)}
+.pill.ok::before{content:"✓";color:var(--good);font-weight:700}
+.pill.no::before{content:"×";color:var(--critical);font-weight:700}
+figure{margin:0;background:var(--surface);border:1px solid var(--rule);border-radius:8px;padding:16px;display:flex;flex-direction:column;gap:10px;min-width:0}
+figcaption{font-size:13px;color:var(--ink-2);max-width:80ch}
+.scroll{overflow-x:auto}
+svg{display:block;max-width:100%;height:auto}
+svg text{font-family:var(--body);fill:var(--ink)}
+svg .num{font-family:var(--mono)}
+.legend{display:flex;flex-wrap:wrap;gap:14px;font-size:13px;color:var(--ink-2)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.sw{width:10px;height:10px;border-radius:50%;display:inline-block}
+table{border-collapse:collapse;font-size:13px;width:100%}
+th,td{text-align:left;padding:6px 10px;border-bottom:1px solid var(--rule);vertical-align:top}
+th{font-weight:500;color:var(--ink-3);font-size:12px}
+td.n{font-family:var(--mono);font-variant-numeric:tabular-nums;text-align:right;white-space:nowrap}
+details summary{cursor:pointer;font-size:13px;color:var(--accent)}
+details summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
+.tip{position:fixed;pointer-events:none;background:var(--ink);color:var(--bg);font-size:12px;line-height:1.5;padding:6px 9px;border-radius:6px;font-family:var(--mono);z-index:20;max-width:260px}
+ol,ul{margin:0;padding-left:20px;max-width:70ch}
+li+li{margin-top:4px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<main>
+<header>
+  <div class="eyebrow">FlapSim · plan v4 第 5 轮 + 确认性检验 M1 · 截至 2026-10-19</div>
+  <h1>仿昆虫分层控制器：机动比最强经典方案好 5% 以上（3/5 种子），且零坠落</h1>
+  <p class="lede">第 5 轮训练并选出的 5 个控制器，冻结后在一套全新的盲测集上复测：3 个种子的点头和冲刺平均比最强经典方案好 5% 以上，悬停和大扰动恢复不劣，160 个机动回合零坠落，达到预注册的 M1 判据。优势主要来自冲刺；点头的优势在种子之间不稳定。</p>
+</header>
+
+<section aria-label="要点"><div class="facts" id="facts"></div></section>
+
+<section>
+  <div style="background:var(--surface);border:1px solid var(--rule);border-left:3px solid var(--warn);border-radius:8px;padding:14px 16px;display:flex;flex-direction:column;gap:8px">
+    <h3>读这份报告前需要知道的三点</h3>
+    <ul>
+      <li><strong>M1 取代了原来的 H1。</strong>原 H1 把悬停和大扰动恢复也平均进综合分；这两项学习层不参与（悬停按构造 1.000，恢复固定 1.050），掺进去会稀释学习层的成绩。M1 只评价学习层控制的机动，另两项改为"不劣"条件。这个判据是在六轮结果之后提出的，论文里会如实写明，并同时报告原 H1 的结果（第 5 轮 2/5，六轮均未达到 3/5）。</li>
+      <li><strong>M1 本身是干净的检验。</strong>判据在测试前推送到仓库；控制器冻结，不再训练、不再挑选；盲测集全新，此前没有任何控制器或诊断用过；只测一次。</li>
+      <li><strong>通过的余量很小。</strong>第 3 个通过的种子（种子 2）只比门槛低 0.0005；换一套盲测集，结果可能变成 2/5。</li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <h2>控制器：三层结构</h2>
+  <p class="muted">学习的只有最上面一层，而且只在机动指令期间接管。它不直接驱动执行器，只决定"什么时候打脉冲"和"俯仰目标角是多少"。</p>
+  <figure>
+    <div class="scroll">
+    <svg viewBox="0 0 880 420" role="img" aria-label="控制器三层结构：IMU 传感器进入下行指令层（脉冲神经网络），经门控后输出放电和俯仰目标角；反射层 PID 一直运行并输出云台和电机均值；转向肌层收到放电时把电机顶到上限 6 毫秒；门控关闭时改由经典脉冲律放电。" style="min-width:640px">
+      <defs>
+        <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="currentColor"/></marker>
+        <marker id="arA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--accent)"/></marker>
+      </defs>
+      <g style="color:var(--ink-2)" font-size="13">
+        <!-- sensors -->
+        <rect x="20" y="170" width="130" height="80" rx="8" fill="var(--surface-2)" stroke="var(--rule)"/>
+        <text x="85" y="200" text-anchor="middle" font-weight="700">传感器</text>
+        <text x="85" y="220" text-anchor="middle" font-size="12" fill="var(--ink-2)">IMU 11 维</text>
+        <text x="85" y="236" text-anchor="middle" font-size="12" fill="var(--ink-2)">ToF 测距（仅 PID）</text>
+        <!-- descending layer -->
+        <rect x="230" y="30" width="250" height="120" rx="8" fill="var(--surface)" stroke="var(--accent)" stroke-width="2"/>
+        <text x="355" y="56" text-anchor="middle" font-weight="700">③ 下行指令层（学习）</text>
+        <text x="355" y="78" text-anchor="middle" font-size="12" fill="var(--ink-2)">8 个 LIF 脉冲神经元 · 2035 参数</text>
+        <text x="355" y="96" text-anchor="middle" font-size="12" fill="var(--ink-2)">每条连接 11 档延迟（0–20 ms）</text>
+        <text x="355" y="114" text-anchor="middle" font-size="12" fill="var(--ink-2)">输出：放电 up/down + 俯仰目标角</text>
+        <text x="355" y="134" text-anchor="middle" font-size="12" fill="var(--ink-2)">不应期：每翅拍最多 1 次</text>
+        <!-- gate -->
+        <rect x="540" y="60" width="110" height="60" rx="30" fill="var(--surface-2)" stroke="var(--rule)"/>
+        <text x="595" y="86" text-anchor="middle" font-weight="700">门控</text>
+        <text x="595" y="104" text-anchor="middle" font-size="12" fill="var(--ink-2)">机动指令 +1 s</text>
+        <!-- classical pulse law -->
+        <rect x="540" y="160" width="140" height="56" rx="8" fill="var(--surface-2)" stroke="var(--rule)"/>
+        <text x="610" y="184" text-anchor="middle" font-weight="700">经典脉冲律</text>
+        <text x="610" y="202" text-anchor="middle" font-size="12" fill="var(--ink-2)">门关时接管（锁相环）</text>
+        <!-- PID -->
+        <rect x="230" y="280" width="250" height="90" rx="8" fill="var(--surface)" stroke="var(--rule)"/>
+        <text x="355" y="308" text-anchor="middle" font-weight="700">① 反射层 PID（始终运行）</text>
+        <text x="355" y="330" text-anchor="middle" font-size="12" fill="var(--ink-2)">姿态 → 云台 α/β</text>
+        <text x="355" y="348" text-anchor="middle" font-size="12" fill="var(--ink-2)">高度 → 电机均值转速</text>
+        <!-- steering muscle -->
+        <rect x="560" y="280" width="140" height="90" rx="8" fill="var(--surface)" stroke="var(--rule)"/>
+        <text x="630" y="308" text-anchor="middle" font-weight="700">② 转向肌层</text>
+        <text x="630" y="330" text-anchor="middle" font-size="12" fill="var(--ink-2)">放电 → 电机顶到</text>
+        <text x="630" y="348" text-anchor="middle" font-size="12" fill="var(--ink-2)">3807 rad/s，6 ms</text>
+        <!-- actuators -->
+        <rect x="740" y="280" width="120" height="90" rx="8" fill="var(--surface-2)" stroke="var(--rule)"/>
+        <text x="800" y="312" text-anchor="middle" font-weight="700">执行器</text>
+        <text x="800" y="334" text-anchor="middle" font-size="12" fill="var(--ink-2)">云台 ±0.3 rad</text>
+        <text x="800" y="352" text-anchor="middle" font-size="12" fill="var(--ink-2)">电机 每 2 ms</text>
+        <!-- arrows -->
+        <path d="M150,195 C190,195 190,90 228,90" fill="none" stroke="currentColor" stroke-width="1.6" marker-end="url(#ar)"/>
+        <text x="160" y="140" font-size="12" fill="var(--ink-3)">20 维特征</text>
+        <path d="M150,225 C190,225 190,325 228,325" fill="none" stroke="currentColor" stroke-width="1.6" marker-end="url(#ar)"/>
+        <text x="160" y="292" font-size="12" fill="var(--ink-3)">姿态、高度</text>
+        <line x1="480" y1="90" x2="538" y2="90" stroke="var(--accent)" stroke-width="2" marker-end="url(#arA)"/>
+        <path d="M595,120 L595,140 C595,150 470,150 450,170 L410,278" fill="none" stroke="var(--accent)" stroke-width="2" marker-end="url(#arA)"/>
+        <text x="455" y="220" font-size="12" fill="var(--accent)">俯仰目标角</text>
+        <path d="M650,90 C720,90 720,250 660,278" fill="none" stroke="var(--accent)" stroke-width="2" marker-end="url(#arA)"/>
+        <text x="700" y="140" font-size="12" fill="var(--accent)">放电</text>
+        <line x1="630" y1="216" x2="630" y2="278" stroke="currentColor" stroke-width="1.6" stroke-dasharray="5 4" marker-end="url(#ar)"/>
+        <text x="638" y="252" font-size="12" fill="var(--ink-3)">门关时</text>
+        <line x1="480" y1="325" x2="558" y2="325" stroke="currentColor" stroke-width="1.6" marker-end="url(#ar)"/>
+        <text x="490" y="316" font-size="12" fill="var(--ink-3)">转速指令</text>
+        <line x1="700" y1="325" x2="738" y2="325" stroke="currentColor" stroke-width="1.6" marker-end="url(#ar)"/>
+      </g>
+    </svg>
+    </div>
+    <figcaption>蓝色是学习层的通路。门控只在点头或冲刺指令期间（加 1 秒尾巴）让学习层接管；其余时间由经典脉冲律放电，所以悬停按构造等于经典（1.000），受扰恢复固定为 1.050。学习层看不到翅拍相位，要靠延迟连接从陀螺和加速度计的振荡里自己构造出来。</figcaption>
+  </figure>
+</section>
+
+<section>
+  <h2>训练与评估流程</h2>
+  <p class="muted">先模仿经典控制器得到会飞的起点，再用进化策略（ES）在点头和冲刺上搜索；搜索结束后在 128 个验证用例上选中心，最后在从未见过的盲测集上和经典对手配对比较。每一轮开跑前写好预注册。</p>
+  <figure>
+    <div class="scroll">
+    <svg viewBox="0 0 900 360" role="img" aria-label="训练与评估流程：模仿经典控制器得到起点；ES 每代生成 32 个候选并在训练用例上排名、更新，每 5 代保存一个中心；plan v5 在每代后加 128 例安全检查，不安全就撤回；搜索结束后用 128 个验证用例选零坠落中综合最好的中心；最后在新盲测集上与经典对手比较，按预注册假设判定。" style="min-width:680px">
+      <defs>
+        <marker id="ar2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="currentColor"/></marker>
+        <marker id="ar2r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--critical)"/></marker>
+      </defs>
+      <g style="color:var(--ink-2)" font-size="13">
+        <rect x="20" y="40" width="150" height="96" rx="8" fill="var(--surface-2)" stroke="var(--rule)"/>
+        <text x="95" y="66" text-anchor="middle" font-weight="700">1 · 模仿</text>
+        <text x="95" y="88" text-anchor="middle" font-size="12" fill="var(--ink-2)">记录经典控制器</text>
+        <text x="95" y="104" text-anchor="middle" font-size="12" fill="var(--ink-2)">逐拍放电与目标角</text>
+        <text x="95" y="120" text-anchor="middle" font-size="12" fill="var(--ink-2)">替代梯度训练</text>
+        <!-- ES loop -->
+        <rect x="220" y="20" width="330" height="200" rx="10" fill="none" stroke="var(--accent)" stroke-width="2"/>
+        <text x="236" y="42" font-weight="700" fill="var(--accent)">2 · ES 搜索（每代）</text>
+        <rect x="240" y="56" width="140" height="44" rx="6" fill="var(--surface)" stroke="var(--rule)"/>
+        <text x="310" y="83" text-anchor="middle" font-size="12">扰动出 32 个候选</text>
+        <rect x="400" y="56" width="134" height="44" rx="6" fill="var(--surface)" stroke="var(--rule)"/>
+        <text x="467" y="76" text-anchor="middle" font-size="12">每个候选飞训练用例</text>
+        <text x="467" y="92" text-anchor="middle" font-size="11" fill="var(--ink-3)">r5: 12 个 · r6: 32 个</text>
+        <rect x="400" y="120" width="134" height="44" rx="6" fill="var(--surface)" stroke="var(--rule)"/>
+        <text x="467" y="140" text-anchor="middle" font-size="12">按得分+倾角惩罚排名</text>
+        <text x="467" y="156" text-anchor="middle" font-size="11" fill="var(--ink-3)">点头 : 冲刺 = 2 : 1</text>
+        <rect x="240" y="120" width="140" height="44" rx="6" fill="var(--surface)" stroke="var(--rule)"/>
+        <text x="310" y="147" text-anchor="middle" font-size="12">朝好的方向更新</text>
+        <line x1="380" y1="78" x2="398" y2="78" stroke="currentColor" stroke-width="1.5" marker-end="url(#ar2)"/>
+        <line x1="467" y1="100" x2="467" y2="118" stroke="currentColor" stroke-width="1.5" marker-end="url(#ar2)"/>
+        <line x1="400" y1="142" x2="382" y2="142" stroke="currentColor" stroke-width="1.5" marker-end="url(#ar2)"/>
+        <line x1="310" y1="120" x2="310" y2="102" stroke="currentColor" stroke-width="1.5" marker-end="url(#ar2)"/>
+        <text x="236" y="200" font-size="12" fill="var(--ink-3)">每 5 代保存一个"中心"</text>
+        <!-- safety check -->
+        <rect x="240" y="250" width="294" height="76" rx="8" fill="var(--surface)" stroke="var(--critical)" stroke-dasharray="6 4"/>
+        <text x="387" y="274" text-anchor="middle" font-weight="700">plan v5：每代安全检查</text>
+        <text x="387" y="294" text-anchor="middle" font-size="12" fill="var(--ink-2)">新中心飞 128 个独立安全用例</text>
+        <text x="387" y="312" text-anchor="middle" font-size="12" fill="var(--ink-2)">坠落或倾角 ≥ 70° → 撤回这一代</text>
+        <path d="M310,164 L310,248" fill="none" stroke="currentColor" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#ar2)"/>
+        <path d="M534,290 C580,290 580,142 536,142" fill="none" stroke="var(--critical)" stroke-width="1.6" marker-end="url(#ar2r)"/>
+        <text x="572" y="230" font-size="12" fill="var(--critical)">撤回</text>
+        <line x1="170" y1="88" x2="218" y2="88" stroke="currentColor" stroke-width="1.6" marker-end="url(#ar2)"/>
+        <text x="176" y="80" font-size="11" fill="var(--ink-3)">起点</text>
+        <!-- selection -->
+        <rect x="610" y="40" width="130" height="110" rx="8" fill="var(--surface-2)" stroke="var(--rule)"/>
+        <text x="675" y="66" text-anchor="middle" font-weight="700">3 · 选中心</text>
+        <text x="675" y="88" text-anchor="middle" font-size="12" fill="var(--ink-2)">128 个验证用例</text>
+        <text x="675" y="106" text-anchor="middle" font-size="12" fill="var(--ink-2)">零坠落、倾角 &lt; 70°</text>
+        <text x="675" y="124" text-anchor="middle" font-size="12" fill="var(--ink-2)">里综合最好的</text>
+        <line x1="550" y1="88" x2="608" y2="88" stroke="currentColor" stroke-width="1.6" marker-end="url(#ar2)"/>
+        <text x="556" y="80" font-size="11" fill="var(--ink-3)">全部中心</text>
+        <!-- blind -->
+        <rect x="770" y="40" width="114" height="110" rx="8" fill="var(--surface-2)" stroke="var(--rule)"/>
+        <text x="827" y="66" text-anchor="middle" font-weight="700">4 · 盲测</text>
+        <text x="827" y="88" text-anchor="middle" font-size="12" fill="var(--ink-2)">每次新用例集</text>
+        <text x="827" y="106" text-anchor="middle" font-size="12" fill="var(--ink-2)">÷ 经典对手</text>
+        <text x="827" y="124" text-anchor="middle" font-size="12" fill="var(--ink-2)">判 M1 / H3 / H5</text>
+        <line x1="740" y1="95" x2="768" y2="95" stroke="currentColor" stroke-width="1.6" marker-end="url(#ar2)"/>
+      </g>
+    </svg>
+    </div>
+    <figcaption>红色虚线是后来试验过的一步（plan v5，未用于第 5 轮），其余就是第 5 轮的流程。第 5 轮每个候选飞 12 个训练用例（点头 8、冲刺 4）。选中心和盲测只在 claude-ea 上做（跨机器评估已验证一致到 2×10⁻⁶）。预注册在任何搜索开始前推送，判据事后不改。</figcaption>
+  </figure>
+</section>
+
+
+<section>
+  <h2>M1：冻结的第 5 轮控制器在新盲测集上的表现</h2>
+  <p class="muted">每行一个种子。比值 = 学习方 ÷ 最强经典方案，越低越好。菱形是点头和冲刺的平均（M1 分数），虚线 0.95 是过线。悬停（1.000）和恢复（1.050）五个种子都一样，都在 1.06 的不劣容差内。</p>
+  <figure>
+    <div class="legend" id="leg1"></div>
+    <div class="scroll"><svg id="ch1" viewBox="0 0 900 330" role="img" aria-label="M1 各种子的点头、冲刺比值与平均"></svg></div>
+    <figcaption id="cap1"></figcaption>
+    <details><summary>查看数据表</summary><div class="scroll"><table id="tb1"></table></div></details>
+  </figure>
+</section>
+
+<section>
+  <h2>换一套盲测集，结果稳不稳</h2>
+  <p class="muted">同样 5 个控制器，第 5 轮当时的盲测集（基数 2_096_600_000）和 M1 的新盲测集（2_096_900_000）上的机动平均。两点越近，结果越稳。</p>
+  <figure>
+    <div class="legend" id="leg2"></div>
+    <div class="scroll"><svg id="ch2" viewBox="0 0 900 300" role="img" aria-label="两套盲测集上的机动平均对比"></svg></div>
+    <figcaption id="cap2"></figcaption>
+  </figure>
+</section>
+
+<section>
+  <h2>为什么要用 128 例选中心：越优化越危险</h2>
+  <p class="muted">每一格是搜索中保存的一个中心，在同一批 128 个验证用例上的坠落次数（第 4、5 轮用例完全相同）。白格零坠落，颜色越深坠落越多，粗描边是第 5 轮最终选中的中心。</p>
+  <figure>
+    <div class="legend" id="leg3"></div>
+    <div class="scroll"><svg id="ch3" viewBox="0 0 900 360" role="img" aria-label="第 4、5 轮各中心在 128 个验证用例上的坠落次数"></svg></div>
+    <figcaption id="cap3"></figcaption>
+  </figure>
+</section>
+
+<section>
+  <h2>六轮的来路</h2>
+  <p class="muted">描述性回顾：每个点是一个种子的盲测机动平均（点头和冲刺）。这个指标是事后整理的，前五轮的正式判据是原 H1。红圈表示盲测中有坠落。</p>
+  <figure>
+    <div class="legend" id="leg4"></div>
+    <div class="scroll"><svg id="ch4" viewBox="0 0 900 340" role="img" aria-label="六轮各种子盲测机动平均"></svg></div>
+    <figcaption id="cap4"></figcaption>
+  </figure>
+  <div class="scroll"><table>
+    <thead><tr><th>轮次</th><th>改动</th><th>想解决的问题</th><th>结果</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>模仿 + ES 直接优化四个任务</td><td>—</td><td>ES 用悬停换机动</td></tr>
+      <tr><td>2</td><td>指令门控：学习层只在机动时接管</td><td>保护悬停</td><td>机动快 7–22%，但偶发坠落</td></tr>
+      <tr><td>3</td><td>倾角惩罚从 45° 起</td><td>80° 翻倒</td><td>点头变保守，仍有越界</td></tr>
+      <tr><td>4</td><td>翅拍不应期；惩罚改从 60° 起</td><td>高度越界、点头太慢</td><td>首次 4/5 零坠落；点头仍慢</td></tr>
+      <tr><td><strong>5</strong></td><td><strong>点头 2:1 加权、点头用例加倍、128 例选中心</strong></td><td>点头；选中心看不到坠落</td><td><strong>5/5 零坠落；M1 复测 3/5 通过</strong></td></tr>
+      <tr><td>6</td><td>每候选 32 个用例，30 代</td><td>搜索看不到坠落风险</td><td>已完成的种子 4、5 不如第 5 轮；种子 1–3 停在第 28 代，已挂起</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section>
+  <h2>附：安全检查试验（plan v5 种子 1，探索性）</h2>
+  <p class="muted">每代更新后在 128 个独立安全用例上检查，坠落或倾角 ≥ 70° 就撤回。跑了 30/40 代后停止，不作为结论。</p>
+  <figure>
+    <div class="scroll"><svg id="ch5" viewBox="0 0 900 130" role="img" aria-label="安全检查每代结果"></svg></div>
+    <figcaption id="cap5"></figcaption>
+  </figure>
+</section>
+
+<section>
+  <h2>结论</h2>
+  <ul>
+    <li><strong>主结论（M1，预注册、干净复测）</strong>：冻结的第 5 轮控制器中 3/5 在新盲测集上机动比最强经典方案好 5% 以上，悬停和恢复不劣，零坠落。最好的两个种子好约 10–11%。</li>
+    <li><strong>机制（H3）</strong>：第 5 轮每个种子去掉快通道、延迟、目标角或脉冲中任何一个，综合都恶化 37% 以上，四种机制缺一不可。</li>
+    <li><strong>安全（H5）</strong>：第 5 轮 5/5 盲测零坠落，M1 复测 160 个机动回合零坠落。</li>
+    <li><strong>局限</strong>：M1 在六轮之后提出；通过余量很小（种子 2 差 0.0005）；点头优势不稳定（种子 5 的点头不如经典）；纯仿真；学习方预算大于经典调参预算。</li>
+    <li><strong>根本瓶颈</strong>：点头的"更快"和"更安全"在这个结构下冲突；ES 用十几个用例评估候选，看不到 1–3% 的翻倒率，越优化越接近翻倒边缘，只能靠 128 例选中心退回较早、较安全的代。</li>
+  </ul>
+  <p class="small">数据来源：仓库 <span style="font-family:var(--mono)">artifacts/spike_steer/confirm_m1/</span>（M1 预注册 132b1e2、结果 074942c）、<span style="font-family:var(--mono)">plan_v4/r4、r5/</span>、<span style="font-family:var(--mono)">plan_v5/r1/</span>。</p>
+</section>
+</main>
+<div class="tip" id="tip" hidden></div>
+<script>
+const D = {"blind": [{"round": 2, "seed": 1, "composite": 0.9405, "nod": 0.8689, "dash": 0.843, "crashes": 0}, {"round": 2, "seed": 2, "composite": 1.1646, "nod": 1.7444, "dash": 0.8642, "crashes": 1}, {"round": 2, "seed": 3, "composite": 1.1351, "nod": 1.507, "dash": 0.9835, "crashes": 2}, {"round": 2, "seed": 5, "composite": 1.0126, "nod": 0.868, "dash": 1.1326, "crashes": 2}, {"round": 3, "seed": 1, "composite": 0.9987, "nod": 0.9382, "dash": 1.0064, "crashes": 1}, {"round": 3, "seed": 2, "composite": 0.9727, "nod": 0.9397, "dash": 0.9009, "crashes": 0}, {"round": 3, "seed": 5, "composite": 0.9674, "nod": 0.8774, "dash": 0.942, "crashes": 0}, {"round": 4, "seed": 1, "composite": 0.9502, "nod": 0.9148, "dash": 0.8358, "crashes": 0}, {"round": 4, "seed": 2, "composite": 1.1549, "nod": 1.7478, "dash": 0.8215, "crashes": 1}, {"round": 4, "seed": 3, "composite": 0.9957, "nod": 1.0934, "dash": 0.8391, "crashes": 0}, {"round": 4, "seed": 4, "composite": 0.9609, "nod": 0.9196, "dash": 0.8738, "crashes": 0}, {"round": 4, "seed": 5, "composite": 0.9965, "nod": 1.0627, "dash": 0.873, "crashes": 0}, {"round": 5, "seed": 1, "composite": 0.9485, "nod": 0.8965, "dash": 0.8472, "crashes": 0}, {"round": 5, "seed": 2, "composite": 0.9829, "nod": 0.8833, "dash": 0.9981, "crashes": 0}, {"round": 5, "seed": 3, "composite": 0.9937, "nod": 0.9167, "dash": 1.0079, "crashes": 0}, {"round": 5, "seed": 4, "composite": 0.9442, "nod": 0.8571, "dash": 0.8694, "crashes": 0}, {"round": 5, "seed": 5, "composite": 0.9895, "nod": 0.9522, "dash": 0.9558, "crashes": 0}, {"round": 6, "seed": 4, "composite": 0.9783, "nod": 0.9166, "dash": 0.9466, "crashes": 0}, {"round": 6, "seed": 5, "composite": 0.9815, "nod": 0.979, "dash": 0.8967, "crashes": 0}], "heat": [{"round": 4, "seed": 1, "gen": -1, "crashes": 0, "score": 1.053}, {"round": 4, "seed": 1, "gen": 4, "crashes": 1, "score": 1.116}, {"round": 4, "seed": 1, "gen": 9, "crashes": 1, "score": 0.981}, {"round": 4, "seed": 1, "gen": 14, "crashes": 4, "score": 1.235}, {"round": 4, "seed": 1, "gen": 19, "crashes": 2, "score": 1.077}, {"round": 4, "seed": 1, "gen": 24, "crashes": 2, "score": 1.055}, {"round": 4, "seed": 1, "gen": 29, "crashes": 4, "score": 1.182}, {"round": 4, "seed": 1, "gen": 34, "crashes": 0, "score": 0.924}, {"round": 4, "seed": 1, "gen": 39, "crashes": 1, "score": 0.943}, {"round": 4, "seed": 1, "gen": 44, "crashes": 4, "score": 1.169}, {"round": 4, "seed": 1, "gen": 49, "crashes": 14, "score": 2.259}, {"round": 4, "seed": 1, "gen": 54, "crashes": 4, "score": 1.36}, {"round": 4, "seed": 1, "gen": 59, "crashes": 1, "score": 1.042}, {"round": 4, "seed": 2, "gen": -1, "crashes": 0, "score": 0.943}, {"round": 4, "seed": 2, "gen": 4, "crashes": 3, "score": 1.292}, {"round": 4, "seed": 2, "gen": 9, "crashes": 4, "score": 1.122}, {"round": 4, "seed": 2, "gen": 14, "crashes": 0, "score": 0.924}, {"round": 4, "seed": 2, "gen": 19, "crashes": 4, "score": 1.497}, {"round": 4, "seed": 2, "gen": 24, "crashes": 2, "score": 1.078}, {"round": 4, "seed": 2, "gen": 29, "crashes": 4, "score": 1.042}, {"round": 4, "seed": 2, "gen": 34, "crashes": 2, "score": 1.058}, {"round": 4, "seed": 2, "gen": 39, "crashes": 3, "score": 1.255}, {"round": 4, "seed": 2, "gen": 44, "crashes": 3, "score": 1.267}, {"round": 4, "seed": 2, "gen": 49, "crashes": 0, "score": 0.968}, {"round": 4, "seed": 2, "gen": 54, "crashes": 4, "score": 1.247}, {"round": 4, "seed": 2, "gen": 59, "crashes": 3, "score": 0.935}, {"round": 4, "seed": 3, "gen": -1, "crashes": 0, "score": 1.201}, {"round": 4, "seed": 3, "gen": 4, "crashes": 3, "score": 1.111}, {"round": 4, "seed": 3, "gen": 9, "crashes": 0, "score": 0.934}, {"round": 4, "seed": 3, "gen": 14, "crashes": 3, "score": 1.534}, {"round": 4, "seed": 3, "gen": 19, "crashes": 1, "score": 1.075}, {"round": 4, "seed": 3, "gen": 24, "crashes": 0, "score": 1.0}, {"round": 4, "seed": 3, "gen": 29, "crashes": 0, "score": 1.05}, {"round": 4, "seed": 3, "gen": 34, "crashes": 2, "score": 1.277}, {"round": 4, "seed": 3, "gen": 39, "crashes": 7, "score": 1.848}, {"round": 4, "seed": 3, "gen": 44, "crashes": 6, "score": 1.864}, {"round": 4, "seed": 3, "gen": 49, "crashes": 4, "score": 1.652}, {"round": 4, "seed": 3, "gen": 54, "crashes": 4, "score": 1.5}, {"round": 4, "seed": 3, "gen": 59, "crashes": 2, "score": 1.083}, {"round": 4, "seed": 4, "gen": -1, "crashes": 0, "score": 0.979}, {"round": 4, "seed": 4, "gen": 4, "crashes": 2, "score": 1.02}, {"round": 4, "seed": 4, "gen": 9, "crashes": 2, "score": 1.036}, {"round": 4, "seed": 4, "gen": 14, "crashes": 10, "score": 1.551}, {"round": 4, "seed": 4, "gen": 19, "crashes": 0, "score": 0.971}, {"round": 4, "seed": 4, "gen": 24, "crashes": 2, "score": 1.207}, {"round": 4, "seed": 4, "gen": 29, "crashes": 1, "score": 1.086}, {"round": 4, "seed": 4, "gen": 34, "crashes": 3, "score": 1.186}, {"round": 4, "seed": 4, "gen": 39, "crashes": 8, "score": 1.948}, {"round": 4, "seed": 4, "gen": 44, "crashes": 2, "score": 1.155}, {"round": 4, "seed": 4, "gen": 49, "crashes": 3, "score": 1.171}, {"round": 4, "seed": 4, "gen": 54, "crashes": 3, "score": 1.242}, {"round": 4, "seed": 4, "gen": 59, "crashes": 2, "score": 1.014}, {"round": 4, "seed": 5, "gen": -1, "crashes": 0, "score": 1.136}, {"round": 4, "seed": 5, "gen": 4, "crashes": 0, "score": 0.951}, {"round": 4, "seed": 5, "gen": 9, "crashes": 0, "score": 0.92}, {"round": 4, "seed": 5, "gen": 14, "crashes": 0, "score": 0.937}, {"round": 4, "seed": 5, "gen": 19, "crashes": 0, "score": 0.944}, {"round": 4, "seed": 5, "gen": 24, "crashes": 0, "score": 0.956}, {"round": 4, "seed": 5, "gen": 29, "crashes": 2, "score": 1.153}, {"round": 4, "seed": 5, "gen": 34, "crashes": 2, "score": 1.236}, {"round": 4, "seed": 5, "gen": 39, "crashes": 4, "score": 1.373}, {"round": 4, "seed": 5, "gen": 44, "crashes": 4, "score": 1.483}, {"round": 4, "seed": 5, "gen": 49, "crashes": 8, "score": 2.199}, {"round": 4, "seed": 5, "gen": 54, "crashes": 15, "score": 2.369}, {"round": 4, "seed": 5, "gen": 59, "crashes": 13, "score": 2.221}, {"round": 5, "seed": 1, "gen": -1, "crashes": 0, "score": 1.09, "selected": false}, {"round": 5, "seed": 1, "gen": 4, "crashes": 2, "score": 1.19, "selected": false}, {"round": 5, "seed": 1, "gen": 9, "crashes": 0, "score": 0.912, "selected": true}, {"round": 5, "seed": 1, "gen": 14, "crashes": 5, "score": 1.034, "selected": false}, {"round": 5, "seed": 1, "gen": 19, "crashes": 0, "score": 0.935, "selected": false}, {"round": 5, "seed": 1, "gen": 24, "crashes": 0, "score": 0.99, "selected": false}, {"round": 5, "seed": 1, "gen": 29, "crashes": 2, "score": 1.245, "selected": false}, {"round": 5, "seed": 1, "gen": 34, "crashes": 1, "score": 1.079, "selected": false}, {"round": 5, "seed": 1, "gen": 39, "crashes": 2, "score": 1.138, "selected": false}, {"round": 5, "seed": 1, "gen": 44, "crashes": 4, "score": 1.389, "selected": false}, {"round": 5, "seed": 1, "gen": 49, "crashes": 1, "score": 1.278, "selected": false}, {"round": 5, "seed": 1, "gen": 54, "crashes": 2, "score": 1.134, "selected": false}, {"round": 5, "seed": 1, "gen": 59, "crashes": 3, "score": 1.304, "selected": false}, {"round": 5, "seed": 2, "gen": -1, "crashes": 0, "score": 0.945, "selected": false}, {"round": 5, "seed": 2, "gen": 4, "crashes": 0, "score": 0.945, "selected": true}, {"round": 5, "seed": 2, "gen": 9, "crashes": 3, "score": 1.36, "selected": false}, {"round": 5, "seed": 2, "gen": 14, "crashes": 1, "score": 1.248, "selected": false}, {"round": 5, "seed": 2, "gen": 19, "crashes": 0, "score": 1.004, "selected": false}, {"round": 5, "seed": 2, "gen": 24, "crashes": 0, "score": 1.178, "selected": false}, {"round": 5, "seed": 2, "gen": 29, "crashes": 4, "score": 1.446, "selected": false}, {"round": 5, "seed": 2, "gen": 34, "crashes": 0, "score": 0.978, "selected": false}, {"round": 5, "seed": 2, "gen": 39, "crashes": 0, "score": 1.043, "selected": false}, {"round": 5, "seed": 2, "gen": 44, "crashes": 0, "score": 0.965, "selected": false}, {"round": 5, "seed": 2, "gen": 49, "crashes": 0, "score": 1.021, "selected": false}, {"round": 5, "seed": 2, "gen": 54, "crashes": 0, "score": 1.059, "selected": false}, {"round": 5, "seed": 2, "gen": 59, "crashes": 0, "score": 0.977, "selected": false}, {"round": 5, "seed": 3, "gen": -1, "crashes": 0, "score": 1.292, "selected": false}, {"round": 5, "seed": 3, "gen": 4, "crashes": 3, "score": 1.219, "selected": false}, {"round": 5, "seed": 3, "gen": 9, "crashes": 0, "score": 1.031, "selected": false}, {"round": 5, "seed": 3, "gen": 14, "crashes": 1, "score": 1.34, "selected": false}, {"round": 5, "seed": 3, "gen": 19, "crashes": 2, "score": 1.369, "selected": false}, {"round": 5, "seed": 3, "gen": 24, "crashes": 4, "score": 1.805, "selected": false}, {"round": 5, "seed": 3, "gen": 29, "crashes": 2, "score": 1.487, "selected": false}, {"round": 5, "seed": 3, "gen": 34, "crashes": 1, "score": 1.147, "selected": false}, {"round": 5, "seed": 3, "gen": 39, "crashes": 1, "score": 1.194, "selected": false}, {"round": 5, "seed": 3, "gen": 44, "crashes": 0, "score": 0.978, "selected": true}, {"round": 5, "seed": 3, "gen": 49, "crashes": 2, "score": 1.354, "selected": false}, {"round": 5, "seed": 3, "gen": 54, "crashes": 1, "score": 1.122, "selected": false}, {"round": 5, "seed": 3, "gen": 59, "crashes": 2, "score": 0.923, "selected": false}, {"round": 5, "seed": 4, "gen": -1, "crashes": 0, "score": 0.993, "selected": false}, {"round": 5, "seed": 4, "gen": 4, "crashes": 0, "score": 0.964, "selected": false}, {"round": 5, "seed": 4, "gen": 9, "crashes": 2, "score": 1.362, "selected": false}, {"round": 5, "seed": 4, "gen": 14, "crashes": 1, "score": 0.955, "selected": false}, {"round": 5, "seed": 4, "gen": 19, "crashes": 0, "score": 0.905, "selected": true}, {"round": 5, "seed": 4, "gen": 24, "crashes": 2, "score": 0.978, "selected": false}, {"round": 5, "seed": 4, "gen": 29, "crashes": 5, "score": 1.169, "selected": false}, {"round": 5, "seed": 4, "gen": 34, "crashes": 0, "score": 1.045, "selected": false}, {"round": 5, "seed": 4, "gen": 39, "crashes": 2, "score": 0.991, "selected": false}, {"round": 5, "seed": 4, "gen": 44, "crashes": 0, "score": 0.997, "selected": false}, {"round": 5, "seed": 4, "gen": 49, "crashes": 1, "score": 1.002, "selected": false}, {"round": 5, "seed": 4, "gen": 54, "crashes": 4, "score": 1.642, "selected": false}, {"round": 5, "seed": 4, "gen": 59, "crashes": 9, "score": 2.405, "selected": false}, {"round": 5, "seed": 5, "gen": -1, "crashes": 0, "score": 1.201, "selected": false}, {"round": 5, "seed": 5, "gen": 4, "crashes": 0, "score": 0.98, "selected": true}, {"round": 5, "seed": 5, "gen": 9, "crashes": 3, "score": 1.581, "selected": false}, {"round": 5, "seed": 5, "gen": 14, "crashes": 1, "score": 1.099, "selected": false}, {"round": 5, "seed": 5, "gen": 19, "crashes": 0, "score": 1.003, "selected": false}, {"round": 5, "seed": 5, "gen": 24, "crashes": 3, "score": 1.123, "selected": false}, {"round": 5, "seed": 5, "gen": 29, "crashes": 2, "score": 1.324, "selected": false}, {"round": 5, "seed": 5, "gen": 34, "crashes": 6, "score": 1.412, "selected": false}, {"round": 5, "seed": 5, "gen": 39, "crashes": 5, "score": 1.491, "selected": false}, {"round": 5, "seed": 5, "gen": 44, "crashes": 6, "score": 1.36, "selected": false}, {"round": 5, "seed": 5, "gen": 49, "crashes": 4, "score": 1.007, "selected": false}, {"round": 5, "seed": 5, "gen": 54, "crashes": 4, "score": 1.04, "selected": false}, {"round": 5, "seed": 5, "gen": 59, "crashes": 2, "score": 1.159, "selected": false}, {"round": 6, "seed": 4, "gen": -1, "crashes": 0, "score": 0.994, "selected": false}, {"round": 6, "seed": 4, "gen": 4, "crashes": 6, "score": 1.201, "selected": false}, {"round": 6, "seed": 4, "gen": 9, "crashes": 1, "score": 0.957, "selected": false}, {"round": 6, "seed": 4, "gen": 14, "crashes": 2, "score": 0.987, "selected": false}, {"round": 6, "seed": 4, "gen": 19, "crashes": 0, "score": 0.923, "selected": true}, {"round": 6, "seed": 4, "gen": 24, "crashes": 2, "score": 1.007, "selected": false}, {"round": 6, "seed": 4, "gen": 29, "crashes": 2, "score": 0.961, "selected": false}, {"round": 6, "seed": 5, "gen": -1, "crashes": 0, "score": 1.201, "selected": false}, {"round": 6, "seed": 5, "gen": 4, "crashes": 3, "score": 1.451, "selected": false}, {"round": 6, "seed": 5, "gen": 9, "crashes": 0, "score": 1.0, "selected": false}, {"round": 6, "seed": 5, "gen": 14, "crashes": 3, "score": 1.095, "selected": false}, {"round": 6, "seed": 5, "gen": 19, "crashes": 0, "score": 1.146, "selected": false}, {"round": 6, "seed": 5, "gen": 24, "crashes": 3, "score": 1.226, "selected": false}, {"round": 6, "seed": 5, "gen": 29, "crashes": 0, "score": 0.956, "selected": true}], "selection": [{"round": 5, "seed": 1, "gen": 9, "clean": 4, "n": 13}, {"round": 5, "seed": 2, "gen": 4, "clean": 10, "n": 13}, {"round": 5, "seed": 3, "gen": 44, "clean": 2, "n": 13}, {"round": 5, "seed": 4, "gen": 19, "clean": 5, "n": 13}, {"round": 5, "seed": 5, "gen": 4, "clean": 3, "n": 13}, {"round": 6, "seed": 4, "gen": 19, "clean": 2, "n": 7}, {"round": 6, "seed": 5, "gen": 29, "clean": 4, "n": 7}], "v5_safety": [{"gen": 0, "ok": true, "crashes": 0, "tilt": 47.8}, {"gen": 1, "ok": false, "crashes": 1, "tilt": 80.7}, {"gen": 2, "ok": true, "crashes": 0, "tilt": 49.7}, {"gen": 3, "ok": true, "crashes": 0, "tilt": 50.9}, {"gen": 4, "ok": false, "crashes": 1, "tilt": 80.8}, {"gen": 5, "ok": false, "crashes": 1, "tilt": 81.2}, {"gen": 6, "ok": false, "crashes": 0, "tilt": 79.3}, {"gen": 7, "ok": true, "crashes": 0, "tilt": 52.2}, {"gen": 8, "ok": true, "crashes": 0, "tilt": 48.4}, {"gen": 9, "ok": true, "crashes": 0, "tilt": 47.0}, {"gen": 10, "ok": true, "crashes": 0, "tilt": 46.9}, {"gen": 11, "ok": true, "crashes": 0, "tilt": 49.2}, {"gen": 12, "ok": false, "crashes": 4, "tilt": 81.8}, {"gen": 13, "ok": true, "crashes": 0, "tilt": 51.8}, {"gen": 14, "ok": false, "crashes": 4, "tilt": 81.3}, {"gen": 15, "ok": false, "crashes": 1, "tilt": 80.2}, {"gen": 16, "ok": true, "crashes": 0, "tilt": 52.2}, {"gen": 17, "ok": false, "crashes": 1, "tilt": 81.2}, {"gen": 18, "ok": true, "crashes": 0, "tilt": 56.9}, {"gen": 19, "ok": false, "crashes": 1, "tilt": 81.0}, {"gen": 20, "ok": true, "crashes": 0, "tilt": 50.2}, {"gen": 21, "ok": true, "crashes": 0, "tilt": 47.0}, {"gen": 22, "ok": true, "crashes": 0, "tilt": 46.3}, {"gen": 23, "ok": true, "crashes": 0, "tilt": 46.0}, {"gen": 24, "ok": true, "crashes": 0, "tilt": 46.0}, {"gen": 25, "ok": true, "crashes": 0, "tilt": 46.5}, {"gen": 26, "ok": true, "crashes": 0, "tilt": 49.9}, {"gen": 27, "ok": false, "crashes": 2, "tilt": 80.7}, {"gen": 28, "ok": true, "crashes": 0, "tilt": 53.5}, {"gen": 29, "ok": false, "crashes": 1, "tilt": 81.0}], "h2h": [{"round": 2, "episodes": 512, "crashes": 5, "tilt": 3, "height": 2}, {"round": 3, "episodes": 384, "crashes": 4, "tilt": 2, "height": 2}, {"round": 4, "episodes": 512, "crashes": 3, "tilt": 2, "height": 1}], "m1": [{"seed": 1, "gen": 9, "nod": 0.9511, "dash": 0.8462, "hover": 1.0, "upset": 1.0502, "m1": 0.8986, "crashes": 0, "passed": true, "wins_nod": 9, "wins_dash": 16}, {"seed": 2, "gen": 4, "nod": 0.934, "dash": 0.965, "hover": 1.0, "upset": 1.0502, "m1": 0.9495, "crashes": 0, "passed": true, "wins_nod": 13, "wins_dash": 10}, {"seed": 3, "gen": 44, "nod": 0.9732, "dash": 1.0089, "hover": 1.0, "upset": 1.0502, "m1": 0.9911, "crashes": 0, "passed": false, "wins_nod": 9, "wins_dash": 6}, {"seed": 4, "gen": 19, "nod": 0.9113, "dash": 0.8701, "hover": 1.0, "upset": 1.0502, "m1": 0.8907, "crashes": 0, "passed": true, "wins_nod": 15, "wins_dash": 16}, {"seed": 5, "gen": 4, "nod": 1.064, "dash": 0.9301, "hover": 1.0, "upset": 1.0502, "m1": 0.9971, "crashes": 0, "passed": false, "wins_nod": 7, "wins_dash": 15}], "m1_verdict": {"n_pass": 3, "verdict": "PASS"}};
+const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const tip = document.getElementById('tip');
+function showTip(e, html){ tip.innerHTML = html; tip.hidden = false; const x = Math.min(e.clientX + 14, innerWidth - 270); tip.style.left = x + 'px'; tip.style.top = (e.clientY + 14) + 'px'; }
+function hideTip(){ tip.hidden = true; }
+const NS = 'http://www.w3.org/2000/svg';
+function el(tag, attrs, parent, text){ const n = document.createElementNS(NS, tag); for (const k in attrs) n.setAttribute(k, attrs[k]); if (text != null) n.textContent = text; if (parent) parent.appendChild(n); return n; }
+const ROUNDS = [2,3,4,5,6];
+
+function hov(g, h){ g.addEventListener('mousemove', e => showTip(e, h)); g.addEventListener('mouseleave', hideTip);
+  g.addEventListener('focus', () => { const r0 = g.getBoundingClientRect(); showTip({clientX:r0.right, clientY:r0.top}, h); }); g.addEventListener('blur', hideTip); }
+const r5blind = D.blind.filter(d => d.round === 5);
+
+// ---------- facts
+(function(){
+  const m = D.m1, best = m.filter(d => d.passed).map(d => 1 - d.m1);
+  const crashes = m.reduce((a, d) => a + d.crashes, 0);
+  const facts = [
+    ['M1 判定（≥ 3/5 通过）', `${D.m1_verdict.n_pass}/5 · 通过`],
+    ['机动回合坠落', `${crashes} / ${m.length * 32}`],
+    ['通过种子的机动优势', `${Math.round(Math.min(...best)*1000)/10}–${Math.round(Math.max(...best)*1000)/10}%`],
+    ['冲刺逐例胜出（最好的种子）', `${Math.max(...m.map(d => d.wins_dash))}/16`],
+  ];
+  const box = document.getElementById('facts');
+  for (const [k, v] of facts){ const d = document.createElement('div'); d.className = 'fact'; d.innerHTML = `<span class="k">${k}</span><span class="v">${v}</span>`; box.appendChild(d); }
+})();
+
+// ---------- chart 1: M1 per seed
+(function(){
+  const svg = document.getElementById('ch1'), W = 900, H = 330, m = {l:96, r:110, t:20, b:44};
+  const x0 = 0.80, x1 = 1.10, rows = D.m1, rh = (H - m.t - m.b) / rows.length;
+  const X = v => m.l + (W - m.l - m.r) * (Math.min(x1, v) - x0) / (x1 - x0);
+  for (let v = 0.80; v <= 1.1001; v += 0.05){ el('line', {x1:X(v), x2:X(v), y1:m.t, y2:H-m.b, stroke:css('--rule')}, svg); el('text', {x:X(v), y:H-m.b+18, 'text-anchor':'middle', 'font-size':12, class:'num', fill:css('--ink-3')}, svg, v.toFixed(2)); }
+  el('line', {x1:X(0.95), x2:X(0.95), y1:m.t-6, y2:H-m.b, stroke:css('--ink'), 'stroke-width':1.5, 'stroke-dasharray':'6 4'}, svg);
+  el('text', {x:X(0.95)+4, y:m.t+4, 'font-size':12, fill:css('--ink')}, svg, '0.95 过线');
+  el('line', {x1:X(1.0), x2:X(1.0), y1:m.t, y2:H-m.b, stroke:css('--ink-3'), 'stroke-width':1}, svg);
+  el('text', {x:(m.l+W-m.r)/2, y:H-8, 'text-anchor':'middle', 'font-size':13, fill:css('--ink-2')}, svg, '比值（学习方 ÷ 最强经典方案；左边更好，1.00 = 持平）');
+  rows.forEach((d, i) => {
+    const cy = m.t + rh*(i + 0.5);
+    el('text', {x:m.l-12, y:cy+4, 'text-anchor':'end', 'font-size':13, fill:css('--ink')}, svg, `种子 ${d.seed}`);
+    el('line', {x1:X(Math.min(d.nod, d.dash)), x2:X(Math.max(d.nod, d.dash)), y1:cy, y2:cy, stroke:css('--rule'), 'stroke-width':3}, svg);
+    const g = el('g', {tabindex:0}, svg);
+    el('rect', {x:m.l, y:cy-rh/2, width:W-m.l-m.r, height:rh, fill:'transparent'}, g);
+    el('circle', {cx:X(d.nod), cy, r:7, fill:css('--s1'), stroke:css('--surface'), 'stroke-width':2}, g);
+    el('circle', {cx:X(d.dash), cy, r:7, fill:css('--s2'), stroke:css('--surface'), 'stroke-width':2}, g);
+    const mx = X(d.m1);
+    el('path', {d:`M${mx},${cy-9} L${mx+9},${cy} L${mx},${cy+9} L${mx-9},${cy} Z`, fill:css('--ink'), stroke:css('--surface'), 'stroke-width':2}, g);
+    el('text', {x:W-m.r+12, y:cy+4, 'font-size':13, class:'num', fill:css('--ink')}, g, d.m1.toFixed(4));
+    el('text', {x:W-m.r+70, y:cy+4, 'font-size':13, 'font-weight':700, fill: d.passed ? css('--good') : css('--critical')}, g, d.passed ? '✓ 通过' : '× 未过');
+    hov(g, `种子 ${d.seed}（第 5 轮第 ${d.gen} 代）<br>点头 ${d.nod.toFixed(3)}（胜 ${d.wins_nod}/16）<br>冲刺 ${d.dash.toFixed(3)}（胜 ${d.wins_dash}/16）<br>M1 ${d.m1.toFixed(4)}<br>悬停 ${d.hover.toFixed(3)} · 恢复 ${d.upset.toFixed(4)}<br>坠落 ${d.crashes}`);
+  });
+  document.getElementById('leg1').innerHTML = `<span><i class="sw" style="background:var(--s1)"></i>点头</span><span><i class="sw" style="background:var(--s2)"></i>冲刺</span><span><i class="sw" style="background:var(--ink);border-radius:2px;transform:rotate(45deg)"></i>机动平均（M1）</span>`;
+  document.getElementById('cap1').textContent = '种子 4 和 1 的优势明确（M1 0.891、0.899）；种子 2 以 0.9495 刚好过线。冲刺在种子 1、4 上 16 场全胜；点头只有种子 4（15/16）稳定领先，种子 5 的点头不如经典（1.064）。';
+  document.getElementById('tb1').innerHTML = '<thead><tr><th>种子</th><th>选中代</th><th class="n">点头</th><th class="n">冲刺</th><th class="n">M1</th><th class="n">悬停</th><th class="n">恢复</th><th class="n">点头胜</th><th class="n">冲刺胜</th><th class="n">坠落</th><th>结果</th></tr></thead><tbody>' +
+    D.m1.map(d => `<tr><td>${d.seed}</td><td>${d.gen}</td><td class="n">${d.nod.toFixed(3)}</td><td class="n">${d.dash.toFixed(3)}</td><td class="n">${d.m1.toFixed(4)}</td><td class="n">${d.hover.toFixed(3)}</td><td class="n">${d.upset.toFixed(4)}</td><td class="n">${d.wins_nod}/16</td><td class="n">${d.wins_dash}/16</td><td class="n">${d.crashes}</td><td><span class="pill ${d.passed ? 'ok' : 'no'}">${d.passed ? '通过' : '未过'}</span></td></tr>`).join('') + '</tbody>';
+})();
+
+// ---------- chart 2: stability across two blind sets
+(function(){
+  const svg = document.getElementById('ch2'), W = 900, H = 300, m = {l:96, r:40, t:20, b:44};
+  const x0 = 0.84, x1 = 1.02, rows = D.m1, rh = (H - m.t - m.b) / rows.length;
+  const X = v => m.l + (W - m.l - m.r) * (Math.min(x1, v) - x0) / (x1 - x0);
+  for (let v = 0.84; v <= 1.0201; v += 0.02){ el('line', {x1:X(v), x2:X(v), y1:m.t, y2:H-m.b, stroke:css('--rule')}, svg); el('text', {x:X(v), y:H-m.b+18, 'text-anchor':'middle', 'font-size':12, class:'num', fill:css('--ink-3')}, svg, v.toFixed(2)); }
+  el('line', {x1:X(0.95), x2:X(0.95), y1:m.t-6, y2:H-m.b, stroke:css('--ink'), 'stroke-width':1.5, 'stroke-dasharray':'6 4'}, svg);
+  el('text', {x:X(0.95)+4, y:m.t+4, 'font-size':12, fill:css('--ink')}, svg, '0.95');
+  el('text', {x:(m.l+W-m.r)/2, y:H-8, 'text-anchor':'middle', 'font-size':13, fill:css('--ink-2')}, svg, '机动平均（点头与冲刺比值的平均）');
+  const shifts = [];
+  rows.forEach((d, i) => {
+    const o = r5blind.find(b => b.seed === d.seed), a = (o.nod + o.dash)/2, cy = m.t + rh*(i + 0.5);
+    shifts.push(d.m1 - a);
+    el('text', {x:m.l-12, y:cy+4, 'text-anchor':'end', 'font-size':13, fill:css('--ink')}, svg, `种子 ${d.seed}`);
+    el('line', {x1:X(a), x2:X(d.m1), y1:cy, y2:cy, stroke:css('--ink-3'), 'stroke-width':2}, svg);
+    const g = el('g', {tabindex:0}, svg);
+    el('rect', {x:m.l, y:cy-rh/2, width:W-m.l-m.r, height:rh, fill:'transparent'}, g);
+    el('circle', {cx:X(a), cy, r:7, fill:css('--surface'), stroke:css('--s1'), 'stroke-width':2.5}, g);
+    el('circle', {cx:X(d.m1), cy, r:7, fill:css('--s1'), stroke:css('--surface'), 'stroke-width':2}, g);
+    hov(g, `种子 ${d.seed}<br>第 5 轮盲测集 ${a.toFixed(3)}<br>M1 新盲测集 ${d.m1.toFixed(3)}<br>变化 ${(d.m1 - a >= 0 ? '+' : '')}${(d.m1 - a).toFixed(3)}`);
+  });
+  document.getElementById('leg2').innerHTML = `<span><i class="sw" style="border:2.5px solid var(--s1);background:var(--surface)"></i>第 5 轮盲测集</span><span><i class="sw" style="background:var(--s1)"></i>M1 新盲测集</span>`;
+  const mean = shifts.reduce((a, b) => a + b, 0)/shifts.length;
+  document.getElementById('cap2').textContent = `五个种子在新盲测集上都略差，平均差 ${mean.toFixed(3)}，最多 ${Math.max(...shifts).toFixed(3)}，种子排名基本不变。种子 2 两次都贴着 0.95，是结论最不稳的一环。`;
+})();
+
+// ---------- chart 3: crash heatmap (rounds 4-5)
+(function(){
+  const svg = document.getElementById('ch3'), heat = D.heat.filter(h => h.round <= 5);
+  const rowsKey = []; [4,5].forEach(r => [1,2,3,4,5].forEach(s => { if (heat.some(h => h.round === r && h.seed === s)) rowsKey.push([r,s]); }));
+  const gens = [...new Set(heat.map(h => h.gen))].sort((a,b) => a - b);
+  const m = {l:110, r:16, t:28, b:16}, cw = 54, ch = 24;
+  const W = m.l + gens.length*cw + m.r, H = m.t + rowsKey.length*ch + 12 + m.b;
+  svg.setAttribute('viewBox', `0 0 ${W} ${H}`); svg.style.minWidth = Math.min(W, 900) + 'px';
+  const q = c => c === 0 ? css('--surface') : c <= 1 ? css('--q1') : c <= 2 ? css('--q2') : c <= 4 ? css('--q3') : c <= 8 ? css('--q4') : css('--q5');
+  gens.forEach((g, i) => el('text', {x:m.l + i*cw + cw/2, y:m.t-10, 'text-anchor':'middle', 'font-size':11, class:'num', fill:css('--ink-3')}, svg, g === -1 ? '起点' : `g${g}`));
+  let yy = m.t, prev = null;
+  rowsKey.forEach(([r, s]) => {
+    if (prev !== null && r !== prev) yy += 12; prev = r;
+    el('text', {x:m.l-10, y:yy+ch/2+4, 'text-anchor':'end', 'font-size':12, fill:css('--ink-2')}, svg, `第${r}轮 种子${s}`);
+    gens.forEach((g, i) => {
+      const h = heat.find(x => x.round === r && x.seed === s && x.gen === g); if (!h) return;
+      const x = m.l + i*cw, gEl = el('g', {tabindex:0}, svg);
+      el('rect', {x:x+1, y:yy+1, width:cw-2, height:ch-2, rx:3, fill:q(h.crashes), stroke: h.selected ? css('--ink') : css('--rule'), 'stroke-width': h.selected ? 2.4 : 1}, gEl);
+      if (h.crashes) el('text', {x:x+cw/2, y:yy+ch/2+4, 'text-anchor':'middle', 'font-size':11, class:'num', fill: h.crashes > 4 ? css('--surface') : css('--ink')}, gEl, h.crashes);
+      hov(gEl, `第 ${r} 轮 · 种子 ${s} · ${g === -1 ? '起点' : '第 ' + g + ' 代'}<br>128 例坠落 ${h.crashes}<br>验证分数 ${h.score.toFixed(3)}${h.selected ? '<br>被选中' : ''}`);
+    });
+    yy += ch;
+  });
+  document.getElementById('leg3').innerHTML = `<span><i class="sw" style="background:var(--surface);border:1px solid var(--rule);border-radius:2px"></i>0</span><span><i class="sw" style="background:var(--q1);border-radius:2px"></i>1</span><span><i class="sw" style="background:var(--q2);border-radius:2px"></i>2</span><span><i class="sw" style="background:var(--q3);border-radius:2px"></i>3–4</span><span><i class="sw" style="background:var(--q4);border-radius:2px"></i>5–8</span><span><i class="sw" style="background:var(--q5);border-radius:2px"></i>9+</span><span>粗描边 = 第 5 轮选中</span>`;
+  const early = heat.filter(h => h.gen >= 0 && h.gen < 20), late = heat.filter(h => h.gen >= 20);
+  const f = a => Math.round(100 * a.filter(h => h.crashes > 0).length / a.length);
+  document.getElementById('cap3').textContent = `第 20 代以前的中心有 ${f(early)}% 会在 128 例上坠落，第 20 代以后是 ${f(late)}%。搜索时每个候选只飞 12 个用例，看不到这种 1–3% 的坠落率。第 5 轮在零坠落的白格里选，三个种子退回到第 4–9 代，这就是点头、冲刺还没练到最好的原因。`;
+})();
+
+// ---------- chart 4: six-round history (manoeuvre average)
+(function(){
+  const svg = document.getElementById('ch4'), W = 900, H = 340, m = {l:56, r:20, t:16, b:44};
+  const cols = [2,3,4,5,6,'M1'], y0 = 0.82, y1 = 1.10;
+  const X = c => m.l + (cols.indexOf(c) + 0.5) * (W - m.l - m.r) / cols.length;
+  const Y = v => m.t + (H - m.t - m.b) * (y1 - Math.min(y1, v)) / (y1 - y0);
+  for (let v = 0.85; v <= 1.1001; v += 0.05){ el('line', {x1:m.l, x2:W-m.r, y1:Y(v), y2:Y(v), stroke:css('--rule')}, svg); el('text', {x:m.l-8, y:Y(v)+4, 'text-anchor':'end', 'font-size':12, class:'num', fill:css('--ink-3')}, svg, v.toFixed(2)); }
+  el('line', {x1:m.l, x2:W-m.r, y1:Y(0.95), y2:Y(0.95), stroke:css('--ink'), 'stroke-width':1.5, 'stroke-dasharray':'6 4'}, svg);
+  el('text', {x:W-m.r, y:Y(0.95)-6, 'text-anchor':'end', 'font-size':12, fill:css('--ink')}, svg, '0.95');
+  el('text', {x:W-m.r, y:Y(1.1)+12, 'text-anchor':'end', 'font-size':11, fill:css('--ink-3')}, svg, '高于 1.10 的点画在顶端');
+  cols.forEach(c => el('text', {x:X(c), y:H-18, 'text-anchor':'middle', 'font-size':13, fill: c === 'M1' ? css('--ink') : css('--ink-2'), 'font-weight': c === 'M1' || c === 5 ? 700 : 400}, svg, c === 'M1' ? 'M1 复测' : `第 ${c} 轮`));
+  const pts = D.blind.map(d => ({col:d.round, seed:d.seed, v:(d.nod + d.dash)/2, crashes:d.crashes, nod:d.nod, dash:d.dash}))
+    .concat(D.m1.map(d => ({col:'M1', seed:d.seed, v:d.m1, crashes:d.crashes, nod:d.nod, dash:d.dash})));
+  cols.forEach(c => {
+    const arr = pts.filter(p => p.col === c).sort((a, b) => a.seed - b.seed);
+    arr.forEach((p, i) => {
+      const cx = X(c) + (i - (arr.length - 1)/2) * 20, cy = Y(p.v), g = el('g', {tabindex:0}, svg);
+      el('circle', {cx, cy, r:13, fill:'transparent'}, g);
+      el('circle', {cx, cy, r:6.5, fill: p.crashes ? css('--surface') : (c === 'M1' || c === 5 ? css('--s1') : css('--ink-3')), stroke: p.crashes ? css('--critical') : css('--surface'), 'stroke-width': p.crashes ? 2.5 : 2}, g);
+      hov(g, `${c === 'M1' ? 'M1 复测' : '第 ' + c + ' 轮'} · 种子 ${p.seed}<br>机动平均 ${p.v.toFixed(3)}<br>点头 ${p.nod.toFixed(3)} · 冲刺 ${p.dash.toFixed(3)}${p.crashes ? '<br>盲测坠落 ' + p.crashes : ''}`);
+    });
+  });
+  document.getElementById('leg4').innerHTML = `<span><i class="sw" style="background:var(--s1)"></i>第 5 轮及其 M1 复测</span><span><i class="sw" style="background:var(--ink-3)"></i>其他轮次</span><span><i class="sw" style="border:2.5px solid var(--critical);background:var(--surface)"></i>盲测有坠落</span>`;
+  document.getElementById('cap4').textContent = '第 2 轮快但常坠落；第 3–4 轮坠落减少但变慢；第 5 轮在零坠落的同时把机动平均压到 0.86–0.96；M1 换一套新盲测集复测，五个种子整体后移约 0.03。第 6 轮只完成了种子 4、5。';
+})();
+
+// ---------- chart 5: v5 safety strip
+(function(){
+  const svg = document.getElementById('ch5'), s = D.v5_safety;
+  const m = {l:16, r:16, t:24}, cw = (900 - m.l - m.r) / s.length;
+  s.forEach((d, i) => {
+    const x = m.l + i*cw, g = el('g', {tabindex:0}, svg);
+    el('rect', {x:x+1.5, y:m.t, width:cw-3, height:44, rx:4, fill: d.ok ? css('--good') : css('--critical')}, g);
+    el('text', {x:x+cw/2, y:m.t+27, 'text-anchor':'middle', 'font-size':13, 'font-weight':700, fill:'#ffffff'}, g, d.ok ? '✓' : '×');
+    if (i % 5 === 0) el('text', {x:x+cw/2, y:m.t+62, 'text-anchor':'middle', 'font-size':11, class:'num', fill:css('--ink-3')}, svg, `g${d.gen}`);
+    hov(g, `第 ${d.gen} 代：${d.ok ? '接受' : '撤回'}<br>安全用例坠落 ${d.crashes}<br>最大倾角 ${d.tilt}°`);
+  });
+  const rej = s.filter(d => !d.ok).length;
+  el('text', {x:m.l, y:14, 'font-size':12, fill:css('--ink-2')}, svg, `✓ 接受 ${s.length - rej} 代　× 撤回 ${rej} 代`);
+  document.getElementById('cap5').textContent = `30 代里撤回了 ${rej} 代，全部是 79–82° 的翻倒。安全检查挡住了危险的更新，但留下的更新没能让点头变快，8 例验证始终没有超过起点。`;
+})();
+</script>

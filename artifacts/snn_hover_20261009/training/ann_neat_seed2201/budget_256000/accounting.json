@@ -1,0 +1,21 @@
+{
+  "method": "ann_neat",
+  "seed": 2201,
+  "status": "training",
+  "training_steps": 256000,
+  "allocated_steps": 256000,
+  "validation_steps": 38400,
+  "budget": 1024000,
+  "generation": 19,
+  "best_validation": {
+    "episodes": 8,
+    "success_rate": 1.0,
+    "mean_return": 28.310217308895066,
+    "mean_elapsed": 8.0,
+    "tilt_rms_deg": 6.054601961140861,
+    "height_rmse_m": 0.06289794012874025,
+    "steps": 6400,
+    "minimum_clearance_m": 0.5066981474126477
+  },
+  "wall_seconds": 895.7908928899997
+}

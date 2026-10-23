@@ -1,0 +1,154 @@
+[
+  {
+    "model": "snn_seed5101",
+    "case": {
+      "seed": 1120020000,
+      "seconds": 20.0,
+      "condition": "nominal",
+      "phase": 0,
+      "degrees": 2.0,
+      "motor_uncertainty": 0.0,
+      "acceleration_bias": 0.0,
+      "attitude_bias_deg": 0.0,
+      "delay_steps": 0,
+      "attitude_noise_deg": 0.02,
+      "gyro_noise": 0.002,
+      "accel_noise": 0.02,
+      "height_noise": 0.002,
+      "height_delay": 0.02,
+      "lower_mass_scale": 1.0,
+      "pulse_force": 0.0,
+      "pulse_torque": 0.0
+    },
+    "policy_sha256": "f6fba70c74cf7461f5365a938ea9e4199ffa5fcb9ee425b14208a356088a9c65",
+    "file": "snn_seed5101_case0_pid1s.npz",
+    "sha256": "56b0ab23f8861ab6aa2dbeaf8facefb2a993700e89c31a5d5627d2340ec87bbc",
+    "steps": 2500,
+    "duration": 5.0,
+    "termination": "diagnostic_prefix_limit",
+    "last_true_rpy_deg": [
+      8.224282446940832,
+      -1.482803212789195,
+      4.388081840746631
+    ],
+    "max_true_rpy_abs_deg": [
+      9.890119138137438,
+      25.64899259679105,
+      5.584259107751253
+    ]
+  },
+  {
+    "model": "snn_seed5101",
+    "case": {
+      "seed": 1120020002,
+      "seconds": 20.0,
+      "condition": "nominal",
+      "phase": 2,
+      "degrees": 2.0,
+      "motor_uncertainty": 0.0,
+      "acceleration_bias": 0.0,
+      "attitude_bias_deg": 0.0,
+      "delay_steps": 0,
+      "attitude_noise_deg": 0.02,
+      "gyro_noise": 0.002,
+      "accel_noise": 0.02,
+      "height_noise": 0.002,
+      "height_delay": 0.02,
+      "lower_mass_scale": 1.0,
+      "pulse_force": 0.0,
+      "pulse_torque": 0.0
+    },
+    "policy_sha256": "f6fba70c74cf7461f5365a938ea9e4199ffa5fcb9ee425b14208a356088a9c65",
+    "file": "snn_seed5101_case2_pid1s.npz",
+    "sha256": "aaff6f7b978c48c38417380aabeb677e54eebc84907baa821e2fd60e6e6c3e87",
+    "steps": 2500,
+    "duration": 5.0,
+    "termination": "diagnostic_prefix_limit",
+    "last_true_rpy_deg": [
+      -7.36324933700873,
+      -0.5711102708211415,
+      9.259950466959966
+    ],
+    "max_true_rpy_abs_deg": [
+      20.308193769587152,
+      29.225282929362567,
+      13.002267059591887
+    ]
+  },
+  {
+    "model": "ann_seed5101",
+    "case": {
+      "seed": 1120020000,
+      "seconds": 20.0,
+      "condition": "nominal",
+      "phase": 0,
+      "degrees": 2.0,
+      "motor_uncertainty": 0.0,
+      "acceleration_bias": 0.0,
+      "attitude_bias_deg": 0.0,
+      "delay_steps": 0,
+      "attitude_noise_deg": 0.02,
+      "gyro_noise": 0.002,
+      "accel_noise": 0.02,
+      "height_noise": 0.002,
+      "height_delay": 0.02,
+      "lower_mass_scale": 1.0,
+      "pulse_force": 0.0,
+      "pulse_torque": 0.0
+    },
+    "policy_sha256": "7e9a8f4344a7821e77b01e30c9084840d24776c3aa12b0a94148fbbe6ba4ecea",
+    "file": "ann_seed5101_case0_pid1s.npz",
+    "sha256": "5a426a27f314d433b46fcb59b6bb33abd1bd1e8cb1fbb152727ac19035f8aab9",
+    "steps": 1189,
+    "duration": 2.378,
+    "termination": "tilt",
+    "last_true_rpy_deg": [
+      -65.04466152874969,
+      67.93696944709885,
+      -73.00952675303792
+    ],
+    "max_true_rpy_abs_deg": [
+      65.04466152874969,
+      69.08516217554853,
+      73.00952675303792
+    ]
+  },
+  {
+    "model": "ann_seed5101",
+    "case": {
+      "seed": 1120020002,
+      "seconds": 20.0,
+      "condition": "nominal",
+      "phase": 2,
+      "degrees": 2.0,
+      "motor_uncertainty": 0.0,
+      "acceleration_bias": 0.0,
+      "attitude_bias_deg": 0.0,
+      "delay_steps": 0,
+      "attitude_noise_deg": 0.02,
+      "gyro_noise": 0.002,
+      "accel_noise": 0.02,
+      "height_noise": 0.002,
+      "height_delay": 0.02,
+      "lower_mass_scale": 1.0,
+      "pulse_force": 0.0,
+      "pulse_torque": 0.0
+    },
+    "policy_sha256": "7e9a8f4344a7821e77b01e30c9084840d24776c3aa12b0a94148fbbe6ba4ecea",
+    "file": "ann_seed5101_case2_pid1s.npz",
+    "sha256": "51efc2013f1fe8cd03054e6d4afb39831c8a47ca0670766e312ae3a8dc359cbc",
+    "steps": 1006,
+    "duration": 2.012,
+    "termination": "tilt",
+    "last_true_rpy_deg": [
+      -40.651602899260254,
+      77.55357332296295,
+      -46.643829403714165
+    ],
+    "max_true_rpy_abs_deg": [
+      40.651602899260254,
+      77.55357332296295,
+      46.643829403714165
+    ]
+  }
+]

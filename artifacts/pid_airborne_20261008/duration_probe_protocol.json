@@ -1,0 +1,164 @@
+{
+  "status": "written_before_execution",
+  "tasks": [
+    {
+      "label": "imu_nominal_60s",
+      "parameters": {
+        "kp": [
+          0.18614519582463507,
+          0.14732954292611267
+        ],
+        "kd": [
+          0.11521863335342444,
+          0.12737236761918022
+        ],
+        "sensor_tau": 0.13045658515789563,
+        "ki": [
+          0.05321777874733716,
+          -0.010427299646852857
+        ],
+        "trim": [
+          0.009403938176356088,
+          -0.0038897827014125488
+        ],
+        "derivative_tau": 0.004482330374373422,
+        "action_tau": 0.008214071849913296,
+        "servo_kp": 1.0452581209739018,
+        "servo_kd": 0.0022354534127223885,
+        "motor": 3190.0,
+        "height_gains": [
+          900.0,
+          500.0,
+          80.0
+        ],
+        "release": "rest",
+        "motor_start_s": 0.1,
+        "height_source": "imu"
+      },
+      "seed": 310920000,
+      "seconds": 60.0,
+      "initial_degrees": 2.0
+    },
+    {
+      "label": "truth_nominal_60s",
+      "parameters": {
+        "kp": [
+          0.18614519582463507,
+          0.14732954292611267
+        ],
+        "kd": [
+          0.11521863335342444,
+          0.12737236761918022
+        ],
+        "sensor_tau": 0.13045658515789563,
+        "ki": [
+          0.05321777874733716,
+          -0.010427299646852857
+        ],
+        "trim": [
+          0.009403938176356088,
+          -0.0038897827014125488
+        ],
+        "derivative_tau": 0.004482330374373422,
+        "action_tau": 0.008214071849913296,
+        "servo_kp": 1.0452581209739018,
+        "servo_kd": 0.0022354534127223885,
+        "motor": 3190.0,
+        "height_gains": [
+          900.0,
+          500.0,
+          80.0
+        ],
+        "release": "rest",
+        "motor_start_s": 0.1,
+        "height_source": "truth"
+      },
+      "seed": 310920000,
+      "seconds": 60.0,
+      "initial_degrees": 2.0
+    },
+    {
+      "label": "imu_stress_60s",
+      "parameters": {
+        "kp": [
+          0.18614519582463507,
+          0.14732954292611267
+        ],
+        "kd": [
+          0.11521863335342444,
+          0.12737236761918022
+        ],
+        "sensor_tau": 0.13045658515789563,
+        "ki": [
+          0.05321777874733716,
+          -0.010427299646852857
+        ],
+        "trim": [
+          0.009403938176356088,
+          -0.0038897827014125488
+        ],
+        "derivative_tau": 0.004482330374373422,
+        "action_tau": 0.008214071849913296,
+        "servo_kp": 1.0452581209739018,
+        "servo_kd": 0.0022354534127223885,
+        "motor": 3190.0,
+        "height_gains": [
+          900.0,
+          500.0,
+          80.0
+        ],
+        "release": "rest",
+        "motor_start_s": 0.1,
+        "height_source": "imu",
+        "acceleration_bias_range": 0.01,
+        "motor_uncertainty": 0.01,
+        "attitude_noise_deg": 0.02
+      },
+      "seed": 310920001,
+      "seconds": 60.0,
+      "initial_degrees": 5.0
+    },
+    {
+      "label": "truth_stress_60s",
+      "parameters": {
+        "kp": [
+          0.18614519582463507,
+          0.14732954292611267
+        ],
+        "kd": [
+          0.11521863335342444,
+          0.12737236761918022
+        ],
+        "sensor_tau": 0.13045658515789563,
+        "ki": [
+          0.05321777874733716,
+          -0.010427299646852857
+        ],
+        "trim": [
+          0.009403938176356088,
+          -0.0038897827014125488
+        ],
+        "derivative_tau": 0.004482330374373422,
+        "action_tau": 0.008214071849913296,
+        "servo_kp": 1.0452581209739018,
+        "servo_kd": 0.0022354534127223885,
+        "motor": 3190.0,
+        "height_gains": [
+          900.0,
+          500.0,
+          80.0
+        ],
+        "release": "rest",
+        "motor_start_s": 0.1,
+        "height_source": "truth",
+        "acceleration_bias_range": 0.01,
+        "motor_uncertainty": 0.01,
+        "attitude_noise_deg": 0.02
+      },
+      "seed": 310920001,
+      "seconds": 60.0,
+      "initial_degrees": 5.0
+    }
+  ],
+  "purpose": "Paired duration/drift diagnostic; no policy tuning or test-set selection follows. Truth source reads both z and vz."
+}

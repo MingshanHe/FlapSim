@@ -1,0 +1,112 @@
+{
+ "seeds": {
+  "1": {
+   "seed": 1,
+   "generation": 9,
+   "spec": "artifacts/spike_steer/plan_v4/r5/finetune_s1/spec_val_g9.json",
+   "ratios": {
+    "hover": 1.0,
+    "nod": 0.951059299636443,
+    "dash": 0.8461507645850838,
+    "upset": 1.0501880674335908
+   },
+   "composite4": 0.9618495329137795,
+   "crashes": 0,
+   "m1": 0.8986050321107634,
+   "checks": {
+    "m1": true,
+    "hover": true,
+    "upset": true,
+    "no_crash": true
+   },
+   "passed": true
+  },
+  "2": {
+   "seed": 2,
+   "generation": 4,
+   "spec": "artifacts/spike_steer/plan_v4/r5/finetune_s2/spec_val_g4.json",
+   "ratios": {
+    "hover": 1.0,
+    "nod": 0.9339960666135628,
+    "dash": 0.9650363459401575,
+    "upset": 1.0501880674335908
+   },
+   "composite4": 0.9873051199968277,
+   "crashes": 0,
+   "m1": 0.9495162062768602,
+   "checks": {
+    "m1": true,
+    "hover": true,
+    "upset": true,
+    "no_crash": true
+   },
+   "passed": true
+  },
+  "3": {
+   "seed": 3,
+   "generation": 44,
+   "spec": "artifacts/spike_steer/plan_v4/r5/finetune_s3/spec_val_g44.json",
+   "ratios": {
+    "hover": 1.0,
+    "nod": 0.9732466106182166,
+    "dash": 1.0089439196083887,
+    "upset": 1.0501880674335908
+   },
+   "composite4": 1.008094649415049,
+   "crashes": 0,
+   "m1": 0.9910952651133027,
+   "checks": {
+    "m1": false,
+    "hover": true,
+    "upset": true,
+    "no_crash": true
+   },
+   "passed": false
+  },
+  "4": {
+   "seed": 4,
+   "generation": 19,
+   "spec": "artifacts/spike_steer/plan_v4/r5/finetune_s4/spec_val_g19.json",
+   "ratios": {
+    "hover": 1.0,
+    "nod": 0.9113195275578863,
+    "dash": 0.8700927912595916,
+    "upset": 1.0501880674335908
+   },
+   "composite4": 0.9579000965627671,
+   "crashes": 0,
+   "m1": 0.8907061594087389,
+   "checks": {
+    "m1": true,
+    "hover": true,
+    "upset": true,
+    "no_crash": true
+   },
+   "passed": true
+  },
+  "5": {
+   "seed": 5,
+   "generation": 4,
+   "spec": "artifacts/spike_steer/plan_v4/r5/finetune_s5/spec_val_g4.json",
+   "ratios": {
+    "hover": 1.0,
+    "nod": 1.064001492025637,
+    "dash": 0.9301439418670173,
+    "upset": 1.0501880674335908
+   },
+   "composite4": 1.0110833753315613,
+   "crashes": 0,
+   "m1": 0.9970727169463272,
+   "checks": {
+    "m1": false,
+    "hover": true,
+    "upset": true,
+    "no_crash": true
+   },
+   "passed": false
+  }
+ },
+ "n_pass": 3,
+ "verdict": "PASS",
+ "rule": ">= 3 of 5 seeds pass M1 + non-inferiority + no crash"
+}

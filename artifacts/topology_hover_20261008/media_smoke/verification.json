@@ -1,0 +1,87 @@
+{
+  "status": "passed",
+  "scope": "Media pipeline check on non-held-out seed 339900223; not evidence for algorithm performance.",
+  "simulation_seconds": 2.0,
+  "media": {
+    "comparison_nominal.mp4": {
+      "programs": [],
+      "streams": [
+        {
+          "codec_name": "h264",
+          "width": 1440,
+          "height": 768,
+          "avg_frame_rate": "60/1",
+          "nb_frames": "180"
+        }
+      ],
+      "format": {
+        "duration": "3.000000"
+      }
+    },
+    "neat_wings_nominal_10x.mp4": {
+      "programs": [],
+      "streams": [
+        {
+          "codec_name": "h264",
+          "width": 960,
+          "height": 620,
+          "avg_frame_rate": "25/1",
+          "nb_frames": "250"
+        }
+      ],
+      "format": {
+        "duration": "10.000000"
+      }
+    }
+  },
+  "wing_joint_ranges_deg": {
+    "left_flapping_joint": {
+      "minimum": -79.33063501833865,
+      "maximum": 79.32473166154779,
+      "peak_to_peak": 158.65536667988644
+    },
+    "right_flapping_joint": {
+      "minimum": -79.32473165732186,
+      "maximum": 79.33063499458358,
+      "peak_to_peak": 158.65536665190544
+    }
+  },
+  "rendering": {
+    "source_labels": [
+      "pid_nominal",
+      "neat_nominal",
+      "rnn_ppo_nominal"
+    ],
+    "source_seed": 339900223,
+    "simulation_horizon_seconds": 2.0,
+    "frame_position_check_atol": 1e-09,
+    "flight_fps": 60,
+    "playback_speed": 1,
+    "hold_seconds": 1,
+    "body_closeup_overlay": true,
+    "wing_sample_hz": 250,
+    "wing_playback_fps": 25,
+    "wing_slowdown": 10,
+    "wing_segment": [
+      1.0,
+      2.0
+    ],
+    "wing_joint_ranges_deg": {
+      "left_flapping_joint": {
+        "minimum": -79.33063501833865,
+        "maximum": 79.32473166154779,
+        "peak_to_peak": 158.65536667988644
+      },
+      "right_flapping_joint": {
+        "minimum": -79.32473165732186,
+        "maximum": 79.33063499458358,
+        "peak_to_peak": 158.65536665190544
+      }
+    },
+    "note": "Reconstructed from recorded MuJoCo qpos. Paired rollout metrics checked separately to 1e-12. Terminated panels freeze and are visibly marked STOPPED."
+  },
+  "visual_review": {
+    "comparison_preview": "reviewed: three panels, ground reference, body close-ups, readable controls and verdict labels",
+    "wing_preview": "reviewed: actual articulated wings visible"
+  }
+}
