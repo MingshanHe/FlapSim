@@ -140,11 +140,18 @@ for plan, t in TESTS:
             p = paired(opp, rr)
             rec[f'snn_bc_s{s}'] = p['crashes']
             delta_rows.append([t, f'snn_bc_s{s}', round(p['mean'], 4), round(p['classical_self'], 4), round(p['delta'], 4), *[round(x, 4) for x in p['delta_ci95']], p['wins'], p['crashes'], p['classical_crashes'], ''])
+    for s in range(1, 6):                                   # MLP + PPO reference (plan v14 amendment 2; HomePC rows on every set but kick)
+        pf = R/'v14'/f'{t}__mlp_ppo_s{s}.json'
+        if pf.exists():
+            rr = rows_of(pf)
+            p = paired(opp, rr)
+            rec[f'mlp_ppo_s{s}'] = p['crashes']
+            delta_rows.append([t, f'mlp_ppo_s{s}', round(p['mean'], 4), round(p['classical_self'], 4), round(p['delta'], 4), *[round(x, 4) for x in p['delta_ci95']], p['wins'], p['crashes'], p['classical_crashes'], ''])
     rec['H1_v11_seeds_passing'] = S['H1']['seeds_passing']
     crash_rows.append(rec)
     if t in ('kick2', 'kick', 'kick45'):
         dose.append(rec)
-cols = ['scenario', 'classical', 'classical_pulses_on_probe', 'cls_es_s1', 'cls_es_s2'] + [f'snn11_s{s}' for s in range(1, 6)] + [f'snn9_s{s}' for s in range(1, 6)] + [f'snn_bc_s{s}' for s in range(1, 6)] + ['H1_v11_seeds_passing']
+cols = ['scenario', 'classical', 'classical_pulses_on_probe', 'cls_es_s1', 'cls_es_s2'] + [f'snn11_s{s}' for s in range(1, 6)] + [f'snn9_s{s}' for s in range(1, 6)] + [f'snn_bc_s{s}' for s in range(1, 6)] + [f'mlp_ppo_s{s}' for s in range(1, 6)] + ['H1_v11_seeds_passing']
 w('robustness_crashes.csv', cols, [[r.get(c, '') for c in cols] for r in crash_rows])
 w('robustness_paired_delta.csv', ['scenario', 'arm', 'mean_ratio', 'opponent_self_ratio', 'paired_delta', 'delta_ci_lo', 'delta_ci_hi', 'wins_of_192', 'crashes', 'opponent_crashes', 'H1_pass'], delta_rows)
 w('dose_response.csv', ['magnitude_mNm']+cols[1:-1], [[{'kick2': 2, 'kick': 3, 'kick45': 4.5}[r['scenario']]]+[r.get(c, '') for c in cols[1:-1]] for r in dose])
@@ -200,15 +207,16 @@ rows = [[t, k, round(v['delta'], 4), *[round(x, 4) for x in v['ci']], v['crashes
 w('snn_vs_cls_es.csv', ['scenario', 'snn_seed', 'paired_delta_vs_cls_es_s1', 'ci_lo', 'ci_hi', 'snn_crashes', 'cls_es_crashes'], rows)
 # ---------------- MLP + PPO reference (plan v14 amendment 2), when present
 rows = []
-for setname, oppf in (('nominal', R/'v11/test_opponent.json'), ('kick', R/'v12/kick/rows_classical.json')):
+PPO_SETS = [('nominal', R/'v11/test_opponent.json', 'CloudPC-2')] + [(t, R/plan/t/'rows_classical.json', 'CloudPC-2' if t == 'kick' else 'HomePC') for plan, t in TESTS]
+for setname, oppf, machine in PPO_SETS:
     opp = rows_of(oppf)
     for s in range(1, 6):
         f = R/'v14'/f'{setname}__mlp_ppo_s{s}.json'
         if f.exists():
             rr = rows_of(f)
-            write_episodes('nominal_v11' if setname == 'nominal' else 'kick', f'mlp_ppo_s{s}', rr)
+            write_episodes('nominal_v11' if setname == 'nominal' else setname, f'mlp_ppo_s{s}', rr)
             p = paired(opp, rr)
-            rows.append([setname, s, round(p['mean'], 4), round(p['delta'], 4), *[round(x, 4) for x in p['delta_ci95']], p['wins'], p['crashes'], p['classical_crashes']])
+            rows.append([setname, s, machine, round(p['mean'], 4), round(p['delta'], 4), *[round(x, 4) for x in p['delta_ci95']], p['wins'], p['crashes'], p['classical_crashes']])
 if rows:
-    w('mlp_ppo_reference.csv', ['set', 'seed', 'mean_ratio', 'paired_delta', 'delta_ci_lo', 'delta_ci_hi', 'wins_of_192', 'crashes', 'opponent_crashes'], rows)
+    w('mlp_ppo_reference.csv', ['set', 'seed', 'machine', 'mean_ratio', 'paired_delta', 'delta_ci_lo', 'delta_ci_hi', 'wins_of_192', 'crashes', 'opponent_crashes'], rows)
 print('done ->', OUT)

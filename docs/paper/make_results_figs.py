@@ -95,11 +95,13 @@ def fig_crashes():
     fig, ax = plt.subplots(figsize=(9.6, 3.7), dpi=170)
     ax.bar(x-1.5*w, np.array(cls)/1.92, w, color=C_CLS, label='Classical opponent (PID + schedule)')
     ax.bar(x-.5*w, [np.mean(v)/1.92 for v in cles], w, color=C_CLSES, label='Classical + ES (2 seeds, mean)')
-    pk = ppo_crashes('kick')
     tests_here = [t for plan, t, lab in TESTS if summ(plan, t) is not None]
-    if pk and 'kick' in tests_here:
-        i_k = tests_here.index('kick')
-        ax.bar(x[i_k]+1.5*w, np.mean(pk)/1.92, w, color=C_PPO, label='MLP + PPO reference (5 seeds, mean; 3 mN·m only)', yerr=[[np.mean(pk)/1.92-min(pk)/1.92], [max(pk)/1.92-np.mean(pk)/1.92]], capsize=2, ecolor='#4a2d6b', error_kw=dict(lw=.8))
+    ppo = [ppo_crashes(t) for t in tests_here]
+    if any(ppo):
+        pm = [np.mean(v)/1.92 if v else np.nan for v in ppo]
+        plo = [np.mean(v)/1.92-min(v)/1.92 if v else 0 for v in ppo]
+        phi = [max(v)/1.92-np.mean(v)/1.92 if v else 0 for v in ppo]
+        ax.bar(x+1.5*w, pm, w, color=C_PPO, label='MLP + PPO reference (5 seeds, mean; whisker = min–max)', yerr=[plo, phi], capsize=2, ecolor='#4a2d6b', error_kw=dict(lw=.8))
     m = [np.mean(v)/1.92 for v in snn]
     lo = [np.mean(v)/1.92-min(v)/1.92 for v in snn]
     hi = [max(v)/1.92-np.mean(v)/1.92 for v in snn]
@@ -149,15 +151,14 @@ def fig_delta():
         lab_i = labels[i]
         if lab_i.startswith('nominal'):
             pd_ = ppo_deltas('nominal', json.loads((R/'v11/test_opponent.json').read_text()))
-        elif lab_i == '3 mN·m hit':
-            pd_ = ppo_deltas('kick', json.loads((R/'v12/kick/rows_classical.json').read_text()))
         else:
-            pd_ = []
+            plan_i, t_i = next((plan, t) for plan, t, lab in TESTS if lab == lab_i)
+            pd_ = ppo_deltas(t_i, json.loads((R/plan_i/t_i/'rows_classical.json').read_text()))
         if pd_:
             ax.scatter(pd_, [y[i]-.22]*len(pd_), marker='D', s=20, color=C_PPO, zorder=3)
     ax.scatter([], [], marker='o', color=C_SNN, label='SNN + ES (v11), one point per seed')
     ax.scatter([], [], marker='s', color=C_CLSES, label='Classical + ES, one point per seed')
-    ax.scatter([], [], marker='D', color=C_PPO, label='MLP + PPO reference, one point per seed (nominal and 3 mN·m only)')
+    ax.scatter([], [], marker='D', color=C_PPO, label='MLP + PPO reference, one point per seed')
     ax.set_yticks(y)
     ax.set_yticklabels(labels)
     ax.invert_yaxis()
@@ -407,9 +408,10 @@ def fig_dose():
         ax.plot(mags, [S[t][f'cls_es_s{s_}']['crashes']/n*100 for t in tests], '--', color=c, lw=1.4, marker='s', label=f'classical + ES seed {s_}')
     for s_ in range(1, 6):
         ax.plot(mags, [S[t][f'snn11_s{s_}']['crashes']/n*100 for t in tests], '-', color=C_SNN, lw=1.6, marker='o', alpha=.85, label='SNN + ES (v11 seeds 1–5)' if s_ == 1 else None)
-    pk = ppo_crashes('kick')
-    if pk:
-        ax.scatter([3]*len(pk), [v/n*100 for v in pk], marker='D', s=26, color=C_PPO, zorder=4, label='MLP + PPO reference (5 seeds, 3 mN·m only)')
+    for mg, t in zip(mags, tests):
+        pk = ppo_crashes(t)
+        if pk:
+            ax.scatter([mg]*len(pk), [v/n*100 for v in pk], marker='D', s=26, color=C_PPO, zorder=4, label='MLP + PPO reference (5 seeds)' if mg == mags[0] else None)
     ax.set_xlabel('torque hit during the manoeuvre (mN·m, 20 ms, +0.15–0.45 s)')
     ax.set_ylabel('crashed episodes (% of 192)')
     ax.set_xticks(mags)
