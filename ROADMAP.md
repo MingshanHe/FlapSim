@@ -1,7 +1,7 @@
 # FlapSim open-platform plan
 
 **Branch:** `open-platform` (cut from `master` on 2026-10-28, all training code and data removed)
-**Status:** Phases 0-3 complete, Phase 4 next
+**Status:** Phases 0-4 complete, Phase 5 next
 
 FlapSim becomes an open-source simulation platform for flapping-wing robots built
 on MuJoCo. A user brings their own robot description, tells FlapSim which bodies
@@ -303,7 +303,7 @@ point. The old `flapsim.environment`, `flapsim.actuator` and
 pre-release and `SimCore` plus `flapsim.fluid` remain as the compatibility
 surface.
 
-### Phase 4: aerodynamics library (3 to 4 weeks)
+### Phase 4: aerodynamics library (done 2026-10-28)
 
 Goal: a documented, tested set of aero plugins that work for any number of
 wings and any frame.
@@ -325,6 +325,11 @@ wings and any frame.
 
 Acceptance: FlapX parity test still passes for the two-wing robot; a four-wing
 builder robot runs with the same plugin; each effect toggles independently.
+Result: the lift regression holds through the engine (single-model stack equals
+the legacy adapter to machine precision); models are additive and toggle
+independently; `flapsim sweep` identifies the cycle-averaged parameters and
+`aero/cycle_averaged` loads them. The four-wing builder is deferred to the
+examples in Phase 7. See `docs/aero_models.md`.
 
 ### Phase 5: component plugins (2 to 3 weeks)
 

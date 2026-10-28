@@ -7,6 +7,13 @@ All notable changes to FlapSim are recorded here. The format follows
 ## [Unreleased]
 
 ### Added
+- Aerodynamics library: `AeroEngine` evaluating additive per-wing models
+  with shared kinematics; models `quasi_steady`, `rotational_lift`,
+  `added_mass`, `wake_capture`; modifier `ground_effect`; `aero/stack`
+  plugin; `atmosphere/standard` (ISA density, wind, gusts, turbulence);
+  `force/body_drag`; `aero/cycle_averaged` generalized to identified
+  thrust-tilt and moment matrices with parameter files; `flapsim sweep`
+  identification (frequency, gimbal and damping sweeps). `docs/aero_models.md`.
 - Plugin system: `flapsim.core.Simulation` with the phases `pre_control`,
   `control`, `actuate`, `forces`, `mj_step`, `post_step`, `record`; a signal
   bus (`wings/left/alpha`, `cmd/stroke/frequency_hz`, ...); plugin base

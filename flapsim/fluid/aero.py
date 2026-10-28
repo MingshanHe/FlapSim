@@ -110,7 +110,7 @@ def _rotation(matrix: np.ndarray, name: str) -> np.ndarray:
     return matrix
 
 
-def wing_aero(
+def wing_kinematics(
     params: WingParams,
     side: int,
     psi: float,
@@ -121,7 +121,12 @@ def wing_aero(
     angular_velocity_body: np.ndarray,
     options: AeroOptions | None = None,
 ) -> dict:
-    """Calculate one wing's local aerodynamic force, moments and CoP."""
+    """Relative-flow coefficients and angle of attack of one wing.
+
+    The flow along ``+X`` (``U_i``) and along ``+Z`` (``U_o``) is affine in
+    the span coordinate: ``U = U1 * r + U0``.  The angle of attack is
+    evaluated at the spanwise centre of pressure ``r_cp = R r33 / r22``.
+    """
 
     options = options or AeroOptions()
     if side not in (-1, 1):
@@ -183,12 +188,35 @@ def wing_aero(
     U_o = U_o1 * span_cop + U_o0
     flow_angle = math.atan(U_o / U_i) if abs(U_i) > 1e-12 else 0.0
     alpha = theta + _sign(U_i) * math.pi / 2.0 - flow_angle
+    return {
+        "U_i1": U_i1,
+        "U_i0": U_i0,
+        "U_o1": U_o1,
+        "U_o0": U_o0,
+        "span_CoP": span_cop,
+        "U_i_at_CoP": U_i,
+        "U_o_at_CoP": U_o,
+        "flow_angle": flow_angle,
+        "alpha": alpha,
+        "a_U2": U_i1**2 + U_o1**2,
+        "a_U1": 2.0 * (U_i1 * U_i0 + U_o1 * U_o0),
+        "a_U0": U_i0**2 + U_o0**2,
+        "theta": theta,
+        "theta_dot": theta_dot,
+    }
+
+
+def wing_loads_from_kinematics(
+    params: WingParams, kin: dict, options: AeroOptions | None = None
+) -> dict:
+    """Normal force, pitching moment and damping from :func:`wing_kinematics`."""
+
+    options = options or AeroOptions()
+    alpha = kin["alpha"]
+    theta_dot = kin["theta_dot"]
     c_n = normal_force_coefficient(alpha)
     d_cp = center_of_pressure_fraction(alpha)
-
-    a_U2 = U_i1**2 + U_o1**2
-    a_U1 = 2.0 * (U_i1 * U_i0 + U_o1 * U_o0)
-    a_U0 = U_i0**2 + U_o0**2
+    a_U2, a_U1, a_U0 = kin["a_U2"], kin["a_U1"], kin["a_U0"]
     R, c, rho = params.R, params.c, params.rho
 
     force_raw = (
@@ -231,33 +259,53 @@ def wing_aero(
         * options.moment_scale
     )
 
-    return {
-        "F_N": float(np.clip(force_raw, -options.force_limit, options.force_limit)),
-        "M_aero": aero_moment,
-        "M_rd": float(
-            np.clip(
-                damping_raw,
-                -options.damping_moment_limit,
-                options.damping_moment_limit,
-            )
-        ),
-        "span_CoP": span_cop,
-        "chord_CoP": chord_cop,
-        "alpha": alpha,
-        "U_i1": U_i1,
-        "U_i0": U_i0,
-        "U_o1": U_o1,
-        "U_o0": U_o0,
-        "U_i_at_CoP": U_i,
-        "U_o_at_CoP": U_o,
-        "a_U2": a_U2,
-        "a_U1": a_U1,
-        "a_U0": a_U0,
-        "C_N": c_n,
-        "d_cp": d_cp,
-        "F_N_raw": force_raw,
-        "M_rd_raw": damping_raw,
-    }
+    result = dict(kin)
+    result.update(
+        {
+            "F_N": float(np.clip(force_raw, -options.force_limit, options.force_limit)),
+            "M_aero": aero_moment,
+            "M_rd": float(
+                np.clip(
+                    damping_raw,
+                    -options.damping_moment_limit,
+                    options.damping_moment_limit,
+                )
+            ),
+            "chord_CoP": chord_cop,
+            "C_N": c_n,
+            "d_cp": d_cp,
+            "F_N_raw": force_raw,
+            "M_rd_raw": damping_raw,
+        }
+    )
+    return result
+
+
+def wing_aero(
+    params: WingParams,
+    side: int,
+    psi: float,
+    psi_dot: float,
+    theta: float,
+    theta_dot: float,
+    linear_velocity_body: np.ndarray,
+    angular_velocity_body: np.ndarray,
+    options: AeroOptions | None = None,
+) -> dict:
+    """Calculate one wing's local aerodynamic force, moments and CoP."""
+
+    kin = wing_kinematics(
+        params,
+        side,
+        psi,
+        psi_dot,
+        theta,
+        theta_dot,
+        linear_velocity_body,
+        angular_velocity_body,
+        options,
+    )
+    return wing_loads_from_kinematics(params, kin, options)
 
 
 def world_wrench(
@@ -376,5 +424,7 @@ __all__ = [
     "normal_force_coefficient",
     "save_wing_parameters",
     "wing_aero",
+    "wing_kinematics",
+    "wing_loads_from_kinematics",
     "world_wrench",
 ]

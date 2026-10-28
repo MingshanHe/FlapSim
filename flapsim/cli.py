@@ -7,6 +7,8 @@ import json
 import sys
 from pathlib import Path
 
+import numpy as np
+
 
 def _parse_bool(value: str) -> bool:
     normalized = value.strip().lower()
@@ -63,6 +65,37 @@ def build_parser() -> argparse.ArgumentParser:
 
     plugins = sub.add_parser("plugins", help="list available plugins")
     plugins.add_argument("--kind", default=None)
+
+    sweep = sub.add_parser(
+        "sweep",
+        help="identify cycle-averaged parameters from a fixed-base setup",
+    )
+    sweep.add_argument(
+        "source",
+        nargs="?",
+        default="SingleThrustFlapper",
+        help="simulation config or built-in robot (its sim.yaml)",
+    )
+    sweep.add_argument(
+        "--frequencies", type=float, nargs="+", default=[20.0, 30.0, 40.0, 50.0]
+    )
+    sweep.add_argument(
+        "--reference", type=float, default=None, help="reference frequency [Hz]"
+    )
+    sweep.add_argument(
+        "--amplitude", type=float, default=None, help="stroke amplitude [rad]"
+    )
+    sweep.add_argument(
+        "--gimbal-angle", type=float, default=0.1, help="gimbal deflection [rad]"
+    )
+    sweep.add_argument("--settle", type=float, default=0.2)
+    sweep.add_argument("--cycles", type=float, default=10.0)
+    sweep.add_argument(
+        "--no-damping", action="store_true", help="skip the damping sweeps"
+    )
+    sweep.add_argument(
+        "--output", type=Path, default=None, help="parameter file to write (yaml)"
+    )
 
     inspect = sub.add_parser("inspect", help="list bodies, joints, sites and wings")
     inspect.add_argument(
@@ -145,6 +178,55 @@ def cmd_run(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_sweep(args: argparse.Namespace) -> int:
+    from flapsim.aero.identify import identify_cycle_averaged, write_parameters
+    from flapsim.core import Simulation
+
+    setup = _find_setup(args.source, None)
+
+    def make_sim():
+        sim = Simulation.from_config(setup, base="fixed")
+        if args.amplitude is not None:
+            sim["stroke"].set_command(amplitude_rad=args.amplitude)
+        return sim
+
+    result = identify_cycle_averaged(
+        make_sim,
+        frequencies=args.frequencies,
+        reference_frequency_hz=args.reference,
+        gimbal_angle_rad=args.gimbal_angle,
+        include_damping=not args.no_damping,
+        settle=args.settle,
+        cycles=args.cycles,
+    )
+    sweep = result.lift_sweep
+    print("frequency [Hz]   mean Fx, Fy, Fz [N]")
+    for frequency, force in zip(sweep.frequencies, sweep.mean_forces, strict=True):
+        print(f"{frequency:12.2f}   {force[0]:+.5f} {force[1]:+.5f} {force[2]:+.5f}")
+    p = result.parameters
+    print(
+        f"lift coefficient {p['lift_coefficient']:.6e} N/Hz^2  "
+        f"(fit rms {p['lift_fit_rms_relative']:.2%})"
+    )
+    if p.get("hover_frequency_hz"):
+        print(
+            f"hover frequency {p['hover_frequency_hz']:.2f} Hz "
+            f"for {p['mass_kg'] * 1e3:.2f} g"
+        )
+    for joint, data in result.gimbal.items():
+        force = np.round(data["force_per_rad"], 5).tolist()
+        torque = np.round(data["torque_per_rad"], 6).tolist()
+        print(f"gimbal {joint}: dF/dangle {force} N/rad, dT/dangle {torque} N.m/rad")
+    if result.damping:
+        linear = np.round(result.damping["linear"], 5).tolist()
+        angular = np.round(result.damping["angular"], 7).tolist()
+        print(f"linear damping {linear} N.s/m, angular damping {angular} N.m.s/rad")
+    if args.output is not None:
+        write_parameters(p, args.output)
+        print(f"wrote {args.output}")
+    return 0
+
+
 def cmd_plugins(args: argparse.Namespace) -> int:
     from flapsim.plugins import available, get
 
@@ -166,6 +248,8 @@ def main(argv: list[str] | None = None) -> int:
         return cmd_inspect(args)
     if args.command == "plugins":
         return cmd_plugins(args)
+    if args.command == "sweep":
+        return cmd_sweep(args)
     return cmd_run(args)
 
 
