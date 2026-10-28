@@ -74,7 +74,8 @@ bodies and joints to fill it in.
 | `flapsim/plugins` | Plugin base classes, registry, entry-point discovery |
 | `flapsim/robot`, `flapsim/wings` | Robot manifests, URDF/MJCF/MjSpec import, wing frames and planform integrals, parametric builder |
 | `flapsim/aero`, `flapsim/fluid` | Quasi-steady and cycle-averaged aero plugins; the blade-element math |
-| `flapsim/actuators`, `flapsim/controllers`, `flapsim/io` | Stroke and PD actuators, hover PID, memory recorder |
+| `flapsim/actuators`, `flapsim/controllers` | Sinusoidal stroke, PD position, servo, DC motor + crank; hover PID, set-point schedule, Python callback |
+| `flapsim/sensors`, `flapsim/io` | IMU, range finder, encoder, load cell with noise/delay models; memory recorder (npz/csv/hdf5), force-arrow overlay, GIF/MP4/PNG rendering |
 | `flapsim/assets/robots` | Example robot: URDF, meshes, `robot.yaml`, `sim.yaml`, `hover.yaml` |
 | `flapsim/testing` | Conformance check for third-party plugins |
 | `docs/` | Derivations and engineering notes (`docs/zh` holds the Chinese originals) |

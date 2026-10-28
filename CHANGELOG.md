@@ -7,6 +7,16 @@ All notable changes to FlapSim are recorded here. The format follows
 ## [Unreleased]
 
 ### Added
+- Components: sensors `sensor/imu`, `sensor/rangefinder` (plane or ray),
+  `sensor/encoder`, `sensor/wrench` (load cell) with a shared conditioner
+  (sample rate, low-pass, delay, noise, per-episode bias, quantisation);
+  actuators `actuator/dc_motor_crank` (voltage-driven motor, gearbox and
+  crank loaded by the aero torques) and `actuator/servo` (rate-limited,
+  lagged PD); controllers `controller/schedule` and `controller/callback`;
+  `ForceArrows` viewer overlay, `record_video` (GIF, PNG frames, MP4),
+  recorder HDF5 export; `flapsim record` and `flapsim run --overlay`;
+  examples `hover_pid.py`, `sensors.py`, `lift_sweep.py`,
+  `custom_aero_model.py`, `render_video.py`.
 - Aerodynamics library: `AeroEngine` evaluating additive per-wing models
   with shared kinematics; models `quasi_steady`, `rotational_lift`,
   `added_mass`, `wake_capture`; modifier `ground_effect`; `aero/stack`

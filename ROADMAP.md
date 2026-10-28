@@ -1,7 +1,7 @@
 # FlapSim open-platform plan
 
 **Branch:** `open-platform` (cut from `master` on 2026-10-28, all training code and data removed)
-**Status:** Phases 0-4 complete, Phase 5 next
+**Status:** Phases 0-5 complete, Phase 6 next
 
 FlapSim becomes an open-source simulation platform for flapping-wing robots built
 on MuJoCo. A user brings their own robot description, tells FlapSim which bodies
@@ -331,7 +331,7 @@ independently; `flapsim sweep` identifies the cycle-averaged parameters and
 `aero/cycle_averaged` loads them. The four-wing builder is deferred to the
 examples in Phase 7. See `docs/aero_models.md`.
 
-### Phase 5: component plugins (2 to 3 weeks)
+### Phase 5: component plugins (done 2026-10-28)
 
 - Actuators: PD position, sinusoidal trajectory, `DCMotorCrank` (motor model
   plus crank or gear kinematics, from `dc_motor.json`), servo with rate limit.
@@ -345,6 +345,11 @@ examples in Phase 7. See `docs/aero_models.md`.
 
 Acceptance: an `examples/hover_pid.py` holds altitude with the example robot;
 `examples/sensors.py` logs IMU and TOF to a file and plots them.
+Result: both scripts run in the test suite. The DC motor model loads itself
+from the aero plugin's wing torques, so stroke frequency responds to voltage
+and aerodynamic load; the load cell reads MuJoCo's constraint wrench on the
+root body. Video export renders offscreen (OSMesa/EGL) to GIF, PNG frames or
+MP4 when imageio is installed.
 
 ### Phase 6: learning and optimisation integration (2 weeks, optional extra)
 
