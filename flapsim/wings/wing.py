@@ -96,9 +96,9 @@ class Wing:
             raise ManifestError(
                 f"wing joint {ref.name!r} not found; joints are {names}"
             )
-        if model.jnt_type[joint] not in (
-            mujoco.mjtJoint.mjJNT_HINGE,
-            mujoco.mjtJoint.mjJNT_SLIDE,
+        if int(model.jnt_type[joint]) not in (
+            int(mujoco.mjtJoint.mjJNT_HINGE),
+            int(mujoco.mjtJoint.mjJNT_SLIDE),
         ):
             raise ManifestError(
                 f"wing joint {ref.name!r} must be a hinge or slide joint"

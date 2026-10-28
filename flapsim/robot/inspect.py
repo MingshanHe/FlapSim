@@ -32,7 +32,7 @@ def model_summary(model: mujoco.MjModel, manifest=None, wings=None) -> dict[str,
         )
     joints = []
     for joint in range(model.njnt):
-        kind = JOINT_TYPES.get(mujoco.mjtJoint(model.jnt_type[joint]), "?")
+        kind = JOINT_TYPES.get(mujoco.mjtJoint(int(model.jnt_type[joint])), "?")
         entry = {
             "id": joint,
             "name": model.joint(joint).name,

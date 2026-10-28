@@ -91,9 +91,9 @@ class SinusoidalStroke(ActuatorPlugin):
                 raise ValueError(
                     f"stroke joint {joint_name!r} not found; joints are {names}"
                 )
-            if model.jnt_type[joint] not in (
-                mujoco.mjtJoint.mjJNT_HINGE,
-                mujoco.mjtJoint.mjJNT_SLIDE,
+            if int(model.jnt_type[joint]) not in (
+                int(mujoco.mjtJoint.mjJNT_HINGE),
+                int(mujoco.mjtJoint.mjJNT_SLIDE),
             ):
                 raise ValueError(
                     f"stroke joint {joint_name!r} must be a hinge or slide"
