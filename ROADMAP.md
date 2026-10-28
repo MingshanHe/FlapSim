@@ -1,7 +1,7 @@
 # FlapSim open-platform plan
 
 **Branch:** `open-platform` (cut from `master` on 2026-10-28, all training code and data removed)
-**Status:** Phase 0 complete, Phase 1 next
+**Status:** Phases 0-2 complete, Phase 3 next
 
 FlapSim becomes an open-source simulation platform for flapping-wing robots built
 on MuJoCo. A user brings their own robot description, tells FlapSim which bodies
@@ -113,7 +113,7 @@ flapsim/
   io/          Recorder (npz, csv, hdf5), telemetry, viewer overlays, video
   config/      schema, YAML/JSON loading, deep merge, validation errors
   cli.py       flapsim run | inspect | convert | sweep
-robots/        example robot packages: single_thrust_flapper/, flat_plate_flapper/
+flapsim/assets/robots/   example robot packages shipped with the wheel (single_thrust_flapper/)
 examples/      runnable scripts and notebooks (hover, lift sweep, write a plugin)
 docs/          mkdocs site: tutorials, concepts, API, derivations (moved from tutorial/, log/)
 tests/         unit, regression (golden numbers), plugin-conformance suite
@@ -218,7 +218,7 @@ written so they can be checked mechanically.
   videos and MuJoCo logs. `pyproject.toml` lost the dangling `rl` extra and
   gained a `dev` extra.
 
-### Phase 1: foundations and safety net (1 to 2 weeks)
+### Phase 1: foundations and safety net (done 2026-10-28)
 
 Goal: lock current behaviour in tests before touching any physics code.
 
@@ -237,7 +237,7 @@ Goal: lock current behaviour in tests before touching any physics code.
 Acceptance: CI green on all nine matrix cells; the lift-sweep regression test
 fails if any force sign in the adapter is flipped.
 
-### Phase 2: robot description and import (2 to 3 weeks)
+### Phase 2: robot description and import (done 2026-10-28)
 
 Goal: zero robot-specific names inside `flapsim/`.
 
@@ -249,18 +249,32 @@ Goal: zero robot-specific names inside `flapsim/`.
   fixed base, spawn pose. Replaces the inline code in `environment.py`.
 - `Wing` runtime object; `mirror_of` calibration at the neutral pose (the
   current `aero_from_body_right` logic).
-- Move `flapsim/robot/SingleThrustFlapper` to `robots/single_thrust_flapper/`
-  with `robot.yaml`, `wing.yaml`, meshes and URDF. Package it as data so
-  `pip install flapsim` ships the example.
+- Move `flapsim/robot/SingleThrustFlapper` to
+  `flapsim/assets/robots/single_thrust_flapper/` with `robot.yaml`, meshes and
+  URDF, packaged as data so `pip install flapsim` ships the example.
 - `flapsim inspect <model>`: prints bodies, joints, axes and limits so a user
   can write a manifest in minutes.
 - `flapsim.robot.builders.FlatPlateFlapper(span, chord, ...)`: a parametric
   two-wing robot generated in Python, for users without CAD and for tests.
 - Add a xacro preprocessing hook as an optional extra. SDF stays out of scope.
 
-Acceptance: `grep -r "left_wing\|link2\|right_wing_flapping" flapsim/` returns
-nothing; the Phase 1 regression tests pass unchanged through the manifest path;
-the builder robot loads, flaps and produces positive mean lift.
+Acceptance: `grep -r "left_wing\|link2\|right_wing_flapping" flapsim/ --include=*.py`
+returns nothing outside `flapsim/robot/builders.py` (which defines its own
+robot); the Phase 1 regression tests pass unchanged through the
+manifest path; the builder robot loads, flaps and produces positive mean lift.
+Result: all three hold. Porting to the manifest first reproduced the Phase 1
+lift-sweep values to the last digit, which validated the frame plumbing. The
+parametric builder robot then exposed a physics defect inherited from the
+original code: the pitching moment carried a `sign(alpha)` factor that made
+it independent of flow direction, so the centre of pressure switched sides of
+the hinge at each reversal and a force-only flip in the adapter masked the
+lift sign. The moment was restored to `-d_cp c F_N`, the flip removed, wing
+frames redefined by `span` and `chord`, and a per-wing mass model added
+(the URDF's uniform-solid centroid 22 mm behind the hinge gives anti-phase
+feathering and negative lift; a spar-plate distribution flies). The
+regression values were re-measured: 0.074, 0.167, 0.297, 0.464 N at 20, 30,
+40, 50 Hz, a clean frequency-squared law with hover near 40 Hz for the 30 g
+robot. Details in `docs/derivations/quasi_steady_model.md`.
 
 ### Phase 3: plugin system (2 weeks)
 
@@ -389,10 +403,10 @@ Acceptance: the example PPO task trains for a smoke run in CI without touching
 
 ---
 
-## 8. Immediate next steps
+## 8. Decisions taken
 
-1. Decide license and FlapX attribution (section 6).
-2. Open Phase 1: `tests/` with the lift-sweep regression and the unit tests,
-   CI workflow, README.
-3. Then start Phase 2 with the manifest schema, using the existing
-   `aero_frames` block of `SingleThrustRobot.json` as the first draft.
+- 2026-10-28: Apache-2.0 license; English documentation with the Chinese
+  originals kept under `docs/zh/`; execute all phases in order.
+- Example robots live inside the package (`flapsim/assets/robots/`) so that a
+  plain `pip install flapsim` ships them; the parametric builder robots live in
+  `flapsim.robot.builders`.

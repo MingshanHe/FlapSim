@@ -3,13 +3,15 @@
     "controller": "position_controller",
     "kp": 0.5,
     "kd": 0.05,
-    "max_torque": 0.5
+    "max_torque": 0.5,
+    "role": "pitch"
   },
   "roll_joint": {
     "controller": "position_controller",
     "kp": 0.5,
     "kd": 0.05,
-    "max_torque": 0.5
+    "max_torque": 0.5,
+    "role": "roll"
   },
   "left_flap_joint": {
     "controller": "trajectory_controller",
@@ -32,7 +34,6 @@
     "joint": "left_wing_feathering",
     "input_joint": "left_flap_joint",
     "direction": 1.0
-    
   },
   "right_feathering_joint": {
     "controller": "passive_controller",

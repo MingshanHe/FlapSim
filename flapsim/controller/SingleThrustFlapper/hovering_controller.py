@@ -25,13 +25,14 @@ class HoveringController:
         thrust_controller,
         *,
         target_z: float,
+        root_body: str,
         hover_frequency: float = 42.0,
         waypoints: Sequence[Sequence[float]] | None = None,
         waypoint_interval: float = 3.0,
     ) -> None:
-        self.base_body = mujoco.mj_name2id(model, mujoco.mjtObj.mjOBJ_BODY, "base_link")
+        self.base_body = mujoco.mj_name2id(model, mujoco.mjtObj.mjOBJ_BODY, root_body)
         if self.base_body < 0:
-            raise ValueError("base_link body not found")
+            raise ValueError(f"root body {root_body!r} not found")
         self.plate_controller = plate_controller
         self.thrust_controller = thrust_controller
         self.target_z = float(target_z)

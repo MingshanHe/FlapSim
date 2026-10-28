@@ -24,3 +24,8 @@ class WingParams:
     rho: float = 0.0  # air density [kg/m³]
     d0: float = 0.0  # half shoulder width [m]
     ds: float = 0.0  # stroke plane offset [m]
+    # hinge geometry: distance from the feathering axis to the leading edge
+    # [m] when the plate starts beyond the hinge, and the chordwise fraction
+    # of the local chord at which the hinge sits when it lies inside the plate
+    x_le: float = 0.0
+    x0: float = 0.0

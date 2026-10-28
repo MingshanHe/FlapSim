@@ -1,0 +1,96 @@
+# FlapSim robot manifest for the 30 g single-thrust flapper.
+# Everything here is what the URDF cannot express: wing frames, joint roles,
+# passive-feathering dynamics and the mass model used by the floating base.
+schema: flapsim.robot/1
+name: SingleThrustFlapper
+aliases: [single_thrust_flapper, SingleThrustRobot]
+
+model:
+  file: urdf/SingleThrustFlapper.urdf
+  root_body: base_link
+  base:
+    type: fixed
+    position: [0.0, 0.0, 0.5]
+  timestep: 5.0e-5
+  integrator: implicitfast
+  patches:
+    joints:
+      # Passive feathering springs matching FlapX; URDF has no stiffness field.
+      left_wing_feathering:
+        stiffness: 2.0e-7
+        springref: 0.0
+        armature: 1.0e-10
+        solref_limit: [4.0e-4, 1.0]
+        solimp_limit: [0.97, 0.999, 5.0e-4, 0.5, 2.0]
+      right_wing_feathering:
+        stiffness: 2.0e-7
+        springref: 0.0
+        armature: 1.0e-10
+        solref_limit: [4.0e-4, 1.0]
+        solimp_limit: [0.97, 0.999, 5.0e-4, 0.5, 2.0]
+    equalities:
+      # The mirrored meshes use slightly different local frames; equal
+      # feathering coordinates give mirrored world-space wing orientations.
+      - type: joint
+        name: mirror_feathering
+        targets: [left_wing_feathering, right_wing_feathering]
+        polycoef: [0.0, 1.0]
+        solref: [4.0e-4, 1.0]
+    bodies:
+      # The cycle-averaged hover model treats the robot as one 30 g rigid
+      # body.  Child bodies keep a numerical placeholder inertia.
+      base_link:
+        when: free
+        mass: 0.03
+        com: [0.0, 0.0, 0.0]
+        fullinertia: [5.0e-5, 5.0e-5, 2.0e-5, 0.0, 0.0, 0.0]
+      "*":
+        when: free
+        mass: 1.0e-9
+        fullinertia: [1.0e-12, 1.0e-12, 1.0e-12, 0.0, 0.0, 0.0]
+    # Imported collision meshes overlap at the joints.
+    exclude_self_collision: true
+
+torso:
+  body: link2
+
+air_density: 1.225
+
+wings:
+  - name: left
+    body: left_wing
+    side: left
+    # Aero frame in the left_wing body frame: span root->tip along the
+    # feathering axis, chord from the leading-edge hinge to the trailing edge.
+    frame:
+      span: [0.0, 0.0, -1.0]
+      chord: [0.0, -1.0, 0.0]
+    stroke_joint: {name: left_flapping_joint, sign: 1}
+    feathering_joint: {name: left_wing_feathering, sign: 1}
+    planform: {profile: rectangular, length: 0.07, mean_chord: 0.02}
+    shoulder_offset: 0.01395
+    stroke_plane_offset: 0.0189913
+    # The CAD mesh is a uniform solid whose centroid sits 22 mm behind the
+    # hinge; a membrane wing carries most of its mass in the leading-edge
+    # spar.  With the centroid far aft the passive feathering responds in
+    # anti-phase and the wing produces negative lift, so the mass model is
+    # declared here instead of taken from the URDF.
+    mass_model: {type: spar_plate, mass: 6.26e-5, spar_fraction: 0.8}
+  - name: right
+    body: right_wing
+    side: right
+    mirror_of: left
+    stroke_joint: {name: right_wing_flapping, sign: -1}
+    feathering_joint: {name: right_wing_feathering, sign: 1}
+    planform: {profile: rectangular, length: 0.07, mean_chord: 0.02}
+    shoulder_offset: 0.01395
+    stroke_plane_offset: 0.0189913
+    mass_model: {type: spar_plate, mass: 6.26e-5, spar_fraction: 0.8}
+
+extras:
+  # Consumed by SimCore and the classic controllers; plugins read these too.
+  joints: joints.json
+  hover:
+    # sqrt(weight / lift_coefficient): 0.2943 N at 0.16661 N / (30 Hz)^2
+    frequency_hz: 40.0
+    target_height: 0.5
