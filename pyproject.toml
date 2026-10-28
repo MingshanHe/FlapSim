@@ -14,11 +14,7 @@ dependencies = [
 
 [project.optional-dependencies]
 test = ["pytest>=8"]
-rl = [
-  "gymnasium>=1.0",
-  "stable-baselines3>=2.5",
-  "tensorboard>=2.16"
-]
+dev = ["pytest>=8", "ruff>=0.6"]
 
 [tool.setuptools.packages.find]
 where = ["."]
