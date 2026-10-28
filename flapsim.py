@@ -8,7 +8,7 @@ import sys
 # Keep the source tree clean when FlapSim is launched from this entry point.
 sys.dont_write_bytecode = True
 
-from flapsim.sim_core import SimCore
+from flapsim.sim_core import SimCore  # noqa: E402
 
 
 def parse_bool(value: str) -> bool:

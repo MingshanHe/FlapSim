@@ -63,7 +63,7 @@ q_right_stroke = -q_left_stroke
 适配器中曾存在试验性的：
 
 ```python
-pitch_sign=-1.0
+pitch_sign = -1.0
 ```
 
 但 FlapX 的 Purdue 模型左右 pitch axis 都是 `+Y`，左右 pitch coordinate 应使用相同符号。该反号已移除。
@@ -77,13 +77,9 @@ URDF 导入后，左右 wing body 使用不同的局部 mesh frame。如果直�
 修复方式是在模型零位时进行标定：
 
 ```python
-neutral_aero_rotation = (
-    left_body_rotation @ aero_from_body_left
-)
+neutral_aero_rotation = left_body_rotation @ aero_from_body_left
 
-aero_from_body_right = (
-    right_body_rotation.T @ neutral_aero_rotation
-)
+aero_from_body_right = right_body_rotation.T @ neutral_aero_rotation
 ```
 
 标定后左右 neutral aero frame 的最大矩阵误差约为：
@@ -120,9 +116,7 @@ right_wrench[:3] *= -1.0
 诊断数据中的 `F_world` 也同步反转，保证 telemetry 表示实际施加的力：
 
 ```python
-self.diagnostics["F_world"] = -np.asarray(
-    result["diagnostics"]["F_world"]
-)
+self.diagnostics["F_world"] = -np.asarray(result["diagnostics"]["F_world"])
 ```
 
 ## Feathering 镜像约束

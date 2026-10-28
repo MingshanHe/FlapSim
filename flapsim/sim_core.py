@@ -16,7 +16,6 @@ from flapsim.controller.SingleThrustFlapper import (
 from flapsim.environment import SimulationEnvironment
 from flapsim.fluid import AveragedHoverAero, MuJoCoAeroAdapter
 
-
 ROBOT_URDFS = {
     "SingleThrustFlapper": (
         Path(__file__).parent
@@ -41,7 +40,9 @@ class SimCore:
             urdf_path = ROBOT_URDFS[robot]
         except KeyError as exc:
             available = ", ".join(ROBOT_URDFS)
-            raise ValueError(f"Unknown robot {robot!r}. Available: {available}") from exc
+            raise ValueError(
+                f"Unknown robot {robot!r}. Available: {available}"
+            ) from exc
 
         self.robot = robot
         self.environment = SimulationEnvironment(
@@ -52,20 +53,13 @@ class SimCore:
         self.model = self.environment.model
         self.data = self.environment.data
         joints_config = (
-            Path(__file__).parent
-            / "config"
-            / "SingleThrustFlapper"
-            / "joints.json"
+            Path(__file__).parent / "config" / "SingleThrustFlapper" / "joints.json"
         )
         self.plate_controller = PlateController(pitch=pitch, roll=roll)
         self.position_controller = PositionController(self.model, joints_config)
         self.thrust_controller = ThrustController(joints_config)
-        self.trajectory_controller = TrajectoryController(
-            self.model, joints_config
-        )
-        self.trajectory_controller.validate_commands(
-            self.thrust_controller.targets
-        )
+        self.trajectory_controller = TrajectoryController(self.model, joints_config)
+        self.trajectory_controller.validate_commands(self.thrust_controller.targets)
         self.position_controller.validate_targets(
             self.model, self.plate_controller.targets
         )
@@ -134,13 +128,9 @@ class SimCore:
         amplitude: float | None = None,
     ) -> None:
         old_commands = self.thrust_controller.targets
-        self.thrust_controller.set_command(
-            frequency=frequency, amplitude=amplitude
-        )
+        self.thrust_controller.set_command(frequency=frequency, amplitude=amplitude)
         try:
-            self.trajectory_controller.validate_commands(
-                self.thrust_controller.targets
-            )
+            self.trajectory_controller.validate_commands(self.thrust_controller.targets)
         except ValueError:
             old = next(iter(old_commands.values()))
             self.thrust_controller.set_command(

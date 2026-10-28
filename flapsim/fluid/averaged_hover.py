@@ -12,9 +12,7 @@ class AveragedHoverAero:
         self.data = data
         self.plate_controller = plate_controller
         self.thrust_controller = thrust_controller
-        self.base_body = mujoco.mj_name2id(
-            model, mujoco.mjtObj.mjOBJ_BODY, "base_link"
-        )
+        self.base_body = mujoco.mj_name2id(model, mujoco.mjtObj.mjOBJ_BODY, "base_link")
         # Fit from the fixed-base sweep: 30 Hz -> 0.1486 N.
         self.lift_coefficient = 0.14858349039827917 / (30.0**2)
         # Fixed-base plate identification at 42 Hz [N.m / rad].
@@ -28,9 +26,7 @@ class AveragedHoverAero:
         self.diagnostics = {}
 
     def apply_forces(self) -> None:
-        frequency = next(iter(self.thrust_controller.targets.values()))[
-            "frequency"
-        ]
+        frequency = next(iter(self.thrust_controller.targets.values()))["frequency"]
         plate = self.plate_controller.targets
         plate_pitch = plate["pitch_joint"]
         plate_roll = plate["roll_joint"]
@@ -51,13 +47,16 @@ class AveragedHoverAero:
         force_world = rotation @ (lift * direction_body)
         force_world[:2] -= self.horizontal_damping * linear_velocity_world[:2]
         scale = (frequency / 42.0) ** 2
-        torque_body = np.array(
-            [
-                scale * self.roll_moment_per_rad * plate_pitch,
-                -scale * self.pitch_moment_per_rad * plate_roll,
-                0.0,
-            ]
-        ) - self.angular_damping * self.velocity[:3]
+        torque_body = (
+            np.array(
+                [
+                    scale * self.roll_moment_per_rad * plate_pitch,
+                    -scale * self.pitch_moment_per_rad * plate_roll,
+                    0.0,
+                ]
+            )
+            - self.angular_damping * self.velocity[:3]
+        )
         torque_world = rotation @ torque_body
         self.data.xfrc_applied[self.base_body, :3] = force_world
         self.data.xfrc_applied[self.base_body, 3:] = torque_world

@@ -7,15 +7,15 @@ schema classes while the simulator is still evolving.
 
 from __future__ import annotations
 
+import json
+from collections.abc import Mapping
 from copy import deepcopy
 from dataclasses import dataclass
-import json
 from pathlib import Path
-from typing import Any, Mapping
+from typing import Any
 
 from .AeroOptions import AeroOptions
 from .WingParams import WingParams
-
 
 CONFIG_DIR = Path(__file__).resolve().parent
 FILES = {
@@ -88,8 +88,7 @@ def load_config_bundle(
     """Load defaults, then one optional bundle file, then CLI overrides."""
 
     sections = {
-        name: read_json(CONFIG_DIR / filename)
-        for name, filename in FILES.items()
+        name: read_json(CONFIG_DIR / filename) for name, filename in FILES.items()
     }
     _resolve_urdf(sections["robot"], CONFIG_DIR)
 

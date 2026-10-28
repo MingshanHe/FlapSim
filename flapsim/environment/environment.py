@@ -125,9 +125,7 @@ class SimulationEnvironment:
         forwarded = False
         for command_source, actuator in self.control_pairs:
             if hasattr(actuator, "post_step"):
-                actuator.post_step(
-                    self.model, self.data, command_source.targets
-                )
+                actuator.post_step(self.model, self.data, command_source.targets)
                 forwarded = True
         if forwarded:
             mujoco.mj_forward(self.model, self.data)
