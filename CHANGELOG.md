@@ -10,6 +10,9 @@ First release of FlapSim as an open platform. Everything below was built on
 the `open-platform` branch on top of the 0.1.0 single-robot simulator.
 
 ### Added
+- English translations of the quasi-steady derivation, the hover
+  simplification and the two engineering notes (`docs/derivations`,
+  `docs/notes`); the Chinese originals stay under `docs/zh/`.
 - Learning: `flapsim.envs.SimulationEnv` Gymnasium wrapper (observations from
   signals, actions to commands with smoothing), `hover_reward`,
   `hover_terminated`; `flapsim.study.parameter_study` (parallel grids);

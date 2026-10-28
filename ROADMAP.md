@@ -63,6 +63,21 @@ Measured on this branch (fixed base, 5e-5 s timestep): 1000 steps in 0.12 s,
 so one simulated second costs about 2.4 s of wall time. Treat this as the
 performance floor; the refactor must not make it worse.
 
+Measured again after Phase 7 on the same machine (`FLAPSIM_BENCH=1 pytest
+tests/test_benchmark.py` and the setups in `examples/`):
+
+| Setup | Steps per second | Relative to real time |
+|---|---|---|
+| Pre-platform adapter (Phase 0) | 8,300 | 0.42x |
+| `sim.yaml`, engine with the quasi-steady model | 6,900 | 0.35x |
+| `sim.yaml` plus rotational lift, added mass, wake capture | 2,800 | 0.14x |
+| `hover.yaml`, cycle-averaged model | 25,100 | 1.3x |
+
+The composable engine costs 17 percent against the hard-wired adapter, inside
+the 20 percent guard. Each additional per-wing model costs roughly as much as
+the first; vectorising the models across wings is the next performance step
+if it matters to users.
+
 ---
 
 ## 3. Target architecture
