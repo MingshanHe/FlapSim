@@ -85,6 +85,40 @@ def test_wing_aero_lift_scale_and_force_limit(params):
     assert limited["F_N_raw"] == pytest.approx(base["F_N"])
 
 
+def test_pitching_moment_keeps_centre_of_pressure_on_the_plate(params):
+    """M_aero = -d_cp c F_N: the CoP stays behind the hinge for either flow sign."""
+    options = AeroOptions(force_limit=1e9)
+    forward = _still(params, psi_dot=40.0, theta=0.0, options=options)
+    backward = _still(params, psi_dot=-40.0, theta=0.0, options=options)
+    assert forward["F_N"] > 0.0 > backward["F_N"]
+    assert forward["chord_CoP"] > 0.0 and backward["chord_CoP"] > 0.0
+    assert forward["M_aero"] < 0.0 < backward["M_aero"]
+    assert forward["M_aero"] == pytest.approx(-forward["chord_CoP"] * forward["F_N"])
+    assert backward["M_aero"] == pytest.approx(-backward["chord_CoP"] * backward["F_N"])
+    # at theta = 0 both directions see |alpha| = pi/2, so the CoP agrees
+    assert forward["chord_CoP"] == pytest.approx(backward["chord_CoP"], rel=1e-9)
+    pitched = _still(params, psi_dot=40.0, theta=0.3, options=options)
+    assert pitched["M_aero"] == pytest.approx(-pitched["chord_CoP"] * pitched["F_N"])
+
+
+def test_hinge_geometry_shifts_the_centre_of_pressure(params):
+    """x_le adds a rigid offset; x0 moves the hinge into the chord."""
+    from dataclasses import replace
+
+    options = AeroOptions(force_limit=1e9)
+    base = _still(params, psi_dot=40.0, theta=0.2, options=options)
+    offset = _still(
+        replace(params, x_le=0.0125), psi_dot=40.0, theta=0.2, options=options
+    )
+    assert offset["F_N"] == pytest.approx(base["F_N"])
+    assert offset["chord_CoP"] == pytest.approx(base["chord_CoP"] + 0.0125)
+    inside = _still(replace(params, x0=0.25), psi_dot=40.0, theta=0.2, options=options)
+    assert inside["chord_CoP"] < base["chord_CoP"]
+    # with the hinge far aft the pressure centre lies ahead of it: unstable
+    far_aft = _still(replace(params, x0=0.9), psi_dot=40.0, theta=0.2, options=options)
+    assert far_aft["chord_CoP"] < 0.0
+
+
 def test_wing_aero_rejects_bad_side(params):
     with pytest.raises(ValueError):
         _still(params, side=0)

@@ -20,8 +20,12 @@ classifiers = [
 ]
 dependencies = [
   "mujoco>=3.3,<4",
-  "numpy>=1.24"
+  "numpy>=1.24",
+  "pyyaml>=6.0"
 ]
+
+[project.scripts]
+flapsim = "flapsim.cli:main"
 
 [project.urls]
 Homepage = "https://github.com/MingshanHe/FlapSim"
@@ -38,8 +42,10 @@ include = ["flapsim*"]
 [tool.setuptools.package-data]
 flapsim = [
   "config/*.json",
-  "robot/SingleThrustFlapper/urdf/*.urdf",
-  "robot/SingleThrustFlapper/meshes/*.STL"
+  "assets/robots/*/*.yaml",
+  "assets/robots/*/*.json",
+  "assets/robots/*/urdf/*.urdf",
+  "assets/robots/*/meshes/*.STL"
 ]
 
 [tool.pytest.ini_options]
