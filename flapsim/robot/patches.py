@@ -152,7 +152,9 @@ def apply_patches(
         else:
             _body(spec, first)
             _body(spec, second)
-        data = np.zeros(11)
+        # mjNEQDATA grew from 11 to 12 between MuJoCo 3.x releases; size it
+        # from the installed library so newer wheels keep working.
+        data = np.zeros(int(getattr(mujoco, "mjNEQDATA", 11)))
         if equality.type == "joint":
             data[: len(equality.polycoef)] = equality.polycoef
         elif equality.type == "connect":
