@@ -1,6 +1,6 @@
 # FlapSim 气动力（aero）实现、推导与验证
 
-> 本文保留完整代码实现与验证细节。用于论文正文的理想悬停简化推导见 [aero_paper_derivation.md](aero_paper_derivation.md)，其中在明确假设下取 $a_{U1}=a_{U0}=0$。
+> 本文保留完整代码实现与验证细节。用于论文正文的理想悬停简化推导见 [hover_simplification.md](hover_simplification.md)，其中在明确假设下取 $a_{U1}=a_{U0}=0$。
 
 本文整理当前 `flapsim/fluid` 的实际实现。这里的 “aero” 不是一套模型，而是两套用途不同的模型：
 
@@ -144,7 +144,7 @@ $$
 d_0=0.01395\ \mathrm m,\qquad d_s=0.0189913\ \mathrm m.
 $$
 
-`tutorial/2-wing parameter.ipynb` 用翼平面多边形截线和 Gauss–Legendre 积分生成这些参数。其压力矩公式还要求羽化轴/前缘定义与参数积分一致；若翼型相对该轴存在不可忽略的弦向偏置，完整压力矩会多出代码目前没有保留的偏置项。
+`examples/notebooks/02_wing_parameters.ipynb` 用翼平面多边形截线和 Gauss–Legendre 积分生成这些参数。其压力矩公式还要求羽化轴/前缘定义与参数积分一致；若翼型相对该轴存在不可忽略的弦向偏置，完整压力矩会多出代码目前没有保留的偏置项。
 
 ---
 

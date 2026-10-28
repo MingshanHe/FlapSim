@@ -4,13 +4,28 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "flapsim"
-version = "0.1.0"
-description = "Object-oriented MuJoCo simulation for flapping-wing robots"
+version = "0.2.0.dev0"
+description = "Open simulation platform for flapping-wing robots on MuJoCo: import a robot, declare its wings, plug in aerodynamics"
 requires-python = ">=3.10"
+license = {text = "Apache-2.0"}
+readme = "README.md"
+authors = [{name = "Mingshan He"}]
+keywords = ["mujoco", "flapping-wing", "aerodynamics", "robotics", "simulation"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Science/Research",
+  "License :: OSI Approved :: Apache Software License",
+  "Programming Language :: Python :: 3",
+  "Topic :: Scientific/Engineering :: Physics",
+]
 dependencies = [
-  "mujoco>=3.8",
+  "mujoco>=3.3,<4",
   "numpy>=1.24"
 ]
+
+[project.urls]
+Homepage = "https://github.com/MingshanHe/FlapSim"
+Issues = "https://github.com/MingshanHe/FlapSim/issues"
 
 [project.optional-dependencies]
 test = ["pytest>=8"]
@@ -29,3 +44,15 @@ flapsim = [
 
 [tool.pytest.ini_options]
 pythonpath = ["."]
+
+[tool.ruff]
+line-length = 88
+target-version = "py310"
+extend-exclude = ["examples/notebooks"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "W"]
+ignore = ["E741"]
+
+[tool.ruff.lint.per-file-ignores]
+"flapsim/config/*.py" = ["N"]

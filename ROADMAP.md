@@ -76,12 +76,18 @@ from flapsim.actuators import SinusoidalStroke
 from flapsim.sensors import IMU
 from flapsim.io import Recorder
 
-robot = flapsim.load_robot("my_robot/robot.yaml")          # URDF or MJCF + wing manifest
+robot = flapsim.load_robot("my_robot/robot.yaml")  # URDF or MJCF + wing manifest
 sim = flapsim.Simulation(robot, timestep=5e-5, base="fixed")
 
 sim.add(QuasiSteadyBladeElement(wings="all") + RotationalLift() + AddedMass())
-sim.add(SinusoidalStroke(joints=["left_stroke", "right_stroke"],
-                         frequency_hz=35.0, amplitude_rad=1.5, mirror=True))
+sim.add(
+    SinusoidalStroke(
+        joints=["left_stroke", "right_stroke"],
+        frequency_hz=35.0,
+        amplitude_rad=1.5,
+        mirror=True,
+    )
+)
 sim.add(IMU(body="torso", rate_hz=500.0, noise="default"))
 sim.add(Recorder(["wings/*/force_world", "imu/*"], every=1e-3))
 

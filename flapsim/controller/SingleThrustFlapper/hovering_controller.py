@@ -29,9 +29,7 @@ class HoveringController:
         waypoints: Sequence[Sequence[float]] | None = None,
         waypoint_interval: float = 3.0,
     ) -> None:
-        self.base_body = mujoco.mj_name2id(
-            model, mujoco.mjtObj.mjOBJ_BODY, "base_link"
-        )
+        self.base_body = mujoco.mj_name2id(model, mujoco.mjtObj.mjOBJ_BODY, "base_link")
         if self.base_body < 0:
             raise ValueError("base_link body not found")
         self.plate_controller = plate_controller
@@ -147,13 +145,17 @@ class HoveringController:
         )
         self.sample_count += 1
 
-        current_frequency = next(
-            iter(self.thrust_controller.targets.values())
-        )["frequency"]
+        current_frequency = next(iter(self.thrust_controller.targets.values()))[
+            "frequency"
+        ]
         control_period = 1.0 / max(float(current_frequency), 1.0)
         if time - self.last_update < control_period:
             return
-        dt = control_period if not math.isfinite(self.last_update) else time - self.last_update
+        dt = (
+            control_period
+            if not math.isfinite(self.last_update)
+            else time - self.last_update
+        )
         self.last_update = time
         averaged = self.state_sum / self.sample_count
         self.state_sum[:] = 0.0

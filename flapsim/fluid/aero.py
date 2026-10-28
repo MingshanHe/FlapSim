@@ -17,8 +17,8 @@ import numpy as np
 
 from flapsim.config import AeroOptions, TorsoInput, WingInput, WingParams
 
-
 DEFAULT_PARAMETERS_PATH = Path(__file__).parents[1] / "config" / "Wing.json"
+
 
 def load_wing_parameters(
     path: str | Path = DEFAULT_PARAMETERS_PATH,
@@ -157,12 +157,7 @@ def wing_aero(
         + psi_dot * C_phi
     )
     U_i0 = (
-        s
-        * (
-            yaw_rate * d0 * C_psi * C_Phi
-            - (v - p * ds) * S_psi
-            - w * C_psi * S_Phi
-        )
+        s * (yaw_rate * d0 * C_psi * C_Phi - (v - p * ds) * S_psi - w * C_psi * S_Phi)
         - (u + q * ds) * C_psi * C_Phi
         - p * d0 * C_psi * S_Phi
     )
@@ -185,11 +180,7 @@ def wing_aero(
         * rho
         * c
         * c_n
-        * (
-            a_U2 * R**3 * params.r22
-            + a_U1 * R**2 * params.r11
-            + a_U0 * R * params.r00
-        )
+        * (a_U2 * R**3 * params.r22 + a_U1 * R**2 * params.r11 + a_U0 * R * params.r00)
         * options.lift_scale
     )
     aero_moment = (

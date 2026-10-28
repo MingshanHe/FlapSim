@@ -6,6 +6,7 @@ import mujoco
 import numpy as np
 
 from flapsim.config import AeroOptions, TorsoInput, WingInput
+
 from .aero import aero_step, load_wing_parameters
 
 
@@ -37,9 +38,7 @@ class MuJoCoAeroAdapter:
         left_body_rotation = self.data.xmat[self.left_body].reshape(3, 3)
         right_body_rotation = self.data.xmat[self.right_body].reshape(3, 3)
         neutral_aero_rotation = left_body_rotation @ self.aero_from_body_left
-        self.aero_from_body_right = (
-            right_body_rotation.T @ neutral_aero_rotation
-        )
+        self.aero_from_body_right = right_body_rotation.T @ neutral_aero_rotation
 
     def _id(self, object_type, name: str) -> int:
         object_id = mujoco.mj_name2id(self.model, object_type, name)
@@ -72,9 +71,7 @@ class MuJoCoAeroAdapter:
             theta_raw=pitch_sign * float(self.data.qpos[q_pitch]),
             theta_dot_raw=pitch_sign * float(self.data.qvel[v_pitch]),
             pitch_axis_y=1.0,
-            R_world_from_wing=(
-                self.data.xmat[body].reshape(3, 3) @ aero_from_body
-            ),
+            R_world_from_wing=(self.data.xmat[body].reshape(3, 3) @ aero_from_body),
             body_origin_world=self.data.xpos[body].copy(),
             com_world=self.data.xipos[body].copy(),
         )
@@ -124,9 +121,7 @@ class MuJoCoAeroAdapter:
         self.data.xfrc_applied[self.left_body] = left_wrench
         self.data.xfrc_applied[self.right_body] = right_wrench
         self.diagnostics = dict(result["diagnostics"])
-        self.diagnostics["F_world"] = -np.asarray(
-            result["diagnostics"]["F_world"]
-        )
+        self.diagnostics["F_world"] = -np.asarray(result["diagnostics"]["F_world"])
 
     def reset(self) -> None:
         self.data.xfrc_applied[self.left_body] = 0.0

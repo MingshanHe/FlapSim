@@ -7,21 +7,20 @@ import mujoco
 import mujoco.viewer
 import numpy as np
 
-
 # ============================================================
 # 用户参数
 # ============================================================
 
 BASE_POSITION = np.array([0.0, 0.0, 0.5])
 
-DURATION = 20.0           # 测试持续时间，单位：s
-FREQUENCY_HZ = 0.25       # 正弦运动频率，单位：Hz
+DURATION = 20.0  # 测试持续时间，单位：s
+FREQUENCY_HZ = 0.25  # 正弦运动频率，单位：Hz
 
 DEFAULT_HINGE_AMPLITUDE = np.deg2rad(20.0)  # 无关节限制时，默认转动幅值
-DEFAULT_SLIDE_AMPLITUDE = 0.02              # 无关节限制时，默认移动幅值，单位：m
+DEFAULT_SLIDE_AMPLITUDE = 0.02  # 无关节限制时，默认移动幅值，单位：m
 
-USE_PHASE_OFFSET = True   # True：每个关节具有不同相位
-REAL_TIME = True          # 是否按照真实时间播放
+USE_PHASE_OFFSET = True  # True：每个关节具有不同相位
+REAL_TIME = True  # 是否按照真实时间播放
 
 
 def get_object_name(model, obj_type, obj_id, default_name):
@@ -82,7 +81,7 @@ def configure_base(model, data, target_position):
 
         # free joint 的 qpos:
         # [x, y, z, qw, qx, qy, qz]
-        root_pose = data.qpos[qpos_address:qpos_address + 7].copy()
+        root_pose = data.qpos[qpos_address : qpos_address + 7].copy()
         root_pose[0:3] = target_position
 
         # 防止 URDF 初始四元数异常
@@ -149,11 +148,11 @@ def lock_base(data, base_information):
     dof_address = base_information["dof_address"]
     root_pose = base_information["root_pose"]
 
-    data.qpos[qpos_address:qpos_address + 7] = root_pose
+    data.qpos[qpos_address : qpos_address + 7] = root_pose
 
     # free joint 有6个速度自由度：
     # vx, vy, vz, wx, wy, wz
-    data.qvel[dof_address:dof_address + 6] = 0.0
+    data.qvel[dof_address : dof_address + 6] = 0.0
 
 
 def collect_scalar_joints(model, data):
@@ -266,9 +265,7 @@ def run_sine_test(model_path):
     controlled_joints = collect_scalar_joints(model, data)
 
     if not controlled_joints:
-        raise RuntimeError(
-            "模型中没有找到 hinge 或 slide 类型的可控关节。"
-        )
+        raise RuntimeError("模型中没有找到 hinge 或 slide 类型的可控关节。")
 
     print_joint_information(controlled_joints)
 
@@ -312,10 +309,8 @@ def run_sine_test(model_path):
             for joint_index, joint in enumerate(controlled_joints):
                 phase = phases[joint_index]
 
-                desired_position = (
-                    joint["center"]
-                    + joint["amplitude"]
-                    * np.sin(angular_frequency * elapsed_time + phase)
+                desired_position = joint["center"] + joint["amplitude"] * np.sin(
+                    angular_frequency * elapsed_time + phase
                 )
 
                 desired_velocity = (
@@ -429,9 +424,7 @@ def main():
     if not args.model.exists():
         raise FileNotFoundError(f"找不到模型文件: {args.model}")
 
-    time_history, position_history, controlled_joints = run_sine_test(
-        args.model
-    )
+    time_history, position_history, controlled_joints = run_sine_test(args.model)
 
     plot_joint_trajectories(
         time_history,

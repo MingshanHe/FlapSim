@@ -9,8 +9,8 @@ from .aero import (
     wing_aero,
     world_wrench,
 )
-from .mujoco_adapter import MuJoCoAeroAdapter
 from .averaged_hover import AveragedHoverAero
+from .mujoco_adapter import MuJoCoAeroAdapter
 
 __all__ = [
     "AveragedHoverAero",

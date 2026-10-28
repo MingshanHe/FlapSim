@@ -18,9 +18,7 @@ class TrajectoryController:
             if settings.get("controller") != "trajectory_controller":
                 continue
             joint_name = settings.get("joint", command_name)
-            joint_id = mujoco.mj_name2id(
-                model, mujoco.mjtObj.mjOBJ_JOINT, joint_name
-            )
+            joint_id = mujoco.mj_name2id(model, mujoco.mjtObj.mjOBJ_JOINT, joint_name)
             if joint_id < 0:
                 raise ValueError(f"Joint not found: {joint_name}")
             amplitude = float(settings["amplitude"])
