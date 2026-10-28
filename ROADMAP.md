@@ -1,7 +1,7 @@
 # FlapSim open-platform plan
 
 **Branch:** `open-platform` (cut from `master` on 2026-10-28, all training code and data removed)
-**Status:** Phases 0-6 complete, Phase 7 next
+**Status:** Phases 0-7 complete; release 0.2.0 prepared (see section 9)
 
 FlapSim becomes an open-source simulation platform for flapping-wing robots built
 on MuJoCo. A user brings their own robot description, tells FlapSim which bodies
@@ -368,7 +368,7 @@ parallel parameter studies; `examples/rl/` rebuilds the IMU + TOF hover task
 and trains PPO; a dedicated CI job installs the `rl` extra and runs the smoke
 training.
 
-### Phase 7: documentation, examples, release (2 weeks)
+### Phase 7: documentation, examples, release (done 2026-10-28)
 
 - MkDocs Material site with mkdocstrings: Getting started, Import your robot,
   Define wings, Choose aerodynamics, Write a plugin, Run RL, Derivations
@@ -377,6 +377,15 @@ training.
 - `v0.2.0` on PyPI (`flapsim` is unclaimed as of 2026-10-28), GitHub release
   notes, Zenodo DOI, issue and PR templates.
 - Optional: JOSS paper draft once two external users have imported a robot.
+
+Result: MkDocs Material site (`mkdocs.yml`, `docs/`) with getting started,
+manifest tutorial, aero models, components, plugin guide, CLI, learning,
+gallery (rendered GIFs), derivations (English conventions page plus
+translations of the Chinese originals), engineering notes and an
+mkdocstrings API reference; `docs.yml` builds it on every push and deploys
+to GitHub Pages from `master`; `release.yml` builds and publishes on `v*`
+tags. Version 0.2.0 set in `pyproject.toml`, `CITATION.cff` and the package.
+The JOSS paper is left for later.
 
 ---
 
@@ -432,3 +441,22 @@ training.
 - Example robots live inside the package (`flapsim/assets/robots/`) so that a
   plain `pip install flapsim` ships them; the parametric builder robots live in
   `flapsim.robot.builders`.
+
+
+## 9. Release checklist for 0.2.0 (maintainer actions)
+
+1. Merge `open-platform` into `master` (the CI, docs and release workflows
+   watch `master`).
+2. Enable GitHub Pages for the repository (source: the `gh-pages` branch
+   that `mkdocs gh-deploy` creates on the first push to `master`).
+3. On pypi.org, register a *trusted publisher* for `MingshanHe/FlapSim`,
+   workflow `release.yml`, environment `pypi`, and create the `pypi`
+   environment in the repository settings. The project name `flapsim` was
+   unclaimed on 2026-10-28.
+4. Tag and push: `git tag v0.2.0 && git push origin v0.2.0`. The workflow
+   builds the wheel and sdist, publishes to PyPI and creates the GitHub
+   release with generated notes.
+5. Optional: link the repository to Zenodo before tagging so the release
+   receives a DOI, then add the DOI badge and `doi` field to `CITATION.cff`.
+6. Announce; the first external robot imports will show where the manifest
+   tutorial needs more detail.

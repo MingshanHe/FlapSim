@@ -2,38 +2,59 @@
 
 **Open simulation platform for flapping-wing robots, built on [MuJoCo](https://mujoco.org).**
 
-Import your own robot (URDF or MJCF), tell FlapSim which bodies are wings, pick
-aerodynamic models and other components from a plugin registry, and run the
-simulation headless or in the viewer.
+[![CI](https://github.com/MingshanHe/FlapSim/actions/workflows/ci.yml/badge.svg)](https://github.com/MingshanHe/FlapSim/actions/workflows/ci.yml)
+[![License: Apache-2.0](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
 
-> Status: the platform is being built on the `open-platform` branch following
-> [ROADMAP.md](ROADMAP.md). The current release is the validated single-robot
-> simulator described below; the plugin API lands phase by phase.
+Bring your own robot as URDF or MJCF, declare its wings in a small manifest,
+pick aerodynamic models and other components from a plugin registry, and run
+the simulation headless, in the viewer, or as a Gymnasium environment.
+
+<p align="center">
+  <img src="docs/assets/single_thrust_fixed.gif" width="360" alt="Fixed-base flapping with force arrows">
+  <img src="docs/assets/flat_plate_fixed.gif" width="360" alt="Parametric flat-plate flapper">
+</p>
+
+## Highlights
+
+- **Import any robot.** URDF, MJCF or a programmatic `MjSpec`; a
+  `robot.yaml` names the wings, their frames, stroke and feathering joints,
+  planform and mass distribution. `flapsim inspect` lists what you need.
+  No CAD? `flat_plate_flapper()` builds a parametric two-wing robot.
+- **Wings compute their own lift.** Quasi-steady blade-element forces at
+  the centre of pressure (Whitney & Wood 2010), plus rotational lift, added
+  mass, wake capture and ground effect as additive models you can stack.
+- **Everything is a plugin.** Actuators (sinusoidal stroke, PD, servo, DC
+  motor + crank), sensors (IMU, range finder, encoder, load cell with
+  noise/delay), controllers (hover PID, schedules, Python callbacks),
+  atmosphere (density, wind, gusts, turbulence), body drag, recorders.
+  Third-party packages register through an entry point.
+- **Identification and learning.** `flapsim sweep` fits a cycle-averaged
+  hover model from the per-step one; `flapsim.envs.SimulationEnv` turns any
+  setup into a Gymnasium environment; `flapsim.study` runs parallel parameter
+  sweeps.
+- **Reproducible.** Regression tests pin the validated lift sweep, every
+  example runs in CI on Linux, macOS and Windows, and the physics
+  conventions are documented and self-checked at load time.
 
 ## Install
 
 ```bash
-git clone https://github.com/MingshanHe/FlapSim.git
-cd FlapSim
-pip install -e ".[dev]"
+pip install flapsim                  # core
+pip install "flapsim[rl]"            # Gymnasium (add stable-baselines3 for PPO)
+pip install "flapsim[video,hdf5]"    # video export, HDF5 recordings
 ```
 
-Requires Python 3.10 or newer and MuJoCo 3.3 or newer (installed automatically).
+From a checkout: `pip install -e ".[dev]"` and `pytest -q`.
 
-## Run the example robot
+## Quick start
 
 ```bash
-# viewer, fixed base, quasi-steady blade-element aerodynamics
-python flapsim.py --robot SingleThrustFlapper
-
-# headless for 2 simulated seconds
-python flapsim.py --robot SingleThrustFlapper --headless --duration 2
-
-# floating base with the cycle-averaged hover model and the altitude controller
-python flapsim.py --robot SingleThrustFlapper --fix false
+flapsim run SingleThrustFlapper                    # viewer, fixed base, force arrows
+flapsim run SingleThrustFlapper --config hover     # floating base with the hover PID
+flapsim run SingleThrustFlapper --headless --duration 2 --frequency 40
+flapsim inspect my_robot.urdf                      # bodies and joints for your manifest
+flapsim plugins                                    # everything you can add
 ```
-
-From Python, assemble a simulation from plugins:
 
 ```python
 from flapsim import Simulation
@@ -49,61 +70,61 @@ sim.add(
         "amplitude_rad": 1.5,
     }
 )
-sim.add("aero/quasi_steady")
+sim.add({"type": "aero/stack", "models": ["quasi_steady", "rotational_lift"]})
+sim.add({"type": "sensor/imu", "rate_hz": 500.0})
 sim.add(
-    {
-        "type": "recorder/memory",
-        "signals": ["aero/F_world", "wings/*/alpha"],
-        "every": 1e-3,
-    }
+    {"type": "recorder/memory", "signals": ["aero/F_world", "imu/*"], "every": 1e-3}
 )
-sim.run(1.0)  # headless
-lift = sim["recorder"]["aero/F_world"][:, 2].mean()
+sim.run(1.0)
+print(sim["recorder"]["aero/F_world"][:, 2].mean(), "N mean lift")
 ```
 
-or run a shipped setup file (`flapsim run SingleThrustFlapper --config hover`
-opens the floating-base hover study). Your own robot needs a manifest
-(`robot.yaml`) that names its wings; `flapsim inspect my_robot.urdf` lists the
-bodies and joints to fill it in.
+Setups can also be YAML files (`schema: flapsim.sim/1`); see
+`flapsim/assets/robots/single_thrust_flapper/sim.yaml`.
 
-## What is in the box
+## Your robot in four steps
+
+1. `flapsim inspect robot.urdf` to see bodies and joints.
+2. Write `robot.yaml`: model file, root body, wings (`span`, `chord`,
+   `stroke_joint`, `feathering_joint`, `planform`, `mass_model`), optional
+   joint/equality/mass patches.
+3. `flapsim inspect robot.yaml`: the loader warns if a joint sign or chord
+   direction looks reversed.
+4. Copy a `sim.yaml`, point it at your manifest, `flapsim run sim.yaml`.
+
+Full tutorial: [docs/robot_manifest.md](docs/robot_manifest.md).
+
+## Documentation
+
+`docs/` holds the MkDocs site (`pip install -e ".[docs]" && mkdocs serve`):
+getting started, robot manifests, [aerodynamic models](docs/aero_models.md),
+[components](docs/components.md), [writing plugins](docs/plugins.md),
+[learning and studies](docs/rl.md), the model
+[derivations](docs/derivations/quasi_steady_model.md) and the API reference.
+The Chinese originals of the derivations live under `docs/zh/`.
+
+## Layout
 
 | Directory | Contents |
 |---|---|
-| `flapsim/core` | `Simulation`: step pipeline with phases and a signal bus; `flapsim.sim/1` config files |
+| `flapsim/core` | `Simulation`: step pipeline with phases and a signal bus; `flapsim.sim/1` setup files |
 | `flapsim/plugins` | Plugin base classes, registry, entry-point discovery |
-| `flapsim/robot`, `flapsim/wings` | Robot manifests, URDF/MJCF/MjSpec import, wing frames and planform integrals, parametric builder |
-| `flapsim/aero`, `flapsim/fluid` | Quasi-steady and cycle-averaged aero plugins; the blade-element math |
-| `flapsim/actuators`, `flapsim/controllers` | Sinusoidal stroke, PD position, servo, DC motor + crank; hover PID, set-point schedule, Python callback |
-| `flapsim/sensors`, `flapsim/io` | IMU, range finder, encoder, load cell with noise/delay models; memory recorder (npz/csv/hdf5), force-arrow overlay, GIF/MP4/PNG rendering |
+| `flapsim/robot`, `flapsim/wings` | Manifests, URDF/MJCF/MjSpec import, wing frames, planform integrals, parametric builder |
+| `flapsim/aero`, `flapsim/fluid` | Aero engine, models, atmosphere, body drag, cycle-averaged model and identification; the blade-element math |
+| `flapsim/actuators`, `flapsim/sensors`, `flapsim/controllers`, `flapsim/io` | Components and recording/visualisation |
+| `flapsim/envs`, `flapsim/study` | Gymnasium wrapper and parameter studies |
 | `flapsim/assets/robots` | Example robot: URDF, meshes, `robot.yaml`, `sim.yaml`, `hover.yaml` |
-| `flapsim/testing` | Conformance check for third-party plugins |
-| `docs/` | Derivations and engineering notes (`docs/zh` holds the Chinese originals) |
-| `examples/` | Notebooks on robot import, wing parameters and aerodynamics |
-| `tests/` | Unit, symmetry and regression tests (`pytest`) |
+| `examples/` | Scripts (hover, sensors, lift sweep, custom aero model, video, parameter study, RL) and notebooks |
+| `tests/` | 150+ tests: unit, regression (lift sweep), conformance, examples |
 
-## Testing
+## Contributing and citing
 
-```bash
-pytest -q
-ruff check . && ruff format --check .
-```
+See [CONTRIBUTING.md](CONTRIBUTING.md) and the [roadmap](ROADMAP.md). Please
+follow the [code of conduct](CODE_OF_CONDUCT.md). If FlapSim helps your
+research, cite it with [CITATION.cff](CITATION.cff).
 
-`tests/test_lift_sweep.py` pins the mean lift of the example robot at 20 to
-50 Hz. If you change force conventions or wing parameters on purpose, update
-the numbers there and say why in the pull request.
-
-## Contributing
-
-See [CONTRIBUTING.md](CONTRIBUTING.md). Everyone interacting with the project
-is expected to follow the [code of conduct](CODE_OF_CONDUCT.md).
-
-## License and attribution
+## License
 
 Apache License 2.0, see [LICENSE](LICENSE) and [NOTICE](NOTICE). The
-quasi-steady aerodynamic model reproduces the formulation used by the FlapX
-simulator; see `docs/zh/derivations` for the full derivation.
-
-## Citing
-
-See [CITATION.cff](CITATION.cff).
+quasi-steady aerodynamic model reproduces the formulation of the FlapX
+simulator (Whitney & Wood 2010 with the Dickinson et al. coefficient fits).
