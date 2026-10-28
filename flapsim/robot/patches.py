@@ -191,7 +191,7 @@ def apply_model_spec(
         root.quat = list(model.base.quaternion)
     if base_type == "free":
         existing = list(root.joints)
-        if any(j.type == mujoco.mjtJoint.mjJNT_FREE for j in existing):
+        if any(int(j.type) == int(mujoco.mjtJoint.mjJNT_FREE) for j in existing):
             pass  # the model already floats
         elif existing:
             raise ManifestError(
