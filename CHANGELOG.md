@@ -77,6 +77,9 @@ the `open-platform` branch on top of the 0.1.0 single-robot simulator.
 - `ROADMAP.md` describing the open-platform architecture and phases.
 
 ### Fixed
+- Manifest equality constraints size their data from `mujoco.mjNEQDATA`, so
+  the example robot loads with MuJoCo releases where that constant is 12
+  (reported against mujoco 3.17).
 - `flat_plate_flapper`: a fresh `MjSpec` interprets angles in degrees, so the
   builder's joint ranges were 57 times too small; it now declares radians,
   uses stiff limit solver constants and a spar-plate wing mass model, and
