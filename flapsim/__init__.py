@@ -11,7 +11,7 @@ from .sim_core import SimCore
 try:
     __version__ = version("flapsim")
 except PackageNotFoundError:  # running from a source checkout
-    __version__ = "0.2.0.dev0"
+    __version__ = "0.2.0"
 
 __all__ = [
     "Plugin",

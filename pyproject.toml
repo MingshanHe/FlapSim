@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "flapsim"
-version = "0.2.0.dev0"
+version = "0.2.0"
 description = "Open simulation platform for flapping-wing robots on MuJoCo: import a robot, declare its wings, plug in aerodynamics"
 requires-python = ">=3.10"
 license = {text = "Apache-2.0"}
@@ -40,6 +40,7 @@ dev = ["pytest>=8", "ruff>=0.6"]
 rl = ["gymnasium>=1.0", "stable-baselines3>=2.5"]
 video = ["imageio[ffmpeg]>=2.34", "Pillow>=10"]
 hdf5 = ["h5py>=3.10"]
+docs = ["mkdocs-material>=9.5", "mkdocstrings[python]>=0.26", "pymdown-extensions>=10"]
 
 [tool.setuptools.packages.find]
 where = ["."]
