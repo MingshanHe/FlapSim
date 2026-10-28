@@ -37,6 +37,9 @@ Issues = "https://github.com/MingshanHe/FlapSim/issues"
 [project.optional-dependencies]
 test = ["pytest>=8"]
 dev = ["pytest>=8", "ruff>=0.6"]
+rl = ["gymnasium>=1.0", "stable-baselines3>=2.5"]
+video = ["imageio[ffmpeg]>=2.34", "Pillow>=10"]
+hdf5 = ["h5py>=3.10"]
 
 [tool.setuptools.packages.find]
 where = ["."]

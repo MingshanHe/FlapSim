@@ -13,6 +13,7 @@ from .manifest import (
     RobotManifest,
     TorsoSpec,
     WingFrame,
+    WingMass,
     WingSpec,
 )
 from .patches import set_scalar
@@ -32,6 +33,7 @@ def flat_plate_flapper(
     feathering_stiffness: float = 2.0e-7,
     feathering_damping: float = 1.0e-9,
     feathering_armature: float = 1.0e-10,
+    spar_fraction: float = 0.8,
     timestep: float = 5.0e-5,
     position=(0.0, 0.0, 0.5),
     name: str = "flat_plate_flapper",
@@ -46,7 +48,9 @@ def flat_plate_flapper(
     degrees.  The stroke joints rotate about ``+z`` (left) and ``-z`` (right),
     so equal joint angles give mirrored motion; the passive feathering joints
     rotate about ``+x`` for both wings.  Returns the ``MjSpec`` and a matching
-    manifest; pass both to :func:`flapsim.robot.load`.
+    manifest; pass both to :func:`flapsim.robot.load`.  The wing mass is
+    distributed as a leading-edge spar (``spar_fraction``) plus a membrane
+    plate through the manifest's mass model.
     """
     if span <= 0.0 or chord <= 0.0 or thickness <= 0.0:
         raise ValueError("span, chord and thickness must be positive")
@@ -56,6 +60,7 @@ def flat_plate_flapper(
 
     spec = mujoco.MjSpec()
     spec.modelname = name
+    spec.compiler.degree = False  # ranges below are in radians
     spec.option.timestep = timestep
     spec.option.integrator = mujoco.mjtIntegrator.mjINT_IMPLICITFAST
 
@@ -92,6 +97,10 @@ def flat_plate_flapper(
             range=[-feathering_range, feathering_range],
         )
         joint.limited = mujoco.mjtLimited.mjLIMITED_TRUE
+        # stiff limits: the default solver constants let a 0.1 g wing swing
+        # far past its stops
+        joint.solref_limit = [4.0e-4, 1.0]
+        joint.solimp_limit = [0.97, 0.999, 5.0e-4, 0.5, 2.0]
         set_scalar(joint, "stiffness", feathering_stiffness)
         set_scalar(joint, "damping", feathering_damping)
         set_scalar(joint, "armature", feathering_armature)
@@ -105,6 +114,12 @@ def flat_plate_flapper(
         )
 
     planform = Planform(profile="rectangular", length=span, mean_chord=chord)
+    # A membrane wing carries most of its mass in the leading-edge spar; with
+    # the plate's own centroid (mid-chord) the passive feathering responds in
+    # anti-phase and the wing produces negative lift.
+    mass_model = WingMass(
+        mass=wing_mass, type="spar_plate", spar_fraction=spar_fraction
+    )
     manifest = RobotManifest(
         name=name,
         model=ModelSpec(
@@ -125,6 +140,7 @@ def flat_plate_flapper(
                 feathering_joint=JointRef("left_feathering", 1.0),
                 planform=planform,
                 shoulder_offset=shoulder,
+                mass_model=mass_model,
             ),
             WingSpec(
                 name="right",
@@ -135,6 +151,7 @@ def flat_plate_flapper(
                 feathering_joint=JointRef("right_feathering", 1.0),
                 planform=planform,
                 shoulder_offset=shoulder,
+                mass_model=mass_model,
             ),
         ),
         extras={
