@@ -37,16 +37,27 @@ class PlanformIntegrals:
     z_cp1: float
     z_cp2: float
     z_rd: float
+    c4: float = 1.0  # integral of c_hat**4 (added-mass rotational inertia)
 
     def as_dict(self) -> dict[str, float]:
         return asdict(self)
 
     @classmethod
     def from_dict(cls, values: dict[str, float]) -> PlanformIntegrals:
-        return cls(**{name: float(values[name]) for name in cls.__dataclass_fields__})
+        kwargs = {
+            name: float(values[name])
+            for name in cls.__dataclass_fields__
+            if name in values
+        }
+        return cls(**kwargs)
+
+    def replace(self, **changes: float) -> PlanformIntegrals:
+        return PlanformIntegrals(**{**self.as_dict(), **changes})
 
 
-RECTANGULAR = PlanformIntegrals(1.0, 0.5, 1.0 / 3.0, 0.25, 1.0, 0.5, 1.0 / 3.0, 1.0)
+RECTANGULAR = PlanformIntegrals(
+    1.0, 0.5, 1.0 / 3.0, 0.25, 1.0, 0.5, 1.0 / 3.0, 1.0, 1.0
+)
 
 
 def _damping_factor(
@@ -104,8 +115,9 @@ def from_chord_distribution(
     c = c / mean
     radial = [_trapezoid(c * r**k, r) for k in range(4)]
     moment = [_trapezoid(c**2 * r**k, r) for k in range(3)]
-    z_rd = _damping_factor(pitch_axis_fraction) * _trapezoid(c**4, r)
-    return PlanformIntegrals(*radial, *moment, z_rd)
+    c4 = _trapezoid(c**4, r)
+    z_rd = _damping_factor(pitch_axis_fraction) * c4
+    return PlanformIntegrals(*radial, *moment, z_rd, c4)
 
 
 def from_profile(
@@ -113,17 +125,7 @@ def from_profile(
 ) -> PlanformIntegrals:
     """Integrals of an analytic planform: ``rectangular`` or ``elliptic``."""
     if profile == "rectangular":
-        factor = _damping_factor(pitch_axis_fraction)
-        return PlanformIntegrals(
-            RECTANGULAR.r00,
-            RECTANGULAR.r11,
-            RECTANGULAR.r22,
-            RECTANGULAR.r33,
-            RECTANGULAR.z_cp0,
-            RECTANGULAR.z_cp1,
-            RECTANGULAR.z_cp2,
-            factor,
-        )
+        return RECTANGULAR.replace(z_rd=_damping_factor(pitch_axis_fraction))
     if profile == "elliptic":
         r = np.linspace(0.0, 1.0, samples)
         c = (4.0 / math.pi) * np.sqrt(np.clip(1.0 - r**2, 0.0, None))
@@ -261,6 +263,7 @@ def from_polygon(
     z_rd = integrate(
         lambda r, ints, c: sum(abs(y1) * y1**3 - abs(y0) * y0**3 for y0, y1 in ints)
     ) / (cbar**4 * length)
+    c4 = integrate(lambda r, ints, c: c**4) / (cbar**4 * length)
     offsets = tuple(
         integrate(lambda r, ints, c, k=k: sum(y0 * (y1 - y0) for y0, y1 in ints) * r**k)
         / (cbar**2 * length ** (k + 1))
@@ -268,7 +271,12 @@ def from_polygon(
     )
     exact = max(abs(v) for v in offsets) <= axis_tolerance * max(max(moment), 1e-15)
     return PolygonPlanform(
-        length, cbar, area, PlanformIntegrals(*radial, *moment, z_rd), offsets, exact
+        length,
+        cbar,
+        area,
+        PlanformIntegrals(*radial, *moment, z_rd, c4),
+        offsets,
+        exact,
     )
 
 
@@ -379,17 +387,7 @@ def from_mesh(
     area = _trapezoid(c, r_hat * length)
     mean_chord = area / length
     integrals = from_chord_distribution(r_hat, c)
-    z_rd = _trapezoid(dmp, r_hat) / mean_chord**4
-    integrals = PlanformIntegrals(
-        integrals.r00,
-        integrals.r11,
-        integrals.r22,
-        integrals.r33,
-        integrals.z_cp0,
-        integrals.z_cp1,
-        integrals.z_cp2,
-        z_rd,
-    )
+    integrals = integrals.replace(z_rd=_trapezoid(dmp, r_hat) / mean_chord**4)
     polyline = tuple((float(a), float(b)) for a, b in zip(centres, chords, strict=True))
     return MeshPlanform(length, mean_chord, area, integrals, polyline)
 
@@ -420,16 +418,7 @@ def resolve_planform(planform) -> tuple[float, float, PlanformIntegrals]:
         # Rotational damping grows quickly with the hinge offset; the offset is
         # scaled by the mean chord for analytic and polyline profiles.
         factor = _damping_factor(x0, x_le / mean_chord) / _damping_factor(x0)
-        integrals = PlanformIntegrals(
-            integrals.r00,
-            integrals.r11,
-            integrals.r22,
-            integrals.r33,
-            integrals.z_cp0,
-            integrals.z_cp1,
-            integrals.z_cp2,
-            integrals.z_rd * factor,
-        )
+        integrals = integrals.replace(z_rd=integrals.z_rd * factor)
     return length, mean_chord, integrals
 
 

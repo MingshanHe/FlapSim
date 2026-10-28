@@ -37,6 +37,7 @@ WHEN_VALUES = ("always", "fixed", "free")
 BASE_TYPES = ("fixed", "free")
 PROFILES = ("rectangular", "elliptic", "polyline", "integrals")
 INTEGRAL_NAMES = ("r00", "r11", "r22", "r33", "z_cp0", "z_cp1", "z_cp2", "z_rd")
+OPTIONAL_INTEGRAL_NAMES = ("c4",)
 EQUALITY_TYPES = ("joint", "weld", "connect")
 INTEGRATORS = ("euler", "rk4", "implicit", "implicitfast")
 
@@ -476,13 +477,16 @@ class Planform:
             kwargs["chord_polyline"] = tuple(points)
         if "integrals" in data:
             raw = _mapping(data["integrals"], f"{where}.integrals")
-            _check_keys(raw, INTEGRAL_NAMES, f"{where}.integrals")
+            _check_keys(
+                raw, INTEGRAL_NAMES + OPTIONAL_INTEGRAL_NAMES, f"{where}.integrals"
+            )
             missing = sorted(set(INTEGRAL_NAMES) - set(raw))
             if missing:
                 raise ManifestError(f"{where}.integrals is missing {missing}")
             kwargs["integrals"] = {
                 name: _number(raw[name], f"{where}.integrals.{name}")
-                for name in INTEGRAL_NAMES
+                for name in INTEGRAL_NAMES + OPTIONAL_INTEGRAL_NAMES
+                if name in raw
             }
         if "pitch_axis_fraction" in data:
             frac = _number(data["pitch_axis_fraction"], f"{where}.pitch_axis_fraction")

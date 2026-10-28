@@ -9,6 +9,7 @@ from flapsim.testing import check_plugin, example_plugin_factories
 
 FACTORIES = example_plugin_factories()
 FREE_BASE = {"controller/hover_pid", "aero/cycle_averaged"}
+NEEDS_STROKE = set()
 
 
 @pytest.mark.parametrize("type_name", sorted(FACTORIES))
