@@ -102,6 +102,18 @@ class MemoryRecorder(RecorderPlugin):
         )
         return path
 
+    def to_hdf5(self, path: str | Path) -> Path:
+        """Write one dataset per signal (needs ``h5py``)."""
+        try:
+            import h5py
+        except ImportError as exc:
+            raise ImportError("HDF5 output needs 'h5py' (pip install h5py)") from exc
+        path = Path(path)
+        with h5py.File(path, "w") as handle:
+            for name, array in self.to_dict().items():
+                handle.create_dataset(name, data=array)
+        return path
+
     def to_csv(self, path: str | Path) -> Path:
         """Write one row per sample; vector signals expand to ``name[i]`` columns."""
         path = Path(path)

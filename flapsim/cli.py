@@ -174,7 +174,41 @@ def cmd_run(args: argparse.Namespace) -> int:
     if not viewer and duration is None:
         print("error: headless runs need --duration", file=sys.stderr)
         return 2
-    sim.run(duration, viewer=viewer, realtime=bool(run_config.get("realtime", True)))
+    on_frame = None
+    if viewer and args.overlay == "forces" and sim.robot.wings:
+        from flapsim.io import ForceArrows
+
+        on_frame = ForceArrows()
+    sim.run(
+        duration,
+        viewer=viewer,
+        realtime=bool(run_config.get("realtime", True)),
+        on_frame=on_frame,
+    )
+    return 0
+
+
+def cmd_record(args: argparse.Namespace) -> int:
+    from flapsim.core import Simulation
+    from flapsim.io import ForceArrows, record_video
+
+    config_name = args.config
+    if config_name is None and args.base == "free":
+        config_name = "hover"
+    sim = Simulation.from_config(_find_setup(args.source, config_name), base=args.base)
+    overlay = None if args.no_overlay or not sim.robot.wings else ForceArrows()
+    path = record_video(
+        sim,
+        args.output,
+        duration=args.duration,
+        fps=args.fps,
+        width=args.width,
+        height=args.height,
+        camera=args.camera,
+        overlay=overlay,
+        realtime_factor=1.0 / max(args.slow, 1e-9),
+    )
+    print(f"wrote {path}")
     return 0
 
 
@@ -250,6 +284,8 @@ def main(argv: list[str] | None = None) -> int:
         return cmd_plugins(args)
     if args.command == "sweep":
         return cmd_sweep(args)
+    if args.command == "record":
+        return cmd_record(args)
     return cmd_run(args)
 
 
