@@ -88,8 +88,8 @@ wings:
     mass_model: {type: spar_plate, mass: 6.26e-5, spar_fraction: 0.8}
 
 extras:
-  # Consumed by SimCore and the classic controllers; plugins read these too.
-  joints: joints.json
+  # Free-form data for tools and plugins; the simulation setups live in
+  # sim.yaml (fixed base) and hover.yaml (floating base).
   hover:
     # sqrt(weight / lift_coefficient): 0.2943 N at 0.16661 N / (30 Hz)^2
     frequency_hz: 40.0

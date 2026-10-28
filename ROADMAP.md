@@ -1,7 +1,7 @@
 # FlapSim open-platform plan
 
 **Branch:** `open-platform` (cut from `master` on 2026-10-28, all training code and data removed)
-**Status:** Phases 0-2 complete, Phase 3 next
+**Status:** Phases 0-3 complete, Phase 4 next
 
 FlapSim becomes an open-source simulation platform for flapping-wing robots built
 on MuJoCo. A user brings their own robot description, tells FlapSim which bodies
@@ -276,7 +276,7 @@ regression values were re-measured: 0.074, 0.167, 0.297, 0.464 N at 20, 30,
 40, 50 Hz, a clean frequency-squared law with hover near 40 Hz for the 30 g
 robot. Details in `docs/derivations/quasi_steady_model.md`.
 
-### Phase 3: plugin system (2 weeks)
+### Phase 3: plugin system (done 2026-10-28)
 
 Goal: the existing simulation is assembled from plugins and config, not from
 `SimCore.__init__`.
@@ -295,6 +295,13 @@ Goal: the existing simulation is assembled from plugins and config, not from
 Acceptance: `python flapsim.py --robot SingleThrustFlapper --headless --duration 1`
 still works and produces the same lift-sweep numbers; a dummy plugin installed
 from a separate directory is discovered by entry point and runs.
+Result: both hold. `SimCore` now builds the shipped `sim.yaml` / `hover.yaml`
+through `Simulation.from_config`; the regression values are unchanged.
+Entry-point discovery is covered by a test with a fake distribution entry
+point. The old `flapsim.environment`, `flapsim.actuator` and
+`flapsim.controller` packages were removed rather than shimmed: the branch is
+pre-release and `SimCore` plus `flapsim.fluid` remain as the compatibility
+surface.
 
 ### Phase 4: aerodynamics library (3 to 4 weeks)
 
