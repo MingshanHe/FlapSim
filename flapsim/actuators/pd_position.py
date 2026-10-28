@@ -155,6 +155,9 @@ class PDPosition(ActuatorPlugin):
         return True
 
     def reset(self) -> None:
+        for joint_name, settings in self.settings.items():
+            configured = self.config["joints"].get(joint_name, {}) or {}
+            settings["target"] = float(configured.get("target", 0.0))
         if self.mode == "kinematic":
             self.post_step()
 

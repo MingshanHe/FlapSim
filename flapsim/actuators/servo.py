@@ -52,6 +52,10 @@ class Servo(PDPosition):
         super().setup()
         self.desired = {name: s["target"] for name, s in self.settings.items()}
 
+    def reset(self) -> None:
+        super().reset()
+        self.desired = {name: s["target"] for name, s in self.settings.items()}
+
     def set_desired(self, joint_name: str, value: float) -> None:
         if joint_name not in self.settings:
             raise KeyError(f"unknown joint {joint_name!r}")

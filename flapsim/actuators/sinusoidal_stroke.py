@@ -179,6 +179,8 @@ class SinusoidalStroke(ActuatorPlugin):
         self.signals.publish(f"{self.id}/phase", angle % (2.0 * math.pi))
 
     def reset(self) -> None:
+        self._frequency = float(self.config["frequency_hz"])
+        self._amplitude = float(self.config["amplitude_rad"])
         self._impose()
 
 

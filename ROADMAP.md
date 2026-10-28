@@ -1,7 +1,7 @@
 # FlapSim open-platform plan
 
 **Branch:** `open-platform` (cut from `master` on 2026-10-28, all training code and data removed)
-**Status:** Phases 0-5 complete, Phase 6 next
+**Status:** Phases 0-6 complete, Phase 7 next
 
 FlapSim becomes an open-source simulation platform for flapping-wing robots built
 on MuJoCo. A user brings their own robot description, tells FlapSim which bodies
@@ -351,7 +351,7 @@ and aerodynamic load; the load cell reads MuJoCo's constraint wrench on the
 root body. Video export renders offscreen (OSMesa/EGL) to GIF, PNG frames or
 MP4 when imageio is installed.
 
-### Phase 6: learning and optimisation integration (2 weeks, optional extra)
+### Phase 6: learning and optimisation integration (done 2026-10-28)
 
 - `flapsim[rl]`: a generic Gymnasium wrapper over `Simulation` with
   observation and action spaces assembled from named signals and commands.
@@ -362,6 +362,11 @@ MP4 when imageio is installed.
 
 Acceptance: the example PPO task trains for a smoke run in CI without touching
 `flapsim/core`.
+Result: `flapsim.envs.SimulationEnv` (Gymnasium) with signal observations and
+command actions, `hover_reward`/`hover_terminated`, `flapsim.study` for
+parallel parameter studies; `examples/rl/` rebuilds the IMU + TOF hover task
+and trains PPO; a dedicated CI job installs the `rl` extra and runs the smoke
+training.
 
 ### Phase 7: documentation, examples, release (2 weeks)
 

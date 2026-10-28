@@ -88,6 +88,10 @@ def test_recorder_hdf5_export(tmp_path):
         ),
         ("examples/lift_sweep.py", ["--frequencies", "30", "--cycles", "2"]),
         ("examples/custom_aero_model.py", []),
+        (
+            "examples/wing_length_study.py",
+            ["--spans", "0.05", "0.07", "--frequencies", "30", "--workers", "2"],
+        ),
     ],
 )
 def test_example_scripts_run(tmp_path, script, args):

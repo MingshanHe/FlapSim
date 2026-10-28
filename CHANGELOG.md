@@ -7,6 +7,11 @@ All notable changes to FlapSim are recorded here. The format follows
 ## [Unreleased]
 
 ### Added
+- Learning: `flapsim.envs.SimulationEnv` Gymnasium wrapper (observations from
+  signals, actions to commands with smoothing), `hover_reward`,
+  `hover_terminated`; `flapsim.study.parameter_study` (parallel grids);
+  `examples/rl/` IMU + TOF hover task with PPO training/evaluation scripts;
+  `examples/wing_length_study.py`; extras `rl`, `video`, `hdf5`; RL CI job.
 - Components: sensors `sensor/imu`, `sensor/rangefinder` (plane or ray),
   `sensor/encoder`, `sensor/wrench` (load cell) with a shared conditioner
   (sample rate, low-pass, delay, noise, per-episode bias, quantisation);
@@ -66,6 +71,12 @@ All notable changes to FlapSim are recorded here. The format follows
 - `ROADMAP.md` describing the open-platform architecture and phases.
 
 ### Fixed
+- `flat_plate_flapper`: a fresh `MjSpec` interprets angles in degrees, so the
+  builder's joint ranges were 57 times too small; it now declares radians,
+  uses stiff limit solver constants and a spar-plate wing mass model, and
+  produces positive lift with correctly phased passive feathering.
+- Actuators restore their configured targets and commands on `reset()`, so
+  episodes are deterministic for a given seed.
 - Quasi-steady pitching moment: the earlier implementation multiplied the
   moment by `sign(alpha)`, which made it independent of the flow direction and
   moved the centre of pressure to the opposite side of the hinge at each
