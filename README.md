@@ -33,26 +33,50 @@ python flapsim.py --robot SingleThrustFlapper --headless --duration 2
 python flapsim.py --robot SingleThrustFlapper --fix false
 ```
 
-From Python:
+From Python, assemble a simulation from plugins:
 
 ```python
-from flapsim import SimCore
+from flapsim import Simulation
 
-sim = SimCore("SingleThrustFlapper", fix=True)
-sim.set_thrust_command(frequency=40.0, amplitude=1.5)
-sim.run(viewer=False, duration=1.0)
-print(sim.aero.diagnostics["F_world"])  # world-frame aerodynamic force [N]
+sim = Simulation("SingleThrustFlapper")  # built-in robot, fixed base
+sim.add(
+    {
+        "type": "actuator/sinusoidal_stroke",
+        "id": "stroke",
+        "joints": ["left_flapping_joint", "right_wing_flapping"],
+        "directions": [1, -1],
+        "frequency_hz": 40.0,
+        "amplitude_rad": 1.5,
+    }
+)
+sim.add("aero/quasi_steady")
+sim.add(
+    {
+        "type": "recorder/memory",
+        "signals": ["aero/F_world", "wings/*/alpha"],
+        "every": 1e-3,
+    }
+)
+sim.run(1.0)  # headless
+lift = sim["recorder"]["aero/F_world"][:, 2].mean()
 ```
+
+or run a shipped setup file (`flapsim run SingleThrustFlapper --config hover`
+opens the floating-base hover study). Your own robot needs a manifest
+(`robot.yaml`) that names its wings; `flapsim inspect my_robot.urdf` lists the
+bodies and joints to fill it in.
 
 ## What is in the box
 
 | Directory | Contents |
 |---|---|
-| `flapsim/environment` | MuJoCo scene, URDF import through `MjSpec`, step loop |
-| `flapsim/fluid` | Quasi-steady blade-element aerodynamics (pure functions) and the MuJoCo adapter; cycle-averaged hover model |
-| `flapsim/actuator`, `flapsim/controller` | PD position and sinusoidal stroke actuators; plate, thrust and hover controllers |
-| `flapsim/config` | JSON configuration and typed parameter objects |
-| `flapsim/robot/SingleThrustFlapper` | Example robot: URDF and meshes of a 30 g single-thrust flapper |
+| `flapsim/core` | `Simulation`: step pipeline with phases and a signal bus; `flapsim.sim/1` config files |
+| `flapsim/plugins` | Plugin base classes, registry, entry-point discovery |
+| `flapsim/robot`, `flapsim/wings` | Robot manifests, URDF/MJCF/MjSpec import, wing frames and planform integrals, parametric builder |
+| `flapsim/aero`, `flapsim/fluid` | Quasi-steady and cycle-averaged aero plugins; the blade-element math |
+| `flapsim/actuators`, `flapsim/controllers`, `flapsim/io` | Stroke and PD actuators, hover PID, memory recorder |
+| `flapsim/assets/robots` | Example robot: URDF, meshes, `robot.yaml`, `sim.yaml`, `hover.yaml` |
+| `flapsim/testing` | Conformance check for third-party plugins |
 | `docs/` | Derivations and engineering notes (`docs/zh` holds the Chinese originals) |
 | `examples/` | Notebooks on robot import, wing parameters and aerodynamics |
 | `tests/` | Unit, symmetry and regression tests (`pytest`) |

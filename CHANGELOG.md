@@ -7,6 +7,20 @@ All notable changes to FlapSim are recorded here. The format follows
 ## [Unreleased]
 
 ### Added
+- Plugin system: `flapsim.core.Simulation` with the phases `pre_control`,
+  `control`, `actuate`, `forces`, `mj_step`, `post_step`, `record`; a signal
+  bus (`wings/left/alpha`, `cmd/stroke/frequency_hz`, ...); plugin base
+  classes; a registry addressed by `kind/name` with entry-point discovery
+  (`flapsim.plugins` group); `flapsim.sim/1` YAML/JSON simulation configs
+  with per-plugin overrides.
+- Built-in plugins: `actuator/sinusoidal_stroke`, `actuator/pd_position`
+  (with joint roles), `aero/quasi_steady`, `aero/cycle_averaged`,
+  `controller/hover_pid`, `recorder/memory` (npz/csv export).
+- `flapsim.testing.check_plugin` conformance check for third-party plugins;
+  `flapsim plugins` and `flapsim run <config.yaml> --describe` commands;
+  `flat_plate_simulation()` helper.
+- Example robot ships `sim.yaml` (fixed base) and `hover.yaml` (floating
+  base) next to its manifest.
 - Robot manifests (`robot.yaml`): wings with aero frames, stroke and
   feathering joints, planforms, mirror relations; model patches for joint
   dynamics, equalities, mass overrides and collision exclusion; `when: free`
@@ -46,6 +60,8 @@ All notable changes to FlapSim are recorded here. The format follows
   re-measured.
 
 ### Changed
+- `SimCore` is a thin wrapper that loads the robot's shipped setup through
+  `Simulation.from_config`; its method names are unchanged.
 - Example robot moved to `flapsim/assets/robots/single_thrust_flapper/` with
   its manifest and joint configuration; no robot names remain in package code.
 - `SimCore` loads any robot that provides `extras.joints`; `PlateController`,
@@ -56,6 +72,9 @@ All notable changes to FlapSim are recorded here. The format follows
 - `pyproject.toml`: MuJoCo pinned to `>=3.3,<4`, project metadata, ruff config.
 
 ### Removed
+- `flapsim.environment`, `flapsim.actuator`, `flapsim.controller` and the
+  example's `joints.json`, replaced by `flapsim.core`, `flapsim.actuators`,
+  `flapsim.controllers` and the `sim.yaml` / `hover.yaml` setups.
 - Unused configuration bundle loader and JSON files superseded by the manifest.
 - Reinforcement-learning training code and trained policies (`flapsim/rl`).
   They return as examples built on the plugin API in a later phase.

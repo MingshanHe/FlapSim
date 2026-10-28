@@ -1,27 +1,17 @@
-"""Classic single-robot simulation: a robot plus the built-in controllers.
+"""Classic convenience wrapper: a built-in robot with its shipped setup.
 
-``SimCore`` keeps the pre-platform workflow working: pick a robot (built-in
-name, manifest or model file), choose a fixed or floating base, and run with
-the plate, thrust and hover controllers.  Roadmap Phase 3 rebuilds this on
-the plugin API; the public methods stay.
+``SimCore`` builds a :class:`~flapsim.core.Simulation` from the robot's
+``sim.yaml`` (fixed base) or ``hover.yaml`` (floating base) and exposes the
+pre-platform method names.  New code should use :class:`Simulation` and
+plugins directly.
 """
 
 from __future__ import annotations
 
 from pathlib import Path
 
-from flapsim.actuator.SingleThrustFlapper import (
-    PositionController,
-    TrajectoryController,
-)
-from flapsim.controller.SingleThrustFlapper import (
-    HoveringController,
-    PlateController,
-    ThrustController,
-)
-from flapsim.environment import SimulationEnvironment
-from flapsim.fluid import AveragedHoverAero, MuJoCoAeroAdapter
-from flapsim.robot.loader import builtin_robots, load, resolve_manifest
+from flapsim.core.simulation import Simulation
+from flapsim.robot.loader import builtin_robots, resolve_manifest
 from flapsim.robot.manifest import ManifestError, RobotManifest
 
 
@@ -33,6 +23,7 @@ class SimCore:
         pitch: float = 0.0,
         roll: float = 0.0,
         fix: bool = True,
+        config: str | None = None,
     ) -> None:
         try:
             manifest = resolve_manifest(robot)
@@ -43,105 +34,54 @@ class SimCore:
             raise ValueError(
                 f"Unknown robot {robot!r}. Available: {available}"
             ) from exc
-        joints_file = manifest.extras.get("joints")
-        if joints_file is None:
+        name = config or ("sim" if fix else "hover")
+        config_path = (
+            None if manifest.base_dir is None else manifest.base_dir / f"{name}.yaml"
+        )
+        if config_path is None or not config_path.is_file():
             raise ValueError(
-                f"robot {manifest.name!r} has no extras.joints configuration; "
-                "SimCore needs it for the classic controllers"
+                f"robot {manifest.name!r} ships no {name}.yaml next to its manifest; "
+                "build a Simulation with plugins instead"
             )
-        joints_config = manifest.resolve(joints_file)
-        hover = manifest.extras.get("hover", {})
-
         self.manifest = manifest
         self.robot = manifest.name
-        self.robot_model = load(manifest, base="fixed" if fix else "free")
-        self.environment = SimulationEnvironment(self.robot_model)
-        self.model = self.environment.model
-        self.data = self.environment.data
-        root_body = self.robot_model.root_body_name
-
-        self.plate_controller = PlateController(
-            pitch=pitch, roll=roll, config_path=joints_config
+        self.simulation = Simulation.from_config(
+            config_path, base="fixed" if fix else "free"
         )
-        self.position_controller = PositionController(self.model, joints_config)
-        self.thrust_controller = ThrustController(joints_config)
-        self.trajectory_controller = TrajectoryController(self.model, joints_config)
-        self.trajectory_controller.validate_commands(self.thrust_controller.targets)
-        self.position_controller.validate_targets(
-            self.model, self.plate_controller.targets
-        )
-        if fix:
-            self.environment.attach_control(
-                self.plate_controller, self.position_controller
-            )
-            self.environment.attach_control(
-                self.thrust_controller, self.trajectory_controller
-            )
-            self.aero = MuJoCoAeroAdapter(self.robot_model)
-        else:
-            self.position_controller.set_kinematic(True)
-            self.trajectory_controller.set_dynamic_velocity(False)
-            self.environment.attach_control(
-                self.plate_controller, self.position_controller
-            )
-            self.environment.attach_control(
-                self.thrust_controller, self.trajectory_controller
-            )
-            self.aero = AveragedHoverAero(
-                self.model,
-                self.data,
-                self.plate_controller,
-                self.thrust_controller,
-                root_body=root_body,
-            )
-        self.environment.attach_force_model(self.aero)
-        self.hover_frequency = float(hover.get("frequency_hz", 42.0))
-        self.hovering_controller = None
-        if not fix:
-            self.enable_hovering(target_z=float(hover.get("target_height", 0.5)))
+        self.environment = self.simulation
+        self.robot_model = self.simulation.robot
+        self.model = self.simulation.model
+        self.data = self.simulation.data
+        self.stroke = self.simulation.find("stroke")
+        self.gimbal = self.simulation.find("gimbal")
+        self.aero = self.simulation.find("aero")
+        self.hovering_controller = self.simulation.find("hover")
+        if (pitch or roll) and self.gimbal is not None:
+            self.set_plate_command(pitch=pitch, roll=roll)
 
     def enable_hovering(self, target_z: float) -> None:
-        if self.environment.fixed_base:
+        if self.simulation.fixed_base:
             raise ValueError("hovering requires a floating base (--fix false)")
         if self.hovering_controller is None:
-            self.hovering_controller = HoveringController(
-                self.model,
-                self.plate_controller,
-                self.thrust_controller,
-                target_z=target_z,
-                root_body=self.robot_model.root_body_name,
-                hover_frequency=self.hover_frequency,
-            )
-            self.environment.attach_supervisor(self.hovering_controller)
-        else:
-            self.hovering_controller.set_target(target_z)
+            raise ValueError("this setup has no hover controller plugin")
+        self.hovering_controller.set_target(z=target_z)
 
     def set_plate_command(
         self, *, pitch: float | None = None, roll: float | None = None
     ) -> None:
-        old_pitch, old_roll = self.plate_controller.pitch, self.plate_controller.roll
-        self.plate_controller.set_command(pitch=pitch, roll=roll)
-        try:
-            self.position_controller.validate_targets(
-                self.model, self.plate_controller.targets
-            )
-        except ValueError:
-            self.plate_controller.set_command(pitch=old_pitch, roll=old_roll)
-            raise
+        if self.gimbal is None:
+            raise ValueError("this setup has no gimbal actuator")
+        if pitch is not None:
+            self.gimbal.set_role_target("pitch", pitch)
+        if roll is not None:
+            self.gimbal.set_role_target("roll", roll)
 
     def set_thrust_command(
         self, *, frequency: float | None = None, amplitude: float | None = None
     ) -> None:
-        old_commands = self.thrust_controller.targets
-        self.thrust_controller.set_command(frequency=frequency, amplitude=amplitude)
-        try:
-            self.trajectory_controller.validate_commands(self.thrust_controller.targets)
-        except ValueError:
-            old = next(iter(old_commands.values()))
-            self.thrust_controller.set_command(
-                frequency=old["frequency"], amplitude=old["amplitude"]
-            )
-            raise
+        if self.stroke is None:
+            raise ValueError("this setup has no stroke actuator")
+        self.stroke.set_command(frequency_hz=frequency, amplitude_rad=amplitude)
 
     def set_hover_waypoints(self, waypoints, *, interval: float = 3.0) -> None:
         if self.hovering_controller is None:
@@ -149,4 +89,4 @@ class SimCore:
         self.hovering_controller.set_waypoints(waypoints, interval=interval)
 
     def run(self, *, viewer: bool = True, duration: float | None = None) -> int:
-        return self.environment.run(viewer=viewer, duration=duration)
+        return self.simulation.run(duration, viewer=viewer)

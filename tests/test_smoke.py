@@ -26,6 +26,7 @@ def test_floating_base_runs_headless():
     assert 199 <= steps <= 201
     assert sim.aero.diagnostics["mode"] == "cycle_averaged_hover"
     assert sim.hovering_controller is not None
+    assert sim.simulation.plugins_of("controller")
 
 
 def test_unknown_robot_is_rejected():

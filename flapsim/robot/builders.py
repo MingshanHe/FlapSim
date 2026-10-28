@@ -145,4 +145,38 @@ def flat_plate_flapper(
     return spec, manifest
 
 
-__all__ = ["flat_plate_flapper"]
+def flat_plate_simulation(
+    *,
+    frequency_hz: float = 30.0,
+    amplitude_rad: float = 1.2,
+    base: str = "fixed",
+    aero: str | None = "aero/quasi_steady",
+    **builder_kwargs,
+):
+    """A :class:`~flapsim.core.Simulation` of :func:`flat_plate_flapper`.
+
+    The stroke joints are driven sinusoidally (equal angles give mirrored
+    motion) and the quasi-steady aero plugin is attached unless ``aero`` is
+    ``None``.
+    """
+    from flapsim.core import Simulation
+
+    spec, manifest = flat_plate_flapper(**builder_kwargs)
+    from flapsim.robot.loader import load
+
+    sim = Simulation(load(spec, manifest=manifest, base=base))
+    sim.add(
+        {
+            "type": "actuator/sinusoidal_stroke",
+            "id": "stroke",
+            "joints": manifest.extras["stroke_joints"],
+            "frequency_hz": frequency_hz,
+            "amplitude_rad": amplitude_rad,
+        }
+    )
+    if aero is not None:
+        sim.add(aero)
+    return sim
+
+
+__all__ = ["flat_plate_flapper", "flat_plate_simulation"]

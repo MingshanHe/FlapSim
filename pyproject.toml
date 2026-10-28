@@ -27,6 +27,9 @@ dependencies = [
 [project.scripts]
 flapsim = "flapsim.cli:main"
 
+[project.entry-points."flapsim.plugins"]
+builtin = "flapsim.plugins.builtin"
+
 [project.urls]
 Homepage = "https://github.com/MingshanHe/FlapSim"
 Issues = "https://github.com/MingshanHe/FlapSim/issues"
