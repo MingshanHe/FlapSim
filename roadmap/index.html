@@ -1,0 +1,2196 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="A composable MuJoCo simulation platform and reduced-order aerodynamic model hierarchy for flapping-wing robotics">
+      
+      
+      
+        <link rel="canonical" href="https://mingshanhe.github.io/FlapSim/roadmap/">
+      
+      
+        <link rel="prev" href="../api/components/">
+      
+      
+        <link rel="next" href="../changelog/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.0">
+    
+    
+      
+        <title>Roadmap - FlapSim</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#flapsim-open-platform-plan" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="FlapSim" class="md-header__button md-logo" aria-label="FlapSim" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            FlapSim
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Roadmap
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="indigo"  aria-label="Dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="indigo"  aria-label="Light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/MingshanHe/FlapSim" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    MingshanHe/FlapSim
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="FlapSim" class="md-nav__button md-logo" aria-label="FlapSim" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    FlapSim
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/MingshanHe/FlapSim" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    MingshanHe/FlapSim
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting_started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../robot_manifest/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Import your robot
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../aero_models/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Aerodynamic models
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Components
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../plugins/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Write a plugin
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Command line
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rl/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Learning and studies
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../gallery/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Gallery
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Derivations
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Derivations
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../derivations/quasi_steady_model/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Model conventions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../derivations/quasi_steady_aero_full/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quasi-steady model (full)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../derivations/hover_simplification/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hover simplification
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Engineering notes
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Engineering notes
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../notes/aero_force_sign_fix/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Aerodynamic force sign fix (2026)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../notes/pid_hover_control/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PID hover control
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12" >
+        
+          
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_12">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    API reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/core/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Simulation and plugins
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/robot/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Robots and wings
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/aero/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Aerodynamics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/components/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Components
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Roadmap
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Roadmap
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-goals-and-non-goals" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Goals and non-goals
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Goals and non-goals">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#goals" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Goals
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#non-goals-for-now" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Non-goals (for now)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-baseline-audit-what-the-branch-contains-today" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Baseline audit (what the branch contains today)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-target-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Target architecture
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Target architecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-user-facing-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 User-facing workflow
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-package-layout" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 Package layout
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-core-abstractions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3 Core abstractions
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-phases" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Phases
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Phases">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#phase-0-clean-baseline-done-2026-10-28" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 0: clean baseline (done 2026-10-28)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-1-foundations-and-safety-net-done-2026-10-28" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 1: foundations and safety net (done 2026-10-28)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-2-robot-description-and-import-done-2026-10-28" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 2: robot description and import (done 2026-10-28)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-3-plugin-system-done-2026-10-28" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 3: plugin system (done 2026-10-28)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-4-aerodynamics-library-done-2026-10-28" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 4: aerodynamics library (done 2026-10-28)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-5-component-plugins-done-2026-10-28" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 5: component plugins (done 2026-10-28)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-6-learning-and-optimisation-integration-done-2026-10-28" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 6: learning and optimisation integration (done 2026-10-28)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-7-documentation-examples-release-done-2026-10-28" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 7: documentation, examples, release (done 2026-10-28)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-validation-strategy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Validation strategy
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-decisions-needed-from-the-maintainer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Decisions needed from the maintainer
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-risks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Risks
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-decisions-taken" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Decisions taken
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-release-checklist-for-020-maintainer-actions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Release checklist for 0.2.0 (maintainer actions)
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../changelog/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Changelog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-goals-and-non-goals" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Goals and non-goals
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Goals and non-goals">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#goals" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Goals
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#non-goals-for-now" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Non-goals (for now)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-baseline-audit-what-the-branch-contains-today" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Baseline audit (what the branch contains today)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-target-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Target architecture
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Target architecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-user-facing-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 User-facing workflow
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-package-layout" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 Package layout
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-core-abstractions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3 Core abstractions
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-phases" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Phases
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Phases">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#phase-0-clean-baseline-done-2026-10-28" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 0: clean baseline (done 2026-10-28)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-1-foundations-and-safety-net-done-2026-10-28" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 1: foundations and safety net (done 2026-10-28)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-2-robot-description-and-import-done-2026-10-28" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 2: robot description and import (done 2026-10-28)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-3-plugin-system-done-2026-10-28" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 3: plugin system (done 2026-10-28)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-4-aerodynamics-library-done-2026-10-28" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 4: aerodynamics library (done 2026-10-28)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-5-component-plugins-done-2026-10-28" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 5: component plugins (done 2026-10-28)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-6-learning-and-optimisation-integration-done-2026-10-28" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 6: learning and optimisation integration (done 2026-10-28)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-7-documentation-examples-release-done-2026-10-28" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 7: documentation, examples, release (done 2026-10-28)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-validation-strategy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Validation strategy
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-decisions-needed-from-the-maintainer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Decisions needed from the maintainer
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-risks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Risks
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-decisions-taken" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Decisions taken
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-release-checklist-for-020-maintainer-actions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Release checklist for 0.2.0 (maintainer actions)
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="flapsim-open-platform-plan">FlapSim open-platform plan<a class="headerlink" href="#flapsim-open-platform-plan" title="Permanent link">&para;</a></h1>
+<p><strong>Branch:</strong> <code>open-platform</code> (cut from <code>master</code> on 2026-10-28, all training code and data removed)
+<strong>Status:</strong> Phases 0-7 complete; release 0.2.0 prepared (see section 9)</p>
+<p>FlapSim becomes an open-source simulation platform for flapping-wing robots built
+on MuJoCo. A user brings their own robot description, tells FlapSim which bodies
+are wings, picks aerodynamic models and other components from a plugin registry,
+and runs the simulation headless or in the viewer. Everything specific to one
+robot lives in that robot's description package, not in <code>flapsim/</code>.</p>
+<hr />
+<h2 id="1-goals-and-non-goals">1. Goals and non-goals<a class="headerlink" href="#1-goals-and-non-goals" title="Permanent link">&para;</a></h2>
+<h3 id="goals">Goals<a class="headerlink" href="#goals" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>Import any robot.</strong> URDF (today), MJCF, a programmatic <code>mujoco.MjSpec</code>, or a
+   parametric builder for users without CAD.</li>
+<li><strong>Wings as first-class objects.</strong> A robot manifest declares which bodies are
+   wings, their aerodynamic frame, stroke and feathering joints, and planform
+   geometry. FlapSim derives wing kinematics from the MuJoCo state and computes
+   lift, drag and moments.</li>
+<li><strong>Aerodynamics as plugins.</strong> Quasi-steady blade-element (the current FlapX
+   derived model), cycle-averaged, rotational lift, added mass, wake capture,
+   body drag, ground effect, wind and gusts. Users can stack built-in models or
+   ship their own in a separate pip package.</li>
+<li><strong>Other components as plugins.</strong> Actuators, sensors, controllers, recorders
+   and viewer overlays use the same plugin API and the same step pipeline.</li>
+<li><strong>Reproducible science.</strong> Regression tests pin the validated numbers (the
+   fixed-base lift sweep, FlapX parity). Every result a paper cites can be
+   regenerated with one command.</li>
+<li><strong>Usable by outsiders.</strong> README, tutorials, API docs, CI, PyPI package,
+   contribution guide, permissive license, citation file.</li>
+</ol>
+<h3 id="non-goals-for-now">Non-goals (for now)<a class="headerlink" href="#non-goals-for-now" title="Permanent link">&para;</a></h3>
+<ul>
+<li>CFD or vortex-lattice fluid solvers. The plugin interface allows them later.</li>
+<li>GPU batch simulation (MJX). Measured earlier: per-step cost with the joint
+  equality constraints was far worse than CPU MuJoCo. Keep CPU-first.</li>
+<li>Hardware-in-the-loop. Firmware lives outside this repo.</li>
+</ul>
+<hr />
+<h2 id="2-baseline-audit-what-the-branch-contains-today">2. Baseline audit (what the branch contains today)<a class="headerlink" href="#2-baseline-audit-what-the-branch-contains-today" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Area</th>
+<th>File(s)</th>
+<th>State</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Step loop</td>
+<td><code>flapsim/environment/environment.py</code></td>
+<td>Already a proto pipeline: supervisors, control pairs, force models, <code>mj_step</code>, <code>post_step</code>. Good seed for plugin phases.</td>
+</tr>
+<tr>
+<td>URDF import</td>
+<td><code>environment.py</code> via <code>MjSpec.from_file</code></td>
+<td>Works, but patches robot-specific joints (<code>left_wing_feathering</code>), adds a mirror equality and overrides the floating-base mass to 30 g in code.</td>
+</tr>
+<tr>
+<td>Scene</td>
+<td><code>flapsim/environment/scene.py</code></td>
+<td>Generic, reusable.</td>
+</tr>
+<tr>
+<td>Aero (pure)</td>
+<td><code>flapsim/fluid/aero.py</code></td>
+<td>Quasi-steady blade-element model, pure functions, SI units, well documented in <code>tutorial/aero.md</code>. Hard-coded to exactly two wings (left/right).</td>
+</tr>
+<tr>
+<td>Aero (MuJoCo)</td>
+<td><code>flapsim/fluid/mujoco_adapter.py</code></td>
+<td>Hard-codes body names <code>link2</code>, <code>left_wing</code>, <code>right_wing</code>, four joint names, the aero-frame rotation and the STL normal flip.</td>
+</tr>
+<tr>
+<td>Cycle-averaged</td>
+<td><code>flapsim/fluid/averaged_hover.py</code></td>
+<td>Hard-codes identified constants for one robot at one amplitude.</td>
+</tr>
+<tr>
+<td>Config</td>
+<td><code>flapsim/config/*.json</code>, <code>loader.py</code></td>
+<td><code>SingleThrustRobot.json</code> already has an <code>aero_frames</code> section with bodies, axes and signs, but nothing reads it.</td>
+</tr>
+<tr>
+<td>Actuators, controllers</td>
+<td><code>flapsim/actuator/SingleThrustFlapper</code>, <code>flapsim/controller/SingleThrustFlapper</code></td>
+<td>Reusable logic (PD position, sinusoidal trajectory, cascaded hover PID) in robot-named packages.</td>
+</tr>
+<tr>
+<td>Entry point</td>
+<td><code>sim_core.py</code>, <code>flapsim.py</code></td>
+<td><code>ROBOT_URDFS</code> dict with one entry; <code>fix=True/False</code> selects the aero model.</td>
+</tr>
+<tr>
+<td>Robot assets</td>
+<td><code>flapsim/robot/SingleThrustFlapper</code></td>
+<td>URDF + 7 STL meshes, becomes the first example robot package.</td>
+</tr>
+<tr>
+<td>Docs</td>
+<td><code>tutorial/</code>, <code>log/</code></td>
+<td>Three notebooks, a full aero derivation (zh-CN), two engineering notes. No README, LICENSE, CONTRIBUTING.</td>
+</tr>
+<tr>
+<td>Tests</td>
+<td>none</td>
+<td>The <code>tests/</code> directory held only bytecode.</td>
+</tr>
+</tbody>
+</table>
+<p>Measured on this branch (fixed base, 5e-5 s timestep): 1000 steps in 0.12 s,
+so one simulated second costs about 2.4 s of wall time. Treat this as the
+performance floor; the refactor must not make it worse.</p>
+<p>Measured again after Phase 7 on the same machine (<code>FLAPSIM_BENCH=1 pytest
+tests/test_benchmark.py</code> and the setups in <code>examples/</code>):</p>
+<table>
+<thead>
+<tr>
+<th>Setup</th>
+<th>Steps per second</th>
+<th>Relative to real time</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Pre-platform adapter (Phase 0)</td>
+<td>8,300</td>
+<td>0.42x</td>
+</tr>
+<tr>
+<td><code>sim.yaml</code>, engine with the quasi-steady model</td>
+<td>6,900</td>
+<td>0.35x</td>
+</tr>
+<tr>
+<td><code>sim.yaml</code> plus rotational lift, added mass, wake capture</td>
+<td>2,800</td>
+<td>0.14x</td>
+</tr>
+<tr>
+<td><code>hover.yaml</code>, cycle-averaged model</td>
+<td>25,100</td>
+<td>1.3x</td>
+</tr>
+</tbody>
+</table>
+<p>The composable engine costs 17 percent against the hard-wired adapter, inside
+the 20 percent guard. Each additional per-wing model costs roughly as much as
+the first; vectorising the models across wings is the next performance step
+if it matters to users.</p>
+<hr />
+<h2 id="3-target-architecture">3. Target architecture<a class="headerlink" href="#3-target-architecture" title="Permanent link">&para;</a></h2>
+<h3 id="31-user-facing-workflow">3.1 User-facing workflow<a class="headerlink" href="#31-user-facing-workflow" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">flapsim</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">flapsim.aero</span><span class="w"> </span><span class="kn">import</span> <span class="n">QuasiSteadyBladeElement</span><span class="p">,</span> <span class="n">RotationalLift</span><span class="p">,</span> <span class="n">AddedMass</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">flapsim.actuators</span><span class="w"> </span><span class="kn">import</span> <span class="n">SinusoidalStroke</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">flapsim.sensors</span><span class="w"> </span><span class="kn">import</span> <span class="n">IMU</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">flapsim.io</span><span class="w"> </span><span class="kn">import</span> <span class="n">Recorder</span>
+
+<span class="n">robot</span> <span class="o">=</span> <span class="n">flapsim</span><span class="o">.</span><span class="n">load_robot</span><span class="p">(</span><span class="s2">"my_robot/robot.yaml"</span><span class="p">)</span>  <span class="c1"># URDF or MJCF + wing manifest</span>
+<span class="n">sim</span> <span class="o">=</span> <span class="n">flapsim</span><span class="o">.</span><span class="n">Simulation</span><span class="p">(</span><span class="n">robot</span><span class="p">,</span> <span class="n">timestep</span><span class="o">=</span><span class="mf">5e-5</span><span class="p">,</span> <span class="n">base</span><span class="o">=</span><span class="s2">"fixed"</span><span class="p">)</span>
+
+<span class="n">sim</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">QuasiSteadyBladeElement</span><span class="p">(</span><span class="n">wings</span><span class="o">=</span><span class="s2">"all"</span><span class="p">)</span> <span class="o">+</span> <span class="n">RotationalLift</span><span class="p">()</span> <span class="o">+</span> <span class="n">AddedMass</span><span class="p">())</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">SinusoidalStroke</span><span class="p">(</span>
+        <span class="n">joints</span><span class="o">=</span><span class="p">[</span><span class="s2">"left_stroke"</span><span class="p">,</span> <span class="s2">"right_stroke"</span><span class="p">],</span>
+        <span class="n">frequency_hz</span><span class="o">=</span><span class="mf">35.0</span><span class="p">,</span>
+        <span class="n">amplitude_rad</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span>
+        <span class="n">mirror</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="p">)</span>
+<span class="p">)</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">IMU</span><span class="p">(</span><span class="n">body</span><span class="o">=</span><span class="s2">"torso"</span><span class="p">,</span> <span class="n">rate_hz</span><span class="o">=</span><span class="mf">500.0</span><span class="p">,</span> <span class="n">noise</span><span class="o">=</span><span class="s2">"default"</span><span class="p">))</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Recorder</span><span class="p">([</span><span class="s2">"wings/*/force_world"</span><span class="p">,</span> <span class="s2">"imu/*"</span><span class="p">],</span> <span class="n">every</span><span class="o">=</span><span class="mf">1e-3</span><span class="p">))</span>
+
+<span class="n">sim</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">duration</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span> <span class="n">viewer</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">table</span> <span class="o">=</span> <span class="n">sim</span><span class="p">[</span><span class="s2">"recorder"</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+</code></pre></div>
+<p>The same assembly can be written as YAML and run with
+<code>flapsim run my_robot/sim.yaml --duration 2 --headless</code>.</p>
+<h3 id="32-package-layout">3.2 Package layout<a class="headerlink" href="#32-package-layout" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>flapsim/
+  core/        Simulation, step pipeline, phases, state views (BodyState, JointState)
+  robot/       load URDF/MJCF/MjSpec, RobotManifest schema, patches, parametric builders
+  wings/       Wing runtime object: frame, kinematics, planform integrals, CoP
+  aero/        AeroModel base, AeroStack, built-in models, force application
+  plugins/     Plugin base classes, registry, entry-point discovery, lifecycle
+  actuators/   PD position, sinusoidal trajectory, DC motor + crank, servo
+  sensors/     IMU, TOF, encoder, force/torque; noise and delay models
+  controllers/ PID hover, waypoint tracker, user callback controller
+  io/          Recorder (npz, csv, hdf5), telemetry, viewer overlays, video
+  config/      schema, YAML/JSON loading, deep merge, validation errors
+  cli.py       flapsim run | inspect | convert | sweep
+flapsim/assets/robots/   example robot packages shipped with the wheel (single_thrust_flapper/)
+examples/      runnable scripts and notebooks (hover, lift sweep, write a plugin)
+docs/          mkdocs site: tutorials, concepts, API, derivations (moved from tutorial/, log/)
+tests/         unit, regression (golden numbers), plugin-conformance suite
+</code></pre></div>
+<h3 id="33-core-abstractions">3.3 Core abstractions<a class="headerlink" href="#33-core-abstractions" title="Permanent link">&para;</a></h3>
+<p><strong>Simulation and step pipeline.</strong> One <code>Simulation</code> owns <code>MjModel</code>, <code>MjData</code> and
+an ordered list of plugins. Each step runs the phases
+<code>pre_control -&gt; control -&gt; actuate -&gt; forces -&gt; mj_step -&gt; post_step -&gt; record</code>.
+A plugin implements only the phases it needs. This is the existing
+<code>SimulationEnvironment.step()</code> made explicit and extensible.</p>
+<p><strong>RobotManifest.</strong> A YAML or JSON file next to the robot model that holds what
+URDF cannot express. Example for the current robot:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">schema</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">flapsim.robot/1</span>
+<span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">SingleThrustFlapper</span>
+<span class="nt">model</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">urdf/SingleThrustFlapper.urdf</span><span class="w">          </span><span class="c1"># .urdf, .xml (MJCF) or python:module:function</span>
+<span class="w">  </span><span class="nt">root_body</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">base_link</span>
+<span class="w">  </span><span class="nt">spawn</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt">position</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">0.0</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.0</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0.5</span><span class="p p-Indicator">]}</span>
+<span class="w">  </span><span class="nt">patches</span><span class="p">:</span><span class="w">                                     </span><span class="c1"># applied on the MjSpec before compile</span>
+<span class="w">    </span><span class="nt">joints</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">left_wing_feathering</span><span class="p">:</span><span class="w">  </span><span class="p p-Indicator">{</span><span class="nt">stiffness</span><span class="p">:</span><span class="w"> </span><span class="nv">2.0e-7</span><span class="p p-Indicator">,</span><span class="nt"> armature</span><span class="p">:</span><span class="w"> </span><span class="nv">1.0e-10</span><span class="p p-Indicator">,</span><span class="nt"> solref_limit</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">4.0e-4</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">1.0</span><span class="p p-Indicator">]}</span>
+<span class="w">      </span><span class="nt">right_wing_feathering</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt">stiffness</span><span class="p">:</span><span class="w"> </span><span class="nv">2.0e-7</span><span class="p p-Indicator">,</span><span class="nt"> armature</span><span class="p">:</span><span class="w"> </span><span class="nv">1.0e-10</span><span class="p p-Indicator">,</span><span class="nt"> solref_limit</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">4.0e-4</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">1.0</span><span class="p p-Indicator">]}</span>
+<span class="w">    </span><span class="nt">equalities</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="nv">joint</span><span class="p p-Indicator">,</span><span class="nt"> joints</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">left_wing_feathering</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">right_wing_feathering</span><span class="p p-Indicator">],</span><span class="nt"> polycoef</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">0</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">1</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0</span><span class="p p-Indicator">]}</span>
+<span class="w">    </span><span class="nt">exclude_self_collision</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="nt">torso</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt">body</span><span class="p">:</span><span class="w"> </span><span class="nv">link2</span><span class="p p-Indicator">}</span>
+<span class="nt">wings</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">left</span>
+<span class="w">    </span><span class="nt">body</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">left_wing</span>
+<span class="w">    </span><span class="nt">side</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">left</span>
+<span class="w">    </span><span class="nt">frame</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt">normal</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">1</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0</span><span class="p p-Indicator">],</span><span class="nt"> span</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">0</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">-1</span><span class="p p-Indicator">],</span><span class="nt"> chord</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">0</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">1</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0</span><span class="p p-Indicator">]}</span><span class="w">   </span><span class="c1"># aero axes in body frame</span>
+<span class="w">    </span><span class="nt">stroke_joint</span><span class="p">:</span><span class="w">     </span><span class="p p-Indicator">{</span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="nv">left_flapping_joint</span><span class="p p-Indicator">,</span><span class="nt">  sign</span><span class="p">:</span><span class="w"> </span><span class="nv">+1</span><span class="p p-Indicator">}</span>
+<span class="w">    </span><span class="nt">feathering_joint</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="nv">left_wing_feathering</span><span class="p p-Indicator">,</span><span class="nt"> sign</span><span class="p">:</span><span class="w"> </span><span class="nv">-1</span><span class="p p-Indicator">}</span>
+<span class="w">    </span><span class="nt">planform</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt">length</span><span class="p">:</span><span class="w"> </span><span class="nv">0.07</span><span class="p p-Indicator">,</span><span class="nt"> mean_chord</span><span class="p">:</span><span class="w"> </span><span class="nv">0.02</span><span class="p p-Indicator">,</span><span class="nt"> profile</span><span class="p">:</span><span class="w"> </span><span class="nv">rectangular</span><span class="p p-Indicator">}</span>
+<span class="w">    </span><span class="nt">force_sign</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">-1</span><span class="w">                              </span><span class="c1"># mesh normal is opposite to the aero convention</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">right</span>
+<span class="w">    </span><span class="nt">mirror_of</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">left</span><span class="w">                             </span><span class="c1"># frame calibrated at the neutral pose, as today</span>
+<span class="w">    </span><span class="nt">body</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">right_wing</span>
+<span class="w">    </span><span class="nt">stroke_joint</span><span class="p">:</span><span class="w">     </span><span class="p p-Indicator">{</span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="nv">right_wing_flapping</span><span class="p p-Indicator">,</span><span class="nt">   sign</span><span class="p">:</span><span class="w"> </span><span class="nv">-1</span><span class="p p-Indicator">}</span>
+<span class="w">    </span><span class="nt">feathering_joint</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="nv">right_wing_feathering</span><span class="p p-Indicator">,</span><span class="nt"> sign</span><span class="p">:</span><span class="w"> </span><span class="nv">+1</span><span class="p p-Indicator">}</span>
+</code></pre></div>
+<p>Every hard-coded fact in <code>environment.py</code> and <code>mujoco_adapter.py</code> moves into
+this file. The <code>aero_frames</code> block already in <code>SingleThrustRobot.json</code> is the
+starting point.</p>
+<p><strong>Wing.</strong> Built from one manifest entry. Resolves MuJoCo ids once, exposes
+<code>psi, psi_dot, theta, theta_dot</code>, the world rotation of the aero frame, the
+body origin and centre of mass, and the planform integrals
+(<code>r00..r33</code>, <code>z_cp0..z_cp2</code>, <code>z_rd</code>). Integrals come from one of three inputs:
+the raw numbers (today's <code>Wing.json</code>), a chord polyline <code>c(r)</code> (what tutorial 2
+computes), or a mesh outline (stretch goal).</p>
+<p><strong>AeroModel plugin.</strong> Pure computation, no MuJoCo calls:</p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">AeroModel</span><span class="p">(</span><span class="n">ForcePlugin</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">compute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">wing</span><span class="p">:</span> <span class="n">WingState</span><span class="p">,</span> <span class="n">body</span><span class="p">:</span> <span class="n">BodyState</span><span class="p">,</span> <span class="n">air</span><span class="p">:</span> <span class="n">Atmosphere</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">WingLoads</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Return force and moment in the wing aero frame plus the centre of pressure."""</span>
+</code></pre></div>
+<p><code>AeroStack</code> sums the loads of several models for each wing. The core transforms
+the total to the world frame and applies it at the centre of pressure with
+<code>mj_applyFT</code> (today the force is applied at the body origin with a torque
+correction). <code>Atmosphere</code> is itself a plugin: density, wind vector, gust model,
+ground-effect factor as a function of height.</p>
+<p><strong>Component plugins.</strong> <code>ActuatorPlugin</code> (writes <code>qfrc_applied</code>, <code>ctrl</code>, or sets
+kinematic joint state), <code>SensorPlugin</code> (reads state, applies noise and delay,
+publishes a named signal), <code>ControllerPlugin</code> (reads signals, writes commands),
+<code>RecorderPlugin</code> (subscribes to signals). Signals are addressed by path such as
+<code>wings/left/alpha</code> or <code>imu/gyro</code>, so plugins compose without importing each other.</p>
+<p><strong>Registry and discovery.</strong> <code>flapsim.plugins.register(kind, name, cls)</code> for
+in-tree classes, plus <code>importlib.metadata</code> entry points in the group
+<code>flapsim.plugins</code> so a third-party <code>pip install flapsim-myaero</code> is found
+automatically. Config files refer to plugins by <code>kind/name</code>.</p>
+<p><strong>Identification tools.</strong> The cycle-averaged hover model is reframed as a tool:
+<code>flapsim sweep</code> runs a fixed-base frequency and amplitude sweep with any aero
+stack, fits lift and control-moment coefficients, and writes a
+<code>CycleAveragedAero</code> parameter file for that robot. No constants in code.</p>
+<hr />
+<h2 id="4-phases">4. Phases<a class="headerlink" href="#4-phases" title="Permanent link">&para;</a></h2>
+<p>Each phase ends with a tagged commit and green CI. Acceptance criteria are
+written so they can be checked mechanically.</p>
+<h3 id="phase-0-clean-baseline-done-2026-10-28">Phase 0: clean baseline (done 2026-10-28)<a class="headerlink" href="#phase-0-clean-baseline-done-2026-10-28" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Branch <code>open-platform</code> cut from <code>master</code>.</li>
+<li>Removed: <code>flapsim/rl</code> (PPO code and trained models), <code>MUJOCO_LOG.TXT</code>,
+  tracked bytecode, untracked run logs, checkpoints and videos.</li>
+<li><code>.gitignore</code> now blocks <code>runs/</code>, <code>artifacts/</code>, <code>checkpoints/</code>, model zips,
+  videos and MuJoCo logs. <code>pyproject.toml</code> lost the dangling <code>rl</code> extra and
+  gained a <code>dev</code> extra.</li>
+</ul>
+<h3 id="phase-1-foundations-and-safety-net-done-2026-10-28">Phase 1: foundations and safety net (done 2026-10-28)<a class="headerlink" href="#phase-1-foundations-and-safety-net-done-2026-10-28" title="Permanent link">&para;</a></h3>
+<p>Goal: lock current behaviour in tests before touching any physics code.</p>
+<ul>
+<li><code>README.md</code> (English, with a zh-CN section link), <code>LICENSE</code>, <code>CONTRIBUTING.md</code>,
+  <code>CODE_OF_CONDUCT.md</code>, <code>CITATION.cff</code>, <code>CHANGELOG.md</code>.</li>
+<li>Move <code>log/*.md</code> to <code>docs/notes/</code>, <code>tutorial/aero*.md</code> to <code>docs/derivations/</code>,
+  notebooks to <code>examples/notebooks/</code>.</li>
+<li><code>tests/</code>: unit tests for <code>normal_force_coefficient</code>, <code>center_of_pressure_fraction</code>,
+  <code>wing_aero</code>, <code>world_wrench</code>; left/right mirror symmetry; a regression test
+  that reproduces the fixed-base lift sweep from <code>docs/notes/aero_force_sign_fix.md</code>
+  (20, 30, 40, 50 Hz) within 1 percent; a headless smoke run for both base modes.</li>
+<li>GitHub Actions: pytest on Ubuntu, macOS and Windows for Python 3.10 to 3.13;
+  <code>ruff check</code> and <code>ruff format --check</code>.</li>
+<li>Pin <code>mujoco&gt;=3.3,&lt;4</code> (MjSpec API) and declare <code>numpy&gt;=1.24</code>.</li>
+</ul>
+<p>Acceptance: CI green on all nine matrix cells; the lift-sweep regression test
+fails if any force sign in the adapter is flipped.</p>
+<h3 id="phase-2-robot-description-and-import-done-2026-10-28">Phase 2: robot description and import (done 2026-10-28)<a class="headerlink" href="#phase-2-robot-description-and-import-done-2026-10-28" title="Permanent link">&para;</a></h3>
+<p>Goal: zero robot-specific names inside <code>flapsim/</code>.</p>
+<ul>
+<li><code>RobotManifest</code> schema (dataclasses plus JSON Schema export) and loader for
+  YAML and JSON.</li>
+<li><code>flapsim.robot.load()</code> accepting a manifest, a bare URDF or MJCF path, or an
+  <code>MjSpec</code>. Bare files load with no wings and a warning.</li>
+<li>Manifest patches: joint dynamics, equalities, collision exclusions, free or
+  fixed base, spawn pose. Replaces the inline code in <code>environment.py</code>.</li>
+<li><code>Wing</code> runtime object; <code>mirror_of</code> calibration at the neutral pose (the
+  current <code>aero_from_body_right</code> logic).</li>
+<li>Move <code>flapsim/robot/SingleThrustFlapper</code> to
+  <code>flapsim/assets/robots/single_thrust_flapper/</code> with <code>robot.yaml</code>, meshes and
+  URDF, packaged as data so <code>pip install flapsim</code> ships the example.</li>
+<li><code>flapsim inspect &lt;model&gt;</code>: prints bodies, joints, axes and limits so a user
+  can write a manifest in minutes.</li>
+<li><code>flapsim.robot.builders.FlatPlateFlapper(span, chord, ...)</code>: a parametric
+  two-wing robot generated in Python, for users without CAD and for tests.</li>
+<li>Add a xacro preprocessing hook as an optional extra. SDF stays out of scope.</li>
+</ul>
+<p>Acceptance: <code>grep -r "left_wing\|link2\|right_wing_flapping" flapsim/ --include=*.py</code>
+returns nothing outside <code>flapsim/robot/builders.py</code> (which defines its own
+robot); the Phase 1 regression tests pass unchanged through the
+manifest path; the builder robot loads, flaps and produces positive mean lift.
+Result: all three hold. Porting to the manifest first reproduced the Phase 1
+lift-sweep values to the last digit, which validated the frame plumbing. The
+parametric builder robot then exposed a physics defect inherited from the
+original code: the pitching moment carried a <code>sign(alpha)</code> factor that made
+it independent of flow direction, so the centre of pressure switched sides of
+the hinge at each reversal and a force-only flip in the adapter masked the
+lift sign. The moment was restored to <code>-d_cp c F_N</code>, the flip removed, wing
+frames redefined by <code>span</code> and <code>chord</code>, and a per-wing mass model added
+(the URDF's uniform-solid centroid 22 mm behind the hinge gives anti-phase
+feathering and negative lift; a spar-plate distribution flies). The
+regression values were re-measured: 0.074, 0.167, 0.297, 0.464 N at 20, 30,
+40, 50 Hz, a clean frequency-squared law with hover near 40 Hz for the 30 g
+robot. Details in <code>docs/derivations/quasi_steady_model.md</code>.</p>
+<h3 id="phase-3-plugin-system-done-2026-10-28">Phase 3: plugin system (done 2026-10-28)<a class="headerlink" href="#phase-3-plugin-system-done-2026-10-28" title="Permanent link">&para;</a></h3>
+<p>Goal: the existing simulation is assembled from plugins and config, not from
+<code>SimCore.__init__</code>.</p>
+<ul>
+<li><code>Plugin</code> base class with lifecycle (<code>bind(sim)</code>, <code>reset</code>, phase hooks,
+  <code>signals</code>), <code>Simulation</code> with ordered phases.</li>
+<li>Registry, entry-point discovery, <code>kind/name</code> resolution from config.</li>
+<li>Port <code>PositionController</code>, <code>TrajectoryController</code>, <code>PlateController</code>,
+  <code>ThrustController</code>, <code>HoveringController</code>, <code>MuJoCoAeroAdapter</code> and
+  <code>AveragedHoverAero</code> to plugins. Keep thin compatibility shims in <code>sim_core.py</code>
+  and <code>flapsim.py</code> for one release, with deprecation warnings.</li>
+<li><code>flapsim run sim.yaml</code> builds everything from a file.</li>
+<li>Plugin-conformance test suite that third-party authors can run against their
+  own plugin (<code>pytest --pyargs flapsim.testing.conformance</code>).</li>
+</ul>
+<p>Acceptance: <code>python flapsim.py --robot SingleThrustFlapper --headless --duration 1</code>
+still works and produces the same lift-sweep numbers; a dummy plugin installed
+from a separate directory is discovered by entry point and runs.
+Result: both hold. <code>SimCore</code> now builds the shipped <code>sim.yaml</code> / <code>hover.yaml</code>
+through <code>Simulation.from_config</code>; the regression values are unchanged.
+Entry-point discovery is covered by a test with a fake distribution entry
+point. The old <code>flapsim.environment</code>, <code>flapsim.actuator</code> and
+<code>flapsim.controller</code> packages were removed rather than shimmed: the branch is
+pre-release and <code>SimCore</code> plus <code>flapsim.fluid</code> remain as the compatibility
+surface.</p>
+<h3 id="phase-4-aerodynamics-library-done-2026-10-28">Phase 4: aerodynamics library (done 2026-10-28)<a class="headerlink" href="#phase-4-aerodynamics-library-done-2026-10-28" title="Permanent link">&para;</a></h3>
+<p>Goal: a documented, tested set of aero plugins that work for any number of
+wings and any frame.</p>
+<ul>
+<li><code>QuasiSteadyBladeElement</code>: generalise <code>aero.py</code> to N wings, arbitrary frame
+  and stroke-plane definitions from the manifest, forces applied at the CoP.</li>
+<li><code>CycleAveragedAero</code>: parameter file produced by <code>flapsim sweep</code>; no built-in
+  constants; mass handling declared in the manifest instead of overriding to 30 g.</li>
+<li>New plugins, each with a unit test against an analytic or published case:
+  <code>RotationalLift</code> (Sane and Dickinson rotational circulation),
+  <code>AddedMass</code>, <code>WakeCapture</code> (empirical), <code>BodyDrag</code> (per-body drag
+  coefficients), <code>GroundEffect</code>, <code>Atmosphere</code> with steady wind and gust models.</li>
+<li><code>WingPlanform</code> utilities: integrals from a chord polyline, from a mesh
+  outline, and the reverse (export the planform used).</li>
+<li>Diagnostics as signals: <code>alpha</code>, <code>C_N</code>, <code>F_N</code>, CoP, per-model contributions,
+  so users can plot which effect produced which force.</li>
+<li>Performance guard: benchmark test records steps per second; fail if slower
+  than the Phase 0 floor by more than 20 percent. Optional <code>numba</code> path if needed.</li>
+</ul>
+<p>Acceptance: FlapX parity test still passes for the two-wing robot; a four-wing
+builder robot runs with the same plugin; each effect toggles independently.
+Result: the lift regression holds through the engine (single-model stack equals
+the legacy adapter to machine precision); models are additive and toggle
+independently; <code>flapsim sweep</code> identifies the cycle-averaged parameters and
+<code>aero/cycle_averaged</code> loads them. The four-wing builder is deferred to the
+examples in Phase 7. See <code>docs/aero_models.md</code>.</p>
+<h3 id="phase-5-component-plugins-done-2026-10-28">Phase 5: component plugins (done 2026-10-28)<a class="headerlink" href="#phase-5-component-plugins-done-2026-10-28" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Actuators: PD position, sinusoidal trajectory, <code>DCMotorCrank</code> (motor model
+  plus crank or gear kinematics, from <code>dc_motor.json</code>), servo with rate limit.</li>
+<li>Sensors: IMU, TOF range, joint encoder, body force and torque; noise, bias
+  and delay models that reproduce <code>rl_imu_hover/sensors.py</code> from the <code>ppo</code>
+  branch.</li>
+<li>Controllers: <code>HoverPID</code> (generalised from <code>HoveringController</code>), waypoint
+  tracker, <code>CallbackController</code> for user Python functions.</li>
+<li>IO: <code>Recorder</code> (npz, csv, hdf5), viewer overlays drawing force arrows and CoP
+  markers per wing, offscreen video rendering.</li>
+</ul>
+<p>Acceptance: an <code>examples/hover_pid.py</code> holds altitude with the example robot;
+<code>examples/sensors.py</code> logs IMU and TOF to a file and plots them.
+Result: both scripts run in the test suite. The DC motor model loads itself
+from the aero plugin's wing torques, so stroke frequency responds to voltage
+and aerodynamic load; the load cell reads MuJoCo's constraint wrench on the
+root body. Video export renders offscreen (OSMesa/EGL) to GIF, PNG frames or
+MP4 when imageio is installed.</p>
+<h3 id="phase-6-learning-and-optimisation-integration-done-2026-10-28">Phase 6: learning and optimisation integration (done 2026-10-28)<a class="headerlink" href="#phase-6-learning-and-optimisation-integration-done-2026-10-28" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>flapsim[rl]</code>: a generic Gymnasium wrapper over <code>Simulation</code> with
+  observation and action spaces assembled from named signals and commands.</li>
+<li>Recreate the <code>ppo</code> branch's IMU plus TOF hover task as <code>examples/rl/</code> using
+  only public plugin APIs. The old code stays in git history.</li>
+<li><code>flapsim sweep</code> and a <code>ParameterStudy</code> helper for design optimisation
+  (wing length, frequency, amplitude) with multiprocessing.</li>
+</ul>
+<p>Acceptance: the example PPO task trains for a smoke run in CI without touching
+<code>flapsim/core</code>.
+Result: <code>flapsim.envs.SimulationEnv</code> (Gymnasium) with signal observations and
+command actions, <code>hover_reward</code>/<code>hover_terminated</code>, <code>flapsim.study</code> for
+parallel parameter studies; <code>examples/rl/</code> rebuilds the IMU + TOF hover task
+and trains PPO; a dedicated CI job installs the <code>rl</code> extra and runs the smoke
+training.</p>
+<h3 id="phase-7-documentation-examples-release-done-2026-10-28">Phase 7: documentation, examples, release (done 2026-10-28)<a class="headerlink" href="#phase-7-documentation-examples-release-done-2026-10-28" title="Permanent link">&para;</a></h3>
+<ul>
+<li>MkDocs Material site with mkdocstrings: Getting started, Import your robot,
+  Define wings, Choose aerodynamics, Write a plugin, Run RL, Derivations
+  (translated from <code>tutorial/aero.md</code>), API reference.</li>
+<li>Example gallery with rendered videos.</li>
+<li><code>v0.2.0</code> on PyPI (<code>flapsim</code> is unclaimed as of 2026-10-28), GitHub release
+  notes, Zenodo DOI, issue and PR templates.</li>
+<li>Optional: JOSS paper draft once two external users have imported a robot.</li>
+</ul>
+<p>Result: MkDocs Material site (<code>mkdocs.yml</code>, <code>docs/</code>) with getting started,
+manifest tutorial, aero models, components, plugin guide, CLI, learning,
+gallery (rendered GIFs), derivations (English conventions page plus
+translations of the Chinese originals), engineering notes and an
+mkdocstrings API reference; <code>docs.yml</code> builds it on every push and deploys
+to GitHub Pages from <code>master</code>; <code>release.yml</code> builds and publishes on <code>v*</code>
+tags. Version 0.2.0 set in <code>pyproject.toml</code>, <code>CITATION.cff</code> and the package.
+The JOSS paper is left for later.</p>
+<hr />
+<h2 id="5-validation-strategy">5. Validation strategy<a class="headerlink" href="#5-validation-strategy" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Golden numbers.</strong> Fixed-base lift sweep at 1.5 rad amplitude: 20, 30, 40,
+  50 Hz mean lift, plus the FlapX phase-resolved comparison. Any refactor must
+  reproduce them.</li>
+<li><strong>Symmetry.</strong> Mirrored wings produce mirrored forces at every phase.</li>
+<li><strong>Analytic limits.</strong> Flat plate in steady flow matches <code>C_N(alpha)</code>; pure
+  feathering rotation produces opposing damping moment; zero velocity produces
+  zero force.</li>
+<li><strong>Conservation checks.</strong> Fixed-base reaction force equals the sum of wing
+  forces plus gravity, read back from MuJoCo.</li>
+<li><strong>Cross-robot.</strong> The same aero plugin passes on the CAD robot and on the
+  parametric builder robot.</li>
+<li><strong>Plugin conformance.</strong> Third-party plugins run the shared conformance suite.</li>
+</ul>
+<hr />
+<h2 id="6-decisions-needed-from-the-maintainer">6. Decisions needed from the maintainer<a class="headerlink" href="#6-decisions-needed-from-the-maintainer" title="Permanent link">&para;</a></h2>
+<ol>
+<li><strong>License.</strong> Recommended: Apache-2.0 (patent grant, common in robotics) or
+   MIT. Must be compatible with FlapX, whose quasi-steady model and empirical
+   <code>C_N</code> and <code>d_cp</code> fits this code reproduces. Verify the FlapX license and add
+   attribution in <code>README.md</code> and <code>aero.py</code> before the first public release.</li>
+<li><strong>Documentation language.</strong> Proposed: English primary, zh-CN translations
+   of tutorials and derivations kept in <code>docs/zh/</code>.</li>
+<li><strong>Package and repository names.</strong> Keep <code>flapsim</code> for both.</li>
+<li><strong>RL code.</strong> Return as <code>examples/rl/</code> inside this repo (proposed) or as a
+   separate <code>flapsim-rl</code> repository.</li>
+<li><strong>Support matrix.</strong> Proposed: Linux, macOS, Windows; Python 3.10 to 3.13;
+   MuJoCo 3.3 and newer.</li>
+</ol>
+<hr />
+<h2 id="7-risks">7. Risks<a class="headerlink" href="#7-risks" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Risk</th>
+<th>Mitigation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Coordinate and sign conventions regress while generalising (the fixes in <code>docs/notes/aero_force_sign_fix.md</code> were hard won).</td>
+<td>Phase 1 regression tests before any refactor; manifest fields <code>sign</code> and <code>force_sign</code> make conventions explicit and testable.</td>
+</tr>
+<tr>
+<td>Per-step Python aero becomes the bottleneck with more wings and more models.</td>
+<td>Benchmark gate in CI; vectorise across wings with NumPy; optional numba.</td>
+</tr>
+<tr>
+<td>MjSpec API changes between MuJoCo releases.</td>
+<td>Pin <code>mujoco&gt;=3.3,&lt;4</code>; CI runs the newest and the oldest supported version.</td>
+</tr>
+<tr>
+<td>Scope creep in aerodynamic models.</td>
+<td>Ship quasi-steady and cycle-averaged first; everything else is a plugin with its own test.</td>
+</tr>
+<tr>
+<td>Users cannot write a manifest for their URDF.</td>
+<td><code>flapsim inspect</code>, a documented worked example, and a validator with precise error messages.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="8-decisions-taken">8. Decisions taken<a class="headerlink" href="#8-decisions-taken" title="Permanent link">&para;</a></h2>
+<ul>
+<li>2026-10-28: Apache-2.0 license; English documentation with the Chinese
+  originals kept under <code>docs/zh/</code>; execute all phases in order.</li>
+<li>Example robots live inside the package (<code>flapsim/assets/robots/</code>) so that a
+  plain <code>pip install flapsim</code> ships them; the parametric builder robots live in
+  <code>flapsim.robot.builders</code>.</li>
+</ul>
+<h2 id="9-release-checklist-for-020-maintainer-actions">9. Release checklist for 0.2.0 (maintainer actions)<a class="headerlink" href="#9-release-checklist-for-020-maintainer-actions" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Merge <code>open-platform</code> into <code>master</code> (the CI, docs and release workflows
+   watch <code>master</code>).</li>
+<li>Enable GitHub Pages for the repository (source: the <code>gh-pages</code> branch
+   that <code>mkdocs gh-deploy</code> creates on the first push to <code>master</code>).</li>
+<li>On pypi.org, register a <em>trusted publisher</em> for <code>MingshanHe/FlapSim</code>,
+   workflow <code>release.yml</code>, environment <code>pypi</code>, and create the <code>pypi</code>
+   environment in the repository settings. The project name <code>flapsim</code> was
+   unclaimed on 2026-10-28.</li>
+<li>Tag and push: <code>git tag v0.2.0 &amp;&amp; git push origin v0.2.0</code>. The workflow
+   builds the wheel and sdist, publishes to PyPI and creates the GitHub
+   release with generated notes.</li>
+<li>Optional: link the repository to Zenodo before tagging so the release
+   receives a DOI, then add the DOI badge and <code>doi</code> field to <code>CITATION.cff</code>.</li>
+<li>Announce; the first external robot imports will show where the manifest
+   tutorial needs more detail.</li>
+</ol>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 Mingshan He and FlapSim contributors. Apache-2.0.
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.sections", "navigation.top", "content.code.copy", "search.suggest"], "search": "../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.c21346df.min.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

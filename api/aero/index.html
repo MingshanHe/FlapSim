@@ -1,0 +1,3929 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="A composable MuJoCo simulation platform and reduced-order aerodynamic model hierarchy for flapping-wing robotics">
+      
+      
+      
+        <link rel="canonical" href="https://mingshanhe.github.io/FlapSim/api/aero/">
+      
+      
+        <link rel="prev" href="../robot/">
+      
+      
+        <link rel="next" href="../components/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.0">
+    
+    
+      
+        <title>Aerodynamics - FlapSim</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#aerodynamics" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="FlapSim" class="md-header__button md-logo" aria-label="FlapSim" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            FlapSim
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Aerodynamics
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="indigo"  aria-label="Dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="indigo"  aria-label="Light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/MingshanHe/FlapSim" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    MingshanHe/FlapSim
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="FlapSim" class="md-nav__button md-logo" aria-label="FlapSim" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    FlapSim
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/MingshanHe/FlapSim" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    MingshanHe/FlapSim
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting_started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robot_manifest/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Import your robot
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../aero_models/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Aerodynamic models
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../components/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Components
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../plugins/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Write a plugin
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Command line
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../rl/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Learning and studies
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../gallery/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Gallery
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Derivations
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Derivations
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../derivations/quasi_steady_model/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Model conventions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../derivations/quasi_steady_aero_full/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quasi-steady model (full)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../derivations/hover_simplification/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hover simplification
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Engineering notes
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Engineering notes
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../notes/aero_force_sign_fix/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Aerodynamic force sign fix (2026)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../notes/pid_hover_control/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PID hover control
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_12">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    API reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../core/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Simulation and plugins
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../robot/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Robots and wings
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Aerodynamics
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Aerodynamics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#flapsim.aero.base" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        base
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="base">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#flapsim.aero.base.FlowState" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FlowState
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#flapsim.aero.base.WingLoads" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        WingLoads
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#flapsim.aero.base.AeroModel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        AeroModel
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="AeroModel">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#flapsim.aero.base.AeroModel.bind" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        bind
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#flapsim.aero.base.AeroModel.reset" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        reset
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#flapsim.aero.base.AeroModifier" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        AeroModifier
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#flapsim.aero.base.AeroEngine" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        AeroEngine
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="AeroEngine">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#flapsim.aero.base.AeroEngine.apply" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        apply
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#flapsim.aero.models.quasi_steady" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        quasi_steady
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="quasi_steady">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#flapsim.aero.models.quasi_steady.QuasiSteadyModel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        QuasiSteadyModel
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#flapsim.aero.models.rotational_lift" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        rotational_lift
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="rotational_lift">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#flapsim.aero.models.rotational_lift.RotationalLift" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RotationalLift
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#flapsim.aero.models.added_mass" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        added_mass
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="added_mass">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#flapsim.aero.models.added_mass.AddedMass" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        AddedMass
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#flapsim.aero.models.added_mass.feathering_added_inertia" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        feathering_added_inertia
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#flapsim.aero.models.wake_capture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        wake_capture
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="wake_capture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#flapsim.aero.models.wake_capture.WakeCapture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        WakeCapture
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#flapsim.aero.models.ground_effect" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ground_effect
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ground_effect">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#flapsim.aero.models.ground_effect.GroundEffect" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GroundEffect
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#flapsim.aero.stack" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        stack
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="stack">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#flapsim.aero.stack.AeroStack" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        AeroStack
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#flapsim.aero.stack.QuasiSteadyAero" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        QuasiSteadyAero
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#flapsim.aero.atmosphere" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        atmosphere
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="atmosphere">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#flapsim.aero.atmosphere.Atmosphere" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Atmosphere
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#flapsim.aero.atmosphere.isa_density" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        isa_density
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#flapsim.aero.body_drag" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        body_drag
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="body_drag">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#flapsim.aero.body_drag.BodyDrag" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BodyDrag
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#flapsim.aero.cycle_averaged" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        cycle_averaged
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="cycle_averaged">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#flapsim.aero.cycle_averaged.CycleAveragedAero" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CycleAveragedAero
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="CycleAveragedAero">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#flapsim.aero.cycle_averaged.CycleAveragedAero.hover_frequency_hz" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        hover_frequency_hz
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#flapsim.aero.identify" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        identify
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="identify">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#flapsim.aero.identify.lift_sweep" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        lift_sweep
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#flapsim.aero.identify.gimbal_sensitivity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        gimbal_sensitivity
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#flapsim.aero.identify.damping_sensitivity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        damping_sensitivity
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#flapsim.aero.identify.identify_cycle_averaged" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        identify_cycle_averaged
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#flapsim.fluid.aero" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        aero
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="aero">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#flapsim.fluid.aero--wing-aero-frame" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Wing aero frame
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#flapsim.fluid.aero.wing_kinematics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        wing_kinematics
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#flapsim.fluid.aero.wing_loads_from_kinematics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        wing_loads_from_kinematics
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#flapsim.fluid.aero.wing_aero" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        wing_aero
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#flapsim.fluid.aero.world_wrench" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        world_wrench
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#flapsim.fluid.aero.normal_force_coefficient" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        normal_force_coefficient
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#flapsim.fluid.aero.center_of_pressure_fraction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        center_of_pressure_fraction
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../components/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Components
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../roadmap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Roadmap
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../changelog/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Changelog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#flapsim.aero.base" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        base
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="base">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#flapsim.aero.base.FlowState" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FlowState
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#flapsim.aero.base.WingLoads" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        WingLoads
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#flapsim.aero.base.AeroModel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        AeroModel
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="AeroModel">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#flapsim.aero.base.AeroModel.bind" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        bind
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#flapsim.aero.base.AeroModel.reset" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        reset
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#flapsim.aero.base.AeroModifier" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        AeroModifier
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#flapsim.aero.base.AeroEngine" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        AeroEngine
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="AeroEngine">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#flapsim.aero.base.AeroEngine.apply" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        apply
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#flapsim.aero.models.quasi_steady" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        quasi_steady
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="quasi_steady">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#flapsim.aero.models.quasi_steady.QuasiSteadyModel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        QuasiSteadyModel
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#flapsim.aero.models.rotational_lift" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        rotational_lift
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="rotational_lift">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#flapsim.aero.models.rotational_lift.RotationalLift" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RotationalLift
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#flapsim.aero.models.added_mass" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        added_mass
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="added_mass">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#flapsim.aero.models.added_mass.AddedMass" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        AddedMass
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#flapsim.aero.models.added_mass.feathering_added_inertia" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        feathering_added_inertia
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#flapsim.aero.models.wake_capture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        wake_capture
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="wake_capture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#flapsim.aero.models.wake_capture.WakeCapture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        WakeCapture
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#flapsim.aero.models.ground_effect" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ground_effect
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ground_effect">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#flapsim.aero.models.ground_effect.GroundEffect" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GroundEffect
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#flapsim.aero.stack" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        stack
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="stack">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#flapsim.aero.stack.AeroStack" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        AeroStack
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#flapsim.aero.stack.QuasiSteadyAero" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        QuasiSteadyAero
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#flapsim.aero.atmosphere" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        atmosphere
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="atmosphere">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#flapsim.aero.atmosphere.Atmosphere" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Atmosphere
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#flapsim.aero.atmosphere.isa_density" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        isa_density
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#flapsim.aero.body_drag" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        body_drag
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="body_drag">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#flapsim.aero.body_drag.BodyDrag" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BodyDrag
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#flapsim.aero.cycle_averaged" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        cycle_averaged
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="cycle_averaged">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#flapsim.aero.cycle_averaged.CycleAveragedAero" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CycleAveragedAero
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="CycleAveragedAero">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#flapsim.aero.cycle_averaged.CycleAveragedAero.hover_frequency_hz" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        hover_frequency_hz
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#flapsim.aero.identify" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        identify
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="identify">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#flapsim.aero.identify.lift_sweep" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        lift_sweep
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#flapsim.aero.identify.gimbal_sensitivity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        gimbal_sensitivity
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#flapsim.aero.identify.damping_sensitivity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        damping_sensitivity
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#flapsim.aero.identify.identify_cycle_averaged" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        identify_cycle_averaged
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#flapsim.fluid.aero" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        aero
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="aero">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#flapsim.fluid.aero--wing-aero-frame" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Wing aero frame
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#flapsim.fluid.aero.wing_kinematics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        wing_kinematics
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#flapsim.fluid.aero.wing_loads_from_kinematics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        wing_loads_from_kinematics
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#flapsim.fluid.aero.wing_aero" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        wing_aero
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#flapsim.fluid.aero.world_wrench" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        world_wrench
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#flapsim.fluid.aero.normal_force_coefficient" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        normal_force_coefficient
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#flapsim.fluid.aero.center_of_pressure_fraction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        center_of_pressure_fraction
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="aerodynamics">Aerodynamics<a class="headerlink" href="#aerodynamics" title="Permanent link">&para;</a></h1>
+
+
+<div class="doc doc-object doc-module">
+
+
+
+<h2 id="flapsim.aero.base" class="doc doc-heading">
+            <code>flapsim.aero.base</code>
+
+
+<a href="#flapsim.aero.base" class="headerlink" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents first">
+
+        <p>Composable aerodynamics: flow state, per-wing kinematics, model loads.</p>
+<p>An :class:<code>AeroModel</code> turns one wing's kinematics into :class:<code>WingLoads</code>
+(a force at a point plus a pure moment, all in the wing aero frame).  An
+:class:<code>AeroEngine</code> evaluates the shared kinematics once per wing, sums the
+loads of every model, applies :class:<code>AeroModifier</code> factors (for example
+ground effect) and writes the resulting wrench to MuJoCo.  Plugins wrap the
+engine; see :mod:<code>flapsim.aero.stack</code>.</p>
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="flapsim.aero.base.FlowState" class="doc doc-heading">
+            <code>FlowState</code>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
+  </span>
+
+<a href="#flapsim.aero.base.FlowState" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+
+
+
+        <p>Torso velocity relative to the air and the air properties, per step.</p>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="flapsim.aero.base.WingLoads" class="doc doc-heading">
+            <code>WingLoads</code>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
+  </span>
+
+<a href="#flapsim.aero.base.WingLoads" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+
+
+
+        <p>Loads of one model on one wing, in the wing aero frame.</p>
+<p><code>force</code> acts at <code>point</code> (relative to the wing body origin);
+<code>moment</code> is a pure couple.  <code>diagnostics</code> are scalars published as
+<code>wings/&lt;wing&gt;/&lt;model&gt;/&lt;key&gt;</code>.</p>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="flapsim.aero.base.AeroModel" class="doc doc-heading">
+            <code>AeroModel</code>
+
+
+<a href="#flapsim.aero.base.AeroModel" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+
+
+
+        <p>Base class of additive per-wing aerodynamic models.</p>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="flapsim.aero.base.AeroModel.bind" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">bind</span><span class="p">(</span><span class="n">robot</span><span class="p">)</span></code>
+
+<a href="#flapsim.aero.base.AeroModel.bind" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Called once when an engine is built for <code>robot</code> (optional hook).</p>
+<p>Models that need to modify the MuJoCo model, for example to add an
+implicit added inertia to a joint, do it here.</p>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="flapsim.aero.base.AeroModel.reset" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">reset</span><span class="p">()</span></code>
+
+<a href="#flapsim.aero.base.AeroModel.reset" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Forget any history (called when the simulation resets).</p>
+
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="flapsim.aero.base.AeroModifier" class="doc doc-heading">
+            <code>AeroModifier</code>
+
+
+<a href="#flapsim.aero.base.AeroModifier" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+
+
+
+        <p>Multiplies the summed loads of a wing by a factor (ground effect ...).</p>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="flapsim.aero.base.AeroEngine" class="doc doc-heading">
+            <code>AeroEngine</code>
+
+
+<a href="#flapsim.aero.base.AeroEngine" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+
+
+
+        <p>Evaluate a stack of models on every wing of a robot and apply them.</p>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="flapsim.aero.base.AeroEngine.apply" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">apply</span><span class="p">(</span><span class="n">flow</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+
+<a href="#flapsim.aero.base.AeroEngine.apply" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Compute all loads for the current state and write them to MuJoCo.</p>
+
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
+<h2 id="flapsim.aero.models.quasi_steady" class="doc doc-heading">
+            <code>flapsim.aero.models.quasi_steady</code>
+
+
+<a href="#flapsim.aero.models.quasi_steady" class="headerlink" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents first">
+
+        <p>Translational quasi-steady normal force (Whitney &amp; Wood 2010 / FlapX).</p>
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="flapsim.aero.models.quasi_steady.QuasiSteadyModel" class="doc doc-heading">
+            <code>QuasiSteadyModel</code>
+
+
+<a href="#flapsim.aero.models.quasi_steady.QuasiSteadyModel" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><a class="autorefs autorefs-internal" title="AeroModel (flapsim.aero.base.AeroModel)" href="#flapsim.aero.base.AeroModel">AeroModel</a></code></p>
+
+
+
+        <p>Normal force <code>F_N</code> at the centre of pressure plus rotational damping.</p>
+<p>Diagnostics: <code>alpha</code>, <code>C_N</code>, <code>d_cp</code>, <code>M_aero</code>, <code>M_rd</code>,
+<code>chord_CoP</code>, <code>span_CoP</code>, <code>F_N_raw</code>.  <code>options</code> overrides the
+engine's :class:<code>~flapsim.config.AeroOptions</code> for this model only.</p>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
+<h2 id="flapsim.aero.models.rotational_lift" class="doc doc-heading">
+            <code>flapsim.aero.models.rotational_lift</code>
+
+
+<a href="#flapsim.aero.models.rotational_lift" class="headerlink" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents first">
+
+        <p>Rotational circulation force (Sane &amp; Dickinson 2002).</p>
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="flapsim.aero.models.rotational_lift.RotationalLift" class="doc doc-heading">
+            <code>RotationalLift</code>
+
+
+<a href="#flapsim.aero.models.rotational_lift.RotationalLift" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><a class="autorefs autorefs-internal" title="AeroModel (flapsim.aero.base.AeroModel)" href="#flapsim.aero.base.AeroModel">AeroModel</a></code></p>
+
+
+
+        <p><code>F_rot = C_rot rho theta_dot * integral c(r)^2 |U(r)| dr</code> along the normal.</p>
+<p><code>C_rot = pi (0.75 - x0)</code> by default, with <code>x0</code> the hinge position as a
+fraction of the chord (Sane &amp; Dickinson 2002, eq. 4).  Positive when the
+wing pitches up relative to the oncoming flow.  The force acts at the
+<code>point_fraction</code> of the chord behind the leading edge (default half
+chord) at the spanwise centre of pressure.  Diagnostics: <code>C_rot</code>,
+<code>circulation_integral</code>.</p>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
+<h2 id="flapsim.aero.models.added_mass" class="doc doc-heading">
+            <code>flapsim.aero.models.added_mass</code>
+
+
+<a href="#flapsim.aero.models.added_mass" class="headerlink" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents first">
+
+        <p>Added-mass (non-circulatory) loads of a thin flat-plate wing.</p>
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="flapsim.aero.models.added_mass.AddedMass" class="doc doc-heading">
+            <code>AddedMass</code>
+
+
+<a href="#flapsim.aero.models.added_mass.AddedMass" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><a class="autorefs autorefs-internal" title="AeroModel (flapsim.aero.base.AeroModel)" href="#flapsim.aero.base.AeroModel">AeroModel</a></code></p>
+
+
+
+        <p>Reaction of the accelerated fluid on a thin flat-plate wing.</p>
+<p>Per unit span the added mass of a flat plate moving normal to itself is
+<code>m_a = rho pi c^2 / 4</code>.  The model splits its effect in two:</p>
+<ul>
+<li><strong>Explicit force</strong> from the <em>prescribed</em> accelerations: the normal flow
+  at section <code>r</code> is <code>U_n(r) = U_i1 r + U_i0</code> (stroke and body motion);
+  its time derivative over one step gives
+  <code>F = integral m_a dU_n/dt dr</code> along the normal, applied at the
+  mid-chord of the <code>c^2</code>-weighted span centroid.</li>
+<li><strong>Implicit inertia</strong> for the passive feathering: the added rotational
+  inertia about the hinge (:func:<code>feathering_added_inertia</code>) is added to
+  the feathering joint's armature when the model is bound.  Applying it as
+  an explicit force from a finite-difference feathering acceleration is
+  unstable for light wings, because the added inertia then lags the
+  motion by one step; MuJoCo integrates armature implicitly.</li>
+</ul>
+<p><code>include_feathering_inertia=False</code> skips the armature change.  The
+armature uses the manifest's air density at bind time.  Diagnostics:
+<code>dU_i1</code>, <code>dU_i0</code>, <code>added_inertia</code>.</p>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="flapsim.aero.models.added_mass.feathering_added_inertia" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">feathering_added_inertia</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">rho</span><span class="p">,</span> <span class="n">c4</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span></code>
+
+<a href="#flapsim.aero.models.added_mass.feathering_added_inertia" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Added rotational inertia of a flat plate about its feathering hinge.</p>
+<p>Per unit span the plate carries <code>m_a = rho pi c^2 / 4</code> at its mid-chord,
+a distance <code>d_mid</code> from the hinge, plus the added inertia
+<code>rho pi c^4 / 128</code> about the mid-chord (Sedov).  Integrated over the
+span with the planform integrals (<code>c^2 -&gt; z_cp0</code>, <code>c^4 -&gt; c4</code>).</p>
+
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
+<h2 id="flapsim.aero.models.wake_capture" class="doc doc-heading">
+            <code>flapsim.aero.models.wake_capture</code>
+
+
+<a href="#flapsim.aero.models.wake_capture" class="headerlink" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents first">
+
+        <p>Empirical wake-capture force after stroke reversal (Dickinson et al. 1999).</p>
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="flapsim.aero.models.wake_capture.WakeCapture" class="doc doc-heading">
+            <code>WakeCapture</code>
+
+
+<a href="#flapsim.aero.models.wake_capture.WakeCapture" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><a class="autorefs autorefs-internal" title="AeroModel (flapsim.aero.base.AeroModel)" href="#flapsim.aero.base.AeroModel">AeroModel</a></code></p>
+
+
+
+        <p>Transient normal force when the wing meets the wake it shed before
+reversal.</p>
+<p>Empirical: when the relative flow <code>U_i</code> at the span centre of pressure
+changes sign, the velocity magnitude just before reversal <code>U_rev</code> is
+stored and a force <code>C_wc 1/2 rho S U_rev^2 exp(-(t - t_rev) / tau)</code> is
+applied along the new flow direction, with <code>tau = tau_chords c / U_rev</code>.
+<code>C_wc</code> and <code>tau_chords</code> are tuning constants (defaults 1.0 and 0.5);
+there is no first-principles value.  Diagnostics: <code>U_rev</code>, <code>elapsed</code>.</p>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
+<h2 id="flapsim.aero.models.ground_effect" class="doc doc-heading">
+            <code>flapsim.aero.models.ground_effect</code>
+
+
+<a href="#flapsim.aero.models.ground_effect" class="headerlink" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents first">
+
+        <p>Ground-effect lift augmentation as a multiplicative factor.</p>
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="flapsim.aero.models.ground_effect.GroundEffect" class="doc doc-heading">
+            <code>GroundEffect</code>
+
+
+<a href="#flapsim.aero.models.ground_effect.GroundEffect" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><a class="autorefs autorefs-internal" title="AeroModifier (flapsim.aero.base.AeroModifier)" href="#flapsim.aero.base.AeroModifier">AeroModifier</a></code></p>
+
+
+
+        <p>Scale a wing's loads by a factor that grows near the ground.</p>
+<p><code>exponential</code>: <code>1 + gain * exp(-h / (length_scale * R))</code> with <code>h</code>
+the height of the wing's origin above <code>ground_height</code>.
+<code>cheeseman_bennett</code>: the rotor-in-ground-effect formula
+<code>1 / (1 - (R / (4 h))^2)</code>, capped at <code>max_factor</code>.  Both are
+empirical and tuned by the user.</p>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
+<h2 id="flapsim.aero.stack" class="doc doc-heading">
+            <code>flapsim.aero.stack</code>
+
+
+<a href="#flapsim.aero.stack" class="headerlink" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents first">
+
+        <p>Aero plugins built on :class:<code>~flapsim.aero.base.AeroEngine</code>.</p>
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="flapsim.aero.stack.AeroStack" class="doc doc-heading">
+            <code>AeroStack</code>
+
+
+<a href="#flapsim.aero.stack.AeroStack" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><a class="autorefs autorefs-internal" title="AeroPlugin (flapsim.plugins.base.AeroPlugin)" href="../core/#flapsim.plugins.base.AeroPlugin">AeroPlugin</a></code></p>
+
+
+
+        <p>Sum several additive aero models on every wing, with modifiers.</p>
+<p><code>models</code> lists model names or <code>{type: name, ...}</code> mappings (see
+<code>flapsim.aero.base.available_models()</code>), <code>modifiers</code> likewise.
+Reads <code>atmosphere/rho</code> and <code>atmosphere/wind_world</code> when an atmosphere
+plugin publishes them.  Publishes <code>aero/F_world</code>, <code>aero/lift_total</code>,
+<code>aero/rho</code> and per wing <code>wings/&lt;name&gt;/&lt;key&gt;</code> totals plus
+<code>wings/&lt;name&gt;/&lt;model&gt;/&lt;key&gt;</code> contributions.  <code>imposed_body_velocity</code>
+and <code>imposed_body_rates</code> replace the torso velocity seen by the models
+(identification and testing only).</p>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="flapsim.aero.stack.QuasiSteadyAero" class="doc doc-heading">
+            <code>QuasiSteadyAero</code>
+
+
+<a href="#flapsim.aero.stack.QuasiSteadyAero" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><a class="autorefs autorefs-internal" title="AeroStack (flapsim.aero.stack.AeroStack)" href="#flapsim.aero.stack.AeroStack">AeroStack</a></code></p>
+
+
+
+        <p>Per-step quasi-steady blade-element forces (the single-model stack).</p>
+<p>Publishes <code>aero/F_world</code>, <code>aero/lift_total</code> and, for every wing,
+<code>wings/&lt;name&gt;/F_N</code>, <code>alpha</code>, <code>F_world</code>, <code>torque_world</code>,
+<code>cop_world</code> and the <code>quasi_steady/</code> contributions (<code>C_N</code>,
+<code>M_aero</code>, <code>M_rd</code>, <code>chord_CoP</code>, <code>span_CoP</code>).  <code>options</code> are
+:class:<code>~flapsim.config.AeroOptions</code> fields.</p>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
+<h2 id="flapsim.aero.atmosphere" class="doc doc-heading">
+            <code>flapsim.aero.atmosphere</code>
+
+
+<a href="#flapsim.aero.atmosphere" class="headerlink" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents first">
+
+        <p>Air density, steady wind, gusts and turbulence.</p>
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="flapsim.aero.atmosphere.Atmosphere" class="doc doc-heading">
+            <code>Atmosphere</code>
+
+
+<a href="#flapsim.aero.atmosphere.Atmosphere" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><a class="autorefs autorefs-internal" title="AtmospherePlugin (flapsim.plugins.base.AtmospherePlugin)" href="../core/#flapsim.plugins.base.AtmospherePlugin">AtmospherePlugin</a></code></p>
+
+
+
+        <p>Publish <code>atmosphere/rho</code> and <code>atmosphere/wind_world</code> every step.</p>
+<p><code>rho</code> defaults to the ISA density at <code>altitude_m</code>.  <code>wind</code> is a
+steady world-frame vector; <code>gust</code> adds one of <code>one_minus_cos</code>
+(<code>amplitude, start, duration, direction</code>), <code>sine</code> (<code>amplitude,
+frequency_hz, direction, phase</code>) or <code>step</code> (<code>amplitude, start,
+direction</code>); <code>turbulence</code> adds an Ornstein-Uhlenbeck process per axis
+(<code>sigma</code> m/s, <code>tau</code> s, <code>seed</code>).  Add this plugin before the aero
+plugins that should see the wind.</p>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="flapsim.aero.atmosphere.isa_density" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">isa_density</span><span class="p">(</span><span class="n">altitude_m</span><span class="p">)</span></code>
+
+<a href="#flapsim.aero.atmosphere.isa_density" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>International Standard Atmosphere density in the troposphere [kg/m^3].</p>
+
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
+<h2 id="flapsim.aero.body_drag" class="doc doc-heading">
+            <code>flapsim.aero.body_drag</code>
+
+
+<a href="#flapsim.aero.body_drag" class="headerlink" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents first">
+
+        <p>Quadratic drag on bodies (fuselage, legs, tail).</p>
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="flapsim.aero.body_drag.BodyDrag" class="doc doc-heading">
+            <code>BodyDrag</code>
+
+
+<a href="#flapsim.aero.body_drag.BodyDrag" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><a class="autorefs autorefs-internal" title="ForcePlugin (flapsim.plugins.base.ForcePlugin)" href="../core/#flapsim.plugins.base.ForcePlugin">ForcePlugin</a></code></p>
+
+
+
+        <p><code>F = -1/2 rho C_d A |v| v</code> per body axis, relative to the wind.</p>
+<p><code>bodies</code> maps body names to <code>{cd, area}</code> where each may be a scalar
+(isotropic) or a 3-vector in the body frame.  Density comes from
+<code>atmosphere/rho</code> when published, else <code>rho</code> or the manifest.  Forces
+are added to <code>xfrc_applied</code> at the body centre of mass, so place this
+plugin after any plugin that overwrites a body's wrench.  Publishes
+<code>&lt;id&gt;/&lt;body&gt;/F_world</code>.</p>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
+<h2 id="flapsim.aero.cycle_averaged" class="doc doc-heading">
+            <code>flapsim.aero.cycle_averaged</code>
+
+
+<a href="#flapsim.aero.cycle_averaged" class="headerlink" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents first">
+
+        <p>Cycle-averaged lift and control moments for floating-base hover studies.</p>
+<p>The robot is treated as one rigid body.  Lift <code>k f^2</code> acts along the body
+thrust axis, tilted by the gimbal angles; gimbal angles also produce control
+moments, scaled by <code>(f / f_ref)^2</code>; linear and angular damping oppose the
+body velocity.  All coefficients can be identified from the per-step model
+with :func:<code>flapsim.aero.identify.identify_cycle_averaged</code> (<code>flapsim sweep</code>)
+and loaded from the resulting parameter file.</p>
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="flapsim.aero.cycle_averaged.CycleAveragedAero" class="doc doc-heading">
+            <code>CycleAveragedAero</code>
+
+
+<a href="#flapsim.aero.cycle_averaged.CycleAveragedAero" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><a class="autorefs autorefs-internal" title="AeroPlugin (flapsim.plugins.base.AeroPlugin)" href="../core/#flapsim.plugins.base.AeroPlugin">AeroPlugin</a></code></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h4 id="flapsim.aero.cycle_averaged.CycleAveragedAero.hover_frequency_hz" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">hover_frequency_hz</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+<a href="#flapsim.aero.cycle_averaged.CycleAveragedAero.hover_frequency_hz" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Frequency at which the cycle-averaged lift balances the robot weight.</p>
+
+    </div>
+
+</div>
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
+<h2 id="flapsim.aero.identify" class="doc doc-heading">
+            <code>flapsim.aero.identify</code>
+
+
+<a href="#flapsim.aero.identify" class="headerlink" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents first">
+
+        <p>Identify cycle-averaged parameters from the per-step model.</p>
+<p>The fixed-base robot is a virtual wind tunnel: sweep the stroke frequency to
+fit the lift coefficient, deflect each gimbal joint to measure how the mean
+force direction and the mean moment change per radian, and impose body
+velocities and rates on the aero stack to measure damping.  The result is a
+<code>flapsim.cycle_averaged/1</code> parameter file for
+:class:<code>~flapsim.aero.cycle_averaged.CycleAveragedAero</code>.</p>
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="flapsim.aero.identify.lift_sweep" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">lift_sweep</span><span class="p">(</span><span class="n">make_sim</span><span class="p">,</span> <span class="n">frequencies</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">amplitude_rad</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">settle</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">cycles</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">stroke_id</span><span class="o">=</span><span class="s1">'stroke'</span><span class="p">,</span> <span class="n">aero_id</span><span class="o">=</span><span class="s1">'aero'</span><span class="p">)</span></code>
+
+<a href="#flapsim.aero.identify.lift_sweep" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Mean world force per frequency and the least-squares <code>lift = k f^2</code> fit.</p>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="flapsim.aero.identify.gimbal_sensitivity" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">gimbal_sensitivity</span><span class="p">(</span><span class="n">make_sim</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">frequency_hz</span><span class="p">,</span> <span class="n">joints</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">angle_rad</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">settle</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">cycles</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">stroke_id</span><span class="o">=</span><span class="s1">'stroke'</span><span class="p">,</span> <span class="n">gimbal_id</span><span class="o">=</span><span class="s1">'gimbal'</span><span class="p">,</span> <span class="n">aero_id</span><span class="o">=</span><span class="s1">'aero'</span><span class="p">)</span></code>
+
+<a href="#flapsim.aero.identify.gimbal_sensitivity" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Per gimbal joint: d(mean force)/d(angle) and d(mean torque)/d(angle).</p>
+<p>Central differences at <code>+/- angle_rad</code>; forces and torques are expressed
+in the root body frame.</p>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="flapsim.aero.identify.damping_sensitivity" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">damping_sensitivity</span><span class="p">(</span><span class="n">make_sim</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">frequency_hz</span><span class="p">,</span> <span class="n">speed</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">rate</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">settle</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">cycles</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">stroke_id</span><span class="o">=</span><span class="s1">'stroke'</span><span class="p">,</span> <span class="n">aero_id</span><span class="o">=</span><span class="s1">'aero'</span><span class="p">)</span></code>
+
+<a href="#flapsim.aero.identify.damping_sensitivity" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Linear and angular damping from imposed body velocities and rates.</p>
+<p>Returns <code>linear</code> (<code>-dF_i/dv_i</code>) and <code>angular</code> (<code>-dT_i/dw_i</code>) in the
+root body frame, using central differences on the aero stack's imposed
+body velocity and rates.</p>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="flapsim.aero.identify.identify_cycle_averaged" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">identify_cycle_averaged</span><span class="p">(</span><span class="n">make_sim</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">frequencies</span><span class="o">=</span><span class="p">(</span><span class="mf">20.0</span><span class="p">,</span> <span class="mf">30.0</span><span class="p">,</span> <span class="mf">40.0</span><span class="p">,</span> <span class="mf">50.0</span><span class="p">),</span> <span class="n">reference_frequency_hz</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">amplitude_rad</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">gimbal_angle_rad</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">include_damping</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">settle</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">cycles</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">stroke_id</span><span class="o">=</span><span class="s1">'stroke'</span><span class="p">,</span> <span class="n">gimbal_id</span><span class="o">=</span><span class="s1">'gimbal'</span><span class="p">,</span> <span class="n">aero_id</span><span class="o">=</span><span class="s1">'aero'</span><span class="p">)</span></code>
+
+<a href="#flapsim.aero.identify.identify_cycle_averaged" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Run all sweeps and assemble a <code>flapsim.cycle_averaged/1</code> parameter set.</p>
+
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
+<h2 id="flapsim.fluid.aero" class="doc doc-heading">
+            <code>flapsim.fluid.aero</code>
+
+
+<a href="#flapsim.fluid.aero" class="headerlink" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents first">
+
+        <p>Quasi-steady blade-element aerodynamics for one flapping wing.</p>
+<p>Pure functions, no MuJoCo state.  Inputs and outputs use SI units.</p>
+<h4 id="flapsim.fluid.aero--wing-aero-frame">Wing aero frame<a class="headerlink" href="#flapsim.fluid.aero--wing-aero-frame" title="Permanent link">&para;</a></h4>
+<p><code>+X</code> is the surface normal, <code>+Y</code> the feathering (span) axis and
+<code>+Z = X x Y</code>.  The feathering axis runs along the leading edge and the
+chord extends from it along <code>-Z</code>, so the centre of pressure always lies at
+<code>[0, side * span_CoP, -chord_CoP]</code> with <code>chord_CoP &gt;= 0</code>.  Positive
+<code>psi</code> is a right-handed stroke rotation about <code>side * Z</code> and positive
+<code>theta</code> a right-handed feathering rotation about <code>+Y</code>; <code>side</code> is <code>+1</code>
+for a left wing and <code>-1</code> for its mirror image, which shares the same frame
+orientation at the neutral pose.  <code>U_i</code> is the relative flow speed along
+<code>+X</code> at the span centre of pressure, so <code>F_N</code> carries the sign of the
+flow and <code>M_aero = -d_cp * c * F_N</code> always turns the trailing edge
+downstream, which is what drives passive feathering.</p>
+<p><code>wrench</code> follows MuJoCo's world-frame order <code>[Fx, Fy, Fz, Tx, Ty, Tz]</code>
+about the wing centre of mass.  The formulation follows Whitney &amp; Wood
+(2010) as used by the FlapX simulator.</p>
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="flapsim.fluid.aero.wing_kinematics" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">wing_kinematics</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">side</span><span class="p">,</span> <span class="n">psi</span><span class="p">,</span> <span class="n">psi_dot</span><span class="p">,</span> <span class="n">theta</span><span class="p">,</span> <span class="n">theta_dot</span><span class="p">,</span> <span class="n">linear_velocity_body</span><span class="p">,</span> <span class="n">angular_velocity_body</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+
+<a href="#flapsim.fluid.aero.wing_kinematics" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Relative-flow coefficients and angle of attack of one wing.</p>
+<p>The flow along <code>+X</code> (<code>U_i</code>) and along <code>+Z</code> (<code>U_o</code>) is affine in
+the span coordinate: <code>U = U1 * r + U0</code>.  The angle of attack is
+evaluated at the spanwise centre of pressure <code>r_cp = R r33 / r22</code>.</p>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="flapsim.fluid.aero.wing_loads_from_kinematics" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">wing_loads_from_kinematics</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">kin</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+
+<a href="#flapsim.fluid.aero.wing_loads_from_kinematics" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Normal force, pitching moment and damping from :func:<code>wing_kinematics</code>.</p>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="flapsim.fluid.aero.wing_aero" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">wing_aero</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">side</span><span class="p">,</span> <span class="n">psi</span><span class="p">,</span> <span class="n">psi_dot</span><span class="p">,</span> <span class="n">theta</span><span class="p">,</span> <span class="n">theta_dot</span><span class="p">,</span> <span class="n">linear_velocity_body</span><span class="p">,</span> <span class="n">angular_velocity_body</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+
+<a href="#flapsim.fluid.aero.wing_aero" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Calculate one wing's local aerodynamic force, moments and CoP.</p>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="flapsim.fluid.aero.world_wrench" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">world_wrench</span><span class="p">(</span><span class="n">wing</span><span class="p">,</span> <span class="n">side</span><span class="p">,</span> <span class="n">aero</span><span class="p">,</span> <span class="n">read_only</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
+
+<a href="#flapsim.fluid.aero.world_wrench" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Convert one wing's local aero result into a world-frame wrench.</p>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="flapsim.fluid.aero.normal_force_coefficient" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">normal_force_coefficient</span><span class="p">(</span><span class="n">alpha</span><span class="p">)</span></code>
+
+<a href="#flapsim.fluid.aero.normal_force_coefficient" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>FlapX <code>C_N(alpha)</code> empirical fit.</p>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="flapsim.fluid.aero.center_of_pressure_fraction" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">center_of_pressure_fraction</span><span class="p">(</span><span class="n">alpha</span><span class="p">)</span></code>
+
+<a href="#flapsim.fluid.aero.center_of_pressure_fraction" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>FlapX chordwise <code>d_cp(alpha)</code> empirical fit.</p>
+
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 Mingshan He and FlapSim contributors. Apache-2.0.
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "navigation.top", "content.code.copy", "search.suggest"], "search": "../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.c21346df.min.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

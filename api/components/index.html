@@ -1,0 +1,4320 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="A composable MuJoCo simulation platform and reduced-order aerodynamic model hierarchy for flapping-wing robotics">
+      
+      
+      
+        <link rel="canonical" href="https://mingshanhe.github.io/FlapSim/api/components/">
+      
+      
+        <link rel="prev" href="../aero/">
+      
+      
+        <link rel="next" href="../../roadmap/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.0">
+    
+    
+      
+        <title>Components - FlapSim</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#components" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="FlapSim" class="md-header__button md-logo" aria-label="FlapSim" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            FlapSim
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Components
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="indigo"  aria-label="Dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="indigo"  aria-label="Light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/MingshanHe/FlapSim" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    MingshanHe/FlapSim
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="FlapSim" class="md-nav__button md-logo" aria-label="FlapSim" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    FlapSim
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/MingshanHe/FlapSim" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    MingshanHe/FlapSim
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting_started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../robot_manifest/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Import your robot
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../aero_models/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Aerodynamic models
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../components/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Components
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../plugins/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Write a plugin
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Command line
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../rl/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Learning and studies
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../gallery/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Gallery
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Derivations
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Derivations
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../derivations/quasi_steady_model/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Model conventions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../derivations/quasi_steady_aero_full/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quasi-steady model (full)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../derivations/hover_simplification/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hover simplification
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Engineering notes
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Engineering notes
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../notes/aero_force_sign_fix/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Aerodynamic force sign fix (2026)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../notes/pid_hover_control/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PID hover control
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_12">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    API reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../core/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Simulation and plugins
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../robot/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Robots and wings
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../aero/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Aerodynamics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Components
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Components
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#flapsim.actuators.sinusoidal_stroke" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        sinusoidal_stroke
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="sinusoidal_stroke">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#flapsim.actuators.sinusoidal_stroke.SinusoidalStroke" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SinusoidalStroke
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#flapsim.actuators.pd_position" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        pd_position
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="pd_position">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#flapsim.actuators.pd_position.PDPosition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PDPosition
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#flapsim.actuators.servo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        servo
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="servo">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#flapsim.actuators.servo.Servo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Servo
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Servo">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#flapsim.actuators.servo.Servo.set_target" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        set_target
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#flapsim.actuators.dc_motor_crank" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        dc_motor_crank
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="dc_motor_crank">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#flapsim.actuators.dc_motor_crank.DCMotorCrank" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DCMotorCrank
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="DCMotorCrank">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#flapsim.actuators.dc_motor_crank.DCMotorCrank.no_load_speed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        no_load_speed
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#flapsim.sensors.noise" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        noise
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="noise">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#flapsim.sensors.noise.Conditioner" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Conditioner
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#flapsim.sensors.imu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        imu
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="imu">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#flapsim.sensors.imu.IMU" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        IMU
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#flapsim.sensors.imu.rotation_to_rpy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        rotation_to_rpy
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#flapsim.sensors.rangefinder" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        rangefinder
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="rangefinder">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#flapsim.sensors.rangefinder.RangeFinder" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RangeFinder
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#flapsim.sensors.encoder" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        encoder
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="encoder">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#flapsim.sensors.encoder.JointEncoder" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        JointEncoder
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#flapsim.sensors.wrench" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        wrench
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="wrench">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#flapsim.sensors.wrench.BodyWrench" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BodyWrench
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#flapsim.controllers.hover_pid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        hover_pid
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="hover_pid">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#flapsim.controllers.hover_pid.HoverPID" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        HoverPID
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#flapsim.controllers.schedule" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        schedule
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="schedule">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#flapsim.controllers.schedule.SetpointSchedule" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SetpointSchedule
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#flapsim.controllers.callback" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        callback
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="callback">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#flapsim.controllers.callback.CallbackController" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CallbackController
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#flapsim.io.recorder" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        recorder
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="recorder">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#flapsim.io.recorder.MemoryRecorder" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MemoryRecorder
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="MemoryRecorder">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#flapsim.io.recorder.MemoryRecorder.to_hdf5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        to_hdf5
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#flapsim.io.recorder.MemoryRecorder.to_csv" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        to_csv
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#flapsim.io.overlays" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        overlays
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="overlays">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#flapsim.io.overlays.ForceArrows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ForceArrows
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#flapsim.io.video" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        video
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="video">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#flapsim.io.video.render_frames" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        render_frames
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#flapsim.io.video.record_video" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        record_video
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#flapsim.envs.gym_env" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        gym_env
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="gym_env">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#flapsim.envs.gym_env.Observation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Observation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#flapsim.envs.gym_env.Action" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Action
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#flapsim.envs.gym_env.SimulationEnv" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SimulationEnv
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#flapsim.envs.rewards" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        rewards
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="rewards">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#flapsim.envs.rewards.root_state" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        root_state
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#flapsim.envs.rewards.hover_reward" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        hover_reward
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#flapsim.envs.rewards.hover_terminated" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        hover_terminated
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#flapsim.study" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        study
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="study">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#flapsim.study.grid_cases" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        grid_cases
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#flapsim.study.parameter_study" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        parameter_study
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../roadmap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Roadmap
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../changelog/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Changelog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#flapsim.actuators.sinusoidal_stroke" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        sinusoidal_stroke
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="sinusoidal_stroke">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#flapsim.actuators.sinusoidal_stroke.SinusoidalStroke" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SinusoidalStroke
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#flapsim.actuators.pd_position" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        pd_position
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="pd_position">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#flapsim.actuators.pd_position.PDPosition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PDPosition
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#flapsim.actuators.servo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        servo
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="servo">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#flapsim.actuators.servo.Servo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Servo
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Servo">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#flapsim.actuators.servo.Servo.set_target" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        set_target
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#flapsim.actuators.dc_motor_crank" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        dc_motor_crank
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="dc_motor_crank">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#flapsim.actuators.dc_motor_crank.DCMotorCrank" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DCMotorCrank
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="DCMotorCrank">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#flapsim.actuators.dc_motor_crank.DCMotorCrank.no_load_speed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        no_load_speed
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#flapsim.sensors.noise" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        noise
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="noise">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#flapsim.sensors.noise.Conditioner" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Conditioner
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#flapsim.sensors.imu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        imu
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="imu">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#flapsim.sensors.imu.IMU" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        IMU
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#flapsim.sensors.imu.rotation_to_rpy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        rotation_to_rpy
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#flapsim.sensors.rangefinder" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        rangefinder
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="rangefinder">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#flapsim.sensors.rangefinder.RangeFinder" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RangeFinder
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#flapsim.sensors.encoder" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        encoder
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="encoder">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#flapsim.sensors.encoder.JointEncoder" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        JointEncoder
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#flapsim.sensors.wrench" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        wrench
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="wrench">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#flapsim.sensors.wrench.BodyWrench" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BodyWrench
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#flapsim.controllers.hover_pid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        hover_pid
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="hover_pid">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#flapsim.controllers.hover_pid.HoverPID" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        HoverPID
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#flapsim.controllers.schedule" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        schedule
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="schedule">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#flapsim.controllers.schedule.SetpointSchedule" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SetpointSchedule
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#flapsim.controllers.callback" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        callback
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="callback">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#flapsim.controllers.callback.CallbackController" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CallbackController
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#flapsim.io.recorder" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        recorder
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="recorder">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#flapsim.io.recorder.MemoryRecorder" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MemoryRecorder
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="MemoryRecorder">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#flapsim.io.recorder.MemoryRecorder.to_hdf5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        to_hdf5
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#flapsim.io.recorder.MemoryRecorder.to_csv" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        to_csv
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#flapsim.io.overlays" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        overlays
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="overlays">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#flapsim.io.overlays.ForceArrows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ForceArrows
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#flapsim.io.video" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        video
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="video">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#flapsim.io.video.render_frames" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        render_frames
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#flapsim.io.video.record_video" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        record_video
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#flapsim.envs.gym_env" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        gym_env
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="gym_env">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#flapsim.envs.gym_env.Observation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Observation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#flapsim.envs.gym_env.Action" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Action
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#flapsim.envs.gym_env.SimulationEnv" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SimulationEnv
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#flapsim.envs.rewards" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        rewards
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="rewards">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#flapsim.envs.rewards.root_state" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        root_state
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#flapsim.envs.rewards.hover_reward" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        hover_reward
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#flapsim.envs.rewards.hover_terminated" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        hover_terminated
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#flapsim.study" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        study
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="study">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#flapsim.study.grid_cases" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        grid_cases
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#flapsim.study.parameter_study" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        parameter_study
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="components">Components<a class="headerlink" href="#components" title="Permanent link">&para;</a></h1>
+
+
+<div class="doc doc-object doc-module">
+
+
+
+<h2 id="flapsim.actuators.sinusoidal_stroke" class="doc doc-heading">
+            <code>flapsim.actuators.sinusoidal_stroke</code>
+
+
+<a href="#flapsim.actuators.sinusoidal_stroke" class="headerlink" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents first">
+
+        <p>Kinematic sinusoidal stroke: <code>q = direction * A sin(2 pi f t + phase)</code>.</p>
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="flapsim.actuators.sinusoidal_stroke.SinusoidalStroke" class="doc doc-heading">
+            <code>SinusoidalStroke</code>
+
+
+<a href="#flapsim.actuators.sinusoidal_stroke.SinusoidalStroke" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><a class="autorefs autorefs-internal" title="ActuatorPlugin (flapsim.plugins.base.ActuatorPlugin)" href="../core/#flapsim.plugins.base.ActuatorPlugin">ActuatorPlugin</a></code></p>
+
+
+
+        <p>Impose a sinusoidal angle on one or more stroke joints.</p>
+<p><code>kinematic</code> mode writes position and velocity (so aerodynamic models see
+the stroke rate); <code>position_only</code> writes the position with zero velocity,
+which the cycle-averaged floating model uses to avoid injecting energy.
+Commands <code>cmd/&lt;id&gt;/frequency_hz</code> and <code>cmd/&lt;id&gt;/amplitude_rad</code> override
+the configured values; the current values are published as
+<code>&lt;id&gt;/frequency_hz</code>, <code>&lt;id&gt;/amplitude_rad</code> and <code>&lt;id&gt;/phase</code>.</p>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
+<h2 id="flapsim.actuators.pd_position" class="doc doc-heading">
+            <code>flapsim.actuators.pd_position</code>
+
+
+<a href="#flapsim.actuators.pd_position" class="headerlink" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents first">
+
+        <p>PD position actuator with torque limits, or a kinematic position hold.</p>
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="flapsim.actuators.pd_position.PDPosition" class="doc doc-heading">
+            <code>PDPosition</code>
+
+
+<a href="#flapsim.actuators.pd_position.PDPosition" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><a class="autorefs autorefs-internal" title="ActuatorPlugin (flapsim.plugins.base.ActuatorPlugin)" href="../core/#flapsim.plugins.base.ActuatorPlugin">ActuatorPlugin</a></code></p>
+
+
+
+        <p>Hold joints at targets with a gravity-compensated PD law.</p>
+<p><code>joints</code> maps joint names to <code>{kp, kd, max_torque, target, role}</code>.
+<code>role</code> is a free label (for example <code>pitch</code> or <code>roll</code>) that lets
+controllers address joints by function.  Targets come from
+<code>cmd/&lt;id&gt;/&lt;joint&gt;</code> signals when present and are clipped to the joint
+range; the active targets are published as <code>&lt;id&gt;/&lt;joint&gt;</code>.  In
+<code>kinematic</code> mode the joint is set to the target after each step.</p>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
+<h2 id="flapsim.actuators.servo" class="doc doc-heading">
+            <code>flapsim.actuators.servo</code>
+
+
+<a href="#flapsim.actuators.servo" class="headerlink" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents first">
+
+        <p>Position servo: PD hold with a rate-limited, first-order lagged target.</p>
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="flapsim.actuators.servo.Servo" class="doc doc-heading">
+            <code>Servo</code>
+
+
+<a href="#flapsim.actuators.servo.Servo" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><a class="autorefs autorefs-internal" title="PDPosition (flapsim.actuators.pd_position.PDPosition)" href="#flapsim.actuators.pd_position.PDPosition">PDPosition</a></code></p>
+
+
+
+        <p>A :class:<code>PDPosition</code> whose targets move towards the commanded values
+at most <code>rate_limit_rad_s</code> fast through a first-order lag of
+<code>time_constant_s</code> (0 for none), like a hobby servo.  Publishes
+<code>&lt;id&gt;/&lt;joint&gt;</code> (current target) and <code>&lt;id&gt;/&lt;joint&gt;/desired</code>.</p>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="flapsim.actuators.servo.Servo.set_target" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">set_target</span><span class="p">(</span><span class="n">joint_name</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">clip</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
+
+<a href="#flapsim.actuators.servo.Servo.set_target" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Jump the servo (and its desired value) to <code>value</code> immediately.</p>
+
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
+<h2 id="flapsim.actuators.dc_motor_crank" class="doc doc-heading">
+            <code>flapsim.actuators.dc_motor_crank</code>
+
+
+<a href="#flapsim.actuators.dc_motor_crank" class="headerlink" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents first">
+
+        <p>Brushed DC motor driving the stroke through a gearbox and crank.</p>
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="flapsim.actuators.dc_motor_crank.DCMotorCrank" class="doc doc-heading">
+            <code>DCMotorCrank</code>
+
+
+<a href="#flapsim.actuators.dc_motor_crank.DCMotorCrank" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><a class="autorefs autorefs-internal" title="ActuatorPlugin (flapsim.plugins.base.ActuatorPlugin)" href="../core/#flapsim.plugins.base.ActuatorPlugin">ActuatorPlugin</a></code></p>
+
+
+
+        <p>Voltage-driven DC motor, gearbox and crank imposing <code>q = d A sin(theta_c)</code>.</p>
+<p>Electrical: <code>i = (V - k_e w) / R</code>, <code>tau_m = k_t i</code>.  Mechanical, on the
+motor shaft: <code>J dw/dt = tau_m - b w - c sign(w) + tau_aero / N</code> where
+<code>tau_aero</code> is the aerodynamic torque about the stroke joints projected
+onto the crank (<code>load: aero</code>, from the aero plugin's wing signals) and
+<code>N</code> the gear ratio.  The crank angle <code>theta_c</code> advances at <code>w / N</code>
+and every stroke joint follows <code>direction * A sin(theta_c + phase)</code>.
+Commands: <code>cmd/&lt;id&gt;/voltage_v</code>.  Publishes <code>speed_rad_s</code>,
+<code>frequency_hz</code>, <code>current_a</code>, <code>voltage_v</code>, <code>torque_motor</code>,
+<code>torque_load</code>, <code>power_w</code>, <code>crank_angle</code>.</p>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="flapsim.actuators.dc_motor_crank.DCMotorCrank.no_load_speed" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">no_load_speed</span><span class="p">(</span><span class="n">voltage_v</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+
+<a href="#flapsim.actuators.dc_motor_crank.DCMotorCrank.no_load_speed" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Motor speed where the back-EMF balances the voltage (no friction).</p>
+
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
+<h2 id="flapsim.sensors.noise" class="doc doc-heading">
+            <code>flapsim.sensors.noise</code>
+
+
+<a href="#flapsim.sensors.noise" class="headerlink" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents first">
+
+        <p>Measurement conditioning shared by the sensor plugins.</p>
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="flapsim.sensors.noise.Conditioner" class="doc doc-heading">
+            <code>Conditioner</code>
+
+
+<a href="#flapsim.sensors.noise.Conditioner" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+
+
+
+        <p>Sample-and-hold, first-order low-pass, pure delay, noise, bias, quantization.</p>
+<p><code>update(true_value, time)</code> returns the current reading.  A new sample is
+taken whenever <code>time</code> reaches the next sampling instant (<code>rate_hz</code>;
+every call when <code>None</code>).  The sample passes a low-pass with time
+constant <code>tau</code> (seconds, 0 disables), enters a delay line of
+<code>round(delay_s * rate)</code> samples, then receives Gaussian noise of
+standard deviation <code>noise_std</code>, a bias drawn uniformly from
+<code>[-bias_range, bias_range]</code> at every :meth:<code>reset</code>, and is quantised to
+multiples of <code>resolution</code> (0 disables).  All parameters may be scalars
+or arrays matching <code>size</code>.</p>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
+<h2 id="flapsim.sensors.imu" class="doc doc-heading">
+            <code>flapsim.sensors.imu</code>
+
+
+<a href="#flapsim.sensors.imu" class="headerlink" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents first">
+
+        <p>Inertial measurement unit: attitude estimate, gyro and accelerometer.</p>
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="flapsim.sensors.imu.IMU" class="doc doc-heading">
+            <code>IMU</code>
+
+
+<a href="#flapsim.sensors.imu.IMU" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><a class="autorefs autorefs-internal" title="SensorPlugin (flapsim.plugins.base.SensorPlugin)" href="../core/#flapsim.plugins.base.SensorPlugin">SensorPlugin</a></code></p>
+
+
+
+        <p>Attitude (AHRS-like low-pass of the true angles), body rates and
+specific force at <code>rate_hz</code>.</p>
+<p>Defaults reproduce the IMU model used for the IMU-only hover policies:
+attitude low-pass 20 ms with 0.02 degree noise, gyro noise 0.002 rad/s,
+accelerometer noise 0.02 m/s^2 with a per-episode bias of up to
+0.01 m/s^2.  The accelerometer measures <code>R^T (a - g)</code>, so a hovering or
+resting body reads <code>[0, 0, +9.81]</code>.  Publishes <code>&lt;id&gt;/euler</code>,
+<code>&lt;id&gt;/gyro</code>, <code>&lt;id&gt;/accel</code> and <code>&lt;id&gt;/quat</code> (true attitude, for
+reference).</p>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="flapsim.sensors.imu.rotation_to_rpy" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">rotation_to_rpy</span><span class="p">(</span><span class="n">rotation</span><span class="p">)</span></code>
+
+<a href="#flapsim.sensors.imu.rotation_to_rpy" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Body-to-world rotation matrix to roll, pitch, yaw (Z-Y-X, radians).</p>
+
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
+<h2 id="flapsim.sensors.rangefinder" class="doc doc-heading">
+            <code>flapsim.sensors.rangefinder</code>
+
+
+<a href="#flapsim.sensors.rangefinder" class="headerlink" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents first">
+
+        <p>Downward (or any-direction) range finder such as a time-of-flight sensor.</p>
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="flapsim.sensors.rangefinder.RangeFinder" class="doc doc-heading">
+            <code>RangeFinder</code>
+
+
+<a href="#flapsim.sensors.rangefinder.RangeFinder" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><a class="autorefs autorefs-internal" title="SensorPlugin (flapsim.plugins.base.SensorPlugin)" href="../core/#flapsim.plugins.base.SensorPlugin">SensorPlugin</a></code></p>
+
+
+
+        <p>Slant range along a body-fixed direction, delayed and noisy.</p>
+<p><code>plane</code> intersects the ray with the ground plane <code>z = ground_height</code>
+(the slant range is <code>height / cos(tilt)</code> with <code>cos</code> clamped at
+<code>min_cos</code>); <code>ray</code> casts a MuJoCo ray against all geoms.  Defaults
+reproduce the hover-policy TOF: 20 ms delay, 5 mm noise, 4 m range, and a
+range rate from differenced readings through a 50 ms low-pass.  Publishes
+<code>&lt;id&gt;/range</code> and <code>&lt;id&gt;/range_rate</code>.</p>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
+<h2 id="flapsim.sensors.encoder" class="doc doc-heading">
+            <code>flapsim.sensors.encoder</code>
+
+
+<a href="#flapsim.sensors.encoder" class="headerlink" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents first">
+
+        <p>Joint position and velocity measurements.</p>
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="flapsim.sensors.encoder.JointEncoder" class="doc doc-heading">
+            <code>JointEncoder</code>
+
+
+<a href="#flapsim.sensors.encoder.JointEncoder" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><a class="autorefs autorefs-internal" title="SensorPlugin (flapsim.plugins.base.SensorPlugin)" href="../core/#flapsim.plugins.base.SensorPlugin">SensorPlugin</a></code></p>
+
+
+
+        <p>Quantised, noisy joint positions and velocities at <code>rate_hz</code>.</p>
+<p><code>counts_per_rev</code> sets the position resolution of hinge joints (<code>None</code>
+for continuous).  Publishes <code>&lt;id&gt;/&lt;joint&gt;/position</code> and
+<code>&lt;id&gt;/&lt;joint&gt;/velocity</code>.</p>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
+<h2 id="flapsim.sensors.wrench" class="doc doc-heading">
+            <code>flapsim.sensors.wrench</code>
+
+
+<a href="#flapsim.sensors.wrench" class="headerlink" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents first">
+
+        <p>Load cell: the interaction wrench between a body and its parent.</p>
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="flapsim.sensors.wrench.BodyWrench" class="doc doc-heading">
+            <code>BodyWrench</code>
+
+
+<a href="#flapsim.sensors.wrench.BodyWrench" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><a class="autorefs autorefs-internal" title="SensorPlugin (flapsim.plugins.base.SensorPlugin)" href="../core/#flapsim.plugins.base.SensorPlugin">SensorPlugin</a></code></p>
+
+
+
+        <p>Force and torque transmitted from a body's parent (MuJoCo <code>cfrc_int</code>).</p>
+<p>For the root body of a fixed-base robot this is the reaction of the
+mounting, that is the force a load cell under the robot would read (its
+weight minus the lift).  Values are in the world frame about the body's
+centre of mass, averaged over <code>average_s</code> seconds when given.
+Publishes <code>&lt;id&gt;/force</code> and <code>&lt;id&gt;/torque</code>.</p>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
+<h2 id="flapsim.controllers.hover_pid" class="doc doc-heading">
+            <code>flapsim.controllers.hover_pid</code>
+
+
+<a href="#flapsim.controllers.hover_pid" class="headerlink" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents first">
+
+        <p>Cascaded altitude and attitude PID for hovering with a floating base.</p>
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="flapsim.controllers.hover_pid.HoverPID" class="doc doc-heading">
+            <code>HoverPID</code>
+
+
+<a href="#flapsim.controllers.hover_pid.HoverPID" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><a class="autorefs autorefs-internal" title="ControllerPlugin (flapsim.plugins.base.ControllerPlugin)" href="../core/#flapsim.plugins.base.ControllerPlugin">ControllerPlugin</a></code></p>
+
+
+
+        <p>Hold a position (or cycle through waypoints) with a flapping-frequency
+altitude loop and a gimbal attitude loop.</p>
+<p>State is averaged over one stroke period and the loops update once per
+period.  Commands are published for a stroke actuator
+(<code>cmd/&lt;stroke&gt;/frequency_hz</code>) and a gimbal actuator
+(<code>cmd/&lt;gimbal&gt;/&lt;pitch_joint&gt;</code>, <code>cmd/&lt;gimbal&gt;/&lt;roll_joint&gt;</code>).</p>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
+<h2 id="flapsim.controllers.schedule" class="doc doc-heading">
+            <code>flapsim.controllers.schedule</code>
+
+
+<a href="#flapsim.controllers.schedule" class="headerlink" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents first">
+
+        <p>Time-scheduled set points for any plugin's commands.</p>
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="flapsim.controllers.schedule.SetpointSchedule" class="doc doc-heading">
+            <code>SetpointSchedule</code>
+
+
+<a href="#flapsim.controllers.schedule.SetpointSchedule" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><a class="autorefs autorefs-internal" title="ControllerPlugin (flapsim.plugins.base.ControllerPlugin)" href="../core/#flapsim.plugins.base.ControllerPlugin">ControllerPlugin</a></code></p>
+
+
+
+        <p>Publish <code>cmd/&lt;target&gt;/&lt;name&gt;</code> from <code>[[time, value], ...]</code> tables.</p>
+<p>With <code>interpolate</code> the value is linearly interpolated between the table
+times, otherwise it holds the latest entry (step changes).  Before the
+first time nothing is published, so the plugin's own default applies.
+Useful for frequency ramps, gimbal step inputs and scripted manoeuvres.</p>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
+<h2 id="flapsim.controllers.callback" class="doc doc-heading">
+            <code>flapsim.controllers.callback</code>
+
+
+<a href="#flapsim.controllers.callback" class="headerlink" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents first">
+
+        <p>Run a user Python function as a controller.</p>
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="flapsim.controllers.callback.CallbackController" class="doc doc-heading">
+            <code>CallbackController</code>
+
+
+<a href="#flapsim.controllers.callback.CallbackController" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><a class="autorefs autorefs-internal" title="ControllerPlugin (flapsim.plugins.base.ControllerPlugin)" href="../core/#flapsim.plugins.base.ControllerPlugin">ControllerPlugin</a></code></p>
+
+
+
+        <p>Call <code>callback(sim, controller) -&gt; {command: value}</code> at <code>rate_hz</code>.</p>
+<p>Returned keys are published as commands: <code>"stroke/frequency_hz"</code> becomes
+<code>cmd/stroke/frequency_hz</code> (keys already starting with <code>cmd/</code> are used
+as is).  <code>None</code> or an empty mapping publishes nothing.  The controller
+keeps a <code>state</code> dictionary for the callback's own use.</p>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
+<h2 id="flapsim.io.recorder" class="doc doc-heading">
+            <code>flapsim.io.recorder</code>
+
+
+<a href="#flapsim.io.recorder" class="headerlink" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents first">
+
+        <p>Sample signals into memory and export them.</p>
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="flapsim.io.recorder.MemoryRecorder" class="doc doc-heading">
+            <code>MemoryRecorder</code>
+
+
+<a href="#flapsim.io.recorder.MemoryRecorder" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><a class="autorefs autorefs-internal" title="RecorderPlugin (flapsim.plugins.base.RecorderPlugin)" href="../core/#flapsim.plugins.base.RecorderPlugin">RecorderPlugin</a></code></p>
+
+
+
+        <p>Record matching signals every <code>every</code> seconds (default: every step).</p>
+<p><code>signals</code> is a list of shell-style patterns (<code>"aero/F_world"</code>,
+<code>"wings/*/alpha"</code>).  Use :meth:<code>get</code> for one signal as an array of shape
+<code>(samples, ...)</code>, :meth:<code>to_dict</code>, :meth:<code>to_npz</code> or :meth:<code>to_csv</code>.</p>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="flapsim.io.recorder.MemoryRecorder.to_hdf5" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">to_hdf5</span><span class="p">(</span><span class="n">path</span><span class="p">)</span></code>
+
+<a href="#flapsim.io.recorder.MemoryRecorder.to_hdf5" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Write one dataset per signal (needs <code>h5py</code>).</p>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="flapsim.io.recorder.MemoryRecorder.to_csv" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">to_csv</span><span class="p">(</span><span class="n">path</span><span class="p">)</span></code>
+
+<a href="#flapsim.io.recorder.MemoryRecorder.to_csv" class="headerlink" title="Permanent link">&para;</a></h4>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Write one row per sample; vector signals expand to <code>name[i]</code> columns.</p>
+
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
+<h2 id="flapsim.io.overlays" class="doc doc-heading">
+            <code>flapsim.io.overlays</code>
+
+
+<a href="#flapsim.io.overlays" class="headerlink" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents first">
+
+        <p>Viewer and renderer overlays: force arrows and centre-of-pressure markers.</p>
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="flapsim.io.overlays.ForceArrows" class="doc doc-heading">
+            <code>ForceArrows</code>
+
+
+<a href="#flapsim.io.overlays.ForceArrows" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+
+
+
+        <p>Draw each wing's aerodynamic force as an arrow from its centre of pressure.</p>
+<p>Use as <code>sim.run(viewer=True, on_frame=ForceArrows())</code> or pass it to the
+video recorder.  <code>scale</code> is metres of arrow per newton.  The callable
+accepts a viewer handle (uses <code>user_scn</code>) or an <code>MjvScene</code>.</p>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
+<h2 id="flapsim.io.video" class="doc doc-heading">
+            <code>flapsim.io.video</code>
+
+
+<a href="#flapsim.io.video" class="headerlink" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents first">
+
+        <p>Offscreen rendering to image sequences, GIF or MP4.</p>
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="flapsim.io.video.render_frames" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">render_frames</span><span class="p">(</span><span class="n">sim</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">duration</span><span class="p">,</span> <span class="n">fps</span><span class="o">=</span><span class="mf">30.0</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">640</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">480</span><span class="p">,</span> <span class="n">camera</span><span class="o">=</span><span class="s1">'camera'</span><span class="p">,</span> <span class="n">overlay</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">realtime_factor</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span></code>
+
+<a href="#flapsim.io.video.render_frames" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Step <code>sim</code> and yield RGB frames (<code>height x width x 3</code> uint8).</p>
+<p><code>realtime_factor</code> below one slows the video down (more simulated steps
+per frame are skipped).  Needs an offscreen OpenGL backend
+(<code>MUJOCO_GL=osmesa</code>, <code>egl</code> or a display for <code>glfw</code>).</p>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="flapsim.io.video.record_video" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">record_video</span><span class="p">(</span><span class="n">sim</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">duration</span><span class="p">,</span> <span class="n">fps</span><span class="o">=</span><span class="mf">30.0</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">640</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">480</span><span class="p">,</span> <span class="n">camera</span><span class="o">=</span><span class="s1">'camera'</span><span class="p">,</span> <span class="n">overlay</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">realtime_factor</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span></code>
+
+<a href="#flapsim.io.video.record_video" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Write a <code>.mp4</code> (imageio with ffmpeg), <code>.gif</code> (Pillow) or a directory
+of <code>.png</code> frames, chosen by the path suffix.</p>
+
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
+<h2 id="flapsim.envs.gym_env" class="doc doc-heading">
+            <code>flapsim.envs.gym_env</code>
+
+
+<a href="#flapsim.envs.gym_env" class="headerlink" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents first">
+
+        <p>A Gymnasium environment over any FlapSim :class:<code>~flapsim.core.Simulation</code>.</p>
+<p>Observations are named signals (<code>imu/gyro</code>, <code>tof/range</code>, ...) scaled and
+concatenated; actions in <code>[-1, 1]</code> are mapped affinely onto plugin
+commands (<code>cmd/gimbal/pitch_joint</code>, <code>cmd/stroke/frequency_hz</code>, ...) with
+optional first-order smoothing.  Reward and termination are plain callables
+so tasks stay outside the core.</p>
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="flapsim.envs.gym_env.Observation" class="doc doc-heading">
+            <code>Observation</code>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
+  </span>
+
+<a href="#flapsim.envs.gym_env.Observation" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+
+
+
+        <p>One block of the observation vector taken from a signal.</p>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="flapsim.envs.gym_env.Action" class="doc doc-heading">
+            <code>Action</code>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
+  </span>
+
+<a href="#flapsim.envs.gym_env.Action" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+
+
+
+        <p>One action element mapped onto a plugin command.</p>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="flapsim.envs.gym_env.SimulationEnv" class="doc doc-heading">
+            <code>SimulationEnv</code>
+
+
+<a href="#flapsim.envs.gym_env.SimulationEnv" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="gymnasium.Env">Env</span></code></p>
+
+
+
+        <p>Gymnasium wrapper: decisions every <code>decision_dt</code> seconds.</p>
+<p><code>make_sim</code> builds the simulation once; episodes call <code>sim.reset()</code>.
+<code>reward(env, obs, action)</code> returns a float or <code>(float, info_dict)</code>;
+<code>terminated(env)</code> returns a bool; <code>on_reset(env)</code> may randomise the
+state.  With <code>include_previous_action</code> the previous normalised action is
+appended to the observation.</p>
+
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
+<h2 id="flapsim.envs.rewards" class="doc doc-heading">
+            <code>flapsim.envs.rewards</code>
+
+
+<a href="#flapsim.envs.rewards" class="headerlink" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents first">
+
+        <p>Reward and termination helpers for hover tasks (true state, training only).</p>
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="flapsim.envs.rewards.root_state" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">root_state</span><span class="p">(</span><span class="n">sim</span><span class="p">)</span></code>
+
+<a href="#flapsim.envs.rewards.root_state" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Position, world velocity, tilt angle and body rates of the root body.</p>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="flapsim.envs.rewards.hover_reward" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">hover_reward</span><span class="p">(</span><span class="n">target_height</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">weights</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">stable_bonus</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">stable_tolerance</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">crash_penalty</span><span class="o">=-</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">terminated</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+
+<a href="#flapsim.envs.rewards.hover_reward" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p><code>exp(-(w_z |dz| + w_tilt tilt + w_v |v| + w_w |w| + w_a |da|^2))</code> plus a
+bonus when hovering steadily and a penalty when the termination test fires.</p>
+<p>Defaults reproduce the IMU-hover training reward.  Returns a callable
+<code>reward(env, obs, action) -&gt; (value, terms)</code>.</p>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="flapsim.envs.rewards.hover_terminated" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">hover_terminated</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">min_height</span><span class="o">=</span><span class="mf">0.08</span><span class="p">,</span> <span class="n">max_height</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">max_horizontal</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">max_tilt_deg</span><span class="o">=</span><span class="mf">65.0</span><span class="p">)</span></code>
+
+<a href="#flapsim.envs.rewards.hover_terminated" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Episode failure: too low or high, drifted away, or tipped over.</p>
+
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
+<h2 id="flapsim.study" class="doc doc-heading">
+            <code>flapsim.study</code>
+
+
+<a href="#flapsim.study" class="headerlink" title="Permanent link">&para;</a></h2>
+
+    <div class="doc doc-contents first">
+
+        <p>Parameter studies: evaluate a function over a grid of cases, in parallel.</p>
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="flapsim.study.grid_cases" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">grid_cases</span><span class="p">(</span><span class="n">grid</span><span class="p">)</span></code>
+
+<a href="#flapsim.study.grid_cases" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Cartesian product of parameter values as a list of case dictionaries.</p>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="flapsim.study.parameter_study" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">parameter_study</span><span class="p">(</span><span class="n">evaluate</span><span class="p">,</span> <span class="n">grid</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">cases</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">workers</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">progress</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+
+<a href="#flapsim.study.parameter_study" class="headerlink" title="Permanent link">&para;</a></h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Call <code>evaluate(**case)</code> for every case of <code>grid</code> (or <code>cases</code>).</p>
+<p><code>evaluate</code> must be importable (module level) when <code>workers &gt; 1</code> since
+cases run in separate processes.  Exceptions are captured per case.</p>
+
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 Mingshan He and FlapSim contributors. Apache-2.0.
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "navigation.top", "content.code.copy", "search.suggest"], "search": "../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.c21346df.min.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>
