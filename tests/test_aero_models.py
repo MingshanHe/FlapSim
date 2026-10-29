@@ -152,6 +152,58 @@ def test_rotational_lift_sign_and_scaling(robot):
     assert double.point[2] == pytest.approx(-0.5 * wing.mean_chord)
 
 
+def test_rotational_lift_is_mirror_symmetric_between_strokes(robot):
+    """Reversing the stroke and the pitch rate mirrors the force (F -> -F)."""
+    from flapsim.fluid.aero import wing_kinematics
+
+    options = AeroOptions(force_limit=1e9)
+    wing, state, _, flow = _make_context(robot)
+    zero = np.zeros(3)
+    forward = wing_kinematics(wing.params, 1, 0.0, 40.0, 0.2, 50.0, zero, zero)
+    backward = wing_kinematics(wing.params, 1, 0.0, -40.0, -0.2, -50.0, zero, zero)
+    f_fwd = RotationalLift().compute(wing, state, forward, flow, options).force[0]
+    f_bwd = RotationalLift().compute(wing, state, backward, flow, options).force[0]
+    assert f_fwd > 0.0
+    assert f_bwd == pytest.approx(-f_fwd)
+
+
+def test_added_mass_is_stable_on_the_passive_wing():
+    """Explicit feathering added mass diverged; it is now implicit armature."""
+    sim = Simulation("SingleThrustFlapper")
+    sim.add(
+        {
+            "type": "actuator/sinusoidal_stroke",
+            "id": "stroke",
+            "joints": ["left_flapping_joint", "right_wing_flapping"],
+            "directions": [1, -1],
+            "frequency_hz": 40.0,
+            "amplitude_rad": 1.5,
+        }
+    )
+    dof = sim.model.joint("left_wing_feathering").dofadr[0]
+    before = float(sim.model.dof_armature[dof])
+    stack = sim.add({"type": "aero/stack", "models": ["quasi_steady", "added_mass"]})
+    added = stack.models[1].added_inertia["left"]
+    assert sim.model.dof_armature[dof] == pytest.approx(before + added)
+    assert 1e-10 < added < 1e-7
+    sim.advance(0.15)
+    peak = 0.0
+    while sim.time < 0.2:
+        sim.step()
+        peak = max(peak, abs(stack.diagnostics["left/added_mass/F_N"]))
+    assert 0.01 < peak < 0.5  # finite, well below the 5 N force limit
+    # a second engine on the same robot must not add the inertia twice
+    sim.add(
+        {
+            "type": "aero/stack",
+            "id": "aero2",
+            "models": ["added_mass"],
+            "options": {"read_only": True},
+        }
+    )
+    assert sim.model.dof_armature[dof] == pytest.approx(before + added)
+
+
 def test_added_mass_needs_acceleration(robot):
     options = AeroOptions(force_limit=1e9)
     model = AddedMass()

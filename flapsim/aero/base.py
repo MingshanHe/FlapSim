@@ -66,6 +66,13 @@ class AeroModel:
     def __init__(self, **config: Any) -> None:
         self.config = dict(config)
 
+    def bind(self, robot) -> None:
+        """Called once when an engine is built for ``robot`` (optional hook).
+
+        Models that need to modify the MuJoCo model, for example to add an
+        implicit added inertia to a joint, do it here.
+        """
+
     def reset(self) -> None:
         """Forget any history (called when the simulation resets)."""
 
@@ -226,6 +233,8 @@ class AeroEngine:
                 f"unknown wings {missing}; wings are {[w.name for w in robot.wings]}"
             )
         self.models = [build_model(m) for m in models]
+        for model in self.models:
+            model.bind(robot)
         self.modifiers = [build_modifier(m) for m in modifiers]
         if not self.models:
             raise ValueError("an aero engine needs at least one model")

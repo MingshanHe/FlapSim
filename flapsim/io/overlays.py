@@ -8,9 +8,17 @@ import mujoco
 import numpy as np
 
 
-def _scene_of(target) -> mujoco.MjvScene:
+def _scene_of(target) -> tuple[mujoco.MjvScene, bool]:
+    """The scene to draw into and whether it is a viewer's private overlay.
+
+    A passive viewer's ``user_scn`` holds only overlay geoms, so it is cleared
+    every frame.  A renderer's scene already holds the model's geoms; overlays
+    are appended to it and must never clear it.
+    """
     scene = getattr(target, "user_scn", None)
-    return scene if scene is not None else target
+    if scene is not None:
+        return scene, True
+    return target, False
 
 
 def add_marker(scene: mujoco.MjvScene, position, radius: float, rgba) -> bool:
@@ -82,8 +90,9 @@ class ForceArrows:
         self.total_color = tuple(total_color)
 
     def __call__(self, sim, target) -> None:
-        scene = _scene_of(target)
-        scene.ngeom = 0
+        scene, private = _scene_of(target)
+        if private:
+            scene.ngeom = 0
         signals = sim.signals
         wings = self.wings or [w.name for w in sim.robot.wings]
         for name in wings:

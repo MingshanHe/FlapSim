@@ -11,7 +11,7 @@ from flapsim.aero.base import AeroModel, WingLoads, register_model
 
 @register_model
 class RotationalLift(AeroModel):
-    """``F_rot = C_rot rho theta_dot * integral c(r)^2 U(r) dr`` along the normal.
+    """``F_rot = C_rot rho theta_dot * integral c(r)^2 |U(r)| dr`` along the normal.
 
     ``C_rot = pi (0.75 - x0)`` by default, with ``x0`` the hinge position as a
     fraction of the chord (Sane & Dickinson 2002, eq. 4).  Positive when the
@@ -38,10 +38,15 @@ class RotationalLift(AeroModel):
             else math.pi * (0.75 - params.x0)
         )
         R, c = params.R, params.c
-        # integral c(r)^2 U_i(r) dr with U_i affine in r
-        integral = c**2 * (
-            kin["U_i1"] * R**2 * params.z_cp1 + kin["U_i0"] * R * params.z_cp0
-        )
+        # integral c(r)^2 |U_i(r)| dr.  With U_i affine in r,
+        #   integral c^2 U_i dr = c^2 R z_cp0 * U_i(r_c),  r_c = R z_cp1 / z_cp0,
+        # so evaluating |U_i| at the c^2-weighted centroid r_c is exact while
+        # the flow keeps its sign and stays continuous through stroke
+        # reversal.  |U| keeps the force mirror-symmetric between strokes:
+        # pitching up (|alpha| increasing) augments the translational force.
+        r_c = R * params.z_cp1 / params.z_cp0 if params.z_cp0 > 0.0 else kin["span_CoP"]
+        u_c = kin["U_i1"] * r_c + kin["U_i0"]
+        integral = c**2 * R * params.z_cp0 * abs(u_c)
         force_n = c_rot * flow.rho * kin["theta_dot"] * integral
         force_n = float(np.clip(force_n, -options.force_limit, options.force_limit))
         chord_offset = params.x_le + (self.point_fraction - params.x0) * c

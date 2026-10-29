@@ -27,8 +27,8 @@ Signals: `aero/F_world`, `aero/lift_total`, `aero/rho`, per wing
 | Model | Physics | Parameters | Reference |
 |---|---|---|---|
 | `quasi_steady` | Translational normal force `1/2 rho c C_N(alpha) (U^2 integrals)` at the centre of pressure, pitching moment through the chordwise CoP, rotational damping `M_rd` | `options` (AeroOptions overrides) | Whitney & Wood 2010; Dickinson et al. 1999 fits |
-| `rotational_lift` | `C_rot rho theta_dot integral c^2 U dr`, positive when pitching up into the flow, at the half chord | `C_rot` (default `pi (0.75 - x0)`), `point_fraction` | Sane & Dickinson 2002 |
-| `added_mass` | `integral (rho pi c^2 / 4) dU_n/dt dr` with the normal acceleration from a one-step finite difference; rotational added inertia `rho pi c^4 / 128` | `include_rotational_inertia` | Sedov; Sane & Dickinson 2002 |
+| `rotational_lift` | `C_rot rho theta_dot integral c^2 |U| dr` (flow-speed magnitude, so the force flips between strokes), positive when pitching up into the flow, at the half chord | `C_rot` (default `pi (0.75 - x0)`), `point_fraction` | Sane & Dickinson 2002 |
+| `added_mass` | Explicit force `integral (rho pi c^2 / 4) dU_n/dt dr` from the prescribed stroke and body accelerations; the added rotational inertia about the feathering hinge is added to the joint armature (implicit, stable for light wings) | `include_feathering_inertia` | Sedov; Sane & Dickinson 2002 |
 | `wake_capture` | Empirical transient `C_wc 1/2 rho S U_rev^2 exp(-t/tau)` after each stroke reversal | `C_wc`, `tau_chords`, `point_fraction`, `min_speed` | Dickinson et al. 1999 (phenomenon) |
 
 ## Modifiers

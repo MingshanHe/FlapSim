@@ -25,6 +25,10 @@ def test_force_arrows_add_geoms_to_a_scene():
     scene = mujoco.MjvScene(sim.model, maxgeom=50)
     ForceArrows(total=True)(sim, scene)
     assert scene.ngeom == 2 * len(sim.robot.wings) + 1
+    # a renderer scene already holds the model geoms: overlays must append
+    scene.ngeom = 3
+    ForceArrows()(sim, scene)
+    assert scene.ngeom == 3 + 2 * len(sim.robot.wings)
     kinds = {int(scene.geoms[i].type) for i in range(scene.ngeom)}
     assert {
         int(mujoco.mjtGeom.mjGEOM_ARROW),

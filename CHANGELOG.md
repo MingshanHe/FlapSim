@@ -77,6 +77,20 @@ the `open-platform` branch on top of the 0.1.0 single-robot simulator.
 - `ROADMAP.md` describing the open-platform architecture and phases.
 
 ### Fixed
+- `added_mass`: the feathering part of the added mass was an explicit force
+  built from a one-step finite-difference feathering acceleration, which
+  diverged on the 0.06 g wings (force pinned at the 5 N limit). The added
+  rotational inertia is now added to the feathering joint's armature
+  (implicit); only the prescribed stroke and body accelerations stay
+  explicit. New `AeroModel.bind(robot)` hook.
+- `rotational_lift`: used the signed flow speed, so the force did not flip
+  between upstroke and downstroke and the passive feathering became
+  asymmetric; it now uses the flow-speed magnitude, evaluated at the
+  c²-weighted span centroid (exact while the flow keeps its sign, continuous
+  through reversal).
+- `ForceArrows` cleared the scene when used with the offscreen renderer, so
+  rendered videos showed only the arrows; it now appends to renderer scenes
+  and clears only a viewer's private overlay scene.
 - Manifest equality constraints size their data from `mujoco.mjNEQDATA`, so
   the example robot loads with MuJoCo releases where that constant is 12
   (reported against mujoco 3.17).
