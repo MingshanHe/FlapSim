@@ -1,3 +1,25 @@
+# Python
 __pycache__/
 *.py[cod]
-flapsim/rl/runs/
+*.egg-info/
+build/
+dist/
+.venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+
+# Simulation / training outputs (never commit data, commit the code that makes it)
+runs/
+artifacts/
+checkpoints/
+models/*.zip
+*.mp4
+*.npz
+*.h5
+*.hdf5
+MUJOCO_LOG.TXT
+
+# Local tooling
+.claude/

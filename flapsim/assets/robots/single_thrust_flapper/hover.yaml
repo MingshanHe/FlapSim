@@ -1,0 +1,37 @@
+# Floating-base hover study: cycle-averaged aerodynamics identified from the
+# fixed-base sweep, gimbal and stroke driven by the hover PID.
+# Run with:  flapsim run SingleThrustFlapper --config hover
+schema: flapsim.sim/1
+robot: robot.yaml
+base: free
+plugins:
+  - type: actuator/sinusoidal_stroke
+    id: stroke
+    joints: [left_flapping_joint, right_wing_flapping]
+    directions: [1, -1]
+    frequency_hz: 40.0
+    amplitude_rad: 1.5
+    mode: position_only          # visual flapping only; forces are cycle-averaged
+  - type: actuator/pd_position
+    id: gimbal
+    mode: kinematic
+    joints:
+      pitch_joint: {role: pitch}
+      roll_joint: {role: roll}
+  - type: aero/cycle_averaged
+    id: aero
+    stroke: stroke
+    gimbal: gimbal
+    pitch_joint: pitch_joint
+    roll_joint: roll_joint
+    reference: {frequency_hz: 30.0, lift_n: 0.16661}
+  - type: controller/hover_pid
+    id: hover
+    stroke: stroke
+    gimbal: gimbal
+    pitch_joint: pitch_joint
+    roll_joint: roll_joint
+    target: [0.0, 0.0, 0.5]
+    hover_frequency_hz: 40.0
+run:
+  duration: 10.0

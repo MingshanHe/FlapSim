@@ -1,0 +1,21 @@
+# Fixed-base simulation of the single-thrust flapper with per-step
+# quasi-steady aerodynamics.  Run with:  flapsim run SingleThrustFlapper
+schema: flapsim.sim/1
+robot: robot.yaml
+base: fixed
+plugins:
+  - type: actuator/sinusoidal_stroke
+    id: stroke
+    joints: [left_flapping_joint, right_wing_flapping]
+    directions: [1, -1]          # mirrored joint axes
+    frequency_hz: 35.0
+    amplitude_rad: 1.5
+  - type: actuator/pd_position
+    id: gimbal
+    joints:
+      pitch_joint: {role: pitch, kp: 0.5, kd: 0.05, max_torque: 0.5}
+      roll_joint: {role: roll, kp: 0.5, kd: 0.05, max_torque: 0.5}
+  - type: aero/quasi_steady
+    id: aero
+run:
+  duration: 2.0

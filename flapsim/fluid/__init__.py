@@ -7,10 +7,12 @@ from .aero import (
     normal_force_coefficient,
     save_wing_parameters,
     wing_aero,
+    wing_kinematics,
+    wing_loads_from_kinematics,
     world_wrench,
 )
-from .mujoco_adapter import MuJoCoAeroAdapter
 from .averaged_hover import AveragedHoverAero
+from .mujoco_adapter import MuJoCoAeroAdapter
 
 __all__ = [
     "AveragedHoverAero",
@@ -21,5 +23,7 @@ __all__ = [
     "normal_force_coefficient",
     "save_wing_parameters",
     "wing_aero",
+    "wing_kinematics",
+    "wing_loads_from_kinematics",
     "world_wrench",
 ]

@@ -1,0 +1,88 @@
+site_name: FlapSim
+site_description: A composable MuJoCo simulation platform and reduced-order aerodynamic model hierarchy for flapping-wing robotics
+site_url: https://mingshanhe.github.io/FlapSim/
+repo_url: https://github.com/MingshanHe/FlapSim
+repo_name: MingshanHe/FlapSim
+edit_uri: edit/master/docs/
+copyright: Copyright &copy; 2026 Mingshan He and FlapSim contributors. Apache-2.0.
+
+theme:
+  name: material
+  features:
+    - navigation.sections
+    - navigation.top
+    - content.code.copy
+    - search.suggest
+  palette:
+    - scheme: default
+      primary: teal
+      toggle:
+        icon: material/weather-night
+        name: Dark mode
+    - scheme: slate
+      primary: teal
+      toggle:
+        icon: material/weather-sunny
+        name: Light mode
+
+markdown_extensions:
+  - admonition
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.superfences
+  - pymdownx.details
+  - pymdownx.snippets:
+      base_path: ["."]
+  - attr_list
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - md_in_html
+
+extra_css:
+  - stylesheets/extra.css
+
+extra_javascript:
+  - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js
+
+plugins:
+  - search
+  - mkdocstrings:
+      handlers:
+        python:
+          options:
+            docstring_style: google
+            show_source: false
+            members_order: source
+            show_root_heading: true
+
+exclude_docs: |
+  figures/
+
+nav:
+  - Home: index.md
+  - Getting started: getting_started.md
+  - Import your robot: robot_manifest.md
+  - Aerodynamic models: aero_models.md
+  - Components: components.md
+  - Write a plugin: plugins.md
+  - Command line: cli.md
+  - Learning and studies: rl.md
+  - Gallery: gallery.md
+  - Derivations:
+      - Model conventions: derivations/quasi_steady_model.md
+      - Quasi-steady model (full): derivations/quasi_steady_aero_full.md
+      - Hover simplification: derivations/hover_simplification.md
+  - Engineering notes:
+      - Aerodynamic force sign fix (2026): notes/aero_force_sign_fix.md
+      - PID hover control: notes/pid_hover_control.md
+  - API reference:
+      - Simulation and plugins: api/core.md
+      - Robots and wings: api/robot.md
+      - Aerodynamics: api/aero.md
+      - Components: api/components.md
+  - Roadmap: roadmap.md
+  - Changelog: changelog.md
