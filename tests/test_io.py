@@ -54,6 +54,7 @@ def _offscreen_available() -> bool:
 
 @pytest.mark.skipif(not _offscreen_available(), reason="no offscreen OpenGL backend")
 def test_record_gif_and_png_frames(tmp_path):
+    pytest.importorskip("PIL")  # GIF/PNG export needs Pillow (the video extra)
     sim = Simulation.from_config(SIM_YAML)
     gif = record_video(
         sim,
