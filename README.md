@@ -1,18 +1,24 @@
 # FlapSim
 
-**Open simulation platform for flapping-wing robots, built on [MuJoCo](https://mujoco.org).**
+**A composable MuJoCo simulation platform and reduced-order aerodynamic model hierarchy for flapping-wing robotics.**
 
 [![CI](https://github.com/MingshanHe/FlapSim/actions/workflows/ci.yml/badge.svg)](https://github.com/MingshanHe/FlapSim/actions/workflows/ci.yml)
+[![Docs](https://github.com/MingshanHe/FlapSim/actions/workflows/docs.yml/badge.svg)](https://mingshanhe.github.io/FlapSim/)
 [![License: Apache-2.0](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
+
+**Project page and documentation: <https://mingshanhe.github.io/FlapSim/>**
+
+<p align="center">
+  <img src="docs/assets/figure1/figure1_web.jpg" width="100%" alt="FlapSim overview: a flapping-wing robot imported from URDF in MuJoCo with its stroke sweep, wing-tip paths and blade-element forces">
+</p>
 
 Bring your own robot as URDF or MJCF, declare its wings in a small manifest,
 pick aerodynamic models and other components from a plugin registry, and run
-the simulation headless, in the viewer, or as a Gymnasium environment.
-
-<p align="center">
-  <img src="docs/assets/single_thrust_fixed.gif" width="360" alt="Fixed-base flapping with force arrows">
-  <img src="docs/assets/flat_plate_fixed.gif" width="360" alt="Parametric flat-plate flapper">
-</p>
+the simulation headless, in the viewer, or as a Gymnasium environment. The
+accompanying paper (under review) benchmarks a hierarchy of 1 ms reduced-order
+aerodynamic models against the 50 µs blade-element reference: the four-block
+harmonic model reaches 0.9662 mean wrench fidelity at a 67.98× CPU speedup
+across 48 held-out scenarios.
 
 ## Highlights
 

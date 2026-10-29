@@ -1,5 +1,5 @@
 site_name: FlapSim
-site_description: Open simulation platform for flapping-wing robots on MuJoCo
+site_description: A composable MuJoCo simulation platform and reduced-order aerodynamic model hierarchy for flapping-wing robotics
 site_url: https://mingshanhe.github.io/FlapSim/
 repo_url: https://github.com/MingshanHe/FlapSim
 repo_name: MingshanHe/FlapSim
@@ -37,7 +37,13 @@ markdown_extensions:
   - pymdownx.snippets:
       base_path: ["."]
   - attr_list
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
   - md_in_html
+
+extra_css:
+  - stylesheets/extra.css
 
 extra_javascript:
   - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js
@@ -52,6 +58,9 @@ plugins:
             show_source: false
             members_order: source
             show_root_heading: true
+
+exclude_docs: |
+  figures/
 
 nav:
   - Home: index.md
