@@ -141,7 +141,7 @@ def test_unknown_wing_body_is_reported(tmp_path):
     bad = tmp_path / "robot.yaml"
     bad.write_text(
         f"""name: bad
-model: {{file: "{URDF}"}}
+model: {{file: "{URDF.as_posix()}"}}
 wings:
   - name: w
     body: nope
