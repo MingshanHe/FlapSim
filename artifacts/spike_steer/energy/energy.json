@@ -1,0 +1,176 @@
+{
+ "chunk_substeps": 20,
+ "window_s": 2.5,
+ "cases_per_task": 16,
+ "arms": {
+  "classical": {
+   "episodes": 48,
+   "crashes": 1,
+   "mean_W": 6.591664188902417,
+   "window_J": 16.301865654142258,
+   "window_J_minus_classical": 0.0,
+   "energy_J_per_task": {
+    "evade": 33.05625503247609,
+    "redirect": 42.8527712094343,
+    "dash": 42.71950607659101
+   },
+   "vsat_frac": 0.03616702227474574
+  },
+  "cls_es_s1": {
+   "episodes": 48,
+   "crashes": 0,
+   "mean_W": 6.590857845338086,
+   "window_J": 16.300243830866123,
+   "window_J_minus_classical": -0.0031078188880089095,
+   "energy_J_per_task": {
+    "evade": 33.006996858560214,
+    "redirect": 42.87507040733061,
+    "dash": 42.73756166063381
+   },
+   "vsat_frac": 0.035567403846153846
+  },
+  "cls_es_s2": {
+   "episodes": 48,
+   "crashes": 0,
+   "mean_W": 6.58990208086043,
+   "window_J": 16.296497474949735,
+   "window_J_minus_classical": -0.008058942909468148,
+   "energy_J_per_task": {
+    "evade": 33.001379346996536,
+    "redirect": 42.87104857019416,
+    "dash": 42.73024885548873
+   },
+   "vsat_frac": 0.03533532051282051
+  },
+  "snn11_s1": {
+   "episodes": 48,
+   "crashes": 0,
+   "mean_W": 6.599407026692916,
+   "window_J": 16.345587190851752,
+   "window_J_minus_classical": 0.04247599263488468,
+   "energy_J_per_task": {
+    "evade": 33.05374725202705,
+    "redirect": 42.95431388515278,
+    "dash": 42.7642517077239
+   },
+   "vsat_frac": 0.038853397435897434
+  },
+  "snn11_s2": {
+   "episodes": 48,
+   "crashes": 0,
+   "mean_W": 6.570752529325206,
+   "window_J": 16.169605988702795,
+   "window_J_minus_classical": -0.13341858295340864,
+   "energy_J_per_task": {
+    "evade": 32.9480165757726,
+    "redirect": 42.680664362496046,
+    "dash": 42.6165884108411
+   },
+   "vsat_frac": 0.03228044871794872
+  },
+  "snn11_s3": {
+   "episodes": 48,
+   "crashes": 0,
+   "mean_W": 6.592071422446916,
+   "window_J": 16.2905032778482,
+   "window_J_minus_classical": -0.015471780746739333,
+   "energy_J_per_task": {
+    "evade": 33.029853089513054,
+    "redirect": 42.87033329779069,
+    "dash": 42.73625042355723
+   },
+   "vsat_frac": 0.03643634615384616
+  },
+  "snn11_s4": {
+   "episodes": 48,
+   "crashes": 0,
+   "mean_W": 6.614491986786864,
+   "window_J": 16.446137273500984,
+   "window_J_minus_classical": 0.14543632294713635,
+   "energy_J_per_task": {
+    "evade": 33.139534861576934,
+    "redirect": 43.05318515971887,
+    "dash": 42.848013262574995
+   },
+   "vsat_frac": 0.038569519230769234
+  },
+  "snn11_s5": {
+   "episodes": 48,
+   "crashes": 0,
+   "mean_W": 6.5925218952985984,
+   "window_J": 16.30225530458044,
+   "window_J_minus_classical": -0.003190651946758959,
+   "energy_J_per_task": {
+    "evade": 33.02667569052708,
+    "redirect": 42.875959958922294,
+    "dash": 42.7435386017152
+   },
+   "vsat_frac": 0.03721605769230769
+  },
+  "mlp_ppo_s1": {
+   "episodes": 48,
+   "crashes": 0,
+   "mean_W": 6.573547036231509,
+   "window_J": 16.18890022395701,
+   "window_J_minus_classical": -0.11839635232408674,
+   "energy_J_per_task": {
+    "evade": 32.96718009414241,
+    "redirect": 42.715704766015676,
+    "dash": 42.61112831811363
+   },
+   "vsat_frac": 0.03440246794871795
+  },
+  "mlp_ppo_s2": {
+   "episodes": 48,
+   "crashes": 0,
+   "mean_W": 6.583644103956715,
+   "window_J": 16.23499411120009,
+   "window_J_minus_classical": -0.0691872338584174,
+   "energy_J_per_task": {
+    "evade": 33.039582719761455,
+    "redirect": 42.7581730127059,
+    "dash": 42.67142947876013
+   },
+   "vsat_frac": 0.03320064102564103
+  },
+  "mlp_ppo_s3": {
+   "episodes": 48,
+   "crashes": 1,
+   "mean_W": 6.57743859321282,
+   "window_J": 16.201355133759797,
+   "window_J_minus_classical": -0.08602177687895432,
+   "energy_J_per_task": {
+    "evade": 32.97262812493927,
+    "redirect": 42.7420975037449,
+    "dash": 42.660480108142686
+   },
+   "vsat_frac": 0.03351724858381403
+  },
+  "mlp_ppo_s4": {
+   "episodes": 48,
+   "crashes": 0,
+   "mean_W": 6.580725839211563,
+   "window_J": 16.23192689170886,
+   "window_J_minus_classical": -0.07108322155033697,
+   "energy_J_per_task": {
+    "evade": 33.014773428849104,
+    "redirect": 42.74862700803456,
+    "dash": 42.656321399087076
+   },
+   "vsat_frac": 0.03282346153846154
+  },
+  "mlp_ppo_s5": {
+   "episodes": 48,
+   "crashes": 1,
+   "mean_W": 6.579137096169005,
+   "window_J": 16.216150091216562,
+   "window_J_minus_classical": -0.07298131983528199,
+   "energy_J_per_task": {
+    "evade": 32.984863041603546,
+    "redirect": 42.759422409413915,
+    "dash": 42.66067468860873
+   },
+   "vsat_frac": 0.03368864039796417
+  }
+ }
+}

@@ -1,0 +1,14 @@
+{
+ "plan": "v16 confirmatory replication of the sustained-disturbance observation of result.md 3.2 ('what spike timing adds')",
+ "written": "2026-10-26, before any v16 episode was flown",
+ "machine": "HomePC",
+ "observation_being_tested": "On the x1.5 turbulence set (v13 turb15) all five SNN11 seeds beat the classical opponent with its phase pulse law kept on (cls_unsup) with every paired interval excluding zero. Known before writing: on turb125 the rule was better (0 crashes, SNN +0.13..+0.22), and on turb15 PPO also beat the rule (4 of 5 seeds).",
+ "sets": "bench9 stress cases with pulse_force and pulse_torque scaled by x1.25 / x1.5 / x1.75, no hit, fresh seed bases 2_103_200_000 / 2_103_400_000 / 2_103_600_000, 64 per task x 3 tasks = 192",
+ "arms": ["classical", "cls_unsup (classical opponent with its phase pulse law kept on, never re-tuned)", "cls_es_s1", "snn11_s1..s5", "mlp_ppo_s1..s5"],
+ "criteria": {
+  "R1_replication": "at x1.5: >= 3 of 5 SNN11 seeds have paired delta vs cls_unsup with the 95 % bootstrap upper bound < 0 AND crashes <= cls_unsup crashes. R1 decides whether the 3.2 observation replicates.",
+  "R2_spike_specific": "at x1.5: the SNN family beats the PPO family: per case, mean ratio over the 5 SNN seeds minus mean ratio over the 5 PPO seeds (cls_unsup medians), bootstrap over cases, 95 % upper bound < 0. If R2 fails, the advantage over the rule is attributed to learned pulse timing in general, not to spiking.",
+  "R3_dose": "descriptive: the same paired deltas at x1.25 and x1.75; the level at which the learned layer overtakes the rule is reported, whatever it is",
+  "reporting": "all outcomes reported, including failures; no further levels or arms are added after seeing results"
+ }
+}

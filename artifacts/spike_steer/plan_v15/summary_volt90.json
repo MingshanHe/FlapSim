@@ -1,0 +1,450 @@
+{
+ "plan": "v15",
+ "test": "volt90",
+ "plant": {
+  "voltage": 0.9
+ },
+ "cases_per_task": 64,
+ "machine": "HomePC",
+ "classical": {
+  "crashes": 17,
+  "n": 192,
+  "ci95": [
+   0.052426661207611164,
+   0.13797840160913794
+  ],
+  "abs": 2.247681865222645
+ },
+ "cls_es_s1": {
+  "mean": 0.9526760628410088,
+  "classical_self": 0.9387756953579741,
+  "delta": 0.013900367483034545,
+  "delta_ci95": [
+   -0.05684548686435375,
+   0.11352944206111584
+  ],
+  "wins": 97,
+  "crashes": 11,
+  "ci95": [
+   0.028943491650076182,
+   0.10019679417572908
+  ],
+  "abs": 1.5663030615319684,
+  "crash_cases": [
+   [
+    "evade",
+    "pitch",
+    "tilt"
+   ],
+   [
+    "evade",
+    "pitch",
+    "tilt"
+   ],
+   [
+    "evade",
+    "pitch",
+    "tilt"
+   ],
+   [
+    "evade",
+    "pitch",
+    "tilt"
+   ],
+   [
+    "evade",
+    "pitch",
+    "tilt"
+   ],
+   [
+    "evade",
+    "pitch",
+    "tilt"
+   ],
+   [
+    "evade",
+    "pitch",
+    "tilt"
+   ],
+   [
+    "redirect",
+    "pitch",
+    "tilt"
+   ],
+   [
+    "dash",
+    "pitch",
+    "tilt"
+   ],
+   [
+    "dash",
+    "pitch",
+    "tilt"
+   ],
+   [
+    "dash",
+    "pitch",
+    "tilt"
+   ]
+  ],
+  "abs_nominal": 1.0091556534964556
+ },
+ "cls_es_s2": {
+  "mean": 0.9521014724573655,
+  "classical_self": 0.9387756953579741,
+  "delta": 0.013325777099391386,
+  "delta_ci95": [
+   -0.022986165383467202,
+   0.05523772115501036
+  ],
+  "wins": 97,
+  "crashes": 16,
+  "ci95": [
+   0.04838266649515745,
+   0.13180108185606948
+  ],
+  "abs": 1.9973692802460992,
+  "crash_cases": [
+   [
+    "evade",
+    "pitch",
+    "tilt"
+   ],
+   [
+    "evade",
+    "pitch",
+    "tilt"
+   ],
+   [
+    "evade",
+    "pitch",
+    "tilt"
+   ],
+   [
+    "evade",
+    "pitch",
+    "tilt"
+   ],
+   [
+    "evade",
+    "pitch",
+    "tilt"
+   ],
+   [
+    "evade",
+    "pitch",
+    "tilt"
+   ],
+   [
+    "evade",
+    "pitch",
+    "tilt"
+   ],
+   [
+    "evade",
+    "pitch",
+    "tilt"
+   ],
+   [
+    "evade",
+    "pitch",
+    "tilt"
+   ],
+   [
+    "evade",
+    "pitch",
+    "tilt"
+   ],
+   [
+    "evade",
+    "pitch",
+    "tilt"
+   ],
+   [
+    "evade",
+    "pitch",
+    "tilt"
+   ],
+   [
+    "evade",
+    "pitch",
+    "tilt"
+   ],
+   [
+    "dash",
+    "pitch",
+    "tilt"
+   ],
+   [
+    "dash",
+    "pitch",
+    "tilt"
+   ],
+   [
+    "dash",
+    "pitch",
+    "tilt"
+   ]
+  ],
+  "abs_nominal": 1.0261262036326604
+ },
+ "snn11_s1": {
+  "mean": 1.19476530433902,
+  "classical_self": 0.9387756953579741,
+  "delta": 0.2559896089810459,
+  "delta_ci95": [
+   0.06533035207980466,
+   0.49121349096684314
+  ],
+  "wins": 87,
+  "crashes": 9,
+  "ci95": [
+   0.021655280676178175,
+   0.08711581879534575
+  ],
+  "abs": 1.6408837832323637,
+  "crash_cases": [
+   [
+    "evade",
+    "pitch",
+    "tilt"
+   ],
+   [
+    "evade",
+    "pitch",
+    "tilt"
+   ],
+   [
+    "evade",
+    "pitch",
+    "tilt"
+   ],
+   [
+    "evade",
+    "pitch",
+    "tilt"
+   ],
+   [
+    "evade",
+    "pitch",
+    "tilt"
+   ],
+   [
+    "redirect",
+    "roll",
+    "tilt"
+   ],
+   [
+    "redirect",
+    "roll",
+    "tilt"
+   ],
+   [
+    "redirect",
+    "roll",
+    "tilt"
+   ],
+   [
+    "redirect",
+    "roll",
+    "tilt"
+   ]
+  ],
+  "abs_nominal": 1.033548829246492
+ },
+ "snn11_s2": {
+  "mean": 0.93926438101501,
+  "classical_self": 0.9387756953579741,
+  "delta": 0.0004886856570358219,
+  "delta_ci95": [
+   -0.04201426943609416,
+   0.04260636570645539
+  ],
+  "wins": 73,
+  "crashes": 0,
+  "ci95": [
+   0.0,
+   0.01902952216877979
+  ],
+  "abs": 1.0835577323811922,
+  "crash_cases": [],
+  "abs_nominal": 1.1346299742238164
+ },
+ "snn11_s3": {
+  "mean": 1.0259493535814963,
+  "classical_self": 0.9387756953579741,
+  "delta": 0.08717365822352192,
+  "delta_ci95": [
+   -0.037750836964128766,
+   0.260156569301714
+  ],
+  "wins": 92,
+  "crashes": 7,
+  "ci95": [
+   0.014781600487806943,
+   0.07367263592618672
+  ],
+  "abs": 1.478644950316179,
+  "crash_cases": [
+   [
+    "evade",
+    "pitch",
+    "tilt"
+   ],
+   [
+    "evade",
+    "pitch",
+    "tilt"
+   ],
+   [
+    "evade",
+    "pitch",
+    "tilt"
+   ],
+   [
+    "evade",
+    "pitch",
+    "tilt"
+   ],
+   [
+    "evade",
+    "pitch",
+    "tilt"
+   ],
+   [
+    "redirect",
+    "roll",
+    "tilt"
+   ],
+   [
+    "redirect",
+    "roll",
+    "tilt"
+   ]
+  ],
+  "abs_nominal": 1.0316873886984559
+ },
+ "snn11_s4": {
+  "mean": 0.9382186399312481,
+  "classical_self": 0.9387756953579741,
+  "delta": -0.0005570554267261274,
+  "delta_ci95": [
+   -0.04651913158397029,
+   0.045002433420564335
+  ],
+  "wins": 82,
+  "crashes": 3,
+  "ci95": [
+   0.003233914833358937,
+   0.04498154432354523
+  ],
+  "abs": 1.2679008373992484,
+  "crash_cases": [
+   [
+    "evade",
+    "pitch",
+    "tilt"
+   ],
+   [
+    "evade",
+    "pitch",
+    "tilt"
+   ],
+   [
+    "evade",
+    "pitch",
+    "tilt"
+   ]
+  ],
+  "abs_nominal": 1.0405807711264956
+ },
+ "snn11_s5": {
+  "mean": 1.1998119403524716,
+  "classical_self": 0.9387756953579741,
+  "delta": 0.26103624499449746,
+  "delta_ci95": [
+   0.06356028917758233,
+   0.4977529918379951
+  ],
+  "wins": 94,
+  "crashes": 14,
+  "ci95": [
+   0.04043555795492776,
+   0.11931607028424568
+  ],
+  "abs": 1.8014553344549193,
+  "crash_cases": [
+   [
+    "evade",
+    "pitch",
+    "tilt"
+   ],
+   [
+    "evade",
+    "pitch",
+    "tilt"
+   ],
+   [
+    "evade",
+    "pitch",
+    "tilt"
+   ],
+   [
+    "evade",
+    "pitch",
+    "tilt"
+   ],
+   [
+    "evade",
+    "pitch",
+    "tilt"
+   ],
+   [
+    "evade",
+    "pitch",
+    "tilt"
+   ],
+   [
+    "evade",
+    "pitch",
+    "tilt"
+   ],
+   [
+    "redirect",
+    "roll",
+    "tilt"
+   ],
+   [
+    "redirect",
+    "roll",
+    "tilt"
+   ],
+   [
+    "redirect",
+    "pitch",
+    "tilt"
+   ],
+   [
+    "redirect",
+    "roll",
+    "tilt"
+   ],
+   [
+    "dash",
+    "diag",
+    "tilt"
+   ],
+   [
+    "dash",
+    "diag",
+    "tilt"
+   ],
+   [
+    "dash",
+    "diag",
+    "tilt"
+   ]
+  ],
+  "abs_nominal": 1.0252143503471818
+ }
+}

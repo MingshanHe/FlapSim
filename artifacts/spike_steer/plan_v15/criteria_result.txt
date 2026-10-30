@@ -1,0 +1,13 @@
+lower125      classical crashes   0 degr -0.242 | SNN seeds (pass,crashes,degr) [(False, 0, -0.03), (False, 0, -0.14), (False, 0, -0.067), (False, 0, -0.031), (False, 0, -0.053)] -> 0/5 G1 FAILS
+lower_com     classical crashes   0 degr -0.254 | SNN seeds (pass,crashes,degr) [(False, 0, -0.046), (False, 0, -0.149), (False, 0, -0.075), (False, 0, -0.063), (False, 0, -0.061)] -> 0/5 G1 FAILS
+wing_mass130  classical crashes   8 degr +0.393 | SNN seeds (pass,crashes,degr) [(True, 0, -0.041), (True, 0, -0.067), (True, 2, 0.053), (True, 0, -0.016), (True, 1, 0.033)] -> 5/5 G1 HOLDS
+span95        classical crashes   6 degr +0.267 | SNN seeds (pass,crashes,degr) [(True, 0, 0.001), (True, 0, -0.066), (True, 0, -0.033), (True, 0, -0.017), (True, 5, 0.254)] -> 5/5 G1 HOLDS
+span105       classical 192/192 crashes -> outside the flyable envelope, not counted
+chord90       classical crashes   3 degr +0.051 | SNN seeds (pass,crashes,degr) [(True, 0, -0.014), (True, 0, -0.065), (True, 0, -0.044), (True, 1, 0.046), (True, 2, 0.071)] -> 5/5 G1 HOLDS
+asym97        classical crashes   3 degr +1.196 | SNN seeds (pass,crashes,degr) [(True, 0, 0.64), (True, 0, 0.888), (True, 2, 0.756), (True, 0, 0.584), (False, 4, 0.804)] -> 4/5 G1 HOLDS
+feather80     classical 187/192 crashes -> outside the flyable envelope, not counted
+density90     classical crashes   6 degr +0.236 | SNN seeds (pass,crashes,degr) [(True, 0, -0.004), (True, 0, -0.08), (True, 0, -0.045), (True, 0, -0.023), (True, 1, 0.022)] -> 5/5 G1 HOLDS
+volt90        classical crashes  17 degr +1.069 | SNN seeds (pass,crashes,degr) [(True, 9, 0.607), (True, 0, -0.051), (True, 7, 0.447), (True, 3, 0.227), (True, 14, 0.776)] -> 5/5 G1 HOLDS
+kt90          classical crashes   3 degr +0.059 | SNN seeds (pass,crashes,degr) [(True, 0, 0.0), (True, 0, -0.008), (True, 0, -0.002), (True, 0, 0.003), (True, 0, -0.003)] -> 5/5 G1 HOLDS
+lag150        classical crashes  15 degr +1.051 | SNN seeds (pass,crashes,degr) [(True, 1, 0.132), (True, 1, 0.108), (True, 4, 0.275), (True, 0, 0.058), (True, 6, 0.409)] -> 5/5 G1 HOLDS
+unit_b        classical 192/192 crashes -> outside the flyable envelope, not counted

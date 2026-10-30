@@ -5,6 +5,8 @@ Runs in the PPO venv:   .venv-ppo/bin/python -m experiments.algorithms.spike_ste
 HomePC 扩展（2026-10-22）：--sets 可以列出任何 blind12 / blind13 的鲁棒性集合（默认 nominal,kick），每个集合跑完立即写出
 runs/spike_steer/v14/<set>__mlp_ppo_s<seed>.json，已存在的集合跳过；对手行取 runs/spike_steer/v12|v13/<set>/rows_classical.json。
     MUJOCO_GL= python -W ignore -m experiments.algorithms.spike_steer.ppo_blind14 --sets kick2,kick45,turb15 --workers 18
+plan v15（2026-10-25）：集合名 v15_<plant> 取 blind15 的用例和对手行，并在每个 worker 里套用该 plant 的物理改动（每次只跑一个 v15 集合）。
+    python -W ignore -m experiments.algorithms.spike_steer.ppo_blind14 --sets v15_lag150 --workers 18
 """
 import argparse
 import json
@@ -24,13 +26,16 @@ PDIR = Path('artifacts/spike_steer/ppo_direct/v7full')
 _S = {}
 
 
-def _init(source):
+def _init(source, plant=None):
     B.worker_init(source, .15)
     E.load_signs()
     from ..ppo_direct import v7ppo as P
     P.T.Episode = T10.Episode                      # bench10 scoring (symmetric altitude term), as for every other arm
     _S['P'] = P
     _S['env9'] = P.PpoLayer9Env()
+    if plant:
+        from .blind15 import apply_plant, TESTS as T15
+        apply_plant(B._ENV, T15[plant])
 
 
 def job(args):
@@ -58,6 +63,12 @@ def build_set(name):
         K = T12[name]
         return ({t: cases12(t, K['base'], 64, K['condition'], K['kick'], K.get('mag'), K.get('kick_t')) for t in D9.TASKS},
                 Path(f'runs/spike_steer/v12/{name}/rows_classical.json'))
+    if name.startswith('v15_'):
+        from .blind15 import cases15
+        return {t: cases15(t, name[4:]) for t in D9.TASKS}, Path(f'runs/spike_steer/v15/{name[4:]}/rows_classical.json')
+    if name.startswith('v16_'):
+        from .blind16 import cases16
+        return {t: cases16(t, name[4:]) for t in D9.TASKS}, Path(f'runs/spike_steer/v16/{name[4:]}/rows_cls_unsup.json')
     if name in T13:
         return {t: cases13(t, T13[name]) for t in D9.TASKS}, Path(f'runs/spike_steer/v13/{name}/rows_classical.json')
     raise SystemExit(f'unknown set {name}; known: nominal, {", ".join(T12)}, {", ".join(T13)}')
@@ -76,7 +87,10 @@ def main():
         g = json.loads((PDIR/f'reselect_s{s}.json').read_text())['selected']['generation']
         ck[s] = str(PDIR/f's{s}/centres/ckpt_g{g}.zip')
     todo = [n for n in a.sets.split(',') if n]
-    with ProcessPoolExecutor(a.workers, initializer=_init, initargs=(str(E.SOURCE),)) as ex:
+    plants = {n[4:] for n in todo if n.startswith('v15_')}
+    if plants and len(todo) > 1:
+        raise SystemExit('a v15 set changes the plant in every worker: run one v15 set per call')
+    with ProcessPoolExecutor(a.workers, initializer=_init, initargs=(str(E.SOURCE), next(iter(plants), None))) as ex:
         for name in todo:
             if all((OUT/f'{name}__mlp_ppo_s{s}.json').exists() for s in range(1, 6)):
                 print(name, 'already done, skipped', flush=True)

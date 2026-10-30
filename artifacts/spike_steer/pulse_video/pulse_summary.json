@@ -1,0 +1,74 @@
+{
+ "case_seed": 2020000007,
+ "condition": "nominal",
+ "chunk_substeps": 20,
+ "slowdown": 333,
+ "window_half_width_deg": 22.5,
+ "high_rad_s": 3807.496097,
+ "segments": [
+  {
+   "key": "up",
+   "centre_deg": 135,
+   "pulse_ticks": [
+    {
+     "t": 2.932,
+     "crank_deg": 124.3
+    },
+    {
+     "t": 2.934,
+     "crank_deg": 140.6
+    },
+    {
+     "t": 2.936,
+     "crank_deg": 157.4
+    }
+   ],
+   "peak_dq_deg_s": 79.25354701070225,
+   "t_peak_ms": 60.00000000000006,
+   "dpitch_110ms_deg": 4.212987853975195,
+   "thrust_axis_shift_toward_body_x": 0.06168867831224647,
+   "motor_peak_pulse": 3526.9431930073174,
+   "motor_peak_ref": 3418.2898988409765,
+   "cmd_smooth_peak": 3508.960479393082,
+   "speed_gain_rad_s": 328.19475576542845,
+   "speed_gain_crank_from": 153.3391243842634,
+   "speed_gain_crank_to": 258.7818947208507,
+   "speed_gain_ms": [
+    3.4999999734526277,
+    14.89999997302105
+   ]
+  },
+  {
+   "key": "down",
+   "centre_deg": 315,
+   "pulse_ticks": [
+    {
+     "t": 2.912,
+     "crank_deg": 304.1
+    },
+    {
+     "t": 2.914,
+     "crank_deg": 320.4
+    },
+    {
+     "t": 2.916,
+     "crank_deg": 337.3
+    }
+   ],
+   "peak_dq_deg_s": -80.97247535648411,
+   "t_peak_ms": 60.00000000000006,
+   "dpitch_110ms_deg": -4.502740494075182,
+   "thrust_axis_shift_toward_body_x": -0.06686057191650664,
+   "motor_peak_pulse": 3524.646896644347,
+   "motor_peak_ref": 3417.6980465157317,
+   "cmd_smooth_peak": 3509.097674112408,
+   "speed_gain_rad_s": 328.49540632970366,
+   "speed_gain_crank_from": 333.17262183421553,
+   "speed_gain_crank_to": 79.3951122988874,
+   "speed_gain_ms": [
+    3.4999999742098,
+    14.999999973774436
+   ]
+  }
+ ]
+}

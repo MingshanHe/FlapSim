@@ -1,0 +1,95 @@
+{
+ "snn": {
+  "params": 2564,
+  "neurons": {
+   "hidden_lif": 8,
+   "output_lif": 2,
+   "graded": 2
+  },
+  "inputs": 25,
+  "delay_taps": 11,
+  "readout_taps": 11,
+  "state_floats": 395
+ },
+ "per_arm": {
+  "snn11_s1": {
+   "seconds_flown": 288.0,
+   "episodes": 48,
+   "input_nonzero_fraction": 0.367025,
+   "hidden_spikes_per_s": 558.1666666666666,
+   "hidden_rate_hz_per_neuron": 69.77083333333333,
+   "output_spikes_per_s": 5.440972222222222,
+   "mac_per_s_dense": 1124000.0,
+   "mac_per_s_zero_skip": 427727.5,
+   "ac_per_s_event": 24559.333333333332,
+   "ac_per_s_dense": 352000.0,
+   "power_uW_dense": 5.4872,
+   "power_uW_event": 1.9896498999999996
+  },
+  "snn11_s2": {
+   "seconds_flown": 288.0,
+   "episodes": 48,
+   "input_nonzero_fraction": 0.37026305555555555,
+   "hidden_spikes_per_s": 913.6006944444445,
+   "hidden_rate_hz_per_neuron": 114.20008680555556,
+   "output_spikes_per_s": 9.347222222222221,
+   "mac_per_s_dense": 1124000.0,
+   "mac_per_s_zero_skip": 431289.3611111111,
+   "ac_per_s_event": 40198.430555555555,
+   "ac_per_s_dense": 352000.0,
+   "power_uW_dense": 5.4872,
+   "power_uW_event": 2.0201096486111108
+  },
+  "snn11_s3": {
+   "seconds_flown": 288.0,
+   "episodes": 48,
+   "input_nonzero_fraction": 0.3670338888888889,
+   "hidden_spikes_per_s": 734.71875,
+   "hidden_rate_hz_per_neuron": 91.83984375,
+   "output_spikes_per_s": 13.680555555555555,
+   "mac_per_s_dense": 1124000.0,
+   "mac_per_s_zero_skip": 427737.27777777775,
+   "ac_per_s_event": 32327.625,
+   "ac_per_s_dense": 352000.0,
+   "power_uW_dense": 5.4872,
+   "power_uW_event": 1.9966863402777775
+  },
+  "snn11_s4": {
+   "seconds_flown": 288.0,
+   "episodes": 48,
+   "input_nonzero_fraction": 0.3668647222222222,
+   "hidden_spikes_per_s": 719.3645833333334,
+   "hidden_rate_hz_per_neuron": 89.92057291666667,
+   "output_spikes_per_s": 17.760416666666668,
+   "mac_per_s_dense": 1124000.0,
+   "mac_per_s_zero_skip": 427551.19444444444,
+   "ac_per_s_event": 31652.041666666668,
+   "ac_per_s_dense": 352000.0,
+   "power_uW_dense": 5.4872,
+   "power_uW_event": 1.9952223319444444
+  },
+  "snn11_s5": {
+   "seconds_flown": 288.0,
+   "episodes": 48,
+   "input_nonzero_fraction": 0.3668652777777778,
+   "hidden_spikes_per_s": 695.5520833333334,
+   "hidden_rate_hz_per_neuron": 86.94401041666667,
+   "output_spikes_per_s": 10.73611111111111,
+   "mac_per_s_dense": 1124000.0,
+   "mac_per_s_zero_skip": 427551.80555555556,
+   "ac_per_s_event": 30604.291666666668,
+   "ac_per_s_dense": 352000.0,
+   "power_uW_dense": 5.4872,
+   "power_uW_event": 1.9942821680555554
+  }
+ },
+ "ppo": {
+  "params_actor": 8067,
+  "mac_per_decision": 7936,
+  "tanh_per_decision": 128,
+  "decisions_per_s": 100.0,
+  "mac_per_s": 793600.0,
+  "power_uW": 3.65056,
+  "state_floats": 435
+ }
+}

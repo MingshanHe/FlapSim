@@ -1,0 +1,30 @@
+{
+ "plan": "v15 generalisation to changed plants (blind, frozen controllers, no training)",
+ "written": "2026-10-24, before any v15 episode was flown",
+ "machine": "HomePC",
+ "cases": "bench9 stress condition, no hit, seed base 2_103_000_000, 64 per task x 3 tasks = 192; the SAME seeds on every plant",
+ "arms": [
+  "classical",
+  "cls_es_s1",
+  "cls_es_s2",
+  "snn11_s1",
+  "snn11_s2",
+  "snn11_s3",
+  "snn11_s4",
+  "snn11_s5"
+ ],
+ "plants": "blind15.TESTS: nominal; lower body +25 %; lower +12.5 % with its CoM 3 mm lower; wing mass +30 %; span -5 % / +5 %; chord -10 %; left span -3 % (asymmetry); feathering range -20 %; air density -10 %; battery voltage -10 %; motor kt -10 %; actuator lag x1.5; 'unit B' combination",
+ "metrics": "crashes of 192 (Clopper-Pearson); abs = mean score ratio on the classical opponent's NOMINAL-plant medians (one scale across plants); degradation = abs(plant) - abs(nominal), same arm, same seeds; paired delta vs classical on the same plant",
+ "criteria": {
+  "G1_per_plant": "an SNN11 seed generalises on a plant if its crashes <= classical crashes on that plant AND its degradation <= classical degradation + 0.05; G1 holds on the plant if >= 3 of 5 seeds pass",
+  "G2_overall": "the SNN layer generalises if G1 holds on every plant that the classical opponent still flies (classical crashes <= 19/192); plants with classical crashes > 19 are reported as stress results, not counted",
+  "negative": "any plant where G1 fails is reported as a limitation with its crash cases"
+ },
+ "amendment_1": {
+  "written": "2026-10-26, after the first v15 results, before any amendment episode",
+  "plants": "lower110 (lower body +10 %), lower1175 (+17.5 %): with nominal and lower125 a four-point dose curve; span102 (span +2 %) and feather90 (feathering range -10 %): smaller doses of two directions that were outside the thrust range",
+  "procedure": "all four plants are flown in full; a plant with classical crashes > 19/192 is reported as outside the flyable envelope and not counted (G2 rule)",
+  "arms": "classical, cls_es_s1, snn11_s1..s5, mlp_ppo_s1..s5 (cls_es_s2 dropped to save time)",
+  "criteria": "G1 / G2 of this plan, unchanged"
+ }
+}

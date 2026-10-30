@@ -1,0 +1,44 @@
+turbc125: cls_unsup crashes 1
+  classical   crashes  11  Δ vs rule +1.126 [+0.634, +1.661]
+  cls_es_s1   crashes   3  Δ vs rule +0.078 [-0.136, +0.211]
+  snn11_s1    crashes   1  Δ vs rule +0.121 [-0.111, +0.317]
+  snn11_s2    crashes   0  Δ vs rule +0.157 [-0.039, +0.271]
+  snn11_s3    crashes   3  Δ vs rule +0.198 [-0.083, +0.455]
+  snn11_s4    crashes   0  Δ vs rule +0.032 [-0.167, +0.146]
+  snn11_s5    crashes   1  Δ vs rule +0.138 [-0.126, +0.402]
+  mlp_ppo_s1  crashes   3  Δ vs rule +0.225 [-0.042, +0.471]
+  mlp_ppo_s2  crashes   1  Δ vs rule +0.241 [-0.014, +0.512]
+  mlp_ppo_s3  crashes   1  Δ vs rule +0.235 [-0.021, +0.519]
+  mlp_ppo_s4  crashes   1  Δ vs rule +0.264 [+0.006, +0.552]
+  mlp_ppo_s5  crashes   1  Δ vs rule +0.228 [-0.028, +0.510]
+  SNN family - PPO family: -0.109 [-0.300, +0.019]
+turbc15: cls_unsup crashes 12
+  classical   crashes  32  Δ vs rule +1.724 [+1.136, +2.355]
+  cls_es_s1   crashes  34  Δ vs rule +1.265 [+0.781, +1.817]
+  snn11_s1    crashes   2  Δ vs rule -0.508 [-1.200, +0.100]
+  snn11_s2    crashes   3  Δ vs rule -0.344 [-1.050, +0.322]
+  snn11_s3    crashes   7  Δ vs rule -0.364 [-1.067, +0.263]
+  snn11_s4    crashes   1  Δ vs rule -0.618 [-1.300, -0.031]  beats rule
+  snn11_s5    crashes   6  Δ vs rule -0.211 [-0.951, +0.498]
+  mlp_ppo_s1  crashes  10  Δ vs rule -0.216 [-0.935, +0.475]
+  mlp_ppo_s2  crashes   5  Δ vs rule -0.153 [-0.883, +0.575]
+  mlp_ppo_s3  crashes   6  Δ vs rule -0.108 [-0.854, +0.634]
+  mlp_ppo_s4  crashes   5  Δ vs rule -0.185 [-0.929, +0.514]
+  mlp_ppo_s5  crashes   5  Δ vs rule -0.152 [-0.881, +0.585]
+  SNN family - PPO family: -0.246 [-0.521, -0.012]
+turbc175: cls_unsup crashes 137
+  classical   crashes 160  Δ vs rule +0.098 [+0.065, +0.134]
+  cls_es_s1   crashes 157  Δ vs rule +0.088 [+0.056, +0.123]
+  snn11_s1    crashes  89  Δ vs rule -0.225 [-0.279, -0.172]  beats rule
+  snn11_s2    crashes  87  Δ vs rule -0.228 [-0.282, -0.173]  beats rule
+  snn11_s3    crashes  89  Δ vs rule -0.230 [-0.285, -0.176]  beats rule
+  snn11_s4    crashes  84  Δ vs rule -0.245 [-0.300, -0.189]  beats rule
+  snn11_s5    crashes  90  Δ vs rule -0.225 [-0.280, -0.173]  beats rule
+  mlp_ppo_s1  crashes  92  Δ vs rule -0.212 [-0.265, -0.159]  beats rule
+  mlp_ppo_s2  crashes  87  Δ vs rule -0.228 [-0.282, -0.173]  beats rule
+  mlp_ppo_s3  crashes  86  Δ vs rule -0.230 [-0.284, -0.175]  beats rule
+  mlp_ppo_s4  crashes  89  Δ vs rule -0.220 [-0.274, -0.166]  beats rule
+  mlp_ppo_s5  crashes  87  Δ vs rule -0.227 [-0.281, -0.173]  beats rule
+  SNN family - PPO family: -0.008 [-0.015, -0.001]
+R1 (replication at x1.5): {"seeds": 1, "holds": false}
+R2 (SNN family better than PPO family at x1.5): {"delta": -0.2461634289032046, "ci95": [-0.520697768268077, -0.011711434852397956], "holds": true}
